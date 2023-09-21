@@ -1,0 +1,57 @@
+﻿{
+  "IsRegenerate": false,
+  "MenuPosition": "main",
+  "RelativeNamespace": "CRMSetup",
+  "EntityName": "Workflow",
+  "EntityNamePlural": "Workflows",
+  "TableName": "Workflows",
+  "PrimaryKeyType": "int",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": false,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": false,
+  "IsNonModalCRUDPage": false,
+  "IsMasterDetailPage": true,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": true
+  },
+  "Properties": [
+    {
+      "Name": "Name",
+      "Type": "string",
+      "MaxLength": 50,
+      "MinLength": 5,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": true,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    }
+  ],
+  "NavigationProperties": [],
+  "NavigationPropertyOneToManyTables": [
+            {
+                "EntityJson": "CRMSetup.WorkflowStep.json",
+                "ForeignPropertyName": "WorkflowId",
+                "IsNullable": "False",
+                "DisplayPropertyName": "Name",
+                "ViewType": "LookupTable"
+            },
+        ],
+  "EnumDefinitions": [],
+  "DbContext": null
+}

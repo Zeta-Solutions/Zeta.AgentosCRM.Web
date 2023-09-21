@@ -1,0 +1,30 @@
+﻿
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowSteps
+@model MasterDetailChild_Workflow_WorkflowStepViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="WorkflowStepInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("SrlNo") :</h6>
+                @Model.WorkflowStep.SrlNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Abbrivation") :</h6>
+                @Model.WorkflowStep.Abbrivation
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Name") :</h6>
+                @Model.WorkflowStep.Name
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

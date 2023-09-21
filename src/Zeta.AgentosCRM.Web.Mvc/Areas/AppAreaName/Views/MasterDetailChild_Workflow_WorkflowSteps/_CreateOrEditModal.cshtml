@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowSteps
+@model MasterDetailChild_Workflow_CreateOrEditWorkflowStepModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditWorkflowStep")) : L("CreateNewWorkflowStep")))
+
+<div class="modal-body">
+    <div id="WorkflowStepInformationsTab">
+        <form name="WorkflowStepInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.WorkflowStep.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="WorkflowStep_SrlNo">@L("SrlNo")</label>
+                <input class="form-control m-input" id="WorkflowStep_SrlNo" value="@Model.WorkflowStep.SrlNo.ToString(CultureInfo.InvariantCulture)" type="number" name="srlNo" min="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" max="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="WorkflowStep_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="WorkflowStep_Abbrivation" value="@Model.WorkflowStep.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="WorkflowStep_Name">@L("Name")</label>
+                <input class="form-control" id="WorkflowStep_Name" value="@Model.WorkflowStep.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
