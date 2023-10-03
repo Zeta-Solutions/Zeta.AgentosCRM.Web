@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Workflow">Workflow</text>
+  <texts>    <text name="LeadSource">Lead source</text>
+    <text name="CreateNewLeadSource">Create new lead source</text>
+    <text name="EditLeadSource">Edit lead source</text>
+    <text name="DeleteLeadSource">Delete lead source</text>
+    <text name="ServiceCategory">Service category</text>
+    <text name="CreateNewServiceCategory">Create new service category</text>
+    <text name="EditServiceCategory">Edit service category</text>
+    <text name="DeleteServiceCategory">Delete service category</text>
+    <text name="DegreeLevel">Degree level</text>
+    <text name="CreateNewDegreeLevel">Create new degree level</text>
+    <text name="EditDegreeLevel">Edit degree level</text>
+    <text name="DeleteDegreeLevel">Delete degree level</text>
+    <text name="TaskPriority">Task priority</text>
+    <text name="CreateNewTaskPriority">Create new task priority</text>
+    <text name="EditTaskPriority">Edit task priority</text>
+    <text name="DeleteTaskPriority">Delete task priority</text>
+    <text name="SubjectArea">Subject area</text>
+    <text name="CreateNewSubjectArea">Create new subject area</text>
+    <text name="EditSubjectArea">Edit subject area</text>
+    <text name="DeleteSubjectArea">Delete subject area</text>
+    <text name="Subject">Subject</text>
+    <text name="CreateNewSubject">Create new subject</text>
+    <text name="EditSubject">Edit subject</text>
+    <text name="DeleteSubject">Delete subject</text>
+    <text name="Workflow">Workflow</text>
     <text name="Zeta.AgentosCRM.CRMSetup.Workflow">Workflow</text>
     <text name="WorkflowsHeaderInfo">Workflows header info</text>
     <text name="CreateNewWorkflow">Create new workflow</text>

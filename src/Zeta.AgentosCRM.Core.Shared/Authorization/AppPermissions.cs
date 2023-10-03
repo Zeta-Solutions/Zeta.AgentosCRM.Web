@@ -6,15 +6,30 @@
     /// </summary>
     public static class AppPermissions
     {
-        public const string Pages_Workflows = "Pages.Workflows";
-        public const string Pages_Workflows_Create = "Pages.Workflows.Create";
-        public const string Pages_Workflows_Edit = "Pages.Workflows.Edit";
-        public const string Pages_Workflows_Delete = "Pages.Workflows.Delete";
+        public const string Pages_LeadSources = "Pages.LeadSources";
+        public const string Pages_LeadSources_Create = "Pages.LeadSources.Create";
+        public const string Pages_LeadSources_Edit = "Pages.LeadSources.Edit";
+        public const string Pages_LeadSources_Delete = "Pages.LeadSources.Delete";
 
-        public const string Pages_WorkflowSteps = "Pages.WorkflowSteps";
-        public const string Pages_WorkflowSteps_Create = "Pages.WorkflowSteps.Create";
-        public const string Pages_WorkflowSteps_Edit = "Pages.WorkflowSteps.Edit";
-        public const string Pages_WorkflowSteps_Delete = "Pages.WorkflowSteps.Delete";
+        public const string Pages_ServiceCategories = "Pages.ServiceCategories";
+        public const string Pages_ServiceCategories_Create = "Pages.ServiceCategories.Create";
+        public const string Pages_ServiceCategories_Edit = "Pages.ServiceCategories.Edit";
+        public const string Pages_ServiceCategories_Delete = "Pages.ServiceCategories.Delete";
+
+        public const string Pages_DegreeLevels = "Pages.DegreeLevels";
+        public const string Pages_DegreeLevels_Create = "Pages.DegreeLevels.Create";
+        public const string Pages_DegreeLevels_Edit = "Pages.DegreeLevels.Edit";
+        public const string Pages_DegreeLevels_Delete = "Pages.DegreeLevels.Delete";
+
+        public const string Pages_TaskPriorities = "Pages.TaskPriorities";
+        public const string Pages_TaskPriorities_Create = "Pages.TaskPriorities.Create";
+        public const string Pages_TaskPriorities_Edit = "Pages.TaskPriorities.Edit";
+        public const string Pages_TaskPriorities_Delete = "Pages.TaskPriorities.Delete";
+
+        public const string Pages_SubjectAreas = "Pages.SubjectAreas";
+        public const string Pages_SubjectAreas_Create = "Pages.SubjectAreas.Create";
+        public const string Pages_SubjectAreas_Edit = "Pages.SubjectAreas.Edit";
+        public const string Pages_SubjectAreas_Delete = "Pages.SubjectAreas.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
@@ -127,5 +142,19 @@
         public const string Pages_CRMSetup_MasterCategories_Edit = "Pages.CRMSetup.MasterCategories.Edit";
         public const string Pages_CRMSetup_MasterCategories_Delete = "Pages.CRMSetup.MasterCategories.Delete";
 
+        public const string Pages_Subjects = "Pages.Subjects";
+        public const string Pages_Subjects_Create = "Pages.Subjects.Create";
+        public const string Pages_Subjects_Edit = "Pages.Subjects.Edit";
+        public const string Pages_Subjects_Delete = "Pages.Subjects.Delete";
+
+        public const string Pages_Workflows = "Pages.Workflows";
+        public const string Pages_Workflows_Create = "Pages.Workflows.Create";
+        public const string Pages_Workflows_Edit = "Pages.Workflows.Edit";
+        public const string Pages_Workflows_Delete = "Pages.Workflows.Delete";
+
+        public const string Pages_WorkflowSteps = "Pages.WorkflowSteps";
+        public const string Pages_WorkflowSteps_Create = "Pages.WorkflowSteps.Create";
+        public const string Pages_WorkflowSteps_Edit = "Pages.WorkflowSteps.Edit";
+        public const string Pages_WorkflowSteps_Delete = "Pages.WorkflowSteps.Delete";
     }
 }

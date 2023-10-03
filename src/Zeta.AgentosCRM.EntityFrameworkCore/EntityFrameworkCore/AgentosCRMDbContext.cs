@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMSetup;
+﻿using Zeta.AgentosCRM.CRMSetup.LeadSource;
+using Zeta.AgentosCRM.CRMSetup.ServiceCategory;
+using Zeta.AgentosCRM.CRMSetup;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Zeta.AgentosCRM.Authorization.Delegation;
@@ -16,6 +18,18 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<CRMSetup.LeadSource.LeadSource> LeadSources { get; set; }
+
+        public virtual DbSet<CRMSetup.ServiceCategory.ServiceCategory> ServiceCategories { get; set; }
+
+        public virtual DbSet<DegreeLevel> DegreeLevels { get; set; }
+
+        public virtual DbSet<TaskPriority> TaskPriorities { get; set; }
+
+        public virtual DbSet<SubjectArea> SubjectAreas { get; set; }
+
+        public virtual DbSet<Subject> Subjects { get; set; }
+
         public virtual DbSet<Workflow> Workflows { get; set; }
 
         public virtual DbSet<WorkflowStep> WorkflowSteps { get; set; }
@@ -54,10 +68,34 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<WorkflowStep>(w =>
+            modelBuilder.Entity<LeadSource>(l =>
             {
-                w.HasIndex(e => new { e.TenantId });
+                l.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ServiceCategory>(s =>
+                       {
+                           s.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<DegreeLevel>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<TaskPriority>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<SubjectArea>(s =>
+                       {
+                           s.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Subject>(s =>
+                       {
+                           s.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<WorkflowStep>(w =>
+                       {
+                           w.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Workflow>(w =>
                        {
                            w.HasIndex(e => new { e.TenantId });
