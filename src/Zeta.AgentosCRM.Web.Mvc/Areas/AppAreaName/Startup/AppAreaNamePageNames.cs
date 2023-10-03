@@ -47,6 +47,14 @@
             public const string Dashboard = "Dashboard.Tenant";
             public const string Settings = "Administration.Settings.Tenant";
             public const string SubscriptionManagement = "Administration.SubscriptionManagement.Tenant";
+            public const string Category = "CRMSetup.Category";
+            public const string Priority = "CRMSetup.Priority";
+            public const string DegreeLevel = "CRMSetup.DegreeLevel";
+            public const string SubjectArea = "CRMSetup.SubjectArea";
+            public const string Qualification = "CRMSetup.Qualification";
+            public const string IEltestraining = "CRMSetup.IEltestraining";
+            public const string PreferStudyArea = "CRMSetup.PreferStudyArea";
+            public const string Subject = "CRMSetup.Subject";
         }
     }
 }

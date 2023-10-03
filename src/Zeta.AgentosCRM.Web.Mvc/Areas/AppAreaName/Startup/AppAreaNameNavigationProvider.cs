@@ -208,6 +208,62 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Category,
+                            L("Category"),
+                            url: "AppAreaName/Category",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Category,
+                            L("Priority"),
+                            url: "AppAreaName/Priority",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.DegreeLevel,
+                            L("DegreeLevel"),
+                            url: "AppAreaName/DegreeLevel",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.SubjectArea,
+                            L("SubjectArea"),
+                            url: "AppAreaName/SubjectArea",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.IEltestraining,
+                            L("IEltestraining"),
+                            url: "AppAreaName/IEltestraining",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Qualification,
+                            L("Qualification"),
+                            url: "AppAreaName/Qualification",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.PreferStudyArea,
+                            L("PreferStudyArea"),
+                            url: "AppAreaName/PreferStudyArea",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Subject,
+                            L("Subject"),
+                            url: "AppAreaName/Subject",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
                     )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.PersonalDetails,
