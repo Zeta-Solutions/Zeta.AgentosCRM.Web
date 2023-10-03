@@ -1,0 +1,28 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create New Service Category")))
+
+<div class="modal-body">
+    <div id="MasterCategoryInformationsTab">
+        <form name="MasterCategoryInformationsForm" role="form" novalidate class="form-validation">
+
+
+            <input type="hidden" name="id" value="1" />
+
+            <div class="my-3">
+                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="MasterCategory_Abbrivation" value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
+                <input class="form-control" id="MasterCategory_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

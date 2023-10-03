@@ -209,6 +209,60 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
                     )
+                    .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.PersonalDetails,
+                            L("PersonalDetails"),
+                            url: "AppAreaName/PersonalDetails",
+                            icon: "flaticon-more"
+                          )
+                    )
+                     .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Source,
+                            L("Source"),
+                            url: "AppAreaName/Source",
+                            icon: "flaticon-more"
+                          )
+                    )   
+                     .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Tag,
+                            L("Tag"),
+                            url: "AppAreaName/Tag",
+                            icon: "flaticon-more"
+                          )
+                     )
+                     .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Phone,
+                            L("Phone"),
+                            url: "AppAreaName/Phone",
+                            icon: "flaticon-more"
+                          )
+                    ) 
+                     .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Country,
+                            L("Country"),
+                            url: "AppAreaName/Country",
+                            icon: "flaticon-more"
+                          )
+                    )   .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.QuotationCurrency,
+                            L("QuotationCurrency"),
+                            url: "AppAreaName/QuotationCurrency",
+                            icon: "flaticon-more"
+                          )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Course,
+                            L("Course"),
+                            url: "AppAreaName/Course",
+                            icon: "flaticon-more"
+                          )
+                    ).AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.ServiceCategory,
+                            L("ServiceCategory"),
+                            url: "AppAreaName/ServiceCategory",
+                            icon: "flaticon-more"
+                          )
+                    )
+
                 );
         }
 
