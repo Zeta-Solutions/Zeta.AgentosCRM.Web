@@ -30,6 +30,16 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var productTypes = pages.CreateChildPermission(AppPermissions.Pages_ProductTypes, L("ProductTypes"), multiTenancySides: MultiTenancySides.Tenant);
+            productTypes.CreateChildPermission(AppPermissions.Pages_ProductTypes_Create, L("CreateNewProductType"), multiTenancySides: MultiTenancySides.Tenant);
+            productTypes.CreateChildPermission(AppPermissions.Pages_ProductTypes_Edit, L("EditProductType"), multiTenancySides: MultiTenancySides.Tenant);
+            productTypes.CreateChildPermission(AppPermissions.Pages_ProductTypes_Delete, L("DeleteProductType"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var feeTypes = pages.CreateChildPermission(AppPermissions.Pages_FeeTypes, L("FeeTypes"), multiTenancySides: MultiTenancySides.Tenant);
+            feeTypes.CreateChildPermission(AppPermissions.Pages_FeeTypes_Create, L("CreateNewFeeType"), multiTenancySides: MultiTenancySides.Tenant);
+            feeTypes.CreateChildPermission(AppPermissions.Pages_FeeTypes_Edit, L("EditFeeType"), multiTenancySides: MultiTenancySides.Tenant);
+            feeTypes.CreateChildPermission(AppPermissions.Pages_FeeTypes_Delete, L("DeleteFeeType"), multiTenancySides: MultiTenancySides.Tenant);
+
             var leadSources = pages.CreateChildPermission(AppPermissions.Pages_LeadSources, L("LeadSources"), multiTenancySides: MultiTenancySides.Tenant);
             leadSources.CreateChildPermission(AppPermissions.Pages_LeadSources_Create, L("CreateNewLeadSource"), multiTenancySides: MultiTenancySides.Tenant);
             leadSources.CreateChildPermission(AppPermissions.Pages_LeadSources_Edit, L("EditLeadSource"), multiTenancySides: MultiTenancySides.Tenant);
