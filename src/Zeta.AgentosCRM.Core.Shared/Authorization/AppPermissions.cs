@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ProductTypes = "Pages.ProductTypes";
+        public const string Pages_ProductTypes_Create = "Pages.ProductTypes.Create";
+        public const string Pages_ProductTypes_Edit = "Pages.ProductTypes.Edit";
+        public const string Pages_ProductTypes_Delete = "Pages.ProductTypes.Delete";
+
+        public const string Pages_FeeTypes = "Pages.FeeTypes";
+        public const string Pages_FeeTypes_Create = "Pages.FeeTypes.Create";
+        public const string Pages_FeeTypes_Edit = "Pages.FeeTypes.Edit";
+        public const string Pages_FeeTypes_Delete = "Pages.FeeTypes.Delete";
+
         public const string Pages_LeadSources = "Pages.LeadSources";
         public const string Pages_LeadSources_Create = "Pages.LeadSources.Create";
         public const string Pages_LeadSources_Edit = "Pages.LeadSources.Edit";

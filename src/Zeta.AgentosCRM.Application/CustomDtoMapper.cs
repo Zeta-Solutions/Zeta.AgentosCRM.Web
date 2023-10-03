@@ -1,4 +1,8 @@
-﻿using Zeta.AgentosCRM.CRMSetup.LeadSource.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.ProductType.Dtos;
+using Zeta.AgentosCRM.CRMSetup.ProductType;
+using Zeta.AgentosCRM.CRMSetup.FeeType.Dtos;
+using Zeta.AgentosCRM.CRMSetup.FeeType;
+using Zeta.AgentosCRM.CRMSetup.LeadSource.Dtos;
 using Zeta.AgentosCRM.CRMSetup.LeadSource;
 using Zeta.AgentosCRM.CRMSetup.ServiceCategory.Dtos;
 using Zeta.AgentosCRM.CRMSetup.ServiceCategory;
@@ -54,6 +58,10 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditProductTypeDto, CRMSetup.ProductType.ProductType>().ReverseMap();
+            configuration.CreateMap<ProductTypeDto, CRMSetup.ProductType.ProductType>().ReverseMap();
+            configuration.CreateMap<CreateOrEditFeeTypeDto, CRMSetup.FeeType.FeeType>().ReverseMap();
+            configuration.CreateMap<FeeTypeDto, CRMSetup.FeeType.FeeType>().ReverseMap();
             configuration.CreateMap<CreateOrEditLeadSourceDto, CRMSetup.LeadSource.LeadSource>().ReverseMap();
             configuration.CreateMap<LeadSourceDto, CRMSetup.LeadSource.LeadSource>().ReverseMap();
             configuration.CreateMap<CreateOrEditServiceCategoryDto, CRMSetup.ServiceCategory.ServiceCategory>().ReverseMap();

@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="LeadSource">Lead source</text>
+  <texts>    <text name="ProductType">Product type</text>
+    <text name="CreateNewProductType">Create new product type</text>
+    <text name="EditProductType">Edit product type</text>
+    <text name="DeleteProductType">Delete product type</text>
+    <text name="FeeType">Fee type</text>
+    <text name="CreateNewFeeType">Create new fee type</text>
+    <text name="EditFeeType">Edit fee type</text>
+    <text name="DeleteFeeType">Delete fee type</text>
+    <text name="LeadSource">Lead source</text>
     <text name="CreateNewLeadSource">Create new lead source</text>
     <text name="EditLeadSource">Edit lead source</text>
     <text name="DeleteLeadSource">Delete lead source</text>
