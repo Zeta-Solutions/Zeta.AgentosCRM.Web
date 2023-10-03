@@ -36,6 +36,14 @@
             public const string PartnerTypes = "CRMSetup.PartnerTypes";
             public const string CRMSetup = "CRMSetup";
             public const string MasterCategories = "CRMSetup.MasterCategories";
+            public const string PersonalDetails = "CRMSetup.PersonalDetails";
+            public const string Source = "CRMSetup.Source";
+            public const string Tag = "CRMSetup.Tag";
+            public const string Phone = "CRMSetup.Phone";
+            public const string Country = "CRMSetup.Country";
+            public const string QuotationCurrency = "CRMSetup.QuotationCurrency";
+            public const string Course = "CRMSetup.Course";
+            public const string ServiceCategory = "CRMSetup.ServiceCategory";
             public const string Dashboard = "Dashboard.Tenant";
             public const string Settings = "Administration.Settings.Tenant";
             public const string SubscriptionManagement = "Administration.SubscriptionManagement.Tenant";
