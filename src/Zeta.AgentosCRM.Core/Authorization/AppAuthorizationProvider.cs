@@ -30,6 +30,36 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var leadSources = pages.CreateChildPermission(AppPermissions.Pages_LeadSources, L("LeadSources"), multiTenancySides: MultiTenancySides.Tenant);
+            leadSources.CreateChildPermission(AppPermissions.Pages_LeadSources_Create, L("CreateNewLeadSource"), multiTenancySides: MultiTenancySides.Tenant);
+            leadSources.CreateChildPermission(AppPermissions.Pages_LeadSources_Edit, L("EditLeadSource"), multiTenancySides: MultiTenancySides.Tenant);
+            leadSources.CreateChildPermission(AppPermissions.Pages_LeadSources_Delete, L("DeleteLeadSource"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var serviceCategories = pages.CreateChildPermission(AppPermissions.Pages_ServiceCategories, L("ServiceCategories"), multiTenancySides: MultiTenancySides.Tenant);
+            serviceCategories.CreateChildPermission(AppPermissions.Pages_ServiceCategories_Create, L("CreateNewServiceCategory"), multiTenancySides: MultiTenancySides.Tenant);
+            serviceCategories.CreateChildPermission(AppPermissions.Pages_ServiceCategories_Edit, L("EditServiceCategory"), multiTenancySides: MultiTenancySides.Tenant);
+            serviceCategories.CreateChildPermission(AppPermissions.Pages_ServiceCategories_Delete, L("DeleteServiceCategory"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var degreeLevels = pages.CreateChildPermission(AppPermissions.Pages_DegreeLevels, L("DegreeLevels"));
+            degreeLevels.CreateChildPermission(AppPermissions.Pages_DegreeLevels_Create, L("CreateNewDegreeLevel"));
+            degreeLevels.CreateChildPermission(AppPermissions.Pages_DegreeLevels_Edit, L("EditDegreeLevel"));
+            degreeLevels.CreateChildPermission(AppPermissions.Pages_DegreeLevels_Delete, L("DeleteDegreeLevel"));
+
+            var taskPriorities = pages.CreateChildPermission(AppPermissions.Pages_TaskPriorities, L("TaskPriorities"), multiTenancySides: MultiTenancySides.Tenant);
+            taskPriorities.CreateChildPermission(AppPermissions.Pages_TaskPriorities_Create, L("CreateNewTaskPriority"), multiTenancySides: MultiTenancySides.Tenant);
+            taskPriorities.CreateChildPermission(AppPermissions.Pages_TaskPriorities_Edit, L("EditTaskPriority"), multiTenancySides: MultiTenancySides.Tenant);
+            taskPriorities.CreateChildPermission(AppPermissions.Pages_TaskPriorities_Delete, L("DeleteTaskPriority"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var subjectAreas = pages.CreateChildPermission(AppPermissions.Pages_SubjectAreas, L("SubjectAreas"), multiTenancySides: MultiTenancySides.Tenant);
+            subjectAreas.CreateChildPermission(AppPermissions.Pages_SubjectAreas_Create, L("CreateNewSubjectArea"), multiTenancySides: MultiTenancySides.Tenant);
+            subjectAreas.CreateChildPermission(AppPermissions.Pages_SubjectAreas_Edit, L("EditSubjectArea"), multiTenancySides: MultiTenancySides.Tenant);
+            subjectAreas.CreateChildPermission(AppPermissions.Pages_SubjectAreas_Delete, L("DeleteSubjectArea"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var subjects = pages.CreateChildPermission(AppPermissions.Pages_Subjects, L("Subjects"), multiTenancySides: MultiTenancySides.Tenant);
+            subjects.CreateChildPermission(AppPermissions.Pages_Subjects_Create, L("CreateNewSubject"), multiTenancySides: MultiTenancySides.Tenant);
+            subjects.CreateChildPermission(AppPermissions.Pages_Subjects_Edit, L("EditSubject"), multiTenancySides: MultiTenancySides.Tenant);
+            subjects.CreateChildPermission(AppPermissions.Pages_Subjects_Delete, L("DeleteSubject"), multiTenancySides: MultiTenancySides.Tenant);
+
             var workflows = pages.CreateChildPermission(AppPermissions.Pages_Workflows, L("Workflows"), multiTenancySides: MultiTenancySides.Tenant);
             workflows.CreateChildPermission(AppPermissions.Pages_Workflows_Create, L("CreateNewWorkflow"), multiTenancySides: MultiTenancySides.Tenant);
             workflows.CreateChildPermission(AppPermissions.Pages_Workflows_Edit, L("EditWorkflow"), multiTenancySides: MultiTenancySides.Tenant);

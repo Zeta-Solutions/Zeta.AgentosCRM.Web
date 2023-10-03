@@ -1,4 +1,8 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.LeadSource.Dtos;
+using Zeta.AgentosCRM.CRMSetup.LeadSource;
+using Zeta.AgentosCRM.CRMSetup.ServiceCategory.Dtos;
+using Zeta.AgentosCRM.CRMSetup.ServiceCategory;
+using Zeta.AgentosCRM.CRMSetup.Dtos;
 using Zeta.AgentosCRM.CRMSetup;
 using Abp.Application.Editions;
 using Abp.Application.Features;
@@ -50,6 +54,18 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditLeadSourceDto, CRMSetup.LeadSource.LeadSource>().ReverseMap();
+            configuration.CreateMap<LeadSourceDto, CRMSetup.LeadSource.LeadSource>().ReverseMap();
+            configuration.CreateMap<CreateOrEditServiceCategoryDto, CRMSetup.ServiceCategory.ServiceCategory>().ReverseMap();
+            configuration.CreateMap<ServiceCategoryDto, CRMSetup.ServiceCategory.ServiceCategory>().ReverseMap();
+            configuration.CreateMap<CreateOrEditDegreeLevelDto, DegreeLevel>().ReverseMap();
+            configuration.CreateMap<DegreeLevelDto, DegreeLevel>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTaskPriorityDto, TaskPriority>().ReverseMap();
+            configuration.CreateMap<TaskPriorityDto, TaskPriority>().ReverseMap();
+            configuration.CreateMap<CreateOrEditSubjectAreaDto, SubjectArea>().ReverseMap();
+            configuration.CreateMap<SubjectAreaDto, SubjectArea>().ReverseMap();
+            configuration.CreateMap<CreateOrEditSubjectDto, Subject>().ReverseMap();
+            configuration.CreateMap<SubjectDto, Subject>().ReverseMap();
             configuration.CreateMap<CreateOrEditWorkflowDto, Workflow>().ReverseMap();
             configuration.CreateMap<WorkflowDto, Workflow>().ReverseMap();
             configuration.CreateMap<CreateOrEditWorkflowStepDto, WorkflowStep>().ReverseMap();
