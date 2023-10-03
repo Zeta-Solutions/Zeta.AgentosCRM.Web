@@ -4,6 +4,7 @@
 
     var _modalManager;
     var _$workflowInformationForm = null;
+      var _$WorkflowInformationSetupsForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -16,7 +17,10 @@
       });
 
       _$workflowInformationForm = _modalManager.getModal().find('form[name=WorkflowInformationsForm]');
-      _$workflowInformationForm.validate();
+        _$workflowInformationForm.validate();
+// WorkflowInformationsetupsForm Form Data 
+        _$WorkflowInformationSetupsForm = _modalManager.getModal().find('form[name=WorkflowInformationSetupsForm]');
+        _$WorkflowInformationSetupsForm.validate();
     };
 
     this.save = function () {

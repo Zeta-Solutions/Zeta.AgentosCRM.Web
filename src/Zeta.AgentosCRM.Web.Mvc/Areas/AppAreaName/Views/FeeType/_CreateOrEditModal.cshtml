@@ -1,0 +1,30 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Fee Type")))
+
+<div class="modal-body">
+    <div id="InformationsTab">
+        <form name="InformationsForm" role="form" novalidate class="form-validation">
+
+          @*   @if (Model.IsEditMode)
+            { *@
+            <input type="hidden" name="id" value="123" @* value="@Model.MasterCategory.Id"  *@/>
+            @* } *@
+
+            <div class="my-3">
+                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="MasterCategory_Abbrivation" @* value="@Model.MasterCategory.Abbrivation" *@ value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
+                <input class="form-control" id="MasterCategory_Name" @* value="@Model.MasterCategory.Name" *@ value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
