@@ -37,8 +37,8 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
 
             var filteredProductTypes = _productTypeRepository.GetAll()
                         .Include(e => e.MasterCategoryFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivaion.Contains(input.Filter) || e.Name.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.AbbrivaionFilter), e => e.Abbrivaion.Contains(input.AbbrivaionFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivation.Contains(input.Filter) || e.Name.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AbbrivationFilter), e => e.Abbrivation.Contains(input.AbbrivationFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MasterCategoryNameFilter), e => e.MasterCategoryFk != null && e.MasterCategoryFk.Name == input.MasterCategoryNameFilter);
 
@@ -53,7 +53,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
                                select new
                                {
 
-                                   o.Abbrivaion,
+                                   o.Abbrivation,
                                    o.Name,
                                    Id = o.Id,
                                    MasterCategoryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
@@ -71,7 +71,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
                     ProductType = new ProductTypeDto
                     {
 
-                        Abbrivaion = o.Abbrivaion,
+                        Abbrivation = o.Abbrivation,
                         Name = o.Name,
                         Id = o.Id,
                     },

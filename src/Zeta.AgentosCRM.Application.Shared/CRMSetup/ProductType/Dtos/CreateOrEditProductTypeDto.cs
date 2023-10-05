@@ -8,8 +8,8 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType.Dtos
     {
 
         [Required]
-        [StringLength(ProductTypeConsts.MaxAbbrivaionLength, MinimumLength = ProductTypeConsts.MinAbbrivaionLength)]
-        public string Abbrivaion { get; set; }
+        [StringLength(ProductTypeConsts.MaxAbbrivationLength, MinimumLength = ProductTypeConsts.MinAbbrivationLength)]
+        public string Abbrivation { get; set; }
 
         [Required]
         [StringLength(ProductTypeConsts.MaxNameLength, MinimumLength = ProductTypeConsts.MinNameLength)]

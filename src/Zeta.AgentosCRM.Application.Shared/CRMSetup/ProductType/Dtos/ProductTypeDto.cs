@@ -5,7 +5,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType.Dtos
 {
     public class ProductTypeDto : EntityDto
     {
-        public string Abbrivaion { get; set; }
+        public string Abbrivation { get; set; }
 
         public string Name { get; set; }
 

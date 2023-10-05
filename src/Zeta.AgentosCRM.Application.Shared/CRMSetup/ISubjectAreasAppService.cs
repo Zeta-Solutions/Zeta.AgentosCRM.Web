@@ -4,7 +4,6 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMSetup.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
@@ -21,8 +20,6 @@ namespace Zeta.AgentosCRM.CRMSetup
         Task Delete(EntityDto input);
 
         Task<FileDto> GetSubjectAreasToExcel(GetAllSubjectAreasForExcelInput input);
-
-        Task<List<SubjectAreaSubjectLookupTableDto>> GetAllSubjectForTableDropdown();
 
     }
 }

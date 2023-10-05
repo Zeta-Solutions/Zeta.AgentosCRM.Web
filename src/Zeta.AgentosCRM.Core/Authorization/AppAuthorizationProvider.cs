@@ -30,6 +30,31 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var countries = pages.CreateChildPermission(AppPermissions.Pages_Countries, L("Countries"), multiTenancySides: MultiTenancySides.Tenant);
+            countries.CreateChildPermission(AppPermissions.Pages_Countries_Create, L("CreateNewCountry"), multiTenancySides: MultiTenancySides.Tenant);
+            countries.CreateChildPermission(AppPermissions.Pages_Countries_Edit, L("EditCountry"), multiTenancySides: MultiTenancySides.Tenant);
+            countries.CreateChildPermission(AppPermissions.Pages_Countries_Delete, L("DeleteCountry"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var regions = pages.CreateChildPermission(AppPermissions.Pages_Regions, L("Regions"), multiTenancySides: MultiTenancySides.Tenant);
+            regions.CreateChildPermission(AppPermissions.Pages_Regions_Create, L("CreateNewRegion"), multiTenancySides: MultiTenancySides.Tenant);
+            regions.CreateChildPermission(AppPermissions.Pages_Regions_Edit, L("EditRegion"), multiTenancySides: MultiTenancySides.Tenant);
+            regions.CreateChildPermission(AppPermissions.Pages_Regions_Delete, L("DeleteRegion"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var taskCategories = pages.CreateChildPermission(AppPermissions.Pages_TaskCategories, L("TaskCategories"), multiTenancySides: MultiTenancySides.Tenant);
+            taskCategories.CreateChildPermission(AppPermissions.Pages_TaskCategories_Create, L("CreateNewTaskCategory"), multiTenancySides: MultiTenancySides.Tenant);
+            taskCategories.CreateChildPermission(AppPermissions.Pages_TaskCategories_Edit, L("EditTaskCategory"), multiTenancySides: MultiTenancySides.Tenant);
+            taskCategories.CreateChildPermission(AppPermissions.Pages_TaskCategories_Delete, L("DeleteTaskCategory"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var tags = pages.CreateChildPermission(AppPermissions.Pages_Tags, L("Tags"));
+            tags.CreateChildPermission(AppPermissions.Pages_Tags_Create, L("CreateNewTag"));
+            tags.CreateChildPermission(AppPermissions.Pages_Tags_Edit, L("EditTag"));
+            tags.CreateChildPermission(AppPermissions.Pages_Tags_Delete, L("DeleteTag"));
+
+            var installmentTypes = pages.CreateChildPermission(AppPermissions.Pages_InstallmentTypes, L("InstallmentTypes"), multiTenancySides: MultiTenancySides.Tenant);
+            installmentTypes.CreateChildPermission(AppPermissions.Pages_InstallmentTypes_Create, L("CreateNewInstallmentType"), multiTenancySides: MultiTenancySides.Tenant);
+            installmentTypes.CreateChildPermission(AppPermissions.Pages_InstallmentTypes_Edit, L("EditInstallmentType"), multiTenancySides: MultiTenancySides.Tenant);
+            installmentTypes.CreateChildPermission(AppPermissions.Pages_InstallmentTypes_Delete, L("DeleteInstallmentType"), multiTenancySides: MultiTenancySides.Tenant);
+
             var productTypes = pages.CreateChildPermission(AppPermissions.Pages_ProductTypes, L("ProductTypes"), multiTenancySides: MultiTenancySides.Tenant);
             productTypes.CreateChildPermission(AppPermissions.Pages_ProductTypes_Create, L("CreateNewProductType"), multiTenancySides: MultiTenancySides.Tenant);
             productTypes.CreateChildPermission(AppPermissions.Pages_ProductTypes_Edit, L("EditProductType"), multiTenancySides: MultiTenancySides.Tenant);

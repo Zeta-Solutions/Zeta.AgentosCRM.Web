@@ -2,7 +2,7 @@
 
 namespace Zeta.AgentosCRM.CRMSetup.Dtos
 {
-    public class SubjectAreaSubjectLookupTableDto
+    public class SubjectSubjectAreaLookupTableDto
     {
         public int Id { get; set; }
 

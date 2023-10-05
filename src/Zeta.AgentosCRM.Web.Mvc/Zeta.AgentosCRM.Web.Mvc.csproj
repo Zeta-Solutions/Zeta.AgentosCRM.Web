@@ -18,7 +18,7 @@
     <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+	<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,6 +59,7 @@
     <PackageReference Include="Abp.Castle.Log4Net" Version="8.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.5" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.21.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
