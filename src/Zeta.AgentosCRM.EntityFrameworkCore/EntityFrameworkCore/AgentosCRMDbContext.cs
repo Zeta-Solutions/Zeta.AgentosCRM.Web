@@ -1,4 +1,11 @@
-﻿using Zeta.AgentosCRM.CRMSetup.LeadSource;
+﻿using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.Regions;
+using Zeta.AgentosCRM.CRMSetup.TaskCategory;
+using Zeta.AgentosCRM.CRMSetup.Tag;
+using Zeta.AgentosCRM.CRMSetup.InstallmentType;
+using Zeta.AgentosCRM.CRMSetup.ProductType;
+using Zeta.AgentosCRM.CRMSetup.FeeType;
+using Zeta.AgentosCRM.CRMSetup.LeadSource;
 using Zeta.AgentosCRM.CRMSetup.ServiceCategory;
 using Zeta.AgentosCRM.CRMSetup;
 using Abp.Zero.EntityFrameworkCore;
@@ -18,6 +25,20 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<Country> Countries { get; set; }
+
+        public virtual DbSet<Region> Regions { get; set; }
+
+        public virtual DbSet<CRMSetup.TaskCategory.TaskCategory> TaskCategories { get; set; }
+
+        public virtual DbSet<CRMSetup.Tag.Tag> Tags { get; set; }
+
+        public virtual DbSet<CRMSetup.InstallmentType.InstallmentType> InstallmentTypes { get; set; }
+
+        public virtual DbSet<CRMSetup.ProductType.ProductType> ProductTypes { get; set; }
+
+        public virtual DbSet<CRMSetup.FeeType.FeeType> FeeTypes { get; set; }
+
         public virtual DbSet<CRMSetup.LeadSource.LeadSource> LeadSources { get; set; }
 
         public virtual DbSet<CRMSetup.ServiceCategory.ServiceCategory> ServiceCategories { get; set; }
@@ -26,9 +47,9 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 
         public virtual DbSet<TaskPriority> TaskPriorities { get; set; }
 
-        public virtual DbSet<SubjectArea> SubjectAreas { get; set; }
-
         public virtual DbSet<Subject> Subjects { get; set; }
+
+        public virtual DbSet<SubjectArea> SubjectAreas { get; set; }
 
         public virtual DbSet<Workflow> Workflows { get; set; }
 
@@ -68,10 +89,43 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<LeadSource>(l =>
+            modelBuilder.Entity<Country>(c =>
             {
-                l.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Region>(r =>
+                       {
+                           r.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<TaskCategory>(t =>
+                                  {
+                                      t.HasIndex(e => new { e.TenantId });
+                                  });
+            modelBuilder.Entity<Tag>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
+
+            modelBuilder.Entity<ProductType>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<InstallmentType>(i =>
+                       {
+                           i.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductType>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<FeeType>(f =>
+                       {
+                           f.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<LeadSource>(l =>
+                       {
+                           l.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ServiceCategory>(s =>
                        {
                            s.HasIndex(e => new { e.TenantId });
@@ -84,11 +138,11 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
                        {
                            t.HasIndex(e => new { e.TenantId });
                        });
-            modelBuilder.Entity<SubjectArea>(s =>
+            modelBuilder.Entity<Subject>(s =>
                        {
                            s.HasIndex(e => new { e.TenantId });
                        });
-            modelBuilder.Entity<Subject>(s =>
+            modelBuilder.Entity<SubjectArea>(s =>
                        {
                            s.HasIndex(e => new { e.TenantId });
                        });

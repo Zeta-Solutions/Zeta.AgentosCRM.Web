@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="LeadSource">Lead source</text>
+  <texts>    <text name="Countries">Countries</text>
+    <text name="Regions">Regions</text>
+    <text name="Region">Region</text>
+    <text name="CreateNewRegion">Create new region</text>
+    <text name="EditRegion">Edit region</text>
+    <text name="DeleteRegion">Delete region</text>
+    <text name="TaskCategory">Task category</text>
+    <text name="CreateNewTaskCategory">Create new task category</text>
+    <text name="EditTaskCategory">Edit task category</text>
+    <text name="DeleteTaskCategory">Delete task category</text>
+    <text name="Tag">Tag</text>
+    <text name="CreateNewTag">Create new tag</text>
+    <text name="EditTag">Edit tag</text>
+    <text name="DeleteTag">Delete tag</text>
+    <text name="Country">Country</text>
+    <text name="CreateNewCountry">Create new country</text>
+    <text name="EditCountry">Edit country</text>
+    <text name="DeleteCountry">Delete country</text>
+    <text name="InstallmentType">Installment type</text>
+    <text name="CreateNewInstallmentType">Create new installment type</text>
+    <text name="EditInstallmentType">Edit installment type</text>
+    <text name="DeleteInstallmentType">Delete installment type</text>
+    <text name="ProductType">Product type</text>
+    <text name="CreateNewProductType">Create new product type</text>
+    <text name="EditProductType">Edit product type</text>
+    <text name="DeleteProductType">Delete product type</text>
+    <text name="FeeType">Fee type</text>
+    <text name="CreateNewFeeType">Create new fee type</text>
+    <text name="EditFeeType">Edit fee type</text>
+    <text name="DeleteFeeType">Delete fee type</text>
+    <text name="LeadSource">Lead source</text>
     <text name="CreateNewLeadSource">Create new lead source</text>
     <text name="EditLeadSource">Edit lead source</text>
     <text name="DeleteLeadSource">Delete lead source</text>

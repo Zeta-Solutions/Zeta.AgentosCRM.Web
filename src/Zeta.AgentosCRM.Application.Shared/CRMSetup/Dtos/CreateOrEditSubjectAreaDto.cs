@@ -8,14 +8,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
     {
 
         [Required]
-        [StringLength(SubjectAreaConsts.MaxAbbrivationLength, MinimumLength = SubjectAreaConsts.MinAbbrivationLength)]
+        [StringLength(SubjectConsts.MaxAbbrivationLength, MinimumLength = SubjectConsts.MinAbbrivationLength)]
         public string Abbrivation { get; set; }
 
         [Required]
-        [StringLength(SubjectAreaConsts.MaxNameLength, MinimumLength = SubjectAreaConsts.MinNameLength)]
+        [StringLength(SubjectConsts.MaxNameLength, MinimumLength = SubjectConsts.MinNameLength)]
         public string Name { get; set; }
-
-        public int SubjectId { get; set; }
 
     }
 }
