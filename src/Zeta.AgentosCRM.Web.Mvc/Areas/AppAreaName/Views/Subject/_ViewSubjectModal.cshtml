@@ -1,6 +1,7 @@
 ﻿
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Subject;
+@model SubjectViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
@@ -9,17 +10,17 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                "Subject"
+                @Model.Subject.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                "Test"
+                @Model.Subject.Name
             </div>
 
-            <div class="col-6 mb-3">
+          @*  <div class="col-6 mb-3">
                 <h6>(@L("SubjectArea")) @L("Name") :</h6>
-                "SubjectArea"
-            </div>
+                @Model.SubjectAreaName
+            </div>*@
 
         </div>
 

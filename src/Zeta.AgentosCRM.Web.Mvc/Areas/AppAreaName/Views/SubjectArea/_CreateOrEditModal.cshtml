@@ -1,24 +1,25 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@model CreateOrEditSubjectAreaModalViewModel
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewCategory")))
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.SubjectArea;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditSubjectArea")) : L("CreateNewSubjectArea")))
  
 <div class="modal-body">
     <div id="InformationsForm">
         <form name="InformationsForm" role="form" novalidate class="form-validation">
-             
-                <input type="hidden" name="id" value="1" />
+
+            <input type="hidden" name="id" value="@Model.SubjectArea.Id" />
             
 
             <div class="my-3">
                 <label class="form-label" for="Category_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="Category_Abbrivation" value="SubjectArea" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <input class="form-control" id="Category_Abbrivation" value="@Model.SubjectArea.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.SubjectAreaConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.SubjectAreaConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="Category_Name">@L("Name")</label>
-                <input class="form-control" id="Category_Name" value="Test" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <input class="form-control" id="Category_Name" value="@Model.SubjectArea.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.SubjectAreaConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.SubjectAreaConsts.MinNameLength" />
             </div>
 
         </form>

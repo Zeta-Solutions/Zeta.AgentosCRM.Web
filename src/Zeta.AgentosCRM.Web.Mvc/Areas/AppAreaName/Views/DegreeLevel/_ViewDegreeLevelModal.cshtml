@@ -1,20 +1,21 @@
 ﻿
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories 
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DegreeLevel;
+@model DegreeLevelViewModel
 
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
-    <div id="CategoryInformationsTab">
+    <div id="InformationsTab">
 
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                "DegreeLevel"
+                @Model.DegreeLevel.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                "test"
+                @Model.DegreeLevel.Name
             </div>
 
         </div>

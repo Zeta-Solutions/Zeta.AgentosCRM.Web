@@ -1,24 +1,25 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@model CreateOrEditDegreeLevelModalViewModel
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewQualification")))
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DegreeLevel;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDegreeLevel")) : L("CreateNewDegreeLevel")))
  
 <div class="modal-body">
     <div id="InformationsForm">
         <form name="InformationsForm" role="form" novalidate class="form-validation">
              
-                <input type="hidden" name="id" value="1" />
+                <input type="hidden" name="id" value="@Model.DegreeLevel.Id" />
             
 
             <div class="my-3">
                 <label class="form-label" for="Category_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="Category_Abbrivation" value="Category" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <input class="form-control" id="Category_Abbrivation" value="@Model.DegreeLevel.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="Category_Name">@L("Name")</label>
-                <input class="form-control" id="Category_Name" value="Test" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <input class="form-control" id="Category_Name" value="@Model.DegreeLevel.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
             </div>
 
         </form>

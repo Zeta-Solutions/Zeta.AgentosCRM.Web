@@ -1,5 +1,10 @@
 ﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Subject;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model SubjectsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Subject;
+}
 @section Scripts
 {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Subject/Index.js" asp-append-version="true"></script>
@@ -8,7 +13,7 @@
 <abp-page-subheader title='@L("Subject")' description='@L("SubjectHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_PartnerTypes_Create))
+    @if (IsGranted(AppPermissions.Pages_Subjects_Create))
     {
     <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewSubject")</button>
     }
@@ -23,7 +28,7 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="PartnerTypesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <input type="text" id="SubjectsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
                                 <button id="GetPartnerTypesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
@@ -51,9 +56,8 @@
 
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="MasterCategoryNameFilterId">(@L("SubjectArea")) @L("Name")</label>
-                       @* <input type="text" class="form-control" name="masterCategoryNameFilter" id="MasterCategoryNameFilterId">*@
-                         <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        <label class="form-label" for="SubjectAreaNameFilterId">(@L("SubjectArea")) @L("Name")</label>
+                        <input type="text" class="form-control" name="SubjectAreaNameFilter" id="SubjectAreaNameFilterId">
                     </div>
                 </div>
                 <div class="col-md-12 mt-5">
@@ -75,7 +79,7 @@
                             <th>@L("Actions")</th>
                             <th>@L("Abbrivation")</th>
                             <th>@L("Name")</th>
-                            <th>@L("MasterCategoryName")</th>
+                            <th>@L("SubjectAreaName")</th>
                         </tr>
                     </thead>
                 </table>

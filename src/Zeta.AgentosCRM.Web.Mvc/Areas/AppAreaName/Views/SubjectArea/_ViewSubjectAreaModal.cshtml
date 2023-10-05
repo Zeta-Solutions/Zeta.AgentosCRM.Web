@@ -1,6 +1,7 @@
 ﻿
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories 
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.SubjectArea;
+@model SubjectAreaViewModel
 
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
@@ -10,11 +11,11 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                "DegreeLevel"
+                @Model.SubjectArea.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                "test"
+                @Model.SubjectArea.Name
             </div>
 
         </div>

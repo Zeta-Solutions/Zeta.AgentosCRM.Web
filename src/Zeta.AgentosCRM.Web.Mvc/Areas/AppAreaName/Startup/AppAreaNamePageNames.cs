@@ -54,7 +54,7 @@
             public const string Settings = "Administration.Settings.Tenant";
             public const string SubscriptionManagement = "Administration.SubscriptionManagement.Tenant";
             public const string Category = "CRMSetup.Category";
-            public const string Priority = "CRMSetup.Priority";
+            public const string Taskpriority = "CRMSetup.Taskpriority";
             public const string DegreeLevel = "CRMSetup.DegreeLevel";
             public const string SubjectArea = "CRMSetup.SubjectArea";
             public const string Qualification = "CRMSetup.Qualification";

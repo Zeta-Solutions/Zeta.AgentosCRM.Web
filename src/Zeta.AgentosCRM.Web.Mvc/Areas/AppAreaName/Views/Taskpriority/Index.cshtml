@@ -1,7 +1,11 @@
 ﻿@using Zeta.AgentosCRM.Authorization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.priority;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
- 
+ @model TaskPrioritesViewModel
+ @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Taskpriority;
+}
 @section Scripts
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Priority/Index.js" asp-append-version="true"></script>
@@ -11,7 +15,7 @@
 <abp-page-subheader title='@L("Priority")' description='@L("PriorityHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_TaskPriorities_Create))
     {
     <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewPriority")</button>
     }
@@ -26,8 +30,8 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="TaskPrioritesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetTaskPrioritiesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 

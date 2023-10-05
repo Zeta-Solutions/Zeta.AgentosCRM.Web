@@ -216,9 +216,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
                     ).AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.Category,
+                            AppAreaNamePageNames.Tenant.Taskpriority,
                             L("Priority"),
-                            url: "AppAreaName/Priority",
+                            url: "AppAreaName/Taskpriority",
                             icon: "flaticon-more"
                         //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )

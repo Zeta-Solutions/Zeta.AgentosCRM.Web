@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
     var _$SubjectTable = $('#SubjectTable');
-    var _partnerTypesService = abp.services.app.partnerTypes;
+    var _subjectsService = abp.services.app.subjects;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +21,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getPartnerTypes();
+          getSubjects();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getPartnerTypes();
+          getSubjects();
       });
 
     $('.endDate')
@@ -38,24 +38,24 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getPartnerTypes();
+          getSubjects();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getPartnerTypes();
+          getSubjects();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.PartnerTypes.Create'),
-      edit: abp.auth.hasPermission('Pages.PartnerTypes.Edit'),
-      delete: abp.auth.hasPermission('Pages.PartnerTypes.Delete'),
+      create: abp.auth.hasPermission('Pages.Subjects.Create'),
+        edit: abp.auth.hasPermission('Pages.Subjects.Edit'),
+        delete: abp.auth.hasPermission('Pages.Subjects.Delete'),
     };
 
     var _createOrEditModal = new app.ModalManager({
       viewUrl: abp.appPath + 'AppAreaName/Subject/CreateOrEditModal',
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Subject/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditSubjectModal',
     });
 
     var _viewSubjectModal = new app.ModalManager({
@@ -82,10 +82,10 @@
       serverSide: true,
       processing: true,
       listAction: {
-        ajaxFunction: _partnerTypesService.getAll,
+          ajaxFunction: _subjectsService.getAll,
         inputFilter: function () {
           return {
-            filter: $('#PartnerTypesTableFilter').val(),
+              filter: $('#SubjectsTableFilter').val(),
             abbrivationFilter: $('#AbbrivationFilterId').val(),
             nameFilter: $('#NameFilterId').val(),
             masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
@@ -115,25 +115,25 @@
               {
                 text: app.localize('View'),
                 action: function (data) {
-                    _viewSubjectModal.open();
+                    _viewSubjectModal.open({ id: data.record.subject.id });
                 },
               },
               {
                 text: app.localize('Edit'),
-                //visible: function () {
-                //  return _permissions.edit;
-                //},
+                visible: function () {
+                  return _permissions.edit;
+                },
                 action: function (data) {
-                  _createOrEditModal.open();
+                    _createOrEditModal.open({ id: data.record.subject.id });
                 },
               },
               {
                 text: app.localize('Delete'),
-                //visible: function () {
-                //  return _permissions.delete;
-                //},
+                visible: function () {
+                  return _permissions.delete;
+                },
                 action: function (data) {
-                  deletePartnerType(data.record.partnerType);
+                    deletePartnerType(data.record.subject);
                 },
               },
             ],
@@ -141,12 +141,12 @@
         },
         {
           targets: 2,
-          data: 'partnerType.abbrivation',
+            data: 'subject.abbrivation',
           name: 'abbrivation',
         },
         {
           targets: 3,
-          data: 'partnerType.name',
+            data: 'subject.name',
           name: 'name',
         },
         {
@@ -157,19 +157,19 @@
       ],
     });
 
-    function getPartnerTypes() {
+    function getSubjects() {
       dataTable.ajax.reload();
     }
 
-    function deletePartnerType(partnerType) {
+    function deletePartnerType(subject) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _partnerTypesService
+            _subjectsService
             .delete({
-              id: partnerType.id,
+                id: subject.id,
             })
             .done(function () {
-              getPartnerTypes(true);
+                getSubjects(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -193,9 +193,9 @@
     });
 
     $('#ExportToExcelButton').click(function () {
-      _partnerTypesService
+        _subjectsService
         .getPartnerTypesToExcel({
-          filter: $('#PartnerTypesTableFilter').val(),
+            filter: $('#SubjectsTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
           nameFilter: $('#NameFilterId').val(),
           masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
@@ -206,31 +206,31 @@
     });
 
     abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
-      getPartnerTypes();
+        getSubjects();
     });
 
     $('#GetPartnerTypesButton').click(function (e) {
       e.preventDefault();
-      getPartnerTypes();
+        getSubjects();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-        getPartnerTypes();
+          getSubjects();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-      getPartnerTypes();
+        getSubjects();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-      getPartnerTypes();
+        getSubjects();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-      getPartnerTypes();
+        getSubjects();
     });
   });
 })();
