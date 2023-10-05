@@ -8,7 +8,5 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
     {
         public CreateOrEditSubjectAreaDto SubjectArea { get; set; }
 
-        public string SubjectName { get; set; }
-
     }
 }

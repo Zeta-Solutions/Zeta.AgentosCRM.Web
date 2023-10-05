@@ -4,7 +4,5 @@
     {
         public SubjectAreaDto SubjectArea { get; set; }
 
-        public string SubjectName { get; set; }
-
     }
 }

@@ -1,4 +1,14 @@
-﻿using Zeta.AgentosCRM.CRMSetup.ProductType.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.Countries.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.Regions.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Regions;
+using Zeta.AgentosCRM.CRMSetup.TaskCategory.Dtos;
+using Zeta.AgentosCRM.CRMSetup.TaskCategory;
+using Zeta.AgentosCRM.CRMSetup.Tag.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Tag;
+using Zeta.AgentosCRM.CRMSetup.InstallmentType.Dtos;
+using Zeta.AgentosCRM.CRMSetup.InstallmentType;
+using Zeta.AgentosCRM.CRMSetup.ProductType.Dtos;
 using Zeta.AgentosCRM.CRMSetup.ProductType;
 using Zeta.AgentosCRM.CRMSetup.FeeType.Dtos;
 using Zeta.AgentosCRM.CRMSetup.FeeType;
@@ -58,6 +68,16 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCountryDto, Country>().ReverseMap();
+            configuration.CreateMap<CountryDto, Country>().ReverseMap();
+            configuration.CreateMap<CreateOrEditRegionDto, Region>().ReverseMap();
+            configuration.CreateMap<RegionDto, Region>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTaskCategoryDto, CRMSetup.TaskCategory.TaskCategory>().ReverseMap();
+            configuration.CreateMap<TaskCategoryDto, CRMSetup.TaskCategory.TaskCategory>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTagDto, CRMSetup.Tag.Tag>().ReverseMap();
+            configuration.CreateMap<TagDto, CRMSetup.Tag.Tag>().ReverseMap();
+            configuration.CreateMap<CreateOrEditInstallmentTypeDto, CRMSetup.InstallmentType.InstallmentType>().ReverseMap();
+            configuration.CreateMap<InstallmentTypeDto, CRMSetup.InstallmentType.InstallmentType>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductTypeDto, CRMSetup.ProductType.ProductType>().ReverseMap();
             configuration.CreateMap<ProductTypeDto, CRMSetup.ProductType.ProductType>().ReverseMap();
             configuration.CreateMap<CreateOrEditFeeTypeDto, CRMSetup.FeeType.FeeType>().ReverseMap();
@@ -70,10 +90,10 @@ namespace Zeta.AgentosCRM
             configuration.CreateMap<DegreeLevelDto, DegreeLevel>().ReverseMap();
             configuration.CreateMap<CreateOrEditTaskPriorityDto, TaskPriority>().ReverseMap();
             configuration.CreateMap<TaskPriorityDto, TaskPriority>().ReverseMap();
-            configuration.CreateMap<CreateOrEditSubjectAreaDto, SubjectArea>().ReverseMap();
-            configuration.CreateMap<SubjectAreaDto, SubjectArea>().ReverseMap();
             configuration.CreateMap<CreateOrEditSubjectDto, Subject>().ReverseMap();
             configuration.CreateMap<SubjectDto, Subject>().ReverseMap();
+            configuration.CreateMap<CreateOrEditSubjectAreaDto, SubjectArea>().ReverseMap();
+            configuration.CreateMap<SubjectAreaDto, SubjectArea>().ReverseMap();
             configuration.CreateMap<CreateOrEditWorkflowDto, Workflow>().ReverseMap();
             configuration.CreateMap<WorkflowDto, Workflow>().ReverseMap();
             configuration.CreateMap<CreateOrEditWorkflowStepDto, WorkflowStep>().ReverseMap();

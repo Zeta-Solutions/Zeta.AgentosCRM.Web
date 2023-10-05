@@ -1,6 +1,6 @@
 {
-  "IsRegenerate": false,
-  "MenuPosition": null,
+  "IsRegenerate": true,
+  "MenuPosition": "",
   "RelativeNamespace": "CRMSetup.ProductType",
   "EntityName": "ProductType",
   "EntityNamePlural": "ProductTypes",
@@ -21,7 +21,7 @@
   },
   "Properties": [
     {
-      "Name": "Abbrivaion",
+      "Name": "Abbrivation",
       "Type": "string",
       "MaxLength": 5,
       "MinLength": 1,

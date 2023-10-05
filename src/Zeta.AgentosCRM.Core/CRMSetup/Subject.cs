@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Zeta.AgentosCRM.CRMSetup;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
@@ -12,12 +13,17 @@ namespace Zeta.AgentosCRM.CRMSetup
         public int TenantId { get; set; }
 
         [Required]
-        [StringLength(SubjectConsts.MaxAbbrivationLength, MinimumLength = SubjectConsts.MinAbbrivationLength)]
+        [StringLength(SubjectAreaConsts.MaxAbbrivationLength, MinimumLength = SubjectAreaConsts.MinAbbrivationLength)]
         public virtual string Abbrivation { get; set; }
 
         [Required]
-        [StringLength(SubjectConsts.MaxNameLength, MinimumLength = SubjectConsts.MinNameLength)]
+        [StringLength(SubjectAreaConsts.MaxNameLength, MinimumLength = SubjectAreaConsts.MinNameLength)]
         public virtual string Name { get; set; }
+
+        public virtual int SubjectAreaId { get; set; }
+
+        [ForeignKey("SubjectAreaId")]
+        public SubjectArea SubjectAreaFk { get; set; }
 
     }
 }

@@ -21,11 +21,12 @@ namespace Zeta.AgentosCRM.CRMSetup
     public class WorkflowsAppService : AgentosCRMAppServiceBase, IWorkflowsAppService
     {
         private readonly IRepository<Workflow> _workflowRepository;
+        private readonly IRepository<WorkflowStep> _workflowStepRepository;
 
-        public WorkflowsAppService(IRepository<Workflow> workflowRepository)
+        public WorkflowsAppService(IRepository<Workflow> workflowRepository, IRepository<WorkflowStep> workflowStepRepository)
         {
             _workflowRepository = workflowRepository;
-
+            _workflowStepRepository = workflowStepRepository;
         }
 
         public async Task<PagedResultDto<GetWorkflowForViewDto>> GetAll(GetAllWorkflowsInput input)
@@ -96,7 +97,7 @@ namespace Zeta.AgentosCRM.CRMSetup
         public async Task CreateOrEdit(CreateOrEditWorkflowDto input)
         {
             if (input.Id == null)
-            {
+            { 
                 await Create(input);
             }
             else
@@ -107,16 +108,24 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         [AbpAuthorize(AppPermissions.Pages_Workflows_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowDto input)
-        {
+        { 
             var workflow = ObjectMapper.Map<Workflow>(input);
-
+            
             if (AbpSession.TenantId != null)
             {
                 workflow.TenantId = (int)AbpSession.TenantId;
             }
 
-            await _workflowRepository.InsertAsync(workflow);
+            var workflowId = _workflowRepository.InsertAndGetIdAsync(workflow).Result;
 
+            foreach (var step in input.Steps)
+            {
+                step.WorkflowId = workflowId;
+                var stepEntity = ObjectMapper.Map<WorkflowStep>(step);
+                await _workflowStepRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            //await _workflowRepository.InsertAsync(workflow); 
         }
 
         [AbpAuthorize(AppPermissions.Pages_Workflows_Edit)]
@@ -124,6 +133,12 @@ namespace Zeta.AgentosCRM.CRMSetup
         {
             var workflow = await _workflowRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, workflow);
+
+            foreach (var step in input.Steps)
+            {
+                var workflowStep= await _workflowStepRepository.FirstOrDefaultAsync((int)step.Id);
+                ObjectMapper.Map(step, workflowStep);
+            }
 
         }
 
