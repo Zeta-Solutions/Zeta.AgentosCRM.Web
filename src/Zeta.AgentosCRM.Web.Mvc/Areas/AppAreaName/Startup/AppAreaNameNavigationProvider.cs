@@ -265,17 +265,11 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
                     )
-                    .AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.PersonalDetails,
-                            L("PersonalDetails"),
-                            url: "AppAreaName/PersonalDetails",
-                            icon: "flaticon-more"
-                          )
-                    )
+                   
                      .AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.Source,
-                            L("Source"),
-                            url: "AppAreaName/Source",
+                            AppAreaNamePageNames.Tenant.LeadSource,
+                            L("LeadSource"),
+                            url: "AppAreaName/LeadSource",
                             icon: "flaticon-more"
                           )
                     )   
@@ -286,13 +280,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more"
                           )
                      )
-                     .AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.Phone,
-                            L("Phone"),
-                            url: "AppAreaName/Phone",
-                            icon: "flaticon-more"
-                          )
-                    ) 
+                   
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Country,
                             L("Country"),

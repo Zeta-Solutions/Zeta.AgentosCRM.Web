@@ -1,4 +1,5 @@
 ﻿(function () {
+   
     $(function () {
         var _$CourseTable = $('#CountryTable');
         var _masterCategoriesService = abp.services.app.masterCategories;
@@ -145,6 +146,16 @@
                 },
                 {
                     targets: 3,
+                    data: 'masterCategory.name',
+                    name: 'name',
+                },
+                {
+                    targets: 4,
+                    data: 'masterCategory.name',
+                    name: 'name',
+                },
+                {
+                    targets: 5,
                     data: 'masterCategory.name',
                     name: 'name',
                 },
