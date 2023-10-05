@@ -13,8 +13,8 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
         public int TenantId { get; set; }
 
         [Required]
-        [StringLength(ProductTypeConsts.MaxAbbrivaionLength, MinimumLength = ProductTypeConsts.MinAbbrivaionLength)]
-        public virtual string Abbrivaion { get; set; }
+        [StringLength(ProductTypeConsts.MaxAbbrivationLength, MinimumLength = ProductTypeConsts.MinAbbrivationLength)]
+        public virtual string Abbrivation { get; set; }
 
         [Required]
         [StringLength(ProductTypeConsts.MaxNameLength, MinimumLength = ProductTypeConsts.MinNameLength)]

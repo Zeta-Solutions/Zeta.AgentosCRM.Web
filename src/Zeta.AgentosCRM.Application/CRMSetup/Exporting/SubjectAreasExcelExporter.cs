@@ -26,17 +26,17 @@ namespace Zeta.AgentosCRM.CRMSetup.Exporting
 
         public FileDto ExportToFile(List<GetSubjectAreaForViewDto> subjectAreas)
         {
-            var item= new List<Dictionary<string, object>>();
+            var item = new List<Dictionary<string, object>>();
 
             foreach (var subjectArea in subjectAreas)
             {
                 item.Add(new Dictionary<string, object>()
                 {
                     {L("Abbrivation"),subjectArea.SubjectArea.Abbrivation },
-                    {L("Name"),subjectArea.SubjectArea.Name },
+                    {L("Name"),subjectArea.SubjectArea.Name }, 
                 });
             }
-            return CreateExcelPackage("SubjectAreas.xlsx",item);
+            return CreateExcelPackage("SubjectAreas.xlsx", item);
         }
     }
 }

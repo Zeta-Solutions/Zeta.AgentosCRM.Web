@@ -6,6 +6,6 @@ namespace Zeta.AgentosCRM.CRMSetup.Exporting
 {
     public interface ISubjectsExcelExporter
     {
-        FileDto ExportToFile(List<GetSubjectForViewDto> subjects);
+        FileDto ExportToFile(List<GetSubjectForViewDto> subjectAreas);
     }
 }
