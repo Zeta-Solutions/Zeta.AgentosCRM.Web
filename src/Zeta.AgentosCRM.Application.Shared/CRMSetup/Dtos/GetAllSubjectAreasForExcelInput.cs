@@ -11,7 +11,5 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
 
         public string NameFilter { get; set; }
 
-        public string SubjectNameFilter { get; set; }
-
     }
 }

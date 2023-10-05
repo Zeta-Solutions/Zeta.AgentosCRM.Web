@@ -1,6 +1,7 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Zeta.AgentosCRM.CRMSetup.Dtos
 {
@@ -10,6 +11,9 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
         [Required]
         [StringLength(WorkflowConsts.MaxNameLength, MinimumLength = WorkflowConsts.MinNameLength)]
         public string Name { get; set; }
+
+        [Required]
+        public List<CreateOrEditWorkflowStepDto> Steps { get; set; }
 
     }
 }

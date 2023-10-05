@@ -6,6 +6,41 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Countries = "Pages.Countries";
+        public const string Pages_Countries_Create = "Pages.Countries.Create";
+        public const string Pages_Countries_Edit = "Pages.Countries.Edit";
+        public const string Pages_Countries_Delete = "Pages.Countries.Delete";
+
+        public const string Pages_Regions = "Pages.Regions";
+        public const string Pages_Regions_Create = "Pages.Regions.Create";
+        public const string Pages_Regions_Edit = "Pages.Regions.Edit";
+        public const string Pages_Regions_Delete = "Pages.Regions.Delete";
+
+        public const string Pages_TaskCategories = "Pages.TaskCategories";
+        public const string Pages_TaskCategories_Create = "Pages.TaskCategories.Create";
+        public const string Pages_TaskCategories_Edit = "Pages.TaskCategories.Edit";
+        public const string Pages_TaskCategories_Delete = "Pages.TaskCategories.Delete";
+
+        public const string Pages_Tags = "Pages.Tags";
+        public const string Pages_Tags_Create = "Pages.Tags.Create";
+        public const string Pages_Tags_Edit = "Pages.Tags.Edit";
+        public const string Pages_Tags_Delete = "Pages.Tags.Delete";
+
+        public const string Pages_InstallmentTypes = "Pages.InstallmentTypes";
+        public const string Pages_InstallmentTypes_Create = "Pages.InstallmentTypes.Create";
+        public const string Pages_InstallmentTypes_Edit = "Pages.InstallmentTypes.Edit";
+        public const string Pages_InstallmentTypes_Delete = "Pages.InstallmentTypes.Delete";
+
+        public const string Pages_ProductTypes = "Pages.ProductTypes";
+        public const string Pages_ProductTypes_Create = "Pages.ProductTypes.Create";
+        public const string Pages_ProductTypes_Edit = "Pages.ProductTypes.Edit";
+        public const string Pages_ProductTypes_Delete = "Pages.ProductTypes.Delete";
+
+        public const string Pages_FeeTypes = "Pages.FeeTypes";
+        public const string Pages_FeeTypes_Create = "Pages.FeeTypes.Create";
+        public const string Pages_FeeTypes_Edit = "Pages.FeeTypes.Edit";
+        public const string Pages_FeeTypes_Delete = "Pages.FeeTypes.Delete";
+
         public const string Pages_LeadSources = "Pages.LeadSources";
         public const string Pages_LeadSources_Create = "Pages.LeadSources.Create";
         public const string Pages_LeadSources_Edit = "Pages.LeadSources.Edit";
