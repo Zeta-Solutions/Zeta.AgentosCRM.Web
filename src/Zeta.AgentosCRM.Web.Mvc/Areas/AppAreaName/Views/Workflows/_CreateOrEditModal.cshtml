@@ -1,5 +1,4 @@
-﻿
-@using System.Globalization
+﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Workflows
 @model CreateOrEditWorkflowModalViewModel
@@ -12,7 +11,7 @@
 
             @if (Model.IsEditMode)
             {
-            <input type="hidden" name="id" value="@Model.Workflow.Id" />
+                <input type="hidden" name="id" value="@Model.Workflow.Id" />
             }
 
             <div class="my-3">
@@ -20,30 +19,72 @@
                 <input class="form-control" id="Workflow_Name" autocomplete="off" value="@Model.Workflow.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
             </div>
 
-        </form>
-       @*New Form Add*@
-        <form name="WorkflowInformationSetupsForm" role="form" novalidate class="form-validation">
-             <hr>
-             <div class="my-3">
-                 <h4>@("Create new workflow setup")</h4>
-             </div>
-            <div class="my-3">
-                <label class="form-label" for="WorkflowStep_SrlNo">@L("SrlNo")</label>
-                <input class="form-control m-input" id="WorkflowStep_SrlNo" autocomplete="off"   type="number" name="srlNo" min="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" max="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" />
-            </div>
-
-            <div class="my-3">
-                <label class="form-label" for="WorkflowStep_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="WorkflowStep_Abbrivation" autocomplete="off" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
-            </div>
-
-            <div class="my-3">
-                <label class="form-label" for="WorkflowStep_Name">@L("Name")</label>
-                <input class="form-control" id="WorkflowStep_Name" autocomplete="off" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
-            </div>
 
         </form>
-       
+        <form name="WorkflowSetupInformationSetupsForm" id="WorkflowSetupInformationSetupsForm" role="form" novalidate class="form-validation">
+            <hr />
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">@L("SrNo")</label>
+                <label class="col-md-3 col-form-label">@L("Abbrivation")</label>
+                <label class="col-md-3 col-form-label">@L("Name")</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <input type="text" id="Srno" name="srno" class="form-control" maxlength="5" />
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="abbrivation" name="abbrivation" class="form-control" maxlength="5" />
+
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="name" name="name" class="form-control" maxlength="30" />
+
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary add-button"> @L("Add")</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="table-responsive">
+                    <table id="Workflowsetuptable" name="Workflowsetuptable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@L("Srno")</th> 
+                                <th>@L("Abbrivation")</th>
+                                <th>@L("Name")</th>
+                                <th>@L("Action")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        
+        @*New Form Add*@
+        @*  <form name="WorkflowSetupInformationSetupsForm" role="form" novalidate class="form-validation">
+        <hr>
+        <div class="my-3">
+        <h4>@("Create new workflow setup")</h4>
+        </div>
+        <div class="my-3">
+        <label class="form-label" for="WorkflowStep_SrlNo">@L("SrlNo")</label>
+        <input class="form-control m-input" id="WorkflowStep_SrlNo" autocomplete="off"   type="number" name="srlNo" min="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" max="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" />
+        </div>
+
+        <div class="my-3">
+        <label class="form-label" for="WorkflowStep_Abbrivation">@L("Abbrivation")</label>
+        <input class="form-control" id="WorkflowStep_Abbrivation" autocomplete="off" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
+        </div>
+
+        <div class="my-3">
+        <label class="form-label" for="WorkflowStep_Name">@L("Name")</label>
+        <input class="form-control" id="WorkflowStep_Name" autocomplete="off" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
+        </div>
+
+        </form> *@
+
     </div>
 </div>
 

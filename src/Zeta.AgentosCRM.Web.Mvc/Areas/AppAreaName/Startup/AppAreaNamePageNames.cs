@@ -44,11 +44,11 @@
             public const string QuotationCurrency = "CRMSetup.QuotationCurrency";
             public const string Course = "CRMSetup.Course";
             public const string ServiceCategory = "CRMSetup.ServiceCategory";
-            public const string Installment_Type = "CRMSetup.Installment_Type";
-            public const string Fee_Type = "CRMSetup.Fee_Type";
+            public const string InstallmentType = "CRMSetup.InstallmentType";
+            public const string FeeType = "CRMSetup.FeeType";
             public const string Regions = "CRMSetup.Regions";
             public const string Month = "CRMSetup.Month";
-            public const string Product_Type = "CRMSetup.Product_Type";
+            public const string ProductType = "CRMSetup.ProductType";
             public const string Status = "CRMSetup.Status";
             public const string Dashboard = "Dashboard.Tenant";
             public const string Settings = "Administration.Settings.Tenant";

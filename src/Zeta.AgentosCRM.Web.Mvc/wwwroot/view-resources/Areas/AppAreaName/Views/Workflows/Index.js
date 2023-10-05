@@ -240,6 +240,7 @@
       }
     }
 
+
     _$workflowsTable.on('click', '.Edit_WorkflowStep_WorkflowId', function () {
       var tr = $(this).closest('tr');
       var row = dataTable.row(tr);

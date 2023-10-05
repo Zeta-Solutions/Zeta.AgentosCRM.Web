@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
-      var _$FeeTypeTable = $('#FeeTypeTable');
-    var _masterCategoriesService = abp.services.app.masterCategories;
+      var _$ProductTypeTable = $('#ProductTypeTable');
+      var _productTypesService = abp.services.app.productTypes;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +21,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getMasterCategories();
+          getProductTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getMasterCategories();
+          getProductTypes();
       });
 
     $('.endDate')
@@ -38,27 +38,26 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getMasterCategories();
+          getProductTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getMasterCategories();
+          getProductTypes();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-      edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-      delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+        create: abp.auth.hasPermission('Pages.ProductTypes.Create'),
+        edit: abp.auth.hasPermission('Pages.ProductTypes.Edit'),
+        delete: abp.auth.hasPermission('Pages.ProductTypes.Delete'),
     };
-
-    var _createOrEditModal = new app.ModalManager({
-        viewUrl: abp.appPath + 'AppAreaName/ProductType/CreateOrEditModal',
-        scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/ProductType/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
-    });
-
-    var _viewMasterCategoryModal = new app.ModalManager({
+     
+      var _createOrEditModal = new app.ModalManager({
+          viewUrl: abp.appPath + 'AppAreaName/ProductType/CreateOrEditModal',
+          scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/ProductType/_CreateOrEditModal.js',
+          modalClass: 'CreateOrEditProductTypeModal',
+      });
+    var _viewProductTypeModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/ProductType/ViewProductTypeModal',
         modalClass: 'ViewProductTypeModal',
     });
@@ -76,12 +75,12 @@
       }
       return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
     };
-      var dataTable = _$FeeTypeTable.DataTable({
+      var dataTable = _$ProductTypeTable.DataTable({
           paging: true,
           serverSide: true,
           processing: true,
           listAction: {
-              ajaxFunction: _masterCategoriesService.getAll,
+              ajaxFunction: _productTypesService.getAll,
               inputFilter: function () {
                   return {
                       filter: $('#MasterCategoriesTableFilter').val(),
@@ -114,25 +113,25 @@
                               text: app.localize('View'),
                               action: function (data) {
                                   //_viewSourceModal.open();
-                                  _viewMasterCategoryModal.open();
+                                  _viewProductTypeModal.open({ id: data.record.productType.id });
                               },
                           },
                           {
                               text: app.localize('Edit'),
-                              //visible: function () {
-                              //  return _permissions.edit;
-                              //},
+                              visible: function () {
+                                return _permissions.edit;
+                              },
                               action: function (data) {
-                                  _createOrEditModal.open();
+                                  _createOrEditModal.open({ id: data.record.productType.id });
                               },
                           },
                           {
                               text: app.localize('Delete'),
-                              //visible: function () {
-                              //  return _permissions.delete;
-                              //},
+                              visible: function () {
+                                return _permissions.delete;
+                              },
                               action: function (data) {
-                                  deleteMasterCategory(data.record.masterCategory);
+                                  deleteProductType(data.record.productType);
                               },
                           },
                       ],
@@ -140,29 +139,29 @@
               },
               {
                   targets: 2,
-                  data: 'masterCategory.abbrivation',
+                  data: 'productType.abbrivaion',
                   name: 'abbrivation',
               },
               {
                   targets: 3,
-                  data: 'masterCategory.name',
+                  data: 'productType.name',
                   name: 'name',
               },
           ],
       });
-    function getMasterCategories() {
+    function getProductTypes() {
       dataTable.ajax.reload();
     }
 
-    function deleteMasterCategory(masterCategory) {
+      function deleteProductType(productType) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _masterCategoriesService
+          _productTypesService
             .delete({
-              id: masterCategory.id,
+                id: productType.id,
             })
             .done(function () {
-              getMasterCategories(true);
+                getProductTypes(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -181,12 +180,12 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewFeeButton').click(function () {
+      $('#CreateNewProductTypeButton').click(function () {
       _createOrEditModal.open();
     });
 
     $('#ExportToExcelButton').click(function () {
-      _masterCategoriesService
+      _productTypesService
         .getMasterCategoriesToExcel({
           filter: $('#MasterCategoriesTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -197,32 +196,32 @@
         });
     });
 
-    abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-      getMasterCategories();
+      abp.event.on('app.createOrEditProductTypeModalSaved', function () {
+        getProductTypes();
     });
 
     $('#GetMasterCategoriesButton').click(function (e) {
       e.preventDefault();
-      getMasterCategories();
+        getProductTypes();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-        getMasterCategories();
+          getProductTypes();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-      getMasterCategories();
+        getProductTypes();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-      getMasterCategories();
+        getProductTypes();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-      getMasterCategories();
+        getProductTypes();
     });
   });
 })();

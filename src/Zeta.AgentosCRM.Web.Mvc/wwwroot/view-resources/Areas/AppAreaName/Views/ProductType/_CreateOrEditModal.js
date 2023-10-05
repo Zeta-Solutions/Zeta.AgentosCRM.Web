@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditMasterCategoryModal = function () {
-    var _masterCategoriesService = abp.services.app.masterCategories;
+  app.modals.CreateOrEditProductTypeModal = function () {
+    var _productTypesService = abp.services.app.productTypes;
 
     var _modalManager;
-    var _$masterCategoryInformationForm = null;
+      var _$productTypeInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,24 +15,24 @@
         format: 'L',
       });
 
-        _$masterCategoryInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-      _$masterCategoryInformationForm.validate();
+        _$productTypeInformationForm = _modalManager.getModal().find('form[name=ProductTypeInformationsForm]');
+      _$productTypeInformationForm.validate();
     };
 
     this.save = function () {
-      if (!_$masterCategoryInformationForm.valid()) {
+        if (!_$productTypeInformationForm.valid()) {
         return;
       }
 
-      var masterCategory = _$masterCategoryInformationForm.serializeFormToObject();
+        var productType = _$productTypeInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _masterCategoriesService
-        .createOrEdit(masterCategory)
+      _productTypesService
+          .createOrEdit(productType)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+          abp.event.trigger('app.createOrEditProductTypeModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

@@ -1,9 +1,9 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.ProductType
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-@model MasterCategoriesViewModel
+@model ProductTypesViewModel
 @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.ProductType;
 }
 @section Scripts
 {
@@ -13,10 +13,10 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
 <abp-page-subheader title='@L("ProductType")' description='@L("ProductTypeHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @* @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
-    { *@
-    <button id="CreateNewFeeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewProductType")</button>
-    @* } *@
+    @if (IsGranted(AppPermissions.Pages_ProductTypes_Create))
+    {
+    <button id="CreateNewProductTypeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewProductType")</button>
+    }
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">
@@ -28,7 +28,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' @* value="@Model.FilterText" *@>
+                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
                                 <button id="GetMasterCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
@@ -65,7 +65,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="FeeTypeTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="ProductTypeTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>
