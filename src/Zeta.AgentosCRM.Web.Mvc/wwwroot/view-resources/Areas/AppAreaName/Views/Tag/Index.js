@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
       var _$TagTable = $('#TagTable');
-    var _masterCategoriesService = abp.services.app.masterCategories;
+      var _tagsService = abp.services.app.tags;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +21,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getMasterCategories();
+          getTags();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getMasterCategories();
+          getTags();
       });
 
     $('.endDate')
@@ -38,24 +38,24 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getMasterCategories();
+          getTags();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getMasterCategories();
+          getTags();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-      edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-      delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+        create: abp.auth.hasPermission('Pages.Tags.Create'),
+        edit: abp.auth.hasPermission('Pages.Tags.Edit'),
+        delete: abp.auth.hasPermission('Pages.Tags.Delete'),
     };
 
     var _createOrEditModal = new app.ModalManager({
       viewUrl: abp.appPath + 'AppAreaName/Tag/CreateOrEditModal',
       scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Tag/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditTagsModal',
     });
 
       var _viewTagModal = new app.ModalManager({
@@ -82,7 +82,7 @@
       serverSide: true,
       processing: true,
       listAction: {
-        ajaxFunction: _masterCategoriesService.getAll,
+          ajaxFunction: _tagsService.getAll,
         inputFilter: function () {
           return {
               filter: $('#TagTableFilter').val(),
@@ -113,26 +113,26 @@
             items: [
               {
                 text: app.localize('View'),
-                action: function (data) {
-                    _viewTagModal.open();
+                    action: function (data) {
+                        _viewTagModal.open({ id: data.record.tag.id });
                 },
               },
               {
                 text: app.localize('Edit'),
-                //visible: function () {
-                //  return _permissions.edit;
-                //},
-                action: function (data) {
-                  _createOrEditModal.open();
+                visible: function () {
+                  return _permissions.edit;
+                },
+                  action: function (data) {
+                      _createOrEditModal.open({ id: data.record.tag.id });
                 },
               },
               {
                 text: app.localize('Delete'),
-                //visible: function () {
-                //  return _permissions.delete;
-                //},
+                visible: function () {
+                  return _permissions.delete;
+                },
                 action: function (data) {
-                  deleteMasterCategory(data.record.masterCategory);
+                    deletetags(data.record.tag);
                 },
               },
             ],
@@ -140,30 +140,30 @@
         },
         {
           targets: 2,
-          data: 'masterCategory.abbrivation',
+            data: 'tag.abbrivation',
           name: 'abbrivation',
         },
         {
           targets: 3,
-          data: 'masterCategory.name',
+            data: 'tag.name',
           name: 'name',
         },
       ],
     });
 
-    function getSource() {
+    function getTags() {
       dataTable.ajax.reload();
     }
 
-    function deleteMasterCategory(masterCategory) {
+      function deletetags(tags) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _masterCategoriesService
+            _tagsService
             .delete({
-              id: masterCategory.id,
+                id: tags.id,
             })
             .done(function () {
-                getSource(true);
+                getTags(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -187,9 +187,9 @@
     });
 
     $('#ExportToExcelButton').click(function () {
-      _masterCategoriesService
+        _tagsService
         .getMasterCategoriesToExcel({
-          filter: $('#MasterCategoriesTableFilter').val(),
+            filter: $('#TagTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
           nameFilter: $('#NameFilterId').val(),
         })
@@ -198,32 +198,32 @@
         });
     });
 
-    abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-        getSource();
+      abp.event.on('app.createOrEditTagsModalSaved', function () {
+        getTags();
     });
 
-    $('#GetMasterCategoriesButton').click(function (e) {
+      $('#GetTagButton').click(function (e) {
       e.preventDefault();
-        getSource();
+          getTags();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-          getSource();
+          getTags();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-        getSource();
+        getTags();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-        getSource();
+        getTags();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-        getSource();
+        getTags();
     });
   });
 })();
