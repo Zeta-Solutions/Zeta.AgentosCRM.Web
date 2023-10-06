@@ -1,9 +1,9 @@
 ﻿(function ($) {
-    app.modals.CreateOrEditMasterCategoryModal = function () {
-        var _masterCategoriesService = abp.services.app.masterCategories;
+    app.modals.CreateOrEditDegreeLevelModal = function () {
+        var _degreeLevelsService = abp.services.app.degreeLevels;
 
         var _modalManager;
-        var _$CategoryInformationForm = null;
+        var _$degreeInformationForm = null;
 
         this.init = function (modalManager) {
             _modalManager = modalManager;
@@ -15,24 +15,24 @@
                 format: 'L',
             });
 
-            _$CategoryInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-            _$CategoryInformationForm.validate();
+            _$degreeInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
+            _$degreeInformationForm.validate();
         };
 
         this.save = function () {
-            if (!_$CategoryInformationForm.valid()) {
+            if (!_$degreeInformationForm.valid()) {
                 return;
             }
 
-            var Category = _$CategoryInformationForm.serializeFormToObject();
+            var DegreeLevel = _$degreeInformationForm.serializeFormToObject();
 
             _modalManager.setBusy(true);
-            _masterCategoriesService
-                .createOrEdit(Category)
+            _degreeLevelsService
+                .createOrEdit(DegreeLevel)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+                    abp.event.trigger('app.createOrEditDegeeLevelModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);

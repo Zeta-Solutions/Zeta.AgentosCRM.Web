@@ -1,9 +1,9 @@
 ﻿(function ($) {
-    app.modals.CreateOrEditMasterCategoryModal = function () {
-        var _masterCategoriesService = abp.services.app.masterCategories;
+    app.modals.CreateOrEditTaskPriorityModal = function () {
+        var _taskPrioritiesService = abp.services.app.taskPriorities;
 
         var _modalManager;
-        var _$CategoryInformationForm = null;
+        var _$PriorityInformationForm = null;
 
         this.init = function (modalManager) {
             _modalManager = modalManager;
@@ -15,24 +15,24 @@
                 format: 'L',
             });
 
-            _$CategoryInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-            _$CategoryInformationForm.validate();
+            _$PriorityInformationForm = _modalManager.getModal().find('form[name=TasknformationsForm]');
+            _$PriorityInformationForm.validate();
         };
 
         this.save = function () {
-            if (!_$CategoryInformationForm.valid()) {
+            if (!_$PriorityInformationForm.valid()) {
                 return;
             }
 
-            var Category = _$CategoryInformationForm.serializeFormToObject();
+            var taskPriority = _$PriorityInformationForm.serializeFormToObject();
 
             _modalManager.setBusy(true);
-            _masterCategoriesService
-                .createOrEdit(Category)
+            _taskPrioritiesService
+                .createOrEdit(taskPriority)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+                    abp.event.trigger('app.CreateOrEditTaskPriorityModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);

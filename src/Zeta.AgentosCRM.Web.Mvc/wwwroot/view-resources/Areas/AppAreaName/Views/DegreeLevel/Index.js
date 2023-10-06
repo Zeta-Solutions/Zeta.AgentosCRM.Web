@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
         var _$DegreeTable = $('#DegreeLeveltable');
-        var _masterCategoriesService = abp.services.app.masterCategories;
+        var _degreeLevelsService = abp.services.app.degreeLevels;
 
         var $selectedDate = {
             startDate: null,
@@ -21,12 +21,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getMasterCategories();
+                getdegreeLevels();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getMasterCategories();
+                getdegreeLevels();
             });
 
         $('.endDate')
@@ -38,24 +38,24 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getCategories();
+                getdegreeLevels();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getCategories();
+                getdegreeLevels();
             });
 
         var _permissions = {
-            create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-            edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-            delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+            create: abp.auth.hasPermission('Pages.DegreeLevels.Create'),
+            edit: abp.auth.hasPermission('Pages.DegreeLevels.Edit'),
+            delete: abp.auth.hasPermission('Pages.DegreeLevels.Delete'),
         };
 
         var _createOrEditModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/DegreeLevel/CreateOrEditModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DegreeLevel/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditModal',
+            modalClass: 'CreateOrEditDegreeLevelModal',
         });
       
         var _viewDegeeLevelModal = new app.ModalManager({
@@ -82,10 +82,10 @@
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _masterCategoriesService.getAll,
+                ajaxFunction: _degreeLevelsService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#MasterCategoriesTableFilter').val(),
+                        filter: $('#DegreeLevelsTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                     };
@@ -118,25 +118,25 @@
                                 text: app.localize('View'),
 
                                 action: function (data) {
-                                    _viewDegeeLevelModal.open();
+                                    _viewDegeeLevelModal.open({ id: data.record.degreeLevel.id });
                                 },
                             },
                             {
                                 text: app.localize('Edit'),
-                                //visible: function () {
-                                //    return _permissions.edit;
-                                //},
+                                visible: function () {
+                                    return _permissions.edit;
+                                },
                                 action: function (data) {
-                                    _createOrEditModal.open();
+                                    _createOrEditModal.open({ id: data.record.degreeLevel.id });
                                 },
                             },
                             {
                                 text: app.localize('Delete'),
-                                //visible: function () {
-                                //    return _permissions.delete;
-                                //},
+                                visible: function () {
+                                    return _permissions.delete;
+                                },
                                 action: function (data) {
-                                    deleteMasterCategory(data.record.masterCategory);
+                                    deleteMasterCategory(data.record.degreeLevel);
                                 },
                             },
                         ],
@@ -144,30 +144,30 @@
                 },
                 {
                     targets: 2,
-                    data: 'masterCategory.abbrivation',
+                    data: 'degreeLevel.abbrivation',
                     name: 'abbrivation',
                 },
                 {
                     targets: 3,
-                    data: 'masterCategory.name',
+                    data: 'degreeLevel.name',
                     name: 'name',
                 },
             ],
         });
 
-        function getCategories() {
+        function getdegreeLevels() {
             dataTable.ajax.reload();
         }
 
-        function deleteMasterCategory(masterCategory) {
+        function deleteMasterCategory(degreeLevel) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _masterCategoriesService
+                    _degreeLevelsService
                         .delete({
-                            id: masterCategory.id,
+                            id: degreeLevel.id,
                         })
                         .done(function () {
-                            getCategories(true);
+                            getdegreeLevels(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -191,9 +191,9 @@
         });
 
         $('#ExportToExcelButton').click(function () {
-            _masterCategoriesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
+            _degreeLevelsService
+                .getDegreeLevelsToExcel({
+                    filter: $('#DegreeLevelsTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
                     nameFilter: $('#NameFilterId').val(),
                 })
@@ -203,12 +203,12 @@
         });
 
         abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-            getCategories();
+            getdegreeLevels();
         });
 
-        $('#GetCategoriesButton').click(function (e) {
+        $('#GetDegreeLevelButton').click(function (e) {
             e.preventDefault();
-            getCategories();
+            getdegreeLevels();
         });
 
         $(document).keypress(function (e) {
@@ -218,16 +218,16 @@
         });
 
         $('.reload-on-change').change(function (e) {
-            getCategories();
+            getdegreeLevels();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getCategories();
+            getdegreeLevels();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getCategories();
+            getdegreeLevels();
         });
     });
 })();

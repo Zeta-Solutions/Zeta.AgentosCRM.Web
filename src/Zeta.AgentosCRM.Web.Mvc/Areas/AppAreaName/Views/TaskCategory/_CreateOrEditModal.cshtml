@@ -1,0 +1,29 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@model CreateOrEditTaskCategoryModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.TaskCategories;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTaskCategory")) : L("CreateNewTaskCategory")))
+ 
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="CategoryInformationsForm" role="form" novalidate class="form-validation">
+
+            <input type="hidden" name="id" value="@Model.TaskCategory.Id" />
+            
+
+            <div class="my-3">
+                <label class="form-label" for="Category_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="Category_Abbrivation" value="@Model.TaskCategory.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.TaskCategory.TaskCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.TaskCategory.TaskCategoryConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Category_Name">@L("Name")</label>
+                <input class="form-control" id="Category_Name" value="@Model.TaskCategory.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.TaskCategory.TaskCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.TaskCategory.TaskCategoryConsts.MinNameLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

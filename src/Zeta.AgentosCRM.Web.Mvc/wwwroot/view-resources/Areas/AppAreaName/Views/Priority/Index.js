@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
         var $Prioritytable = $('#Prioritytable');
-        var _masterCategoriesService = abp.services.app.masterCategories;
+        var _taskPrioritiesService = abp.services.app.taskPriorities;
 
         var $selectedDate = {
             startDate: null,
@@ -21,12 +21,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getMasterCategories();
+                getPriorites();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getMasterCategories();
+                getPriorites();
             });
 
         $('.endDate')
@@ -38,28 +38,28 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getCategories();
+                getPriorites();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getCategories();
+                getPriorites();
             });
 
         var _permissions = {
-            create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-            edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-            delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+            create: abp.auth.hasPermission('Pages.TaskPriorities.Create'),
+            edit: abp.auth.hasPermission('Pages.TaskPriorities.Edit'),
+            delete: abp.auth.hasPermission('Pages.TaskPriorities.Delete'),
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Priority/CreateOrEditModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Priority/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditModal',
+            viewUrl: abp.appPath + 'AppAreaName/Taskpriority/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/priority/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditTaskPriorityModal',
         });
 
         var _viewPriorityModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Priority/ViewPriorityModal',
+            viewUrl: abp.appPath + 'AppAreaName/Taskpriority/ViewPriorityModal',
             modalClass: 'ViewpriorityModal',
         });
 
@@ -82,10 +82,10 @@
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _masterCategoriesService.getAll,
+                ajaxFunction: _taskPrioritiesService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#MasterCategoriesTableFilter').val(),
+                        filter: $('#TaskPrioritesTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                     };
@@ -116,27 +116,27 @@
 
                             {
                                 text: app.localize('View'),
-
+                                
                                 action: function (data) {
-                                    _viewPriorityModal.open();
+                                    _viewPriorityModal.open({ id: data.record.taskPriority.id });
                                 },
                             },
                             {
                                 text: app.localize('Edit'),
-                                //visible: function () {
-                                //    return _permissions.edit;
-                                //},
+                                visible: function () {
+                                    return _permissions.edit;
+                                },
                                 action: function (data) {
-                                    _createOrEditModal.open();
+                                    _createOrEditModal.open({ id: data.record.taskPriority.id });
                                 },
                             },
                             {
                                 text: app.localize('Delete'),
-                                //visible: function () {
-                                //    return _permissions.delete;
-                                //},
+                                visible: function () {
+                                    return _permissions.delete;
+                                },
                                 action: function (data) {
-                                    deleteMasterCategory(data.record.masterCategory);
+                                    deleteTaskPriority(data.record.taskPriority);
                                 },
                             },
                         ],
@@ -144,30 +144,30 @@
                 },
                 {
                     targets: 2,
-                    data: 'masterCategory.abbrivation',
+                    data: 'taskPriority.abbrivation',
                     name: 'abbrivation',
                 },
                 {
                     targets: 3,
-                    data: 'masterCategory.name',
+                    data: 'taskPriority.name',
                     name: 'name',
                 },
             ],
         });
 
-        function getCategories() {
+        function getPriorites() {
             dataTable.ajax.reload();
         }
 
-        function deleteMasterCategory(masterCategory) {
+        function deleteTaskPriority(taskPriority) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _masterCategoriesService
+                    _taskPrioritiesService
                         .delete({
-                            id: masterCategory.id,
+                            id: taskPriority.id,
                         })
                         .done(function () {
-                            getCategories(true);
+                            getPriorites(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -191,9 +191,9 @@
         });
 
         $('#ExportToExcelButton').click(function () {
-            _masterCategoriesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
+            _taskPrioritiesService
+                .getTaskPrioritiesToExcel({
+                    filter: $('#TaskPrioritesTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
                     nameFilter: $('#NameFilterId').val(),
                 })
@@ -203,31 +203,31 @@
         });
 
         abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-            getCategories();
+            getPriorites();
         });
 
-        $('#GetCategoriesButton').click(function (e) {
+        $('#GetTaskPrioritiesButton').click(function (e) {
             e.preventDefault();
-            getCategories();
+            getPriorites();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getMasterCategories();
+                getPriorites();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getCategories();
+            getPriorites();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getCategories();
+            getPriorites();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getCategories();
+            getPriorites();
         });
     });
 })();

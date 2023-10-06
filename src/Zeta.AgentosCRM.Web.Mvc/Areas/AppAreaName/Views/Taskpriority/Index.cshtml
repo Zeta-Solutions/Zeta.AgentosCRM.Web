@@ -1,19 +1,23 @@
 ﻿@using Zeta.AgentosCRM.Authorization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.priority;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
- 
+ @model TaskPrioritesViewModel
+ @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Taskpriority;
+}
 @section Scripts
 {
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Category/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Priority/Index.js" asp-append-version="true"></script>
 
 }
 
-<abp-page-subheader title='@L("Category")' description='@L("CategoryHeaderInfo")'>
+<abp-page-subheader title='@L("Priority")' description='@L("PriorityHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_TaskPriorities_Create))
     {
-    <button id="CreateNewCategoryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCategory")</button>
+    <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewPriority")</button>
     }
 </abp-page-subheader>
 
@@ -26,8 +30,8 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="TaskPrioritesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetTaskPrioritiesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -63,7 +67,7 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="Categorytable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="Prioritytable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>

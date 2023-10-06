@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
         var _$CategoriesTable = $('#Categorytable');
-        var _masterCategoriesService = abp.services.app.masterCategories;
+        var _taskCategoriesService = abp.services.app.taskCategories;
 
         var $selectedDate = {
             startDate: null,
@@ -21,12 +21,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getMasterCategories();
+                getCategories();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getMasterCategories();
+                getCategories();
             });
 
         $('.endDate')
@@ -47,19 +47,19 @@
             });
 
         var _permissions = {
-            create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-            edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-            delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+            create: abp.auth.hasPermission('Pages.TaskCategories.Create'),
+            edit: abp.auth.hasPermission('Pages.TaskCategories.Edit'),
+            delete: abp.auth.hasPermission('Pages.TaskCategories.Delete'),
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Category/CreateOrEditModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Category/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditModal',
+            viewUrl: abp.appPath + 'AppAreaName/TaskCategory/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/TaskCategory/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditTaskCategoryModal',
         });
       
         var _viewCategoryModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Category/ViewCategoryModal',
+            viewUrl: abp.appPath + 'AppAreaName/TaskCategory/ViewCategoryModal',
             modalClass: 'ViewCategoryModal',
         });
 
@@ -82,10 +82,10 @@
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _masterCategoriesService.getAll,
+                ajaxFunction: _taskCategoriesService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#MasterCategoriesTableFilter').val(),
+                        filter: $('#TaskCategoriesTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                     };
@@ -118,25 +118,25 @@
                                 text: app.localize('View'),
 
                                 action: function (data) {
-                                    _viewCategoryModal.open();
+                                    _viewCategoryModal.open({ id: data.record.taskCategory.id });
                                 },
                             },
                             {
                                 text: app.localize('Edit'),
-                                //visible: function () {
-                                //    return _permissions.edit;
-                                //},
+                                visible: function () {
+                                    return _permissions.edit;
+                                },
                                 action: function (data) {
-                                    _createOrEditModal.open();
+                                    _createOrEditModal.open({ id: data.record.taskCategory.id });
                                 },
                             },
                             {
                                 text: app.localize('Delete'),
-                                //visible: function () {
-                                //    return _permissions.delete;
-                                //},
+                                visible: function () {
+                                    return _permissions.delete;
+                                },
                                 action: function (data) {
-                                    deleteMasterCategory(data.record.masterCategory);
+                                    deleteMasterCategory(data.record.taskCategory);
                                 },
                             },
                         ],
@@ -144,12 +144,12 @@
                 },
                 {
                     targets: 2,
-                    data: 'masterCategory.abbrivation',
+                    data: 'taskCategory.abbrivation',
                     name: 'abbrivation',
                 },
                 {
                     targets: 3,
-                    data: 'masterCategory.name',
+                    data: 'taskCategory.name',
                     name: 'name',
                 },
             ],
@@ -159,12 +159,12 @@
             dataTable.ajax.reload();
         }
 
-        function deleteMasterCategory(masterCategory) {
+        function deleteMasterCategory(taskCategory) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _masterCategoriesService
+                    _taskCategoriesService
                         .delete({
-                            id: masterCategory.id,
+                            id: taskCategory.id,
                         })
                         .done(function () {
                             getCategories(true);
@@ -191,9 +191,9 @@
         });
 
         $('#ExportToExcelButton').click(function () {
-            _masterCategoriesService
+            _taskCategoriesService
                 .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
+                    filter: $('#TaskCategoriesTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
                     nameFilter: $('#NameFilterId').val(),
                 })
@@ -202,7 +202,7 @@
                 });
         });
 
-        abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
+        abp.event.on('app.createOrEditTaskCategoryModalSaved', function () {
             getCategories();
         });
 

@@ -1,24 +1,34 @@
 ﻿
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Subject;
+@model SubjectViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
     <div id="InformationsTab">
 
-        <div class="row">
+        <div class="row"> 
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                "Subject"
+                @Model.Subject.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                "Test"
+                @Model.Subject.Name
             </div>
 
             <div class="col-6 mb-3">
                 <h6>(@L("SubjectArea")) @L("Name") :</h6>
-                "SubjectArea"
+                 
+                @if (!string.IsNullOrEmpty(Model.SubjectAreaName))
+                {
+                    @Model.SubjectAreaName
+                }
+                else
+                {
+                    <span>No Subject Area Name Available</span>
+                }
+                @*@Model.SubjectAreaName   *@           
             </div>
 
         </div>

@@ -1,17 +1,11 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditPartnerTypeModal = function () {
-    var _partnerTypesService = abp.services.app.partnerTypes;
+  app.modals.CreateOrEditSubjectModal = function () {
+    var _subjectsService = abp.services.app.subjects;
 
     var _modalManager;
-    var _$partnerTypeInformationForm = null;
+      var _$SubjectInformationForm = null;
 
-    var _PartnerTypemasterCategoryLookupTableModal = new app.ModalManager({
-      viewUrl: abp.appPath + 'AppAreaName/PartnerTypes/MasterCategoryLookupTableModal',
-      scriptUrl:
-        abp.appPath +
-        'view-resources/Areas/AppAreaName/Views/PartnerTypes/_PartnerTypeMasterCategoryLookupTableModal.js',
-      modalClass: 'MasterCategoryLookupTableModal',
-    });
+
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -23,45 +17,29 @@
         format: 'L',
       });
 
-      _$partnerTypeInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-      _$partnerTypeInformationForm.validate();
+        _$SubjectInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
+        _$SubjectInformationForm.validate();
     };
 
-    $('#OpenMasterCategoryLookupTableButton').click(function () {
-      var partnerType = _$partnerTypeInformationForm.serializeFormToObject();
+    
 
-      _PartnerTypemasterCategoryLookupTableModal.open(
-        { id: partnerType.masterCategoryId, displayName: partnerType.masterCategoryName },
-        function (data) {
-          _$partnerTypeInformationForm.find('input[name=masterCategoryName]').val(data.displayName);
-          _$partnerTypeInformationForm.find('input[name=masterCategoryId]').val(data.id);
-        }
-      );
-    });
-
-    $('#ClearMasterCategoryNameButton').click(function () {
-      _$partnerTypeInformationForm.find('input[name=masterCategoryName]').val('');
-      _$partnerTypeInformationForm.find('input[name=masterCategoryId]').val('');
-    });
+ 
 
     this.save = function () {
-      if (!_$partnerTypeInformationForm.valid()) {
-        return;
-      }
-      if ($('#PartnerType_MasterCategoryId').prop('required') && $('#PartnerType_MasterCategoryId').val() == '') {
-        abp.message.error(app.localize('{0}IsRequired', app.localize('MasterCategory')));
+        if (!_$SubjectInformationForm.valid()) {
         return;
       }
 
-      var partnerType = _$partnerTypeInformationForm.serializeFormToObject();
+
+        var Subject = _$SubjectInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _partnerTypesService
-        .createOrEdit(partnerType)
+      _subjectsService
+          .createOrEdit(Subject)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditPartnerTypeModalSaved');
+          abp.event.trigger('app.createOrEditSubjectModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

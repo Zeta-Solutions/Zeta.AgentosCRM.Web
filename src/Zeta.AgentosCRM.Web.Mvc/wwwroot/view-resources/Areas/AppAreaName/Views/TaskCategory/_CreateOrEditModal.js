@@ -1,6 +1,6 @@
 ﻿(function ($) {
-    app.modals.CreateOrEditMasterCategoryModal = function () {
-        var _masterCategoriesService = abp.services.app.masterCategories;
+    app.modals.CreateOrEditTaskCategoryModal = function () {
+        var _taskCategoriesService = abp.services.app.taskCategories;
 
         var _modalManager;
         var _$CategoryInformationForm = null;
@@ -27,12 +27,12 @@
             var Category = _$CategoryInformationForm.serializeFormToObject();
 
             _modalManager.setBusy(true);
-            _masterCategoriesService
+            _taskCategoriesService
                 .createOrEdit(Category)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+                    abp.event.trigger('app.createOrEditMasterTaskCategoryModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);
