@@ -1,5 +1,6 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Countries
+@model CountriesViewModel
 
 @section Scripts
 {
@@ -9,9 +10,9 @@
 <abp-page-subheader title='@L("Country")' description='@L("CountryHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_Countries))
     {
-    <button id="CreateNewCountryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCountry")</button>
+    <button id="CreateNewCountryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCountries")</button>
     }
 </abp-page-subheader>
 
@@ -24,7 +25,7 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="CountryTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <input type="text" id="CountryTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
                                 <button id="GetCountryButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
@@ -36,7 +37,12 @@
                 <div class="col-md-12">
 
                 </div>
-
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="RegionNameFilterId">(@L("Region")) @L("Name")</label>
+                        <input type="text" class="form-control" name="regionNameFilter" id="RegionNameFilterId">
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="my-3">
                         <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
@@ -49,6 +55,20 @@
                         <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
                     </div>
                 </div>
+                  <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="CodeFilterId">@L("Code")</label>
+                        <input type="number" class="form-control reload-on-keyup" name="codeFilter" id="CodeFilterId">
+                    </div>
+                </div>
+                  <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="IconFilterId">@L("Icon")</label>
+                        <input type="tel" class="form-control reload-on-keyup" name="iconFilter" id="IconFilterId">
+                    </div>
+                </div>
+                
+
 
                 <div class="col-md-12 mt-5">
                     <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
@@ -69,6 +89,9 @@
                             <th>@L("Actions")</th>
                             <th>@L("Abbrivation")</th>
                             <th>@L("Name")</th>
+                            <th>@L("Code")</th>
+                            <th>@L("Icon")</th>
+                            <th>@L("Region")</th>
                         </tr>
                     </thead>
                 </table>

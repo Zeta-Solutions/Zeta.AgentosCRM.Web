@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditMasterCategoryModal = function () {
-    var _masterCategoriesService = abp.services.app.masterCategories;
+    app.modals.CreateOrEditServiceCategoryModal = function () {
+        var _serviceCategoriesAppService = abp.services.app.serviceCategories;
 
     var _modalManager;
-    var _$masterCategoryInformationForm = null;
+    var _$serviceCategoryInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,24 +15,24 @@
         format: 'L',
       });
 
-      _$masterCategoryInformationForm = _modalManager.getModal().find('form[name=MasterCategoryInformationsForm]');
-      _$masterCategoryInformationForm.validate();
+        _$serviceCategoryInformationForm = _modalManager.getModal().find('form[name=ServiceCategoryInformationsForm]');
+        _$serviceCategoryInformationForm.validate();
     };
 
     this.save = function () {
-      if (!_$masterCategoryInformationForm.valid()) {
+        if (!_$serviceCategoryInformationForm.valid()) {
         return;
       }
 
-      var masterCategory = _$masterCategoryInformationForm.serializeFormToObject();
+        var serviceCategory = _$serviceCategoryInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _masterCategoriesService
-        .createOrEdit(masterCategory)
+        _serviceCategoriesAppService
+            .createOrEdit(serviceCategory)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+            abp.event.trigger('app.createOrEditServiceCategoryModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);
