@@ -7,7 +7,7 @@
 <div class="modal-body">
     <div id="InformationsTab">
 
-        <div class="row">
+        <div class="row"> 
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
                 @Model.Subject.Abbrivation
@@ -17,10 +17,19 @@
                 @Model.Subject.Name
             </div>
 
-          @*  <div class="col-6 mb-3">
+            <div class="col-6 mb-3">
                 <h6>(@L("SubjectArea")) @L("Name") :</h6>
-                @Model.SubjectAreaName
-            </div>*@
+                 
+                @if (!string.IsNullOrEmpty(Model.SubjectAreaName))
+                {
+                    @Model.SubjectAreaName
+                }
+                else
+                {
+                    <span>No Subject Area Name Available</span>
+                }
+                @*@Model.SubjectAreaName   *@           
+            </div>
 
         </div>
 

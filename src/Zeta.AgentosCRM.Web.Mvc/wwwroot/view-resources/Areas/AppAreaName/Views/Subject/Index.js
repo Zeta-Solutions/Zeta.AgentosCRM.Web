@@ -88,7 +88,7 @@
               filter: $('#SubjectsTableFilter').val(),
             abbrivationFilter: $('#AbbrivationFilterId').val(),
             nameFilter: $('#NameFilterId').val(),
-            masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
+              subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
           };
         },
       },
@@ -151,8 +151,8 @@
         },
         {
           targets: 4,
-          data: 'masterCategoryName',
-          name: 'masterCategoryFk.name',
+          data: 'subjectAreaName',
+          name: 'subjectAreaFk.name',
         },
       ],
     });
@@ -198,7 +198,7 @@
             filter: $('#SubjectsTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
           nameFilter: $('#NameFilterId').val(),
-          masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
+            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
         })
         .done(function (result) {
           app.downloadTempFile(result);
@@ -209,7 +209,7 @@
         getSubjects();
     });
 
-    $('#GetPartnerTypesButton').click(function (e) {
+      $('#GetSubjectAreaButton').click(function (e) {
       e.preventDefault();
         getSubjects();
     });

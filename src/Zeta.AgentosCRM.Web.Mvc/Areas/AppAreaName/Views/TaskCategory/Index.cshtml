@@ -1,17 +1,20 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.TaskCategories;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
- 
+@model TaskCategoriesViewModel
+  @{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.TaskCategory;
+}
 @section Scripts
 {
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Category/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/TaskCategory/Index.js" asp-append-version="true"></script>
 
 }
 
-<abp-page-subheader title='@L("Category")' description='@L("CategoryHeaderInfo")'>
+<abp-page-subheader title='@L("TaskCategory")' description='@L("TaskCategoryHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_TaskCategories_Create))
     {
     <button id="CreateNewCategoryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewCategory")</button>
     }
@@ -26,7 +29,7 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <input type="text" id="TaskCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
                                 <button id="GetCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>

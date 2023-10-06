@@ -36,7 +36,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             {
                 Subject = getSubjectForViewDto.Subject
                ,
-                //SubjectAreaName = getSubjectForViewDto.SubjectAreaName
+                SubjectAreaName = getSubjectForViewDto.SubjectAreaName
 
             };
             return PartialView("_ViewSubjectModal", model);
@@ -59,8 +59,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditSubjectModalViewModel()
             {
                 Subject = getSubjectForEditOutput.Subject,
-                //SubjectAreaName = getSubjectForEditOutput.SubjectAreaName,
-                //SubjectSubjectAreaList = await _subjectsAppService.GetAllSubjectAreaForTableDropdown(),
+                SubjectAreaName = getSubjectForEditOutput.SubjectAreaName,
+                SubjectSubjectAreaList = await _subjectsAppService.GetAllSubjectAreaForTableDropdown(),
 
             };
             return PartialView("_CreateOrEditModal", viewModel);

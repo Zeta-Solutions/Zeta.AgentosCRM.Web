@@ -53,7 +53,7 @@
             public const string Dashboard = "Dashboard.Tenant";
             public const string Settings = "Administration.Settings.Tenant";
             public const string SubscriptionManagement = "Administration.SubscriptionManagement.Tenant";
-            public const string Category = "CRMSetup.Category";
+            public const string TaskCategory = "CRMSetup.TaskCategory";
             public const string Taskpriority = "CRMSetup.Taskpriority";
             public const string DegreeLevel = "CRMSetup.DegreeLevel";
             public const string SubjectArea = "CRMSetup.SubjectArea";
