@@ -1,22 +1,22 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.InstallmentType
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-@model MasterCategoriesViewModel
+@model InstallmentTypesViewModel
 @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.InstallmentType;
 }
 @section Scripts
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/InstallmentType/Index.js" asp-append-version="true"></script>
 }
 
-<abp-page-subheader title='@L("Installment Type")' description='@L("InstallmentTypeHeaderInfo")'>
+<abp-page-subheader title='@L("InstallmentType")' description='@L("InstallmentTypeHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
-@* 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
-    { *@
+
+    @if (IsGranted(AppPermissions.Pages_InstallmentTypes_Create))
+    {
     <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewInstallmentType")</button>
-   @*  } *@
+    }
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">

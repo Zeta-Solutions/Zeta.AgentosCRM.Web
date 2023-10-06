@@ -86,6 +86,8 @@
                       filter: $('#MasterCategoriesTableFilter').val(),
                       abbrivationFilter: $('#AbbrivationFilterId').val(),
                       nameFilter: $('#NameFilterId').val(),
+                      masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
+
                   };
               },
           },
@@ -139,13 +141,19 @@
               },
               {
                   targets: 2,
-                  data: 'productType.abbrivaion',
+                  data: 'productType.abbrivation',
                   name: 'abbrivation',
               },
               {
                   targets: 3,
                   data: 'productType.name',
                   name: 'name',
+              },
+
+              {
+                  targets: 4,
+                  data: 'masterCategoryName',
+                  name: 'masterCategoryFk.name',
               },
           ],
       });
@@ -189,7 +197,9 @@
         .getMasterCategoriesToExcel({
           filter: $('#MasterCategoriesTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
-          nameFilter: $('#NameFilterId').val(),
+            nameFilter: $('#NameFilterId').val(),
+            masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
+
         })
         .done(function (result) {
           app.downloadTempFile(result);

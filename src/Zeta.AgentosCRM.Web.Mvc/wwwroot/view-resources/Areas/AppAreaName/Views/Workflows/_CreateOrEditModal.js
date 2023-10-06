@@ -1,11 +1,12 @@
-﻿(function ($) {
+﻿
+(function ($) {
     app.modals.CreateOrEditWorkflowModal = function () {
         var _workflowsService = abp.services.app.workflows;
 
         var _modalManager;
         var _$workflowInformationForm = null;
         //var _$WorkflowInformationSetupsForm = null; 
-         
+
 
 
         var _$WorkflowSetupInformationSetupsForm = "";
@@ -26,91 +27,82 @@
             _$WorkflowSetupInformationSetupsForm = _modalManager.getModal().find('form[name=WorkflowSetupInformationSetupsForm]');
             _$WorkflowSetupInformationSetupsForm.validate();
 
-            //var Workflowsetuptable = _modalManager.getModal().find('table[name=Workflowsetuptable]');
-            //_$WorkflowSetupInformationSetupsForm.find('name=Workflowsetuptable')
-
-
-            
 
         };
 
-        var SrlNo = document.getElementById("abbrivation");
+        var SrlNo = document.getElementById("Srno");
         var Abbrivation = document.getElementById("abbrivation");
         var Name = document.getElementById("name");
 
-        var Workflowsetuptable = $('#Workflowsetuptable').DataTable({
-
-        });
+        var Workflowsetuptable = $('#Workflowsetuptable').DataTable();
         $(document).find('.add-button').on('click', (e) => {
             debugger
+            if (!_$WorkflowSetupInformationSetupsForm.valid()) {
+                return;
+            }
+            // Srl = $("#Srno").val();
+            //Abbr = $("#abbrivation").val();
+            //nam = $("#name").val();
+
+            //if (Srl == "") {
+            //    return;
+            //}
+            //if (Abbr == "") {
+            //    return;
+            //} 
+            //if (nam.length < 5 || nam == "") {
+            //    return;
+            //}
             Workflowsetuptable.row
                 .add([
-                    '1',
+                    SrlNo.value,
                     Abbrivation.value,
                     Name.value,
-                    '<button type="button" class="btn btn-sm bg-danger edit delete" data-workflow-id="1"></button>' 
+                    '<button type="button" class="btn btn-sm delete" data-workflow-id="0"><i class="fa fa-trash" style="font-size: 30px"></i></button>'
                 ])
                 .draw(false);
-                /*
-            var Abbrivation = document.getElementById("abbrivation");
-            var Name = document.getElementById("name");
-            var rowIndex = Workflowsetuptable.rows.length;
-
-            var dataRow = document.createElement("tr");
-
-            var dataColumn = document.createElement("td");
-            dataColumn.innerText = "1";
-            //dataColumn.innerText = rowIndex;
-            //dataColumn.style.display="none";
-            dataRow.appendChild(dataColumn);
-
-            //dataColumn = document.createElement("td");
-            //dataColumn.innerText = "1";
-            //dataRow.appendChild(dataColumn);
-
-            dataColumn = document.createElement("td");
-            dataColumn.innerText = Abbrivation.value;
-            dataRow.appendChild(dataColumn);
-
-            dataColumn = document.createElement("td");
-            dataColumn.innerText = Name.value;
-            dataRow.appendChild(dataColumn);
-
-            dataColumn = document.createElement("td");
-            dataColumn.innerHTML = '<button type="button" class="btn btn-sm bg-danger data-workflow-id="1" edit delete"></button>';
-            dataRow.appendChild(dataColumn);
-
-            debugger
-            Workflowsetuptable.rows.add(dataRow);
-            */
+            WorkflowsetupFeildClear();
         });
 
         $(document).on('click', '.delete', function () {
-            var workflowtableId = $(this).attr("data-workflow-id");
-
+            //var Workflowsetuptablerow = $(this).closest("tr");
+            //Workflowsetuptablerow.find(".data-workflow-id").text();
+            //$(this).closest('tr').delete();
+            //Workflowsetuptable.row(this).delete();
+            Workflowsetuptable
+                .row($(this).parents('tr'))
+                .remove()
+                .draw();
         });
-        function WorkflowsetupRowDelete(workflowtableId) {
-            for (var i = 0; i < Workflowsetuptable.rows.length; i++) {
-                if (Workflowsetuptable.rows[i].cells[0].innerText == workflowtableId) {
-                    Workflowsetuptable.rows[0].remove();
-                }
-
-            }
+        function WorkflowsetupFeildClear() {
+            SrlNo.value = '';
+            Abbrivation.value = '';
+            Name.value = '';
         }
-        //var Workflowsetuptable = _$WorkflowSetupInformationSetupsForm.find('#Workflowsetuptable')
 
         this.save = function () {
             debugger
             if (!_$workflowInformationForm.valid()) {
                 return;
             }
-            if (!_$WorkflowSetupInformationSetupsForm.valid()) {
-                return;
-            }
+            
+            var data = Workflowsetuptable
+                .rows().data().toArray();
+            var dataRows = "";
+            for (var i = 0; i < data.length; i++) {
+                debugger
+                var SrlnoGrid = data[i][0];
+                var AbbrivationGrid = data[i][1];
+                var NameGrid = data[i][2];
 
+                dataRows += '{"SrlNo":"' + SrlnoGrid + '","Abbrivation":"' + AbbrivationGrid + '","Name":"' + NameGrid + '"},';
+            }
+            dataRows = dataRows.substring(0, dataRows.length - 1);
+            debugger
+            var Steps = "[" + dataRows + "]";
+            Steps = JSON.parse(Steps);
             var workflow = _$workflowInformationForm.serializeFormToObject();
-            var workflowSetup = _$WorkflowSetupInformationSetupsForm.serializeFormToObject();
-            workflow.workflowSetup = workflowSetup;
+            workflow.Steps = Steps;
             _modalManager.setBusy(true);
             _workflowsService
                 .createOrEdit(workflow)

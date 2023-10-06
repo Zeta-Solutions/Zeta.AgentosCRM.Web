@@ -24,20 +24,23 @@
         <form name="WorkflowSetupInformationSetupsForm" id="WorkflowSetupInformationSetupsForm" role="form" novalidate class="form-validation">
             <hr />
             <div class="form-group row">
-                <label class="col-md-3 col-form-label">@L("SrNo")</label>
+                <h4>@("Create new workflow setup")</h4>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">@L("SrlNo")</label>
                 <label class="col-md-3 col-form-label">@L("Abbrivation")</label>
                 <label class="col-md-3 col-form-label">@L("Name")</label>
             </div>
             <div class="form-group row">
                 <div class="col-md-3">
-                    <input type="text" id="Srno" name="srno" class="form-control" maxlength="5" />
+                    <input type="number" id="Srno" name="srno" class="form-control" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" />
                 </div>
                 <div class="col-md-3">
-                    <input type="text" id="abbrivation" name="abbrivation" class="form-control" maxlength="5" />
+                    <input type="text" id="abbrivation" name="abbrivation" class="form-control" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
 
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="name" name="name" class="form-control" maxlength="30" />
+                    <input type="text" id="name" name="name" class="form-control" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
 
                 </div>
                 <div class="col-md-2">
@@ -49,7 +52,7 @@
                     <table id="Workflowsetuptable" name="Workflowsetuptable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>@L("Srno")</th> 
+                                <th>@L("SrlNo")</th> 
                                 <th>@L("Abbrivation")</th>
                                 <th>@L("Name")</th>
                                 <th>@L("Action")</th>

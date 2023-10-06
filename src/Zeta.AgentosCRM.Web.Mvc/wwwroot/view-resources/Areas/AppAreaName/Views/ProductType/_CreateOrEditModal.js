@@ -24,6 +24,10 @@
         return;
       }
 
+        if ($('#ProductType_MasterCategoryId').prop('required') && $('#ProductType_MasterCategoryId').val() == '') {
+            abp.message.error(app.localize('{0}IsRequired', app.localize('MasterCategory')));
+            return;
+        }
         var productType = _$productTypeInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);

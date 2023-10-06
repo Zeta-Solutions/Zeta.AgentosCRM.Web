@@ -11,11 +11,16 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                @Model.ProductType.Abbrivaion
+                @Model.ProductType.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
                 @Model.ProductType.Name
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("MasterCategory")) @L("Name") :</h6>
+                @Model.MasterCategoryName
             </div>
 
         </div>

@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
       var _$InstallmentTypeTable = $('#InstallmentTypeTable');
-    var _masterCategoriesService = abp.services.app.masterCategories;
+      var _installmentTypesService = abp.services.app.installmentTypes;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +21,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getMasterCategories();
+          getInstallmentTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getMasterCategories();
+          getInstallmentTypes();
       });
 
     $('.endDate')
@@ -38,27 +38,27 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getMasterCategories();
+          getInstallmentTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getMasterCategories();
+          getInstallmentTypes();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-      edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-      delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+        create: abp.auth.hasPermission('Pages.InstallmentTypes.Create'),
+        edit: abp.auth.hasPermission('Pages.InstallmentTypes.Edit'),
+        delete: abp.auth.hasPermission('Pages.InstallmentTypes.Delete'),
     };
 
     var _createOrEditModal = new app.ModalManager({
       viewUrl: abp.appPath + 'AppAreaName/InstallmentType/CreateOrEditModal',
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/InstallmentType/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditInstallmentTypeModal',
     });
 
-    var _viewMasterCategoryModal = new app.ModalManager({
+    var _viewInstallmentTypeModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/InstallmentType/ViewInstallmentTypeModal',
         modalClass: 'ViewInstallmentTypeModal',
     });
@@ -81,7 +81,7 @@
           serverSide: true,
           processing: true,
           listAction: {
-              ajaxFunction: _masterCategoriesService.getAll,
+              ajaxFunction: _installmentTypesService.getAll,
               inputFilter: function () {
                   return {
                       filter: $('#MasterCategoriesTableFilter').val(),
@@ -114,16 +114,16 @@
                               text: app.localize('View'),
                               action: function (data) {
                                   //_viewSourceModal.open();
-                                  _viewMasterCategoryModal.open();
+                                  _viewInstallmentTypeModal.open({ id: data.record.installmentType.id });
                               },
                           },
                           {
                               text: app.localize('Edit'),
-                              //visible: function () {
-                              //  return _permissions.edit;
-                              //},
+                              visible: function () {
+                                return _permissions.edit;
+                              },
                               action: function (data) {
-                                  _createOrEditModal.open();
+                                  _createOrEditModal.open({ id: data.record.installmentType.id });
                               },
                           },
                           {
@@ -132,7 +132,7 @@
                               //  return _permissions.delete;
                               //},
                               action: function (data) {
-                                  deleteMasterCategory(data.record.masterCategory);
+                                  deleteInstallmentType(data.record.installmentType);
                               },
                           },
                       ],
@@ -140,29 +140,29 @@
               },
               {
                   targets: 2,
-                  data: 'masterCategory.abbrivation',
+                  data: 'installmentType.abbrivation',
                   name: 'abbrivation',
               },
               {
                   targets: 3,
-                  data: 'masterCategory.name',
+                  data: 'installmentType.name',
                   name: 'name',
               },
           ],
       });
-    function getMasterCategories() {
+    function getInstallmentTypes() {
       dataTable.ajax.reload();
     }
 
-    function deleteMasterCategory(masterCategory) {
+      function deleteInstallmentType(installmentType) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _masterCategoriesService
+            _installmentTypesService
             .delete({
-              id: masterCategory.id,
+                id: installmentType.id,
             })
             .done(function () {
-              getMasterCategories(true);
+                getInstallmentTypes(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -186,7 +186,7 @@
     });
 
     $('#ExportToExcelButton').click(function () {
-      _masterCategoriesService
+        _installmentTypesService
         .getMasterCategoriesToExcel({
           filter: $('#MasterCategoriesTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -197,32 +197,32 @@
         });
     });
 
-    abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-      getMasterCategories();
+      abp.event.on('app.createOrEditInstallmentTypeModalSaved', function () {
+          getInstallmentTypes();
     });
 
     $('#GetMasterCategoriesButton').click(function (e) {
       e.preventDefault();
-      getMasterCategories();
+        getInstallmentTypes();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-        getMasterCategories();
+          getInstallmentTypes();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-      getMasterCategories();
+        getInstallmentTypes();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-      getMasterCategories();
+        getInstallmentTypes();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-      getMasterCategories();
+        getInstallmentTypes();
     });
   });
 })();

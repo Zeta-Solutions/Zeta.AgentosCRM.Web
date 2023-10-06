@@ -51,7 +51,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             }
             var Viewmodel = new CreateOrEditProductTypeModalViewModel()
             {
-                ProductType = getProductTypeForEditOutput.ProductType
+                ProductType = getProductTypeForEditOutput.ProductType,
+                MasterCategoryName = getProductTypeForEditOutput.MasterCategoryName,
+                ProductTypeMasterCategoryList = await _productTypesAppService.GetAllMasterCategoryForTableDropdown(),
             };
 
 
@@ -64,7 +66,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var getProductTypeForViewDto = await _productTypesAppService.GetProductTypeForView(id);
             var model = new ProductTypeViewModel()
             {
-                ProductType = getProductTypeForViewDto.ProductType
+                ProductType = getProductTypeForViewDto.ProductType,
+
+                MasterCategoryName = getProductTypeForViewDto.MasterCategoryName
             };
              
             return PartialView("_ViewProductTypeModal", model);

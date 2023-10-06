@@ -1,26 +1,29 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Regions")))
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Regions
+@model CreateOrEditRegionModalViewModel
+@using Abp.Extensions
 
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRegion")) : L("CreateNewRegion")))
+ 
 <div class="modal-body">
-    <div id="InformationsTab">
-        <form name="InformationsForm" role="form" novalidate class="form-validation">
+    <div id="RegionInformationsTab">
+        <form name="RegionInformationsForm" role="form" novalidate class="form-validation">
 
-          @*   @if (Model.IsEditMode)
-            { *@
-            <input type="hidden" name="id" value="123" @* value="@Model.MasterCategory.Id"  *@/>
-            @* } *@
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id"  value="@Model.Region.Id"/>
+            }
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="MasterCategory_Abbrivation" @* value="@Model.MasterCategory.Abbrivation" *@ value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <label class="form-label" for="Region_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="Region_Abbrivation" value="@Model.Region.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Regions.RegionConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Regions.RegionConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
-                <input class="form-control" id="MasterCategory_Name" @* value="@Model.MasterCategory.Name" *@ value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <label class="form-label" for="Region_Name">@L("Name")</label>
+                <input class="form-control" id="Region_Name" value="@Model.Region.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Regions.RegionConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Regions.RegionConsts.MinNameLength" />
             </div>
 
         </form>

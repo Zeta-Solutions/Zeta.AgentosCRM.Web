@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
       var _$RegionsTable = $('#RegionsTable');
-    var _masterCategoriesService = abp.services.app.masterCategories;
+      var _regionsService = abp.services.app.regions;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +21,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getMasterCategories();
+          getRegions();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getMasterCategories();
+          getRegions();
       });
 
     $('.endDate')
@@ -38,27 +38,27 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getMasterCategories();
+          getRegions();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getMasterCategories();
+          getRegions();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-      edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-      delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+        create: abp.auth.hasPermission('Pages.Regions.Create'),
+        edit: abp.auth.hasPermission('Pages.Regions.Edit'),
+        delete: abp.auth.hasPermission('Pages.Regions.Delete'),
     };
 
     var _createOrEditModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/Regions/CreateOrEditModal',
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Regions/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditRegionModal',
     });
 
-    var _viewMasterCategoryModal = new app.ModalManager({
+      var _viewRegionModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/Regions/ViewRegionsModal',
         modalClass: 'ViewRegionsModal',
     });
@@ -81,7 +81,7 @@
           serverSide: true,
           processing: true,
           listAction: {
-              ajaxFunction: _masterCategoriesService.getAll,
+              ajaxFunction: _regionsService.getAll,
               inputFilter: function () {
                   return {
                       filter: $('#MasterCategoriesTableFilter').val(),
@@ -114,25 +114,25 @@
                               text: app.localize('View'),
                               action: function (data) {
                                   //_viewSourceModal.open();
-                                  _viewMasterCategoryModal.open();
+                                  _viewRegionModal.open({ id: data.record.region.id });
                               },
                           },
                           {
                               text: app.localize('Edit'),
-                              //visible: function () {
-                              //  return _permissions.edit;
-                              //},
+                              visible: function () {
+                                return _permissions.edit;
+                              },
                               action: function (data) {
-                                  _createOrEditModal.open();
+                                  _createOrEditModal.open({ id: data.record.region.id });
                               },
                           },
                           {
                               text: app.localize('Delete'),
-                              //visible: function () {
-                              //  return _permissions.delete;
-                              //},
+                              visible: function () {
+                                return _permissions.delete;
+                              },
                               action: function (data) {
-                                  deleteMasterCategory(data.record.masterCategory);
+                                  deleteRegion(data.record.region);
                               },
                           },
                       ],
@@ -140,29 +140,29 @@
               },
               {
                   targets: 2,
-                  data: 'masterCategory.abbrivation',
+                  data: 'region.abbrivation',
                   name: 'abbrivation',
               },
               {
                   targets: 3,
-                  data: 'masterCategory.name',
+                  data: 'region.name',
                   name: 'name',
               },
           ],
       });
-    function getMasterCategories() {
+    function getRegions() {
       dataTable.ajax.reload();
     }
 
-    function deleteMasterCategory(masterCategory) {
+      function deleteRegion(regions) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _masterCategoriesService
+            _regionsService
             .delete({
-              id: masterCategory.id,
+                id: regions.id,
             })
             .done(function () {
-              getMasterCategories(true);
+                getRegions(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -186,7 +186,7 @@
     });
 
     $('#ExportToExcelButton').click(function () {
-      _masterCategoriesService
+        _regionsService
         .getMasterCategoriesToExcel({
           filter: $('#MasterCategoriesTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -197,32 +197,32 @@
         });
     });
 
-    abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-      getMasterCategories();
+      abp.event.on('app.createOrEditRegionModalSaved', function () {
+        getRegions();
     });
 
     $('#GetMasterCategoriesButton').click(function (e) {
       e.preventDefault();
-      getMasterCategories();
+        getRegions();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-        getMasterCategories();
+          getRegions();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-      getMasterCategories();
+        getRegions();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-      getMasterCategories();
+        getRegions();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-      getMasterCategories();
+        getRegions();
     });
   });
 })();
