@@ -1,0 +1,46 @@
+﻿@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    }
+<div class="card maincard">
+    <div class="card-body ">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header ">
+                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        SECTION 1
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label"> Marketing office email</label>
+                                            <input type="email" class="form-control" id="email" name="email">
+                                        </div>
+                                      
+                                        <div class="col-md-6 mb-3">
+                                            <label for="UNIVERSITY" class="form-label">UNIVERSITY </label>
+                                            <select class="form-control" id="UNIVERSITY" name="UNIVERSITY">
+                                                <option value="University">PU </option>
+                                                <option value="University">UOL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
