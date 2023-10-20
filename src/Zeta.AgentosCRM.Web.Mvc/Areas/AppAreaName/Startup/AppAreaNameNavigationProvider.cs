@@ -190,7 +190,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         icon: "flaticon-shapes",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
                     )
-                ).AddItem(new MenuItemDefinition(
+                )
+                .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.Agent,
+                        L("Agent"),
+                        url: "AppAreaName/Agents",
+                        icon: "flaticon-shapes"
+                    //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.CRMSetup,
                         L("CRMSetup"),
                         icon: "flaticon-shapes"

@@ -1,0 +1,45 @@
+﻿<div class="maincard mt-1">
+    <div class="col-md-12 text-end mb-3">
+        @* <a href="@Url.Action("CreateOrEditNotesAndTermsModal", "Agents", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">@L("Add")</a> *@
+
+        <button id="CreateNewNotesButton" class="btn btn-sm btn-primary blue"><i class="fa fa-plus"></i> @L("Add Notes And Terms")</button>
+    </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                    <div class="row align-items-center">
+                        <table id="NotesAndTermsTable" class="table align-middle   fs-8 gy-2 dataTable no-footer">
+                            <thead class="thead">
+                                <tr>
+                                    <th></th>
+
+                                    @* <th>@L("Actions")</th> *@
+                                    <th>@L("Title")</th>
+                                    <th>@L("Detail")</th>
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>Student</td>
+                                    <td>VISA </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Student</td>
+                                    <td>VISA </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

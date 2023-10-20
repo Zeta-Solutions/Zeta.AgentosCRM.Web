@@ -1,0 +1,64 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+}
+@* <head>
+    <style>
+
+        .maincard {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head> *@
+<div>
+    <div class="card card-custom gutter-b maincard">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="fixed-width-div" style="max-width: 1500px;">
+                    <div style="overflow-x: auto;">
+                        <table id="Clienttable" class="table align-middle   fs-8 gy-2 dataTable no-footer"> 
+                            <thead class="thead">
+                                <tr>
+
+                                    <th>@L("Name")</th>
+                                    <th>@L("Tag")</th>
+                                    <th>@L("City/Country Stage")</th>
+                                    <th>@L("Status")</th>
+                                    <th>@L("Assignee")</th>
+                                    <th>@L("Added Date")</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td> <label>PRO FUTURE </label> </td>
+                                    <td><label>Sub Agent</label></td>
+                                    <td><label>Individual</label></td>
+                                    <td><label>03002515224</label></td>
+                                    <td><label>Active</label></td>
+                                    <td><label>1900-01-01</label></td>
+
+                                </tr>
+                                <tr>
+
+                                    <td> <label>PRO FUTURE </label> </td>
+                                    <td><label>Sub Agent</label></td>
+                                    <td><label>Individual</label></td>
+                                    <td><label>03002515224</label></td>
+                                    <td><label>Active</label></td>
+                                    <td><label>1900-01-01</label></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
