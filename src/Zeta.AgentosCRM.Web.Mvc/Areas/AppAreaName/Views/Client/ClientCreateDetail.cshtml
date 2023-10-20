@@ -1,0 +1,363 @@
+﻿@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true"/>
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+}
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
+  <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true"/>
+<div class="card maincard">
+    <div class="card-body">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <span class="toggle-text">Personal Details</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="rounded-circle border border-secondary mx-auto position-relative overflow-hidden" style="width: 150px; height: 150px;">
+                                                <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" id="imageField" name="imageField" accept="image/*" style="opacity: 0;">
+                                                <label for="imageField" class="d-block position-absolute bottom-0 start-50 translate-middle-x">Click to upload</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    
+                                                        <div class="my-3 col-6">
+                                                            <label class="form-label" for="Client_Abbrivation">@L("FirstName")</label>
+                                                            <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                                        </div>
+                                                   
+                                                    <div class="my-3 col-6">
+                                                        <label class="form-label" for="Client_Name">@L("LastName")</label>
+                                                        <input class="form-control" id="Client_Name" value=" " type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                                                    </div>
+                                                    <div class="my-3 col-6">
+                                                        <label class="form-label" for="Client_Name">@L("DOB")</label>
+
+                                                          <div id="SampleDatePicker" class="input-group">
+                                                        <input type="datetime" name="SampleDatePicker" class="form-control date-picker">
+                                                    </div>
+                                                    </div>
+                                                   <div class="my-3 col-6">
+                                                        <label class="form-label" for="Client_Name">@L("ClientID")</label>
+
+                                                        <input class="form-control" id="Client_Name" value=" " type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                          <span class="toggle-text">Contact Details</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                         <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Email")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Phone No")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                            <div class="my-3 col-4 text-center">
+                                            <label class="form-label" for="Client_Abbrivation">@L("Contact preference")</label>
+
+                                            <div class="d-flex justify-content-center">
+            <!-- Email Button -->
+                                            <button class="btn btn-primary btn-circle me-3">
+                                            <span class="">Email</span>
+                                            <i class="fas fa-envelope"></i>
+                                            </button>
+
+            <!-- SMS Button -->
+                                        <button class="btn btn-primary btn-circle">
+                                            <span class="">SMS</span>
+                                            <i class="fas fa-sms"></i>
+                                            </button>
+        </div>
+</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  <span class="toggle-text">Address</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Street")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                            <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("City")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                               <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("State")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                               <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Zip/Post Code")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                                 <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Country")</label>
+                                         
+                                                        <select class="form-control" id="Country" name="Country">
+                                                            <option value="Country">Country 1</option>
+                                                            <option value="Country">Country 2</option>
+                                                        </select>
+                    
+                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                       <span class="toggle-text">Current Visa Information</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Preferred Intake")</label>
+                                          <div id="SampleDatePicker" class="input-group">
+                                                        <input type="datetime" name="SampleDatePicker" class="form-control date-picker">
+                                                    </div>
+                                           </div>
+                                            <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Country of Password")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                    
+                                           </div>
+                                          <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Passport Number")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                            <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Visa Type")</label>
+                                          <input class="form-control" id="Client_Abbrivation" value=" " type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                                           </div>
+                                            <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Visa Expiray Date")</label>
+                                          <div id="SampleDatePicker" class="input-group">
+                                                        <input type="datetime" name="SampleDatePicker" class="form-control date-picker">
+                                                    </div>
+                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                     <span class="toggle-text">Education</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Highest Qualification")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                    
+                                           </div>
+                                             <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("IElts/PTE Tranning Required")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                    
+                                           </div>
+                                              <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Preferred Study Area")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                    
+                                           </div>
+                                            <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Preferred University")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                    
+                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                       <span class="toggle-text">Application</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                           <div class="my-3 col-12">
+                                          <label class="form-label" for="Client_Application">@L("Application")</label>
+                    <input class="form-control" id="Client_Application" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <p id="p">*Email Adress must be entered to select Application</p>
+                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                         <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                       <span class="toggle-text">Internal</span>
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Abbrivation">@L("Assignee")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                                           </div>
+                                           <div class="my-3 col-4">
+                                           <label class="form-label" for="Client_Abbrivation">@L("Followers")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                                           </div>
+                                           <div class="my-3 col-4">
+                                          <label class="form-label" for="Client_Application">@L("Choose a Source")</label>
+                    <input class="form-control" id="Client_Application" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                                           </div>
+                                              <div class="my-3 col-4">
+                                           <label class="form-label" for="Client_Abbrivation">@L("Tag name")</label>
+                                          <select class="form-control" id="Country" name="Country">
+                                           <option value="Country">Country 1</option>
+                                             <option value="Country">Country 2</option>
+                                           </select>
+                                           </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+    </div>
+</div>

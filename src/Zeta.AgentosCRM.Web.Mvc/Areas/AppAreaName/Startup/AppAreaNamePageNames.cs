@@ -58,8 +58,9 @@
             //public const string Qualification = "CRMSetup.Qualification";
             //public const string IEltestraining = "CRMSetup.IEltestraining";
             //public const string PreferStudyArea = "CRMSetup.PreferStudyArea";
-            public const string Subject = "CRMSetup.Subject";
-            public const string Partners = "Dashboard.Partners";
+            public const string Subject = "CRMSetup.Subject"; 
+            public const string Clients = "CRMSetup.Clients"; 
+            public const string Partners = "Dashboard.Partners"; 
         }
     }
 }

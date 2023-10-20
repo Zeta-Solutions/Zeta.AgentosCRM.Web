@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewClients")))
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="InformationsForm" role="form" novalidate class="form-validation">
+             
+                <input type="hidden" name="id" value="1" />
+            
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                <label class="form-label" for="Client_Abbrivation">@L("FirstName")</label>
+                    <input class="form-control" id="Client_Abbrivation" value="Test" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+            </div>
+
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Client_Name">@L("LastName")</label>
+                    <input class="form-control" id="Client_Name" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Client_Email">@L("Email")</label>
+                    <input class="form-control" id="Client_Email" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+             <div class="my-3 col-6">
+                    <label class="form-label" for="Client_Phone">@L("Phone")</label>
+                    <input class="form-control" id="Client_Phone" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+                    <div class="my-3 col-12">
+                    <label class="form-label" for="Client_Assignee">@L("Assignee")</label>
+                    <input class="form-control" id="Client_Assignee" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+                     <div class="my-3 col-12">
+                    <label class="form-label" for="Client_Application">@L("Application")</label>
+                    <input class="form-control" id="Client_Application" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <p id="p">*Email Adress must be entered to select Application</p>
+                    <div class="link">
+                        <a href="@Url.Action("ClientCreateDetail", "Client", new { area = "AppAreaName" })">Add more details</a>
+                    </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

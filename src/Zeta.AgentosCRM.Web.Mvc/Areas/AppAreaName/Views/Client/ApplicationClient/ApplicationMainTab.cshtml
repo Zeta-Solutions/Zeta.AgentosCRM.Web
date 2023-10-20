@@ -1,0 +1,197 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  }
+
+<div class="row maincard mt-5">
+    @*     <abp-page-subheader title='@L("MainForm")' description='@L("MainFormInfo")'>
+
+
+    </abp-page-subheader> *@
+    <div class="row pt-2">
+        <div class="card">
+            <div class="card-head">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <input type="radio" /> In Progress
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ibox-tools">
+                                        <button type="button" class="btn btn-w-m btn-Success  btn-sm pull-right  ">Processed to next stage</button>
+                                        <button type="button" class="btn btn-w-m btn-primary  btn-sm pull-right  ">Back to previous stage</button>
+                                        <button type="button" class="btn btn-w-m btn-danger btn-sm pull-right  ">Discontinue</button>
+                                        <button type="button" class="btn btn-w-m btn-primary  btn-sm pull-right  ">Print</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <!-- Subject input -->
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Course:</label>
+                        <div class="col-lg-12">
+                            <label>Bachelor of Science</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">University:</label>
+                        <div class="col-lg-12">
+                            <label>South Asia University</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Branch:</label>
+                        <div class="col-lg-12">
+                            <label>Lahore</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label"> Work Flow:</label>
+                        <div class="col-lg-12">
+                            <label>Austrial Education with VISA</label>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    @*  </div>
+                    <div class="row"> *@
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Current Stage:</label>
+                        <div class="col-lg-12">
+                            <label>Application</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Application ID:</label>
+                        <div class="col-lg-12">
+                            <label>1234</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Partner Client ID:</label>
+                        <div class="col-lg-12">
+                            <label>1234</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Started at:</label>
+                        <div class="col-lg-12">
+                            <label>1234</label>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Last Updated:</label>
+                        <div class="col-lg-12">
+                            <label>1234</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label for="control-label">Overall Progress:</label>
+
+                        <svg height="70" width="70">
+                            <circle cx="30" cy="30" r="20" stroke="black" stroke-width="2" fill="White" />
+                        </svg>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    @*  <div class="circle"></div>
+    <div class="line"></div>
+    <div class="circle"></div> *@
+</div>
+
+
+
+
+
+<div class="mt-2 maincard">
+    <div class="card navbar-link-card-height pt-1 pr-1 pb-3 pl-2 d-flex">
+        <div class="card-head">
+            <div class="d-flex  h-55px navbar-link-card-Allign">
+                <ul class="
+          nav nav-stretch nav-line-tabs nav-line-tabs-2x
+          border-transparent
+          fs-5
+          fw-bolder
+
+          ml-3 pl-2
+        ">
+                    <li class="nav-item">
+                        <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font">
+                            @L("Activities")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#DocumentTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Document")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#NoteTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Note")
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#TasksTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Tasks")
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#PaymentschedulesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Payment Schedule")
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="tab-content">
+        <div class="tab-pane pt-5 " id="ActivitiesTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ApplicationClient/ApplicationTab.cshtml")
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

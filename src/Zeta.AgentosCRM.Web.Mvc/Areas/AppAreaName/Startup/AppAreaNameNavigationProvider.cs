@@ -378,7 +378,20 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             //permissionDependency: new SimplePermissionDependency(
                             //    AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
-                    )
+                    ) 
+                )
+
+            .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Clients,
+                            L("Clients"),
+                            url: "AppAreaName/Client",
+                            icon: "flaticon-more"
+                        // permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+
+                    );
+
+ 
                   
                     //.AddItem(new MenuItemDefinition(
                     //        AppAreaNamePageNames.Tenant.Status,
@@ -399,7 +412,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(
                             AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
-                    );
+                    ); 
         }
 
         private static ILocalizableString L(string name)
