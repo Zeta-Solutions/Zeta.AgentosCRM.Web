@@ -55,7 +55,7 @@
                         {
                             <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
                         }
-                        
+                         
                         @if(Model.User.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Administration_Users_ChangeProfilePicture)){
                             <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button>
                         }

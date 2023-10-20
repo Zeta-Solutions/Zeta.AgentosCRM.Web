@@ -15,9 +15,7 @@ namespace Zeta.AgentosCRM.Migrations
                 name: "FK_SubjectAreas_Subjects_SubjectId",
                 table: "SubjectAreas");
 
-            migrationBuilder.DropTable(
-                name: "Countries");
-
+             
             migrationBuilder.DropIndex(
                 name: "IX_SubjectAreas_SubjectId",
                 table: "SubjectAreas");
@@ -69,39 +67,14 @@ namespace Zeta.AgentosCRM.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.CreateTable(
-                name: "Countries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Abbrivation = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Icon = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Countries", x => x.Id);
-                });
+            
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectAreas_SubjectId",
                 table: "SubjectAreas",
                 column: "SubjectId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Countries_TenantId",
-                table: "Countries",
-                column: "TenantId");
+            
 
             migrationBuilder.AddForeignKey(
                 name: "FK_SubjectAreas_Subjects_SubjectId",

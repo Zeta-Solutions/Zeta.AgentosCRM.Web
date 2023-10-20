@@ -83,10 +83,10 @@
     }
 
 }
-
+@* 
 <input hidden id="DashboardName" value="@Model.DashboardOutput.Name"/>
 <abp-page-subheader title="@L("Dashboard")" description="@L("DashboardHeaderInfo")">
-    @if (allModelWidgetFilterOutputs.Any())
+    @if (allModelWidgetFilterOutputs.Any()) 
     {
         <button type="button" class="btn btn-light-primary" id="btn-modal-filter-open" data-bs-toggle="modal" data-bs-target="#filterModal">
             <i class="fa fa-filter"></i>
@@ -280,4 +280,4 @@
             </div>
         </div>
     </div>
-}
+}*@
