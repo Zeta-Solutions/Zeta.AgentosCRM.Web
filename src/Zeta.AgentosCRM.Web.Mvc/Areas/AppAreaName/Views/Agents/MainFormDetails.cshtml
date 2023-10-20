@@ -1,0 +1,496 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+}
+@section Scripts
+    {
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script> *@
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/_NotesAndTerms.js" asp-append-version="true"></script>
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.js" asp-append-version="true"></script> *@
+}
+ 
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  }
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+}
+
+<div class="">
+    @* <abp-page-subheader title='@L("Agents")' description='@L("AgentsInfo")'>
+
+
+    </abp-page-subheader>
+ *@
+    <div class="mt-3  maincard">
+        <div class="row Detailform">
+            @* ////Card 1///  *@
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="col-lg-12 mb-3 text-start">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative p-3">
+                                <img src="/Common/Images/Agent.jpg" alt="Metronic" />
+                                @*                                <div class="
+                                position-absolute
+                                translate-middle
+                                bottom-0
+                                start-100
+                                mb-6
+                                bg-success
+                                rounded-circle
+                                border border-4 border-white
+                                h-20px
+                                w-20px
+                                "></div> *@
+                            </div>
+
+                        </div>
+                        @* /////Icons div/////  *@
+                        <div class="col-lg-12 mb-3 text-start">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-1"></div>
+                                <div class="col-1">
+                                    <a class="bg-transparent rounded-circle" data-toggle="tooltip" title="Email">
+                                        <span class="fa fa-envelope"></span>
+                                    </a>
+                                </div>
+                                <div class="col-1">
+                                    <a class="bg-transparent" data-toggle="tooltip" title="Edit">
+                                        <span class="fa fa-pencil"></span>
+                                    </a>
+                                </div>
+                               @*  <div class="col-1">
+                                    <a class="bg-transparent" data-toggle="tooltip" title="Approve">
+                                        <span class="fa fa-check"></span>
+                                    </a>
+                                </div> *@
+                                <div class="col-1">
+                                    <a class="bg-transparent" data-toggle="tooltip" title="SMS">
+                                        <span class="fa fa-comment"></span>
+                                    </a>
+                                </div>
+                                <div class="col-1">
+                                  @*   <a class="bg-transparent" data-toggle="tooltip" title="Archived">
+                                        <span class="fa fa-archive"></span>
+                                    </a> *@
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-1"></div>
+                                <div class="col-1"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-1 ms-14 text-start">
+                            <div class="d-flex align-items-center   pb-2">
+                                <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
+                                   PRO FUTURE
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-1 ms-10 text-start">
+                            
+                             <label for="Address" class="form-label form-label-sm"> Email: 
+                                     </label><br />
+                                     <div class="d-flex align-items-center  pb-4">
+                                @* <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
+                                    PRO FUTURE
+                                </a> *@
+                                
+                           <p class="text-muted">profuteureint.applications@gmail.com</p>
+                           
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-start">
+                            <label for="AddedFrom" hidden>Email:</label>
+                            <p mailto:class="text-muted" hidden>example@gmail.com</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="hidden" />
+                        </div>
+                        <div class="col-lg-12"><input type="hidden" /></div>
+                        <div class="col-lg-12"><input type="hidden" /></div>
+                    </div>
+                </div>
+            </div>
+            @* ////Card 2///  *@
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body text-start">
+                        <div class="col-lg-12   text-start">
+                            <label for="AddedFrom" class="form-label form-label-sm">General Information::</label>
+                            <p class="">Phone No:</p>
+                            <p class="text-muted">+61435208166</p>
+                        </div>
+                        @* <div class="col-lg-12 text-start">
+                            <label for="Address" class="form-label form-label-sm"> Email:  </label><br />
+                           <p class="text-muted">profuteureint.applications@gmail.com</p>
+                           
+                        </div> *@
+                        <div class="col-lg-12 mb-3 text-start">
+                            <label for="ClientId" class="form-label form-label-sm"> Address:</label><br />
+                            <p class="text-muted">78-A Garden Block garden Town, Lahore, Punjab, Pakistan</p>
+                        </div>
+                        <div class="col-lg-12 mb-3 text-start">
+                            <label for="ClientId" class="form-label form-label-sm">  Agent Type:</label><br />
+                            <p class="text-muted">
+                                <button value="Sub agent">Sub Agent</button>
+                            </p>
+                        </div>
+                        <div class="col-lg-12 pb-2 text-start">
+                            <label for="Phone" class="form-label form-label-sm">
+                                Income Sharing Percentage:
+                            </label><br />
+                            <p class="text-muted">0.00%</p>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+            @* ////Card 3///  *@
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="col-lg-12 pb-2 text-start">
+                            <label for="Phone" class="form-label form-label-sm">
+                                Associated Offices:
+                            </label><br />
+                            <p class="text-muted">Lahore Office</p>
+                        </div>
+                        <div class="col-lg-12 pb-2 text-start">
+                            <label for="Phone" class="form-label form-label-sm">
+                                Tax Number:
+                            </label><br />
+                            <p class="text-muted">-</p>
+                        </div>
+                      @*   <div class="col-lg-12">
+                            <label for="AddedFrom" class="form-label form-label-sm">Services:</label>
+                            <p class="text-muted">Australian Education with VISA</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="Phone" class="form-label form-label-sm">Added On:</label>
+                            <p class="text-muted">2023-10-06</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="Address" class="form-label form-label-sm">Business Registration Number:</label>
+                            <p class="text-muted">44 631 178 768</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="AddedFrom" class="form-label form-label-sm">Currency code:</label>
+                            <p class="text-secondary">AUD</p>
+                        </div>
+ *@
+
+                    </div>
+                </div>
+            </div>
+            @* ////Card 4///  *@
+
+        </div>
+    </div>
+    @* <div class="card maincard">
+
+    <div class="card-body">
+    <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
+    <div class="me-7 mb-4">
+    <div class="
+    symbol symbol-100px symbol-lg-160px symbol-fixed
+    position-relative
+    ">
+    <img src="/Profile/GetProfilePicture" alt="Metronic" />
+    <div class="
+    position-absolute
+    translate-middle
+    bottom-0
+    start-100
+    mb-6
+    bg-success
+    rounded-circle
+    border border-4 border-white
+    h-20px
+    w-20px
+    "></div>
+    </div>
+    </div>
+
+    <div class="flex-grow-1">
+    <div class="
+    d-flex
+    justify-content-between
+    align-items-start
+    flex-wrap
+    mb-2
+    ">
+    <div class="d-flex flex-column">
+    <div class="d-flex align-items-center mb-2">
+    <a class="
+    text-gray-800 text-hover-primary
+    fs-2
+    fw-bolder
+    me-1
+    cursor-pointer
+    ">
+    Max Smith
+    </a>
+    <a class="cursor-pointer">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/general/gen026.svg'
+    "
+    class="svg-icon svg-icon-1 svg-icon-primary"></span>
+    </a>
+    <a class="
+    btn btn-sm btn-light-success
+    fw-bolder
+    ms-2
+    fs-8
+    py-1
+    px-3
+    cursor-pointer
+    "
+    data-bs-toggle="modal"
+    data-bs-target="#kt_modal_upgrade_plan">
+    Upgrade to Pro
+    </a>
+    </div>
+
+    <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+    <a class="
+    d-flex
+    align-items-center
+    text-gray-400 text-hover-primary
+    me-5
+    mb-2
+    cursor-pointer
+    ">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/communication/com006.svg'
+    "
+    class="svg-icon svg-icon-4 me-1"></span>
+    Developer
+    </a>
+    <a class="
+    d-flex
+    align-items-center
+    text-gray-400 text-hover-primary
+    me-5
+    mb-2
+    cursor-pointer
+    ">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/general/gen018.svg'
+    "
+    class="svg-icon svg-icon-4 me-1"></span>
+    SF, Bay Area
+    </a>
+    <a class="
+    d-flex
+    align-items-center
+    text-gray-400 text-hover-primary
+    mb-2
+    cursor-pointer
+    ">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/communication/com011.svg'
+    "
+    class="svg-icon svg-icon-4 me-1"></span>
+    mailto:max@kt.com
+    </a>
+    </div>
+    </div>
+
+    <div class="d-flex my-4">
+    <a class="btn btn-sm btn-light me-2 cursor-pointer"
+    id="kt_user_follow_button">
+    <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr012.svg'"
+    class="svg-icon svg-icon-3 d-none"></span>
+    <span class="indicator-label">Follow</span>
+    <span class="indicator-progress">
+    Please wait...
+    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+    </span>
+    </a>
+    <a class="btn btn-sm btn-primary me-3 cursor-pointer"
+    data-bs-toggle="modal"
+    data-bs-target="#kt_modal_offer_a_deal">
+    Hire Me
+    </a>
+    <div class="me-0">
+    <button class="
+    btn btn-sm btn-icon btn-bg-light btn-active-color-primary
+    "
+    data-kt-menu-trigger="click"
+    data-kt-menu-placement="bottom-end"
+    data-kt-menu-flip="top-end">
+    <i class="bi bi-three-dots fs-3"></i>
+    </button>
+    <app-dropdown-menu1></app-dropdown-menu1>
+    </div>
+    </div>
+    </div>
+
+    <div class="d-flex flex-wrap flex-stack">
+    <div class="d-flex flex-column flex-grow-1 pe-8">
+    <div class="d-flex flex-wrap">
+    <div class="
+    border border-gray-300 border-dashed
+    rounded
+    min-w-125px
+    py-3
+    px-4
+    me-6
+    mb-3
+    ">
+    <div class="d-flex align-items-center">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/arrows/arr066.svg'
+    "
+    class="svg-icon svg-icon-3 svg-icon-success me-2"></span>
+    <div class="fs-2 fw-bolder">4500$</div>
+    </div>
+
+    <div class="fw-bold fs-6 text-gray-400">Earnings</div>
+    </div>
+
+    <div class="
+    border border-gray-300 border-dashed
+    rounded
+    min-w-125px
+    py-3
+    px-4
+    me-6
+    mb-3
+    ">
+    <div class="d-flex align-items-center">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/arrows/arr065.svg'
+    "
+    class="svg-icon svg-icon-3 svg-icon-danger me-2"></span>
+    <div class="fs-2 fw-bolder">75</div>
+    </div>
+
+    <div class="fw-bold fs-6 text-gray-400">Projects</div>
+    </div>
+
+    <div class="
+    border border-gray-300 border-dashed
+    rounded
+    min-w-125px
+    py-3
+    px-4
+    me-6
+    mb-3
+    ">
+    <div class="d-flex align-items-center">
+    <span [inlineSVG]="
+    './assets/media/icons/duotune/arrows/arr066.svg'
+    "
+    class="svg-icon svg-icon-3 svg-icon-success me-2"></span>
+    <div class="fs-2 fw-bolder">60%</div>
+    </div>
+
+    <div class="fw-bold fs-6 text-gray-400">Success Rate</div>
+    </div>
+    </div>
+    </div>
+
+    <div class="
+    d-flex
+    align-items-center
+    w-200px w-sm-300px
+    flex-column
+    mt-3
+    ">
+    <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+    <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
+    <span class="fw-bolder fs-6">50%</span>
+    </div>
+    <div class="h-5px mx-3 w-100 bg-light mb-3">
+    <div class="bg-success rounded h-5px"
+    role="progressbar"
+    [style.width]="'50%'"></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    </div>
+
+    </div> *@
+</div>
+
+@*<div class="container mt-2">*@
+<div class="mt-2 navbar-link-card">
+
+    <div class="card navbar-link-card-height">
+        <div class="card-Head">
+            <div class="d-flex overflow-auto h-55px navbar-link-card-Allign">
+                <ul class="
+          nav nav-stretch nav-line-tabs nav-line-tabs-2x
+          border-transparent
+
+          fw-bolder
+          flex-nowrap
+        ">
+                    <li class="nav-item">
+                        <a href="#NoteTerm" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Note & Terms")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ReferredClientTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Referred Clients")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Application")
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#AccountsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Accounts")
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="tab-content ">
+        <div class="tab-pane pt-5 active" id="NoteTerm" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml")
+            </div>
+        </div>
+
+        <div class="tab-pane pt-5 mb-7" id="ReferredClientTab" role="tabpanel">
+            <div class="list-group">
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/Index.cshtml")
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="ApplicationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/Applications/Index.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="AccountsTab" role="tabpanel">
+            <div class="list-group">
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/MainForm/_InterestedService.cshtml") *@
+            </div>
+        </div>
+
+
+    </div>
+</div>

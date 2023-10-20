@@ -1,0 +1,70 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+}
+@* <head>
+    <style>
+
+        .maincard {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head> *@
+<div>
+    <div class="card card-custom gutter-b maincard">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="fixed-width-div" style="max-width: 1500px;">
+                    <div style="overflow-x: auto;">
+                        <table   class="table align-middle fs-8 gy-2 dataTable no-footer">
+                            <thead class="thead"> 
+                                <tr>
+
+                                    <th>@L("Contact")</th>
+                                    <th>@L("Name")</th>
+                                    <th>@L("Type")</th>
+                                    <th>@L("Current Stage")</th>
+                                    <th>@L("Status")</th>
+                                    <th>@L("Tag")</th>
+                                    <th>@L("Started")</th>
+                                    <th>@L("Last Update")</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><label>03004519624</label></td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+
+                                    <td> <label>PRO FUTURE </label> </td>
+                                    <td><label>Sub Agent</label></td>
+                                    <td><label>Individual</label></td>
+                                    <td><label>03002515224</label></td>
+                                    <td><label>Active</label></td>
+                                    <td><label>1900-01-01</label></td>
+                                    <td><label>1</label></td>
+
+                                </tr>
+                                <tr>
+
+                                    <td><label>03004519624</label></td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+                                    <td> <label>PRO FUTURE </label> </td>
+                                    <td><label>Sub Agent</label></td>
+                                    <td><label>Individual</label></td>
+                                    <td><label>03002515224</label></td>
+                                    <td><label>Active</label></td>
+                                    <td><label>1900-01-01</label></td>
+                                    <td><label>1</label></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
