@@ -28,7 +28,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\swagger\ui\index.html" />
+    <Content Remove="Areas\AppAreaName\Views\Client\ClientTask\_CreateOrEditEnglishScoreModal.cshtml" />
+    <Content Remove="wwwroot\swagger\ui\index.html" /> 
+    <Content Remove="wwwroot\view-resources\areas\appareaname\views\contacts\_ContactsViewCard.less" />
+    <Content Remove="wwwroot\view-resources\areas\appareaname\views\partners\application\Application.less" />
+    <Content Remove="wwwroot\view-resources\areas\appareaname\views\partners\_AgreementViewCard.less" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\view-resources\areas\appareaname\views\contacts\_ContactsViewCard.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\view-resources\areas\appareaname\views\partners\application\Application.less" />
+    <_ContentIncludedByDefault Remove="wwwroot\view-resources\areas\appareaname\views\partners\_AgreementViewCard.less" /> 
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +48,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="wwwroot\Plugins\.gitkeep" />
+    <None Include="wwwroot\view-resources\areas\appareaname\views\contacts\_ContactsViewCard.less" />
+    <None Include="wwwroot\view-resources\areas\appareaname\views\partners\application\Application.less" />
+    <None Include="wwwroot\view-resources\areas\appareaname\views\partners\_AgreementViewCard.less" />
     <None Update="Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -63,6 +76,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\view-resources\Areas\AppAreaName\Views\Contacts\" />
   </ItemGroup>
   
 </Project>

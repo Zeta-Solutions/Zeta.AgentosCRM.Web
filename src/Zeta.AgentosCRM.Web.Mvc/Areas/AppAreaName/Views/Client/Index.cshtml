@@ -1,0 +1,131 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+  @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+
+
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Index.js" asp-append-version="true"></script>
+
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
+  }
+
+
+
+<abp-page-subheader title='@L("Client")' description='@L("ClientHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+
+    @if (IsGranted(AppPermissions.Pages_DegreeLevels_Create))
+    {
+        <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewClient")</button>
+    }
+</abp-page-subheader>
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+
+                        <div class="my-3">
+                            <div class="input-group">
+                                <input type="text" id="ClientTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetClientButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                <div class="col-md-12">
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
+                        <input type="text" class="form-control reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="NameFilterId">@L("Name")</label>
+                        <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-xl-12">
+                    <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                    <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                </div>
+            </div>
+            <div class="row align-items-center"> 
+                <table id="Clienttable"  class="table align-middle fs-8 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>@L("Actions")</th>
+                            <th>@L("Abbrivation")</th>
+                            <th>@L("Name")</th>
+                            <th>@L("AddedFrom")</th>
+                            <th>@L("Tag(s)")</th>
+                            <th>@L("Ratings")</th>
+                            <th>@L("Internal ID")</th>
+                            <th>@L("Client ID")</th>
+                            <th>@L("Phone")</th>
+                            <th>@L("Client Portal")</th>
+                           
+                        </tr>
+                    </thead>
+                   <tbody>
+            <tr>
+                <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+                <td>
+                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
+                </td>
+                <td>Faryal Khalid</td>
+                <td>Faryal Khalid</td>
+                <td>System</td>
+                <td>OFFSHORE(PAKISTAN)</td>
+                <td>6</td>
+                <td>1256</td>
+                <td>1256</td>
+                <td>+9230125454</td>
+                <td>Activated</td>
+            </tr>
+                                <tr>
+                                    <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+                                    <td>
+                                        <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
+                                    </td>
+                                     <td>Faryal Khalid</td>
+                <td>Faryal Khalid</td>
+                <td>System</td>
+                <td>OFFSHORE(PAKISTAN)</td>
+                <td>6</td>
+                <td>1256</td>
+                <td>1256</td>
+                <td>+9230125454</td>
+                <td>Activated</td>
+                                    
+                                </tr>
+        </tbody>
+                </table>
+            </div> 
+        </div>
+    </div>
+</div>

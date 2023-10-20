@@ -1,0 +1,60 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+    <div class="maincard">
+     <div class="col-md-12 text-end mb-3">
+@*
+            <button id="AddButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Add Documents")</button>*@
+            <span class="btn btn-primary btn-sm fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Documents...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="files">
+            </span>
+        </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+            </div>
+            <div class="row align-items-center">
+                <table id="Applicationtable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                           @* <th>@L("Action")</th>*@
+                            <th>@L("FileName")</th>
+                            <th>@L("Added By")</th>
+                            <th>@L("File Size")</th>
+                            <th>@L("Added Date")</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+            <tr>
+                <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+@*                <td>
+                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
+                </td>*@
+                <td>Dummy Abbreviation</td>
+                <td>Dummy Name</td>
+                <td>Dummy Added From</td>
+                <td>Dummy Tags</td>
+            </tr>
+                             
+        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    </div>
+@*</div>*@
