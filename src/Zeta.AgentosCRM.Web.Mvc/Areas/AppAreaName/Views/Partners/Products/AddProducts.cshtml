@@ -1,0 +1,110 @@
+﻿
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    }
+<div class="card maincard">
+    <div class="card-body ">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header ">
+                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                       Product Details
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row mb-3">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="Name" class="form-label"> Name</label>
+                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Name" class="form-label"> Partner</label>
+                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="masterCategory" class="form-label">Branches</label>
+                                            <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
+                                                <option value="Category">Category 1</option>
+                                                <option value="Category">Category2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="masterCategory" class="form-label">Product Type</label>
+                                            <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
+                                                <option value="Category">Category 1</option>
+                                                <option value="Category">Category2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="Name" class="form-label"> Revenue Type</label>
+                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        PRODUCT INFORMATION
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="Street" class="form-label">Duration</label>
+                                                        <input type="text" class="form-control form-control-sm" id="Street" name="Street">
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="Country" class="form-label">Intake Month</label>
+                                                        <select class="form-control form-control-sm" id="Country" name="Country">
+                                                            <option value="Country">Country 1</option>
+                                                            <option value="Country">Country 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="City" class="form-label">Description</label>
+                                                        <textarea class="form-control form-control-sm" rows="4" cols="70"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="City" class="form-label">Note</label>
+                                                        <textarea class="form-control form-control-sm" rows="4" cols="70"></textarea>
+                                                    </div>
+
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button class="btn btn-secondary" type="submit">Cancel</button>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>

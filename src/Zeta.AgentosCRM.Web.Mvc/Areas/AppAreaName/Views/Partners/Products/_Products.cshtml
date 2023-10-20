@@ -1,0 +1,43 @@
+﻿@* <style>
+    .dataTables tbody tr {
+        min-height: 35px;
+    }
+</style> *@
+
+<div class="maincard mt-3">
+    <div class="col-md-12 text-end mb-3 ">
+
+        <button id="CreateNewProductsButton" class="btn btn-sm btn-primary blue"><i class="fa fa-plus"></i> @L("Add Products")</button>
+    </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                    <div class="row align-items-center">
+                        <table id="ProductsTable" class="table align-middle fs-8 gy-2 dataTable no-footer ">
+                            <thead class="thead gy-5">
+                           
+                                <tr>
+                                    <th ></th>
+                                    <th >@L("Actions")</th>
+                                    <th >@L("PRODUCT NAME")</th>
+                                    <th >@L("SYNC")</th>
+                                    <th >@L("BRANCHES")</th>
+                                    <th >@L("IN PROGRESS")</th>
+                                </tr>
+                            
+                            <tbody class="m-0 p-0">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

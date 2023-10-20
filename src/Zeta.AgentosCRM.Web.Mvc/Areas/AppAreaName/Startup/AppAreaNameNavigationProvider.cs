@@ -275,14 +275,17 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             AppAreaNamePageNames.Tenant.LeadSource,
                             L("LeadSource"),
                             url: "AppAreaName/LeadSource",
-                            icon: "flaticon-more"
+                            icon: "flaticon-more", 
+                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_LeadSources)
                           )
                     )   
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Tag,
                             L("Tag"),
                             url: "AppAreaName/Tag",
-                            icon: "flaticon-more"
+                            icon: "flaticon-more",
+                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Tags)
+
                           )
                      )
                    
@@ -290,7 +293,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             AppAreaNamePageNames.Tenant.Country,
                             L("Country"),
                             url: "AppAreaName/Country",
-                            icon: "flaticon-more"
+                            icon: "flaticon-more",
+                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Countries)
+
                           )
                     )   .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.QuotationCurrency,
@@ -308,7 +313,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             AppAreaNamePageNames.Tenant.ServiceCategory,
                             L("ServiceCategory"),
                             url: "AppAreaName/ServiceCategory",
-                            icon: "flaticon-more"
+                            icon: "flaticon-more",
+                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_ServiceCategories)
+
                           )
                     )
                     .AddItem(new MenuItemDefinition(
@@ -371,8 +378,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             //permissionDependency: new SimplePermissionDependency(
                             //    AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
-                    )
-
+                    ) 
                 )
 
             .AddItem(new MenuItemDefinition(
@@ -385,6 +391,28 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 
                     );
 
+ 
+                  
+                    //.AddItem(new MenuItemDefinition(
+                    //        AppAreaNamePageNames.Tenant.Status,
+                    //        L("Status"),
+                    //        url: "AppAreaName/Status",
+                    //        icon: "flaticon-more",
+                    //        permissionDependency: new SimplePermissionDependency(
+                    //            AppPermissions.Pages_CRMSetup_PartnerTypes)
+                    //    )
+                    //)
+                    
+                )
+                   .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Partners,
+                            L("Partners"),
+                            url: "AppAreaName/Partners",
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(
+                            AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    ); 
         }
 
         private static ILocalizableString L(string name)
