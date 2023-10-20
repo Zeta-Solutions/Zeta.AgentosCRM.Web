@@ -1,0 +1,64 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewTask")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="TaskInformationsForm" role="form" novalidate class="form-validation">
+
+            <input type="hidden" name="id" value="1" />
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                <label class="form-label" for="Application_Abbrivation">@L("Tittle")</label>
+                <input class="form-control" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+            </div>
+
+                <div class="my-3 col-6">
+                <label class="form-label" for="Application_Name">@L("Category")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+            </div>
+            <div class="row col-12">
+            <div class="my-3 col-6">
+                <label class="form-label" for="Application_Name">@L("Assignee")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+            <div class="my-3 col-6">
+                <label class="form-label" for="Application_Name">@L("Priority")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+            </div>
+            <div class="row col-12">
+
+
+                <div class="my-3 col-6">
+                <label class="form-label" for="Application_Name">@L("DueDate")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+                <div class="my-3 col-3">
+                    <label class="form-label" for="Application_Name">@L("DueTime")</label>
+                    <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                </div>
+            </div>
+
+                 <div class="my-3">
+            <label class="form-label" for="Application_Name">@L("Description")</label>
+            <textarea class="form-control" id="Application_Name" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength">tEST</textarea>
+            </div>
+                <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("Followers")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+            <span class="btn btn-primary fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Attchment...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="files">
+            </span>
+         
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

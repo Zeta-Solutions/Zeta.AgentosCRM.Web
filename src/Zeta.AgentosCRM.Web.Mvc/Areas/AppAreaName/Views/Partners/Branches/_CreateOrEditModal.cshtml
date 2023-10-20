@@ -1,0 +1,81 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewBranch")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="BranchesTabInformationsForm" role="form" novalidate class="form-validation">
+
+            <input type="hidden" name="id" value="1" />
+
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control form-control-sm" id="name" name="name">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control  form-control-sm" id="email" name="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="branch" class="form-label">Country</label>
+                    <select class="form-control  form-control-sm" id="country" name="country">
+                        <option value="country">country 1</option>
+                        <option value="country">country 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="text" class="form-label">City</label>
+                    <input type="text" class="form-control form-control-sm" id="text" name="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="text" class="form-label">Street</label>
+                    <input type="text" class="form-control form-control-sm" id="text" name="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="text" class="form-label">State</label>
+                    <input type="text" class="form-control form-control-sm" id="text" name="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="text" class="form-label">Zip/Postal Code</label>
+                    <input type="text" class="form-control form-control-sm" id="text" name="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="text" class="form-label">Phone</label>
+                    <input type="number" class="form-control form-control-sm" id="text" name="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div class="col-md-12 mb-3">
+                        <input class="form-check-input" type="checkbox" id="primaryContact" name="primaryContact">
+                        <label class="form-check-label" for="primaryContact">Head Office</label>
+                      </div>
+                </div>
+            </div>
+           
+        </form>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
+
