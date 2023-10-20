@@ -1,9 +1,9 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Regions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-@model MasterCategoriesViewModel
+@model RegionsViewModel
 @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Regions;
 }
 @section Scripts
 {
@@ -13,10 +13,10 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
 <abp-page-subheader title='@L("Regions")' description='@L("RegionsHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @* @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
-    { *@
+    @if (IsGranted(AppPermissions.Pages_Regions_Create))
+    {
     <button id="CreateNewFeeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewRegions")</button>
-    @* } *@
+    }
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">

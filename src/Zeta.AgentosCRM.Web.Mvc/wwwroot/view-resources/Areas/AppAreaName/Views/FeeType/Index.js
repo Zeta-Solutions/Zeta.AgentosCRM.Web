@@ -1,7 +1,8 @@
 ﻿(function () {
   $(function () {
       var _$FeeTypeTable = $('#FeeTypeTable');
-    var _masterCategoriesService = abp.services.app.masterCategories;
+    //var _masterCategoriesService = abp.services.app.masterCategories;
+      var _feeTypesService = abp.services.app.feeTypes;
 
     var $selectedDate = {
       startDate: null,
@@ -21,12 +22,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-        getMasterCategories();
+          getFeeTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-        getMasterCategories();
+          getFeeTypes();
       });
 
     $('.endDate')
@@ -38,27 +39,27 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-        getMasterCategories();
+          getFeeTypes();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-        getMasterCategories();
+          getFeeTypes();
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-      edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-      delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+        create: abp.auth.hasPermission('Pages.FeeTypes.Create'),
+        edit: abp.auth.hasPermission('Pages.FeeTypes.Edit'),
+        delete: abp.auth.hasPermission('Pages.FeeTypes.Delete'),
     };
 
     var _createOrEditModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/FeeType/CreateOrEditModal',
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/FeeType/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditFeeTypeModal',
     });
 
-    var _viewMasterCategoryModal = new app.ModalManager({
+    var _viewFeeTypeModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/FeeType/ViewFeeTypeModal',
         modalClass: 'ViewFeeTypeModal',
     });
@@ -77,11 +78,12 @@
       return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
     };
       var dataTable = _$FeeTypeTable.DataTable({
+          
           paging: true,
           serverSide: true,
           processing: true,
           listAction: {
-              ajaxFunction: _masterCategoriesService.getAll,
+              ajaxFunction: _feeTypesService.getAll,
               inputFilter: function () {
                   return {
                       filter: $('#MasterCategoriesTableFilter').val(),
@@ -114,25 +116,25 @@
                               text: app.localize('View'),
                               action: function (data) {
                                   //_viewSourceModal.open();
-                                  _viewMasterCategoryModal.open();
+                                  _viewFeeTypeModal.open({ id: data.record.feeType.id });
                               },
                           },
                           {
                               text: app.localize('Edit'),
-                              //visible: function () {
-                              //  return _permissions.edit;
-                              //},
+                              visible: function () {
+                                return _permissions.edit;
+                              },
                               action: function (data) {
-                                  _createOrEditModal.open();
+                                  _createOrEditModal.open({ id: data.record.feeType.id });
                               },
                           },
                           {
                               text: app.localize('Delete'),
-                              //visible: function () {
-                              //  return _permissions.delete;
-                              //},
+                              visible: function () {
+                                return _permissions.delete;
+                              },
                               action: function (data) {
-                                  deleteMasterCategory(data.record.masterCategory);
+                                  deleteFeeType(data.record.feeType);
                               },
                           },
                       ],
@@ -140,29 +142,29 @@
               },
               {
                   targets: 2,
-                  data: 'masterCategory.abbrivation',
+                  data: 'feeType.abbrivation',
                   name: 'abbrivation',
               },
               {
                   targets: 3,
-                  data: 'masterCategory.name',
+                  data: 'feeType.name',
                   name: 'name',
               },
           ],
       });
-    function getMasterCategories() {
+      function getFeeTypes() {
       dataTable.ajax.reload();
     }
 
-    function deleteMasterCategory(masterCategory) {
+      function deleteFeeType(feeType) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-          _masterCategoriesService
-            .delete({
-              id: masterCategory.id,
+            _feeTypesService
+                .delete({
+                    id: feeType.id,
             })
             .done(function () {
-              getMasterCategories(true);
+                getFeeTypes(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -186,7 +188,7 @@
     });
 
     $('#ExportToExcelButton').click(function () {
-      _masterCategoriesService
+        _feeTypesService
         .getMasterCategoriesToExcel({
           filter: $('#MasterCategoriesTableFilter').val(),
           abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -197,32 +199,33 @@
         });
     });
 
-    abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-      getMasterCategories();
+      abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
+          debugger
+          getFeeTypes();
     });
 
     $('#GetMasterCategoriesButton').click(function (e) {
       e.preventDefault();
-      getMasterCategories();
+        getFeeTypes();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-        getMasterCategories();
+          getFeeTypes();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-      getMasterCategories();
+        getFeeTypes();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-      getMasterCategories();
+        getFeeTypes();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-      getMasterCategories();
+        getFeeTypes();
     });
   });
 })();

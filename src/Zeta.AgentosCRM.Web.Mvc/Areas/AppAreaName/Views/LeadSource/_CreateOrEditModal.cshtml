@@ -1,0 +1,31 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource
+@model CreateOrEditLeadSourceModalViewModel
+
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditLeadSource")) : L("CreateNewLeadSource")))
+
+<div class="modal-body">
+    <div id="LeadSourceInformationsTab">
+        <form name="LeadSourceInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.LeadSource.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="LeadSource_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="LeadSource_Abbrivation" value="@Model.LeadSource.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.LeadSource.LeadSourceConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.LeadSource.LeadSourceConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="LeadSource_Name">@L("Name")</label>
+                <input class="form-control" id="LeadSource_Name" value="@Model.LeadSource.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.LeadSource.LeadSourceConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.LeadSource.LeadSourceConsts.MinNameLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,26 +1,32 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Product Type")))
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.ProductType
+@model CreateOrEditProductTypeModalViewModel
+@using Abp.Extensions
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Product Type"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditProductType")) : L("CreateNewProductType")))
 
 <div class="modal-body">
-    <div id="InformationsTab">
-        <form name="InformationsForm" role="form" novalidate class="form-validation">
+    <div id="ProductTypeInformationsTab">
+        <form name="ProductTypeInformationsForm" role="form" novalidate class="form-validation">
 
-          @*   @if (Model.IsEditMode)
-            { *@
-            <input type="hidden" name="id" value="123" @* value="@Model.MasterCategory.Id"  *@/>
-            @* } *@
-
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id"  value="@Model.ProductType.Id" />
+            }
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="MasterCategory_Abbrivation" @* value="@Model.MasterCategory.Abbrivation" *@ value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <label class="form-label" for="masterCategoryId">@L("MasterCategory")</label>
+                @Html.DropDownList("masterCategoryId", new SelectList(Model.ProductTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="ProductType_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="ProductType_Abbrivation" value="@Model.ProductType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
-                <input class="form-control" id="MasterCategory_Name" @* value="@Model.MasterCategory.Name" *@ value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <label class="form-label" for="ProductType_Name">@L("Name")</label>
+                <input class="form-control" id="ProductType_Name" value="@Model.ProductType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinNameLength" />
             </div>
 
         </form>

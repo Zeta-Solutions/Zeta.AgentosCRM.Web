@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
-        var _$TagTable = $('#PhoneTable');
-        var _masterCategoriesService = abp.services.app.masterCategories;
+        var _$LeadSourceTable = $('#LeadSourceTable');
+        var _leadSourcesService = abp.services.app.leadSources;
 
         var $selectedDate = {
             startDate: null,
@@ -21,12 +21,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getMasterCategories();
+                getLeadSource();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getMasterCategories();
+                getLeadSource();
             });
 
         $('.endDate')
@@ -38,29 +38,29 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getMasterCategories();
+                getLeadSource();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getMasterCategories();
+                getLeadSource();
             });
 
         var _permissions = {
-            create: abp.auth.hasPermission('Pages.MasterCategories.Create'),
-            edit: abp.auth.hasPermission('Pages.MasterCategories.Edit'),
-            delete: abp.auth.hasPermission('Pages.MasterCategories.Delete'),
+            create: abp.auth.hasPermission('Pages.LeadSources.Create'),
+            edit: abp.auth.hasPermission('Pages.LeadSources.Edit'),
+            delete: abp.auth.hasPermission('Pages.LeadSources.Delete'),
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Phone/CreateOrEditModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Phone/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditModal',
+            viewUrl: abp.appPath + 'AppAreaName/LeadSource/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/LeadSource/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditLeadSourcesModal',
         });
 
-        var _viewTagModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Phone/ViewPhoneModal',
-            modalClass: 'ViewPhoneModal',
+        var _viewLeadSourceModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/LeadSource/ViewLeadSourceModal',
+            modalClass: 'ViewLeadSourceModal',
         });
 
         var getDateFilter = function (element) {
@@ -77,15 +77,15 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$TagTable.DataTable({
+        var dataTable = _$LeadSourceTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _masterCategoriesService.getAll,
+                ajaxFunction: _leadSourcesService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#PhoneTableFilter').val(),
+                        filter: $('#LeadSourcesTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                     };
@@ -114,25 +114,25 @@
                             {
                                 text: app.localize('View'),
                                 action: function (data) {
-                                    _viewTagModal.open();
+                                    _viewLeadSourceModal.open({ id: data.record.leadSource.id });
                                 },
                             },
                             {
                                 text: app.localize('Edit'),
-                                //visible: function () {
-                                //  return _permissions.edit;
-                                //},
+                                visible: function () {
+                                    return _permissions.edit;
+                                },
                                 action: function (data) {
-                                    _createOrEditModal.open();
+                                    _createOrEditModal.open({ id: data.record.leadSource.id });
                                 },
                             },
                             {
                                 text: app.localize('Delete'),
-                                //visible: function () {
-                                //  return _permissions.delete;
-                                //},
+                                visible: function () {
+                                    return _permissions.delete;
+                                },
                                 action: function (data) {
-                                    deleteMasterCategory(data.record.masterCategory);
+                                    deleteLeadSource(data.record.leadSource);
                                 },
                             },
                         ],
@@ -140,30 +140,30 @@
                 },
                 {
                     targets: 2,
-                    data: 'masterCategory.abbrivation',
+                    data: 'leadSource.abbrivation',
                     name: 'abbrivation',
                 },
                 {
                     targets: 3,
-                    data: 'masterCategory.name',
+                    data: 'leadSource.name',
                     name: 'name',
                 },
             ],
         });
 
-        function getSource() {
+        function getLeadSource() {
             dataTable.ajax.reload();
         }
 
-        function deleteMasterCategory(masterCategory) {
+        function deleteLeadSource(leadSource) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _masterCategoriesService
+                    _leadSourcesService
                         .delete({
-                            id: masterCategory.id,
+                            id: leadSource.id,
                         })
                         .done(function () {
-                            getSource(true);
+                            getLeadSource(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -182,14 +182,14 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewPhoneButton').click(function () {
+        $('#CreateNewSourceButton').click(function () {
             _createOrEditModal.open();
         });
 
         $('#ExportToExcelButton').click(function () {
-            _masterCategoriesService
+            _leadSourcesService
                 .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
+                    filter: $('#LeadSourcesTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
                     nameFilter: $('#NameFilterId').val(),
                 })
@@ -198,32 +198,32 @@
                 });
         });
 
-        abp.event.on('app.createOrEditMasterCategoryModalSaved', function () {
-            getSource();
+        abp.event.on('app.createOrEditLeadSourceModalSaved', function () {
+            getLeadSource();
         });
 
-        $('#GetMasterCategoriesButton').click(function (e) {
+        $('#GetLeadSourcesButton').click(function (e) {
             e.preventDefault();
-            getSource();
+            getLeadSource();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getSource();
+                getLeadSource();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getSource();
+            getLeadSource();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getSource();
+            getLeadSource();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getSource();
+            getLeadSource();
         });
     });
 })();

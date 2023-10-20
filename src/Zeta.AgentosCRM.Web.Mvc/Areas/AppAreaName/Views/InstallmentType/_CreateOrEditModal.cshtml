@@ -1,25 +1,26 @@
-﻿
-@using System.Globalization
+﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.InstallmentType
+@model CreateOrEditInstallmentTypeModalViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Installment Type")))
 
 <div class="modal-body">
-    <div id="InformationsTab">
-        <form name="InformationsForm" role="form" novalidate class="form-validation">
+    <div id="InstallmentTypeInformationsTab">
+        <form name="InstallmentTypeInformationsForm" role="form" novalidate class="form-validation">
 
-            
-            <input type="hidden" name="id" value="123" @* value="@Model.MasterCategory.Id"  *@/>
-           
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.InstallmentType.Id" />
+            }
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="MasterCategory_Abbrivation" @* value="@Model.MasterCategory.Abbrivation" *@ value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <label class="form-label" for="InstallmentType_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="InstallmentType_Abbrivation" value="@Model.InstallmentType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.InstallmentType.InstallmentTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.InstallmentType.InstallmentTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
-                <input class="form-control" id="MasterCategory_Name" @* value="@Model.MasterCategory.Name" *@ value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <label class="form-label" for="InstallmentType_Name">@L("Name")</label>
+                <input class="form-control" id="InstallmentType_Name" value="@Model.InstallmentType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.InstallmentType.InstallmentTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.InstallmentType.InstallmentTypeConsts.MinNameLength" />
             </div>
 
         </form>

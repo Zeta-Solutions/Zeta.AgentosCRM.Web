@@ -1,18 +1,18 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-
+@model LeadSourcesViewModel
 @section Scripts
 {
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Source/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/LeadSource/Index.js" asp-append-version="true"></script>
 }
 
-<abp-page-subheader title='@L("Source")' description='@L("SourceHeaderInfo")'>
+<abp-page-subheader title='@L("LeadSource")' description='@L("LeadSourceHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_LeadSources_Create))
     {
-        <button id="CreateNewSourceButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewSource")</button>
+        <button id="CreateNewSourceButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewLeadSource")</button>
     }
 </abp-page-subheader>
 
@@ -25,8 +25,8 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetMasterCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="LeadSourcesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetLeadSourcesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="SourceTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="LeadSourceTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>

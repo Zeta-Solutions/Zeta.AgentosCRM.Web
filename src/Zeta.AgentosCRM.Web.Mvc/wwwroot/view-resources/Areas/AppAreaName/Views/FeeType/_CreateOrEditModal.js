@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditMasterCategoryModal = function () {
-    var _masterCategoriesService = abp.services.app.masterCategories;
+  app.modals.CreateOrEditFeeTypeModal = function () {
+      var _feeTypesService = abp.services.app.feeTypes;
 
     var _modalManager;
-    var _$masterCategoryInformationForm = null;
+    var _$feeTypesInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,24 +15,24 @@
         format: 'L',
       });
 
-        _$masterCategoryInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-      _$masterCategoryInformationForm.validate();
+        _$feeTypesInformationForm = _modalManager.getModal().find('form[name=FeeTypeInformationsForm]');
+        _$feeTypesInformationForm.validate();
     };
 
     this.save = function () {
-      if (!_$masterCategoryInformationForm.valid()) {
+        if (!_$feeTypesInformationForm.valid()) {
         return;
       }
 
-      var masterCategory = _$masterCategoryInformationForm.serializeFormToObject();
+        var feeType = _$feeTypesInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _masterCategoriesService
-        .createOrEdit(masterCategory)
+        _feeTypesService
+            .createOrEdit(feeType)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+          abp.event.trigger('app.createOrEditFeeTypeModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

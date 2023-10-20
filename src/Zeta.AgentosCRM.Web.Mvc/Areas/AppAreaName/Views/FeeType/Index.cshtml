@@ -1,22 +1,22 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-@model MasterCategoriesViewModel
+@model  FeeTypesViewModel
 @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
 }
 @section Scripts
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/FeeType/Index.js" asp-append-version="true"></script>
 }
 
-<abp-page-subheader title='@L("Fee Type")' description='@L("FeeTypeHeaderInfo")'>
+<abp-page-subheader title='@L("FeeType")' description='@L("FeeTypeHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
 
-    @* @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
-    { *@
+    @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
+    {
     <button id="CreateNewFeeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewFeeType")</button>
-    @* } *@
+    }
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">
@@ -28,7 +28,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' @* value="@Model.FilterText" *@>
+                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
                                 <button id="GetMasterCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>

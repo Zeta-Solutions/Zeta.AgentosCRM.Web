@@ -1,26 +1,30 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Fee Type")))
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes
+@model CreateOrEditFeeTypeModalViewModel
+@using Abp.Extensions
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Fee Type"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditFeeType")) : L("CreateNewFeeType")))
 
 <div class="modal-body">
-    <div id="InformationsTab">
-        <form name="InformationsForm" role="form" novalidate class="form-validation">
+    <div id="FeeTypeInformationsTab">
+        <form name="FeeTypeInformationsForm" role="form" novalidate class="form-validation">
 
-          @*   @if (Model.IsEditMode)
-            { *@
-            <input type="hidden" name="id" value="123" @* value="@Model.MasterCategory.Id"  *@/>
-            @* } *@
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.FeeType.Id" />
+            }
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="MasterCategory_Abbrivation" @* value="@Model.MasterCategory.Abbrivation" *@ value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <label class="form-label" for="FeeType_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="FeeType_Abbrivation" value="@Model.FeeType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
-                <input class="form-control" id="MasterCategory_Name" @* value="@Model.MasterCategory.Name" *@ value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <label class="form-label" for="FeeType_Name">@L("Name")</label>
+                <input class="form-control" id="FeeType_Name" value="@Model.FeeType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" />
             </div>
 
         </form>

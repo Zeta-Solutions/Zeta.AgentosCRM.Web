@@ -1,20 +1,20 @@
 ﻿
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.ServiceCategory
+@model ServiceCategoryViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
-    <div id="MasterCategoryInformationsTab">
+    <div id="ServiceCategoryInformationsTab">
 
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                "Abbr"
+                @Model.ServiceCategory.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                "Name"
+                @Model.ServiceCategory.Name
             </div>
 
         </div>
