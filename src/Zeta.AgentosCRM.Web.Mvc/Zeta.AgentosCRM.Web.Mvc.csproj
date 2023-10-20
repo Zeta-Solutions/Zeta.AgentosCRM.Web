@@ -29,7 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\AppAreaName\Views\Client\ClientTask\_CreateOrEditEnglishScoreModal.cshtml" />
     <Content Remove="wwwroot\swagger\ui\index.html" />
+    <Content Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Client\ApplicationClient\e3gbvcwk.4au~" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,6 +82,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\AppAreaName\Views\Client\ClientTask\_CreateOrEditEnglishScoreModal.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\AppAreaName\Views\Client\ClientTask\_CreateOrEditEnglishScoreModal.cshtml" />
   </ItemGroup>
   
 </Project>

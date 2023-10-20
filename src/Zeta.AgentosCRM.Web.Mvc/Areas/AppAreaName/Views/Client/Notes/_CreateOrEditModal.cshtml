@@ -1,0 +1,29 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewNotes")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+   <div id="NotesInformationsTab">
+    <form name="NotesAndTermsInformationsForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="id" value="1" />
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" id="Title" name="Title" required>
+            </div>
+            <div class="col-12">
+                <label for="messageTextarea" class="form-label">Description</label>
+                <textarea class="form-control" id="messageTextarea" rows="6" maxlength="255" required></textarea>
+                <div class="invalid-feedback">
+                    Please enter a message.
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

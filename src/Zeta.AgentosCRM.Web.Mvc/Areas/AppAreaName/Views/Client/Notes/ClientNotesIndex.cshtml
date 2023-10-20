@@ -1,0 +1,48 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  
+<div class="maincard">
+    <div class="col-md-12 text-end mb-3">
+       
+        <button id="AddNotesButton" class="btn btn-primary btn-sm blue"><i class="fa fa-plus"></i> @L("Add")</button>
+    </div>
+
+    <div class="col-md-1" ></div>
+        <div class="col-md-3">
+            <!-- Card -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">University Name</h5>
+                    <p class="card-text">Degree Title</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="card-text"></p>
+                            @*<span style="color:deepskyblue">AUD <br />0.00</span>
+*@                            <img src="/Profile/GetProfilePicture" class="img-fluid" alt="User Pic">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="card-text"> </p><br />
+                            <strong>Last Modified:</strong> October 13, 2023
+                        </div>
+                    </div>
+@*                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="card-text">Start Date</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="card-text">End Date</p>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- Right Side (Button) -->
+
+    </div>
+
+
