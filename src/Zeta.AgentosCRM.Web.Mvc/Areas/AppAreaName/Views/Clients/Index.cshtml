@@ -1,0 +1,195 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model ClientsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
+}
+
+
+
+                <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
+                     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+            
+                     @if (IsGranted(AppPermissions.Pages_Clients_Create))
+                     {
+                         <a href="\AppAreaName\Clients\CreateOrEdit" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                
+                     }
+                </abp-page-subheader>
+            
+<div class="@(await GetContainerClass())">   
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">                        
+                        
+                        
+                <div class="my-3">
+                    <div class="input-group">
+                        <input type="text" id="ClientsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                        <button id="GetClientsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>                        
+                    </div>
+                </div>
+            
+                    </div>
+                </div>
+			</div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						
+					</div>
+
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="FirstNameFilterId">@L("FirstName")</label>
+									<input type="text" class="form-control reload-on-keyup" name="firstNameFilter" id="FirstNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="LastNameFilterId">@L("LastName")</label>
+									<input type="text" class="form-control reload-on-keyup" name="lastNameFilter" id="LastNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="EmailFilterId">@L("Email")</label>
+									<input type="text" class="form-control reload-on-keyup" name="emailFilter" id="EmailFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="PhoneNoFilterId">@L("PhoneNo")</label>
+									<input type="text" class="form-control reload-on-keyup" name="phoneNoFilter" id="PhoneNoFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="my-3">
+										<label class="form-label" for="MinDateofBirthFilterId">@L("DateofBirthRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker startDate" type="text" placeholder="@L("MinValue")"  id="MinDateofBirthFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker endDate" type="text" placeholder="@L("MaxValue")"  id="MaxDateofBirthFilterId">
+										</div>
+									</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UniversityFilterId">@L("University")</label>
+									<input type="text" class="form-control reload-on-keyup" name="universityFilter" id="UniversityFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="my-3">
+									<label class="form-label" for="MinRatingFilterId">@L("MinMax") @L("Rating")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minRatingFilter" id="MinRatingFilterId"/>
+                                        <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxRatingFilter"  id="MaxRatingFilterId"/>
+									</div>
+                                </div>
+                            </div>
+
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryDisplayPropertyFilterId">(@L("Country")) @L("DisplayProperty")</label>
+									<input type="text" class="form-control" name="countryDisplayPropertyFilter" id="CountryDisplayPropertyFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+									<input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="BinaryObjectDescriptionFilterId">(@L("BinaryObject")) @L("Description")</label>
+									<input type="text" class="form-control" name="binaryObjectDescriptionFilter" id="BinaryObjectDescriptionFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="DegreeLevelNameFilterId">(@L("DegreeLevel")) @L("Name")</label>
+									<input type="text" class="form-control" name="degreeLevelNameFilter" id="DegreeLevelNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="SubjectAreaNameFilterId">(@L("SubjectArea")) @L("Name")</label>
+									<input type="text" class="form-control" name="subjectAreaNameFilter" id="SubjectAreaNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="LeadSourceNameFilterId">(@L("LeadSource")) @L("Name")</label>
+									<input type="text" class="form-control" name="leadSourceNameFilter" id="LeadSourceNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryName2FilterId">(@L("Country")) @L("Name")</label>
+									<input type="text" class="form-control" name="countryName2Filter" id="CountryName2FilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryName3FilterId">(@L("Country")) @L("Name")</label>
+									<input type="text" class="form-control" name="countryName3Filter" id="CountryName3FilterId">
+								</div>
+                            </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                    </div>
+                </div>
+            <div class="row align-items-center">
+                <table id="ClientsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            
+                            <th>@L("Actions")</th>
+								<th>@L("FirstName")</th>
+								<th>@L("LastName")</th>
+								<th>@L("Email")</th>
+								<th>@L("PhoneNo")</th>
+								<th>@L("DateofBirth")</th>
+								<th>@L("ContactPreferences")</th>
+								<th>@L("University")</th>
+								<th>@L("Street")</th>
+								<th>@L("City")</th>
+								<th>@L("State")</th>
+								<th>@L("ZipCode")</th>
+								<th>@L("PreferedIntake")</th>
+								<th>@L("PassportNo")</th>
+								<th>@L("VisaType")</th>
+								<th>@L("VisaExpiryDate")</th>
+								<th>@L("Rating")</th>
+								<th>@L("ClientPortal")</th>
+								<th>@L("CountryDisplayProperty")</th>
+								<th>@L("UserName")</th>
+								<th>@L("BinaryObjectDescription")</th>
+								<th>@L("DegreeLevelName")</th>
+								<th>@L("SubjectAreaName")</th>
+								<th>@L("LeadSourceName")</th>
+								<th>@L("CountryName")</th>
+								<th>@L("CountryName")</th>                            
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

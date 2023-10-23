@@ -1,0 +1,272 @@
+﻿@using Zeta.AgentosCRM.CRMClient;
+					
+@using System.Globalization
+@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditClientViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CreateOrEdit.js" asp-append-version="true"></script>
+}
+ 
+
+
+                @{
+                    var breadcrumbs = new List<BreadcrumbItem>()
+                    {
+                        new BreadcrumbItem("/AppAreaName/Clients", L("Clients")),
+                        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+                    };
+                }
+                <abp-page-subheader title='@(Model.IsEditMode ? (L("EditClient")) : L("CreateNewClient"))' breadcrumbs="breadcrumbs">                 
+                </abp-page-subheader>
+            
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <form name="ClientInformationsForm" role="form" novalidate class="form-validation">
+            <div class="card-body">
+                <div class="form">
+                     <div id="ClientInformationsTab">   
+                            @if (Model.IsEditMode)
+                            {
+                                <input type="hidden" name="id" value="@Model.Client.Id" />
+                            }
+
+				            
+                                        
+						<div class="my-3">
+							<label class="form-label" for="countryCodeId">@L("Country")</label>
+							@Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryCodeId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" })
+						</div>
+            
+						<div class="my-3">
+							<label class="form-label" for="assigneeId">@L("User")</label>
+							@Html.DropDownList("assigneeId", new SelectList(Model.ClientUserList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AssigneeId.ToString() : "")),@L("SelectAUser"), new { @class = "form-control"  , @required="required" })
+						</div>
+            
+								<div class="my-3">
+                                    <label class="form-label" for="BinaryObjectDescription">@L("BinaryObject")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenBinaryObjectLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearBinaryObjectDescriptionButton"><i class="fa fa-times"></i></button>
+                                    </div>
+								</div>
+
+								@if (Model.IsEditMode)
+								{
+									<input class="form-control" id="Client_ProfilePictureId" value="@Model.Client.ProfilePictureId" type="text" name="profilePictureId"  hidden/>
+								}
+								 else
+								{ 
+									<input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId"  hidden/>
+								}
+
+            
+						<div class="my-3">
+							<label class="form-label" for="highestQualificationId">@L("DegreeLevel")</label>
+							@Html.DropDownList("highestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control"   })
+						</div>
+            
+						<div class="my-3">
+							<label class="form-label" for="studyAreaId">@L("SubjectArea")</label>
+							@Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   })
+						</div>
+            
+						<div class="my-3">
+							<label class="form-label" for="leadSourceId">@L("LeadSource")</label>
+							@Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
+						</div>
+            
+								<div class="my-3">
+                                    <label class="form-label" for="CountryName2">@L("Country")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="CountryName2" name="countryName2" value="@Model.CountryName2" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenCountry2LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearCountryName2Button"><i class="fa fa-times"></i></button>
+                                    </div>
+								</div>
+
+								@if (Model.IsEditMode)
+								{
+									<input class="form-control" id="Client_CountryId" value="@Model.Client.CountryId" type="text" name="countryId"  hidden/>
+								}
+								 else
+								{ 
+									<input class="form-control" id="Client_CountryId" value="" type="text" name="countryId"  hidden/>
+								}
+
+            
+								<div class="my-3">
+                                    <label class="form-label" for="CountryName3">@L("Country")</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="CountryName3" name="countryName3" value="@Model.CountryName3" type="text" disabled>
+                                        <button class="btn btn-primary blue" id="OpenCountry3LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                        <button class="btn btn-danger btn-icon" type="button" id="ClearCountryName3Button"><i class="fa fa-times"></i></button>
+                                    </div>
+								</div>
+
+								@if (Model.IsEditMode)
+								{
+									<input class="form-control" id="Client_PassportCountryId" value="@Model.Client.PassportCountryId" type="text" name="passportCountryId"  hidden/>
+								}
+								 else
+								{ 
+									<input class="form-control" id="Client_PassportCountryId" value="" type="text" name="passportCountryId"  hidden/>
+								}
+
+
+				            
+                            
+								<div class="my-3">
+									<label class="form-label" for="Client_FirstName">@L("FirstName")</label>
+									<input class="form-control" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName"  required  maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength"  minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength"  />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_LastName">@L("LastName")</label>
+									<input class="form-control" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName"  required  maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength"  minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength"  />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_Email">@L("Email")</label>
+									<input class="form-control" id="Client_Email" value="@Model.Client.Email" type="text" name="email"  required  maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength"  minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength"  />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_PhoneNo">@L("PhoneNo")</label>
+									<input class="form-control" id="Client_PhoneNo" value="@Model.Client.PhoneNo" type="text" name="phoneNo"  required  maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength"  minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength"  />
+								</div>
+					
+								<div class="my-3 position-relative">
+									<label class="form-label" for="Client_DateofBirth">@L("DateofBirth")</label>
+									<input class="form-control m-input date-picker" id="Client_DateofBirth" type="text" name="dateofBirth" value="@Model.Client.DateofBirth" />
+								</div>
+					
+								@{
+					var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
+					 foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
+					}
+								<div class="my-3 m-form__group">
+									<label class="form-label" for="Client_ContactPreferences">@L("ContactPreferences")</label>
+										<select class="form-select m-input m-input--square" name="contactPreferences" id="Client_ContactPreferences" asp-for="@Model.Client.ContactPreferences" asp-items="@selectListContactPreferences" >
+									</select>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_University">@L("University")</label>
+									<input class="form-control" id="Client_University" value="@Model.Client.University" type="text" name="university"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_Street">@L("Street")</label>
+									<input class="form-control" id="Client_Street" value="@Model.Client.Street" type="text" name="street"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_City">@L("City")</label>
+									<input class="form-control" id="Client_City" value="@Model.Client.City" type="text" name="city"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_State">@L("State")</label>
+									<input class="form-control" id="Client_State" value="@Model.Client.State" type="text" name="state"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_ZipCode">@L("ZipCode")</label>
+									<input class="form-control" id="Client_ZipCode" value="@Model.Client.ZipCode" type="text" name="zipCode"     />
+								</div>
+					
+								<div class="my-3 position-relative">
+									<label class="form-label" for="Client_PreferedIntake">@L("PreferedIntake")</label>
+									<input class="form-control m-input date-picker" id="Client_PreferedIntake" type="text" name="preferedIntake" value="@Model.Client.PreferedIntake" />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_PassportNo">@L("PassportNo")</label>
+									<input class="form-control" id="Client_PassportNo" value="@Model.Client.PassportNo" type="text" name="passportNo"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_VisaType">@L("VisaType")</label>
+									<input class="form-control" id="Client_VisaType" value="@Model.Client.VisaType" type="text" name="visaType"     />
+								</div>
+					
+								<div class="my-3 position-relative">
+									<label class="form-label" for="Client_VisaExpiryDate">@L("VisaExpiryDate")</label>
+									<input class="form-control m-input date-picker" id="Client_VisaExpiryDate" type="text" name="visaExpiryDate" value="@Model.Client.VisaExpiryDate" />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_AddedFrom">@L("AddedFrom")</label>
+									<input class="form-control" id="Client_AddedFrom" value="@Model.Client.AddedFrom" type="text" name="addedFrom"     />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_Rating">@L("Rating")</label>
+									<input class="form-control m-input" id="Client_Rating" value="@Model.Client.Rating.ToString(CultureInfo.InvariantCulture)" type="number" name="rating"    />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_InternalId">@L("InternalId")</label>
+									<input class="form-control m-input" id="Client_InternalId" value="@Model.Client.InternalId.ToString(CultureInfo.InvariantCulture)" type="number" name="internalId"    />
+								</div>
+													
+								<label class="form-check form-check-custom">
+                                    <input
+                                        id="Client_ClientPortal"
+                                        name="clientPortal"                                        
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        value="true"
+                                        @Html.Raw(Model.Client.ClientPortal ?"checked=\"checked\"":"") 
+                                    />
+                                    <span class="form-check-label">
+                                        @L("ClientPortal")
+                                    </span>
+                                </label>
+					
+								<div class="my-3">
+									<label class="form-label" for="Client_SecondaryEmail">@L("SecondaryEmail")</label>
+									<input class="form-control" id="Client_SecondaryEmail" value="@Model.Client.SecondaryEmail" type="text" name="secondaryEmail"     />
+								</div>
+													
+								<label class="form-check form-check-custom">
+                                    <input
+                                        id="Client_Archived"
+                                        name="archived"                                        
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        value="true"
+                                        @Html.Raw(Model.Client.Archived ?"checked=\"checked\"":"") 
+                                    />
+                                    <span class="form-check-label">
+                                        @L("Archived")
+                                    </span>
+                                </label>
+					
+                    </div>
+			    </div>            
+            </div>
+            <div class="card-footer">
+			    <div class="row align-items-center">
+				    <div class="col-lg-12">
+					    <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+					    @if (!Model.IsEditMode)
+                        {
+					        <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+					    }
+				    </div>
+			    </div>
+		    </div>
+         </form>
+    </div>
+  </div>

@@ -6,6 +6,21 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ClientTags = "Pages.ClientTags";
+        public const string Pages_ClientTags_Create = "Pages.ClientTags.Create";
+        public const string Pages_ClientTags_Edit = "Pages.ClientTags.Edit";
+        public const string Pages_ClientTags_Delete = "Pages.ClientTags.Delete";
+
+        public const string Pages_Followers = "Pages.Followers";
+        public const string Pages_Followers_Create = "Pages.Followers.Create";
+        public const string Pages_Followers_Edit = "Pages.Followers.Edit";
+        public const string Pages_Followers_Delete = "Pages.Followers.Delete";
+
+        public const string Pages_Clients = "Pages.Clients";
+        public const string Pages_Clients_Create = "Pages.Clients.Create";
+        public const string Pages_Clients_Edit = "Pages.Clients.Edit";
+        public const string Pages_Clients_Delete = "Pages.Clients.Delete";
+
         public const string Pages_Countries = "Pages.Countries";
         public const string Pages_Countries_Create = "Pages.Countries.Create";
         public const string Pages_Countries_Edit = "Pages.Countries.Edit";
