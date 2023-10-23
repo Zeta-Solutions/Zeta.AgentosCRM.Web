@@ -30,6 +30,21 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var clientTags = pages.CreateChildPermission(AppPermissions.Pages_ClientTags, L("ClientTags"), multiTenancySides: MultiTenancySides.Tenant);
+            clientTags.CreateChildPermission(AppPermissions.Pages_ClientTags_Create, L("CreateNewClientTag"), multiTenancySides: MultiTenancySides.Tenant);
+            clientTags.CreateChildPermission(AppPermissions.Pages_ClientTags_Edit, L("EditClientTag"), multiTenancySides: MultiTenancySides.Tenant);
+            clientTags.CreateChildPermission(AppPermissions.Pages_ClientTags_Delete, L("DeleteClientTag"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var followers = pages.CreateChildPermission(AppPermissions.Pages_Followers, L("Followers"), multiTenancySides: MultiTenancySides.Tenant);
+            followers.CreateChildPermission(AppPermissions.Pages_Followers_Create, L("CreateNewFollower"), multiTenancySides: MultiTenancySides.Tenant);
+            followers.CreateChildPermission(AppPermissions.Pages_Followers_Edit, L("EditFollower"), multiTenancySides: MultiTenancySides.Tenant);
+            followers.CreateChildPermission(AppPermissions.Pages_Followers_Delete, L("DeleteFollower"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var clients = pages.CreateChildPermission(AppPermissions.Pages_Clients, L("Clients"), multiTenancySides: MultiTenancySides.Tenant);
+            clients.CreateChildPermission(AppPermissions.Pages_Clients_Create, L("CreateNewClient"), multiTenancySides: MultiTenancySides.Tenant);
+            clients.CreateChildPermission(AppPermissions.Pages_Clients_Edit, L("EditClient"), multiTenancySides: MultiTenancySides.Tenant);
+            clients.CreateChildPermission(AppPermissions.Pages_Clients_Delete, L("DeleteClient"), multiTenancySides: MultiTenancySides.Tenant);
+
             var countries = pages.CreateChildPermission(AppPermissions.Pages_Countries, L("Countries"), multiTenancySides: MultiTenancySides.Tenant);
             countries.CreateChildPermission(AppPermissions.Pages_Countries_Create, L("CreateNewCountry"), multiTenancySides: MultiTenancySides.Tenant);
             countries.CreateChildPermission(AppPermissions.Pages_Countries_Edit, L("EditCountry"), multiTenancySides: MultiTenancySides.Tenant);

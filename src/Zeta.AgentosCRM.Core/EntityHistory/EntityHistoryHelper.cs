@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Zeta.AgentosCRM.CRMClient;
+using System;
 using System.Linq;
 using Abp.Organizations;
 using Zeta.AgentosCRM.Authorization.Roles;
@@ -17,6 +18,9 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ClientTag),
+            typeof(Follower),
+            typeof(Client),
             typeof(OrganizationUnit), typeof(Role)
         };
 

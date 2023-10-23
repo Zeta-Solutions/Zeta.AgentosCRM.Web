@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Countries;
+﻿using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.CRMSetup.Regions;
 using Zeta.AgentosCRM.CRMSetup.TaskCategory;
 using Zeta.AgentosCRM.CRMSetup.Tag;
@@ -20,11 +21,18 @@ using Zeta.AgentosCRM.MultiTenancy;
 using Zeta.AgentosCRM.MultiTenancy.Accounting;
 using Zeta.AgentosCRM.MultiTenancy.Payments;
 using Zeta.AgentosCRM.Storage;
+using PayPalCheckoutSdk.Orders;
 
 namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ClientTag> ClientTags { get; set; }
+
+        public virtual DbSet<Follower> Followers { get; set; }
+
+        public virtual DbSet<Client> Clients { get; set; }
+
         public virtual DbSet<Country> Countries { get; set; }
 
         public virtual DbSet<Region> Regions { get; set; }
@@ -89,10 +97,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Country>(c =>
+            modelBuilder.Entity<ClientTag>(c =>
             {
                 c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Follower>(f =>
+                       {
+                           f.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Client>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Country>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Region>(r =>
                        {
                            r.HasIndex(e => new { e.TenantId });
