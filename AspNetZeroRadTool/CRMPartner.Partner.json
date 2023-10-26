@@ -1,6 +1,6 @@
 {
-  "IsRegenerate": false,
-  "MenuPosition": null,
+  "IsRegenerate": true,
+  "MenuPosition": "",
   "RelativeNamespace": "CRMPartner",
   "EntityName": "Partner",
   "EntityNamePlural": "Partners",
@@ -289,7 +289,7 @@
       "Namespace": "Zeta.AgentosCRM.CRMSetup",
       "ForeignEntityName": "PartnerType",
       "IdType": "int",
-      "IsNullable": false,
+      "IsNullable": true,
       "PropertyName": "PartnerTypeId",
       "DuplicationNumber": 0,
       "RelationType": "single",

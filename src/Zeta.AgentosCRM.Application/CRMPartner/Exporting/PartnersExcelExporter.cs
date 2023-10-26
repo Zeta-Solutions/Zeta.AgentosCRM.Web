@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Abp.Runtime.Session;
-using Abp.Timing.Timezone;
-using Zeta.AgentosCRM.DataExporting.Excel.NPOI;
+using Abp.Timing.Timezone; 
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.Dto;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.DataExporting.Excel.MiniExcel;
 
 namespace Zeta.AgentosCRM.CRMPartner.Exporting
 {
-    public class PartnersExcelExporter : NpoiExcelExporterBase, IPartnersExcelExporter
+    public class PartnersExcelExporter : MiniExcelExcelExporterBase, IPartnersExcelExporter
     {
 
         private readonly ITimeZoneConverter _timeZoneConverter;
@@ -26,56 +26,30 @@ namespace Zeta.AgentosCRM.CRMPartner.Exporting
 
         public FileDto ExportToFile(List<GetPartnerForViewDto> partners)
         {
+            var excelPackage = new List<Dictionary<string, object>>();
+
+            foreach (var partner in partners)
+            {
+                excelPackage.Add(new Dictionary<string, object>()
+            {
+                { L("PartnerName"),partner.Partner.PartnerName},
+                 {   L("Street"),partner.Partner.Street},
+                  {  L("City"),partner.Partner.City},
+                   { L("State"),partner.Partner.State},
+                    { L("ZipCode"),partner.Partner.ZipCode},
+                   { L("PhoneNo"),partner.Partner.PhoneNo},
+                    { L("Email"),partner.Partner.Email},
+                 {   L("Fax"),partner.Partner.Fax},
+                  {  L("Website"),partner.Partner.Website},
+                   { L("University"),partner.Partner.University},
+                    { L("MarketingEmail"),partner.Partner.MarketingEmail},
+            });
+
+            }
+
             return CreateExcelPackage(
                 "Partners.xlsx",
-                excelPackage =>
-                {
-
-                    var sheet = excelPackage.CreateSheet(L("Partners"));
-
-                    AddHeader(
-                        sheet,
-                        L("PartnerName"),
-                        L("Street"),
-                        L("City"),
-                        L("State"),
-                        L("ZipCode"),
-                        L("PhoneNo"),
-                        L("Email"),
-                        L("Fax"),
-                        L("Website"),
-                        L("University"),
-                        L("MarketingEmail"),
-                        (L("BinaryObject")) + L("Description"),
-                        (L("MasterCategory")) + L("Name"),
-                        (L("PartnerType")) + L("Name"),
-                        (L("Workflow")) + L("Name"),
-                        (L("Country")) + L("Name"),
-                        (L("Country")) + L("DisplayProperty")
-                        );
-
-                    AddObjects(
-                        sheet, partners,
-                        _ => _.Partner.PartnerName,
-                        _ => _.Partner.Street,
-                        _ => _.Partner.City,
-                        _ => _.Partner.State,
-                        _ => _.Partner.ZipCode,
-                        _ => _.Partner.PhoneNo,
-                        _ => _.Partner.Email,
-                        _ => _.Partner.Fax,
-                        _ => _.Partner.Website,
-                        _ => _.Partner.University,
-                        _ => _.Partner.MarketingEmail,
-                        _ => _.BinaryObjectDescription,
-                        _ => _.MasterCategoryName,
-                        _ => _.PartnerTypeName,
-                        _ => _.WorkflowName,
-                        _ => _.CountryName,
-                        _ => _.CountryDisplayProperty2
-                        );
-
-                });
+                excelPackage);
         }
     }
 }

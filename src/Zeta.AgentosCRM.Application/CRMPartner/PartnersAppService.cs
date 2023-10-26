@@ -390,7 +390,7 @@ namespace Zeta.AgentosCRM.CRMPartner
         }
 
         [AbpAuthorize(AppPermissions.Pages_Partners)]
-        public async Task<List<PartnerCountryLookupTableDto>> GetAllCountryForTableDropdown()
+        public async Task<List<PartnerCountryLookupTableDto>> GetAllCountryCodeForTableDropdown()
         {
             return await _lookup_countryRepository.GetAll()
                 .Select(country => new PartnerCountryLookupTableDto

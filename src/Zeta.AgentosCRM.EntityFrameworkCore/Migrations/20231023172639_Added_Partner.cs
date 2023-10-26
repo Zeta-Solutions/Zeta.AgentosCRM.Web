@@ -74,7 +74,7 @@ namespace Zeta.AgentosCRM.Migrations
                         column: x => x.PartnerTypeId,
                         principalTable: "PartnerTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Partners_Workflows_WorkflowId",
                         column: x => x.WorkflowId,

@@ -1,6 +1,9 @@
 ﻿using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMSetup; 
-using Zeta.AgentosCRM.CRMSetup.Countries; 
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.Countries;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,7 +55,7 @@ namespace Zeta.AgentosCRM.CRMPartner
         [ForeignKey("MasterCategoryId")]
         public MasterCategory MasterCategoryFk { get; set; }
 
-        public virtual int PartnerTypeId { get; set; }
+        public virtual int? PartnerTypeId { get; set; }
 
         [ForeignKey("PartnerTypeId")]
         public PartnerType PartnerTypeFk { get; set; }

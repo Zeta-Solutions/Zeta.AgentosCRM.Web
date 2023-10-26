@@ -1988,7 +1988,7 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("PartnerTypeId")
+                    b.Property<int?>("PartnerTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNo")
@@ -3631,9 +3631,7 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.PartnerType", "PartnerTypeFk")
                         .WithMany()
-                        .HasForeignKey("PartnerTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PartnerTypeId");
 
                     b.HasOne("Zeta.AgentosCRM.Storage.BinaryObject", "ProfilePictureFk")
                         .WithMany()

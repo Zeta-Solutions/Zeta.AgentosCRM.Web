@@ -4,12 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace Zeta.AgentosCRM.CRMPartner
 {
@@ -34,6 +29,8 @@ namespace Zeta.AgentosCRM.CRMPartner
         Task<List<PartnerWorkflowLookupTableDto>> GetAllWorkflowForTableDropdown();
 
         Task<List<PartnerCountryLookupTableDto>> GetAllCountryForTableDropdown();
+
+        Task<List<PartnerCountryLookupTableDto>> GetAllCountryCodeForTableDropdown();
 
     }
 }

@@ -31,7 +31,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public int MasterCategoryId { get; set; }
 
-        public int PartnerTypeId { get; set; }
+        public int? PartnerTypeId { get; set; }
 
         public int WorkflowId { get; set; }
 
