@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMClient;
+﻿using Zeta.AgentosCRM.CRMPartner;
+using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.CRMSetup.Regions;
 using Zeta.AgentosCRM.CRMSetup.TaskCategory;
@@ -27,6 +28,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<Partner> Partners { get; set; }
+
         public virtual DbSet<ClientTag> ClientTags { get; set; }
 
         public virtual DbSet<Follower> Followers { get; set; }
@@ -97,10 +100,14 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ClientTag>(c =>
+            modelBuilder.Entity<Partner>(p =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ClientTag>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Follower>(f =>
                        {
                            f.HasIndex(e => new { e.TenantId });

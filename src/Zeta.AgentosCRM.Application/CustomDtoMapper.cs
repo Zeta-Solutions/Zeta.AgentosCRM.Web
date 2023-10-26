@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMClient.Dtos;
+﻿using Zeta.AgentosCRM.CRMPartner.Dtos;
+using Zeta.AgentosCRM.CRMPartner;
+using Zeta.AgentosCRM.CRMClient.Dtos;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup.Countries.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Countries;
@@ -70,6 +72,8 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPartnerDto, Partner>().ReverseMap();
+            configuration.CreateMap<PartnerDto, Partner>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientTagDto, ClientTag>().ReverseMap();
             configuration.CreateMap<ClientTagDto, ClientTag>().ReverseMap();
             configuration.CreateMap<CreateOrEditFollowerDto, Follower>().ReverseMap();

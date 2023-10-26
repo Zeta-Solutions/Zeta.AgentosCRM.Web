@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231023172639_Added_Partner")]
+    partial class Added_Partner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1988,7 +1991,7 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("PartnerTypeId")
+                    b.Property<int>("PartnerTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNo")
@@ -3631,7 +3634,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.PartnerType", "PartnerTypeFk")
                         .WithMany()
-                        .HasForeignKey("PartnerTypeId");
+                        .HasForeignKey("PartnerTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Zeta.AgentosCRM.Storage.BinaryObject", "ProfilePictureFk")
                         .WithMany()
