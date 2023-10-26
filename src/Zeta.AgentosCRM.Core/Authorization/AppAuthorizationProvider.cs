@@ -30,6 +30,11 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var partners = pages.CreateChildPermission(AppPermissions.Pages_Partners, L("Partners"), multiTenancySides: MultiTenancySides.Tenant);
+            partners.CreateChildPermission(AppPermissions.Pages_Partners_Create, L("CreateNewPartner"), multiTenancySides: MultiTenancySides.Tenant);
+            partners.CreateChildPermission(AppPermissions.Pages_Partners_Edit, L("EditPartner"), multiTenancySides: MultiTenancySides.Tenant);
+            partners.CreateChildPermission(AppPermissions.Pages_Partners_Delete, L("DeletePartner"), multiTenancySides: MultiTenancySides.Tenant);
+
             var clientTags = pages.CreateChildPermission(AppPermissions.Pages_ClientTags, L("ClientTags"), multiTenancySides: MultiTenancySides.Tenant);
             clientTags.CreateChildPermission(AppPermissions.Pages_ClientTags_Create, L("CreateNewClientTag"), multiTenancySides: MultiTenancySides.Tenant);
             clientTags.CreateChildPermission(AppPermissions.Pages_ClientTags_Edit, L("EditClientTag"), multiTenancySides: MultiTenancySides.Tenant);

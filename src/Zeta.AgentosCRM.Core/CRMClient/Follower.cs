@@ -15,7 +15,7 @@ namespace Zeta.AgentosCRM.CRMClient
     {
         public int TenantId { get; set; }
 
-        public virtual long ClientId { get; set; }
+        public virtual long ClientId { get; set; } 
 
         [ForeignKey("ClientId")]
         public Client ClientFk { get; set; }
