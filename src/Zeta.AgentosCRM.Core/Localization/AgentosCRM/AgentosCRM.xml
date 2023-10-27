@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="ClientTag">Client tag</text>
+  <texts>    <text name="CRMPartner">C r m partner</text>
+    <text name="Partner">Partner</text>
+    <text name="CreateNewPartner">Create new partner</text>
+    <text name="EditPartner">Edit partner</text>
+    <text name="DeletePartner">Delete partner</text>
+    <text name="ClientTag">Client tag</text>
     <text name="CreateNewClientTag">Create new client tag</text>
     <text name="EditClientTag">Edit client tag</text>
     <text name="DeleteClientTag">Delete client tag</text>
