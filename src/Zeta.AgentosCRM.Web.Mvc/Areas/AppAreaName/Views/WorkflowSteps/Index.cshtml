@@ -9,12 +9,15 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/WorkflowSteps/Index.js" asp-append-version="true"></script>
 }
-
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 <abp-page-subheader title='@L("WorkflowSteps")' description='@L("WorkflowStepsHeaderInfo")'>
 
     @if (IsGranted(AppPermissions.Pages_WorkflowSteps_Create))
     {
-    <button id="CreateNewWorkflowStepButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
+    <button id="CreateNewWorkflowStepButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
     }
 </abp-page-subheader>
 
@@ -79,7 +82,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="WorkflowStepsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="WorkflowStepsTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>

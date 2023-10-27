@@ -1,6 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Abp.Application.Services.Dto;
+using Abp.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.CRMPartner;
+using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
 using Zeta.AgentosCRM.Web.Controllers;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
@@ -9,9 +16,19 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
     [Area("AppAreaName")]
     public class PartnersController : AgentosCRMControllerBase
     {
+        private readonly IPartnersAppService _partnersAppService;
+        public PartnersController(IPartnersAppService partnersAppService)
+        {
+            _partnersAppService = partnersAppService;
+        }
         public IActionResult Index()
         {
-            return View();
+            var model= new PartnersViewModel
+            {
+                FilterText = ""
+            };
+
+            return View(model);
         }
         public ActionResult PartnersDetails()
         {
@@ -110,6 +127,88 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("~/Areas/AppAreaName/Views/Partners/ApplicationForm/Index.cshtml");
 
         }
+        [AbpMvcAuthorize(AppPermissions.Pages_Partners_Create, AppPermissions.Pages_Partners_Edit)]
+        public async Task<ActionResult> CreateOrEdit(int? id)
+        {
+            GetPartnerForEditOutput getPartnerForEditOutput;
 
+            if (id.HasValue)
+            {
+                getPartnerForEditOutput = await _partnersAppService.GetPartnerForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getPartnerForEditOutput = new GetPartnerForEditOutput
+                {
+                    Partner = new CreateOrEditPartnerDto()
+                };
+                //getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditPartnerViewModel()
+            {
+                Partner = getPartnerForEditOutput.Partner,
+                PartnerName = getPartnerForEditOutput.Partner.PartnerName,
+                //BusinessRegistrationNumber = getPartnerForEditOutput.BusinessRegistrationNumber,
+                Street = getPartnerForEditOutput.Partner.Street,
+                City = getPartnerForEditOutput.Partner.City,
+                State = getPartnerForEditOutput.Partner.State,
+                Zipcode = getPartnerForEditOutput.Partner.ZipCode,
+                Phone = getPartnerForEditOutput.Partner.PhoneNo,
+                Email = getPartnerForEditOutput.Partner.Email,
+                Fax = getPartnerForEditOutput.Partner.Fax,
+                Website = getPartnerForEditOutput.Partner.Website,
+                MarketingOfficeEmail = getPartnerForEditOutput.Partner.MarketingEmail,
+                University = getPartnerForEditOutput.Partner.University,
+                //Currency = getPartnerForEditOutput.Partner.Currency,
+                MasterCategoryName = getPartnerForEditOutput.MasterCategoryName,
+                PartnerTypeName = getPartnerForEditOutput.PartnerTypeName,
+                WorkflowName = getPartnerForEditOutput.WorkflowName,
+                CountryName2 = getPartnerForEditOutput.CountryName,
+                PartnerCountryList = await _partnersAppService.GetAllCountryForTableDropdown(),
+                PartnerMasterCategoryList = await _partnersAppService.GetAllMasterCategoryForTableDropdown(),
+                PartnerPartnerTypeList = await _partnersAppService.GetAllPartnerTypeForTableDropdown(),
+                PartnerWorkflowList = await _partnersAppService.GetAllWorkflowForTableDropdown(),
+            };
+
+            return View(viewModel);
+        }
+        //public async Task<ActionResult> ViewPartner(long id)
+        //{
+        //    var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+
+        //    var model = new PartnerViewModel()
+        //    {
+        //        Partner = getPartnerForViewDto.Partner
+        //        ,
+        //        CountryDisplayProperty = getClientForViewDto.CountryDisplayProperty
+
+        //        ,
+        //        UserName = getClientForViewDto.UserName
+
+        //        ,
+        //        BinaryObjectDescription = getClientForViewDto.BinaryObjectDescription
+
+        //        ,
+        //        DegreeLevelName = getClientForViewDto.DegreeLevelName
+
+        //        ,
+        //        SubjectAreaName = getClientForViewDto.SubjectAreaName
+
+        //        ,
+        //        LeadSourceName = getClientForViewDto.LeadSourceName
+
+        //        ,
+        //        CountryName2 = getClientForViewDto.CountryName2
+
+        //        ,
+        //        CountryName3 = getClientForViewDto.CountryName3
+
+        //    };
+
+        //    return View(model);
+        //}
     }
 }

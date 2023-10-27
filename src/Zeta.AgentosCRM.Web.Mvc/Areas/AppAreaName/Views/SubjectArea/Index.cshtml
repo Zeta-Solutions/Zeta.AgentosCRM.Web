@@ -10,13 +10,16 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.SubjectArea;
 <script abp-src="/view-resources/Areas/AppAreaName/Views/SubjectArea/Index.js" asp-append-version="true"></script>
 
 }
-
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 <abp-page-subheader title='@L("SubjectArea")' description='@L("SubjectAreaHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_SubjectAreas_Create))
     {
-    <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewSubjectArea")</button>
+    <button id="CreateNewButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewSubjectArea")</button>
     }
 </abp-page-subheader>
 
@@ -66,7 +69,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.SubjectArea;
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="SubjectAreatable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="SubjectAreatable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>

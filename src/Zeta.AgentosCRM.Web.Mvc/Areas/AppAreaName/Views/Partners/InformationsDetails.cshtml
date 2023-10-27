@@ -5,9 +5,10 @@
     }
 <div class="card maincard">
     <div class="card-body ">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion accordion-flush" id="accordionFlushExample" >
             <div class="accordion-item">
                 <h2 class="accordion-header ">
+@*                     <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="padding: 0.80rem 1.5rem;font-size: 16px;"> *@
                     <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         Primary Information
                     </button>
@@ -33,17 +34,23 @@
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label for="masterCategory" class="form-label">Master Category</label>
-                                                        <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
+                                                       @*  <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
                                                             <option value="Category">Category 1</option>
                                                             <option value="Category">Category2</option>
-                                                        </select>
+                                                        </select> *@
+                                                        
+                                                            <select id="Categoryddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">Category 1</option>
+                                                            <option value="Category">Category2</option>
+                                                            </select>
+                                                      
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerType" class="form-label">Partner Type</label>
-                                                        <select class="form-control form-control-sm" id="partnerType" name="partnerType">
-                                                            <option value="partnerType">partnerType 1</option>
-                                                            <option value="partnerType">partnerType 2</option>
-                                                        </select>
+                                                        <select id="Partnerddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">Partner 1</option>
+                                                            <option value="Category">Partner 2</option>
+                                                            </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerName" class="form-label">Partner Name</label>
@@ -55,17 +62,17 @@
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="serviceWorkflow" class="form-label">Service Workflow</label>
-                                                        <select class="form-control form-control-sm" id="serviceWorkflow" name="serviceWorkflow">
-                                                            <option value="service">service 1</option>
-                                                            <option value="service">service 2</option>
-                                                        </select>
+                                                       <select id="WorkFlowddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">WorkFlow 1</option>
+                                                            <option value="Category">WorkFlow 2</option>
+                                                            </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="currency" class="form-label">Currency</label>
-                                                        <select class="form-control form-control-sm" id="currency" name="currency">
-                                                            <option value="currency">PK</option>
-                                                            <option value="currency">EU</option>
-                                                        </select>
+                                                     <select id="Currencyddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">Currency 1</option>
+                                                            <option value="Category">Currency 2</option>
+                                                            </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,10 +117,10 @@
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Country" class="form-label">Country</label>
-                                                        <select class="form-control form-control-sm" id="Country" name="Country">
-                                                            <option value="Country">Country 1</option>
-                                                            <option value="Country">Country 2</option>
-                                                        </select>
+                                                       <select id="Countryddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">Country 1</option>
+                                                            <option value="Category">Country 2</option>
+                                                            </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,6 +139,7 @@
                     </button>
                 </h2>
                 <div id="flush-collapseThree" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                   
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -144,6 +152,7 @@
                                                         <label for="Phone" class="form-label">Phone</label>
                                                         <input type="number" class="form-control form-control-sm" id="Phone" name="Phone">
                                                     </div>
+
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Email" class="form-label">Email</label>
                                                         <input type="email" class="form-control form-control-sm" id="Email" name="Email">
@@ -235,3 +244,59 @@
 
     </div>
 </div>
+
+
+
+  <!-- CSS -->
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+
+ 
+<body>
+    <div class="container">
+        <div class="col-md-8 mt-4">
+            <label for="Phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control form-control-sm" id="phone" name="Phone">
+        </div>
+    </div>
+
+    <script>
+        var input = document.querySelector("#phone");
+        var iti = intlTelInput(input, {
+          initialCountry: "auto",
+          geoIpLookup: function (success, failure) {
+            // Simulate a successful IP lookup to set the initial country
+            var countryCode = "PK"; // Replace with the appropriate country code
+            success(countryCode);
+          },
+        });
+
+        // Manually set the phone number and selected country code (e.g., "US")
+        var savedPhoneNumber = "+1 123-456-7890"; // Replace with your saved phone number
+        var selectedCountry = "PK"; // Replace with the appropriate country code
+
+        // Set the phone number value and selected country
+        input.value = savedPhoneNumber;
+        iti.setCountry(selectedCountry);
+
+        // Change the flag and title based on a condition
+        var condition = true; // Change this to your condition
+
+        // Get the element by its class name
+        var flagElement = document.querySelector(".iti__selected-flag");
+
+        if (condition) {
+            // Change the title attribute
+            flagElement.setAttribute("title", "New Title: +XX"); // Replace "New Title" and "+XX" with your desired values
+
+            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
+            flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
+        }
+    </script>
+</body>
+
+
