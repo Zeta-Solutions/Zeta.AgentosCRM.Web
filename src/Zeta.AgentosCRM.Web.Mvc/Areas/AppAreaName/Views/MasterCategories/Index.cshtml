@@ -9,13 +9,17 @@
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/MasterCategories/Index.js" asp-append-version="true"></script>
 }
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 
 <abp-page-subheader title='@L("MasterCategories")' description='@L("MasterCategoriesHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
     {
-    <button id="CreateNewMasterCategoryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewMasterCategory")</button>
+    <button id="CreateNewMasterCategoryButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewMasterCategory")</button>
     }
 </abp-page-subheader>
 
@@ -65,8 +69,8 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="MasterCategoriesTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
-                    <thead>
+                <table id="MasterCategoriesTable" class="table align-middle fs-8 gy-2 dataTable no-footer">
+                    <thead class="thead">
                         <tr>
                             <th></th>
 

@@ -9,12 +9,15 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Workflows/Index.js" asp-append-version="true"></script>
 }
-
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 <abp-page-subheader title='@L("Workflows")' description='@L("WorkflowsHeaderInfo")'>
 
     @if (IsGranted(AppPermissions.Pages_Workflows_Create))
     {
-    <button id="CreateNewWorkflowButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewWorkflow")</button>
+    <button id="CreateNewWorkflowButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewWorkflow")</button>
     }
 </abp-page-subheader>
 
@@ -58,7 +61,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="WorkflowsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="WorkflowsTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>
