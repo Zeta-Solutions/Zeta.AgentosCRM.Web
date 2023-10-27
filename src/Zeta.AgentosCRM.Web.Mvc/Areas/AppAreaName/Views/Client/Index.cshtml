@@ -1,131 +1,320 @@
 ﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-
-  @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
-}
-
-
-@section Scripts
-{
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Index.js" asp-append-version="true"></script>
-
+@model ClientsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
 }
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
-  }
+   }
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Index.js" asp-append-version="true"></script>
+}
 
 
 
-<abp-page-subheader title='@L("Client")' description='@L("ClientHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
-
-    @if (IsGranted(AppPermissions.Pages_DegreeLevels_Create))
-    {
-        <button id="CreateNewButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewClient")</button>
-    }
-</abp-page-subheader>
-
-<div class="@(await GetContainerClass())">
+<abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")' class="custom-header">
+                     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+            
+                     @if (IsGranted(AppPermissions.Pages_Clients_Create))
+                     {
+        <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black "><i class="fa fa-plus"></i> @L("CreateNewDegreeLevel")</button>
+  
+                         @* <a href="\AppAreaName\Client\CreateOrEdit" class="btn btn-white btn-sm btn-outline text-black "><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                 *@
+                     }
+                </abp-page-subheader>
+            
+<div class="@(await GetContainerClass())">   
     <div class="card card-custom gutter-b">
         <div class="card-body">
             <div class="form">
                 <div class="row align-items-center mb-4">
-                    <div class="col-xl-12">
+                    <div class="col-xl-12">                        
+                        
+                        
+                <div class="my-1">
+                    <div class="input-group">
+                        <input type="text" id="ClientsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                        <button id="GetClientsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>                        
+                    </div>
+                </div>
+            
+                    </div>
+                </div>
+			</div>
+                <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                    <div class="col-md-12">
+						
+					</div>
 
-                        <div class="my-3">
-                            <div class="input-group">
-                                <input type="text" id="ClientTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetClientButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="FirstNameFilterId">@L("FirstName")</label>
+									<input type="text" class="form-control reload-on-keyup" name="firstNameFilter" id="FirstNameFilterId">
+								</div>
                             </div>
-                        </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="LastNameFilterId">@L("LastName")</label>
+									<input type="text" class="form-control reload-on-keyup" name="lastNameFilter" id="LastNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="EmailFilterId">@L("Email")</label>
+									<input type="text" class="form-control reload-on-keyup" name="emailFilter" id="EmailFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="PhoneNoFilterId">@L("PhoneNo")</label>
+									<input type="text" class="form-control reload-on-keyup" name="phoneNoFilter" id="PhoneNoFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="my-3">
+										<label class="form-label" for="MinDateofBirthFilterId">@L("DateofBirthRange")</label>
+										<div class="input-group">
+											<input class="form-control m-input date-picker startDate" type="text" placeholder="@L("MinValue")"  id="MinDateofBirthFilterId">
+											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+											<input class="form-control m-input date-picker endDate" type="text" placeholder="@L("MaxValue")"  id="MaxDateofBirthFilterId">
+										</div>
+									</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UniversityFilterId">@L("University")</label>
+									<input type="text" class="form-control reload-on-keyup" name="universityFilter" id="UniversityFilterId">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                 <div class="my-3">
+									<label class="form-label" for="MinRatingFilterId">@L("MinMax") @L("Rating")</label>
+									<div class="input-group">
+										<input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minRatingFilter" id="MinRatingFilterId"/>
+                                        <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxRatingFilter"  id="MaxRatingFilterId"/>
+									</div>
+                                </div>
+                            </div>
 
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryDisplayPropertyFilterId">(@L("Country")) @L("DisplayProperty")</label>
+									<input type="text" class="form-control" name="countryDisplayPropertyFilter" id="CountryDisplayPropertyFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
+									<input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="BinaryObjectDescriptionFilterId">(@L("BinaryObject")) @L("Description")</label>
+									<input type="text" class="form-control" name="binaryObjectDescriptionFilter" id="BinaryObjectDescriptionFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="DegreeLevelNameFilterId">(@L("DegreeLevel")) @L("Name")</label>
+									<input type="text" class="form-control" name="degreeLevelNameFilter" id="DegreeLevelNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="SubjectAreaNameFilterId">(@L("SubjectArea")) @L("Name")</label>
+									<input type="text" class="form-control" name="subjectAreaNameFilter" id="SubjectAreaNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="LeadSourceNameFilterId">(@L("LeadSource")) @L("Name")</label>
+									<input type="text" class="form-control" name="leadSourceNameFilter" id="LeadSourceNameFilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryName2FilterId">(@L("Country")) @L("Name")</label>
+									<input type="text" class="form-control" name="countryName2Filter" id="CountryName2FilterId">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CountryName3FilterId">(@L("Country")) @L("Name")</label>
+									<input type="text" class="form-control" name="countryName3Filter" id="CountryName3FilterId">
+								</div>
+                            </div>
+                    <div class="col-md-12 mt-5">
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
                     </div>
                 </div>
-            </div>
-            <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
-                <div class="col-md-12">
-
-                </div>
-
-                <div class="col-md-3">
-                    <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                <div class="row my-4">
+                    <div class="col-xl-12">
+                        <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                        <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="my-3">
-                        <label class="form-label" for="NameFilterId">@L("Name")</label>
-                        <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
-                    </div>
-                </div>
+            <div class="row align-items-center">
+				<div class="table-responsive">
+                    <table id="ClientsssTable" class="table border  align-middle  fs-8 gy-2 dataTable no-footer " >
+    <thead class="thead gy-7" >
+        <tr>
+           <th class="align-middle" style="padding:4px"><input type="checkbox" ></th>
+            <th >@L("Name")</th>
+            <th >@L("AddedFrom")</th>
+            <th >@L("Rating")</th>
+            <th >@L("InternalId")</th>
+            <th >@L("Assignee")</th>
+            <th>@L("Phone")</th>
+            <th>@L("ClientPortal")</th>
+            <th>@L("Passport")</th>
+            <th>@L("City")</th>
+            <th>@L("Status")</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dummy data for three rows -->
+        <tr>
+            <td class="align-middle" style="padding:4px"> <input type="checkbox" ></td>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>FK</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Faryal Khalid
+                                            </a>
+                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">fryalKhalid@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-12 mt-5">
-                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
-                </div>
+                                </td>
+
+                                <td>system </td>
+                                <td>
+                                    6
+                                </td>
+                                <td>1289</td>
+                                <td>
+                                    Sahar Aussie ASEAN
+                                </td>
+                                <td>+9232759124</td>
+                                <td>Activated</td>
+                                <td>AB123456</td>
+                                <td>
+                                    LAHORE
+                                </td>
+                                <td>In Progress</td>
+        </tr>
+                            <tr>
+                                <td class="align-middle" style="padding:4px"> <input type="checkbox"></td>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-success me-2" title="ASIF NAWAZ">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>AN</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="ASIF NAWAZ">
+                                                ASIF NAWAZ
+                                            </a>
+                                            <a href="mailto:hassankamal20232023@outlook.com" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">asifnawaz@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td>system </td>
+                                <td>
+                                    6
+                                </td>
+                                <td>1289</td>
+                                <td>
+                                    Sahar Aussie ASEAN
+                                </td>
+                                <td>+92-541234</td>
+                                <td>Activated</td>
+                                <td>AB123456</td>
+                                <td>
+                                    LAHORE
+                                </td>
+                                <td>In Progress</td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle" style="padding:4px"> <input type="checkbox"></td>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-dark me-2" title="AHMAD ZAFAR">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>AZ</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="" @Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="AHMAD ZAFAR">
+                                                AHMAD ZAFAR
+                                            </a>
+                                            <a href="mailto:hassankamal20232023@outlook.com" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">ahmadzafar@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td>system </td>
+                                <td>
+                                    6
+                                </td>
+                                <td>1275</td>
+                                <td>
+                                    Sahar Aussie ASEAN
+                                </td>
+                                <td>+92315512</td>
+                                <td>De-Activated</td>
+                                <td>AB123456</td>
+                                <td>
+                                    Okara
+                                </td>
+                                <td>In Progress</td>
+                            </tr>
+     
+    </tbody>
+</table>
+                   
+
+				</div>
             </div>
-            <div class="row my-4">
-                <div class="col-xl-12">
-                    <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
-                    <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
-                </div>
-            </div>
-            <div class="row align-items-center"> 
-                <table id="Clienttable"  class="table align-middle fs-8 gy-2 dataTable no-footer">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>@L("Actions")</th>
-                            <th>@L("Abbrivation")</th>
-                            <th>@L("Name")</th>
-                            <th>@L("AddedFrom")</th>
-                            <th>@L("Tag(s)")</th>
-                            <th>@L("Ratings")</th>
-                            <th>@L("Internal ID")</th>
-                            <th>@L("Client ID")</th>
-                            <th>@L("Phone")</th>
-                            <th>@L("Client Portal")</th>
-                           
-                        </tr>
-                    </thead>
-                   <tbody>
-            <tr>
-                <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
-                <td>
-                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
-                </td>
-                <td>Faryal Khalid</td>
-                <td>Faryal Khalid</td>
-                <td>System</td>
-                <td>OFFSHORE(PAKISTAN)</td>
-                <td>6</td>
-                <td>1256</td>
-                <td>1256</td>
-                <td>+9230125454</td>
-                <td>Activated</td>
-            </tr>
-                                <tr>
-                                    <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
-                                    <td>
-                                        <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
-                                    </td>
-                                     <td>Faryal Khalid</td>
-                <td>Faryal Khalid</td>
-                <td>System</td>
-                <td>OFFSHORE(PAKISTAN)</td>
-                <td>6</td>
-                <td>1256</td>
-                <td>1256</td>
-                <td>+9230125454</td>
-                <td>Activated</td>
-                                    
-                                </tr>
-        </tbody>
-                </table>
-            </div> 
+          
+        </div>
+      
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <ul class="pagination font-weight-bold">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
         </div>
     </div>
-</div>
+
+  </div>

@@ -2,7 +2,10 @@
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models
-
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Email")))
 

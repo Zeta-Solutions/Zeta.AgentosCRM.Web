@@ -1,0 +1,138 @@
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@model ClientViewModel
+@using Zeta.AgentosCRM.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/CreateOrEditModeal.js" asp-append-version="true"></script>
+}
+
+
+
+                  @{
+                      var breadcrumbs = new List<BreadcrumbItem>()
+                      {
+                          new BreadcrumbItem("/AppAreaName/Client", L("Clients")),
+                          new BreadcrumbItem(L("Details")),
+                      };
+                   }
+                  <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">                     
+                  </abp-page-subheader>
+             
+
+<div class="@(await GetContainerClass())">
+    <div class=" card card-custom gutter-b">
+        <div class=" card-body">
+             <div id="ClientInformationsTab">        
+                <div class="row">
+                                <div class="col-6 mb-3">
+                <h6>@L("FirstName") :</h6>
+                @Model.Client.FirstName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("LastName") :</h6>
+                @Model.Client.LastName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Email") :</h6>
+                @Model.Client.Email
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PhoneNo") :</h6>
+                @Model.Client.PhoneNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("DateofBirth") :</h6>
+                @Model.Client.DateofBirth
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ContactPreferences") :</h6>
+                @L("Enum_ContactPrefernce_" + (int)Model.Client.ContactPreferences)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("University") :</h6>
+                @Model.Client.University
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Street") :</h6>
+                @Model.Client.Street
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("City") :</h6>
+                @Model.Client.City
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("State") :</h6>
+                @Model.Client.State
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ZipCode") :</h6>
+                @Model.Client.ZipCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PreferedIntake") :</h6>
+                @Model.Client.PreferedIntake
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PassportNo") :</h6>
+                @Model.Client.PassportNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("VisaType") :</h6>
+                @Model.Client.VisaType
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("VisaExpiryDate") :</h6>
+                @Model.Client.VisaExpiryDate
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Rating") :</h6>
+                @Model.Client.Rating
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ClientPortal") :</h6>
+                @Model.Client.ClientPortal
+            </div>
+
+                                <div class="col-6 mb-3">
+                <h6>(@L("Country")) @L("DisplayProperty") :</h6>
+                @Model.CountryDisplayProperty
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("User")) @L("Name") :</h6>
+                @Model.UserName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("BinaryObject")) @L("Description") :</h6>
+                @Model.BinaryObjectDescription
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("DegreeLevel")) @L("Name") :</h6>
+                @Model.DegreeLevelName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("SubjectArea")) @L("Name") :</h6>
+                @Model.SubjectAreaName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("LeadSource")) @L("Name") :</h6>
+                @Model.LeadSourceName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Country")) @L("Name") :</h6>
+                @Model.CountryName2
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("Country")) @L("Name") :</h6>
+                @Model.CountryName3
+            </div>
+
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+
