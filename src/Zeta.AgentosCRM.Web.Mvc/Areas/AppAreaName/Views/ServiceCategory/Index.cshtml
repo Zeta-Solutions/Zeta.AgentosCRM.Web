@@ -9,13 +9,16 @@
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/ServiceCategory/Index.js" asp-append-version="true"></script>
 }
-
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 <abp-page-subheader title='@L("ServiceCategory")' description='@L("ServiceCategoryHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_ServiceCategories_Create))
     {
-        <button id="CreateNewServiceCategoryButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewServiceCategory")</button>
+        <button id="CreateNewServiceCategoryButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewServiceCategory")</button>
     }
 </abp-page-subheader>
 
@@ -65,7 +68,7 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="ServiceCategoryTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                <table id="ServiceCategoryTable" class="table align-middle fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>
