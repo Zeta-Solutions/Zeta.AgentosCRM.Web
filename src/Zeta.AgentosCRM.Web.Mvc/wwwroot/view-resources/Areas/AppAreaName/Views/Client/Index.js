@@ -1,8 +1,9 @@
 ﻿(function () {
     $(function () {
-        var _$SubjectTable = $('#Clientssstable');
-    var _subjectsService = abp.services.app.subjects;
-
+        var _$Clienttable = $('#Clienttable');
+        debugger;
+        var _clientService = abp.services.app.clients;
+        console.log(_clientService);
     var $selectedDate = {
       startDate: null,
       endDate: null,
@@ -47,9 +48,9 @@
       });
 
     var _permissions = {
-      create: abp.auth.hasPermission('Pages.Subjects.Create'),
-        edit: abp.auth.hasPermission('Pages.Subjects.Edit'),
-        delete: abp.auth.hasPermission('Pages.Subjects.Delete'),
+        create: abp.auth.hasPermission('Pages.Clients.Create'),
+        edit: abp.auth.hasPermission('Pages.Clients.Edit'),
+        delete: abp.auth.hasPermission('Pages.Clients.Delete'),
     };
 
         var _createOrEditModal = new app.ModalManager({
@@ -79,19 +80,19 @@
         return null;
       }
       return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
-    };
-        var dataTable = _$SubjectTable.DataTable({
+        };
+  
+        var dataTable = _$Clienttable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _subjectsService.getAll,
+                ajaxFunction: _clientService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
-                        nameFilter: $('#NameFilterId').val(),
-                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        nameFilter: $('#NameFilterId').val()
                     };
                 },
             },
@@ -119,13 +120,14 @@
                                 text: app.localize('View'),
                                 action: function (data) {
                                     window.location.href = abp.appPath + 'AppAreaName/Client/ClientDetail';
+                                    //_viewServiceCategoryModal.open({ id: data.record.serviceCategory.id });
                                 },
                             },
                             {
                                 text: app.localize('Email'),
-                                visible: function () {
-                                    return _permissions.edit;
-                                },
+                                //visible: function () {
+                                //    return _permissions.edit;
+                                //},
                                 action: function (data) {
                                     _createOrEditModalEmail.open();
                                 },
@@ -136,57 +138,58 @@
                                     return _permissions.delete;
                                 },
                                 action: function (data) {
-                                    deletePartnerType(data.record.partnerType);
+                                    deletePartnerType(data.record.clients);
                                 },
                             },
                         ],
                     },
                 },
+                //{
+                //    targets: 2,
+                //    data: 'clients.AddedFrom',
+                //    name: 'AddedFrom',
+                //},
+                //{
+                //    targets: 3,
+                //    data: 'clients.Rating',
+                //    name: 'Rating',
+                //},
+                //{
+                //    targets: 4,
+                //    data: 'Client.InternalId',
+                //    name: 'InternalId',
+                //},
+                //{
+                //    targets: 5,
+                //    data: 'Client.AssigneeId',
+                //    name: 'AssigneeId',
+                //},
+                //{
+                //    targets: 6,
+                //    data: 'Client.PhoneNo',
+                //    name: 'PhoneNo',
+                //},
+                //{
+                //    targets: 7,
+                //    data: 'Client.ClientPortal',
+                //    name: 'ClientPortal',
+                //},
+                //{
+                //    targets: 8,
+                //    data: 'Client.PassportNo',
+                //    name: 'PassportNo',
+                //},
                 {
                     targets: 2,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
+                    data: 'client.FirstName',
+                    name: 'FirstName',
                 },
-                {
-                    targets: 3,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 4,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 5,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 6,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 7,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 8,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 9,
-                    data: 'subject.name',
-                    name: 'name',
-                },
-                {
-                    targets: 10,
-                    data: 'subject.name',
-                    name: 'name',
-                },
+                //{
+                //    targets: 10,
+                //    data: 'Client.PreferedIntake',
+                //    name: 'PreferedIntake',
+                //}, 
+              
             ],
         });
 
@@ -222,7 +225,7 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-    $('#CreateNewButton').click(function () {
+        $('#CreateNewClientButton').click(function () {
       _createOrEditModal.open();
     });
 
@@ -239,7 +242,7 @@
         });
     });
 
-    abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
+    abp.event.on('app.createOrEditClientModalSaved', function () {
         getSubjects();
     });
 

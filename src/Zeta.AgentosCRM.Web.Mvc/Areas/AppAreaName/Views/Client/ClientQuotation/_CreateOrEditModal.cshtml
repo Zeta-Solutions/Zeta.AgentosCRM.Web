@@ -2,27 +2,86 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Abp.Extensions
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewQuotation")))
- 
+
 <div class="modal-body">
     <div id="InformationsForm">
         <form name="QuotationInformationsForm" role="form" novalidate class="form-validation">
-             
-                <input type="hidden" name="id" value="1" />
-            
 
-            <div class="my-3">
-                <label class="form-label" for="Application_Abbrivation">@L("Select Quotation")</label>
-                <input class="form-control" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+            <input type="hidden" name="id" value="1" />
+            <div class="container mt-4">
+        <div class="row">
+            <!-- First four columns for the card -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        Client Details
+                    </div>
+                    <div class="card-body">
+                        <p>User Name: John Doe</p>
+                        <p>Additional Data: Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </div>
             </div>
+            <!-- Empty space for next four columns -->
+            <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
+            <!-- Due Date input field -->
+            <div class="col-md-2">
+                <div class="form-group mt-4">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" class="form-control" id="dueDate">
+                </div>
+            </div>
+            <!-- Quotation Currency dropdown -->
+            <div class="col-md-2">
+                <div class="form-group mt-4">
+                    <label for="currency">Quotation Currency</label>
+                    <select class="form-control" id="currency">
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                        <option value="gbp">GBP</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Next row for data table -->
+        <div class="row mt-4">
+            <div class="card">
 
-            <div class="my-3">
-                <label class="form-label" for="Application_Name">@L("Select Partner and Branch")</label>
-                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
             </div>
-            <div class="my-3">
-                <label class="form-label" for="Application_Name">@L("Select Product")</label>
-                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            <div class="row align-items-center">
+                        <table id="Quotationstable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                           @* <th>@L("Action")</th>*@
+                            <th>@L("Product")</th>
+                            <th>@L("Description")</th>
+                            <th>@L("Service Fee")</th>
+                            <th>@L("Discount")</th>
+                            <th>@L("Net Fee")</th>
+                            <th>@L("Exg. Rate")</th>
+                            <th>@L("Total Amt.")</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
+        </div>
+    </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         </form>
     </div>
 </div>

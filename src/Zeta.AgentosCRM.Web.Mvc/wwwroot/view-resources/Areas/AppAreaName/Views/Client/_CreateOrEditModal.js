@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditSubjectModal = function () {
-    var _subjectsService = abp.services.app.subjects;
+  app.modals.CreateOrEditClientModal = function () {
+      var _clientService = abp.services.app.clients;
 
     var _modalManager;
-      var _$SubjectInformationForm = null;
+      var _$ClientInformationsForm = null;
 
 
 
@@ -17,8 +17,8 @@
         format: 'L',
       });
 
-        _$SubjectInformationForm = _modalManager.getModal().find('form[name=InformationsForm]');
-        _$SubjectInformationForm.validate();
+        _$ClientInformationsForm = _modalManager.getModal().find('form[name=ClientInformationsForm]');
+        _$ClientInformationsForm.validate();
     };
 
     
@@ -26,20 +26,20 @@
  
 
     this.save = function () {
-        if (!_$SubjectInformationForm.valid()) {
+        if (!_$ClientInformationsForm.valid()) {
         return;
       }
 
 
-        var Subject = _$SubjectInformationForm.serializeFormToObject();
+        var Client = _$ClientInformationsForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _subjectsService
-          .createOrEdit(Subject)
+        _clientService
+            .createOrEdit(Client)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditSubjectModalSaved');
+            abp.event.trigger('app.createOrEditClientModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

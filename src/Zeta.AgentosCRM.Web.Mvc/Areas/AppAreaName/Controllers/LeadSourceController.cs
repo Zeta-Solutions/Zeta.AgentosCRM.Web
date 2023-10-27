@@ -27,7 +27,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
         public IActionResult Index()
         {
-            var model = new LeadSourcesViewModel()
+            var model = new LeadSourcesViewModel
             {
                 FilterText = ""
             };

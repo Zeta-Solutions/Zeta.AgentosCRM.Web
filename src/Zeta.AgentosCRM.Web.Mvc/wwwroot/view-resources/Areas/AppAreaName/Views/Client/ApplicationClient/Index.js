@@ -111,7 +111,7 @@
                     data: 'subject.abbrivation',
                     name: 'abbrivation',
                     render: function (data, type, row) {
-                        return '<a href="' + abp.appPath + 'AppAreaName/Client/ApplicationMainTab/' + row.subject.id + '" class="btn btn-primary">View</a>';
+                        return '<a href="' + abp.appPath + 'AppAreaName/Client/ApplicationMainTab/' + row.subject.id + '" class="btn btn-sm btn-primary">View</a>';
                     }
                 },
                 {
