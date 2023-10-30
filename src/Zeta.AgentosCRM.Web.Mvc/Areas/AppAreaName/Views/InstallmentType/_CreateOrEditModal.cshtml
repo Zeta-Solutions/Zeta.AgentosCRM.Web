@@ -2,7 +2,7 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.InstallmentType
 @model CreateOrEditInstallmentTypeModalViewModel
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Installment Type")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditInstallmenttype")) : L("CreateNewInstallmentType")))
 
 <div class="modal-body">
     <div id="InstallmentTypeInformationsTab">
