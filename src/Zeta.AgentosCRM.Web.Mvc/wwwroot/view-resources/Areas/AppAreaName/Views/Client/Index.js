@@ -58,6 +58,16 @@
             //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditModal',
         });
+        var _createOrEditProfile = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Client/ChangePictureModal',
+            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditUserModal',
+        });
+        var changeProfilePictureModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Profile/_ChangePictureModal.js',
+            modalClass: 'CreateOrEditUserModal',
+        });
         var _createOrEditModalEmail = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
             //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/_CreateOrEditModal.js',
@@ -227,7 +237,17 @@
 
         $('#CreateNewClientButton').click(function () {
       _createOrEditModal.open();
-    });
+        });
+        $('#CreateNewClientEmailButton').click(function () {
+            _createOrEditModalEmail.open();
+        });
+        $('#changeProfilePicture').click(function () {
+            changeProfilePictureModal.open();
+        });
+       
+        //$('#ClientBackListButton').click(function () {
+        //    window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
+        //});
 
     $('#ExportToExcelButton').click(function () {
         _subjectsService
