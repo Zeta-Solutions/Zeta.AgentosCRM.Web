@@ -18,14 +18,18 @@
       <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
 
 <abp-page-subheader title='@L("Partners")' description='@L("PartnersHeaderInfo")'>
-    @* <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
-
-     
-   @*  <button id="CreateNewPartnersButton" class="btn btn-sm btn-primary blue"><i class="fa fa-plus"></i> @L("Add")</button>
-    *@     <a href="@Url.Action("AddPartnersDetails", "Partners", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">@L("Add")</a>
+      <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+         <a href="@Url.Action("AddPartnersDetails", "Partners", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewPartner")</a>
 
 </abp-page-subheader>
+@* <abp-page-subheader title='@L("ProductType")' description='@L("ProductTypeHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
+    @if (IsGranted(AppPermissions.Pages_ProductTypes_Create))
+    {
+    <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewPartner")</button>
+    }
+</abp-page-subheader> *@
 <div class="@(await GetContainerClass())">
     <div class="card card-custom gutter-b">
         <div class="card-body">
@@ -35,8 +39,9 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="PartnersTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetMasterCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                               
+  <input type="text" id="PartnersTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                        <button id="GetClientsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>    
                             </div>
                         </div>
 
@@ -71,11 +76,11 @@
                 </div>
             </div>
               <div class="row align-items-center">
-                <table id="PartnersTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                  	<div class="table-responsive">
+                <table id="PartnersTable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead gy-7">
-                        <tr>
-                            <th></th>
-
+                        <tr> 
+                            <th class="align-middle" style="padding:4px"><input type="checkbox" ></th> 
                             <th>@L("Actions")</th>
                             <th>@L("WorkFlow")</th>
                             <th>@L("PartnerType")</th>
@@ -83,15 +88,31 @@
                             <th>@L("Product")</th>
                             <th>@L("Enrolled")</th>
                             <th>@L("Inprogress")</th>
-                            <th>@L("Email")</th>
+                            <th>@L("Email")</th>  
                         </tr>
                     </thead>
                     <tbody>
                        <tr >
-                           <td></td>
-                            <td>
-                          <a href="@Url.Action("PartnersDetails", "Partners", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">View</a>  
-                          </td>
+                          <td class="align-middle" style="padding:4px"> <input type="checkbox" ></td>
+                           <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>FK</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("PartnersDetails", "Partners", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Faryal Khalid
+                                            </a>
+                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">fryalKhalid@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
                             <td>
                          
                             Australian Education with VISA
@@ -116,11 +137,28 @@
                             admissions@aahe.edu.au
                         </td>
                        </tr>
+
                        <tr>
-                           <td></td>
-                            <td>
-                          <a href="@Url.Action("PartnersDetails", "Partners", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">View</a>  
-                          </td>
+                             <td class="align-middle" style="padding:4px"> <input type="checkbox" ></td>
+                         <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-dark me-2" title="AHMAD ZAFAR">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>AZ</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="" @Url.Action("PartnersDetails", "Partners", new { area = "AppAreaName" })" class="text-truncate" title="AHMAD ZAFAR">
+                                                AHMAD ZAFAR
+                                            </a>
+                                            <a href="mailto:hassankamal20232023@outlook.com" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">ahmadzafar@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
                             <td>
                          
                             Australian Education with VISA
@@ -146,8 +184,21 @@
                        </tr>
                     </tbody>
                 </table>
+ 
             </div>
-
+            </div>
+            <div class="row col-12 justify-content-end">
+                <div class="row col-9">
+                    </div>
+                <div class="pagination col-3 ">
+  <a href="#">&laquo;</a>
+  <a href="#">1</a>
+  <a class="active" href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">&raquo;</a>
+</div>
+</div>
         </div>
     </div>
 </div>
