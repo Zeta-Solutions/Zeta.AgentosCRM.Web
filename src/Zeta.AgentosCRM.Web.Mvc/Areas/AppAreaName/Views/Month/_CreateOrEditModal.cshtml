@@ -2,7 +2,8 @@
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Month")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewMonth")))
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditMonth")) :L("CreateNewMonth"))) *@
 
 <div class="modal-body">
     <div id="InformationsTab">

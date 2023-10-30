@@ -4,7 +4,8 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
 @* @model CreateOrEditMasterCategoryModalViewModel *@
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create New Course")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewCourse")))
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditCourse")): L("CreateNewCourse"))) *@
 
 <div class="modal-body">
     <div id="MasterCategoryInformationsTab">
