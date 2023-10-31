@@ -1,5 +1,6 @@
 ﻿(function () {
     $(function () {
+   
         var _$LeadSourceTable = $('#PartnersTable');
         var _leadSourcesService = abp.services.app.leadSources;
 

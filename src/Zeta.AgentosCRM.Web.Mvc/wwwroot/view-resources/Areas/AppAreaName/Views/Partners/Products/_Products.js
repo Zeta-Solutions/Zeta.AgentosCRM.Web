@@ -1,5 +1,6 @@
 ﻿(function () {
     $(function () {
+        $("#kt_app_sidebar_toggle").trigger("click");
         var _$LeadSourceTable = $('#ProductsTable');
         var _leadSourcesService = abp.services.app.leadSources;
 
