@@ -3,8 +3,9 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
 @* @model CreateOrEditClientViewModel *@
+
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Add Client or Prospect")))
-<div class="modal-body">
+<div class="modal-body custom-modal-body  ">
     <div id="InformationsClientFormTab">
         <form name="ClientInformationsForm" role="form" novalidate class="form-validation">
 
@@ -14,34 +15,42 @@
             } *@
             <div class="row col-12">
                 <div class="col-md-6 mb-2">
-                <label class="form-label" for="Client_Abbrivation">@L("FirstName")</label>
-                    <input style="box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);" class="form-control   form-control-sm" id="Client_Abbrivation" @* value="@Model.Client.FirstName" *@ type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
-            </div>
+                    <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("FirstName")</label>
+                    <input class="form-control form-control-sm   custom-small-input rounded-0" id="Client_Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
+                </div>
 
                 <div class="col-md-6 mb-3">
-                    <label class="form-label" for="Client_Name">@L("LastName")</label>
-                    <input class="form-control form-control-sm" id="Client_Name" @* value="@Model.Client.LastName" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                    <label class="form-label fw-bold text-dark" for="Client_Name">@L("LastName")</label>
+                    <input class="form-control form-control-sm custom-small-input rounded-0" id="Client_Name" @* value="@Model.Client.LastName" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
             </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label" for="Client_Email">@L("Email")</label>
-                    <input class="form-control form-control-sm" id="Client_Email" @* value="@Model.Client.Email" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                    <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
+                    <input class="form-control form-control-sm custom-small-input rounded-0" id="Client_Email" @* value="@Model.Client.Email" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
             </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label" for="Client_Phone">@L("Phone")</label>
-                    <input class="form-control form-control-sm" id="Client_Phone" @* value="@Model.Client.PhoneNo" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
+                    <label class="form-label fw-bold text-dark" for="Client_Phone">@L("Phone")</label>
+                    <input class="form-control form-control-sm custom-small-input rounded-0" id="Client_Phone" @* value="@Model.Client.PhoneNo" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
             </div>
                 <div class="col-md-12 mb-3">
-                    <label class="form-label" for="Client_Assignee">@L("Assignee")</label>
-                    <input class="form-control form-control-sm" id="Client_Assignee" @* value="@Model.Client.AssigneeId" *@ type="text" name="name"/>
-            </div>
+                    @* <label class="form-label" for="Client_Assignee">@L("Assignee")</label>
+                    <input class="form-control form-control-sm" id="Client_Assignee"   type="text" name="name"/> *@
+                    <div class="">
+                        <label class="form-label fw-bold text-dark" for="Client_Assignee">@L("Assignee")</label>
+                        <select id="select2SingleSelect" class="form-select  custom-select-input select2 rounded-0" data-control="select2"></select>
+                    </div>
+
+
+                </div>
               @*   <div class="my-3">
                     <label class="form-label" for="masterCategoryId">@L("Application")</label>
                     @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
                 </div> *@
                 <div class="col-md-12 mb-3">
-                    <label class="form-label" for="Client_Application">@L("Application")</label>
-                    <input class="form-control form-control-sm" id="Client_Application" value="Bachelor Of Business (Information systems Management)" type="text" name="name" />
-                    <p id="p">*Email Adress must be entered to select Application</p>
+                    <div class="">
+                        <label class="form-label fw-bold text-dark" for="Client_Assignee">@L("Application")</label>
+                        <select id="select2SingleSelect" class="form-select  custom-select-input select2 rounded-0" data-control="select2"></select>
+                    </div>
+                      <p id="p">*Email Adress must be entered to select Application</p>
                     <div class="link">
                         <a href="@Url.Action("ClientCreateDetail", "Client", new { area = "AppAreaName" })">Add more details</a>
                     </div>
