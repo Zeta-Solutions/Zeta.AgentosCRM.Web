@@ -4,7 +4,7 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tag
 @model CreateOrEditTagModalViewModel
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTags")) : L("CreateNewTags")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTag")) : L("CreateNewTags")))
 
 <div class="modal-body">
     <div id="TagInformationsTab">

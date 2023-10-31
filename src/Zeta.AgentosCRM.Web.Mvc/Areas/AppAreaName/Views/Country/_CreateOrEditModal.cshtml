@@ -5,8 +5,10 @@
 @model CreateOrEditCountryModalViewModel
 
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create New Country")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditCountries")): L("CreateNewCountries")))
 
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTag")) : L("CreateNewTags")))
+ *@
 <div class="modal-body">
     <div id="CountryInformationsTab">
         <form name="CountryInformationsForm" role="form" novalidate class="form-validation">

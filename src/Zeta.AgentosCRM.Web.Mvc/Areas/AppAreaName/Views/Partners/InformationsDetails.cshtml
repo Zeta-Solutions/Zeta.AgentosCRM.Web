@@ -1,33 +1,81 @@
-﻿@section Styles
+﻿    @section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+}
+
+@section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" />
+      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
     }
-<div class="card maincard">
+ 
+
+
+       
+    <div class="row mt-5">
+    <div class="col">
+        <span class="tittle ml-4">ADD NEW PARTNERS</span>
+    </div>
+    <div class="col text-end mr-4">
+@*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
+<a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>                           
+@* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
+    </div>
+</div>
+ 
+    <span class="text-muted me-4 ml-4 mt-1">(Partners Headers info)</span>
+<div class="card maincard mt-4">
     <div class="card-body ">
+        
+         <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
+
+
         <div class="accordion accordion-flush" id="accordionFlushExample" >
             <div class="accordion-item">
                 <h2 class="accordion-header ">
-@*                     <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="padding: 0.80rem 1.5rem;font-size: 16px;"> *@
-                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Primary Information
-                    </button>
+                 
+                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" >
+    PRIMARY INFORMATION
+     </button>
+
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
+                <div id="flush-collapseOne" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                    <div class="accordion-body hv-1 h-75">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group ">
                                     <div class="row">
-
-                                        <div class="col-md-4 d-flex justify-content-center align-items-center">
-                                            <!-- Added d-flex, justify-content-center, and align-items-center classes -->
-                                            <div class="rounded-circle border border-secondary position-relative overflow-hidden" style="width: 150px; height: 150px;">
-                                                <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" id="imageField" name="imageField" accept="image/*" style="opacity: 0;">
-                                                <label for="imageField"  class="d-block position-absolute top-50 start-50 translate-middle text-center" style="transform: translate(-50%, -50%);">Upload Image</label> <!-- Adjusted position and added transform -->
-                                            </div>
-                                        </div>
-
+@* <div class="col-md-2" >
+    <div class="rounded-circle border border-dotted border-secondary position-relative overflow-hidden" style="margin-top: 20px;"> <!-- Adjust the margin-top value -->
+        <img src="~/Common/Images/upload-image.png" width="160" height="150" class="img-thumbnail img-rounded user-edit-dialog-profile-image" />
+    </div>
+</div> *@
+@* <div  class="col-md-4 d-flex flex-column align-items-center">
+<img src="~/Common/Images/default-profile-picture.png" alt="Avatar"style="height: 120px;">
+     </div>     *@        
+          <div class="col-md-4 text-center margin-top-15">
+                       
+                        
+                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
+                        
+                         
+                        
+                            @* <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button> *@
+                          <br />   <span class="btn btn-white btn-outline btn-sm  me-1 rounded-0 fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add upload Picture ...</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files">
+        </span>
+                        
+                    </div>
 
                                         <div class="col-md-8">
                                             <div class="form-group">
@@ -39,7 +87,7 @@
                                                             <option value="Category">Category2</option>
                                                         </select> *@
                                                         
-                                                            <select id="Categoryddl" class="form-select select2" data-control="select2">
+                                                            <select id="Categoryddl" class="form-select select2  rounded-0" data-control="select2">
                                                             <option value="Category">Category 1</option>
                                                             <option value="Category">Category2</option>
                                                             </select>
@@ -47,18 +95,18 @@
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerType" class="form-label">Partner Type</label>
-                                                        <select id="Partnerddl" class="form-select select2" data-control="select2">
+                                                        <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
                                                             <option value="Category">Partner 1</option>
                                                             <option value="Category">Partner 2</option>
                                                             </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerName" class="form-label">Partner Name</label>
-                                                        <input type="text" class="form-control form-control-sm" id="partnerName" name="partnerName">
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="businessRegistrationNumber" class="form-label">Business Registration Number</label>
-                                                        <input type="text" class="form-control form-control-sm" id="businessRegistrationNumber" name="businessRegistrationNumber">
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="businessRegistrationNumber">
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="serviceWorkflow" class="form-label">Service Workflow</label>
@@ -69,7 +117,7 @@
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="currency" class="form-label">Currency</label>
-                                                     <select id="Currencyddl" class="form-select select2" data-control="select2">
+                                                     <select id="Currencyddl" class="form-select select2  rounded-0" data-control="select2">
                                                             <option value="Category">Currency 1</option>
                                                             <option value="Category">Currency 2</option>
                                                             </select>
@@ -90,32 +138,32 @@
                         Address
                     </button>
                 </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div class="row">
+                <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                    <div class="accordion-body ">
+                        <div class="row hv-1 h-75">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-4 mb-3">
+                                                    <div class="my-3 col-4">
                                                         <label for="Street" class="form-label">Street</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Street" name="Street">
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street">
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
+                                                    <div class="my-3 col-4">
                                                         <label for="City" class="form-label">City</label>
-                                                        <input type="text" class="form-control form-control-sm" id="City" name="City">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="City" name="City">
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
+                                                    <div class="my-3 col-4">
                                                         <label for="State" class="form-label"> State</label>
-                                                        <input type="text" class="form-control form-control-sm" id="State" name="State">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State">
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
+                                                    <div class="my-3 col-4">
                                                         <label for="Zip" class="form-label">Zip/Post Code</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Zip" name="Zip">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Zip" name="Zip">
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
+                                                    <div class="my-3 col-4">
                                                         <label for="Country" class="form-label">Country</label>
                                                        <select id="Countryddl" class="form-select select2" data-control="select2">
                                                             <option value="Category">Country 1</option>
@@ -134,11 +182,11 @@
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         Contact Details
                     </button>
                 </h2>
-                <div id="flush-collapseThree" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseThree" class="accordion-collapse "@*  data-bs-parent="#accordionFlushExample" *@>
                    
                     <div class="accordion-body">
                         <div class="row">
@@ -148,22 +196,28 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-4 mb-3">
+                                                   @*  <div class="col-md-4 mb-3">
                                                         <label for="Phone" class="form-label">Phone</label>
-                                                        <input type="number" class="form-control form-control-sm" id="Phone" name="Phone">
-                                                    </div>
+                                                        <input type="number" class="form-control custom-small-input" id="Phone" name="Phone">
+                                                    </div> *@
+                                                      
+                                            <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                                <label for="Phone" class="form-label">Phone</label>
+                                                <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="Phone">
+                                            </div>
+
 
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Email" class="form-label">Email</label>
-                                                        <input type="email" class="form-control form-control-sm" id="Email" name="Email">
+                                                        <input type="email" class="form-control custom-small-input  rounded-0" id="Email" name="Email">
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Fax" class="form-label">Fax</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Fax" name="Fax">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Fax" name="Fax">
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Website" class="form-label">Website</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Website" name="Website">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Website" name="Website">
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +263,7 @@
                         Section 1
                     </button>
                 </h2>
-                <div id="flush-collapseFive" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseFive" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -220,11 +274,11 @@
                                                 <div class="row">
                                                     <div class="col-md-4 mb-3">
                                                         <label for="marketingEmail" class="form-label">Marketing Office Email</label>
-                                                        <input type="email" class="form-control form-control-sm" id="marketingEmail" name="marketingEmail">
+                                                        <input type="email" class="form-control custom-small-input  rounded-0" id="marketingEmail" name="marketingEmail">
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="University" class="form-label">University</label>
-                                                        <input type="text" class="form-control form-control-sm" id="University" name="University">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="University" name="University">
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,21 +302,13 @@
 
 
   <!-- CSS -->
-  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+
   <!-- JS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+
 
  
-<body>
-    <div class="container">
-        <div class="col-md-8 mt-4">
-            <label for="Phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control form-control-sm" id="phone" name="Phone">
-        </div>
-    </div>
+
+
 
     <script>
         var input = document.querySelector("#phone");
@@ -297,6 +343,6 @@
             flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
         }
     </script>
-</body>
+
 
 
