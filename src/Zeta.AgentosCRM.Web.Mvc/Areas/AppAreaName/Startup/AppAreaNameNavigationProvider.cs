@@ -22,22 +22,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
-                //.AddItem(new MenuItemDefinition(
-                //        AppAreaNamePageNames.Tenant.Workflows,
-                //        L("Workflows"),
-                //        url: "AppAreaName/Workflows",
-                //        icon: "flaticon-more",
-                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Workflows)
-                //    )
-                //)
-                //.AddItem(new MenuItemDefinition(
-                //        AppAreaNamePageNames.Tenant.WorkflowSteps,
-                //        L("WorkflowSteps"),
-                //        url: "AppAreaName/WorkflowSteps",
-                //        icon: "flaticon-more",
-                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_WorkflowSteps)
-                //    )
-                //)
+                 
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.Tenants,
                         L("Tenants"),
@@ -215,61 +200,38 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             AppAreaNamePageNames.Tenant.TaskCategory,
                             L("TaskCategory"),
                             url: "AppAreaName/TaskCategory",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TaskCategories)
                         )
                     ).AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.TaskCategory,
+                            AppAreaNamePageNames.Tenant.Taskpriority,
                             L("TaskPriority"),
                             url: "AppAreaName/Taskpriority",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TaskPriorities)
                         )
                     ).AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.DegreeLevel,
                             L("DegreeLevel"),
                             url: "AppAreaName/DegreeLevel",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DegreeLevels)
                         )
                     ).AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.SubjectArea,
                             L("SubjectArea"),
                             url: "AppAreaName/SubjectArea",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_SubjectAreas)
                         )
                     )
-
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppAreaNamePageNames.Tenant.IEltestraining,
-                    //        L("IEltestraining"),
-                    //        url: "AppAreaName/IEltestraining",
-                    //        icon: "flaticon-more"
-                    //    //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
-                    //    )
-                    //)
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppAreaNamePageNames.Tenant.Qualification,
-                    //        L("Qualification"),
-                    //        url: "AppAreaName/Qualification",
-                    //        icon: "flaticon-more"
-                    //    //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
-                    //    )
-                    //).AddItem(new MenuItemDefinition(
-                    //        AppAreaNamePageNames.Tenant.PreferStudyArea,
-                    //        L("PreferStudyArea"),
-                    //        url: "AppAreaName/PreferStudyArea",
-                    //        icon: "flaticon-more"
-                    //    //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
-                    //    )
-                    //)
+                     
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Subject,
                             L("Subject"),
                             url: "AppAreaName/Subject",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Subjects)
                         )
                     )
 
@@ -342,7 +304,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             url: "AppAreaName/InstallmentType",
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(
-                                AppPermissions.Pages_CRMSetup_PartnerTypes)
+                                AppPermissions.Pages_InstallmentTypes)
                         )
                     )
                     .AddItem(new MenuItemDefinition(
@@ -351,7 +313,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             url: "AppAreaName/FeeType",
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(
-                                AppPermissions.Pages_CRMSetup_PartnerTypes)
+                                AppPermissions.Pages_FeeTypes)
                         )
                     )
                     .AddItem(new MenuItemDefinition(
@@ -369,40 +331,30 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             url: "AppAreaName/Regions",
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(
-                                AppPermissions.Pages_CRMSetup_PartnerTypes)
+                                AppPermissions.Pages_Regions)
                         )
                     )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.ProductType,
                             L("ProductType"),
                             url: "AppAreaName/ProductType",
-                            icon: "flaticon-more"
-                        //permissionDependency: new SimplePermissionDependency(
-                        //    AppPermissions.Pages_CRMSetup_PartnerTypes)
+                            icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(
+                            AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
                     )
                 )
 
-            .AddItem(new MenuItemDefinition(
-                            AppAreaNamePageNames.Tenant.Clients,
-                            L("Clients"),
-                            url: "AppAreaName/Client",
-                            icon: "flaticon-profile-1"
-                        // permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
-                        )
+                    .AddItem(new MenuItemDefinition(
+                                    AppAreaNamePageNames.Tenant.Clients,
+                                    L("Clients"),
+                                    url: "AppAreaName/Client",
+                                    icon: "flaticon-profile-1"
+                                // permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
+                                )
 
-                    )
-
-                   //.AddItem(new MenuItemDefinition(
-                   //        AppAreaNamePageNames.Tenant.Status,
-                   //        L("Status"),
-                   //        url: "AppAreaName/Status",
-                   //        icon: "flaticon-more",
-                   //        permissionDependency: new SimplePermissionDependency(
-                   //            AppPermissions.Pages_CRMSetup_PartnerTypes)
-                   //    )
-                   //)
-
+                            )
+             
                    .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Partners,
                             L("Partners"),

@@ -44,7 +44,7 @@
     {
         @* <button id="ClientBackListButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-arrow-left"></i>@L("Client List")</button> *@
 
-        <a href="\AppAreaName\Client" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-arrow-left"></i> @L("Client List")</a>
+        <a href="\AppAreaName\Client" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-arrow-left"></i> @L("ClientList")</a>
     }
 </abp-page-subheader>
 
@@ -92,14 +92,14 @@
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Name" @* value="@Model.Client.LastName" *@ type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("DOB")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("DateofBirth")</label>
 
                                                         <div id="SampleDatePicker" class="input-group">
                                                             <input type="datetime" name="SampleDatePicker" class="form-control form-control-sm rounded-0 custom-select-input date-picker">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("ClientID")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("ClientId")</label>
 
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Name" @* value="@Model.Client.Id" *@ type="text" name="name" />
                                                     </div>
@@ -133,11 +133,11 @@
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Abbrivation" @* value="@Model.Client.Email" *@ type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Phone No")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("PhoneNumber")</label>
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Abbrivation" @* value="@Model.Client.PhoneNo" *@ type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Contact preference")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("ContactPreferences")</label>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <button id="CreateNewClientButtonEmail" class="btn btn-secondary w-100 btn-sm btn-outline text-black rounded-0">@L("Email")</button>
@@ -207,7 +207,7 @@
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Abbrivation" @* value="@Model.Client.State" *@ type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Zip/Post Code")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("ZipCode")</label>
                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Abbrivation" @* value="@Model.Client.ZipCode" *@ type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
                                                     </div>
                                                     @*   <div class="my-3">
@@ -240,30 +240,30 @@
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Preferred Intake")</label>
+                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("PreferredIntake")</label>
                                 <div id="SampleDatePicker" class="input-group">
                                     <input type="datetime" name="SampleDatePicker" class="form-control custom-select-input rounded-0 form-control-sm date-picker">
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold text-dark" for="countryPassportId">@L("Country of Passport")</label>
+                                <label class="form-label fw-bold text-dark" for="countryPassportId">@L("CountryofPassport")</label>
                                 <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Passport Number")</label>
+                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("PassportNumber")</label>
                                 <input class="form-control form-control-sm rounded-0 custom-select-input" id="Client_Abbrivation" @* value="@Model.Client.PassportNo" *@ type="text" name="abbrivation" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Visa Type")</label>
+                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("VisaType")</label>
                                 <input class="form-control form-control-sm rounded-0 custom-select-input" id="Client_Abbrivation" @* value="@Model.Client.VisaType" *@ type="text" name="abbrivation" />
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Visa Expiry")</label>
+                                <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("VisaExpiryDate")</label>
                                 <input class="form-control form-control-sm rounded-0 custom-select-input" id="Client_Abbrivation" @* value="@Model.Client.VisaType" *@ type="text" name="abbrivation" />
                             </div>
                             @* <div class="col-md-4 mb-3">
@@ -294,26 +294,26 @@
                                                 <div class="row">
                                                     <div class="my-3 col-4">
 
-                                                        <label class="form-label fw-bold text-dark" for="highestQualificationId">@L("Highest Qualification")</label>
+                                                        <label class="form-label fw-bold text-dark" for="highestQualificationId">@L("HighestQualification")</label>
                                                         @* @Html.DropDownList("highestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectAHieghestQualification"), new { @class = "form-control" , @required="required" }) *@
                                                         <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
 
                                                     </div>
                                                     <div class="my-3 col-4">
 
-                                                        <label class="form-label" for="trainingRequiredId">@L("IElts/PTE Tranning Required")</label>
+                                                        <label class="form-label" for="trainingRequiredId">@L("IEltsPTETranningRequired")</label>
                                                         @* @Html.DropDownList("trainingRequiredId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.Id.ToString() : "")),@L("SelectATrainingRequired"), new { @class = "form-control" , @required="required" }) *@
                                                         <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
 
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Preferred Study Area")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("PreferredStudyArea")</label>
                                                         <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
 
                                                      
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("Preferred University")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Abbrivation">@L("PreferredUniversity")</label>
                                                         <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
 
                                                       
@@ -386,12 +386,12 @@
                                                   
                                                     </div>
                                                        <div class="my-3 col-4">
-                                                    <label class="form-label fw-bold text-dark" for="Client_Application">@L("Choose a Source")</label>
+                                                    <label class="form-label fw-bold text-dark" for="Client_Application">@L("ChooseaSource")</label>
                                                     <input class="form-control form-control-sm rounded-0 custom-select-input" id="Client_Application" value="Testing" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
                                                     </div> 
                                                     <div class="my-3 col-4">
 
-                                                        <label class="form-label fw-bold text-dark" for="tagnameId">@L("Tag name")</label>
+                                                        <label class="form-label fw-bold text-dark" for="tagnameId">@L("Tagname")</label>
                                                     <select id="select2SingleSelect" class="form-select custom-select-input form-select-sm select2 rounded-0" data-control="select2"></select>
 
                                                     </div>

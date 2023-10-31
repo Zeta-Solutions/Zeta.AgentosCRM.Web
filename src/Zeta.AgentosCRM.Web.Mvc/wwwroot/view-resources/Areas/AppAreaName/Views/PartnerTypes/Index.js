@@ -120,18 +120,18 @@
               },
               {
                 text: app.localize('Edit'),
-                visible: function () {
-                  return _permissions.edit;
-                },
+                //visible: function () {
+                //  return _permissions.edit;
+                //},
                 action: function (data) {
                   _createOrEditModal.open({ id: data.record.partnerType.id });
                 },
               },
               {
                 text: app.localize('Delete'),
-                visible: function () {
-                  return _permissions.delete;
-                },
+                //visible: function () {
+                //  return _permissions.delete;
+                //},
                 action: function (data) {
                   deletePartnerType(data.record.partnerType);
                 },
