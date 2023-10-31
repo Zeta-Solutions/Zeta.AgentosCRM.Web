@@ -17,11 +17,11 @@
 
 
 <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")' class="custom-header">
-                     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+                     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
             
                      @if (IsGranted(AppPermissions.Pages_Clients_Create))
                      {
-        <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black "><i class="fa fa-plus"></i> @L("CreateNewDegreeLevel")</button>
+        <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewCient")</button>
   
                          @* <a href="\AppAreaName\Client\CreateOrEdit" class="btn btn-white btn-sm btn-outline text-black "><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                 *@
                      }
@@ -36,10 +36,11 @@
                         
                         
                 <div class="my-1">
-                    <div class="input-group">
-                        <input type="text" id="ClientsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                        <button id="GetClientsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>                        
-                    </div>
+                            <div class="input-group">
+                                <input type="text" id="ClientsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                <button id="GetClientsButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1 text-white"></i></button>
+                            </div>
+
                 </div>
             
                     </div>
@@ -54,49 +55,49 @@
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="FirstNameFilterId">@L("FirstName")</label>
-									<input type="text" class="form-control reload-on-keyup" name="firstNameFilter" id="FirstNameFilterId">
+									<input type="text" class="form-control form-control-sm reload-on-keyup rounded-0" name="firstNameFilter" id="FirstNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="LastNameFilterId">@L("LastName")</label>
-									<input type="text" class="form-control reload-on-keyup" name="lastNameFilter" id="LastNameFilterId">
+									<input type="text" class="form-control form-control-sm reload-on-keyup rounded-0" name="lastNameFilter" id="LastNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="EmailFilterId">@L("Email")</label>
-									<input type="text" class="form-control reload-on-keyup" name="emailFilter" id="EmailFilterId">
+									<input type="text" class="form-control form-control-sm reload-on-keyup rounded-0" name="emailFilter" id="EmailFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="PhoneNoFilterId">@L("PhoneNo")</label>
-									<input type="text" class="form-control reload-on-keyup" name="phoneNoFilter" id="PhoneNoFilterId">
+									<input type="text" class="form-control form-control-sm reload-on-keyup rounded-0" name="phoneNoFilter" id="PhoneNoFilterId">
 								</div>
                             </div>
                             <div class="col-md-3">
                                     <div class="my-3">
 										<label class="form-label" for="MinDateofBirthFilterId">@L("DateofBirthRange")</label>
 										<div class="input-group">
-											<input class="form-control m-input date-picker startDate" type="text" placeholder="@L("MinValue")"  id="MinDateofBirthFilterId">
+											<input class="form-control form-control-sm m-input date-picker startDate" type="text" placeholder="@L("MinValue")"  id="MinDateofBirthFilterId">
 											<span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
-											<input class="form-control m-input date-picker endDate" type="text" placeholder="@L("MaxValue")"  id="MaxDateofBirthFilterId">
+											<input class="form-control form-control-sm m-input date-picker endDate" type="text" placeholder="@L("MaxValue")"  id="MaxDateofBirthFilterId">
 										</div>
 									</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="UniversityFilterId">@L("University")</label>
-									<input type="text" class="form-control reload-on-keyup" name="universityFilter" id="UniversityFilterId">
+									<input type="text" class="form-control form-control-sm reload-on-keyup rounded-0" name="universityFilter" id="UniversityFilterId">
 								</div>
                             </div>
                             <div class="col-md-3">
                                  <div class="my-3">
 									<label class="form-label" for="MinRatingFilterId">@L("MinMax") @L("Rating")</label>
 									<div class="input-group">
-										<input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MinValue")" name="minRatingFilter" id="MinRatingFilterId"/>
-                                        <input type="number" class="form-control m-input reload-on-keyup" placeholder="@L("MaxValue")" name="maxRatingFilter"  id="MaxRatingFilterId"/>
+										<input type="number" class="form-control form-control-sm m-input rounded-0 reload-on-keyup" placeholder="@L("MinValue")" name="minRatingFilter" id="MinRatingFilterId"/>
+                                        <input type="number" class="form-control form-control-sm m-input rounded-0 reload-on-keyup" placeholder="@L("MaxValue")" name="maxRatingFilter"  id="MaxRatingFilterId"/>
 									</div>
                                 </div>
                             </div>
@@ -105,49 +106,49 @@
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="CountryDisplayPropertyFilterId">(@L("Country")) @L("DisplayProperty")</label>
-									<input type="text" class="form-control" name="countryDisplayPropertyFilter" id="CountryDisplayPropertyFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="countryDisplayPropertyFilter" id="CountryDisplayPropertyFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="UserNameFilterId">(@L("User")) @L("Name")</label>
-									<input type="text" class="form-control" name="userNameFilter" id="UserNameFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="userNameFilter" id="UserNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="BinaryObjectDescriptionFilterId">(@L("BinaryObject")) @L("Description")</label>
-									<input type="text" class="form-control" name="binaryObjectDescriptionFilter" id="BinaryObjectDescriptionFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="binaryObjectDescriptionFilter" id="BinaryObjectDescriptionFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="DegreeLevelNameFilterId">(@L("DegreeLevel")) @L("Name")</label>
-									<input type="text" class="form-control" name="degreeLevelNameFilter" id="DegreeLevelNameFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="degreeLevelNameFilter" id="DegreeLevelNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="SubjectAreaNameFilterId">(@L("SubjectArea")) @L("Name")</label>
-									<input type="text" class="form-control" name="subjectAreaNameFilter" id="SubjectAreaNameFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="subjectAreaNameFilter" id="SubjectAreaNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="LeadSourceNameFilterId">(@L("LeadSource")) @L("Name")</label>
-									<input type="text" class="form-control" name="leadSourceNameFilter" id="LeadSourceNameFilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="leadSourceNameFilter" id="LeadSourceNameFilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="CountryName2FilterId">(@L("Country")) @L("Name")</label>
-									<input type="text" class="form-control" name="countryName2Filter" id="CountryName2FilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="countryName2Filter" id="CountryName2FilterId">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label" for="CountryName3FilterId">(@L("Country")) @L("Name")</label>
-									<input type="text" class="form-control" name="countryName3Filter" id="CountryName3FilterId">
+									<input type="text" class="form-control form-control-sm rounded-0" name="countryName3Filter" id="CountryName3FilterId">
 								</div>
                             </div>
                     <div class="col-md-12 mt-5">
@@ -192,10 +193,11 @@
                                             <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
                                                 Faryal Khalid
                                             </a>
-                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })" class="text-decoration-none">
+                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })"  class="text-decoration-none">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="text-truncate">fryalKhalid@outlook.com</div>
+                                                    <div class="text-truncate"><span id="CreateNewClientEmailButton">fryalKhalid@outlook.com</span></div>
                                                 </div>
+  
                                             </a>
                                         </div>
                                     </div>
@@ -297,7 +299,17 @@
      
     </tbody>
 </table>
-                   
+                             <div class="row col-12 justify-content-end">
+                <div class="row col-9">
+                    </div>
+                <div class="pagination col-3 ">
+  <a href="#">&laquo;</a>
+  <a href="#">1</a>
+  <a class="active" href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">&raquo;</a>
+</div>
+</div>
 
 				</div>
             </div>
@@ -305,16 +317,7 @@
         </div>
       
     </div>
-    <div class="row">
-        <div class="col-12 d-flex justify-content-end">
-            <ul class="pagination font-weight-bold">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </div>
-    </div>
+     
+
 
   </div>
