@@ -2,6 +2,10 @@
 <localizationDictionary culture="en">
 	<texts>
 		
+		<text name="CountryofPassport">Country of Passport</text>
+		<text name="PreferredIntake">Preferred Intake</text>
+		<text name="VisaExpirayDate">Visa Expiray Date</text>
+		<text name="AddClientorProspect">Add Client or Prospect</text>
 		<text name="LastUpdated">Last Updated</text>
 		<text name="CityCountryStage">City/Country Stage</text>
 		<text name="Title">Title</text>
@@ -190,9 +194,9 @@
 		<text name="Street">Street</text>
 		<text name="City">City</text>
 		<text name="State">State</text>
-		<text name="ZipCode">Zip code</text>
+		<text name="ZipCode">Zip/Post code</text>
 		<text name="PreferedIntake">Prefered intake</text>
-		<text name="PassportNo">Passport no</text>
+		<text name="PassportNo">Passport No</text>
 		<text name="VisaType">Visa type</text>
 		<text name="VisaExpiryDate">Visa expiry date</text>
 		<text name="AddedFrom">Added from</text>
