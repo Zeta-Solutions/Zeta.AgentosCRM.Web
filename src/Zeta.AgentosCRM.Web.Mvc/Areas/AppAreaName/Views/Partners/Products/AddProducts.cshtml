@@ -7,6 +7,7 @@
     }
 <div class="card maincard">
     <div class="card-body ">
+
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header ">
@@ -22,29 +23,38 @@
                                     <div class="row mb-3">
                                         <div class="col-md-12 mb-3">
                                             <label for="Name" class="form-label"> Name</label>
-                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                            <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="Name" class="form-label"> Partner</label>
-                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                            <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name">
                                         </div>
+                                        @* <div class="col-md-4 mb-3">
+                                            <label for="Country" class="form-label">Branches</label>
+                                            <select id="Countryddl" class="form-select select2" data-control="select2">
+                                                <option value="Category">Country 1</option>
+                                                <option value="Category">Country 2</option>
+                                            </select>
+                                        </div> *@
+
+
                                         <div class="col-md-4 mb-3">
-                                            <label for="masterCategory" class="form-label">Branches</label>
-                                            <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
-                                                <option value="Category">Category 1</option>
-                                                <option value="Category">Category2</option>
+                                            <label for="Country" class="form-label">Branches </label>
+                                            <select id="Branchesddl" class="form-select select2" data-control="select2">
+                                                <option value="Category">Branches 1</option>
+                                                <option value="Category">Branches 2</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="masterCategory" class="form-label">Product Type</label>
-                                            <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
-                                                <option value="Category">Category 1</option>
-                                                <option value="Category">Category2</option>
+                                            <label for="Country" class="form-label">Product Type</label>
+                                            <select id="Productddl" class="form-select select2" data-control="select2">
+                                                <option value="Category">Product 1</option>
+                                                <option value="Category">Product 2</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="Name" class="form-label"> Revenue Type</label>
-                                            <input type="text" class="form-control form-control-sm" id="Name" name="Name">
+                                            <input type="text" class="form-control  custom-small-input rounded-0" id="Name" name="Name">
                                         </div>
                                         
                                     </div>
@@ -54,13 +64,14 @@
                     </div>
                 </div>
             </div>
+
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                         PRODUCT INFORMATION
                     </button>
                 </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -71,22 +82,23 @@
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label for="Street" class="form-label">Duration</label>
-                                                        <input type="text" class="form-control form-control-sm" id="Street" name="Street">
+                                                        <input type="text" class="form-control  custom-small-input rounded-0" id="Street" name="Street">
                                                     </div>
+                                                   
                                                     <div class="col-md-6 mb-3">
                                                         <label for="Country" class="form-label">Intake Month</label>
-                                                        <select class="form-control form-control-sm" id="Country" name="Country">
-                                                            <option value="Country">Country 1</option>
-                                                            <option value="Country">Country 2</option>
+                                                        <select id="Countryddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">May</option>
+                                                            <option value="Category">June</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="City" class="form-label">Description</label>
-                                                        <textarea class="form-control form-control-sm" rows="4" cols="70"></textarea>
+                                                        <textarea class="form-control  custom-small-input rounded-0" rows="4" cols="70"></textarea>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="City" class="form-label">Note</label>
-                                                        <textarea class="form-control form-control-sm" rows="4" cols="70"></textarea>
+                                                        <textarea class="form-control custom-small-input rounded-0" rows="4" cols="70"></textarea>
                                                     </div>
 
                                                  
