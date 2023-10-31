@@ -1,6 +1,7 @@
 ﻿(function () {
-    $("#kt_app_sidebar_toggle").trigger("click");
     $(function () {
+            $("#kt_app_sidebar_toggle").trigger("click");
+        
         var _$Clienttable = $('#Clienttable');
         debugger;
         var _clientService = abp.services.app.clients;
@@ -245,12 +246,7 @@
         $('#changeProfilePicture').click(function () {
             changeProfilePictureModal.open();
         });
-        //$(".menu-link").click(function () {
-        //    alert("ok");
-        //    $("#kt_body").toggleClass("app-sidebar-closed");
-        //});
-
-     
+       
         //$('#ClientBackListButton').click(function () {
         //    window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
