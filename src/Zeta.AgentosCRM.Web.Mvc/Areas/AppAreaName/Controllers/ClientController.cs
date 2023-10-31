@@ -108,6 +108,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         {
             return PartialView("_ClientEmailCompose", "");
         }
+        public IActionResult ClienChangeProfile()
+        {
+            return PartialView("_ChangePictureModal", "");
+        }
         
         public IActionResult ApplicationIndex()
         {
