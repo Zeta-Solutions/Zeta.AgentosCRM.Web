@@ -17,7 +17,7 @@ using Abp.Extensions;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
-using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.Storage; 
 
 namespace Zeta.AgentosCRM.CRMPartner
 {
@@ -165,6 +165,54 @@ namespace Zeta.AgentosCRM.CRMPartner
             );
 
         }
+
+
+        public async Task<GetPartnerForViewDto> GetPartnerForView(int id)
+        {
+            var partner = await _partnerRepository.GetAsync(id);
+
+            var output = new GetPartnerForViewDto { Partner = ObjectMapper.Map<PartnerDto>(partner) };
+
+            if (output.Partner.CountryCodeId != null)
+            {
+                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Partner.CountryCodeId);
+                output.CountryDisplayProperty2 = string.Format("{0} {1}", _lookupCountry.Icon, _lookupCountry.Code);
+            }
+ 
+            if (output.Partner.ProfilePictureId != null)
+            {
+                var _lookupBinaryObject = await _lookup_binaryObjectRepository.FirstOrDefaultAsync((Guid)output.Partner.ProfilePictureId);
+                output.BinaryObjectDescription = _lookupBinaryObject?.Description?.ToString();
+            }
+             
+            if (output.Partner.CountryId != null)
+            {
+                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Partner.CountryId);
+                output.CountryName = _lookupCountry?.Name?.ToString();
+            }
+             
+            if (output.Partner.MasterCategoryId != null)
+            {
+                var _lookupMasterCategory = await _lookup_masterCategoryRepository.FirstOrDefaultAsync((int)output.Partner.MasterCategoryId);
+                output.MasterCategoryName = _lookupMasterCategory?.Name?.ToString();
+            }
+             
+            if (output.Partner.PartnerTypeId != null)
+            {
+                var _lookupPartnerType = await _lookup_partnerTypeRepository.FirstOrDefaultAsync((int)output.Partner.PartnerTypeId);
+                output.MasterCategoryName = _lookupPartnerType?.Name?.ToString();
+            }
+             
+            if (output.Partner.WorkflowId != null)
+            {
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.Partner.WorkflowId);
+                output.MasterCategoryName = _lookupWorkflow?.Name?.ToString();
+            }
+             
+
+            return output;
+        }
+
 
         [AbpAuthorize(AppPermissions.Pages_Partners_Edit)]
         public async Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto input)
