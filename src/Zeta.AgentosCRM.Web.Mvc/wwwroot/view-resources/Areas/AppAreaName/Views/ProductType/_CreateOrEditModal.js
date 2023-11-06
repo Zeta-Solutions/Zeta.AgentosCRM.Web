@@ -4,8 +4,9 @@
 
     var _modalManager;
       var _$productTypeInformationForm = null;
-
-    this.init = function (modalManager) {
+      
+      this.init = function (modalManager) {
+          console.log("Load init"); 
       _modalManager = modalManager;
 
       var modal = _modalManager.getModal();
@@ -19,7 +20,8 @@
       _$productTypeInformationForm.validate();
     };
 
-    this.save = function () {
+      this.save = function () {
+
         if (!_$productTypeInformationForm.valid()) {
         return;
       }

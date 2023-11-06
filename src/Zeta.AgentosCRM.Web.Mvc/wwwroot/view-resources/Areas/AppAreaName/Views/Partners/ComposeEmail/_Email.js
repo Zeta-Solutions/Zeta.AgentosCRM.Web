@@ -238,7 +238,7 @@
                 });
         });
 
-        abp.event.on('app.createOrEditLeadSourceModalSaved', function () {
+        abp.event.on('app.createOrEdit_ModalSaved', function () {
             getLeadSource();
         });
 

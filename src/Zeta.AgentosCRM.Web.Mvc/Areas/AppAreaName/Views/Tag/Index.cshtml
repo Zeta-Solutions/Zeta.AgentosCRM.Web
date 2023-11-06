@@ -2,6 +2,9 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tag
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 @model TagsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Tag;
+}
 @section Scripts
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Tag/Index.js" asp-append-version="true"></script>
@@ -11,11 +14,11 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
 <abp-page-subheader title='@L("Tag")' description='@L("TagHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_Tags_Create))
     {
-        <button id="CreateNewTagButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewTags")</button>
+        <button id="CreateNewTagButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewTags")</button>
     }
 </abp-page-subheader>
 
@@ -28,8 +31,8 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="TagTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                                <button id="GetTagButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="TagTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                <button id="GetTagButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -68,11 +71,10 @@
                 <table id="TagTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
-                            <th></th>
-
-                            <th>@L("Actions")</th>
+                            <th></th> 
                             <th>@L("Abbrivation")</th>
                             <th>@L("Name")</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>

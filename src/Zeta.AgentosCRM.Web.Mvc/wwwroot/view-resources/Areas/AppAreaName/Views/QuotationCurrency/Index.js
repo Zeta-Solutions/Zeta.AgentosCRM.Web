@@ -100,53 +100,80 @@
           },
           targets: 0,
         },
+        //{
+        //  width: 120,
+        //  targets: 1,
+        //  data: null,
+        //  orderable: false,
+        //  autoWidth: false,
+        //  defaultContent: '',
+        //  rowAction: {
+        //    cssClass: 'btn btn-brand dropdown-toggle',
+        //    text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
+        //    items: [
+        //      {
+        //        text: app.localize('View'),
+        //        action: function (data) {
+        //            _viewTagModal.open();
+        //        },
+        //      },
+        //      {
+        //        text: app.localize('Edit'),
+        //        //visible: function () {
+        //        //  return _permissions.edit;
+        //        //},
+        //        action: function (data) {
+        //          _createOrEditModal.open();
+        //        },
+        //      },
+        //      {
+        //        text: app.localize('Delete'),
+        //        //visible: function () {
+        //        //  return _permissions.delete;
+        //        //},
+        //        action: function (data) {
+        //          deleteMasterCategory(data.record.masterCategory);
+        //        },
+        //      },
+        //    ],
+        //  },
+        //},
         {
-          width: 120,
           targets: 1,
-          data: null,
-          orderable: false,
-          autoWidth: false,
-          defaultContent: '',
-          rowAction: {
-            cssClass: 'btn btn-brand dropdown-toggle',
-            text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-            items: [
-              {
-                text: app.localize('View'),
-                action: function (data) {
-                    _viewTagModal.open();
-                },
-              },
-              {
-                text: app.localize('Edit'),
-                //visible: function () {
-                //  return _permissions.edit;
-                //},
-                action: function (data) {
-                  _createOrEditModal.open();
-                },
-              },
-              {
-                text: app.localize('Delete'),
-                //visible: function () {
-                //  return _permissions.delete;
-                //},
-                action: function (data) {
-                  deleteMasterCategory(data.record.masterCategory);
-                },
-              },
-            ],
-          },
-        },
-        {
-          targets: 2,
           data: 'masterCategory.abbrivation',
           name: 'abbrivation',
         },
         {
-          targets: 3,
+          targets: 2,
           data: 'masterCategory.name',
           name: 'name',
+        },
+        {
+          targets: 3,
+            width: 30,
+            data: null,
+            orderable: false,
+            searchable: false,
+            render: function (data, type, full, meta) {
+                console.log(data);
+                var rowId = data.masterCategory.id;
+                var rowData = data.masterCategory;
+                var RowDatajsonString = JSON.stringify(rowData);
+
+                var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                    '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                    '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                    '<ul style="list-style: none; padding: 0;color:black">' +
+                    '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                    '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                    "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                    '</ul>' +
+                    '</div>' +
+                    '</div>';
+
+                return contextMenu;
+            }
+
         },
       ],
     });
@@ -154,6 +181,46 @@
     function getSource() {
       dataTable.ajax.reload();
     }
+
+
+      // Add a click event handler for the ellipsis icons
+      $(document).on('click', '.ellipsis', function (e) {
+          e.preventDefault();
+
+          var options = $(this).closest('.context-menu').find('.options');
+          var allOptions = $('.options');  // Select all options
+
+          // Close all other open options
+          allOptions.not(options).hide();
+
+          // Toggle the visibility of the options
+          options.toggle();
+      });
+
+      // Close the context menu when clicking outside of it
+      $(document).on('click', function (event) {
+          if (!$(event.target).closest('.context-menu').length) {
+              $('.options').hide();
+          }
+      });
+
+      // Handle menu item clicks
+      $(document).on('click', 'a[data-action]', function (e) {
+          e.preventDefault();
+
+          var rowId = $(this).data('id');
+          var action = $(this).data('action');
+          debugger
+          // Handle the selected action based on the rowId
+          if (action === 'view') {
+              _viewTagModal.open({ id: rowId });
+          } else if (action === 'edit') {
+              _createOrEditModal.open({ id: rowId });
+          } else if (action === 'delete') {
+              console.log(rowId);
+              deleteMasterCategory(rowId);
+          }
+      });
 
     function deleteMasterCategory(masterCategory) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
