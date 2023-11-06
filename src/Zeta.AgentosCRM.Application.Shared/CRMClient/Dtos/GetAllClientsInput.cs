@@ -15,6 +15,8 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public string PhoneNoFilter { get; set; }
 
+        public string PhoneCodeFilter { get; set; }
+
         public DateTime? MaxDateofBirthFilter { get; set; }
         public DateTime? MinDateofBirthFilter { get; set; }
 
@@ -23,7 +25,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
         public int? MaxRatingFilter { get; set; }
         public int? MinRatingFilter { get; set; }
 
-        public string CountryDisplayPropertyFilter { get; set; }
+        public string CountryNameFilter { get; set; }
 
         public string UserNameFilter { get; set; }
 
@@ -35,9 +37,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public string LeadSourceNameFilter { get; set; }
 
-        public string CountryName2Filter { get; set; }
-
-        public string CountryName3Filter { get; set; }
+        public string PassportCountryFilter { get; set; }
 
     }
 }

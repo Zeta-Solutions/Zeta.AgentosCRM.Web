@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
+using System.Collections.Generic;
 
 using Abp.Extensions;
 
@@ -13,7 +14,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
     {
         public CreateOrEditClientDto Client { get; set; }
 
-        public string CountryDisplayProperty { get; set; }
+        public string CountryName { get; set; }
 
         public string UserName { get; set; }
 
@@ -25,9 +26,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
 
         public string LeadSourceName { get; set; }
 
-        public string CountryName2 { get; set; }
-
-        public string CountryName3 { get; set; }
+        public string PassportCountry { get; set; }
 
         public List<ClientCountryLookupTableDto> ClientCountryList { get; set; }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -37,8 +38,6 @@ namespace Zeta.AgentosCRM.CRMClient
         Task<List<ClientSubjectAreaLookupTableDto>> GetAllSubjectAreaForTableDropdown();
 
         Task<List<ClientLeadSourceLookupTableDto>> GetAllLeadSourceForTableDropdown();
-
-        Task<PagedResultDto<ClientCountryLookupTableDto>> GetAllCountryForLookupTable(GetAllForLookupTableInput input);
 
     }
 }

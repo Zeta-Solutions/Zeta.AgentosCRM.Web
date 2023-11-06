@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMPartner;
+﻿using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
+using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.CRMSetup.Regions;
@@ -28,6 +29,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<CRMSetup.CRMCurrency.CRMCurrency> CRMCurrencies { get; set; }
+
         public virtual DbSet<Partner> Partners { get; set; }
 
         public virtual DbSet<ClientTag> ClientTags { get; set; }
@@ -104,6 +107,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
             {
                 p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Client>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<CRMCurrency>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Client>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Partner>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ClientTag>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

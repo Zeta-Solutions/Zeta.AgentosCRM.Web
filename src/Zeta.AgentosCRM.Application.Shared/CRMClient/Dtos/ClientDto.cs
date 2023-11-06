@@ -15,6 +15,8 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public string PhoneNo { get; set; }
 
+        public string PhoneCode { get; set; }
+
         public DateTime DateofBirth { get; set; }
 
         public ContactPrefernce ContactPreferences { get; set; }
@@ -41,7 +43,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public bool ClientPortal { get; set; }
 
-        public int CountryCodeId { get; set; }
+        public int CountryId { get; set; }
 
         public long AssigneeId { get; set; }
 
@@ -52,8 +54,6 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
         public int? StudyAreaId { get; set; }
 
         public int LeadSourceId { get; set; }
-
-        public int? CountryId { get; set; }
 
         public int? PassportCountryId { get; set; }
 

@@ -18,7 +18,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string CountryName { get; set; }
 
-        public string CountryDisplayProperty2 { get; set; }
+        public string CRMCurrencyName { get; set; }
 
     }
 }
