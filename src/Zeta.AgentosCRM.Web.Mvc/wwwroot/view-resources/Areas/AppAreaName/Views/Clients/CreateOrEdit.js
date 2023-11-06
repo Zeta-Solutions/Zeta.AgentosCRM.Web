@@ -1,6 +1,7 @@
 ﻿(function () {
     $(function () {
         var _clientsService = abp.services.app.clients;
+        $("#kt_app_sidebar_toggle").trigger("click");
 
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
         _$clientInformationForm.validate();
@@ -237,6 +238,12 @@
             });
         });
         
-        
+        $('.accordion-header').click(function () {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+        });
     });
 })();

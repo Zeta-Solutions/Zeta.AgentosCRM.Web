@@ -35,43 +35,44 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         [AbpMvcAuthorize(AppPermissions.Pages_Clients_Create, AppPermissions.Pages_Clients_Edit)]
         public async Task<ActionResult> CreateOrEditModal(long? id)
         {
-            //GetClientForEditOutput getClientForEditOutput;
+            GetClientForEditOutput getClientForEditOutput;
 
-            //if (id.HasValue)
-            //{
-            //    getClientForEditOutput = await _clientsAppService.GetClientForEdit(new EntityDto<long> { Id = (long)id });
-            //}
-            //else
-            //{
-            //    getClientForEditOutput = new GetClientForEditOutput
-            //    {
-            //        Client = new CreateOrEditClientDto()
-            //    };
-            //    getClientForEditOutput.Client.DateofBirth = DateTime.Now;
-            //    getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
-            //    getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
-            //}
+            if (id.HasValue)
+            {
+                getClientForEditOutput = await _clientsAppService.GetClientForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientForEditOutput = new GetClientForEditOutput
+                {
+                    Client = new CreateOrEditClientDto()
+                };
+                getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
 
-            //var viewModel = new CreateOrEditClientViewModel()
-            //{
-            //    Client = getClientForEditOutput.Client,
-            //    CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
-            //    UserName = getClientForEditOutput.UserName,
-            //    BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
-            //    DegreeLevelName = getClientForEditOutput.DegreeLevelName,
-            //    SubjectAreaName = getClientForEditOutput.SubjectAreaName,
-            //    LeadSourceName = getClientForEditOutput.LeadSourceName,
-            //    CountryName2 = getClientForEditOutput.CountryName2,
-            //    CountryName3 = getClientForEditOutput.CountryName3,
-            //    ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
-            //    ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
-            //    ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
-            //    ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
-            //    ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
-            //};
+            var viewModel = new CreateOrEditClientViewModel()
+            {
+                Client = getClientForEditOutput.Client,
+                CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+                UserName = getClientForEditOutput.UserName,
+                BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
+                DegreeLevelName = getClientForEditOutput.DegreeLevelName,
+                SubjectAreaName = getClientForEditOutput.SubjectAreaName,
+                LeadSourceName = getClientForEditOutput.LeadSourceName,
+                CountryName2 = getClientForEditOutput.CountryName2,
+                CountryName3 = getClientForEditOutput.CountryName3,
+                ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
+                ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
+                ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
+                ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
+                ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+            };
 
-            return PartialView("_CreateOrEditModal", "");
+            return PartialView("_CreateOrEditModal", viewModel);
         }
+
         [AbpMvcAuthorize(AppPermissions.Pages_Clients_Create, AppPermissions.Pages_Clients_Edit)]
         public PartialViewResult BinaryObjectLookupTableModal(Guid? id, string displayName)
         {
@@ -99,10 +100,46 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public IActionResult ClientDetail()
         {
             return View();
-        } 
-        public IActionResult ClientCreateDetail()
+        }
+        public async Task<ActionResult> ClientCreateDetail(long? id)
         {
-            return View();
+            GetClientForEditOutput getClientForEditOutput;
+
+            if (id.HasValue)
+            {
+                getClientForEditOutput = await _clientsAppService.GetClientForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientForEditOutput = new GetClientForEditOutput
+                {
+                    Client = new CreateOrEditClientDto()
+                };
+                getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditClientViewModel()
+            {
+                Client = getClientForEditOutput.Client,
+                CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+                UserName = getClientForEditOutput.UserName,
+                BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
+                DegreeLevelName = getClientForEditOutput.DegreeLevelName,
+                SubjectAreaName = getClientForEditOutput.SubjectAreaName,
+                LeadSourceName = getClientForEditOutput.LeadSourceName,
+                CountryName2 = getClientForEditOutput.CountryName2,
+                CountryName3 = getClientForEditOutput.CountryName3,
+                ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
+                ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
+                ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
+                ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
+                ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+            };
+
+
+            return View(viewModel);
         }       
         public IActionResult ClientEmailCompose()
         {

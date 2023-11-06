@@ -33,8 +33,47 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
+		public async Task<ActionResult> ClientCreateDetail(long? id)
+		{
+			GetClientForEditOutput getClientForEditOutput;
 
-        [AbpMvcAuthorize(AppPermissions.Pages_Clients_Create, AppPermissions.Pages_Clients_Edit)]
+			if (id.HasValue)
+			{
+				getClientForEditOutput = await _clientsAppService.GetClientForEdit(new EntityDto<long> { Id = (long)id });
+			}
+			else
+			{
+				getClientForEditOutput = new GetClientForEditOutput
+				{
+					Client = new CreateOrEditClientDto()
+				};
+				getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+				getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+				getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+			}
+
+			var viewModel = new CreateOrEditClientViewModel()
+			{
+				Client = getClientForEditOutput.Client,
+				CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+				UserName = getClientForEditOutput.UserName,
+				BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
+				DegreeLevelName = getClientForEditOutput.DegreeLevelName,
+				SubjectAreaName = getClientForEditOutput.SubjectAreaName,
+				LeadSourceName = getClientForEditOutput.LeadSourceName,
+				CountryName2 = getClientForEditOutput.CountryName2,
+				CountryName3 = getClientForEditOutput.CountryName3,
+				ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
+				ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
+				ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
+				ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
+				ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+			};
+
+
+			return View(viewModel);
+		}
+		[AbpMvcAuthorize(AppPermissions.Pages_Clients_Create, AppPermissions.Pages_Clients_Edit)]
         public async Task<ActionResult> CreateOrEdit(long? id)
         {
             GetClientForEditOutput getClientForEditOutput;

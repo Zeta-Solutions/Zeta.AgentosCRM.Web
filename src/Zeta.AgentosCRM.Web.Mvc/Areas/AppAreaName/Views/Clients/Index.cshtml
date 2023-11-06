@@ -5,6 +5,10 @@
 @{
     ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
 }
+@section Styles
+	{
+	<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
 @section Scripts
 {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
@@ -13,11 +17,13 @@
 
 
                 <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
-                     <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
+                     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
             
                      @if (IsGranted(AppPermissions.Pages_Clients_Create))
                      {
-                         <a href="\AppAreaName\Clients\CreateOrEdit" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                
+        @* <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewCient")</button> *@
+
+                         <a href="\AppAreaName\Clients\ClientCreateDetail" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                
                      }
                 </abp-page-subheader>
             
@@ -31,8 +37,8 @@
                         
                 <div class="my-3">
                     <div class="input-group">
-                        <input type="text" id="ClientsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                        <button id="GetClientsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>                        
+                        <input type="text" id="ClientsTableFilter" class="form-control form-control-sm  reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                        <button id="GetClientsButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>                        
                     </div>
                 </div>
             
@@ -155,11 +161,23 @@
                     </div>
                 </div>
             <div class="row align-items-center">
-                <table id="ClientsTable" class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
-                    <thead>
+                <table id="ClientsTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                    <thead class="thead gy-7">
                         <tr>
-                            <th></th>
-                            
+							   <th class="align-middle" style="padding:2px"></th>
+                                <th><input type="checkbox"></th>
+            <th >@L("Name")</th>
+            <th >@L("AddedFrom")</th>
+            <th >@L("Rating")</th>
+            <th >@L("InternalId")</th>
+            <th >@L("Assignee")</th>
+            <th>@L("Phone")</th>
+            <th>@L("ClientPortal")</th>
+            <th>@L("Passport")</th>
+            <th>@L("City")</th>
+            <th>@L("Status")</th>
+            <th></th>
+                            @* 
                             <th>@L("Actions")</th>
 								<th>@L("FirstName")</th>
 								<th>@L("LastName")</th>
@@ -185,7 +203,7 @@
 								<th>@L("SubjectAreaName")</th>
 								<th>@L("LeadSourceName")</th>
 								<th>@L("CountryName")</th>
-								<th>@L("CountryName")</th>                            
+								<th>@L("CountryName")</th>     *@                        
                         </tr>
                     </thead>
                 </table>

@@ -348,7 +348,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     .AddItem(new MenuItemDefinition(
                                     AppAreaNamePageNames.Tenant.Clients,
                                     L("Clients"),
-                                    url: "AppAreaName/Client",
+                                    url: "AppAreaName/Clients",
                                     icon: "flaticon-profile-1"
                                 // permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_PartnerTypes)
                                 )

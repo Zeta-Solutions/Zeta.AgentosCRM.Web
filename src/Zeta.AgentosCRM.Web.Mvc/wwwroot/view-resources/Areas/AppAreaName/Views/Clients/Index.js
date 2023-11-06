@@ -1,4 +1,6 @@
 ﻿(function () {
+    $("#kt_app_sidebar_toggle").trigger("click");
+
     $(function () {
 
         var _$clientsTable = $('#ClientsTable');
@@ -9,7 +11,7 @@
             startDate: null,
             endDate: null,
         }
-
+        debugger
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -119,220 +121,202 @@
                     },
                     targets: 0
                 },
+				{
+					targets: 1,
+					data: null,
+					orderable: false,
+					autoWidth: false,
+					defaultContent: '',
+					render: function (data, type, full, meta) {
+						console.log(data);
+						var rowId = data.client.id;
+						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+							'<div class="ellipsis"><input type="checkbox" ></div>' +
+							'</div>';
+
+
+						return contaxtMenu;
+					}
+				},
+				{
+					width: 100,
+					targets: 2,
+					data: null,
+					orderable: false,
+					autoWidth: false,
+					defaultContent: '',
+					// Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+					render: function (data, type, row) {
+						let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+						let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+						let initials = `${firstNameInitial}${lastNameInitial}`;
+						let fullName = `${row.client.firstName} ${row.client.lastName}`;
+
+						// Generate the URLs using JavaScript variables
+						let clientDetailUrl = `/AppAreaName/Client/ClientDetail?id=${row.client.id}`;
+						let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.client.id}`;
+
+						return `
+        <div class="d-flex align-items-center">
+            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
+                <b>${initials}</b>
+            </span>
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}
+                </a>
+                <a href="${clientEmailComposeUrl}" class="text-decoration-none">
+                    <span class="text-truncate" id="CreateNewClientEmailButton">${row.client.email}</span>
+                </a>
+            </div>
+        </div>
+    `;
+					},
+
+					name: 'concatenatedData',
+
+				},
                 {
-                    width: 120,
-                    targets: 1,
+                    targets: 3,
+                    data: 'client.rating',
+                    name: 'rating',
+                },
+                {
+                    targets: 4,
+                    data: 'client.id',
+                    name: 'id',
+                },
+                {
+                    targets: 5,
+                    data: 'userName',
+                    name: 'assigneeName',
+                },
+                {
+                    targets: 6,
+                    data: "client.phoneNo",
+                    name: "phoneNo"
+                },
+                {
+                    targets: 7,
+                    data: 'client.clientPortal',
+                    name: 'clientPortal',
+                },
+                {
+                    targets: 8,
+                    data: 'client.passportNo',
+                    name: 'passportNo',
+                },
+                {
+                    targets: 9,
+                    data: 'client.city',
+                    name: 'city',
+                },
+                {
+                    targets: 10,
+                    data: 'client.state',
+                    name: 'state',
+                },
+                {
+                    targets: 11,
+                    data: 'client.state',
+                    name: 'state',
+                },
+                {
+                    width: 30,
+                    targets: 12,
                     data: null,
                     orderable: false,
-                    autoWidth: false,
-                    defaultContent: '',
-                    rowAction: {
-                        cssClass: 'btn btn-brand dropdown-toggle',
-                        text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                        items: [
-						{
-                                text: app.localize('View'),
-                                action: function (data) {
-                                    window.location="/AppAreaName/Clients/ViewClient/" + data.record.client.id;
-                                }
-                        },
-						{
-                            text: app.localize('Edit'),
-                            visible: function () {
-                                return _permissions.edit;
-                            },
-                            action: function (data) {
-                            window.location="/AppAreaName/Clients/CreateOrEdit/" + data.record.client.id;                                
-                            }
-                        },
-                        {
-                            text: app.localize('History'),
-                            iconStyle: 'fas fa-history mr-2',
-                            visible: function () {
-                                return entityHistoryIsEnabled();
-                            },
-                            action: function (data) {
-                                _entityTypeHistoryModal.open({
-                                    entityTypeFullName: _entityTypeFullName,
-                                    entityId: data.record.client.id
-                                });
-                            }
-						}, 
-						{
-                            text: app.localize('Delete'),
-                            visible: function () {
-                                return _permissions.delete;
-                            },
-                            action: function (data) {
-                                deleteClient(data.record.client);
-                            }
-                        }]
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+
+                        var rowId = data.client.id;
+                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li  style="color:black"><a href="#" style="color: black;" data-action="view" data-id="' + rowId + '">View</a></li>' +
+                            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<li ><a href="#" style="color: black;" data-action="delete" data-id="' + rowId + '">Delete</a></li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
                     }
-                },
-					{
-						targets: 2,
-						 data: "client.firstName",
-						 name: "firstName"   
-					},
-					{
-						targets: 3,
-						 data: "client.lastName",
-						 name: "lastName"   
-					},
-					{
-						targets: 4,
-						 data: "client.email",
-						 name: "email"   
-					},
-					{
-						targets: 5,
-						 data: "client.phoneNo",
-						 name: "phoneNo"   
-					},
-					{
-						targets: 6,
-						 data: "client.dateofBirth",
-						 name: "dateofBirth" ,
-					render: function (dateofBirth) {
-						if (dateofBirth) {
-							return moment(dateofBirth).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 7,
-						 data: "client.contactPreferences",
-						 name: "contactPreferences"   ,
-						render: function (contactPreferences) {
-							return app.localize('Enum_ContactPrefernce_' + contactPreferences);
-						}
-			
-					},
-					{
-						targets: 8,
-						 data: "client.university",
-						 name: "university"   
-					},
-					{
-						targets: 9,
-						 data: "client.street",
-						 name: "street"   
-					},
-					{
-						targets: 10,
-						 data: "client.city",
-						 name: "city"   
-					},
-					{
-						targets: 11,
-						 data: "client.state",
-						 name: "state"   
-					},
-					{
-						targets: 12,
-						 data: "client.zipCode",
-						 name: "zipCode"   
-					},
-					{
-						targets: 13,
-						 data: "client.preferedIntake",
-						 name: "preferedIntake" ,
-					render: function (preferedIntake) {
-						if (preferedIntake) {
-							return moment(preferedIntake).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 14,
-						 data: "client.passportNo",
-						 name: "passportNo"   
-					},
-					{
-						targets: 15,
-						 data: "client.visaType",
-						 name: "visaType"   
-					},
-					{
-						targets: 16,
-						 data: "client.visaExpiryDate",
-						 name: "visaExpiryDate" ,
-					render: function (visaExpiryDate) {
-						if (visaExpiryDate) {
-							return moment(visaExpiryDate).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 17,
-						 data: "client.rating",
-						 name: "rating"   
-					},
-					{
-						targets: 18,
-						 data: "client.clientPortal",
-						 name: "clientPortal"  ,
-						render: function (clientPortal) {
-							if (clientPortal) {
-								return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
-							}
-							return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
-					}
-			 
-					},
-					{
-						targets: 19,
-						 data: "countryDisplayProperty" ,
-						 name: "countryCodeFk.displayProperty" 
-					},
-					{
-						targets: 20,
-						 data: "userName" ,
-						 name: "assigneeFk.name" 
-					},
-					{
-						targets: 21,
-						 data: "binaryObjectDescription" ,
-						 name: "profilePictureFk.description" 
-					},
-					{
-						targets: 22,
-						 data: "degreeLevelName" ,
-						 name: "highestQualificationFk.name" 
-					},
-					{
-						targets: 23,
-						 data: "subjectAreaName" ,
-						 name: "studyAreaFk.name" 
-					},
-					{
-						targets: 24,
-						 data: "leadSourceName" ,
-						 name: "leadSourceFk.name" 
-					},
-					{
-						targets: 25,
-						 data: "countryName2" ,
-						 name: "countryFk.name" 
-					},
-					{
-						targets: 26,
-						 data: "countryName3" ,
-						 name: "passportCountryFk.name" 
-					}
+
+
+                }
             ]
         });
-
+     
         function getClients() {
             dataTable.ajax.reload();
         }
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsis', function (e) {
+            e.preventDefault();
 
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
+
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+
+
+
+            //// Toggle the visibility of the options when the ellipsis is clicked
+            //var options = $(this).next('.options');
+            //options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+
+        // Handle menu item clicks
+        $(document).on('click', 'a[data-action]', function (e) {
+            e.preventDefault();
+
+            var rowId = $(this).data('id');
+            var action = $(this).data('action');
+
+            // Handle the selected action based on the rowId
+            if (action === 'view') {
+                /*_viewProductTypeModal.open({ id: rowId });*/
+               // _createOrEditModal.open({ id: rowId });
+                window.location = "/AppAreaName/Clients/ViewClient/" + rowId; 
+
+            } else if (action === 'edit') {
+                //_createOrEditModal.open({ id: rowId });
+                //_createOrEditModal.open({ id: rowId });
+                window.location = "/AppAreaName/Clients/ClientCreateDetail/" + rowId;     
+
+            } else if (action === 'delete') {
+               // _createOrEditModal.open({ rowId });
+               //window.location = "/AppAreaName/Clients/ClientCreateDetail/" + rowId;     
+
+                //deleteProductType(rowId);
+            }
+        });
+        // Add an event listener to handle the click event for the full name link
+        $(document).on('click', '.text-truncate', function (e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+            window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        });
+        $(document).on('click', '#CreateNewClientEmailButton', function (e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+            _createOrEditModalEmail.open();
+            // window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        });
         function deleteClient(client) {
             abp.message.confirm(
                 '',
@@ -361,7 +345,11 @@
             $('#ShowAdvancedFiltersSpan').show();
             $('#AdvacedAuditFiltersArea').slideUp();
         });
+        $('#CreateNewClientButton').click(function () {
+            // _createOrEditModal.open();
+            window.location.href = abp.appPath + 'AppAreaName/Clients/ClientCreateDetail';
 
+        });
                 
 
 		$('#ExportToExcelButton').click(function () {

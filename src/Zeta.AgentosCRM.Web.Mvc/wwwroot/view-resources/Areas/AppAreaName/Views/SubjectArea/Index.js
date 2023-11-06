@@ -202,8 +202,9 @@
                 });
         });
 
-        abp.event.on('app.createOrEdiSubjectAreaModalSaved', function () {
-            getCategories();
+        abp.event.on('app.createOrEditSubjectAreasModalSaved', function () {
+            
+            getSubjectAreas();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
