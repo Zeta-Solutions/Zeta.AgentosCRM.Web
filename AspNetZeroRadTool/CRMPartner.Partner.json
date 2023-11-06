@@ -5,7 +5,7 @@
   "EntityName": "Partner",
   "EntityNamePlural": "Partners",
   "TableName": "Partners",
-  "PrimaryKeyType": "int",
+  "PrimaryKeyType": "long",
   "BaseClass": "FullAuditedEntity",
   "EntityHistory": true,
   "AutoMigration": true,
@@ -250,6 +250,48 @@
       },
       "ViewType": null,
       "AdditionalData": {}
+    },
+    {
+      "Name": "BusinessRegNo",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "PhoneCode",
+      "Type": "string",
+      "MaxLength": -1,
+      "MinLength": -1,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
     }
   ],
   "NavigationProperties": [
@@ -334,19 +376,18 @@
       }
     },
     {
-      "Namespace": "Zeta.AgentosCRM.CRMSetup.Countries",
-      "ForeignEntityName": "Country",
+      "Namespace": "Zeta.AgentosCRM.CRMSetup.CRMCurrency",
+      "ForeignEntityName": "CRMCurrency",
       "IdType": "int",
       "IsNullable": true,
-      "PropertyName": "CountryCodeId",
-      "DuplicationNumber": 2,
+      "PropertyName": "CurrencyId",
+      "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown",
       "DisplayPropertyNameInfos": {
-        "MergeFormat": "{0} {1}",
+        "MergeFormat": "{0}",
         "DisplayPropertyNames": [
-          "Icon",
-          "Code"
+          "Name"
         ]
       }
     }

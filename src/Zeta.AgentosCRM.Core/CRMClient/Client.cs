@@ -1,15 +1,17 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Countries;
+﻿using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.Authorization.Users;
 using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMSetup; 
-using Zeta.AgentosCRM.CRMSetup.LeadSource; 
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup.LeadSource;
+using Zeta.AgentosCRM.CRMSetup.Countries;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
-using Abp.Auditing; 
-using System.Collections.Generic;
+using Abp.Auditing;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -34,6 +36,8 @@ namespace Zeta.AgentosCRM.CRMClient
         [Required]
         [StringLength(ClientConsts.MaxPhoneNoLength, MinimumLength = ClientConsts.MinPhoneNoLength)]
         public virtual string PhoneNo { get; set; }
+
+        public virtual string PhoneCode { get; set; }
 
         public virtual DateTime DateofBirth { get; set; }
 
@@ -65,18 +69,14 @@ namespace Zeta.AgentosCRM.CRMClient
 
         public virtual bool ClientPortal { get; set; }
 
-        public virtual bool PTETraining { get; set; }
-
         public virtual string SecondaryEmail { get; set; }
-
-        public virtual ClientStatus ClientStatus { get; set; } 
 
         public virtual bool Archived { get; set; }
 
-        public virtual int CountryCodeId { get; set; }
+        public virtual int CountryId { get; set; }
 
-        [ForeignKey("CountryCodeId")]
-        public Country CountryCodeFk { get; set; }
+        [ForeignKey("CountryId")]
+        public Country CountryFk { get; set; }
 
         public virtual long AssigneeId { get; set; }
 
@@ -102,11 +102,6 @@ namespace Zeta.AgentosCRM.CRMClient
 
         [ForeignKey("LeadSourceId")]
         public LeadSource LeadSourceFk { get; set; }
-
-        public virtual int? CountryId { get; set; }
-
-        [ForeignKey("CountryId")]
-        public Country CountryFk { get; set; }
 
         public virtual int? PassportCountryId { get; set; }
 

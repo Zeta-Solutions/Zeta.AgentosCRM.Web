@@ -29,6 +29,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string MarketingEmailFilter { get; set; }
 
+        public string BusinessRegNoFilter { get; set; }
+
+        public string PhoneCodeFilter { get; set; }
+
         public string BinaryObjectDescriptionFilter { get; set; }
 
         public string MasterCategoryNameFilter { get; set; }
@@ -39,7 +43,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string CountryNameFilter { get; set; }
 
-        public string CountryDisplayProperty2Filter { get; set; }
+        public string CRMCurrencyNameFilter { get; set; }
 
     }
 }

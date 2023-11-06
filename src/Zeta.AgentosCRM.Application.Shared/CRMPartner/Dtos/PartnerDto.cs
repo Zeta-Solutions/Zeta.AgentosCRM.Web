@@ -3,7 +3,7 @@ using Abp.Application.Services.Dto;
 
 namespace Zeta.AgentosCRM.CRMPartner.Dtos
 {
-    public class PartnerDto : EntityDto
+    public class PartnerDto : EntityDto<long>
     {
         public string PartnerName { get; set; }
 
@@ -27,6 +27,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string MarketingEmail { get; set; }
 
+        public string BusinessRegNo { get; set; }
+
+        public string PhoneCode { get; set; }
+
         public Guid ProfilePictureId { get; set; }
 
         public int MasterCategoryId { get; set; }
@@ -37,7 +41,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public int CountryId { get; set; }
 
-        public int? CountryCodeId { get; set; }
+        public int? CurrencyId { get; set; }
 
     }
 }

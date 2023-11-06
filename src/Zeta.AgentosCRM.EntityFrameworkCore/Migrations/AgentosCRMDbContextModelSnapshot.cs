@@ -1700,16 +1700,10 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<bool>("ClientPortal")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ClientStatus")
-                        .HasColumnType("int");
-
                     b.Property<int>("ContactPreferences")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryCodeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationTime")
@@ -1760,13 +1754,13 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<int>("LeadSourceId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("PTETraining")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("PassportCountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("PassportNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
@@ -1813,8 +1807,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssigneeId");
-
-                    b.HasIndex("CountryCodeId");
 
                     b.HasIndex("CountryId");
 
@@ -1933,17 +1925,17 @@ namespace Zeta.AgentosCRM.Migrations
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BusinessRegNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CountryCodeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
@@ -1953,6 +1945,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<int?>("CurrencyId")
+                        .HasColumnType("int");
 
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
@@ -1991,6 +1986,9 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<int?>("PartnerTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PhoneCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -2020,9 +2018,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryCodeId");
-
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("CurrencyId");
 
                     b.HasIndex("MasterCategoryId");
 
@@ -2035,6 +2033,55 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasIndex("WorkflowId");
 
                     b.ToTable("Partners");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Abbrivation")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("CRMCurrencies");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Countries.Country", b =>
@@ -3526,15 +3573,11 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryCodeFk")
-                        .WithMany()
-                        .HasForeignKey("CountryCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
                         .WithMany()
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.DegreeLevel", "HighestQualificationFk")
                         .WithMany()
@@ -3559,8 +3602,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasForeignKey("StudyAreaId");
 
                     b.Navigation("AssigneeFk");
-
-                    b.Navigation("CountryCodeFk");
 
                     b.Navigation("CountryFk");
 
@@ -3613,15 +3654,15 @@ namespace Zeta.AgentosCRM.Migrations
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryCodeFk")
-                        .WithMany()
-                        .HasForeignKey("CountryCodeId");
-
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrency", "CurrencyFk")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId");
 
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.MasterCategory", "MasterCategoryFk")
                         .WithMany()
@@ -3645,9 +3686,9 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CountryCodeFk");
-
                     b.Navigation("CountryFk");
+
+                    b.Navigation("CurrencyFk");
 
                     b.Navigation("MasterCategoryFk");
 

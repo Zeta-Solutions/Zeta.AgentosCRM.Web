@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Zeta.AgentosCRM.CRMPartner.Dtos
 {
-    public class CreateOrEditPartnerDto : EntityDto<int?>
+    public class CreateOrEditPartnerDto : EntityDto<long?>
     {
 
         [Required]
@@ -33,6 +33,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string MarketingEmail { get; set; }
 
+        public string BusinessRegNo { get; set; }
+
+        public string PhoneCode { get; set; }
+
         public Guid ProfilePictureId { get; set; }
 
         public int MasterCategoryId { get; set; }
@@ -43,7 +47,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public int CountryId { get; set; }
 
-        public int? CountryCodeId { get; set; }
+        public int? CurrencyId { get; set; }
 
     }
 }

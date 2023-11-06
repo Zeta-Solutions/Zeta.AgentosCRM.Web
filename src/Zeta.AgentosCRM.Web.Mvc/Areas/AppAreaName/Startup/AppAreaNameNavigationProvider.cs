@@ -22,7 +22,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
-                 
+
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.Tenants,
                         L("Tenants"),
@@ -176,7 +176,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
                     )
                 )
-                
+
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.CRMSetup,
                         L("CRMSetup"),
@@ -225,7 +225,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_SubjectAreas)
                         )
                     )
-                     
+
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Subject,
                             L("Subject"),
@@ -354,7 +354,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                                 )
 
                             )
-             
+
                    .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Partners,
                             L("Partners"),

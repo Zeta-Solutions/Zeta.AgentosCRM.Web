@@ -127,14 +127,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("~/Areas/AppAreaName/Views/Partners/ApplicationForm/Index.cshtml");
 
         }
+
         [AbpMvcAuthorize(AppPermissions.Pages_Partners_Create, AppPermissions.Pages_Partners_Edit)]
-        public async Task<ActionResult> CreateOrEdit(int? id)
+        public async Task<ActionResult> CreateOrEdit(long? id)
         {
             GetPartnerForEditOutput getPartnerForEditOutput;
 
             if (id.HasValue)
             {
-                getPartnerForEditOutput = await _partnersAppService.GetPartnerForEdit(new EntityDto { Id = (int)id });
+                getPartnerForEditOutput = await _partnersAppService.GetPartnerForEdit(new EntityDto<long> { Id = (long)id });
             }
             else
             {
