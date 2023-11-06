@@ -39,7 +39,7 @@
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditSubjectModalSaved');
+          abp.event.trigger('app.createOrEditTaskModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

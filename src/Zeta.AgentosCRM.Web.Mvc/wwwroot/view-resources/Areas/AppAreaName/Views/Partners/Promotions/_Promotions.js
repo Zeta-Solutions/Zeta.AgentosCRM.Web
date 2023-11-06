@@ -195,7 +195,7 @@
                 });
         });
 
-        abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
+        abp.event.on('app.createOrEditPromotionsModalSaved', function () {
             getSubjects();
         });
 

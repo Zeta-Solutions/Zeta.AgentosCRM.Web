@@ -175,40 +175,34 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(viewModel);
         }
-        //public async Task<ActionResult> ViewPartner(long id)
-        //{
-        //    var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+        public async Task<ActionResult> ViewPartner(int id)
+        {
+            var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
-        //    var model = new PartnerViewModel()
-        //    {
-        //        Partner = getPartnerForViewDto.Partner
-        //        ,
-        //        CountryDisplayProperty = getClientForViewDto.CountryDisplayProperty
+            var model = new PartnerViewModel()
+            {
+                Partner = getPartnerForViewDto.Partner
+                ,
+                BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
 
-        //        ,
-        //        UserName = getClientForViewDto.UserName
+                ,
+                MasterCategoryName = getPartnerForViewDto.MasterCategoryName
 
-        //        ,
-        //        BinaryObjectDescription = getClientForViewDto.BinaryObjectDescription
+                ,
+                PartnerTypeName = getPartnerForViewDto.PartnerTypeName
 
-        //        ,
-        //        DegreeLevelName = getClientForViewDto.DegreeLevelName
+                ,
+                WorkflowName = getPartnerForViewDto.WorkflowName
 
-        //        ,
-        //        SubjectAreaName = getClientForViewDto.SubjectAreaName
+                ,
+                CountryName = getPartnerForViewDto.CountryName
 
-        //        ,
-        //        LeadSourceName = getClientForViewDto.LeadSourceName
+                ,
+                CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
 
-        //        ,
-        //        CountryName2 = getClientForViewDto.CountryName2
+            };
 
-        //        ,
-        //        CountryName3 = getClientForViewDto.CountryName3
-
-        //    };
-
-        //    return View(model);
-        //}
+            return View(model);
+        }
     }
 }
