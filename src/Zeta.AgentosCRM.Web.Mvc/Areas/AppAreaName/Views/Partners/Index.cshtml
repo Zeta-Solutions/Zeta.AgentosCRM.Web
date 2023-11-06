@@ -6,11 +6,11 @@
     ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Partners;
 }
 
-@* @section Scripts
+@section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Index.js" asp-append-version="true"></script>
 
-} *@
+}
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
@@ -19,7 +19,7 @@
 
 <abp-page-subheader title='@L("Partners")' description='@L("PartnersHeaderInfo")'>
       <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
-         <a href="@Url.Action("AddPartnersDetails", "Partners", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewPartner")</a>
+    <a href="@Url.Action("CreateOrEdit", "Partners", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewPartner")</a>
 
 </abp-page-subheader>
 @* <abp-page-subheader title='@L("ProductType")' description='@L("ProductTypeHeaderInfo")'>
@@ -40,8 +40,8 @@
                         <div class="my-3">
                             <div class="input-group">
                                
-  <input type="text" id="PartnersTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                        <button id="GetClientsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>    
+                        <input type="text" id="PartnersTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                        <button id="GetPartnersButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>    
                             </div>
                         </div>
 
@@ -80,19 +80,21 @@
                 <table id="PartnersTable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead gy-7">
                         <tr> 
-                            <th class="align-middle" style="padding:4px"><input type="checkbox" ></th> 
-                            <th>@L("Actions")</th>
+                           <th class="align-middle" style="padding:2px"></th>
+                            <th><input type="checkbox"></th> 
+                            <th>@L("Name")</th>
                             <th>@L("WorkFlow")</th>
                             <th>@L("PartnerType")</th>
                             <th>@L("City")</th>
-                            <th>@L("Product")</th>
+                          @*   <th>@L("Product")</th>
                             <th>@L("Enrolled")</th>
-                            <th>@L("Inprogress")</th>
+                            <th>@L("Inprogress")</th> *@
                             <th>@L("Email")</th>  
+                               <th></th>  
                         </tr>
                     </thead>
                     <tbody>
-                       <tr >
+@*                        <tr >
                           <td class="align-middle" style="padding:4px"> <input type="checkbox" ></td>
                            <td data-v-287fbc8b="" class="">
                                     <div data-v-b0d0ffe4="" class="d-flex align-items-center">
@@ -181,13 +183,13 @@
                         <td>
                                 marketing@windsorcollege.ed
                         </td>
-                       </tr>
+                       </tr> *@
                     </tbody>
                 </table>
  
             </div>
             </div>
-            <div class="row col-12 justify-content-end">
+@*             <div class="row col-12 justify-content-end">
                 <div class="row col-9">
                     </div>
                 <div class="pagination col-3 ">
@@ -198,7 +200,7 @@
   <a href="#">4</a>
   <a href="#">&raquo;</a>
 </div>
-</div>
+</div> *@
         </div>
     </div>
 </div>

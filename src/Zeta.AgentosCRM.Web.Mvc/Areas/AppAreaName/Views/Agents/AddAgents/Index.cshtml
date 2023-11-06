@@ -1,112 +1,198 @@
-﻿@* @using Zeta.AgentosCRM.Authorization *@
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; *@
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup *@
-@* @model FeeTypesViewModel
-@{ *@
-@*  ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent; *@
-@* } *@
-@* @section Scripts
-    {
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script>
-} *@
-@*
-<abp-page-subheader title='@L("Agent")' description='@L("AgentHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
- *@
-@* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
-    { *@
-@* <button id="CreateNewFeeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Add")</button> *@
-@*  } *@
-@* </abp-page-subheader>
-
-<div class="@(await GetContainerClass())">
-    <div class="card card-custom gutter-b">
-        <div class="card-body">
-
-        </div>
-    </div>
-</div>
-
- *@
-
-
+﻿    @section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+}
 
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" />
+      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
     }
-<div class="card maincard">
+ 
+
+
+       
+    <div class="row mt-5">
+    <div class="col">
+        <span class="tittle ml-4">ADD NEW Agents</span>
+    </div>
+    <div class="col text-end mr-4">
+@*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
+<a href="\AppAreaName\Agents\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("AgentList")</a>                           
+@* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
+    </div>
+</div>
+ 
+    <span class="text-muted me-4 ml-4 mt-1">(Agents Headers info)</span>
+<div class="card maincard mt-4">
     <div class="card-body ">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header ">
-                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Primary Information
+        
+         <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
+
+
+        <div class="accordion accordion-flush" id="accordionFlushExample" >
+             <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Agent Type
                     </button>
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseThree" class="accordion-collapse "@*  data-bs-parent="#accordionFlushExample" *@>
+                   
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group text-center">
+                                <div class="form-group ">
                                     <div class="row">
-                                        @* <div class="col-md-4">
-                                            <div class="rounded-circle  image">
-                                                <img src="/Profile/GetProfilePicture" class="img-fluid" alt="User Pic">
-                                            </div>
-                                        </div> *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+<div class="col-12 mt-3 ml-2">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="checkbox1">
+        <label class="form-check-label" for="checkbox1">
+            Super Agent
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="checkbox2">
+        <label class="form-check-label" for="checkbox2">
+            Sub Agent
+        </label>
+    </div>
+</div>
 
-                                        <div class="col-md-4">
-                                            <div class="rounded-circle border border-secondary mx-auto position-relative overflow-hidden" style="width: 150px; height: 150px;">
-                                                <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" id="imageField" name="imageField" accept="image/*" style="opacity: 0;">
-                                                <label for="imageField" class="d-block position-absolute bottom-0 start-50 translate-middle-x">Click to upload</label>
+
+                                                     
+                                                </div>
                                             </div>
                                         </div>
-                                       @*  <div class="col-md-4">
-                                            <div class="rounded-circle border border-secondary mx-auto position-relative overflow-hidden" style="width: 150px; height: 150px;">
-                                                <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" id="imageField" name="imageField" accept="image/*">
-                                                <label for="imageField" class="d-block position-absolute bottom-0 start-50 translate-middle-x">Click to upload</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                         <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Agent Structure
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse "@*  data-bs-parent="#accordionFlushExample" *@>
+                   
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+<div class="col-12 mt-3 ml-2">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radioGroup" id="radio1" value="option1">
+        <label class="form-check-label" for="radio1">
+            Individual 1
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radioGroup" id="radio2" value="option2">
+        <label class="form-check-label" for="radio2">
+           Bussiness
+        </label>
+    </div>
+</div>
+
+
+
+                                                     
+                                                </div>
                                             </div>
-                                        </div> *@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header ">
+                 
+                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" >
+    PRIMARY INFORMATION
+     </button>
+
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                    <div class="accordion-body hv-1 h-75">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <div class="row">
+@* <div class="col-md-2" >
+    <div class="rounded-circle border border-dotted border-secondary position-relative overflow-hidden" style="margin-top: 20px;"> <!-- Adjust the margin-top value -->
+        <img src="~/Common/Images/upload-image.png" width="160" height="150" class="img-thumbnail img-rounded user-edit-dialog-profile-image" />
+    </div>
+</div> *@
+@* <div  class="col-md-4 d-flex flex-column align-items-center">
+<img src="~/Common/Images/default-profile-picture.png" alt="Avatar"style="height: 120px;">
+     </div>     *@        
+          <div class="col-md-4 text-center margin-top-15">
+                       
+                        
+                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
+                        
+                         
+                        
+                            @* <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button> *@
+                          <br />   <span class="btn btn-white btn-outline btn-sm  me-1 rounded-0 fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add upload Picture ...</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files">
+        </span>
+                        
+                    </div>
+
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label for="masterCategory">Master Category</label>
-                                                        <select class="form-control" id="masterCategory" name="masterCategory">
-                                                            <option value="Category">Category 1</option>
-                                                            <option value="Category">Category2</option>
-                                                        </select>
+                                                     <div class="col-md-6 mb-3">
+                                                        <label for="partnerName" class="form-label">Full Name</label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="partnerType">Partner Type</label>
-                                                        <select class="form-control" id="partnerType" name="partnerType">
-                                                            <option value="partnerType">partnerType 1</option>
-                                                            <option value="partnerType">partnerType 2</option>
-                                                        </select>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="partnerName" class="form-label">Bussiness Name</label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="partnerName">Partner Name</label>
-                                                        <input type="text" class="form-control" id="partnerName" name="partnerName">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="partnerName" class="form-label">Primary Contact Name</label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="businessRegistrationNumber">Business Registration Number</label>
-                                                        <input type="text" class="form-control" id="businessRegistrationNumber" name="businessRegistrationNumber">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="businessRegistrationNumber" class="form-label">Tax Number</label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="businessRegistrationNumber">
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="serviceWorkflow">Service Workflow</label>
-                                                        <select class="form-control" id="serviceWorkflow" name="serviceWorkflow">
-                                                            <option value="service">service 1</option>
-                                                            <option value="service">service 2</option>
-                                                        </select>
+                                                    <div class="col-md-6 mb-3">
+                                                       
+                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("Contact Expiray Date")</label>
+
+                                                        <div id="SampleDatePicker" class="input-group">
+                                                            <input type="datetime" name="SampleDatePicker" class="form-control form-control-sm rounded-0 custom-select-input date-picker">
+                                                        </div>
+                                                   
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <label for="currency">Currency</label>
-                                                        <select class="form-control" id="currency" name="currency">
-                                                            <option value="currency">PK</option>
-                                                            <option value="currency">EU</option>
-                                                        </select>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -123,37 +209,37 @@
                         Address
                     </button>
                 </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div class="row">
+                <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                    <div class="accordion-body ">
+                        <div class="row hv-1 h-75">
                             <div class="col-md-12">
-                                <div class="form-group text-center">
+                                <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="Street">Street</label>
-                                                        <input type="text" class="form-control" id="Street" name="Street">
+                                                    <div class="my-3 col-4">
+                                                        <label for="Street" class="form-label">Street</label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street">
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="City">City</label>
-                                                        <input type="text" class="form-control" id="City" name="City">
+                                                    <div class="my-3 col-4">
+                                                        <label for="City" class="form-label">City</label>
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="City" name="City">
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="State">State</label>
-                                                        <input type="text" class="form-control" id="State" name="State">
+                                                    <div class="my-3 col-4">
+                                                        <label for="State" class="form-label"> State</label>
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State">
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="Zip">Zip/Post Code</label>
-                                                        <input type="text" class="form-control" id="Zip" name="Zip">
+                                                    <div class="my-3 col-4">
+                                                        <label for="Zip" class="form-label">Zip/Post Code</label>
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Zip" name="Zip">
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="Country">Country</label>
-                                                        <select class="form-control" id="Country" name="Country">
-                                                            <option value="Country">Country 1</option>
-                                                            <option value="Country">Country 2</option>
-                                                        </select>
+                                                    <div class="my-3 col-4">
+                                                        <label for="Country" class="form-label">Country</label>
+                                                       <select id="Countryddl" class="form-select select2" data-control="select2">
+                                                            <option value="Category">Country 1</option>
+                                                            <option value="Category">Country 2</option>
+                                                            </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,11 +253,53 @@
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         Contact Details
                     </button>
                 </h2>
-                <div id="flush-collapseThree" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseThree" class="accordion-collapse "@*  data-bs-parent="#accordionFlushExample" *@>
+                   
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                   @*  <div class="col-md-4 mb-3">
+                                                        <label for="Phone" class="form-label">Phone</label>
+                                                        <input type="number" class="form-control custom-small-input" id="Phone" name="Phone">
+                                                    </div> *@
+                                                      
+                                            <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                                <label for="Phone" class="form-label">Phone</label>
+                                                <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="Phone">
+                                            </div>
+
+
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="Email" class="form-label">Email</label>
+                                                        <input type="email" class="form-control custom-small-input  rounded-0" id="Email" name="Email">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>@* 
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        Branch
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -181,20 +309,39 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label for="Phone">Phone</label>
-                                                        <input type="number" class="form-control" id="Phone" name="Phone">
+                                                        <button class="btn btn-primary">Add Branch</button>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="Email">Email</label>
-                                                        <input type="email" class="form-control" id="Email" name="Email">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="Fax">Fax</label>
-                                                        <input type="text" class="form-control" id="Fax" name="Fax">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="Website">Website</label>
-                                                        <input type="text" class="form-control" id="Website" name="Website">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> *@
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                   OFFICE AND INCOME SHARING DETAILS
+                    </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                   <div class="col-md-4 mb-3">
+                                                        <label for="partnerType" class="form-label">Related Office</label>
+                                                        <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
+                                                            <option value="Category">Lahore office </option>
+                                                            <option value="Category">india office</option>
+                                                            </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,7 +353,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-12 mt-3">
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-primary" type="submit">Save And New</button>
@@ -215,3 +361,51 @@
 
     </div>
 </div>
+
+
+
+  <!-- CSS -->
+
+  <!-- JS -->
+
+
+ 
+
+
+
+    <script>
+        var input = document.querySelector("#phone");
+        var iti = intlTelInput(input, {
+          initialCountry: "auto",
+          geoIpLookup: function (success, failure) {
+            // Simulate a successful IP lookup to set the initial country
+            var countryCode = "PK"; // Replace with the appropriate country code
+            success(countryCode);
+          },
+        });
+
+        // Manually set the phone number and selected country code (e.g., "US")
+        var savedPhoneNumber = "+1 123-456-7890"; // Replace with your saved phone number
+        var selectedCountry = "PK"; // Replace with the appropriate country code
+
+        // Set the phone number value and selected country
+        input.value = savedPhoneNumber;
+        iti.setCountry(selectedCountry);
+
+        // Change the flag and title based on a condition
+        var condition = true; // Change this to your condition
+
+        // Get the element by its class name
+        var flagElement = document.querySelector(".iti__selected-flag");
+
+        if (condition) {
+            // Change the title attribute
+            flagElement.setAttribute("title", "New Title: +XX"); // Replace "New Title" and "+XX" with your desired values
+
+            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
+            flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
+        }
+    </script>
+
+
+

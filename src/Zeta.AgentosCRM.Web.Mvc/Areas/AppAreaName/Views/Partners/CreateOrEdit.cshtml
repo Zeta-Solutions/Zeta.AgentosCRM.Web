@@ -1,38 +1,57 @@
-﻿    @section Scripts
+﻿
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditPartnerViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+
+  
+  @section Scripts
 {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/CreateOrEditModal.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    
 }
 
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
-    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" />
-      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script> 
     }
  
 
 
        
-    <div class="row mt-5">
-    <div class="col">
-        <span class="tittle ml-4">ADD NEW PARTNERS</span>
+    <div class="row ">
+   <div class="col ">
+ @{
+                      var breadcrumbs = new List<BreadcrumbItem>()
+                      {
+                          new BreadcrumbItem("/AppAreaName/Partners", L("Partners")),
+                          new BreadcrumbItem(L("Details")),
+                      };
+                   }
+                  <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">                     
+                  </abp-page-subheader>
     </div>
     <div class="col text-end mr-4">
 @*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
-<a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>                           
+@* <a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>     *@                       
 @* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
     </div>
 </div>
- 
-    <span class="text-muted me-4 ml-4 mt-1">(Partners Headers info)</span>
+
+@* <span class="text-muted me-4 ml-4 mt-5 info">(Partners Headers info)</span> *@
+<div class="@(await GetContainerClass())">
 <div class="card maincard mt-4">
+      <form name="PartnerInformationsForm" role="form" novalidate class="form-validation">
     <div class="card-body ">
+         <div id="PartnerInformationsTab">   
+
         
          <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
 
@@ -81,46 +100,31 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
-                                                        <label for="masterCategory" class="form-label">Master Category</label>
-                                                       @*  <select class="form-control form-control-sm" id="masterCategory" name="masterCategory">
-                                                            <option value="Category">Category 1</option>
-                                                            <option value="Category">Category2</option>
-                                                        </select> *@
-                                                        
-                                                            <select id="Categoryddl" class="form-select select2  rounded-0" data-control="select2">
-                                                            <option value="Category">Category 1</option>
-                                                            <option value="Category">Category2</option>
-                                                            </select>
-                                                      
+                                                        <label for="masterCategory" class="form-label">Master Category</label> 
+                                                            @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
+                                                            
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerType" class="form-label">Partner Type</label>
-                                                        <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
-                                                            <option value="Category">Partner 1</option>
-                                                            <option value="Category">Partner 2</option>
-                                                            </select>
+                                                        @Html.DropDownList("partnerTypeId", new SelectList(Model.PartnerPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.PartnerTypeId.ToString() : "")),@L("SelectAPartnerType"), new { @class = "form-control" , @required="required" })
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="partnerName" class="form-label">Partner Name</label>
-                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
+                                                        <input class="form-control custom-small-input rounded-0" id="Partner_Name" value="@Model.Partner.PartnerName" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MaxPartnerNameLength" minlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MinPartnerNameLength" />
+
+
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="businessRegistrationNumber" class="form-label">Business Registration Number</label>
-                                                        <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="businessRegistrationNumber">
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="businessRegistrationNumber" value="@Model.Partner.PhoneNo">
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="serviceWorkflow" class="form-label">Service Workflow</label>
-                                                       <select id="WorkFlowddl" class="form-select select2" data-control="select2">
-                                                            <option value="Category">WorkFlow 1</option>
-                                                            <option value="Category">WorkFlow 2</option>
-                                                            </select>
+                                                        @Html.DropDownList("serviceWorkflowId", new SelectList(Model.PartnerWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="currency" class="form-label">Currency</label>
-                                                     <select id="Currencyddl" class="form-select select2  rounded-0" data-control="select2">
-                                                            <option value="Category">Currency 1</option>
-                                                            <option value="Category">Currency 2</option>
-                                                            </select>
+                                                    @Html.DropDownList("currencyId", new SelectList(Model.PartnerWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,26 +153,23 @@
                                                 <div class="row">
                                                     <div class="my-3 col-4">
                                                         <label for="Street" class="form-label">Street</label>
-                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street">
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street" value="@Model.Partner.Street">
                                                     </div>
                                                     <div class="my-3 col-4">
                                                         <label for="City" class="form-label">City</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="City" name="City">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="City" name="City" value="@Model.Partner.City">
                                                     </div>
                                                     <div class="my-3 col-4">
                                                         <label for="State" class="form-label"> State</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State" value="@Model.Partner.State">
                                                     </div>
                                                     <div class="my-3 col-4">
                                                         <label for="Zip" class="form-label">Zip/Post Code</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Zip" name="Zip">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Zip" name="Zip" value="@Model.Partner.ZipCode">
                                                     </div>
                                                     <div class="my-3 col-4">
                                                         <label for="Country" class="form-label">Country</label>
-                                                       <select id="Countryddl" class="form-select select2" data-control="select2">
-                                                            <option value="Category">Country 1</option>
-                                                            <option value="Category">Country 2</option>
-                                                            </select>
+                                                        @Html.DropDownList("countryId", new SelectList(Model.PartnerCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,22 +204,29 @@
                                                       
                                             <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
                                                 <label for="Phone" class="form-label">Phone</label>
-                                                <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="Phone">
+                                                        <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="Phone" value="@Model.Partner.PhoneNo">
+                                                        <span id="valid-msg" class="hide">✓ Valid</span>
+                                                        <span id="error-msg" class="hide"></span>
                                             </div>
 
 
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Email" class="form-label">Email</label>
-                                                        <input type="email" class="form-control custom-small-input  rounded-0" id="Email" name="Email">
+                                                        <input class="form-control custom-small-input rounded-0" id="Partner_Name" value="@Model.Partner.Email" type="email" name="name" required maxlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MinEmailLength" />
+                                                       @*  <input type="email" class="form-control custom-small-input  rounded-0" id="Email" name="Email"> *@
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="Fax" class="form-label">Fax</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Fax" name="Fax">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Fax" name="Fax" value="@Model.Partner.Fax">
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <label for="Website" class="form-label">Website</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Website" name="Website">
+                                                        <label for="Fax" class="form-label">Website</label>
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Fax" name="Fax" value="@Model.Partner.Website">
                                                     </div>
+                                                  @*   <div class="col-md-4 mb-3">
+                                                        <label for="Website" class="form-label">Website</label>
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="Website" name="Website" value="@Model.Partner.Website>
+                                                    </div> *@
                                                 </div>
                                             </div>
                                         </div>
@@ -228,8 +236,9 @@
                         </div>
                     </div>
                 </div>
-            </div>@* 
-            <div class="accordion-item">
+            </div>
+ 
+         @*    <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                         Branch
@@ -256,7 +265,7 @@
                         </div>
                     </div>
                 </div>
-            </div> *@
+            </div>  *@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
@@ -274,11 +283,11 @@
                                                 <div class="row">
                                                     <div class="col-md-4 mb-3">
                                                         <label for="marketingEmail" class="form-label">Marketing Office Email</label>
-                                                        <input type="email" class="form-control custom-small-input  rounded-0" id="marketingEmail" name="marketingEmail">
+                                                        <input class="form-control custom-small-input rounded-0" id="PartnermarketingName" value="@Model.Partner.MarketingEmail" type="email" name="name" required maxlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MinEmailLength" />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label for="University" class="form-label">University</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="University" name="University">
+                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="University" name="University" value="@Model.Partner.University">
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,12 +299,43 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mt-3">
+                                  <div class="my-3">
+                          <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
+                          <div class="input-group">
+                              <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
+                              <button class="btn btn-primary blue" id="OpenBinaryObjectLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                              <button class="btn btn-danger btn-icon" type="button" id="ClearBinaryObjectDescriptionButton"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+
+                      @if (Model.IsEditMode)
+                      {
+                          <input class="form-control" id="Client_ProfilePictureId" value="@Model.Partner.ProfilePictureId" type="text" name="profilePictureId" hidden />
+                      }
+                      else
+                      {
+                          <input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId" hidden />
+                      }
+            <div class="card-footer">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <button type="button" id="saveBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                                                @if (!Model.IsEditMode)
+                                                                {
+                            <button type="button" id="saveAndNewBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                                                }
+                    </div>
+                </div>
+            </div>
+            @* <div class="col-12 mt-3">
                 <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-primary" type="submit">Save And New</button>
-            </div>
+            </div> *@
         </div>
 
+    </div>
+    </div>
+        </form>
     </div>
 </div>
 
@@ -310,39 +350,6 @@
 
 
 
-    <script>
-        var input = document.querySelector("#phone");
-        var iti = intlTelInput(input, {
-          initialCountry: "auto",
-          geoIpLookup: function (success, failure) {
-            // Simulate a successful IP lookup to set the initial country
-            var countryCode = "PK"; // Replace with the appropriate country code
-            success(countryCode);
-          },
-        });
-
-        // Manually set the phone number and selected country code (e.g., "US")
-        var savedPhoneNumber = "+1 123-456-7890"; // Replace with your saved phone number
-        var selectedCountry = "PK"; // Replace with the appropriate country code
-
-        // Set the phone number value and selected country
-        input.value = savedPhoneNumber;
-        iti.setCountry(selectedCountry);
-
-        // Change the flag and title based on a condition
-        var condition = true; // Change this to your condition
-
-        // Get the element by its class name
-        var flagElement = document.querySelector(".iti__selected-flag");
-
-        if (condition) {
-            // Change the title attribute
-            flagElement.setAttribute("title", "New Title: +XX"); // Replace "New Title" and "+XX" with your desired values
-
-            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
-            flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
-        }
-    </script>
 
 
 
