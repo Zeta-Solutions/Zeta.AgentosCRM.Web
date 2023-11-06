@@ -16,6 +16,10 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/_Promotions.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/_NotesAndTerms.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
 }
 
 @section Styles
@@ -23,6 +27,11 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/Application/Application.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
     }
 <body class="mt-3">
 
@@ -38,7 +47,7 @@
                         <div class="card-body">
                             <div class="col-lg-12 mb-3 text-start">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative p-3">
-                                    <img src="/Common/Images/Social/University.jpg" alt="Metronic" />
+                                    <img src="/Common/Images/Social/University.jpg" alt="Metronic" class="rounded-circle" />
      @*                                <div class="
     position-absolute
     translate-middle
@@ -59,27 +68,27 @@
                                 <div class="row">
                                     <div class="col-1"></div>
                                     <div class="col-1">
-                                        <a class="bg-transparent rounded-circle" data-toggle="tooltip" title="Email">
+                                        <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Email">
                                             <span class="fa fa-envelope"></span>
                                         </a>
                                     </div>
                                     <div class="col-1">
-                                        <a class="bg-transparent" data-toggle="tooltip" title="Edit">
+                                        <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Edit">
                                             <span class="fa fa-pencil"></span>
                                         </a>
                                     </div>
                                     <div class="col-1">
-                                        <a class="bg-transparent" data-toggle="tooltip" title="Approve">
+                                        <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Approve">
                                             <span class="fa fa-check"></span>
                                         </a>
                                     </div>
                                     <div class="col-1">
-                                        <a class="bg-transparent" data-toggle="tooltip" title="SMS">
+                                        <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="SMS">
                                             <span class="fa fa-comment"></span>
                                         </a>
                                     </div>
                                     <div class="col-1">
-                                        <a class="bg-transparent" data-toggle="tooltip" title="Archived">
+                                        <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Archived">
                                             <span class="fa fa-archive"></span>
                                         </a>
                                     </div>
@@ -92,13 +101,13 @@
 
                             <div class="col-lg-12 mt-1 text-start">
                                 <div class="d-flex align-items-center  pb-4">
-                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
+                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput">
                                         Australasian Academy of Higher Education
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-start">
-                                <label for="AddedFrom">Email:</label>
+                            <div class="col-lg-12 text-start ">
+                                <label for="AddedFrom " class="custominput">Email:</label>
                                 <p class="text-muted">Example@gmail.com</p>
                             </div>
                             <div class="col-lg-12">
@@ -115,26 +124,26 @@
                         <div class="card-body text-start">
                             <div class="col-lg-12 pb-2 text-start">
                               @*   <label for="AddedFrom" class="form-label form-label-sm">General Information::</label> *@
-                                <p class="">Phone No:</p>
+                                <p class="custominput">Phone No:</p>
                                 <p class="text-muted">+61435208166</p>
                             </div>
                             <div class="col-lg-12 pb-2 text-start">
-                                <label for="Phone" class="form-label form-label-sm">
+                                <label for="Phone" class="form-label form-label-sm custominput">
                                     Fax:
                                 </label><br />
                                 <p class="text-muted">(123)-456-7890</p>
                             </div>
                             <div class="col-lg-12 text-start">
-                                <label for="Address" class="form-label form-label-sm"> Email:  </label><br />
+                                <label for="Address" class="form-label form-label-sm custominput"> Email:  </label><br />
                                 <p class="text-muted">admissions@aahe.edu.au
                                 </p>
                             </div>
                             <div class="col-lg-12 mb-3 text-start">
-                                <label for="ClientId" class="form-label form-label-sm"> Address:</label><br />
+                                <label for="ClientId" class="form-label form-label-sm custominput"> Address:</label><br />
                                 <p class="text-muted">363 King St, West Melbourne, VIC, 3003, Australia</p>
                             </div>
                             <div class="col-lg-12 mb-3 text-start">
-                                <label for="ClientId" class="form-label form-label-sm">  Website:</label><br />
+                                <label for="ClientId" class="form-label form-label-sm custominput">  Website:</label><br />
                                 <p class="text-muted">
                                     https://www.aahe.edu.au
                                 </p>
@@ -149,19 +158,19 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="col-lg-12">
-                                <label for="AddedFrom" class="form-label form-label-sm">Services:</label>
+                                <label for="AddedFrom" class="form-label form-label-sm custominput">Services:</label>
                                 <p class="text-muted">Australian Education with VISA</p>
                             </div>
                             <div class="col-lg-12">
-                                <label for="Phone" class="form-label form-label-sm">Added On:</label>
+                                <label for="Phone" class="form-label form-label-sm custominput">Added On:</label>
                                 <p class="text-muted">2023-10-06</p>
                             </div>
                             <div class="col-lg-12">
-                                <label for="Address" class="form-label form-label-sm">Business Registration Number:</label>
+                                <label for="Address" class="form-label form-label-sm custominput">Business Registration Number:</label>
                                 <p class="text-muted">44 631 178 768</p>
                             </div>
                             <div class="col-lg-12">
-                                <label for="AddedFrom" class="form-label form-label-sm">Currency code:</label>
+                                <label for="AddedFrom" class="form-label form-label-sm custominput">Currency code:</label>
                                 <p class="text-muted">AUD</p>
                             </div>
                            

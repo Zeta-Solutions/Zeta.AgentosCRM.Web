@@ -19,6 +19,8 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Notes/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
   <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
+
 }
 
 
@@ -32,48 +34,48 @@
         <div class="mt-3  maincard">
             <div class="row Detailform">
                 @* ////Card 1/// *@
-                <div class="col-md-3">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="col-lg-12 mb-3 text-start">
+                <div class="col-md-3 ">
+                    <div class="card shadow rounded-0">
+                        <div class="card-body ">
+                            <div class="col-lg-12 mb-3 d-flex justify-content-center align-items-center">
                                 <div class="symbol symbol-160px rounded-circle symbol-lg-160px symbol-fixed position-relative p-3">
-                                    <img src="/Profile/GetProfilePicture" alt="Metronic" class="w-100 h-100 object-fit-cover rounded-circle" />
+                                    <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" />
                                 </div>
-
-
                             </div>
+
                             @* /////Icons div///// *@
-                            <div class="col-lg-8  mb-3 text-start">
-                                <div class="d-flex justify-content-between mt-3 ml-0 ms-5 mb-0  p-1">
-                                    <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Email">
+                            <div class="col-lg-12 mb-3  d-flex justify-content-center align-items-center">
+                                <div class="d-flex justify-content-between pl-3">
+                                    <a class="me-2 text-muted rounded-circle mx-2" data-toggle="tooltip" title="Email">
                                         <span class="fa fa-envelope"></span>
                                     </a>
-                                    <a class="me-2 text-muted" data-toggle="tooltip" title="Edit">
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Edit">
                                         <span class="fa fa-pencil"></span>
                                     </a>
-                                    <a class="me-2 text-muted" data-toggle="tooltip" title="Approve">
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Approve">
                                         <span class="fa fa-check"></span>
                                     </a>
-                                    <a class="me-2 text-muted" data-toggle="tooltip" title="SMS">
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="SMS">
                                         <span class="fa fa-comment"></span>
                                     </a>
-                                    <a class="me-2 text-muted" data-toggle="tooltip" title="Archived">
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Archived">
                                         <span class="fa fa-archive"></span>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-12 mt-1 text-start">
+
+                            <div class="col-lg-12 mt-1 d-flex justify-content-center align-items-center">
                                 <div class="d-flex align-items-center  pb-4">
-                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
-                                        Faryal Khalid
-                                    </a>
+                                    <span class="text-gray-800  fs-2 fw-bolder ">
+                                       Faryal Khalid
+                                    </span>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-start">
-                              @*  <label class="form-label form-label-sm" for="AddedFrom">Email:</label>*@
-                                  <label for="ClientId" class="form-label form-label-sm">Email:</label><br />
-                                <p class="text-muted fs-6">Example@gmail.com</p>
+                            <div class="col-lg-12 text-center">
+                                <label for="ClientId" class="form-label form-label-sm">Email</label><br />
+                                <p id="ClientId" class="mb-0 text-muted">FaryalKhalid@gmail.com</p>
                             </div>
+
                             <div class="col-lg-12">
                                 <input type="hidden" />
                             </div>
@@ -84,15 +86,15 @@
                 </div>
                 @* ////Card 2/// *@
                 <div class="col-md-3">
-                    <div class="card shadow ">
-                        <div class="card-body text-start">
+                    <div class="card shadow custominput rounded-0">
+                        <div class="card-body text-start custominput">
                             <div class="col-lg-12 pb-1 text-start">
                                 <label for="AddedFrom" class="form-label form-label-sm">Application Sales Forecast:</label>
-                                <p class="text-muted fs-6">0.00 AUD</p>
+                                <p class="text-muted ">0.00 AUD</p>
                             </div>
                             <div class="col-lg-12 pb-1 text-start">
                                 <label for="Phone" class="form-label form-label-sm">Service Sales Forecast:</label><br />
-                                <p class="text-muted fs-6">0.00 AUD</p>
+                                <p class="text-muted ">0.00 AUD</p>
                             </div>
                            
                             <div class="col-lg-12 pb-1 text-start">
@@ -101,11 +103,12 @@
                                     <option>OFFSHORE(PAKISTAN)</option>
                                 </select>
                             </div>
-                            <div class="col-lg-12 pb-0 text-start">
+                            <div class="col-lg-12 pb-2 text-start">
                                 <label for="AddedFrom" class="form-label form-label-sm">Client Portal:</label><br />
-                                <span class="form-check form-switch form-check-custom form-check-solid ">
-                    <input class="form-check-input" type="checkbox" id="NotificationSettigs_ReceiveNotifications" checked="checked">
-                </span>
+                                <span class="form-check form-switch form-switch-sm form-check-custom  form-check-solid ">
+                                    <input class="form-check-input form-check-sm" type="checkbox" id="NotificationSettigs_ReceiveNotifications" checked="checked">
+                                </span>
+
                             </div>
                              <div class="col-lg-12 pb-0">
                                 <label for="ClientId" class="form-label form-label-sm">Client Id:</label>
@@ -121,7 +124,7 @@
                 </div>
                 @* ////Card 3/// *@
                 <div class="col-md-3">
-                    <div class="card shadow">
+                    <div class="card shadow rounded-0">
                         <div class="card-body">
                             <div class="col-lg-12 ">
                                 <label for="AddedFrom" class="form-label form-label-sm">Date Of Birth:</label>
@@ -160,7 +163,7 @@
                 </div>
                 @* ////Card 4/// *@
                 <div class="col-md-3">
-                    <div class="card shadow">
+                    <div class="card shadow rounded-0">
                         <div class="card-body">
                             <div class="col-lg-12">
                                 <label for="Email" class="form-label form-label-sm">Secondry Email</label>
@@ -201,17 +204,18 @@
     </div>
 
 @*<div class="container mt-2">*@
-<div class="mt-2 navbar-link-card">
+<div class="mt-4 maincard">
 
-    <div class="card navbar-link-card-height" >
+        <div class="card navbar-link-card-height pt-1 pr-1 pb-3 pl-2 d-flex">
         <div class="card-Head">
-            <div class="d-flex overflow-auto h-55px navbar-link-card-Allign" >
+                <div class="d-flex h-55px navbar-link-card-Allign">
                 <ul class="
-          nav nav-stretch nav-line-tabs nav-line-tabs-2x
+         nav nav-stretch nav-line-tabs nav-line-tabs-2x
           border-transparent
-        
+          fs-5
           fw-bolder
-          flex-nowrap
+
+          ml-3 pl-2
         ">
                     <li class="nav-item">
                         <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
@@ -219,7 +223,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
                             @L("Application")
                         </a>
                     </li>
@@ -281,13 +285,13 @@
 
 <div>
     <div class="tab-content ">
-        <div class="tab-pane pt-5" id="ApplicationTab" role="tabpanel">
+            <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ApplicationClient/ApplicationIndex.cshtml")
             </div>
         </div>
 
-        <div class="tab-pane pt-5 mb-7 active" id="ActivitiesTab" role="tabpanel">
+        <div class="tab-pane pt-5 mb-7 " id="ActivitiesTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_Activites.cshtml")
             </div>

@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMPartner.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
+using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMClient.Dtos;
 using Zeta.AgentosCRM.CRMClient;
@@ -72,6 +74,8 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCRMCurrencyDto, CRMSetup.CRMCurrency.CRMCurrency>().ReverseMap();
+            configuration.CreateMap<CRMCurrencyDto, CRMSetup.CRMCurrency.CRMCurrency>().ReverseMap();
             configuration.CreateMap<CreateOrEditPartnerDto, Partner>().ReverseMap();
             configuration.CreateMap<PartnerDto, Partner>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientTagDto, ClientTag>().ReverseMap();

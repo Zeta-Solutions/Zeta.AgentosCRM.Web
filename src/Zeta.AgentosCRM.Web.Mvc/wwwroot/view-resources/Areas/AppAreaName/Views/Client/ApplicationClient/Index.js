@@ -7,7 +7,15 @@
             startDate: null,
             endDate: null,
         };
+        $('.dots').click(function (event) {
+            event.stopPropagation();
+            $('.options').hide();
+            $(this).siblings('.options').toggle();
+        });
 
+        $(document).click(function () {
+            $('.options').hide();
+        });
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -111,13 +119,16 @@
                     data: 'subject.abbrivation',
                     name: 'abbrivation',
                     render: function (data, type, row) {
-                        return '<a href="' + abp.appPath + 'AppAreaName/Client/ApplicationMainTab/' + row.subject.id + '" class="btn btn-sm btn-primary">View</a>';
+                        return '<a href="' + abp.appPath + 'AppAreaName/Client/ApplicationMainTab/' + row.subject.id + '" class="text-primary">View</a>';
                     }
                 },
                 {
                     targets: 2,
                     data: 'subject.abbrivation',
                     name: 'abbrivation',
+                    render: function (data, type, row) {
+                        return '<a href="' + abp.appPath + 'AppAreaName/Client/ApplicationMainTab/' + row.subject.id + '" class="text-primary">View</a>';
+                    }
                 },
                 {
                     targets: 3,

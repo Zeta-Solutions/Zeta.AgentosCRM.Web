@@ -28,44 +28,53 @@
                     </div>
                 </div>
             </div>
-
-            <div class="my-3">
-                <label class="form-label" for="Application_Abbrivation">@L("Cliet Name")</label>
-                <input class="form-control" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                <label class="form-label" for="Application_Abbrivation">@L("Partner Name")</label>
+                <input class="form-control custom-small-input rounded-0" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
             </div>
 
-            <div class="my-3">
+                <div class="my-3 col-6">
                 <label class="form-label" for="Application_Name">@L("TimeZone")</label>
-                <input class="form-control" id="Application_Name" value="UK" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value="UK" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
             </div>
             <div class="row col-12">
-                <div class="my-3 col-9">
+              @*   <div class="my-3 col-6">
                     <label class="form-label" for="Application_Name">@L("Date")</label>
-                    <input class="form-control" id="Application_Name" value="2023-01-31" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value="2023-01-31" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                </div> *@
+                <div class="my-3 col-6">
+                    <label class="form-label fw-bold text-dark" for="Client_Name">@L("DOB")</label>
+
+                    <div id="SampleDatePicker" class="input-group">
+                        <input type="datetime" name="SampleDatePicker" class="form-control custom-small-input rounded-0 date-picker">
+                    </div>
                 </div>
-                <div class="my-3 col-3">
+                <div class="my-3 col-6">
                     <label class="form-label" for="Application_Name">@L("Time")</label>
-                    <input class="form-control" id="Application_Name" value="12:00" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name " value="12:00" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
                 </div>
             </div>
             <div class="row col-12">
 
 
-                <div class="my-3">
+                <div class="my-3 col-6">
                     <label class="form-label" for="Application_Name">@L("Tittle")</label>
-                    <input class="form-control" id="Application_Name" value="" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
-                </div>
-                <div class="my-3">
-                    <label class="form-label" for="Application_Name">@L("Description")</label>
-                    <textarea class="form-control" id="Application_Name" name="Description" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength"></textarea>
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value="" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
                 </div>
 
-
-                <div class="my-3">
+                <div class="my-3 col-6">
                     <label class="form-label" for="Application_Name">@L("Invitees")</label>
-                    <input class="form-control" id="Application_Name" value="" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value="" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
                 </div>
             </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("Description")</label>
+                <textarea class="form-control  custom-small-input rounded-0" id="Application_Name" name="Description" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength"></textarea>
+            </div>
+               
+            
         </form>
     </div>
 </div>

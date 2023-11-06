@@ -3,7 +3,7 @@ using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMSetup.Countries;
-using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +15,7 @@ namespace Zeta.AgentosCRM.CRMPartner
 {
     [Table("Partners")]
     [Audited]
-    public class Partner : FullAuditedEntity, IMustHaveTenant
+    public class Partner : FullAuditedEntity<long>, IMustHaveTenant
     {
         public int TenantId { get; set; }
 
@@ -45,6 +45,10 @@ namespace Zeta.AgentosCRM.CRMPartner
 
         public virtual string MarketingEmail { get; set; }
 
+        public virtual string BusinessRegNo { get; set; }
+
+        public virtual string PhoneCode { get; set; }
+
         public virtual Guid ProfilePictureId { get; set; }
 
         [ForeignKey("ProfilePictureId")]
@@ -70,10 +74,10 @@ namespace Zeta.AgentosCRM.CRMPartner
         [ForeignKey("CountryId")]
         public Country CountryFk { get; set; }
 
-        public virtual int? CountryCodeId { get; set; }
+        public virtual int? CurrencyId { get; set; }
 
-        [ForeignKey("CountryCodeId")]
-        public Country CountryCodeFk { get; set; }
+        [ForeignKey("CurrencyId")]
+        public CRMCurrency CurrencyFk { get; set; }
 
     }
 }
