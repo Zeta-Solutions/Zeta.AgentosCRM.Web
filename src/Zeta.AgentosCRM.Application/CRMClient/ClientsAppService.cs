@@ -2,7 +2,7 @@
 using Zeta.AgentosCRM.Authorization.Users;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup.LeadSource;  
+using Zeta.AgentosCRM.CRMSetup.LeadSource; 
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -50,41 +50,38 @@ namespace Zeta.AgentosCRM.CRMClient
         {
 
             var filteredClients = _clientRepository.GetAll()
-                        .Include(e => e.CountryCodeFk)
+                        .Include(e => e.CountryFk)
                         .Include(e => e.AssigneeFk)
                         .Include(e => e.ProfilePictureFk)
                         .Include(e => e.HighestQualificationFk)
                         .Include(e => e.StudyAreaFk)
                         .Include(e => e.LeadSourceFk)
-                        .Include(e => e.CountryFk)
                         .Include(e => e.PassportCountryFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email.Contains(input.EmailFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNo.Contains(input.PhoneNoFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneNo.Contains(input.PhoneCodeFilter))
                         .WhereIf(input.MinDateofBirthFilter != null, e => e.DateofBirth >= input.MinDateofBirthFilter)
                         .WhereIf(input.MaxDateofBirthFilter != null, e => e.DateofBirth <= input.MaxDateofBirthFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
                         .WhereIf(input.MinRatingFilter != null, e => e.Rating >= input.MinRatingFilter)
                         .WhereIf(input.MaxRatingFilter != null, e => e.Rating <= input.MaxRatingFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryDisplayPropertyFilter), e => string.Format("{0} {1}", e.CountryCodeFk == null || e.CountryCodeFk.Icon == null ? "" : e.CountryCodeFk.Icon.ToString()
-, e.CountryCodeFk == null || e.CountryCodeFk.Code == null ? "" : e.CountryCodeFk.Code.ToString()
-) == input.CountryDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AssigneeFk != null && e.AssigneeFk.Name == input.UserNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.HighestQualificationFk != null && e.HighestQualificationFk.Name == input.DegreeLevelNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryName2Filter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryName2Filter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryName3Filter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.CountryName3Filter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter);
 
             var pagedAndFilteredClients = filteredClients
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var clients = from o in pagedAndFilteredClients
-                          join o1 in _lookup_countryRepository.GetAll() on o.CountryCodeId equals o1.Id into j1
+                          join o1 in _lookup_countryRepository.GetAll() on o.CountryId equals o1.Id into j1
                           from s1 in j1.DefaultIfEmpty()
 
                           join o2 in _lookup_userRepository.GetAll() on o.AssigneeId equals o2.Id into j2
@@ -102,11 +99,8 @@ namespace Zeta.AgentosCRM.CRMClient
                           join o6 in _lookup_leadSourceRepository.GetAll() on o.LeadSourceId equals o6.Id into j6
                           from s6 in j6.DefaultIfEmpty()
 
-                          join o7 in _lookup_countryRepository.GetAll() on o.CountryId equals o7.Id into j7
+                          join o7 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o7.Id into j7
                           from s7 in j7.DefaultIfEmpty()
-
-                          join o8 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o8.Id into j8
-                          from s8 in j8.DefaultIfEmpty()
 
                           select new
                           {
@@ -115,6 +109,7 @@ namespace Zeta.AgentosCRM.CRMClient
                               o.LastName,
                               o.Email,
                               o.PhoneNo,
+                              o.PhoneCode,
                               o.DateofBirth,
                               o.ContactPreferences,
                               o.University,
@@ -129,16 +124,13 @@ namespace Zeta.AgentosCRM.CRMClient
                               o.Rating,
                               o.ClientPortal,
                               Id = o.Id,
-                              CountryDisplayProperty = string.Format("{0} {1}", s1 == null || s1.Icon == null ? "" : s1.Icon.ToString()
-          , s1 == null || s1.Code == null ? "" : s1.Code.ToString()
-          ),
+                              CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                               UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                               BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
                               DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                               SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
                               LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
-                              CountryName2 = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
-                              CountryName3 = s8 == null || s8.Name == null ? "" : s8.Name.ToString()
+                              PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString()
                           };
 
             var totalCount = await filteredClients.CountAsync();
@@ -157,6 +149,7 @@ namespace Zeta.AgentosCRM.CRMClient
                         LastName = o.LastName,
                         Email = o.Email,
                         PhoneNo = o.PhoneNo,
+                        PhoneCode = o.PhoneCode,
                         DateofBirth = o.DateofBirth,
                         ContactPreferences = o.ContactPreferences,
                         University = o.University,
@@ -172,14 +165,13 @@ namespace Zeta.AgentosCRM.CRMClient
                         ClientPortal = o.ClientPortal,
                         Id = o.Id,
                     },
-                    CountryDisplayProperty = o.CountryDisplayProperty,
+                    CountryName = o.CountryName,
                     UserName = o.UserName,
                     BinaryObjectDescription = o.BinaryObjectDescription,
                     DegreeLevelName = o.DegreeLevelName,
                     SubjectAreaName = o.SubjectAreaName,
                     LeadSourceName = o.LeadSourceName,
-                    CountryName2 = o.CountryName2,
-                    CountryName3 = o.CountryName3
+                    PassportCountry = o.PassportCountry
                 };
 
                 results.Add(res);
@@ -198,10 +190,10 @@ namespace Zeta.AgentosCRM.CRMClient
 
             var output = new GetClientForViewDto { Client = ObjectMapper.Map<ClientDto>(client) };
 
-            if (output.Client.CountryCodeId != null)
+            if (output.Client.CountryId != null)
             {
-                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryCodeId);
-                output.CountryDisplayProperty = string.Format("{0} {1}", _lookupCountry.Icon, _lookupCountry.Code);
+                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryId);
+                output.CountryName = _lookupCountry?.Name?.ToString();
             }
 
             if (output.Client.AssigneeId != null)
@@ -234,16 +226,10 @@ namespace Zeta.AgentosCRM.CRMClient
                 output.LeadSourceName = _lookupLeadSource?.Name?.ToString();
             }
 
-            if (output.Client.CountryId != null)
-            {
-                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryId);
-                output.CountryName2 = _lookupCountry?.Name?.ToString();
-            }
-
             if (output.Client.PassportCountryId != null)
             {
                 var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.PassportCountryId);
-                output.CountryName3 = _lookupCountry?.Name?.ToString();
+                output.PassportCountry = _lookupCountry?.Name?.ToString();
             }
 
             return output;
@@ -256,10 +242,10 @@ namespace Zeta.AgentosCRM.CRMClient
 
             var output = new GetClientForEditOutput { Client = ObjectMapper.Map<CreateOrEditClientDto>(client) };
 
-            if (output.Client.CountryCodeId != null)
+            if (output.Client.CountryId != null)
             {
-                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryCodeId);
-                output.CountryDisplayProperty = string.Format("{0} {1}", _lookupCountry.Icon, _lookupCountry.Code);
+                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryId);
+                output.CountryName = _lookupCountry?.Name?.ToString();
             }
 
             if (output.Client.AssigneeId != null)
@@ -292,16 +278,10 @@ namespace Zeta.AgentosCRM.CRMClient
                 output.LeadSourceName = _lookupLeadSource?.Name?.ToString();
             }
 
-            if (output.Client.CountryId != null)
-            {
-                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.CountryId);
-                output.CountryName2 = _lookupCountry?.Name?.ToString();
-            }
-
             if (output.Client.PassportCountryId != null)
             {
                 var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.PassportCountryId);
-                output.CountryName3 = _lookupCountry?.Name?.ToString();
+                output.PassportCountry = _lookupCountry?.Name?.ToString();
             }
 
             return output;
@@ -351,37 +331,34 @@ namespace Zeta.AgentosCRM.CRMClient
         {
 
             var filteredClients = _clientRepository.GetAll()
-                        .Include(e => e.CountryCodeFk)
+                        .Include(e => e.CountryFk)
                         .Include(e => e.AssigneeFk)
                         .Include(e => e.ProfilePictureFk)
                         .Include(e => e.HighestQualificationFk)
                         .Include(e => e.StudyAreaFk)
                         .Include(e => e.LeadSourceFk)
-                        .Include(e => e.CountryFk)
                         .Include(e => e.PassportCountryFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email.Contains(input.EmailFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNo.Contains(input.PhoneNoFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneNo.Contains(input.PhoneCodeFilter))
                         .WhereIf(input.MinDateofBirthFilter != null, e => e.DateofBirth >= input.MinDateofBirthFilter)
                         .WhereIf(input.MaxDateofBirthFilter != null, e => e.DateofBirth <= input.MaxDateofBirthFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
                         .WhereIf(input.MinRatingFilter != null, e => e.Rating >= input.MinRatingFilter)
                         .WhereIf(input.MaxRatingFilter != null, e => e.Rating <= input.MaxRatingFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryDisplayPropertyFilter), e => string.Format("{0} {1}", e.CountryCodeFk == null || e.CountryCodeFk.Icon == null ? "" : e.CountryCodeFk.Icon.ToString()
-, e.CountryCodeFk == null || e.CountryCodeFk.Code == null ? "" : e.CountryCodeFk.Code.ToString()
-) == input.CountryDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AssigneeFk != null && e.AssigneeFk.Name == input.UserNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.HighestQualificationFk != null && e.HighestQualificationFk.Name == input.DegreeLevelNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryName2Filter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryName2Filter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryName3Filter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.CountryName3Filter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter);
 
             var query = (from o in filteredClients
-                         join o1 in _lookup_countryRepository.GetAll() on o.CountryCodeId equals o1.Id into j1
+                         join o1 in _lookup_countryRepository.GetAll() on o.CountryId equals o1.Id into j1
                          from s1 in j1.DefaultIfEmpty()
 
                          join o2 in _lookup_userRepository.GetAll() on o.AssigneeId equals o2.Id into j2
@@ -399,11 +376,8 @@ namespace Zeta.AgentosCRM.CRMClient
                          join o6 in _lookup_leadSourceRepository.GetAll() on o.LeadSourceId equals o6.Id into j6
                          from s6 in j6.DefaultIfEmpty()
 
-                         join o7 in _lookup_countryRepository.GetAll() on o.CountryId equals o7.Id into j7
+                         join o7 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o7.Id into j7
                          from s7 in j7.DefaultIfEmpty()
-
-                         join o8 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o8.Id into j8
-                         from s8 in j8.DefaultIfEmpty()
 
                          select new GetClientForViewDto()
                          {
@@ -413,6 +387,7 @@ namespace Zeta.AgentosCRM.CRMClient
                                  LastName = o.LastName,
                                  Email = o.Email,
                                  PhoneNo = o.PhoneNo,
+                                 PhoneCode = o.PhoneCode,
                                  DateofBirth = o.DateofBirth,
                                  ContactPreferences = o.ContactPreferences,
                                  University = o.University,
@@ -428,16 +403,13 @@ namespace Zeta.AgentosCRM.CRMClient
                                  ClientPortal = o.ClientPortal,
                                  Id = o.Id
                              },
-                             CountryDisplayProperty = string.Format("{0} {1}", s1 == null || s1.Icon == null ? "" : s1.Icon.ToString()
-, s1 == null || s1.Code == null ? "" : s1.Code.ToString()
-),
+                             CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                              UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                              BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
                              DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                              SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
                              LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
-                             CountryName2 = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
-                             CountryName3 = s8 == null || s8.Name == null ? "" : s8.Name.ToString()
+                             PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString()
                          });
 
             var clientListDtos = await query.ToListAsync();
@@ -452,7 +424,7 @@ namespace Zeta.AgentosCRM.CRMClient
                 .Select(country => new ClientCountryLookupTableDto
                 {
                     Id = country.Id,
-                    DisplayName = string.Format("{0} {1}", country.Icon, country.Code)
+                    DisplayName = country == null || country.Name == null ? "" : country.Name.ToString()
                 }).ToListAsync();
         }
 
@@ -527,36 +499,6 @@ namespace Zeta.AgentosCRM.CRMClient
                     Id = leadSource.Id,
                     DisplayName = leadSource == null || leadSource.Name == null ? "" : leadSource.Name.ToString()
                 }).ToListAsync();
-        }
-
-        [AbpAuthorize(AppPermissions.Pages_Clients)]
-        public async Task<PagedResultDto<ClientCountryLookupTableDto>> GetAllCountryForLookupTable(GetAllForLookupTableInput input)
-        {
-            var query = _lookup_countryRepository.GetAll().WhereIf(
-                   !string.IsNullOrWhiteSpace(input.Filter),
-                  e => e.Name != null && e.Name.Contains(input.Filter)
-               );
-
-            var totalCount = await query.CountAsync();
-
-            var countryList = await query
-                .PageBy(input)
-                .ToListAsync();
-
-            var lookupTableDtoList = new List<ClientCountryLookupTableDto>();
-            foreach (var country in countryList)
-            {
-                lookupTableDtoList.Add(new ClientCountryLookupTableDto
-                {
-                    Id = country.Id,
-                    DisplayName = country.Name?.ToString()
-                });
-            }
-
-            return new PagedResultDto<ClientCountryLookupTableDto>(
-                totalCount,
-                lookupTableDtoList
-            );
         }
 
     }

@@ -42,8 +42,8 @@
 				            
                                         
 						<div class="my-3">
-							<label class="form-label" for="countryCodeId">@L("Country")</label>
-							@Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryCodeId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" })
+							<label class="form-label" for="countryId">@L("Country")</label>
+							@Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" })
 						</div>
             
 						<div class="my-3">
@@ -85,43 +85,10 @@
 							@Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
 						</div>
             
-								<div class="my-3">
-                                    <label class="form-label" for="CountryName2">@L("Country")</label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="CountryName2" name="countryName2" value="@Model.CountryName2" type="text" disabled>
-                                        <button class="btn btn-primary blue" id="OpenCountry2LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
-                                        <button class="btn btn-danger btn-icon" type="button" id="ClearCountryName2Button"><i class="fa fa-times"></i></button>
-                                    </div>
-								</div>
-
-								@if (Model.IsEditMode)
-								{
-									<input class="form-control" id="Client_CountryId" value="@Model.Client.CountryId" type="text" name="countryId"  hidden/>
-								}
-								 else
-								{ 
-									<input class="form-control" id="Client_CountryId" value="" type="text" name="countryId"  hidden/>
-								}
-
-            
-								<div class="my-3">
-                                    <label class="form-label" for="CountryName3">@L("Country")</label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="CountryName3" name="countryName3" value="@Model.CountryName3" type="text" disabled>
-                                        <button class="btn btn-primary blue" id="OpenCountry3LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
-                                        <button class="btn btn-danger btn-icon" type="button" id="ClearCountryName3Button"><i class="fa fa-times"></i></button>
-                                    </div>
-								</div>
-
-								@if (Model.IsEditMode)
-								{
-									<input class="form-control" id="Client_PassportCountryId" value="@Model.Client.PassportCountryId" type="text" name="passportCountryId"  hidden/>
-								}
-								 else
-								{ 
-									<input class="form-control" id="Client_PassportCountryId" value="" type="text" name="passportCountryId"  hidden/>
-								}
-
+						<div class="my-3">
+							<label class="form-label" for="passportCountryId">@L("Country")</label>
+							@Html.DropDownList("passportCountryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.PassportCountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"   })
+						</div>
 
 				            
                             

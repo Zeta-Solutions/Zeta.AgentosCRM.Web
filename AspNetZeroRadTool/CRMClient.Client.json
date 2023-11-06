@@ -468,15 +468,14 @@
       "ForeignEntityName": "Country",
       "IdType": "int",
       "IsNullable": false,
-      "PropertyName": "CountryCodeId",
+      "PropertyName": "CountryId",
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown",
       "DisplayPropertyNameInfos": {
-        "MergeFormat": "{0} {1}",
+        "MergeFormat": "{0}",
         "DisplayPropertyNames": [
-          "Icon",
-          "Code"
+          "Name"
         ]
       }
     },
@@ -565,26 +564,10 @@
       "ForeignEntityName": "Country",
       "IdType": "int",
       "IsNullable": true,
-      "PropertyName": "CountryId",
+      "PropertyName": "PassportCountryId",
       "DuplicationNumber": 2,
       "RelationType": "single",
-      "ViewType": "LookupTable",
-      "DisplayPropertyNameInfos": {
-        "MergeFormat": "{0}",
-        "DisplayPropertyNames": [
-          "Name"
-        ]
-      }
-    },
-    {
-      "Namespace": "Zeta.AgentosCRM.CRMSetup.Countries",
-      "ForeignEntityName": "Country",
-      "IdType": "int",
-      "IsNullable": true,
-      "PropertyName": "PassportCountryId",
-      "DuplicationNumber": 3,
-      "RelationType": "single",
-      "ViewType": "LookupTable",
+      "ViewType": "Dropdown",
       "DisplayPropertyNameInfos": {
         "MergeFormat": "{0}",
         "DisplayPropertyNames": [

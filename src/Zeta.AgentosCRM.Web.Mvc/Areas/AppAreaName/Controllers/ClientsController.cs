@@ -96,14 +96,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditClientViewModel()
             {
                 Client = getClientForEditOutput.Client,
-                CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+                CountryName = getClientForEditOutput.CountryName,
                 UserName = getClientForEditOutput.UserName,
                 BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
                 DegreeLevelName = getClientForEditOutput.DegreeLevelName,
                 SubjectAreaName = getClientForEditOutput.SubjectAreaName,
                 LeadSourceName = getClientForEditOutput.LeadSourceName,
-                CountryName2 = getClientForEditOutput.CountryName2,
-                CountryName3 = getClientForEditOutput.CountryName3,
+                PassportCountry = getClientForEditOutput.PassportCountry,
                 ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
                 ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
@@ -122,7 +121,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             {
                 Client = getClientForViewDto.Client
                 ,
-                CountryDisplayProperty = getClientForViewDto.CountryDisplayProperty
+                CountryName = getClientForViewDto.CountryName
 
                 ,
                 UserName = getClientForViewDto.UserName
@@ -140,10 +139,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 LeadSourceName = getClientForViewDto.LeadSourceName
 
                 ,
-                CountryName2 = getClientForViewDto.CountryName2
-
-                ,
-                CountryName3 = getClientForViewDto.CountryName3
+                PassportCountry = getClientForViewDto.PassportCountry
 
             };
 
@@ -161,18 +157,6 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
 
             return PartialView("_ClientBinaryObjectLookupTableModal", viewModel);
-        }
-        [AbpMvcAuthorize(AppPermissions.Pages_Clients_Create, AppPermissions.Pages_Clients_Edit)]
-        public PartialViewResult CountryLookupTableModal(int? id, string displayName)
-        {
-            var viewModel = new ClientCountryLookupTableViewModel()
-            {
-                Id = id,
-                DisplayName = displayName,
-                FilterText = ""
-            };
-
-            return PartialView("_ClientCountryLookupTableModal", viewModel);
         }
 
     }

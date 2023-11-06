@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106121031_Regenerated_Client2858")]
+    partial class Regenerated_Client2858
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1760,9 +1763,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<string>("PassportNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNo")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -1925,17 +1925,17 @@ namespace Zeta.AgentosCRM.Migrations
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("BusinessRegNo")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CountryCodeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
@@ -1945,9 +1945,6 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
-
-                    b.Property<int?>("CurrencyId")
-                        .HasColumnType("int");
 
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
@@ -1986,9 +1983,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<int?>("PartnerTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -2018,9 +2012,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryCodeId");
 
-                    b.HasIndex("CurrencyId");
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("MasterCategoryId");
 
@@ -3654,15 +3648,15 @@ namespace Zeta.AgentosCRM.Migrations
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryCodeFk")
+                        .WithMany()
+                        .HasForeignKey("CountryCodeId");
+
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrency", "CurrencyFk")
-                        .WithMany()
-                        .HasForeignKey("CurrencyId");
 
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.MasterCategory", "MasterCategoryFk")
                         .WithMany()
@@ -3686,9 +3680,9 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CountryFk");
+                    b.Navigation("CountryCodeFk");
 
-                    b.Navigation("CurrencyFk");
+                    b.Navigation("CountryFk");
 
                     b.Navigation("MasterCategoryFk");
 

@@ -1,5 +1,6 @@
 ﻿using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 
 using System;
 using System.Linq;
@@ -24,15 +25,16 @@ namespace Zeta.AgentosCRM.CRMPartner
     [AbpAuthorize(AppPermissions.Pages_Partners)]
     public class PartnersAppService : AgentosCRMAppServiceBase, IPartnersAppService
     {
-        private readonly IRepository<Partner> _partnerRepository;
+        private readonly IRepository<Partner, long> _partnerRepository;
         private readonly IPartnersExcelExporter _partnersExcelExporter;
         private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
         private readonly IRepository<MasterCategory, int> _lookup_masterCategoryRepository;
         private readonly IRepository<PartnerType, int> _lookup_partnerTypeRepository;
         private readonly IRepository<Workflow, int> _lookup_workflowRepository;
         private readonly IRepository<Country, int> _lookup_countryRepository;
+        private readonly IRepository<CRMCurrency, int> _lookup_crmCurrencyRepository;
 
-        public PartnersAppService(IRepository<Partner> partnerRepository, IPartnersExcelExporter partnersExcelExporter, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<MasterCategory, int> lookup_masterCategoryRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Workflow, int> lookup_workflowRepository, IRepository<Country, int> lookup_countryRepository)
+        public PartnersAppService(IRepository<Partner, long> partnerRepository, IPartnersExcelExporter partnersExcelExporter, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<MasterCategory, int> lookup_masterCategoryRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Workflow, int> lookup_workflowRepository, IRepository<Country, int> lookup_countryRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository)
         {
             _partnerRepository = partnerRepository;
             _partnersExcelExporter = partnersExcelExporter;
@@ -41,6 +43,7 @@ namespace Zeta.AgentosCRM.CRMPartner
             _lookup_partnerTypeRepository = lookup_partnerTypeRepository;
             _lookup_workflowRepository = lookup_workflowRepository;
             _lookup_countryRepository = lookup_countryRepository;
+            _lookup_crmCurrencyRepository = lookup_crmCurrencyRepository;
 
         }
 
@@ -53,8 +56,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .Include(e => e.PartnerTypeFk)
                         .Include(e => e.WorkflowFk)
                         .Include(e => e.CountryFk)
-                        .Include(e => e.CountryCodeFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.PartnerName.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) || e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter))
+                        .Include(e => e.CurrencyFk)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.PartnerName.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) || e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter) || e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerNameFilter), e => e.PartnerName.Contains(input.PartnerNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.StreetFilter), e => e.Street.Contains(input.StreetFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CityFilter), e => e.City.Contains(input.CityFilter))
@@ -66,14 +69,14 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WebsiteFilter), e => e.Website.Contains(input.WebsiteFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MarketingEmailFilter), e => e.MarketingEmail.Contains(input.MarketingEmailFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.BusinessRegNoFilter), e => e.BusinessRegNo.Contains(input.BusinessRegNoFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneCode.Contains(input.PhoneCodeFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MasterCategoryNameFilter), e => e.MasterCategoryFk != null && e.MasterCategoryFk.Name == input.MasterCategoryNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerTypeNameFilter), e => e.PartnerTypeFk != null && e.PartnerTypeFk.Name == input.PartnerTypeNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryDisplayProperty2Filter), e => string.Format("{0} {1}", e.CountryCodeFk == null || e.CountryCodeFk.Icon == null ? "" : e.CountryCodeFk.Icon.ToString()
-, e.CountryCodeFk == null || e.CountryCodeFk.Code == null ? "" : e.CountryCodeFk.Code.ToString()
-) == input.CountryDisplayProperty2Filter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter);
 
             var pagedAndFilteredPartners = filteredPartners
                 .OrderBy(input.Sorting ?? "id asc")
@@ -95,7 +98,7 @@ namespace Zeta.AgentosCRM.CRMPartner
                            join o5 in _lookup_countryRepository.GetAll() on o.CountryId equals o5.Id into j5
                            from s5 in j5.DefaultIfEmpty()
 
-                           join o6 in _lookup_countryRepository.GetAll() on o.CountryCodeId equals o6.Id into j6
+                           join o6 in _lookup_crmCurrencyRepository.GetAll() on o.CurrencyId equals o6.Id into j6
                            from s6 in j6.DefaultIfEmpty()
 
                            select new
@@ -112,15 +115,15 @@ namespace Zeta.AgentosCRM.CRMPartner
                                o.Website,
                                o.University,
                                o.MarketingEmail,
+                               o.BusinessRegNo,
+                               o.PhoneCode,
                                Id = o.Id,
                                BinaryObjectDescription = s1 == null || s1.Description == null ? "" : s1.Description.ToString(),
                                MasterCategoryName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                PartnerTypeName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
                                WorkflowName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                                CountryName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
-                               CountryDisplayProperty2 = string.Format("{0} {1}", s6 == null || s6.Icon == null ? "" : s6.Icon.ToString()
-           , s6 == null || s6.Code == null ? "" : s6.Code.ToString()
-           )
+                               CRMCurrencyName = s6 == null || s6.Name == null ? "" : s6.Name.ToString()
                            };
 
             var totalCount = await filteredPartners.CountAsync();
@@ -146,6 +149,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                         Website = o.Website,
                         University = o.University,
                         MarketingEmail = o.MarketingEmail,
+                        BusinessRegNo = o.BusinessRegNo,
+                        PhoneCode = o.PhoneCode,
                         Id = o.Id,
                     },
                     BinaryObjectDescription = o.BinaryObjectDescription,
@@ -153,7 +158,7 @@ namespace Zeta.AgentosCRM.CRMPartner
                     PartnerTypeName = o.PartnerTypeName,
                     WorkflowName = o.WorkflowName,
                     CountryName = o.CountryName,
-                    CountryDisplayProperty2 = o.CountryDisplayProperty2
+                    CRMCurrencyName = o.CRMCurrencyName
                 };
 
                 results.Add(res);
@@ -167,7 +172,7 @@ namespace Zeta.AgentosCRM.CRMPartner
         }
 
         [AbpAuthorize(AppPermissions.Pages_Partners_Edit)]
-        public async Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto input)
+        public async Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto<long> input)
         {
             var partner = await _partnerRepository.FirstOrDefaultAsync(input.Id);
 
@@ -203,10 +208,10 @@ namespace Zeta.AgentosCRM.CRMPartner
                 output.CountryName = _lookupCountry?.Name?.ToString();
             }
 
-            if (output.Partner.CountryCodeId != null)
+            if (output.Partner.CurrencyId != null)
             {
-                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Partner.CountryCodeId);
-                output.CountryDisplayProperty2 = string.Format("{0} {1}", _lookupCountry.Icon, _lookupCountry.Code);
+                var _lookupCRMCurrency = await _lookup_crmCurrencyRepository.FirstOrDefaultAsync((int)output.Partner.CurrencyId);
+                output.CRMCurrencyName = _lookupCRMCurrency?.Name?.ToString();
             }
 
             return output;
@@ -241,13 +246,13 @@ namespace Zeta.AgentosCRM.CRMPartner
         [AbpAuthorize(AppPermissions.Pages_Partners_Edit)]
         protected virtual async Task Update(CreateOrEditPartnerDto input)
         {
-            var partner = await _partnerRepository.FirstOrDefaultAsync((int)input.Id);
+            var partner = await _partnerRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, partner);
 
         }
 
         [AbpAuthorize(AppPermissions.Pages_Partners_Delete)]
-        public async Task Delete(EntityDto input)
+        public async Task Delete(EntityDto<long> input)
         {
             await _partnerRepository.DeleteAsync(input.Id);
         }
@@ -261,8 +266,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .Include(e => e.PartnerTypeFk)
                         .Include(e => e.WorkflowFk)
                         .Include(e => e.CountryFk)
-                        .Include(e => e.CountryCodeFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.PartnerName.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) || e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter))
+                        .Include(e => e.CurrencyFk)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.PartnerName.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) || e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter) || e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerNameFilter), e => e.PartnerName.Contains(input.PartnerNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.StreetFilter), e => e.Street.Contains(input.StreetFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CityFilter), e => e.City.Contains(input.CityFilter))
@@ -274,14 +279,14 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WebsiteFilter), e => e.Website.Contains(input.WebsiteFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MarketingEmailFilter), e => e.MarketingEmail.Contains(input.MarketingEmailFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.BusinessRegNoFilter), e => e.BusinessRegNo.Contains(input.BusinessRegNoFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneCode.Contains(input.PhoneCodeFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MasterCategoryNameFilter), e => e.MasterCategoryFk != null && e.MasterCategoryFk.Name == input.MasterCategoryNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerTypeNameFilter), e => e.PartnerTypeFk != null && e.PartnerTypeFk.Name == input.PartnerTypeNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryDisplayProperty2Filter), e => string.Format("{0} {1}", e.CountryCodeFk == null || e.CountryCodeFk.Icon == null ? "" : e.CountryCodeFk.Icon.ToString()
-, e.CountryCodeFk == null || e.CountryCodeFk.Code == null ? "" : e.CountryCodeFk.Code.ToString()
-) == input.CountryDisplayProperty2Filter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter);
 
             var query = (from o in filteredPartners
                          join o1 in _lookup_binaryObjectRepository.GetAll() on o.ProfilePictureId equals o1.Id into j1
@@ -299,7 +304,7 @@ namespace Zeta.AgentosCRM.CRMPartner
                          join o5 in _lookup_countryRepository.GetAll() on o.CountryId equals o5.Id into j5
                          from s5 in j5.DefaultIfEmpty()
 
-                         join o6 in _lookup_countryRepository.GetAll() on o.CountryCodeId equals o6.Id into j6
+                         join o6 in _lookup_crmCurrencyRepository.GetAll() on o.CurrencyId equals o6.Id into j6
                          from s6 in j6.DefaultIfEmpty()
 
                          select new GetPartnerForViewDto()
@@ -317,6 +322,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                                  Website = o.Website,
                                  University = o.University,
                                  MarketingEmail = o.MarketingEmail,
+                                 BusinessRegNo = o.BusinessRegNo,
+                                 PhoneCode = o.PhoneCode,
                                  Id = o.Id
                              },
                              BinaryObjectDescription = s1 == null || s1.Description == null ? "" : s1.Description.ToString(),
@@ -324,9 +331,7 @@ namespace Zeta.AgentosCRM.CRMPartner
                              PartnerTypeName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
                              WorkflowName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                              CountryName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
-                             CountryDisplayProperty2 = string.Format("{0} {1}", s6 == null || s6.Icon == null ? "" : s6.Icon.ToString()
-, s6 == null || s6.Code == null ? "" : s6.Code.ToString()
-)
+                             CRMCurrencyName = s6 == null || s6.Name == null ? "" : s6.Name.ToString()
                          });
 
             var partnerListDtos = await query.ToListAsync();
@@ -390,13 +395,13 @@ namespace Zeta.AgentosCRM.CRMPartner
         }
 
         [AbpAuthorize(AppPermissions.Pages_Partners)]
-        public async Task<List<PartnerCountryLookupTableDto>> GetAllCountryCodeForTableDropdown()
+        public async Task<List<PartnerCRMCurrencyLookupTableDto>> GetAllCRMCurrencyForTableDropdown()
         {
-            return await _lookup_countryRepository.GetAll()
-                .Select(country => new PartnerCountryLookupTableDto
+            return await _lookup_crmCurrencyRepository.GetAll()
+                .Select(crmCurrency => new PartnerCRMCurrencyLookupTableDto
                 {
-                    Id = country.Id,
-                    DisplayName = string.Format("{0} {1}", country.Icon, country.Code)
+                    Id = crmCurrency.Id,
+                    DisplayName = crmCurrency == null || crmCurrency.Name == null ? "" : crmCurrency.Name.ToString()
                 }).ToListAsync();
         }
 

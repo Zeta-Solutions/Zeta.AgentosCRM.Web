@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_CRMCurrencies = "Pages.CRMCurrencies";
+        public const string Pages_CRMCurrencies_Create = "Pages.CRMCurrencies.Create";
+        public const string Pages_CRMCurrencies_Edit = "Pages.CRMCurrencies.Edit";
+        public const string Pages_CRMCurrencies_Delete = "Pages.CRMCurrencies.Delete";
+
         public const string Pages_Partners = "Pages.Partners";
         public const string Pages_Partners_Create = "Pages.Partners.Create";
         public const string Pages_Partners_Edit = "Pages.Partners.Edit";

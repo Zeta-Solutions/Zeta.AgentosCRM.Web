@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106134025_Regenerated_Partner4560")]
+    partial class Regenerated_Partner4560
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1758,9 +1761,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PassportNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")

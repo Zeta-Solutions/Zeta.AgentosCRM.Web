@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>
+	<texts>    <text name="CRMCurrency">C r m currency</text>
+    <text name="CreateNewCRMCurrency">Create new c r m currency</text>
+    <text name="EditCRMCurrency">Edit c r m currency</text>
+    <text name="DeleteCRMCurrency">Delete c r m currency</text>
+
 		
 		<text name="CountryofPassport">Country of Passport</text>
 		<text name="PassportNumber">Passport Number</text>
