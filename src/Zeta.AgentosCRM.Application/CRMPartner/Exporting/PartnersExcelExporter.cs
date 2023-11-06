@@ -31,25 +31,23 @@ namespace Zeta.AgentosCRM.CRMPartner.Exporting
             foreach (var partner in partners)
             {
                 excelPackage.Add(new Dictionary<string, object>()
-            {
-                { L("PartnerName"),partner.Partner.PartnerName},
-                 {   L("Street"),partner.Partner.Street},
-                  {  L("City"),partner.Partner.City},
-                   { L("State"),partner.Partner.State},
-                    { L("ZipCode"),partner.Partner.ZipCode},
-                   { L("PhoneNo"),partner.Partner.PhoneNo},
-                    { L("Email"),partner.Partner.Email},
-                 {   L("Fax"),partner.Partner.Fax},
-                  {  L("Website"),partner.Partner.Website},
-                   { L("University"),partner.Partner.University},
-                    { L("MarketingEmail"),partner.Partner.MarketingEmail},
-            });
+     {
+         { L("PartnerName"),partner.Partner.PartnerName},
+          {   L("Street"),partner.Partner.Street},
+           {  L("City"),partner.Partner.City},
+            { L("State"),partner.Partner.State},
+             { L("ZipCode"),partner.Partner.ZipCode},
+            { L("PhoneNo"),partner.Partner.PhoneNo},
+             { L("Email"),partner.Partner.Email},
+          {   L("Fax"),partner.Partner.Fax},
+           {  L("Website"),partner.Partner.Website},
+            { L("University"),partner.Partner.University},
+             { L("MarketingEmail"),partner.Partner.MarketingEmail},
+     });
 
             }
 
-            return CreateExcelPackage(
-                "Partners.xlsx",
-                excelPackage);
+            return CreateExcelPackage("Partners.xlsx", excelPackage);
         }
     }
 }

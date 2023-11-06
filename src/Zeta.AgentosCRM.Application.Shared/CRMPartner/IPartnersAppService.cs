@@ -4,7 +4,12 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Zeta.AgentosCRM.CRMPartner
 {
@@ -12,11 +17,11 @@ namespace Zeta.AgentosCRM.CRMPartner
     {
         Task<PagedResultDto<GetPartnerForViewDto>> GetAll(GetAllPartnersInput input);
 
-        Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto input);
+        Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto<long> input);
 
         Task CreateOrEdit(CreateOrEditPartnerDto input);
 
-        Task Delete(EntityDto input);
+        Task Delete(EntityDto<long> input);
 
         Task<FileDto> GetPartnersToExcel(GetAllPartnersForExcelInput input);
 
@@ -30,7 +35,7 @@ namespace Zeta.AgentosCRM.CRMPartner
 
         Task<List<PartnerCountryLookupTableDto>> GetAllCountryForTableDropdown();
 
-        Task<List<PartnerCountryLookupTableDto>> GetAllCountryCodeForTableDropdown();
+        Task<List<PartnerCRMCurrencyLookupTableDto>> GetAllCRMCurrencyForTableDropdown();
 
     }
 }

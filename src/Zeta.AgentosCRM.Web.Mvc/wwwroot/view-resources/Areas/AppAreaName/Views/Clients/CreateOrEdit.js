@@ -43,15 +43,15 @@
 
             var client = _$clientInformationForm.serializeFormToObject();
 
-            _ClientcountryLookupTableModal.open({ id: client.countryCodeId, displayName: client.countryDisplayProperty }, function (data) {
-                _$clientInformationForm.find('input[name=countryDisplayProperty]').val(data.displayName); 
-                _$clientInformationForm.find('input[name=countryCodeId]').val(data.id); 
+            _ClientcountryLookupTableModal.open({ id: client.countryId, displayName: client.countryName }, function (data) {
+                _$clientInformationForm.find('input[name=countryName]').val(data.displayName); 
+                _$clientInformationForm.find('input[name=countryId]').val(data.id); 
             });
         });
 		
-		$('#ClearCountryDisplayPropertyButton').click(function () {
-                _$clientInformationForm.find('input[name=countryDisplayProperty]').val(''); 
-                _$clientInformationForm.find('input[name=countryCodeId]').val(''); 
+		$('#ClearCountryNameButton').click(function () {
+                _$clientInformationForm.find('input[name=countryName]').val(''); 
+                _$clientInformationForm.find('input[name=countryId]').val(''); 
         });
 		
         $('#OpenUserLookupTableButton').click(function () {
@@ -133,29 +133,14 @@
 
             var client = _$clientInformationForm.serializeFormToObject();
 
-            _ClientcountryLookupTableModal.open({ id: client.countryId, displayName: client.countryName2 }, function (data) {
+            _ClientcountryLookupTableModal.open({ id: client.passportCountryId, displayName: client.countryName2 }, function (data) {
                 _$clientInformationForm.find('input[name=countryName2]').val(data.displayName); 
-                _$clientInformationForm.find('input[name=countryId]').val(data.id); 
+                _$clientInformationForm.find('input[name=passportCountryId]').val(data.id); 
             });
         });
 		
 		$('#ClearCountryName2Button').click(function () {
                 _$clientInformationForm.find('input[name=countryName2]').val(''); 
-                _$clientInformationForm.find('input[name=countryId]').val(''); 
-        });
-		
-        $('#OpenCountry3LookupTableButton').click(function () {
-
-            var client = _$clientInformationForm.serializeFormToObject();
-
-            _ClientcountryLookupTableModal.open({ id: client.passportCountryId, displayName: client.countryName3 }, function (data) {
-                _$clientInformationForm.find('input[name=countryName3]').val(data.displayName); 
-                _$clientInformationForm.find('input[name=passportCountryId]').val(data.id); 
-            });
-        });
-		
-		$('#ClearCountryName3Button').click(function () {
-                _$clientInformationForm.find('input[name=countryName3]').val(''); 
                 _$clientInformationForm.find('input[name=passportCountryId]').val(''); 
         });
 		
@@ -165,7 +150,7 @@
             if (!_$clientInformationForm.valid()) {
                 return;
             }
-            if ($('#Client_CountryCodeId').prop('required') && $('#Client_CountryCodeId').val() == '') {
+            if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
                 abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
                 return;
             }
@@ -187,10 +172,6 @@
             }
             if ($('#Client_LeadSourceId').prop('required') && $('#Client_LeadSourceId').val() == '') {
                 abp.message.error(app.localize('{0}IsRequired', app.localize('LeadSource')));
-                return;
-            }
-            if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
                 return;
             }
             if ($('#Client_PassportCountryId').prop('required') && $('#Client_PassportCountryId').val() == '') {

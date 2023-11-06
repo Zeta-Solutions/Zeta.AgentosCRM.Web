@@ -99,14 +99,13 @@
 					universityFilter: $('#UniversityFilterId').val(),
 					minRatingFilter: $('#MinRatingFilterId').val(),
 					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+					countryNameFilter: $('#CountryNameFilterId').val(),
 					userNameFilter: $('#UserNameFilterId').val(),
 					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
 					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
 					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
 					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val(),
-					countryName3Filter: $('#CountryName3FilterId').val()
+					countryName2Filter: $('#CountryName2FilterId').val()
                     };
                 }
             },
@@ -288,8 +287,8 @@
 					},
 					{
 						targets: 19,
-						 data: "countryDisplayProperty" ,
-						 name: "countryCodeFk.displayProperty" 
+						 data: "countryName" ,
+						 name: "countryFk.name" 
 					},
 					{
 						targets: 20,
@@ -319,11 +318,6 @@
 					{
 						targets: 25,
 						 data: "countryName2" ,
-						 name: "countryFk.name" 
-					},
-					{
-						targets: 26,
-						 data: "countryName3" ,
 						 name: "passportCountryFk.name" 
 					}
             ]
@@ -377,14 +371,13 @@
 					universityFilter: $('#UniversityFilterId').val(),
 					minRatingFilter: $('#MinRatingFilterId').val(),
 					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+					countryNameFilter: $('#CountryNameFilterId').val(),
 					userNameFilter: $('#UserNameFilterId').val(),
 					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
 					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
 					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
 					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val(),
-					countryName3Filter: $('#CountryName3FilterId').val()
+					countryName2Filter: $('#CountryName2FilterId').val()
 				})
                 .done(function (result) {
                     app.downloadTempFile(result);
