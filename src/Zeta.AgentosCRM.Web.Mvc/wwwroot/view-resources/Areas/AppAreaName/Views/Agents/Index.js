@@ -1,5 +1,21 @@
 ﻿(function () {
-  $(function () {
+    $(function () {
+
+        $('input[type="radio"]').change(function () {
+            if (this.value === "option1") {
+                // Show fields for option1
+                $("#field1").show();
+                // Hide the label and field for option2
+                $("#field2 label, #field2 input").hide();
+                $("#field3 label, #field3 input").hide();
+                $("#field1").show();
+            } else if (this.value === "option2") {
+                // Hide the label and field for option1
+                $("#field1 label, #field1 input").hide();
+                // Show the label and field for option2
+                $("#field2 label, #field2 input").show();
+            }
+        });
       var _$FeeTypeTable = $('#FeeTypeTable');
     //var _masterCategoriesService = abp.services.app.masterCategories;
       var _feeTypesService = abp.services.app.feeTypes;
@@ -17,7 +33,6 @@
       .daterangepicker({
         autoUpdateInput: false,
         singleDatePicker: true,
-        locale: abp.localization.currentLanguage.name,
         format: 'L',
       })
       .on('apply.daterangepicker', (ev, picker) => {

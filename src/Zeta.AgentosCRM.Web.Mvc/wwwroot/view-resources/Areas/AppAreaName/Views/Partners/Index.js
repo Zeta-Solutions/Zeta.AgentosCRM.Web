@@ -153,9 +153,9 @@
 						let fullName = `${row.partner.partnerName}`;
 						
 						// Generate the URLs using JavaScript variables
-						let clientDetailUrl = `/AppAreaName/partners/PartnersDetails?id=${row.partner.id}`;
+						let clientDetailUrl = `/AppAreaName/partners/DetailsForm?id=${row.partner.id}`;
 						let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.partner.id}`;
-
+						
 						return `
     <div class="d-flex align-items-center">
         <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
@@ -205,14 +205,16 @@
 					searchable: false,
 					render: function (data, type, full, meta) {
 						console.log(data);
-						var rowId = data.partner.id;
+						var rowId = data.partner.id; 
+						var rowData = data.partner;
+						var RowDatajsonString = JSON.stringify(rowData);
 						var contextMenu = '<div class="context-menu" style="position:relative;">' +
 							'<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
 							'<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
 							'<ul style="list-style: none; padding: 0;color:black">' +
 							'<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
 							'<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
-							'<a href="#" style="color: black;" data-action="delete" data-id="' + rowId + '"><li>Delete</li></a>' +
+							"<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
 							'</ul>' +
 							'</div>' +
 							'</div>';
@@ -480,14 +482,14 @@
 			dataTable.ajax.reload();
 		}
 
-		function deleteClient(client) {
+		function deletePartner(partner) {
 			abp.message.confirm(
 				'',
 				app.localize('AreYouSure'),
 				function (isConfirmed) {
 					if (isConfirmed) {
-						_clientsService.delete({
-							id: client.id
+						_partnersService.delete({
+							id: partner.id
 						}).done(function () {
 							getPartners(true);
 							abp.notify.success(app.localize('SuccessfullyDeleted'));
@@ -596,11 +598,11 @@
 			// Handle the selected action based on the rowId
 			if (action === 'view') {
 				//_viewMasterCategoryModal.open({ id: rowId });
-				window.location = "/AppAreaName/Partners/ViewPartner/" + rowId;     
+				window.location = "/AppAreaName/Partners/DetailsForm/" + rowId;     
 			} else if (action === 'edit') {
 				window.location = "/AppAreaName/Partners/CreateOrEdit/" + rowId;     
 			} else if (action === 'delete') {
-				deleteMasterCategory(rowId);
+				deletePartner(rowId);
 			}
 		});
 

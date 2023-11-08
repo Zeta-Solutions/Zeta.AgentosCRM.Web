@@ -2,7 +2,7 @@
     $(function () {
         $('#masterCategoryId').select2();
         $('#partnerTypeId').select2();
-        $('#serviceWorkflowId').select2();
+        $('#workflowId').select2();
         $('#countryId').select2();
         $('#currencyId').select2();
 
@@ -236,30 +236,30 @@
             if (!_$partnerInformationForm.valid()) {
                 return;
             }
-            //if ($('#Client_CountryCodeId').prop('required') && $('#Client_CountryCodeId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
-            //    return;
-            //}
-            //if ($('#Client_AssigneeId').prop('required') && $('#Client_AssigneeId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('User')));
-            //    return;
-            //}
-            //if ($('#Client_ProfilePictureId').prop('required') && $('#Client_ProfilePictureId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('BinaryObject')));
-            //    return;
-            //}
-            //if ($('#Client_HighestQualificationId').prop('required') && $('#Client_HighestQualificationId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('DegreeLevel')));
-            //    return;
-            //}
-            //if ($('#Client_StudyAreaId').prop('required') && $('#Client_StudyAreaId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('SubjectArea')));
-            //    return;
-            //}
-            //if ($('#Client_LeadSourceId').prop('required') && $('#Client_LeadSourceId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('LeadSource')));
-            //    return;
-            //}
+            if ($('#Partner_PartnerName').prop('required') && $('#Partner_PartnerName').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('PartnerName')));
+                return;
+            }
+            if ($('#workflowId').prop('required') && $('#workflowId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('workflow')));
+                return;
+            }
+            if ($('#partnerTypeId').prop('required') && $('#partnerTypeId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('partnerType')));
+                return;
+            }
+            if ($('#masterCategoryId').prop('required') && $('#masterCategoryId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('masterCategory')));
+                return;
+            }
+            if ($('#Partner_Email').prop('required') && $('#Partner_Email').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('Email')));
+                return;
+            }
+            if ($('#University').prop('required') && $('#University').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('University')));
+                return;
+            }
             //if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
             //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
             //    return;

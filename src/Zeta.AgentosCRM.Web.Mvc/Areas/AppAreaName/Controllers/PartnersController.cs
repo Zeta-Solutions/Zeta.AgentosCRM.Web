@@ -151,23 +151,23 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditPartnerViewModel()
             {
                 Partner = getPartnerForEditOutput.Partner,
-                PartnerName = getPartnerForEditOutput.Partner.PartnerName,
-                //BusinessRegistrationNumber = getPartnerForEditOutput.BusinessRegistrationNumber,
-                Street = getPartnerForEditOutput.Partner.Street,
-                City = getPartnerForEditOutput.Partner.City,
-                State = getPartnerForEditOutput.Partner.State,
-                Zipcode = getPartnerForEditOutput.Partner.ZipCode,
-                Phone = getPartnerForEditOutput.Partner.PhoneNo,
-                Email = getPartnerForEditOutput.Partner.Email,
-                Fax = getPartnerForEditOutput.Partner.Fax,
-                Website = getPartnerForEditOutput.Partner.Website,
-                MarketingOfficeEmail = getPartnerForEditOutput.Partner.MarketingEmail,
-                University = getPartnerForEditOutput.Partner.University,
+                //PartnerName = getPartnerForEditOutput.Partner.PartnerName,
+                ////BusinessRegistrationNumber = getPartnerForEditOutput.BusinessRegistrationNumber,
+                //Street = getPartnerForEditOutput.Partner.Street,
+                //City = getPartnerForEditOutput.Partner.City,
+                //State = getPartnerForEditOutput.Partner.State,
+                //Zipcode = getPartnerForEditOutput.Partner.ZipCode,
+                //Phone = getPartnerForEditOutput.Partner.PhoneNo,
+                //Email = getPartnerForEditOutput.Partner.Email,
+                //Fax = getPartnerForEditOutput.Partner.Fax,
+                //Website = getPartnerForEditOutput.Partner.Website,
+                //MarketingOfficeEmail = getPartnerForEditOutput.Partner.MarketingEmail,
+                //University = getPartnerForEditOutput.Partner.University,
                 //Currency = getPartnerForEditOutput.Partner.Currency,
                 MasterCategoryName = getPartnerForEditOutput.MasterCategoryName,
                 PartnerTypeName = getPartnerForEditOutput.PartnerTypeName,
                 WorkflowName = getPartnerForEditOutput.WorkflowName,
-                CountryName2 = getPartnerForEditOutput.CountryName,
+                CountryName = getPartnerForEditOutput.CountryName,
                 PartnerCountryList = await _partnersAppService.GetAllCountryForTableDropdown(),
                 PartnerMasterCategoryList = await _partnersAppService.GetAllMasterCategoryForTableDropdown(),
                 PartnerPartnerTypeList = await _partnersAppService.GetAllPartnerTypeForTableDropdown(),
@@ -176,7 +176,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(viewModel);
         }
-        public async Task<ActionResult> ViewPartner(int id)
+        public async Task<ActionResult> DetailsForm(int id)
         {
             var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
@@ -198,8 +198,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 ,
                 CountryName = getPartnerForViewDto.CountryName
 
-                ,
-                CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
+                //,
+                //CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
 
             };
 

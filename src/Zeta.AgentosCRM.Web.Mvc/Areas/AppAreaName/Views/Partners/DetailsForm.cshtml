@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model PartnerViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Page Title</title>
@@ -77,11 +83,11 @@
                                             <span class="fa fa-pencil"></span>
                                         </a>
                                     </div>
-                                    <div class="col-1">
+                                    @* <div class="col-1">
                                         <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="Approve">
                                             <span class="fa fa-check"></span>
                                         </a>
-                                    </div>
+                                    </div> *@
                                     <div class="col-1">
                                         <a class="me-2 text-muted rounded-circle" data-toggle="tooltip" title="SMS">
                                             <span class="fa fa-comment"></span>
@@ -102,13 +108,13 @@
                             <div class="col-lg-12 mt-1 text-start">
                                 <div class="d-flex align-items-center  pb-4">
                                     <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput">
-                                        Australasian Academy of Higher Education
+                                         @Model.Partner.PartnerName
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-12 text-start ">
                                 <label for="AddedFrom " class="custominput">Email:</label>
-                                <p class="text-muted">Example@gmail.com</p>
+                                <p class="text-muted"> @Model.Partner.Email</p>
                             </div>
                             <div class="col-lg-12">
                                 <input type="hidden"/>
@@ -125,27 +131,28 @@
                             <div class="col-lg-12 pb-2 text-start">
                               @*   <label for="AddedFrom" class="form-label form-label-sm">General Information::</label> *@
                                 <p class="custominput">Phone No:</p>
-                                <p class="text-muted">+61435208166</p>
+                                <p class="text-muted">  @Model.Partner.PhoneNo</p>
                             </div>
                             <div class="col-lg-12 pb-2 text-start">
                                 <label for="Phone" class="form-label form-label-sm custominput">
                                     Fax:
                                 </label><br />
-                                <p class="text-muted">(123)-456-7890</p>
+                                <p class="text-muted">  @Model.Partner.Fax</p>
                             </div>
                             <div class="col-lg-12 text-start">
-                                <label for="Address" class="form-label form-label-sm custominput"> Email:  </label><br />
-                                <p class="text-muted">admissions@aahe.edu.au
+                                <label for="Address" class="form-label form-label-sm custominput"> MarketingEmail:  </label><br />
+                                <p class="text-muted"> @Model.Partner.MarketingEmail
                                 </p>
                             </div>
                             <div class="col-lg-12 mb-3 text-start">
                                 <label for="ClientId" class="form-label form-label-sm custominput"> Address:</label><br />
-                                <p class="text-muted">363 King St, West Melbourne, VIC, 3003, Australia</p>
+                                <p class="text-muted">@Model.Partner.Street, @Model.Partner.City, @Model.Partner.State, @Model.Partner.ZipCode, @Model.CountryName</p>
+                                   
                             </div>
                             <div class="col-lg-12 mb-3 text-start">
                                 <label for="ClientId" class="form-label form-label-sm custominput">  Website:</label><br />
                                 <p class="text-muted">
-                                    https://www.aahe.edu.au
+                                    @Model.Partner.Website
                                 </p>
                             </div>
                           
@@ -159,15 +166,15 @@
                         <div class="card-body">
                             <div class="col-lg-12">
                                 <label for="AddedFrom" class="form-label form-label-sm custominput">Services:</label>
-                                <p class="text-muted">Australian Education with VISA</p>
+                                <p class="text-muted">   @Model.WorkflowName</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="Phone" class="form-label form-label-sm custominput">Added On:</label>
-                                <p class="text-muted">2023-10-06</p>
+                                <p class="text-muted">@Model.Partner.CreationTime</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="Address" class="form-label form-label-sm custominput">Business Registration Number:</label>
-                                <p class="text-muted">44 631 178 768</p>
+                                <p class="text-muted"> @Model.Partner.BusinessRegNo</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="AddedFrom" class="form-label form-label-sm custominput">Currency code:</label>
