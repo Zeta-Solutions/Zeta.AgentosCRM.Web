@@ -55,14 +55,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditClientViewModel()
             {
                 Client = getClientForEditOutput.Client,
-                CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+                //CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
                 UserName = getClientForEditOutput.UserName,
                 BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
                 DegreeLevelName = getClientForEditOutput.DegreeLevelName,
                 SubjectAreaName = getClientForEditOutput.SubjectAreaName,
                 LeadSourceName = getClientForEditOutput.LeadSourceName,
-                CountryName2 = getClientForEditOutput.CountryName2,
-                CountryName3 = getClientForEditOutput.CountryName3,
+                PassportCountry = getClientForEditOutput.PassportCountry,
                 ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
                 ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
@@ -123,14 +122,12 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditClientViewModel()
             {
                 Client = getClientForEditOutput.Client,
-                CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
                 UserName = getClientForEditOutput.UserName,
                 BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
                 DegreeLevelName = getClientForEditOutput.DegreeLevelName,
                 SubjectAreaName = getClientForEditOutput.SubjectAreaName,
                 LeadSourceName = getClientForEditOutput.LeadSourceName,
-                CountryName2 = getClientForEditOutput.CountryName2,
-                CountryName3 = getClientForEditOutput.CountryName3,
+                PassportCountry = getClientForEditOutput.PassportCountry,
                 ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
                 ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),

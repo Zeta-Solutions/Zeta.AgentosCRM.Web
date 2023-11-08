@@ -239,7 +239,7 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="countryCodeId">@L("Country")</label>
-                                                                        @Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryCodeId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" })
+                                                                        @Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" })
                                                                     </div>
                                                                 </div>
                                                             </div>

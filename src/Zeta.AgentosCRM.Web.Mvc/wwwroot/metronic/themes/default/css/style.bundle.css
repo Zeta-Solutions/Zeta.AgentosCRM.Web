@@ -33235,7 +33235,7 @@ html:not([data-theme=dark]) .theme-light-bg-body {
     --bs-pagination-disabled-bg: var(--kt-pagination-disabled-bg);
     --bs-pagination-disabled-border-color: var(--kt-pagination-disabled-border-color);
     display: flex;
-    flex-wrap: wrap;
+    --kt-pagination-active-bg: #a4add8;
     justify-content: center;
     margin: 0;
 }

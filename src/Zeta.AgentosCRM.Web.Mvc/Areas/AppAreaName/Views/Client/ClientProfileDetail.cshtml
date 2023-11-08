@@ -1,0 +1,351 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
+  }
+   <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+  @section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/IntrestedService/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Appointment/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientTask/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Education/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Notes/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
+  <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
+
+}
+
+
+
+<div class="mt-3">
+
+
+    <div class="cards">
+
+
+        <div class="mt-3  maincard">
+            <div class="row Detailform">
+                @* ////Card 1/// *@
+                <div class="col-md-3 ">
+                    <div class="card shadow rounded-0">
+                        <div class="card-body ">
+                            <div class="col-lg-12 mb-3 d-flex justify-content-center align-items-center">
+                                <div class="symbol symbol-160px rounded-circle symbol-lg-160px symbol-fixed position-relative p-3">
+                                    <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" />
+                                </div>
+                            </div>
+
+                            @* /////Icons div///// *@
+                            <div class="col-lg-12 mb-3  d-flex justify-content-center align-items-center">
+                                <div class="d-flex justify-content-between pl-3">
+                                    <a class="me-2 text-muted rounded-circle mx-2" data-toggle="tooltip" title="Email">
+                                        <span class="fa fa-envelope"></span>
+                                    </a>
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Edit">
+                                        <span class="fa fa-pencil"></span>
+                                    </a>
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Approve">
+                                        <span class="fa fa-check"></span>
+                                    </a>
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="SMS">
+                                        <span class="fa fa-comment"></span>
+                                    </a>
+                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Archived">
+                                        <span class="fa fa-archive"></span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mt-1 d-flex justify-content-center align-items-center">
+                                <div class="d-flex align-items-center  pb-4">
+                                    <span class="text-gray-800  fs-2 fw-bolder ">
+                                       Faryal Khalid
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 text-center">
+                                <label for="ClientId" class="form-label form-label-sm">Email</label><br />
+                                <p id="ClientId" class="mb-0 text-muted">FaryalKhalid@gmail.com</p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <input type="hidden" />
+                            </div>
+                            <div class="col-lg-12"><input type="hidden" /></div>
+                            <div class="col-lg-12"><input type="hidden" /></div>
+                        </div>
+                    </div>
+                </div>
+                @* ////Card 2/// *@
+                <div class="col-md-3">
+                    <div class="card shadow custominput rounded-0">
+                        <div class="card-body text-start custominput">
+                            <div class="col-lg-12 pb-1 text-start">
+                                <label for="AddedFrom" class="form-label form-label-sm">Application Sales Forecast:</label>
+                                <p class="text-muted ">0.00 AUD</p>
+                            </div>
+                            <div class="col-lg-12 pb-1 text-start">
+                                <label for="Phone" class="form-label form-label-sm">Service Sales Forecast:</label><br />
+                                <p class="text-muted ">0.00 AUD</p>
+                            </div>
+                           
+                            <div class="col-lg-12 pb-1 text-start">
+                                <label for="Address" class="form-label form-label-sm">Tags:</label>
+                                <select class="form-select form-select-sm bg-light bg-opacity-50">
+                                    <option>OFFSHORE(PAKISTAN)</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 pb-2 text-start">
+                                <label for="AddedFrom" class="form-label form-label-sm">Client Portal:</label><br />
+                                <span class="form-check form-switch form-switch-sm form-check-custom  form-check-solid ">
+                                    <input class="form-check-input form-check-sm" type="checkbox" id="NotificationSettigs_ReceiveNotifications" checked="checked">
+                                </span>
+
+                            </div>
+                             <div class="col-lg-12 pb-0">
+                                <label for="ClientId" class="form-label form-label-sm">Client Id:</label>
+                                <p class="text-muted fs-6">1256</p>
+                            </div>
+                            <div class="col-lg-10  pb-0 text-start">
+                                <label for="ClientId" class="form-label form-label-sm">Added From:</label><br />
+                                <p class="text-muted fs-6">system</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @* ////Card 3/// *@
+                <div class="col-md-3">
+                    <div class="card shadow rounded-0">
+                        <div class="card-body">
+                            <div class="col-lg-12 ">
+                                <label for="AddedFrom" class="form-label form-label-sm">Date Of Birth:</label>
+                                <p class="text-muted fs-6">2000-12-31</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="Phone" class="form-label form-label-sm">Phone No:</label>
+                                <p class="text-muted fs-6">+9230125454</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="Address" class="form-label form-label-sm">Address:</label>
+                                <p class="text-muted fs-6">363 King St, West Melbourne</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="AddedFrom" class="form-label form-label-sm">Country Of Passport:</label>
+                                <p class="text-muted fs-6">pakistan</p>
+                            </div>
+                             <div class="col-lg-12 pb-0">
+                                <label class="form-label form-label-sm">Flowers:</label>
+                                <select class="form-select form-select-sm bg-light bg-opacity-50">
+                                    <option><i class="fas fa-plus"> Add</i></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 pb-0">
+                                <label for="AddedFrom" class="form-label form-label-sm">Passport Number:</label>
+                                <p class="text-muted fs-6">ABC 12345</p>
+                            </div>
+                           
+                           @* <div class="col-lg-12 pb-0">
+                                <label for="ClientId" class="form-label form-label-sm">Client Id:</label>
+                                <p class="text-muted fs-6">-</p>
+                            </div>*@
+
+                        </div>
+                    </div>
+                </div>
+                @* ////Card 4/// *@
+                <div class="col-md-3">
+                    <div class="card shadow rounded-0">
+                        <div class="card-body">
+                            <div class="col-lg-12">
+                                <label for="Email" class="form-label form-label-sm">Secondry Email</label>
+                                <p class="text-muted fs-6">example@gmail.com</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="AddedFrom" class="form-label form-label-sm">Prefered Intake:</label>
+                                <p class="text-muted fs-6">February intake</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="AddedFrom" class="form-label form-label-sm">Visa Expiry Date:</label>
+                                <p class="text-muted fs-6">2023-12-31</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="AddedFrom" class="form-label form-label-sm">Visa Type:</label>
+                                <p class="text-muted fs-6">Student</p>
+                            </div>
+                            <div class="col-lg-12">
+                             
+                                <label for="AddedFrom" class="form-label form-label-sm">Assignee:</label>
+                                <select class="form-select form-select-sm bg-light bg-opacity-50">
+                                    <option><i class="fas fa-plus"> Add</i></option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="Email" class="form-label form-label-sm">Added By:</label>
+                                <p class="text-muted fs-6">Sahar Aussie ASEAN</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+@*<div class="container mt-2">*@
+<div class="mt-4 maincard">
+
+        <div class="card navbar-link-card-height pt-1 pr-1 pb-3 pl-2 d-flex">
+        <div class="card-Head">
+                <div class="d-flex h-55px navbar-link-card-Allign">
+                <ul class="
+         nav nav-stretch nav-line-tabs nav-line-tabs-2x
+          border-transparent
+          fs-5
+          fw-bolder
+
+          ml-3 pl-2
+        ">
+                    <li class="nav-item">
+                        <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Activities")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                            @L("Application")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#InterestedServiceTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            @L("InterestedService")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#DocumentTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            @L("Documents")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#AppointmentTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Appointments")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#NoteTermsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("NotesAndTerms")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#QuotationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Quotations")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ConversationTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
+                            @L("Conversations")
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a href="#TasksTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
+                            @L("Tasks")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#EducationTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
+                            @L("Educations")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#OtherInformationTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
+                            @L("OtherInformations")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#CheckinLogsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("ChecksinLogs")
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="tab-content ">
+            <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ApplicationClient/ApplicationIndex.cshtml")
+            </div>
+        </div>
+
+        <div class="tab-pane pt-5 mb-7 " id="ActivitiesTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_Activites.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="InterestedServiceTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/IntrestedService/IntrestedServiceIndex.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="NoteTermsTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Notes/ClientNotesIndex.cshtml")
+            </div>
+        </div>        
+        <div class="tab-pane pt-5 mb-7" id="QuotationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ClientQuotation/ClientQuotationIndex.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="CheckinLogsTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClietCheckinLogs.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="OtherInformationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientOtherInformation.cshtml")
+            </div>
+        </div>
+         <div class="tab-pane pt-5 mb-7" id="DocumentTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientDocument.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="ConversationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientConversation.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="AppointmentTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Appointment/AppointmentIndex.cshtml")
+            </div>
+        </div>
+         <div class="tab-pane pt-5 mb-7" id="TasksTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ClientTask/TaskIndex.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="EducationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Education/EducationIndex.cshtml")
+            </div>
+        </div>
+    </div>
+</div>
+</div>

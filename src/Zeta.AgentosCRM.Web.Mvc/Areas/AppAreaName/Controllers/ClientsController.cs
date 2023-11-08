@@ -55,14 +55,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 			var viewModel = new CreateOrEditClientViewModel()
 			{
 				Client = getClientForEditOutput.Client,
-				CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
+				//CountryDisplayProperty = getClientForEditOutput.CountryDisplayProperty,
 				UserName = getClientForEditOutput.UserName,
 				BinaryObjectDescription = getClientForEditOutput.BinaryObjectDescription,
 				DegreeLevelName = getClientForEditOutput.DegreeLevelName,
 				SubjectAreaName = getClientForEditOutput.SubjectAreaName,
 				LeadSourceName = getClientForEditOutput.LeadSourceName,
-				CountryName2 = getClientForEditOutput.CountryName2,
-				CountryName3 = getClientForEditOutput.CountryName3,
+                PassportCountry = getClientForEditOutput.PassportCountry,
 				ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
 				ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
 				ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
@@ -112,7 +111,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(viewModel);
         }
-
+      
         public async Task<ActionResult> ViewClient(long id)
         {
             var getClientForViewDto = await _clientsAppService.GetClientForView(id);
@@ -158,6 +157,41 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("_ClientBinaryObjectLookupTableModal", viewModel);
         }
+        public ActionResult ClientEmailCompose()
+        {
+            return PartialView("_ClientEmailCompose", "");
+        }
+        public async Task<ActionResult> ClientProfileDetail(long id)
+        {
+            var getClientForViewDto = await _clientsAppService.GetClientForView(id);
 
+            var model = new ClientViewModel()
+            {
+                Client = getClientForViewDto.Client
+                ,
+                CountryName = getClientForViewDto.CountryName
+
+                ,
+                UserName = getClientForViewDto.UserName
+
+                ,
+                BinaryObjectDescription = getClientForViewDto.BinaryObjectDescription
+
+                ,
+                DegreeLevelName = getClientForViewDto.DegreeLevelName
+
+                ,
+                SubjectAreaName = getClientForViewDto.SubjectAreaName
+
+                ,
+                LeadSourceName = getClientForViewDto.LeadSourceName
+
+                ,
+                PassportCountry = getClientForViewDto.PassportCountry
+
+            };
+
+            return View(model);
+        }
     }
 }

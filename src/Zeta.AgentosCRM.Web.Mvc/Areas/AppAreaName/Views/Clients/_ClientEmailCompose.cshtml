@@ -2,6 +2,10 @@
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models
+@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@* @model CreateOrEditClientViewModel *@
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
@@ -21,13 +25,17 @@
                     <!-- Form for composing email -->
                     <form id="composeEmailForm" class="needs-validation" novalidate>
                         <div class="row g-3">
-
+                         @*    @if (Model.IsEditMode)
+                            {
+                                <input type="hidden" name="id" value="@Model.Client.Id" />
+                            } *@
                             <!-- 'From' dropdown -->
                             <div class="col-md-12">
                                 <label for="fromDropdown" class="form-label">From</label>
+                                @* @Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.PassportCountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" }) *@
+
                                 <select class="form-select" id="fromDropdown" required>
-                                    <option value="Category">Category 1</option>
-                                    <option value="Category">Category2</option>
+                                    <option value="Category">SajidBhatti@zeta.com</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a sender.
@@ -37,9 +45,10 @@
                             <!-- 'To' dropdown -->
                             <div class="col-md-12">
                                 <label for="toDropdown" class="form-label">To</label>
-                                <select class="form-select" id="toDropdown" required>
-                                    <option value="Category">Category 1</option>
-                                    <option value="Category">Category2</option>
+                                @* @Html.DropDownList("countryCodeId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.PassportCountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" }) *@
+
+                                <select class="form-select" id="fromDropdown" required>
+                                    <option value="Category">Raidrabnawaz@zeta.com</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a recipient.
@@ -50,8 +59,7 @@
                             <div class="col-md-12">
                                 <label for="ccDropdown" class="form-label">CC</label>
                                 <select class="form-select" id="ccDropdown" required>
-                                    <option value="Category">Category 1</option>
-                                    <option value="Category">Category2</option>
+                                    <option value="Category">Ijaz@zeta.com</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select at least one recipient in CC.
@@ -62,8 +70,8 @@
                             <div class="col-md-12">
                                 <label for="templateDropdown" class="form-label">Template</label>
                                 <select class="form-select" id="templateDropdown" required>
-                                    <option value="Category">Category 1</option>
-                                    <option value="Category">Category2</option>
+                                    <option value="Category">VISA  </option>
+                                    <option value="Category">OFFER </option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select an email template.
