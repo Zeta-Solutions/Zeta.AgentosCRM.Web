@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    app.modals.CreateOrEditContactsModal = function () {
+    app.modals.CreateOrEditPartnersModal = function () {
       var _leadSourcesService = abp.services.app.leadSources;
 
     var _modalManager;
@@ -15,7 +15,7 @@
         format: 'L',
       });
 
-        _$leadSourceInformationForm = _modalManager.getModal().find('form[name=NotesAndTermsInformationsForm]');
+        _$leadSourceInformationForm = _modalManager.getModal().find('form[name=PartnersInformationsForm]');
         _$leadSourceInformationForm.validate();
     };
 
@@ -32,7 +32,7 @@
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-            abp.event.trigger('app.createOrEdit_ModalSaved');
+            abp.event.trigger('app.createOrEditPartnerModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

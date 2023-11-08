@@ -17,7 +17,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
 
     @if (IsGranted(AppPermissions.Pages_Workflows_Create))
     {
-    <button id="CreateNewWorkflowButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewWorkflow")</button>
+    <button id="CreateNewWorkflowButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewWorkflow")</button>
     }
 </abp-page-subheader>
 
@@ -30,8 +30,8 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="WorkflowsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                                <button id="GetWorkflowsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="WorkflowsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                <button id="GetWorkflowsButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -65,10 +65,11 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
                     <thead>
                         <tr>
                             <th></th>
-
-                            <th style="width:50px"></th>
+@* 
+                            <th style="width:50px"></th> *@
                             <th>@L("Actions")</th>
                             <th>@L("Name")</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
