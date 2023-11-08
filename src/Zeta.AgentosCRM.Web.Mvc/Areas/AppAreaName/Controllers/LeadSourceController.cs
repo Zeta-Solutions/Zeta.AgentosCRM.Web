@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
-using Zeta.AgentosCRM.Web.Controllers;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.ServiceCategory;
+using Zeta.AgentosCRM.Web.Controllers; 
 using Zeta.AgentosCRM.CRMSetup.LeadSource;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
 using Zeta.AgentosCRM.CRMSetup.LeadSource.Dtos;
@@ -31,7 +30,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             {
                 FilterText = ""
             };
-            return View();
+            return View(model);
         }
         [AbpMvcAuthorize(AppPermissions.Pages_LeadSources_Create, AppPermissions.Pages_LeadSources_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int ? id)

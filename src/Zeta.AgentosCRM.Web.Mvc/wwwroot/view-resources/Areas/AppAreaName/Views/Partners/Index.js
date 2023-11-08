@@ -59,6 +59,9 @@
 			modalClass: 'ViewClientModal'
 		});
 
+        abp.event.on('app.createOrEditBranchModalSaved', function () {
+            getLeadSource();
+        });
 		var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
 		function entityHistoryIsEnabled() {
 			return abp.auth.hasPermission('Pages.Administration.AuditLogs') &&

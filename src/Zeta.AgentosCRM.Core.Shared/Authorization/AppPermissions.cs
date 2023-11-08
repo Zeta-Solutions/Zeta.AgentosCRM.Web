@@ -6,6 +6,21 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ClientAppointments = "Pages.ClientAppointments";
+        public const string Pages_ClientAppointments_Create = "Pages.ClientAppointments.Create";
+        public const string Pages_ClientAppointments_Edit = "Pages.ClientAppointments.Edit";
+        public const string Pages_ClientAppointments_Delete = "Pages.ClientAppointments.Delete";
+
+        public const string Pages_PartnerContacts = "Pages.PartnerContacts";
+        public const string Pages_PartnerContacts_Create = "Pages.PartnerContacts.Create";
+        public const string Pages_PartnerContacts_Edit = "Pages.PartnerContacts.Edit";
+        public const string Pages_PartnerContacts_Delete = "Pages.PartnerContacts.Delete";
+
+        public const string Pages_Branches = "Pages.Branches";
+        public const string Pages_Branches_Create = "Pages.Branches.Create";
+        public const string Pages_Branches_Edit = "Pages.Branches.Edit";
+        public const string Pages_Branches_Delete = "Pages.Branches.Delete";
+
         public const string Pages_CRMCurrencies = "Pages.CRMCurrencies";
         public const string Pages_CRMCurrencies_Create = "Pages.CRMCurrencies.Create";
         public const string Pages_CRMCurrencies_Edit = "Pages.CRMCurrencies.Edit";
@@ -27,6 +42,7 @@
         public const string Pages_Followers_Delete = "Pages.Followers.Delete";
 
         public const string Pages_Clients = "Pages.Clients";
+        public const string Pages_Clients_ChangeProfilePicture = "Pages.Clients.ChangeProfilePicture";
         public const string Pages_Clients_Create = "Pages.Clients.Create";
         public const string Pages_Clients_Edit = "Pages.Clients.Edit";
         public const string Pages_Clients_Delete = "Pages.Clients.Delete";

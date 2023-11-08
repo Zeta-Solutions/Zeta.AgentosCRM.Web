@@ -58,11 +58,6 @@ table.dataTable thead tr {
     max-height: 400px !important;
 }
 
-#GetClientsButton {
-    background-color: #0b3149;
-    color: #ffffff; /* Bright white color */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-}
  
 .btn.btn-brand.dropdown-toggle {
     font-size: 10px; /* Adjust the font size as needed */
@@ -136,24 +131,18 @@ table.dataTable thead tr {
 }
 .card-body {
     color: #072E47 !important;
-} 
-.custominput {
-    color: #072E47 !important;
-    font-weight: bold;
-} 
-
-.form-switch .form-check-input:checked {
-    background-color: #072E47 !important;
 }
+
+
+
 .context-menu {
     position: relative;
 }
 
 .dots {
     cursor: pointer;
-    writing-mode: vertical-rl; /* This sets the vertical writing mode */
-    transform: rotate(180deg);
-   
+    writing-mode: vertical-rl;
+    
 }
 
 .options ul {
@@ -167,27 +156,35 @@ table.dataTable thead tr {
 }
 
 .options li:hover {
-    background-color: #f5f5f5; /* Change to your desired hover color */
+    background-color: #f5f5f5;
+    
 }
 
-.context-menu {
-    position: relative;
+.iconsDots:hover {
+    color: black;
+     
+} 
+.context-menu .options {
+    z-index: 9;
 }
 
 .options {
     position: absolute;
     top: 0;
-    left: 100%; /* Position the options to the right of the dots */
-    display: none; /* Hide by default */
-    background-color: #fff; /* Background color for options */
-    border: 1px solid #ccc; /* Border for options */
-    border-radius: 4px; /* Border radius for options */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    left: 100%;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ 
 }
 
 .context-menu.active .options {
-    display: block; /* Show the options when context-menu is active */
+    display: block;
+    
 }
+
 .options.left {
     left: auto;
     right: 100%;
@@ -204,9 +201,3 @@ table.dataTable thead tr {
 .context-menu.active .options.left {
     display: block;
 }
-
-/*#GetPartnersButton {
-    background-color: #0b3149;
-    color: #ffffff;*/ /* Bright white color */
-    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-}*/
