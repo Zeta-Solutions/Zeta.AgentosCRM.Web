@@ -4,6 +4,7 @@ using Abp.Dependency;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Threading.BackgroundWorkers;
+using Abp.Timing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Zeta.AgentosCRM.Auditing;
@@ -32,6 +33,8 @@ namespace Zeta.AgentosCRM.Web.Startup
             Configuration.Modules.AbpWebCommon().MultiTenancy.DomainFormat = _appConfiguration["App:WebSiteRootAddress"] ?? "https://localhost:44302/";
             Configuration.Modules.AspNetZero().LicenseCode = _appConfiguration["AbpZeroLicenseCode"];
             Configuration.Navigation.Providers.Add<AppAreaNameNavigationProvider>();
+
+            Clock.Provider = ClockProviders.Utc;
 
             IocManager.Register<DashboardViewConfiguration>();
         }

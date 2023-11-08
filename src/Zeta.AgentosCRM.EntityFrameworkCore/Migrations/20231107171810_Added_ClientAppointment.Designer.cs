@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231107171810_Added_ClientAppointment")]
+    partial class Added_ClientAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2033,9 +2036,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("PartnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PhoneCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -2054,8 +2054,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BranchId");
-
-                    b.HasIndex("PartnerId");
 
                     b.HasIndex("TenantId");
 
@@ -2219,9 +2217,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("PartnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PhoneCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -2243,8 +2238,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("PartnerId");
 
                     b.HasIndex("TenantId");
 
@@ -3887,15 +3880,7 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
-                        .WithMany()
-                        .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("BranchFk");
-
-                    b.Navigation("PartnerFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
@@ -3953,15 +3938,7 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
-                        .WithMany()
-                        .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CountryFk");
-
-                    b.Navigation("PartnerFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Countries.Country", b =>
