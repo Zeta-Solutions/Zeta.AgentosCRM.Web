@@ -32244,7 +32244,8 @@ textarea.form-control-lg {
     --kt-pagination-hover-bg: #F4F6FA;
     --kt-pagination-hover-border-color: transparent;
     --kt-pagination-active-color: #ffffff;
-    --kt-pagination-active-bg: #009ef7;
+    --kt-pagination-active-bg: #a4add8;
+    /*--kt-pagination-active-bg: #009ef7;*/
     --kt-pagination-active-border-color: transparent;
     --kt-pagination-disabled-color: #B5B5C3;
     --kt-pagination-disabled-bg: transparent;

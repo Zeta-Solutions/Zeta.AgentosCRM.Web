@@ -2,19 +2,8 @@
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Web.Controllers;
 using Abp.Application.Services.Dto;
-using Abp.AspNetCore.Mvc.Authorization;
-
-using Zeta.AgentosCRM.Authorization;
-using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup.Dtos;
-using Zeta.AgentosCRM.CRMSetup.FeeType;
-using Zeta.AgentosCRM.CRMSetup.FeeType.Dtos;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories;
-using Zeta.AgentosCRM.CRMSetup.Regions;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Regions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Zeta.AgentosCRM.CRMSetup.Regions.Dtos;
+using Abp.AspNetCore.Mvc.Authorization; 
+using Zeta.AgentosCRM.Authorization; 
 using Zeta.AgentosCRM.CRMSetup.InstallmentType;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.InstallmentType;
 using Zeta.AgentosCRM.CRMSetup.InstallmentType.Dtos;

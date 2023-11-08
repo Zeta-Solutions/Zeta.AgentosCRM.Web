@@ -1677,6 +1677,68 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Appointment.ClientAppointment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AppointmentTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ClientId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeZone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("ClientAppointments");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Client", b =>
                 {
                     b.Property<long>("Id")
@@ -1923,6 +1985,83 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("Followers");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Contact.PartnerContact", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Fax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("PartnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PhoneCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PrimaryContact")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("PartnerId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("PartnerContacts");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
                     b.Property<long>("Id")
@@ -2033,6 +2172,83 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasIndex("WorkflowId");
 
                     b.ToTable("Partners");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("PartnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PhoneCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("PartnerId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrency", b =>
@@ -3565,6 +3781,17 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Appointment.ClientAppointment", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMClient.Client", "ClientFk")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClientFk");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Client", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.Authorization.Users.User", "AssigneeFk")
@@ -3652,6 +3879,25 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("UserFk");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Contact.PartnerContact", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", "BranchFk")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BranchFk");
+
+                    b.Navigation("PartnerFk");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Partner", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
@@ -3697,6 +3943,25 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("ProfilePictureFk");
 
                     b.Navigation("WorkflowFk");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CountryFk");
+
+                    b.Navigation("PartnerFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Countries.Country", b =>

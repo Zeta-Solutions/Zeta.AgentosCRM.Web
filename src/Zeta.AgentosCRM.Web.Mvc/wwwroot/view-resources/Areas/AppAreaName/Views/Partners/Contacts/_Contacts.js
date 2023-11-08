@@ -182,7 +182,7 @@
                 });
         });
 
-        abp.event.on('app.createOrEditLeadSourceModalSaved', function () {
+        abp.event.on('app.createOrEditContactModalSaved', function () {
             getLeadSource();
         });
 

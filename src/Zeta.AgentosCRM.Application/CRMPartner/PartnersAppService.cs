@@ -171,6 +171,52 @@ namespace Zeta.AgentosCRM.CRMPartner
 
         }
 
+
+        public async Task<GetPartnerForViewDto> GetPartnerForView(long id)
+        {
+            var Partner = await _partnerRepository.GetAsync(id);
+
+            var output = new GetPartnerForViewDto { Partner = ObjectMapper.Map<PartnerDto>(Partner) };
+
+            if (output.Partner.ProfilePictureId != null)
+            {
+                var _lookupBinaryObject = await _lookup_binaryObjectRepository.FirstOrDefaultAsync((Guid)output.Partner.ProfilePictureId);
+                output.BinaryObjectDescription = _lookupBinaryObject?.Description?.ToString();
+            }
+
+            if (output.Partner.MasterCategoryId != null)
+            {
+                var _lookupMasterCategory = await _lookup_masterCategoryRepository.FirstOrDefaultAsync((int)output.Partner.MasterCategoryId);
+                output.MasterCategoryName = _lookupMasterCategory?.Name?.ToString();
+            }
+
+            if (output.Partner.PartnerTypeId != null)
+            {
+                var _lookupPartnerType = await _lookup_partnerTypeRepository.FirstOrDefaultAsync((int)output.Partner.PartnerTypeId);
+                output.PartnerTypeName = _lookupPartnerType?.Name?.ToString();
+            }
+
+            if (output.Partner.WorkflowId != null)
+            {
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.Partner.WorkflowId);
+                output.WorkflowName = _lookupWorkflow?.Name?.ToString();
+            }
+
+            if (output.Partner.CountryId != null)
+            {
+                var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Partner.CountryId);
+                output.CountryName = _lookupCountry?.Name?.ToString();
+            }
+
+            if (output.Partner.CurrencyId != null)
+            {
+                var _lookupCRMCurrency = await _lookup_crmCurrencyRepository.FirstOrDefaultAsync((int)output.Partner.CurrencyId);
+                output.CRMCurrencyName = _lookupCRMCurrency?.Name?.ToString();
+            }
+
+            return output;
+        }
+
         [AbpAuthorize(AppPermissions.Pages_Partners_Edit)]
         public async Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto<long> input)
         {

@@ -32,7 +32,7 @@
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditMasterTaskCategoryModalSaved');
+                    abp.event.trigger('app.createOrEditTaskCategoryModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);

@@ -16,11 +16,11 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DegreeLevel;
    }
 
 <abp-page-subheader title='@L("DegreeLevel")' description='@L("DegreeLevelHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_DegreeLevels_Create))
     {
-    <button id="CreateNewDegreeLevelButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewDegreeLevel")</button>
+    <button id="CreateNewDegreeLevelButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewDegreeLevel")</button>
     }
 </abp-page-subheader>
 
@@ -33,8 +33,8 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DegreeLevel;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="DegreeLevelsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetDegreeLevelButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="DegreeLevelsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetDegreeLevelButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -74,10 +74,10 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DegreeLevel;
                     <thead>
                         <tr>
                             <th></th>
-
-                            <th>@L("Actions")</th>
+                             
                             <th>@L("Abbrivation")</th>
                             <th>@L("Name")</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>

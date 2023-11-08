@@ -32,7 +32,7 @@
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditMasterCategoryModalSaved');
+            abp.event.trigger('app.createOrEditEmailModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);
