@@ -1,9 +1,9 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 
 @{
-    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.MasterCategories;
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.QuotationCurrency;
 }
 @section Scripts
 {
@@ -17,7 +17,7 @@
 <abp-page-subheader title='@L("QuotationCurrency")' description='@L("QuotationCurrencyHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_CRMSetup_MasterCategories_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMCurrencies_Create))
     {
         <button id="CreateNewQuotationCurrencyButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewQuotationCurrency")</button>
     }

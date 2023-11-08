@@ -271,7 +271,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                           )
                     ).AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.QuotationCurrency,
-                            L("QuotationCurrency"),
+                            L("Currency"),
                             url: "AppAreaName/QuotationCurrency",
                             icon: "flaticon-more"
                           )

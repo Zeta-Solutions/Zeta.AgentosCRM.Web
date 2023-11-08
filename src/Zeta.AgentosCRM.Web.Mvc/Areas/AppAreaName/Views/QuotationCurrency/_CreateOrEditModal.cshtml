@@ -1,26 +1,29 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories
-@* @model CreateOrEditMasterCategoryModalViewModel *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency
+@model CreateOrEditCRMCurrencyModalViewModel
 @using Abp.Extensions
-@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditQuotationCurrency")): L("CreateNewQuotationCurrency"))) *@
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewQuotationCurrency")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditQuotationCurrency")): L("CreateNewQuotationCurrency")))
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewQuotationCurrency"))) *@
 
 <div class="modal-body">
-    <div id="MasterCategoryInformationsTab">
-        <form name="MasterCategoryInformationsForm" role="form" novalidate class="form-validation">
+    <div id="CRMCurrencyInformationsTab">
+        <form name="CRMCurrencyInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.CRMCurrency.Id" />
 
+            }
 
-            <input type="hidden" name="id" value="1" />
-
+            
             <div class="my-3">
-                <label class="form-label" for="MasterCategory_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="MasterCategory_Abbrivation" value="Abbr" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinAbbrivationLength" />
+                <label class="form-label" for="CRMCurrency_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="CRMCurrency_Abbrivation" value="@Model.CRMCurrency.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrencyConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrencyConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="MasterCategory_Name">@L("Name")</label>
-                <input class="form-control" id="MasterCategory_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.MasterCategoryConsts.MinNameLength" />
+                <input class="form-control" id="MasterCategory_Name" value="@Model.CRMCurrency.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrencyConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrencyConsts.MinNameLength" />
             </div>
 
         </form>

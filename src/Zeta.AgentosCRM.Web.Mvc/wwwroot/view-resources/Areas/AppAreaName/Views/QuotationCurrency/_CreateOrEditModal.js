@@ -15,7 +15,7 @@
         format: 'L',
       });
 
-      _$masterCategoryInformationForm = _modalManager.getModal().find('form[name=MasterCategoryInformationsForm]');
+        _$masterCategoryInformationForm = _modalManager.getModal().find('form[name=CRMCurrencyInformationsForm]');
       _$masterCategoryInformationForm.validate();
     };
 
