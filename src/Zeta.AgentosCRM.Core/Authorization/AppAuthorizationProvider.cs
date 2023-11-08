@@ -30,6 +30,21 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var clientAppointments = pages.CreateChildPermission(AppPermissions.Pages_ClientAppointments, L("ClientAppointments"), multiTenancySides: MultiTenancySides.Tenant);
+            clientAppointments.CreateChildPermission(AppPermissions.Pages_ClientAppointments_Create, L("CreateNewClientAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+            clientAppointments.CreateChildPermission(AppPermissions.Pages_ClientAppointments_Edit, L("EditClientAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+            clientAppointments.CreateChildPermission(AppPermissions.Pages_ClientAppointments_Delete, L("DeleteClientAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var partnerContacts = pages.CreateChildPermission(AppPermissions.Pages_PartnerContacts, L("PartnerContacts"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContacts.CreateChildPermission(AppPermissions.Pages_PartnerContacts_Create, L("CreateNewPartnerContact"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContacts.CreateChildPermission(AppPermissions.Pages_PartnerContacts_Edit, L("EditPartnerContact"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContacts.CreateChildPermission(AppPermissions.Pages_PartnerContacts_Delete, L("DeletePartnerContact"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var branches = pages.CreateChildPermission(AppPermissions.Pages_Branches, L("Branches"), multiTenancySides: MultiTenancySides.Tenant);
+            branches.CreateChildPermission(AppPermissions.Pages_Branches_Create, L("CreateNewBranch"), multiTenancySides: MultiTenancySides.Tenant);
+            branches.CreateChildPermission(AppPermissions.Pages_Branches_Edit, L("EditBranch"), multiTenancySides: MultiTenancySides.Tenant);
+            branches.CreateChildPermission(AppPermissions.Pages_Branches_Delete, L("DeleteBranch"), multiTenancySides: MultiTenancySides.Tenant);
+
             var crmCurrencies = pages.CreateChildPermission(AppPermissions.Pages_CRMCurrencies, L("CRMCurrencies"), multiTenancySides: MultiTenancySides.Tenant);
             crmCurrencies.CreateChildPermission(AppPermissions.Pages_CRMCurrencies_Create, L("CreateNewCRMCurrency"), multiTenancySides: MultiTenancySides.Tenant);
             crmCurrencies.CreateChildPermission(AppPermissions.Pages_CRMCurrencies_Edit, L("EditCRMCurrency"), multiTenancySides: MultiTenancySides.Tenant);

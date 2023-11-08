@@ -1,4 +1,10 @@
-﻿using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
+﻿using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
+using Zeta.AgentosCRM.CRMClient.Appointment;
+using Zeta.AgentosCRM.CRMPartner.Contact.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Contact;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.CRMPartner;
@@ -74,6 +80,12 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditClientAppointmentDto, ClientAppointment>().ReverseMap();
+            configuration.CreateMap<ClientAppointmentDto, ClientAppointment>().ReverseMap();
+            configuration.CreateMap<CreateOrEditPartnerContactDto, PartnerContact>().ReverseMap();
+            configuration.CreateMap<PartnerContactDto, PartnerContact>().ReverseMap();
+            configuration.CreateMap<CreateOrEditBranchDto, CRMPartner.PartnerBranch.Branch>().ReverseMap();
+            configuration.CreateMap<BranchDto, CRMPartner.PartnerBranch.Branch>().ReverseMap();
             configuration.CreateMap<CreateOrEditCRMCurrencyDto, CRMSetup.CRMCurrency.CRMCurrency>().ReverseMap();
             configuration.CreateMap<CRMCurrencyDto, CRMSetup.CRMCurrency.CRMCurrency>().ReverseMap();
             configuration.CreateMap<CreateOrEditPartnerDto, Partner>().ReverseMap();

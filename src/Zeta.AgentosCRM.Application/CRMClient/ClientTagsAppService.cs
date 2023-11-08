@@ -1,6 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMClient;
-using Zeta.AgentosCRM.CRMSetup.Tag;
-
+﻿using Zeta.AgentosCRM.CRMSetup.Tag;
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -91,6 +89,29 @@ namespace Zeta.AgentosCRM.CRMClient
             );
 
         }
+
+
+        public async Task<GetClientTagForViewDto> GetClientTagForView(int id)
+        {
+            var clientTag = await _clientTagRepository.GetAsync(id);
+
+            var output = new GetClientTagForViewDto { ClientTag = ObjectMapper.Map<ClientTagDto>(clientTag) };
+
+            if (output.ClientTag.ClientId != null)
+            {
+                var _lookupClient = await _lookup_clientRepository.FirstOrDefaultAsync((long)output.ClientTag.ClientId);
+                output.ClientFirstName = _lookupClient?.FirstName?.ToString();
+            }
+
+            if (output.ClientTag.TagId != null)
+            {
+                var _lookupTag = await _lookup_tagRepository.FirstOrDefaultAsync((int)output.ClientTag.TagId);
+                output.TagName = _lookupTag?.Name?.ToString();
+            }
+
+            return output;
+        }
+
 
         [AbpAuthorize(AppPermissions.Pages_ClientTags_Edit)]
         public async Task<GetClientTagForEditOutput> GetClientTagForEdit(EntityDto input)
