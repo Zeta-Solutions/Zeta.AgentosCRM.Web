@@ -13,14 +13,10 @@
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
   }
-<abp-page-subheader title='@L("Agent")' description='@L("AgentHeaderInfo")'>
-    @* <button id="ExportToExcelButton" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
 
-    @* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
-    { *@
-        @* <button id="CreateNewFeeButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Add")</button> *@
-   @*  } *@
-    <a href="@Url.Action("AddAgentdetail", "Agents", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">@L("Add")</a>
+<abp-page-subheader title='@L("Agent")' description='@L("AgentsHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <a href="@Url.Action("AddAgentdetail", "Agents", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewAgent")</a>
 
 </abp-page-subheader>
 
@@ -33,8 +29,9 @@
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' />@*  value="@Model.FilterText"> *@
-                                <button id="GetMasterCategoriesButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+
+                                <input type="text" id="PartnersTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetClientsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -69,11 +66,11 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="FeeTypeTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                <div class="table-responsive">
+                <table id="FeeTypeTable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead">
                         <tr>
-                            <th></th>
-                            <th><input type="checkbox" /></th>
+                            <th class="align-middle" style="padding:4px"><input type="checkbox"></th>
                             @* <th>@L("Actions")</th> *@
                             <th>@L("Name")</th>
                             <th>@L("Type")</th>
@@ -88,11 +85,26 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
-                            <td><input type="checkbox" /></td> <!-- Dummy data, you can use a loop to generate multiple rows -->
-                            <td>
-                                <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">View</a>
-                            </td>
+                                <td class="align-middle" style="padding:4px"> <input type="checkbox"></td>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>AA</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Ahmad Ali
+                                            </a>
+                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">AhmadAli@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td> <!-- Dummy data, you can use a loop to generate multiple rows -->
                            @*  <td>
                                 <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })">PRO FUTURE</a><br />
                                 <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })">Profutureint.Applications@gmail.com</a>
@@ -106,11 +118,26 @@
                             <td>0</td>
                         </tr> 
                         <tr>
-                            <td></td>
-                            <td><input type="checkbox" /></td> <!-- Dummy data, you can use a loop to generate multiple rows -->
-                            <td>
-                                <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })" class="btn btn-sm btn-primary">View</a>
-                            </td>
+                                <td class="align-middle" style="padding:4px"> <input type="checkbox"></td>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                        <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>AZ</b>
+                                        </span>
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                AHMAD ZAFAR
+                                            </a>
+                                            <a href="@Url.Action("ClientEmailCompose", "Client", new { area = "AppAreaName" })" class="text-decoration-none">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="text-truncate">fryalKhalid@outlook.com</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </td>
                            @*  <td>
                                 <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })">PRO FUTURE</a><br />
                                 <a href="@Url.Action("ViewAgentMainFormModal", "Agents", new { area = "AppAreaName" })">Profutureint.Applications@gmail.com</a>
@@ -125,6 +152,19 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            </div>
+            <div class="row col-12 justify-content-end">
+                <div class="row col-9">
+                </div>
+                <div class="pagination col-3 ">
+                    <a href="#">&laquo;</a>
+                    <a href="#">1</a>
+                    <a class="active" href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">&raquo;</a>
+                </div>
             </div>
         </div>
     </div>

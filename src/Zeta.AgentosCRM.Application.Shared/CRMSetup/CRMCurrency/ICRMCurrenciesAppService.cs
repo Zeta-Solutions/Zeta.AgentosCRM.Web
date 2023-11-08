@@ -11,6 +11,8 @@ namespace Zeta.AgentosCRM.CRMSetup.CRMCurrency
     {
         Task<PagedResultDto<GetCRMCurrencyForViewDto>> GetAll(GetAllCRMCurrenciesInput input);
 
+        Task<GetCRMCurrencyForViewDto> GetCRMCurrencyForView(int id);
+
         Task<GetCRMCurrencyForEditOutput> GetCRMCurrencyForEdit(EntityDto input);
 
         Task CreateOrEdit(CreateOrEditCRMCurrencyDto input);

@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="CRMCurrency">C r m currency</text>
+	<texts>    <text name="Appointment">Appointment</text>
+    <text name="ClientAppointment">Client appointment</text>
+    <text name="CreateNewClientAppointment">Create new client appointment</text>
+    <text name="EditClientAppointment">Edit client appointment</text>
+    <text name="DeleteClientAppointment">Delete client appointment</text>
+    <text name="Contact">Contact</text>
+    <text name="PartnerContact">Partner contact</text>
+    <text name="CreateNewPartnerContact">Create new partner contact</text>
+    <text name="EditPartnerContact">Edit partner contact</text>
+    <text name="DeletePartnerContact">Delete partner contact</text>
+    <text name="Branch">Branch</text>
+    <text name="EditBranch">Edit branch</text>
+    <text name="DeleteBranch">Delete branch</text>
+    <text name="CRMCurrency">C r m currency</text>
     <text name="CreateNewCRMCurrency">Create new c r m currency</text>
     <text name="EditCRMCurrency">Edit c r m currency</text>
     <text name="DeleteCRMCurrency">Delete c r m currency</text>

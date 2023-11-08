@@ -1,4 +1,7 @@
-﻿using Zeta.AgentosCRM.CRMPartner;
+﻿using Zeta.AgentosCRM.CRMClient.Appointment;
+using Zeta.AgentosCRM.CRMPartner.Contact;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMClient;
 using System;
 using System.Linq;
@@ -19,6 +22,9 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ClientAppointment),
+            typeof(PartnerContact),
+            typeof(Branch),
             typeof(Partner),
             typeof(ClientTag),
             typeof(Follower),

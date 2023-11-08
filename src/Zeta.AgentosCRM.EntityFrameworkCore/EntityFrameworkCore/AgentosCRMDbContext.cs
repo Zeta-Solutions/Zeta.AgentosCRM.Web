@@ -1,4 +1,7 @@
-﻿using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
+﻿using Zeta.AgentosCRM.CRMClient.Appointment;
+using Zeta.AgentosCRM.CRMPartner.Contact;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup.Countries;
@@ -29,6 +32,12 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ClientAppointment> ClientAppointments { get; set; }
+
+        public virtual DbSet<PartnerContact> PartnerContacts { get; set; }
+
+        public virtual DbSet<CRMPartner.PartnerBranch.Branch> Branches { get; set; }
+
         public virtual DbSet<CRMSetup.CRMCurrency.CRMCurrency> CRMCurrencies { get; set; }
 
         public virtual DbSet<Partner> Partners { get; set; }
@@ -103,10 +112,26 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Partner>(p =>
+            modelBuilder.Entity<PartnerContact>(p =>
             {
                 p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ClientAppointment>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerContact>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Branch>(b =>
+                       {
+                           b.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Partner>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Client>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });
