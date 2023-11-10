@@ -14,9 +14,9 @@
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Products/_Products.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Branches/_Branches.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Branches/Branches.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Contacts/_Contacts.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Contacts/Contacts.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Appointments/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Tasks/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/_Promotions.js" asp-append-version="true"></script>
@@ -117,7 +117,7 @@
                                 <p class="text-muted"> @Model.Partner.Email</p>
                             </div>
                             <div class="col-lg-12">
-                                <input type="hidden"/>
+                                <input type="hidden" value="@Model.Partner.Id" id="PartnerId"/>
                             </div>
                             <div class="col-lg-12"><input type="hidden" /></div>
                             <div class="col-lg-12"><input type="hidden" /></div>
@@ -207,7 +207,7 @@
           ml-3 pl-2
         ">
                         <li class="nav-item active">
-                            <a href="#ApplicationsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            <a href="#ApplicationsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active"aria-selected="true">
                                 @L("Application")
                             </a>
                         </li>
@@ -288,7 +288,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="BranchesTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Branches/_Branches.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Branches/Branches.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-3 mb-7" id="AgreementsTab" role="tabpanel">
@@ -298,7 +298,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="ContactsTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Contacts/_Contacts.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Contacts/Contacts.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-3 mb-7" id="NotesTermsTab" role="tabpanel">

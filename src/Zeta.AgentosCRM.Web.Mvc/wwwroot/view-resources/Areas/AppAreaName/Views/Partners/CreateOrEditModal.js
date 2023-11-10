@@ -1,5 +1,6 @@
 ﻿(function () {
     $(function () {
+        debugger
         $('#masterCategoryId').select2();
         $('#partnerTypeId').select2();
         $('#workflowId').select2();
@@ -71,6 +72,13 @@
         // on keyup / change flag: reset
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
+    
+        var titleValue = $(".iti__selected-flag").attr("title");
+
+        // Save the title value to a field (e.g., an input field with the ID "myField")
+        $("#PhoneCode").val(titleValue);
+
+
         var _partnersService = abp.services.app.partners;
 
         var _$partnerInformationForm = $('form[name=PartnerInformationsForm]');

@@ -3,19 +3,38 @@
 
         $('input[type="radio"]').change(function () {
             if (this.value === "option1") {
-                // Show fields for option1
-                $("#field1").show();
-                // Hide the label and field for option2
-                $("#field2 label, #field2 input").hide();
-                $("#field3 label, #field3 input").hide();
-                $("#field1").show();
+                document.getElementById("field1").style.display = 'block';
+                document.getElementById("field2").style.display = 'none';
+                document.getElementById("field3").style.display = 'none';
+                document.getElementById("field4").style.display = 'none';
+                document.getElementById("field5").style.display = 'none';
+                //$("#field1").show();
             } else if (this.value === "option2") {
                 // Hide the label and field for option1
-                $("#field1 label, #field1 input").hide();
+                //$("#field1 label, #field1 input").hide();
+                document.getElementById("field1").style.display = 'none';
+                document.getElementById("field2").style.display = 'block';
+                document.getElementById("field3").style.display = 'block';
+                document.getElementById("field4").style.display = 'block';
+                document.getElementById("field5").style.display = 'block';
                 // Show the label and field for option2
-                $("#field2 label, #field2 input").show();
+               // $("#field2 label, #field2 input").show();
             }
         });
+        //var Agent = $("#ddlLeadSource option:selected").text();
+        //var ddlAgent = document.getElementById('ddlAgent');
+        //var agentContainer = document.getElementById('agentContainer');
+        //var agentLabel = document.getElementById('agentLabel');
+        //if (Agent == "Agent") {
+        //    agentContainer.style.display = 'block';
+        //    ddlAgent.style.display = 'block';
+        //    LoadAgents();
+        //} else {
+        //    $("#ddlAgent").empty();
+        //    agentContainer.style.display = 'none';
+        //    ddlAgent.style.display = 'none';
+
+        //}
       var _$FeeTypeTable = $('#FeeTypeTable');
     //var _masterCategoriesService = abp.services.app.masterCategories;
       var _feeTypesService = abp.services.app.feeTypes;

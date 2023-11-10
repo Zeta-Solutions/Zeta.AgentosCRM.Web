@@ -51,7 +51,10 @@
       <form name="PartnerInformationsForm" role="form" novalidate class="form-validation">
     <div class="card-body ">
          <div id="PartnerInformationsTab">   
-
+             @if (Model.IsEditMode)
+                            {
+                                <input type="hidden" name="id" value="@Model.Partner.Id" />
+                            }
         
          <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
 
@@ -162,7 +165,7 @@
                                                     </div>
                                                     <div class="my-3 col-4">
                                                                     <label for="State" class="form-label"> @L("State")</label>
-                                                        <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State" value="@Model.Partner.State">
+                                                                    <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State" value="@Model.Partner.State">
                                                     </div>
                                                     <div class="my-3 col-4">
                                                                     <label for="Zip" class="form-label">@L("ZipCode")</label>
@@ -205,6 +208,7 @@
                                                       
                                             <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
                                                                     <label for="Phone" class="form-label">@L("Phone")</label>
+                                                                    <input type="hidden" value="@Model.Partner.PhoneCode" id="PhoneCode" name="PhoneCode" />
                                                  <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Partner.PhoneNo">
                                                         <span id="valid-msg" class="hide">✓ Valid</span>
                                                         <span id="error-msg" class="hide"></span>

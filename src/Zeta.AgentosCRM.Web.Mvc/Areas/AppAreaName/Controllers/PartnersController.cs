@@ -5,8 +5,13 @@ using System;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMPartner;
+using Zeta.AgentosCRM.CRMPartner.Contact;
+using Zeta.AgentosCRM.CRMPartner.Contact.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
 using Zeta.AgentosCRM.Web.Controllers;
 
@@ -17,10 +22,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
     public class PartnersController : AgentosCRMControllerBase
     {
         private readonly IPartnersAppService _partnersAppService;
-        public PartnersController(IPartnersAppService partnersAppService)
+        private readonly IBranchesAppService _branchsAppService;
+        private readonly IPartnerContactsAppService _partnerContactsAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService)
         {
             _partnersAppService = partnersAppService;
+            _branchsAppService = branchsAppService;
+            _partnerContactsAppService = partnerContactsAppService;
         }
+      
         public IActionResult Index()
         {
             var model= new PartnersViewModel
@@ -56,11 +66,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("Products/_CreateOrEditModal", "");
         }
-        public ActionResult CreateOrEditBranchesModal(int? id)
-        {
 
-            return PartialView("Branches/_CreateOrEditModal", "");
-        }
         public ActionResult ViewApplicationDetails()
         {
 
@@ -73,12 +79,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("ComposeEmail/_CreateOrEditModal", "");
 
         } 
-        public ActionResult CreateOrEditContactslModal()
-        {
 
-            return PartialView("Contacts/_CreateOrEditModal", "");
-
-        }
         public ActionResult CreateOrEditApponitmentlModal()
         {
 
@@ -205,5 +206,86 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
+
+        public async Task<ActionResult> Branches(int id)
+        {
+            var getBranchForViewDto = await _branchsAppService.GetBranchForView(id);
+            var model = new BranchViewModel()
+            {
+                Branch = getBranchForViewDto.Branch
+               ,
+                CountryName = getBranchForViewDto.CountryName
+
+            };
+
+            return View("Branches/Branches", model);
+        }
+
+        public async Task<PartialViewResult> CreateOrEditBranchesModal(long? id)
+        {
+            GetBranchForEditOutput getBranchForEditOutput;
+            if (id.HasValue)
+            {
+                getBranchForEditOutput = await _branchsAppService.GetBranchForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getBranchForEditOutput = new GetBranchForEditOutput
+                {
+                    Branch = new CreateOrEditBranchDto()
+                };
+            }
+                var viewModel = new CreateOrEditBranchModalViewModel()
+                {
+                    Branch=getBranchForEditOutput.Branch, 
+                    CountryName = getBranchForEditOutput.CountryName,
+                    //PartnerId= partnerId,
+                    BranchCountryList = await _branchsAppService.GetAllCountryForTableDropdown(),
+
+                };
+            
+            return PartialView("Branches/_CreateOrEditBranchesModal", viewModel);
+        }
+     
+        public async Task<PartialViewResult> CreateOrEditContactslModal(long? id)
+        {
+            GetPartnerContactForEditOutput getPartnerContactForEditOutput;
+            if (id.HasValue)
+            {
+                getPartnerContactForEditOutput = await _partnerContactsAppService.GetPartnerContactForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getPartnerContactForEditOutput = new GetPartnerContactForEditOutput
+                {
+                    PartnerContact = new CreateOrEditPartnerContactDto()
+                };
+            }
+            var viewModel = new CreateOrEditPartnerContactModalViewModel()
+            {
+                PartnerContact = getPartnerContactForEditOutput.PartnerContact,
+                BranchName = getPartnerContactForEditOutput.BranchName,
+                //PartnerId= partnerId,
+                PartnerContactBranchList = await _partnerContactsAppService.GetAllBranchForTableDropdown(),
+
+            };
+            return PartialView("Contacts/_CreateOrEditModal", viewModel);
+
+        }
+        public async Task<ActionResult> Contacts(int id)
+        {
+            var getPartnerContactForViewDto = await _partnerContactsAppService.GetPartnerContactForView(id);
+            var model = new PartnerContactViewModel()
+            {
+                PartnerContact = getPartnerContactForViewDto.PartnerContact
+               ,
+                BranchName = getPartnerContactForViewDto.BranchName
+
+            };
+
+            return View("Contacts/Contacts", model);
+        }
+
+
     }
 }

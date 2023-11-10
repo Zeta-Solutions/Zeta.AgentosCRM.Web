@@ -49,7 +49,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Contact
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PositionFilter), e => e.Position.Contains(input.PositionFilter))
                         .WhereIf(input.PrimaryContactFilter.HasValue && input.PrimaryContactFilter > -1, e => (input.PrimaryContactFilter == 1 && e.PrimaryContact) || (input.PrimaryContactFilter == 0 && !e.PrimaryContact))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
+                        .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
 
             var pagedAndFilteredPartnerContacts = filteredPartnerContacts
                 .OrderBy(input.Sorting ?? "id asc")
