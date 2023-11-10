@@ -17,7 +17,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
 
     @if (IsGranted(AppPermissions.Pages_WorkflowSteps_Create))
     {
-    <button id="CreateNewWorkflowStepButton" class="btn btn-white btn-outline btn-sm"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
+    <button id="CreateNewWorkflowStepButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
     }
 </abp-page-subheader>
 
@@ -30,8 +30,8 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="WorkflowStepsTableFilter" class="form-control reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
-                                <button id="GetWorkflowStepsButton" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="text" id="WorkflowStepsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                <button id="GetWorkflowStepsButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -86,12 +86,12 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
                     <thead>
                         <tr>
                             <th></th>
-
-                            <th>@L("Actions")</th>
+                             
                             <th>@L("SrlNo")</th>
                             <th>@L("Abbrivation")</th>
                             <th>@L("Name")</th>
                             <th>@L("WorkflowName")</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
