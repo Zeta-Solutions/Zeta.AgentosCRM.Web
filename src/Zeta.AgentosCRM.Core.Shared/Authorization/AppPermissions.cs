@@ -6,6 +6,31 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_PartnerContracts = "Pages.PartnerContracts";
+        public const string Pages_PartnerContracts_Create = "Pages.PartnerContracts.Create";
+        public const string Pages_PartnerContracts_Edit = "Pages.PartnerContracts.Edit";
+        public const string Pages_PartnerContracts_Delete = "Pages.PartnerContracts.Delete";
+
+        public const string Pages_Notes = "Pages.Notes";
+        public const string Pages_Notes_Create = "Pages.Notes.Create";
+        public const string Pages_Notes_Edit = "Pages.Notes.Edit";
+        public const string Pages_Notes_Delete = "Pages.Notes.Delete";
+
+        public const string Pages_Agents = "Pages.Agents";
+        public const string Pages_Agents_Create = "Pages.Agents.Create";
+        public const string Pages_Agents_Edit = "Pages.Agents.Edit";
+        public const string Pages_Agents_Delete = "Pages.Agents.Delete";
+
+        public const string Pages_TestAattachments = "Pages.TestAattachments";
+        public const string Pages_TestAattachments_Create = "Pages.TestAattachments.Create";
+        public const string Pages_TestAattachments_Edit = "Pages.TestAattachments.Edit";
+        public const string Pages_TestAattachments_Delete = "Pages.TestAattachments.Delete";
+
+        public const string Pages_PartnerPromotions = "Pages.PartnerPromotions";
+        public const string Pages_PartnerPromotions_Create = "Pages.PartnerPromotions.Create";
+        public const string Pages_PartnerPromotions_Edit = "Pages.PartnerPromotions.Edit";
+        public const string Pages_PartnerPromotions_Delete = "Pages.PartnerPromotions.Delete";
+
         public const string Pages_ClientAppointments = "Pages.ClientAppointments";
         public const string Pages_ClientAppointments_Create = "Pages.ClientAppointments.Create";
         public const string Pages_ClientAppointments_Edit = "Pages.ClientAppointments.Edit";

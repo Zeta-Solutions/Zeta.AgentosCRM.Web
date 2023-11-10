@@ -1,0 +1,55 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.TestAattachments
+@model CreateOrEditTestAattachmentModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTestAattachment")) : L("CreateNewTestAattachment")))
+
+<div class="modal-body">
+        <div id="TestAattachmentInformationsTab">
+            <form name="TestAattachmentInformationsForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="id" value="@Model.TestAattachment.Id" />
+                }
+
+				
+                
+				
+                
+								<div class="my-3">
+									<label class="form-label" for="TestAattachment_Description">@L("Description")</label>
+									<input class="form-control" id="TestAattachment_Description" value="@Model.TestAattachment.Description" type="text" name="description"  required    />
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" id="inputGroupFileAddon01">@L("Attachment")</label>
+									<input type="file" class="form-control" name="TestAattachment_Attachment" id="TestAattachment_Attachment"
+											aria-describedby="inputGroupFileAddon01"
+											accept="@Model.AttachmentFileAcceptedTypes"/>                    
+									                                    
+                                    <div id="div_current_file" style="background-color: #e5e5e5; padding: 5px @(Model.AttachmentFileName.IsNullOrEmpty()?";display:none":"")">
+                                        <span class="font-weight-bold">@L("CurrentFile") :</span>
+                                        <div class="alert alert-custom alert-white alert-bold m-1" role="alert">
+                                            <div class="alert-text">
+                                                <a href="@("/File/DownloadBinaryFile?id=" + Model.TestAattachment.Attachment)" target="_blank">@Model.AttachmentFileName</a>
+                                            </div>
+                                            <div class="alert-close">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="TestAattachment_Attachment_Remove">
+                                                    <span aria-hidden="true">
+                                                        <i class="la la-close fa-1x"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>									
+								</div>
+					
+
+            </form>
+        </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

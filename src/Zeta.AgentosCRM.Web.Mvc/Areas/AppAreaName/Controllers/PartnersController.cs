@@ -197,9 +197,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
                 ,
                 CountryName = getPartnerForViewDto.CountryName
-
-                ,
-                CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
+                 
 
             };
 

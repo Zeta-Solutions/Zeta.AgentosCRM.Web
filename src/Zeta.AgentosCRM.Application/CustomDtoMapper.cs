@@ -1,4 +1,14 @@
-﻿using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
+﻿using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Contract;
+using Zeta.AgentosCRM.CRMNotes.Dtos;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.CRMAgent.Dtos;
+using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.AttachmentTest.Dtos;
+using Zeta.AgentosCRM.AttachmentTest;
+using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
 using Zeta.AgentosCRM.CRMClient.Appointment;
 using Zeta.AgentosCRM.CRMPartner.Contact.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Contact;
@@ -80,6 +90,16 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPartnerContractDto, PartnerContract>().ReverseMap();
+            configuration.CreateMap<PartnerContractDto, PartnerContract>().ReverseMap();
+            configuration.CreateMap<CreateOrEditNoteDto, Note>().ReverseMap();
+            configuration.CreateMap<NoteDto, Note>().ReverseMap();
+            configuration.CreateMap<CreateOrEditAgentDto, Agent>().ReverseMap();
+            configuration.CreateMap<AgentDto, Agent>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTestAattachmentDto, TestAattachment>().ReverseMap();
+            configuration.CreateMap<TestAattachmentDto, TestAattachment>().ReverseMap();
+            configuration.CreateMap<CreateOrEditPartnerPromotionDto, PartnerPromotion>().ReverseMap();
+            configuration.CreateMap<PartnerPromotionDto, PartnerPromotion>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientAppointmentDto, ClientAppointment>().ReverseMap();
             configuration.CreateMap<ClientAppointmentDto, ClientAppointment>().ReverseMap();
             configuration.CreateMap<CreateOrEditPartnerContactDto, PartnerContact>().ReverseMap();
