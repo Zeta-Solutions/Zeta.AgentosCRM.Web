@@ -1,4 +1,9 @@
-﻿using Zeta.AgentosCRM.CRMClient.Appointment;
+﻿using Zeta.AgentosCRM.CRMPartner.Contract;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.AttachmentTest;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMClient.Appointment;
 using Zeta.AgentosCRM.CRMPartner.Contact;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
@@ -32,6 +37,16 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<PartnerContract> PartnerContracts { get; set; }
+
+        public virtual DbSet<Note> Notes { get; set; }
+
+        public virtual DbSet<Agent> Agents { get; set; }
+
+        public virtual DbSet<TestAattachment> TestAattachments { get; set; }
+
+        public virtual DbSet<PartnerPromotion> PartnerPromotions { get; set; }
+
         public virtual DbSet<ClientAppointment> ClientAppointments { get; set; }
 
         public virtual DbSet<PartnerContact> PartnerContacts { get; set; }
@@ -112,10 +127,26 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PartnerContact>(p =>
+            modelBuilder.Entity<PartnerContract>(p =>
             {
                 p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Note>(n =>
+                       {
+                           n.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Agent>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerPromotion>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerContact>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ClientAppointment>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

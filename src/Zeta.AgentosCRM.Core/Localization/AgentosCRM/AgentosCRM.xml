@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="Appointment">Appointment</text>
+	<texts>    <text name="Contract">Contract</text>
+    <text name="PartnerContract">Partner contract</text>
+    <text name="CreateNewPartnerContract">Create new partner contract</text>
+    <text name="EditPartnerContract">Edit partner contract</text>
+    <text name="DeletePartnerContract">Delete partner contract</text>
+    <text name="CRMNotes">C r m notes</text>
+    <text name="CreateNewNote">Create new note</text>
+    <text name="EditNote">Edit note</text>
+    <text name="DeleteNote">Delete note</text>
+    <text name="CRMAgent">C r m agent</text>
+    <text name="CreateNewAgent">Create new agent</text>
+    <text name="EditAgent">Edit agent</text>
+    <text name="DeleteAgent">Delete agent</text>
+    <text name="AttachmentTest">Attachment test</text>
+    <text name="TestAattachment">Test aattachment</text>
+    <text name="Zeta.AgentosCRM.AttachmentTest.TestAattachment">TestAattachment</text>
+    <text name="Attachment">Attachment</text>
+    <text name="TestAattachmentsHeaderInfo">Test aattachments header info</text>
+    <text name="CreateNewTestAattachment">Create new test aattachment</text>
+    <text name="EditTestAattachment">Edit test aattachment</text>
+    <text name="DeleteTestAattachment">Delete test aattachment</text>
+    <text name="TestAattachments">Test aattachments</text>
+    <text name="Promotion">Promotion</text>
+    <text name="PartnerPromotion">Partner promotion</text>
+    <text name="CreateNewPartnerPromotion">Create new partner promotion</text>
+    <text name="EditPartnerPromotion">Edit partner promotion</text>
+    <text name="DeletePartnerPromotion">Delete partner promotion</text>
+    <text name="Appointment">Appointment</text>
     <text name="ClientAppointment">Client appointment</text>
     <text name="CreateNewClientAppointment">Create new client appointment</text>
     <text name="EditClientAppointment">Edit client appointment</text>
