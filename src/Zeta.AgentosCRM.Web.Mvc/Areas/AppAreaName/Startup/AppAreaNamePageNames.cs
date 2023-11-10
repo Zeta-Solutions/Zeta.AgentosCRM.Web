@@ -22,6 +22,7 @@
 
         public static class Host
         {
+            public const string TestAattachments = "AttachmentTest.TestAattachments";
             public const string Tenants = "Tenants";
             public const string Editions = "Editions";
             public const string Maintenance = "Administration.Maintenance";
