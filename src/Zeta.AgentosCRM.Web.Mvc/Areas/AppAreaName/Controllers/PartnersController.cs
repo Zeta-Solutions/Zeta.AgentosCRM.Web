@@ -88,7 +88,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult CreateOrEditTasksModal()
         {
 
-            return PartialView("Tasks/_CreateOrEditModal", "");
+            return PartialView("CRMTasks/_CreateOrEditModal", "");
 
         }
         public ActionResult CreateOrEditPromotionsModal()
