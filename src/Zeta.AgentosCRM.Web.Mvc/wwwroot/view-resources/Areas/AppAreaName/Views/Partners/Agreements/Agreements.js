@@ -5,7 +5,7 @@
 
 
         var globalData; // Declare the data variable in a broader scope
-
+        getagreementsreload(dynamicValue)
         function createCard(item) {
             var branch = item.branch;
 
@@ -70,8 +70,8 @@
             debugger
 
 
-            var branchesAjax = $.ajax({
-                url: abp.appPath + 'api/services/app/Branches/GetAll',
+            var PartnerContractsAjax = $.ajax({
+                url: abp.appPath + 'api/services/app/PartnerContracts/GetAll',
                 data: {
                     PartnerIdFilter: dynamicValue,
                 },
@@ -80,36 +80,22 @@
             })
                 .done(function (data) {
                     console.log('Response from server:', data);
-                    globalData = data; // Assign data to the global variable
-                    processData(); // Call processData function after data is available
+                    globalData = data; 
+                    processData(data); 
                 })
                 .fail(function (error) {
                     console.error('Error fetching data:', error);
                 });
         }
-        function processData() {
-            var cardContainer = $('#cardContainer'); // or replace '#container' with your actual container selector
+        function processData(data) {
+            debugger
+            var dateValue = data.date;
 
-            // Check if globalData.result.items is an array before attempting to iterate
-            if (Array.isArray(globalData.result.items)) {
-                // Iterate through items and create cards
-                for (var i = 0; i < globalData.result.items.length; i += 3) {
-                    var rowDiv = $('<div>').addClass('row mt-3');
+            // Select the <p> element with the class "text-muted date"
+            var paragraphElement = document.querySelector('.date');
 
-                    for (var j = 0; j < 3 && (i + j) < globalData.result.items.length; j++) {
-                        var item = globalData.result.items[i + j];
-                        var card = createCard(item);
-
-                        var colDiv = $('<div>').addClass('col-md-4'); // Set the column size to 4 for three columns in a row
-                        colDiv.append(card);
-                        rowDiv.append(colDiv);
-                    }
-
-                    cardContainer.append(rowDiv);
-                }
-            } else {
-                console.error('globalData.result.items is not an array:', globalData.result.items);
-            }
+            // Update the text content of the <p> element with the 'date' value
+            paragraphElement.textContent = dateValue;
         }
         function clearMainDiv() {
             // Assuming main div has an id 'mainDiv', replace it with your actual id if needed
