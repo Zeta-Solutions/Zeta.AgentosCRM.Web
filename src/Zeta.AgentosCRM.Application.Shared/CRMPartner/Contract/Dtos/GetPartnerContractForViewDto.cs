@@ -8,5 +8,7 @@
 
         public string RegionName { get; set; }
 
+        public string PartnerPartnerName { get; set; }
+
     }
 }

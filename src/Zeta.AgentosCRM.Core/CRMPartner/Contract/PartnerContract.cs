@@ -29,5 +29,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
         [ForeignKey("RegionId")]
         public Region RegionFk { get; set; }
 
+        public virtual long PartnerId { get; set; }
+
+        [ForeignKey("PartnerId")]
+        public Partner PartnerFk { get; set; }
+
     }
 }
