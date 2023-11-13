@@ -33,7 +33,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
-        //public override async Task<>
+        //public override async CRMTask<>
 
         [AbpMvcAuthorize(AppPermissions.Pages_Workflows_Create, AppPermissions.Pages_Workflows_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
