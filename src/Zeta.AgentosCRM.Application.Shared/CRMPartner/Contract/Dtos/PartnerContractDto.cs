@@ -13,5 +13,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract.Dtos
 
         public int RegionId { get; set; }
 
+        public long PartnerId { get; set; }
+
     }
 }
