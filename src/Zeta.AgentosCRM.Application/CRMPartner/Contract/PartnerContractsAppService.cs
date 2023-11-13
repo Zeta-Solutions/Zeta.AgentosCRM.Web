@@ -26,13 +26,14 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
         private readonly IRepository<PartnerContract> _partnerContractRepository;
         private readonly IRepository<Agent, long> _lookup_agentRepository;
         private readonly IRepository<Region, int> _lookup_regionRepository;
+        private readonly IRepository<Partner, long> _lookup_partnerRepository;
 
-        public PartnerContractsAppService(IRepository<PartnerContract> partnerContractRepository, IRepository<Agent, long> lookup_agentRepository, IRepository<Region, int> lookup_regionRepository)
+        public PartnerContractsAppService(IRepository<PartnerContract> partnerContractRepository, IRepository<Agent, long> lookup_agentRepository, IRepository<Region, int> lookup_regionRepository, IRepository<Partner, long> lookup_partnerRepository)
         {
             _partnerContractRepository = partnerContractRepository;
             _lookup_agentRepository = lookup_agentRepository;
             _lookup_regionRepository = lookup_regionRepository;
-
+            _lookup_partnerRepository = lookup_partnerRepository;
         }
 
         public async Task<PagedResultDto<GetPartnerContractForViewDto>> GetAll(GetAllPartnerContractsInput input)
@@ -41,13 +42,15 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
             var filteredPartnerContracts = _partnerContractRepository.GetAll()
                         .Include(e => e.AgentFk)
                         .Include(e => e.RegionFk)
+                        .Include(e => e.PartnerFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false)
                         .WhereIf(input.MinContractExpiryDateFilter != null, e => e.ContractExpiryDate >= input.MinContractExpiryDateFilter)
                         .WhereIf(input.MaxContractExpiryDateFilter != null, e => e.ContractExpiryDate <= input.MaxContractExpiryDateFilter)
                         .WhereIf(input.MinCommissionPerFilter != null, e => e.CommissionPer >= input.MinCommissionPerFilter)
                         .WhereIf(input.MaxCommissionPerFilter != null, e => e.CommissionPer <= input.MaxCommissionPerFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AgentNameFilter), e => e.AgentFk != null && e.AgentFk.Name == input.AgentNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.RegionNameFilter), e => e.RegionFk != null && e.RegionFk.Name == input.RegionNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.RegionNameFilter), e => e.RegionFk != null && e.RegionFk.Name == input.RegionNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter);
 
             var pagedAndFilteredPartnerContracts = filteredPartnerContracts
                 .OrderBy(input.Sorting ?? "id asc")
@@ -60,6 +63,9 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                                    join o2 in _lookup_regionRepository.GetAll() on o.RegionId equals o2.Id into j2
                                    from s2 in j2.DefaultIfEmpty()
 
+                                   join o3 in _lookup_partnerRepository.GetAll() on o.PartnerId equals o3.Id into j3
+                                   from s3 in j3.DefaultIfEmpty()
+
                                    select new
                                    {
 
@@ -67,7 +73,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                                        o.CommissionPer,
                                        Id = o.Id,
                                        AgentName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
-                                       RegionName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
+                                       RegionName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                                       PartnerPartnerName = s3 == null || s3.PartnerName == null ? "" : s3.PartnerName.ToString()
                                    };
 
             var totalCount = await filteredPartnerContracts.CountAsync();
@@ -87,7 +94,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                         Id = o.Id,
                     },
                     AgentName = o.AgentName,
-                    RegionName = o.RegionName
+                    RegionName = o.RegionName,
+                    PartnerPartnerName = o.PartnerPartnerName
                 };
 
                 results.Add(res);
@@ -118,6 +126,12 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                 output.RegionName = _lookupRegion?.Name?.ToString();
             }
 
+            if (output.PartnerContract.PartnerId != null)
+            {
+                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.PartnerContract.PartnerId);
+                output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
+            }
+
             return output;
         }
 
@@ -138,6 +152,12 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
             {
                 var _lookupRegion = await _lookup_regionRepository.FirstOrDefaultAsync((int)output.PartnerContract.RegionId);
                 output.RegionName = _lookupRegion?.Name?.ToString();
+            }
+
+            if (output.PartnerContract.PartnerId != null)
+            {
+                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.PartnerContract.PartnerId);
+                output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
             }
 
             return output;
@@ -201,6 +221,17 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                 {
                     Id = region.Id,
                     DisplayName = region == null || region.Name == null ? "" : region.Name.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_PartnerContracts)]
+        public async Task<List<PartnerContractPartnerLookupTableDto>> GetAllPartnerForTableDropdown()
+        {
+            return await _lookup_partnerRepository.GetAll()
+                .Select(partner => new PartnerContractPartnerLookupTableDto
+                {
+                    Id = partner.Id,
+                    DisplayName = partner == null || partner.PartnerName == null ? "" : partner.PartnerName.ToString()
                 }).ToListAsync();
         }
 
