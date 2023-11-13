@@ -1,4 +1,20 @@
-﻿using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
+﻿using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
+using Zeta.AgentosCRM.CRMClient.InterstedServices;
+using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMAppointments.Dtos;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.TaskManagement.Dtos;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.CRMApplications.Stages.Dtos;
+using Zeta.AgentosCRM.CRMApplications.Stages;
+using Zeta.AgentosCRM.CRMApplications.Dtos;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMProducts.Dtos;
+using Zeta.AgentosCRM.CRMProducts;
+using Zeta.AgentosCRM.CRMClient.Education.Dtos;
+using Zeta.AgentosCRM.CRMClient.Education;
+using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Contract;
 using Zeta.AgentosCRM.CRMNotes.Dtos;
 using Zeta.AgentosCRM.CRMNotes;
@@ -90,6 +106,22 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
+            configuration.CreateMap<ClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
+            configuration.CreateMap<CreateOrEditAppointmentInviteeDto, AppointmentInvitee>().ReverseMap();
+            configuration.CreateMap<AppointmentInviteeDto, AppointmentInvitee>().ReverseMap();
+            configuration.CreateMap<CreateOrEditAppointmentDto, Appointment>().ReverseMap();
+            configuration.CreateMap<AppointmentDto, Appointment>().ReverseMap();
+            configuration.CreateMap<CreateOrEditCRMTaskDto, CRMTask>().ReverseMap();
+            configuration.CreateMap<CRMTaskDto, CRMTask>().ReverseMap();
+            configuration.CreateMap<CreateOrEditApplicationStageDto, ApplicationStage>().ReverseMap();
+            configuration.CreateMap<ApplicationStageDto, ApplicationStage>().ReverseMap();
+            configuration.CreateMap<CreateOrEditApplicationDto, Application>().ReverseMap();
+            configuration.CreateMap<ApplicationDto, Application>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductDto, Product>().ReverseMap();
+            configuration.CreateMap<ProductDto, Product>().ReverseMap();
+            configuration.CreateMap<CreateOrEditClientEducationDto, ClientEducation>().ReverseMap();
+            configuration.CreateMap<ClientEducationDto, ClientEducation>().ReverseMap();
             configuration.CreateMap<CreateOrEditPartnerContractDto, PartnerContract>().ReverseMap();
             configuration.CreateMap<PartnerContractDto, PartnerContract>().ReverseMap();
             configuration.CreateMap<CreateOrEditNoteDto, Note>().ReverseMap();

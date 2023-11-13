@@ -1,4 +1,12 @@
-﻿using Zeta.AgentosCRM.CRMPartner.Contract;
+﻿using Zeta.AgentosCRM.CRMClient.InterstedServices;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.CRMApplications.Stages;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMProducts;
+using Zeta.AgentosCRM.CRMClient.Education;
+using Zeta.AgentosCRM.CRMPartner.Contract;
 using Zeta.AgentosCRM.CRMNotes;
 using Zeta.AgentosCRM.CRMAgent;
 using Zeta.AgentosCRM.CRMPartner.Promotion;
@@ -26,6 +34,14 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ClientInterstedService),
+            typeof(AppointmentInvitee),
+            typeof(Appointment),
+            typeof(CRMTask),
+            typeof(ApplicationStage),
+            typeof(Application),
+            typeof(Product),
+            typeof(ClientEducation),
             typeof(PartnerContract),
             typeof(Note),
             typeof(Agent),
