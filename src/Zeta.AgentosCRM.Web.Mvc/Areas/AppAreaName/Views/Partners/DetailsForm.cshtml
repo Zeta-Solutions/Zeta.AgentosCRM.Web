@@ -20,7 +20,8 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Appointments/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Tasks/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/_Promotions.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/_NotesAndTerms.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Agreements/Agreements.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
@@ -293,7 +294,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="AgreementsTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Agreements/_Agreement.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Agreements/Agreement.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-3 mb-7" id="ContactsTab" role="tabpanel">
@@ -303,7 +304,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="NotesTermsTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/NotesAndTerms/_NotesAndTerms.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/NotesAndTerms/NotesAndTerms.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-3 mb-7" id="DocumentsTab" role="tabpanel">

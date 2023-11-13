@@ -30,7 +30,8 @@
 
         // Manually set the phone number and selected country code (e.g., "US")
         //var savedPhoneNumber = "123-456-7890"; // Replace with your saved phone number
-        var selectedCountry = "IN"; // Replace with the appropriate country code
+        var settittle = $("#PhoneCode").val();
+        var selectedCountry = settittle; // Replace with the appropriate country code
 
         // Set the phone number value and selected country
         //input.value = savedPhoneNumber;
@@ -72,11 +73,13 @@
         // on keyup / change flag: reset
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
+        
     
-        var titleValue = $(".iti__selected-flag").attr("title");
+     
+        
 
-        // Save the title value to a field (e.g., an input field with the ID "myField")
-        $("#PhoneCode").val(titleValue);
+        
+
 
 
         var _partnersService = abp.services.app.partners;
@@ -296,6 +299,7 @@
             }).always(function () {
                 abp.ui.clearBusy();
             });
+
         };
 
         function clearForm() {
@@ -305,12 +309,28 @@
 
         $('#saveBtn').click(function () {
             debugger
+            var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
+
+            var subcode = titleValue.split("-");
+
+
+
+            // Save the title value to a field (e.g., an input field with the ID "myField")
+            $("#PhoneCode").val(subcode[2]);
             save(function () {
                 window.location = "/AppAreaName/Partners";
             });
         });
 
         $('#saveAndNewBtn').click(function () {
+            var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
+
+            var subcode = titleValue.split("-");
+
+
+
+            // Save the title value to a field (e.g., an input field with the ID "myField")
+            $("#PhoneCode").val(subcode[2]);
             save(function () {
                 if (!$('input[name=id]').val()) {//if it is create page
                     clearForm();

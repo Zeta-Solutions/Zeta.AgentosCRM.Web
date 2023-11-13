@@ -1,0 +1,50 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@model CreateOrEditPartnerContractModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AddAgreements")))
+
+<div class="modal-body">
+    <div id="ContractsInformationsTab">
+        <form name="ContractsInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.PartnerContract.Id" />
+            }
+
+            <input type="hidden" name="partnerId" id="partnerId" value="" />
+
+            <div class="row col-12">
+                <div class="form-group col-6">
+                <label class="form-label fw-bold text-dark" for="Applointment_Date">@L("ContractExpiryDate")</label>
+                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="ContractExpiryDate" value="@Model.PartnerContract.ContractExpiryDate" type="datetime" name="ContractExpiryDate"  />
+            </div>
+
+
+                <div class="form-group col-6 ">
+                <label for="email" class="form-label">Representing Region</label>
+                @Html.DropDownList("regionId", new SelectList(Model.PartnerContractRegionList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerContract.RegionId.ToString() : "")),@L("SelectARegion"), new { @class = "form-control" , @required="required" })
+                </div>
+            </div>
+            <div class="row col-12 mt-1">
+    <div class="form-group col-6 ">
+        <label for="email" class="form-label">Commission Percentage</label>
+        <input type="text" class="form-control custom-small-input rounded-0" id="CommissionPer" name="CommissionPer" value="@Model.PartnerContract.CommissionPer">
+    </div>
+         
+
+        <div class="form-group col-6 ">
+            <label for="email" class="form-label">Default Super Agent</label>
+            @Html.DropDownList("agentId", new SelectList(Model.PartnerContractAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerContract.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control" , @required="required" })
+        </div>
+            </div>
+
+
+        </form>
+        <!-- Add other sections here as needed -->
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

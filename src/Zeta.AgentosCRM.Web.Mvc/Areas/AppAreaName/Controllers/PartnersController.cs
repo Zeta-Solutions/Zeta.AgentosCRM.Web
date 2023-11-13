@@ -4,13 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.CRMNotes.Dtos;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMPartner.Contact;
 using Zeta.AgentosCRM.CRMPartner.Contact.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Contract;
+using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
 using Zeta.AgentosCRM.Web.Controllers;
@@ -24,11 +29,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IPartnersAppService _partnersAppService;
         private readonly IBranchesAppService _branchsAppService;
         private readonly IPartnerContactsAppService _partnerContactsAppService;
-        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService)
+        private readonly IPartnerContractsAppService _partnerContractsAppService;
+        private readonly INotesAppService _notesAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService)
         {
             _partnersAppService = partnersAppService;
             _branchsAppService = branchsAppService;
             _partnerContactsAppService = partnerContactsAppService;
+            _partnerContractsAppService = partnerContractsAppService;
+            _notesAppService = notesAppService;
         }
       
         public IActionResult Index()
@@ -98,12 +107,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Promotions/_CreateOrEditModal", "");
 
         }
-        public ActionResult CreateOrEditNotesAndTermsModal()
-        {
 
-            return PartialView("NotesAndTerms/_CreateOrEditModal", "");
-
-        }
         public ActionResult AddPartnersDetails()
         {
 
@@ -286,6 +290,91 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("Contacts/Contacts", model);
         }
 
+
+        public ActionResult CreateOrEditNotesAndTermsModal()
+        {
+
+            return PartialView("NotesAndTerms/_CreateOrEditModal", "");
+
+        }
+        public async Task<ActionResult> NotesAndTerms(int id)
+        {
+            var getNoteForViewDto = await _notesAppService.GetNoteForView(id);
+            var model = new NoteViewModel()
+            {
+                Note = getNoteForViewDto.Note
+            
+
+            };
+
+            return View("NotesAndTerms/NotesAndTerms", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditNotesModal(long? id)
+        {
+            GetNoteForEditOutput getNotesForEditOutput;
+            if (id.HasValue)
+            {
+                getNotesForEditOutput = await _notesAppService.GetNoteForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getNotesForEditOutput = new GetNoteForEditOutput
+                {
+                    Note = new CreateOrEditNoteDto()
+                };
+            }
+            var viewModel = new CreateOrEditNotesModalViewModel()
+            {
+                Note = getNotesForEditOutput.Note,
+               
+
+            };
+
+            return PartialView("NotesAndTerms/_CreateOrEditNotesModal", viewModel);
+        }
+        public async Task<PartialViewResult> CreateOrEditAgreementsModal(long? id)
+        {
+            GetPartnerContractForEditOutput getPartnerContractForEditOutput;
+
+            if (id.HasValue)
+            {
+                getPartnerContractForEditOutput = await _partnerContractsAppService.GetPartnerContractForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getPartnerContractForEditOutput = new GetPartnerContractForEditOutput
+                {
+                    PartnerContract = new CreateOrEditPartnerContractDto()
+                };
+                getPartnerContractForEditOutput.PartnerContract.ContractExpiryDate = DateTime.Now;
+                //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditPartnerContractModalViewModel()
+            {
+                PartnerContract = getPartnerContractForEditOutput.PartnerContract,
+                AgentName = getPartnerContractForEditOutput.AgentName,
+                RegionName = getPartnerContractForEditOutput.RegionName,
+                PartnerContractAgentList = await _partnerContractsAppService.GetAllAgentForTableDropdown(),
+                PartnerContractRegionList = await _partnerContractsAppService.GetAllRegionForTableDropdown(),
+
+            };
+            return PartialView("Agreements/_CreateOrEditAgreementsModal", viewModel);
+
+        }
+        public async Task<ActionResult> Agreements(int id)
+        {
+            var getPartnerContractForViewDto = await _partnerContractsAppService.GetPartnerContractForView(id);
+            var model = new PartnerContractViewModel()
+            {
+                PartnerContract = getPartnerContractForViewDto.PartnerContract
+
+
+            };
+
+            return View("Agreements/Agreements", model);
+        }
 
     }
 }
