@@ -66,6 +66,33 @@
     <text name="CreateNewPartnerPromotion">Create new partner promotion</text>
     <text name="EditPartnerPromotion">Edit partner promotion</text>
     <text name="DeletePartnerPromotion">Delete partner promotion</text>
+	<texts> 
+    <text name="Stage">Stage</text>
+    <text name="Relatedoffice">Related Office</text>
+    <text name="URL">URL</text>
+    <text name="FromName">From Name</text>
+    <text name="Badge">Badge</text>
+    <text name="LastUpdate">Last Update</text>
+    <text name="Totalchecklist">Total Checklist</text>
+    <text name="SelectedWorkFlow">Selected WorkFlow</text>
+    <text name="totalusage">Total Usage</text>
+    <text name="EditDocumentCheckList">Edit Document CheckList</text>
+    <text name="EditDocumentType">Edit Document Type</text>
+    <text name="CreateNewDocumentType">Create New Document Type</text>
+    <text name="DocumentTypeHeaderInfo">Document Type Header Info</text>
+    <text name="DocumentType">Document Type</text>
+    <text name="DocumentCheckListHeaderInfo">Document CheckList Header Info</text>
+    <text name="DocumentCheckList">Document CheckList</text>
+    <text name="CreateNewDocumentCheckList">Create New Document CheckList</text>
+    <text name="EditLeadForm">Edit Lead Form</text> 
+    <text name="CreateNewLeadform">Create New Lead Form</text>
+    <text name="LeadformHeaderInfo">Lead From Header Info</text>
+    <text name="Leadform">Lead Form</text>
+    <text name="Currency">Currency</text>
+    <text name="AllOffice">All Office</text>
+    <text name="selectedoffice">Selected Office</text>
+    <text name="Accessibleoffice">Accessible Office</text>
+    <text name="workflowaccessible">Workflow Accessible</text>
     <text name="Appointment">Appointment</text>
     <text name="ClientAppointment">Client appointment</text>
     <text name="CreateNewClientAppointment">Create new client appointment</text>
@@ -84,7 +111,8 @@
     <text name="EditCRMCurrency">Edit c r m currency</text>
     <text name="DeleteCRMCurrency">Delete c r m currency</text>
 
-		
+
+		<text name="PartnerName">Partner Name</text>
 		<text name="CountryofPassport">Country of Passport</text>
 		<text name="PassportNumber">Passport Number</text>
 		<text name="CreateNewCient">Create New Cient</text>
@@ -109,8 +137,8 @@
 		<text name="Type">Type</text>
 		<text name="PaymentSchedule">Payment Schedule</text>
 		<text name="Note">Note</text>
-		
-		
+
+
 		<text name="AddPromotions">Add Promotions</text>
 		<text name="AddProducts">Add Products</text>
 		<text name="CreateNoteAndTerm">Create Note And Term</text>
@@ -132,7 +160,7 @@
 		<text name="Enrolled">Enrolled</text>
 		<text name="PartnersHeaderInfo">Partners Header Info</text>
 		<text name="AgentHeaderInfo">Agent Header Info</text>
-		
+
 		<text name="TotalFee">Total Fee</text>
 		<text name="DueDate">Due Date</text>
 		<text name="Createdon">Created on</text>
@@ -143,7 +171,7 @@
 		<text name="SelectPartnerandBranch">Select Partner and Branch</text>
 		<text name="AddIntrestedService">Add Intrested Service</text>
 		<text name="CreateNewIntrestedService">Create New Intrested Service</text>
-		<!--<text name="CreateNewIntrestedService">Create New Intrested Service</text>-->
+		<text name="BusinessRegistrationNumber">Business Registration Number</text>
 		<text name="SelectPartner">Select Partner</text>
 		<text name="SelectProduct">Select Product</text>
 		<text name="SelectBranch">Select Branch</text>
@@ -166,24 +194,24 @@
 		<text name="TotalAmt">Total Amount</text>
 		<text name="AddTask">Add Task</text>
 		<text name="Category">Category</text>
-		<!--<text name="DueDate">Due Date</text>-->
+		<text name="ServiceWorkflow">Service Workflow</text>
 		<text name="DueTime">Due Time</text>
 		<text name="Followers">Followers</text>
 		<text name="CreateNewEducationBackground">Create New Education Background</text>
 		<text name="DegreeTitle">Degree Title</text>
-		<!--<text name="DegreeLevel">Degree Level</text>-->
+		<text name="Website">Website</text>
 		<text name="Institution">Institution</text>
 		<text name="CourseStart">Course Start</text>
 		<text name="CourseEnd">Course End</text>
-		<!--<text name="SubjectArea">Subject Area</text>-->
+		<text name="MarketingOfficeEmail">Marketing Office Email</text>
 		<text name="EditEnglishTestScore">Edit English Test Score</text>
 		<text name="TOEFl">TOEFl</text>
 		<text name="IELTS">IELTS</text>
 		<text name="PTE">PTE</text>
-		
-		
-		
-				
+
+
+
+
 		<text name="Assignee">Assignee</text>
 		<text name="Phone">Phone</text>
 		<text name="Passport">Passport</text>
@@ -222,10 +250,10 @@
 		<text name="SessionTime">Session Time</text>
 		<text name="VisitPurpose">Visit Purpose</text>
 		<text name="End">End</text>
-		
-		
-		<text name="QuotationCurrencyHeaderInfo">Quotation Currency Header Info</text>
-		<text name="CreateNewQuotationCurrency">Create New Quotation Currency</text>
+
+
+		<text name="QuotationCurrencyHeaderInfo">Currency Header Info</text>
+		<text name="CreateNewQuotationCurrency">Create New Currency</text>
 		<text name="EditCountries">Edit Countries</text>
 		<text name="CourseHeaderInfo">Course Header Info</text>
 		<text name="Course">Course</text>
@@ -236,7 +264,7 @@
 		<text name="FeeTypeHeaderInfo">Fee ype Header Info</text>
 		<text name="MonthHeaderInfo">Month Header Info</text>
 		<text name="CreateNewMonth">Create New Month</text>
-		<text name="EditQuotationCurrency">Edit Quotation Currency</text>
+		<text name="EditQuotationCurrency">Edit Currency</text>
 		<text name="EditInstallmenttype">Edit Installment Type</text>
 		<text name="EditMonth">Edit Month</text>
 		<text name="RegionsHeaderInfo">Regions Header Info</text>
@@ -245,7 +273,7 @@
 
 		<text name="Priority">Priority</text>
 		<text name="SelectARegion">Select A Region</text>
-		<text name="QuotationCurrency">Quotation Currency</text>
+		<text name="QuotationCurrency">Currency</text>
 		<text name="Icon">Icon</text>
 		<text name="TaskCategoryHeaderInfo">Task Category Header Info</text>
 		<text name="CreateNewCategory">Create New Category</text>

@@ -2653,6 +2653,9 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("PartnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("RegionId")
                         .HasColumnType("int");
 
@@ -2662,6 +2665,8 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgentId");
+
+                    b.HasIndex("PartnerId");
 
                     b.HasIndex("RegionId");
 
@@ -4930,6 +4935,12 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Zeta.AgentosCRM.CRMSetup.Regions.Region", "RegionFk")
                         .WithMany()
                         .HasForeignKey("RegionId")
@@ -4937,6 +4948,8 @@ namespace Zeta.AgentosCRM.Migrations
                         .IsRequired();
 
                     b.Navigation("AgentFk");
+
+                    b.Navigation("PartnerFk");
 
                     b.Navigation("RegionFk");
                 });
