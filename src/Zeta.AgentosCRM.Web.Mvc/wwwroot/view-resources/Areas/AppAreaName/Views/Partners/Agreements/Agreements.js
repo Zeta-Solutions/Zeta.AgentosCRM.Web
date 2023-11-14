@@ -2,7 +2,7 @@
     $(function () {
         var hiddenfield = $("#PartnerId").val();
         var dynamicValue = hiddenfield;
-
+        var receivedId = 0;
 
         var globalData; // Declare the data variable in a broader scope
         getagreementsreload(dynamicValue)
@@ -79,9 +79,11 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    console.log('Response from server:', data);
+                    receivedId = data.result.items[0].partnerContract.id; 
+
                     globalData = data; 
                     processData(data); 
+
                 })
                 .fail(function (error) {
                     console.error('Error fetching data:', error);
@@ -89,13 +91,30 @@
         }
         function processData(data) {
             debugger
-            var dateValue = data.date;
+            var dateValue = data.result.items[0].partnerContract.contractExpiryDate;
+            var AgentName = data.result.items[0].agentName;
+            var RegionName = data.result.items[0].regionName;
+            var Commessionper = data.result.items[0].partnerContract.commissionPer;
 
             // Select the <p> element with the class "text-muted date"
             var paragraphElement = document.querySelector('.date');
 
+            var paragraphElement1 = document.querySelector('.region');
+            var paragraphElement2 = document.querySelector('.Commission');
+            var paragraphElement3 = document.querySelector('.Agents');
+
             // Update the text content of the <p> element with the 'date' value
-            paragraphElement.textContent = dateValue;
+            //paragraphElement.textContent = dateValue;
+            paragraphElement1.textContent = RegionName;
+            paragraphElement2.textContent = Commessionper;
+            paragraphElement3.textContent = AgentName;
+
+            var formattedDate = moment(dateValue).format('L');
+            paragraphElement.textContent = formattedDate;
+
+               
+            
+
         }
         function clearMainDiv() {
             // Assuming main div has an id 'mainDiv', replace it with your actual id if needed
@@ -322,11 +341,20 @@
         });
 
         $('#CreateNewContractButton').click(function () {
-            debugger
-            _createOrEditModal.open();
+            debugger;
 
-            // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
+            // Assuming receivedId is a globally declared variable
+            if (receivedId && parseInt(receivedId) > 0) {
+                _createOrEditModal.open({ id: receivedId });
+               
+            } else {
+                // Prompt the user to provide an ID or handle it according to your application logic.
+                _createOrEditModal.open();
+              
+            }
+             getagreementsreload(dynamicValue);
         });
+
         //$('#showCardsButton').click(function () {
         //    debugger
         //    _createOrEditModal.open();
@@ -360,7 +388,7 @@
         });
 
         abp.event.on('app.createOrEditPartnerContractsModalSaved', function () {
-            getcontracts();
+            getagreementsreload(dynamicValue);
         });
 
         $('#GetLeadSourcesButton').click(function (e) {

@@ -1,0 +1,90 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+@model CreateOrEditPartnerPromotionsModalViewModel
+
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true"/>
+    }
+  @section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+}
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewPromotion")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="PromotionsInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.PartnerPromotion.Id" />
+            }
+
+            <input type="hidden" name="partnerId" id="partnerId" value="" />
+            <div class="card">
+                <div class="card-body">
+                    <form id="composeEmailForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="PromotionTitle" class="form-label">@L("PromotionTitle") </label>
+                                <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.PartnerPromotion.Name">
+                            </div>
+                            <div class="col-12">
+                                <label for="messageTextarea" class="form-label">@L("Description")</label>
+                                <textarea class="form-control custom-small-input rounded-0" id="messageTextarea" rows="6" name="Description" maxlength="255">@Model.PartnerPromotion.Description</textarea>
+                                <div class="invalid-feedback">
+                                    Please enter a message.
+                                </div>
+                            </div>
+                            <div class="col-md-12  mb-3">
+                                <span class="btn btn-primary btn-sm fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Add Attachment...</span>
+                                    <input id="fileupload" type="file" name="files">
+                                </span>
+                            </div>
+                            <div class="form-group col-md-6 mb-3">
+                                <label for="SampleDatePicker" class="form-label ">@L("StartDate")</label>
+                   @*              <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.PartnerPromotion.StartDate" type="datetime" name="StartDate" /> *@
+                                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" type="text" name="StartDate"  value="@Model.PartnerPromotion.StartDate" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="SampleDatePicker" class="form-label">@L("ExpiryDate")</label>
+                                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="ExpiryDate" type="text" name="ExpiryDate" value="@Model.PartnerPromotion.ExpiryDate" />
+                                @* <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="ExpiryDate" value="@Model.PartnerPromotion.ExpiryDate" type="datetime" name="ExpiryDate" /> *@
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label for="applyTo" class="form-label">Apply To:</label><br />
+                                <div class="form-check">
+                                @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
+                                    <input id="EditUser_IsActive" type="radio" name="ApplyTo" class="form-check-input" value="true" @Html.Raw(Model.PartnerPromotion.ApplyTo ? "checked=\"checked\"" : "")>
+                                    <label class="form-check-label" for="AllProducts">@L("AllProducts")</label>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input type="radio" class="form-check-input" id="option2" name="ApplyTo" value="false" @(!Model.PartnerPromotion.ApplyTo ? "checked=\"checked\"" : "")>
+                                    <label class="form-check-label" for="SelectProducts">@L("SelectProducts") </label>
+                                </div>
+                                <div class="form-group col-12" id="field1" style="display">
+                                    <label for="email" class="form-label">@L("Products")</label>
+                                    <select id="select2SingleSelect" class="form-select select2" data-control="select2"></select>
+                                </div>
+                            </div>
+
+                            <!-- Submit button -->
+                           @*  <div class="col-12 mt-3">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-secondary custom-button" type="submit">Cancel</button>
+                            </div> *@
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

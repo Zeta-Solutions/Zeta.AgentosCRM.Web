@@ -14,10 +14,15 @@ using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.TaskManagement.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
 using Zeta.AgentosCRM.Web.Controllers;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
@@ -31,13 +36,17 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IPartnerContactsAppService _partnerContactsAppService;
         private readonly IPartnerContractsAppService _partnerContractsAppService;
         private readonly INotesAppService _notesAppService;
-        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService)
+        private readonly IPartnerPromotionsAppService _partnerPromotionsAppService;
+        private readonly ICRMTasksAppService _cRMTasksAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService)
         {
             _partnersAppService = partnersAppService;
             _branchsAppService = branchsAppService;
             _partnerContactsAppService = partnerContactsAppService;
             _partnerContractsAppService = partnerContractsAppService;
             _notesAppService = notesAppService;
+            _partnerPromotionsAppService = partnerPromotionsAppService;
+            _cRMTasksAppService = cRMTasksAppService;
         }
       
         public IActionResult Index()
@@ -95,18 +104,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Appointments/_CreateOrEditModal", "");
 
         }
-        public ActionResult CreateOrEditTasksModal()
-        {
 
-            return PartialView("CRMTasks/_CreateOrEditModal", "");
 
-        }
-        public ActionResult CreateOrEditPromotionsModal()
-        {
-
-            return PartialView("Promotions/_CreateOrEditModal", "");
-
-        }
 
         public ActionResult AddPartnersDetails()
         {
@@ -376,5 +375,81 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("Agreements/Agreements", model);
         }
 
+        public async Task<PartialViewResult> CreateOrEditPromotionslModal(long? id)
+        {
+            GetPartnerPromotionForEditOutput getPartnerPromotionForEditOutput;
+            if (id.HasValue)
+            {
+                getPartnerPromotionForEditOutput = await _partnerPromotionsAppService.GetPartnerPromotionForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getPartnerPromotionForEditOutput = new GetPartnerPromotionForEditOutput
+                {
+                    PartnerPromotion = new CreateOrEditPartnerPromotionDto()
+                };
+                getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
+                getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
+            }
+           
+            var viewModel = new CreateOrEditPartnerPromotionsModalViewModel()
+            {
+                PartnerPromotion = getPartnerPromotionForEditOutput.PartnerPromotion,
+               
+
+            };
+            return PartialView("Promotions/_CreateOrEditPromotionslModal", viewModel);
+
+        }
+        public async Task<ActionResult> Promotions(int id)
+        {
+            var getPartnerPromotionForViewDto = await _partnerPromotionsAppService.GetPartnerPromotionForView(id);
+            var model = new PartnerPromotionViewModel()
+            {
+                PartnerPromotion = getPartnerPromotionForViewDto.PartnerPromotion
+
+
+            };
+
+            return View("Promotions/Promotions", model);
+        }
+        public async Task<ActionResult> Tasks(int id)
+        {
+            var getCRMTaskForViewDto = await _cRMTasksAppService.GetCRMTaskForView(id);
+            var model = new TaskViewModel()
+            {
+                CRMTask = getCRMTaskForViewDto.CRMTask
+
+
+            };
+
+            return View("Tasks/Tasks", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditTasksModal(long? id)
+        {
+            GetCRMTaskForEditOutput getCRMTaskForEditOutput;
+            if (id.HasValue)
+            {
+                getCRMTaskForEditOutput = await _cRMTasksAppService.GetCRMTaskForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getCRMTaskForEditOutput = new GetCRMTaskForEditOutput
+                {
+                    CRMTask = new CreateOrEditCRMTaskDto()
+                };
+                //getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
+                //getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditTaskModalViewModel()
+            {
+                CRMTask = getCRMTaskForEditOutput.CRMTask,
+
+
+            };
+            return PartialView("Task/_CreateOrEditTasksModal", viewModel);
+
+        }
     }
 }

@@ -19,7 +19,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Contacts/Contacts.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Appointments/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Tasks/Index.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/_Promotions.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/Promotions.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Agreements/Agreements.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
@@ -324,7 +324,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="TasksTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/CRMTasks/TaskIndex.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Tasks/Tasks.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-3 mb-7" id="OtherInformationTab" role="tabpanel">
@@ -334,7 +334,7 @@
             </div>
             <div class="tab-pane pt-3 mb-7" id="PromotionsTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Promotions/_Promotions.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Promotions/Promotions.cshtml")
                 </div>
             </div>
 

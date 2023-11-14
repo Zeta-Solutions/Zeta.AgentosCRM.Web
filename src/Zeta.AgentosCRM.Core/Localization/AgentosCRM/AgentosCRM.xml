@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="InterstedServices">Intersted services</text>
+	<texts>
+    <text name="InterstedServices">Intersted services</text>
     <text name="ClientInterstedService">Client intersted service</text>
     <text name="CreateNewClientInterstedService">Create new client intersted service</text>
     <text name="EditClientInterstedService">Edit client intersted service</text>
@@ -17,8 +18,7 @@
     <text name="CreateNewCRMTask">Create new c r m task</text>
     <text name="EditCRMTask">Edit c r m task</text>
     <text name="DeleteCRMTask">Delete c r m task</text>
-    <text name="CRMTasks">C r m tasks</text>
-    <text name="Task">Task</text>
+    <text name="CRMTasks">C r m tasks</text> 
     <text name="CreateNewTask">Create new task</text>
     <text name="EditTask">Edit task</text>
     <text name="DeleteTask">Delete task</text>
@@ -194,8 +194,7 @@
 		<text name="Appointments">Appointments</text>
 		<text name="NotesAndTerms">Notes And Terms</text>
 		<text name="Quotations">Quotations</text>
-		<text name="Conversations">Conversations</text>
-		<text name="Tasks">Tasks</text>
+		<text name="Conversations">Conversations</text> 
 		<text name="Educations">Educations</text>
 		<text name="OtherInformations">Other Informations</text>
 		<text name="ChecksinLogs">Checks-in Logs</text>

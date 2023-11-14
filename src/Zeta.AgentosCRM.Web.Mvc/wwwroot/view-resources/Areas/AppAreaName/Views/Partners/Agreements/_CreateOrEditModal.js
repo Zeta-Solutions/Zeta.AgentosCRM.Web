@@ -46,7 +46,7 @@
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditAgreementsModalSaved');
+                    abp.event.trigger('app.createOrEditPartnerContractsModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);
