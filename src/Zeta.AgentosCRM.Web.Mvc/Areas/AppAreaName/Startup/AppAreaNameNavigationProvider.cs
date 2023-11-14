@@ -22,6 +22,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
+                .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Host.TestAattachments,
+                        L("TestAattachments"),
+                        url: "AppAreaName/TestAattachments",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TestAattachments)
+                    )
+                )
 
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.Tenants,
