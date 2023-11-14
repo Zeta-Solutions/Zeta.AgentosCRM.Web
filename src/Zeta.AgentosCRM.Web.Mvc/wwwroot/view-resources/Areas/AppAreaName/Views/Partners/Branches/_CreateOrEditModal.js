@@ -1,9 +1,19 @@
 ﻿(function ($) {
     app.modals.CreateOrEditBranchesModal = function () {
-      var _leadSourcesService = abp.services.app.leadSources;
+        debugger
+        $('#countryId').select2({
+            width: '350px',
+            // Adjust the width as needed
+        });
 
+      var _branchesService = abp.services.app.branches;
+        var hiddenfield = $("#PartnerId").val();
+
+        $("#partnerId").val(hiddenfield);
+
+       
     var _modalManager;
-    var _$leadSourceInformationForm = null;
+        var _$branchInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,20 +25,20 @@
         format: 'L',
       });
 
-        _$leadSourceInformationForm = _modalManager.getModal().find('form[name=BranchesTabInformationsForm]');
-        _$leadSourceInformationForm.validate();
+        _$branchInformationForm = _modalManager.getModal().find('form[name=BranchesTabInformationsForm]');
+        _$branchInformationForm.validate();
     };
 
     this.save = function () {
-        if (!_$leadSourceInformationForm.valid()) {
+        if (!_$branchInformationForm.valid()) {
         return;
       }
 
-        var leadSources = _$leadSourceInformationForm.serializeFormToObject();
+        var branches = _$branchInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-        _leadSourcesService
-            .createOrEdit(leadSources)
+        _branchesService
+            .createOrEdit(branches)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();

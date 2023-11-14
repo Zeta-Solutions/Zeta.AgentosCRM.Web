@@ -3,7 +3,7 @@
 
 
 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Promotions/Promotions.js" asp-append-version="true"></script>
 @*if u want to give margin and padding between left and right*@
 @*<div class="@(await GetContainerClass())">*@
 <div class="maincard">
@@ -19,24 +19,21 @@
                     <div style="overflow-x: auto;">
                     </div>
                     <div class="row align-items-center">
-                        <div class="table-responsive">
-                        <table id="Promotionstable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
+                        <table id="Promotionstable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                             <thead>
                                 <tr>
                                     <th></th>
 
-                                    @*  <th>@L("Actions")</th>*@
-                                    <th>@L("Name")</th>
-                                    <th>@L("WorkFlow")</th>
-                                    <th>@L("CurrentStage")</th>
-                                    <th>@L("Status")</th>
-                                    <th>@L("SalesForecast")</th>
-                                    <th>@L("Started")</th>
-                                    <th>@L("Lastupdated")</th>
+                                    <th>@L("PromotionTitle")</th>
+                                    <th>@L("Description")</th>
+                                    <th>@L("StartDate")</th>
+                                    <th>@L("ExpirayDate")</th>
+                                   
+
+                                    <th></th>
                                 </tr>
                             </thead>
                         </table>
-                    </div>
                     </div>
                 </div>
             </div>

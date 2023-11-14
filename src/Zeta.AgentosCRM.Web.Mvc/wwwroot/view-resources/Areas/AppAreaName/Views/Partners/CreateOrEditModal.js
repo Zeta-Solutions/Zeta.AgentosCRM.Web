@@ -1,8 +1,9 @@
 ﻿(function () {
     $(function () {
+        debugger
         $('#masterCategoryId').select2();
         $('#partnerTypeId').select2();
-        $('#serviceWorkflowId').select2();
+        $('#workflowId').select2();
         $('#countryId').select2();
         $('#currencyId').select2();
 
@@ -29,7 +30,8 @@
 
         // Manually set the phone number and selected country code (e.g., "US")
         //var savedPhoneNumber = "123-456-7890"; // Replace with your saved phone number
-        var selectedCountry = "IN"; // Replace with the appropriate country code
+        var settittle = $("#PhoneCode").val();
+        var selectedCountry = settittle; // Replace with the appropriate country code
 
         // Set the phone number value and selected country
         //input.value = savedPhoneNumber;
@@ -71,6 +73,15 @@
         // on keyup / change flag: reset
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
+        
+    
+     
+        
+
+        
+
+
+
         var _partnersService = abp.services.app.partners;
 
         var _$partnerInformationForm = $('form[name=PartnerInformationsForm]');
@@ -236,30 +247,30 @@
             if (!_$partnerInformationForm.valid()) {
                 return;
             }
-            //if ($('#Client_CountryCodeId').prop('required') && $('#Client_CountryCodeId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
-            //    return;
-            //}
-            //if ($('#Client_AssigneeId').prop('required') && $('#Client_AssigneeId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('User')));
-            //    return;
-            //}
-            //if ($('#Client_ProfilePictureId').prop('required') && $('#Client_ProfilePictureId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('BinaryObject')));
-            //    return;
-            //}
-            //if ($('#Client_HighestQualificationId').prop('required') && $('#Client_HighestQualificationId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('DegreeLevel')));
-            //    return;
-            //}
-            //if ($('#Client_StudyAreaId').prop('required') && $('#Client_StudyAreaId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('SubjectArea')));
-            //    return;
-            //}
-            //if ($('#Client_LeadSourceId').prop('required') && $('#Client_LeadSourceId').val() == '') {
-            //    abp.message.error(app.localize('{0}IsRequired', app.localize('LeadSource')));
-            //    return;
-            //}
+            if ($('#Partner_PartnerName').prop('required') && $('#Partner_PartnerName').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('PartnerName')));
+                return;
+            }
+            if ($('#workflowId').prop('required') && $('#workflowId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('workflow')));
+                return;
+            }
+            if ($('#partnerTypeId').prop('required') && $('#partnerTypeId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('partnerType')));
+                return;
+            }
+            if ($('#masterCategoryId').prop('required') && $('#masterCategoryId').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('masterCategory')));
+                return;
+            }
+            if ($('#Partner_Email').prop('required') && $('#Partner_Email').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('Email')));
+                return;
+            }
+            if ($('#University').prop('required') && $('#University').val() == '') {
+                abp.message.error(app.localize('{0}IsRequired', app.localize('University')));
+                return;
+            }
             //if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
             //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
             //    return;
@@ -288,6 +299,7 @@
             }).always(function () {
                 abp.ui.clearBusy();
             });
+
         };
 
         function clearForm() {
@@ -297,12 +309,28 @@
 
         $('#saveBtn').click(function () {
             debugger
+            var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
+
+            var subcode = titleValue.split("-");
+
+
+
+            // Save the title value to a field (e.g., an input field with the ID "myField")
+            $("#PhoneCode").val(subcode[2]);
             save(function () {
                 window.location = "/AppAreaName/Partners";
             });
         });
 
         $('#saveAndNewBtn').click(function () {
+            var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
+
+            var subcode = titleValue.split("-");
+
+
+
+            // Save the title value to a field (e.g., an input field with the ID "myField")
+            $("#PhoneCode").val(subcode[2]);
             save(function () {
                 if (!$('input[name=id]').val()) {//if it is create page
                     clearForm();

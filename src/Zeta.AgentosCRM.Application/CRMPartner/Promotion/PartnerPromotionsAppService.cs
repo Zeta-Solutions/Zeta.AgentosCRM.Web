@@ -51,8 +51,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
                         .WhereIf(input.MinExpiryDateFilter != null, e => e.ExpiryDate >= input.MinExpiryDateFilter)
                         .WhereIf(input.MaxExpiryDateFilter != null, e => e.ExpiryDate <= input.MaxExpiryDateFilter)
                         .WhereIf(input.ApplyToFilter.HasValue && input.ApplyToFilter > -1, e => (input.ApplyToFilter == 1 && e.ApplyTo) || (input.ApplyToFilter == 0 && !e.ApplyTo))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
+             .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
             var pagedAndFilteredPartnerPromotions = filteredPartnerPromotions
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

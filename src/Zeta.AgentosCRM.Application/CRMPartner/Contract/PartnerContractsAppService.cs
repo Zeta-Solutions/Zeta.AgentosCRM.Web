@@ -50,8 +50,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
                         .WhereIf(input.MaxCommissionPerFilter != null, e => e.CommissionPer <= input.MaxCommissionPerFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AgentNameFilter), e => e.AgentFk != null && e.AgentFk.Name == input.AgentNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.RegionNameFilter), e => e.RegionFk != null && e.RegionFk.Name == input.RegionNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
+                        .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
             var pagedAndFilteredPartnerContracts = filteredPartnerContracts
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -137,7 +137,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Contract
 
         [AbpAuthorize(AppPermissions.Pages_PartnerContracts_Edit)]
         public async Task<GetPartnerContractForEditOutput> GetPartnerContractForEdit(EntityDto input)
-        {
+            {
             var partnerContract = await _partnerContractRepository.FirstOrDefaultAsync(input.Id);
 
             var output = new GetPartnerContractForEditOutput { PartnerContract = ObjectMapper.Map<CreateOrEditPartnerContractDto>(partnerContract) };

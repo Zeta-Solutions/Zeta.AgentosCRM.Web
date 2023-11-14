@@ -1,11 +1,13 @@
-﻿<div class="maincard mt-1">
+﻿<script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
+
+<div class="maincard mt-1">
     <div class="col-md-12 text-end mb-3">
 
         <button id="CreateNewNotesButton" class="btn btn-sm btn-primary blue"><i class="fa fa-plus"></i> @L("AddNotesAndTerms")</button>
     </div>
-    <div class="card">
+    @*  <div class="card">
 
-      @*   <div class="card-body">
+     <div class="card-body">
             <div class="form">
                 <div class="fixed-width-div">
                     <div style="overflow-x: auto;">
@@ -27,8 +29,9 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div> *@
-    </div>
+        <div id="cardContainernotes" class="container"></div>
 </div>
 
 

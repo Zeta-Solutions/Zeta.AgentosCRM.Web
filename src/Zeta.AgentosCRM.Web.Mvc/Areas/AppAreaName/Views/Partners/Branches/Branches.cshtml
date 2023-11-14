@@ -1,17 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-</head>
-<body>
- <div class="Main mt-3">
+﻿
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Branches/Branches.js" asp-append-version="true"></script>
+ 
+
+<div class="Main mt-3">
         <div class="col-md-12 text-end mb-3">
 
             <button id="CreateNewBranchesButton" class="btn btn-primary btn-sm blue"><i class="fa fa-plus"></i> @L("AddBranches")</button>
         </div>
-         <div class="row">
+       @*   <div class="row">
         <!-- Left Side -->
         <div class="col-md-3">
             <!-- Card -->
@@ -33,11 +29,10 @@
         </div>
         <!-- Right Side (Button) -->
        
-    </div>
+    </div> *@
+    
+    @*         <button id="BranchesButton" class="btn btn-primary btn-sm blue"><i class="fa fa-plus"></i> @L("AddBranches")</button>
+<button id="showCardsButton"  class="btn btn-primary btn-sm blue"><i class="fa fa-plus"></i>@L("Show Cards")</button> *@
+<div id="cardContainer" class="container"></div>
 
     </div>
-
-
-
-</body>
-</html>

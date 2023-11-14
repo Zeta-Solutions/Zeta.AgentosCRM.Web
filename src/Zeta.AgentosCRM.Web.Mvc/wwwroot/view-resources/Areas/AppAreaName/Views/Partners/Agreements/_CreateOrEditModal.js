@@ -1,19 +1,23 @@
 ﻿(function ($) {
-    app.modals.CreateOrEditNotesAndTermsModal = function () {
+    app.modals.CreateOrEditAgreementsModal = function () {
         debugger
-        $('#countryId').select2({
+        $('#regionId').select2({
+            width: '350px',
+            // Adjust the width as needed
+        });
+        $('#agentId').select2({
             width: '350px',
             // Adjust the width as needed
         });
 
-        var _notesService = abp.services.app.notes;
+        var _partnerContractsService = abp.services.app.partnerContracts;
         var hiddenfield = $("#PartnerId").val();
 
         $("#partnerId").val(hiddenfield);
 
 
         var _modalManager;
-        var _$noteInformationForm = null;
+        var _$partnerContractsInformationForm = null;
 
         this.init = function (modalManager) {
             _modalManager = modalManager;
@@ -25,24 +29,24 @@
                 format: 'L',
             });
 
-            _$noteInformationForm = _modalManager.getModal().find('form[name=NotesAndTermsInformationsForm]');
-            _$noteInformationForm.validate();
+            _$partnerContractsInformationForm = _modalManager.getModal().find('form[name=ContractsInformationsForm]');
+            _$partnerContractsInformationForm.validate();
         };
 
         this.save = function () {
-            if (!_$noteInformationForm.valid()) {
+            if (!_$partnerContractsInformationForm.valid()) {
                 return;
             }
 
-            var branches = _$noteInformationForm.serializeFormToObject();
+            var branches = _$partnerContractsInformationForm.serializeFormToObject();
 
             _modalManager.setBusy(true);
-            _notesService
+            _partnerContractsService
                 .createOrEdit(branches)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app.createOrEditNoteModalSaved');
+                    abp.event.trigger('app.createOrEditPartnerContractsModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);

@@ -6,8 +6,10 @@
   @section Scripts
 {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Agreements/Agreements.js" asp-append-version="true"></script>
 }
 <div class="maincard">
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -18,36 +20,32 @@
                     <div class="row">
                         <div class="form-group col-md-4 mb-3">
                             <label for="SampleDatePicker" class="form-label">Contract Expiry Date</label>
-                            <div id="SampleDatePicker" class="input-group">
+                          @*   <div id="SampleDatePicker" class="input-group">
                                 <input type="datetime" name="SampleDatePicker" class="form-control date-picker custom-small-input rounded-0">
-                            </div>
+                            </div> *@
+                            <p class="text-muted date"></p>
                         </div>
                       
                         <div class="form-group col-md-4 mb-3">
                              <label for="representingRegion" class="form-label">Representing Region</label>
-                            <select class="form-select select2 custom-small-input rounded-0" id="representingRegion" name="representingRegion">
-                                <option value="region1">Region 1</option>
-                                <option value="region2">Region 2</option>
-                            </select>
+                            <p class="text-muted region"></p>
                         </div>
                         <div class="form-group col-md-4 mb-3">
                              <label for="commissionPercentage" class="form-label">Commission Percentage</label>
-                            <input type="number" class="form-control custom-small-input rounded-0" id="commissionPercentage" name="commissionPercentage">
+                            <p class="text-muted Commission"></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4 mb-3">
                             <label for="supperAgent" class="form-label">Default Super Agent</label>
-                            <select class="form-select select2 custom-small-input rounded-0 " id="supperAgent" name="supperAgent">
-                                <option value="agent1">Agent 1</option>
-                                <option value="agent2">Agent 2</option>
-                            </select>
+                            <p class="text-muted Agents"></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary btn-sm">Save Changes</button>
+                <div class="col-md-12 text-end mb-3">
+
+                    <button id="CreateNewContractButton" class="btn btn-sm btn-primary blue"><i class="fa fa-plus"></i> @L("AddAgreements")</button>
                 </div>
             </div>
         </div>
