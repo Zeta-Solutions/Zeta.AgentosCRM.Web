@@ -1,7 +1,13 @@
 ﻿(function () {
     $(function () {
         var _clientsService = abp.services.app.clients;
-
+        $("#kt_app_sidebar_toggle").trigger("click");
+        $('#passportCountryId').select2();
+        $('#countryId').select2();
+        $('#highestQualificationId').select2();
+        $('#studyAreaId').select2();
+        $('#leadSourceId').select2();
+        $('#assigneeId').select2();
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
         _$clientInformationForm.validate();
 
@@ -185,7 +191,8 @@
             
 			
 			
-			 abp.ui.setBusy();
+            abp.ui.setBusy();
+            console.log(client);
 			 _clientsService.createOrEdit(
 				client
 			 ).done(function () {
@@ -218,6 +225,12 @@
             });
         });
         
-        
+        $('.accordion-header').click(function () {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+        });
     });
 })();

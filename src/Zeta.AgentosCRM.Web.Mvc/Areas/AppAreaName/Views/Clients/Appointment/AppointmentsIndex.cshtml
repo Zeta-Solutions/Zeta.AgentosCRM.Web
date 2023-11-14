@@ -1,0 +1,71 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientsAppointments
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@* @model ClientAppointmentsViewModel *@
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+@section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
+}
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+<div class="maincard">
+    <div class="col-md-12 text-end mb-3">
+          @if (IsGranted(AppPermissions.Pages_ClientAppointments))
+    {
+    <button id="CreateNewAppointmentButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddAppointment")</button>
+    }
+        @* <button id="CreateNewAppointmentButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddAppointment")</button> *@
+    </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+              
+            
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                    <div class="row align-items-center">
+                        <table id="Appointmentstable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                            <thead>
+                                <tr>
+                                    <th></th>
+
+                                  @*  <th>@L("Actions")</th>*@
+                                    <th>@L("Name")</th>
+                                    <th>@L("TimeZone")</th>
+                                    <th>@L("Date")</th>
+                                    <th>@L("Time")</th>
+                                    <th>@L("Tittle")</th>
+                                    <th>@L("Description")</th>
+                                </tr>
+                            </thead>
+                            @*                     <tbody>
+                            <tr>
+                            <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
+                            <td>
+                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
+                            </td>
+                            <td>Dummy Abbreviation</td>
+                            <td>Dummy Name</td>
+                            <td>Dummy Added From</td>
+                            <td>Dummy Tags</td>
+                            <td>Dummy Ratings</td>
+                            <td>Dummy Internal ID</td>
+                            <td>Dummy Client ID</td>
+                            </tr>
+
+                            </tbody>*@
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@

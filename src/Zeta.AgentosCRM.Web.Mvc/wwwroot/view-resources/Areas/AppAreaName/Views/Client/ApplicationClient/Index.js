@@ -16,6 +16,16 @@
         $(document).click(function () {
             $('.options').hide();
         });
+         // Add a context menu option click handler
+        $('.EditAction').click(function () {
+            alert("Edit Clicked");
+            // You can implement specific context menu option logic here
+        });
+        $('.DeleteAction').click(function () {
+            alert("Delete Clicked");
+            // You can implement specific context menu option logic here
+        });
+     
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });

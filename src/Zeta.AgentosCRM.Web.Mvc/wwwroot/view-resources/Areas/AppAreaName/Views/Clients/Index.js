@@ -1,15 +1,18 @@
 ﻿(function () {
+    $("#kt_app_sidebar_toggle").trigger("click");
+    $('.tag').select2();
+
     $(function () {
 
         var _$clientsTable = $('#ClientsTable');
         var _clientsService = abp.services.app.clients;
-		var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
-        
-       var $selectedDate = {
+        var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
+       // alert(_clientsService);
+        var $selectedDate = {
             startDate: null,
             endDate: null,
         }
-
+        debugger
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -20,15 +23,15 @@
             locale: abp.localization.currentLanguage.name,
             format: 'L',
         })
-        .on("apply.daterangepicker", (ev, picker) => {
-            $selectedDate.startDate = picker.startDate;
-            getClients();
-        })
-        .on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val("");
-            $selectedDate.startDate = null;
-            getClients();
-        });
+            .on("apply.daterangepicker", (ev, picker) => {
+                $selectedDate.startDate = picker.startDate;
+                getClients();
+            })
+            .on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val("");
+                $selectedDate.startDate = null;
+                getClients();
+            });
 
         $('.endDate').daterangepicker({
             autoUpdateInput: false,
@@ -36,15 +39,15 @@
             locale: abp.localization.currentLanguage.name,
             format: 'L',
         })
-        .on("apply.daterangepicker", (ev, picker) => {
-            $selectedDate.endDate = picker.startDate;
-            getClients();
-        })
-        .on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val("");
-            $selectedDate.endDate = null;
-            getClients();
-        });
+            .on("apply.daterangepicker", (ev, picker) => {
+                $selectedDate.endDate = picker.startDate;
+                getClients();
+            })
+            .on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val("");
+                $selectedDate.endDate = null;
+                getClients();
+            });
 
         var _permissions = {
             create: abp.auth.hasPermission('Pages.Clients.Create'),
@@ -52,15 +55,23 @@
             'delete': abp.auth.hasPermission('Pages.Clients.Delete')
         };
 
-               
 
-		 var _viewClientModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Clients/ViewclientModal',
-            modalClass: 'ViewClientModal'
+
+        var _createOrEditModalEmail = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+            modalClass: 'ClientEmailCompose'
         });
-
-		        var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
-		        function entityHistoryIsEnabled() {
+        var _createOrEditClientTagModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientTags',
+            modalClass: 'CreateOrEditClientTagsModal'
+        });
+        //var _createOrEditModal = new app.ModalManager({
+        //    viewUrl: abp.appPath + 'AppAreaName/Partners/CreateOrEditClientTags',
+        //    scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Partners/Tasks/_CreateOrEditModal.js',
+        //    modalClass: 'CreateOrEditTasksModal',
+        //});
+        var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
+        function entityHistoryIsEnabled() {
             return abp.auth.hasPermission('Pages.Administration.AuditLogs') &&
                 abp.custom.EntityHistory &&
                 abp.custom.EntityHistory.IsEnabled &&
@@ -71,14 +82,14 @@
             if ($selectedDate.startDate == null) {
                 return null;
             }
-            return $selectedDate.startDate.format("YYYY-MM-DDT00:00:00Z"); 
+            return $selectedDate.startDate.format("YYYY-MM-DDT00:00:00Z");
         }
-        
+
         var getMaxDateFilter = function (element) {
             if ($selectedDate.endDate == null) {
                 return null;
             }
-            return $selectedDate.endDate.format("YYYY-MM-DDT23:59:59Z"); 
+            return $selectedDate.endDate.format("YYYY-MM-DDT23:59:59Z");
         }
 
         var dataTable = _$clientsTable.DataTable({
@@ -89,23 +100,24 @@
                 ajaxFunction: _clientsService.getAll,
                 inputFilter: function () {
                     return {
-					filter: $('#ClientsTableFilter').val(),
-					firstNameFilter: $('#FirstNameFilterId').val(),
-					lastNameFilter: $('#LastNameFilterId').val(),
-					emailFilter: $('#EmailFilterId').val(),
-					phoneNoFilter: $('#PhoneNoFilterId').val(),
-					minDateofBirthFilter:  getDateFilter($('#MinDateofBirthFilterId')),
-					maxDateofBirthFilter:  getMaxDateFilter($('#MaxDateofBirthFilterId')),
-					universityFilter: $('#UniversityFilterId').val(),
-					minRatingFilter: $('#MinRatingFilterId').val(),
-					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryNameFilter: $('#CountryNameFilterId').val(),
-					userNameFilter: $('#UserNameFilterId').val(),
-					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val()
+                        filter: $('#ClientsTableFilter').val(),
+                        firstNameFilter: $('#FirstNameFilterId').val(),
+                        lastNameFilter: $('#LastNameFilterId').val(),
+                        emailFilter: $('#EmailFilterId').val(),
+                        phoneNoFilter: $('#PhoneNoFilterId').val(),
+                        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                        universityFilter: $('#UniversityFilterId').val(),
+                        minRatingFilter: $('#MinRatingFilterId').val(),
+                        maxRatingFilter: $('#MaxRatingFilterId').val(),
+                        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                        userNameFilter: $('#UserNameFilterId').val(),
+                        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                        countryName2Filter: $('#CountryName2FilterId').val(),
+                        countryName3Filter: $('#CountryName3FilterId').val()
                     };
                 }
             },
@@ -119,207 +131,136 @@
                     targets: 0
                 },
                 {
-                    width: 120,
                     targets: 1,
                     data: null,
                     orderable: false,
                     autoWidth: false,
                     defaultContent: '',
-                    rowAction: {
-                        cssClass: 'btn btn-brand dropdown-toggle',
-                        text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                        items: [
-						{
-                                text: app.localize('View'),
-                                action: function (data) {
-                                    window.location="/AppAreaName/Clients/ViewClient/" + data.record.client.id;
-                                }
-                        },
-						{
-                            text: app.localize('Edit'),
-                            visible: function () {
-                                return _permissions.edit;
-                            },
-                            action: function (data) {
-                            window.location="/AppAreaName/Clients/CreateOrEdit/" + data.record.client.id;                                
-                            }
-                        },
-                        {
-                            text: app.localize('History'),
-                            iconStyle: 'fas fa-history mr-2',
-                            visible: function () {
-                                return entityHistoryIsEnabled();
-                            },
-                            action: function (data) {
-                                _entityTypeHistoryModal.open({
-                                    entityTypeFullName: _entityTypeFullName,
-                                    entityId: data.record.client.id
-                                });
-                            }
-						}, 
-						{
-                            text: app.localize('Delete'),
-                            visible: function () {
-                                return _permissions.delete;
-                            },
-                            action: function (data) {
-                                deleteClient(data.record.client);
-                            }
-                        }]
+                    render: function (data, type, full, meta) {
+                       /* console.log(data);*/
+                        var rowId = data.client.id;
+                        var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+                            '<div class="ellipsis"><input type="checkbox" ></div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
                     }
                 },
-					{
-						targets: 2,
-						 data: "client.firstName",
-						 name: "firstName"   
-					},
-					{
-						targets: 3,
-						 data: "client.lastName",
-						 name: "lastName"   
-					},
-					{
-						targets: 4,
-						 data: "client.email",
-						 name: "email"   
-					},
-					{
-						targets: 5,
-						 data: "client.phoneNo",
-						 name: "phoneNo"   
-					},
-					{
-						targets: 6,
-						 data: "client.dateofBirth",
-						 name: "dateofBirth" ,
-					render: function (dateofBirth) {
-						if (dateofBirth) {
-							return moment(dateofBirth).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 7,
-						 data: "client.contactPreferences",
-						 name: "contactPreferences"   ,
-						render: function (contactPreferences) {
-							return app.localize('Enum_ContactPrefernce_' + contactPreferences);
-						}
-			
-					},
-					{
-						targets: 8,
-						 data: "client.university",
-						 name: "university"   
-					},
-					{
-						targets: 9,
-						 data: "client.street",
-						 name: "street"   
-					},
-					{
-						targets: 10,
-						 data: "client.city",
-						 name: "city"   
-					},
-					{
-						targets: 11,
-						 data: "client.state",
-						 name: "state"   
-					},
-					{
-						targets: 12,
-						 data: "client.zipCode",
-						 name: "zipCode"   
-					},
-					{
-						targets: 13,
-						 data: "client.preferedIntake",
-						 name: "preferedIntake" ,
-					render: function (preferedIntake) {
-						if (preferedIntake) {
-							return moment(preferedIntake).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 14,
-						 data: "client.passportNo",
-						 name: "passportNo"   
-					},
-					{
-						targets: 15,
-						 data: "client.visaType",
-						 name: "visaType"   
-					},
-					{
-						targets: 16,
-						 data: "client.visaExpiryDate",
-						 name: "visaExpiryDate" ,
-					render: function (visaExpiryDate) {
-						if (visaExpiryDate) {
-							return moment(visaExpiryDate).format('L');
-						}
-						return "";
-					}
-			  
-					},
-					{
-						targets: 17,
-						 data: "client.rating",
-						 name: "rating"   
-					},
-					{
-						targets: 18,
-						 data: "client.clientPortal",
-						 name: "clientPortal"  ,
-						render: function (clientPortal) {
-							if (clientPortal) {
-								return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
-							}
-							return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
-					}
-			 
-					},
-					{
-						targets: 19,
-						 data: "countryName" ,
-						 name: "countryFk.name" 
-					},
-					{
-						targets: 20,
-						 data: "userName" ,
-						 name: "assigneeFk.name" 
-					},
-					{
-						targets: 21,
-						 data: "binaryObjectDescription" ,
-						 name: "profilePictureFk.description" 
-					},
-					{
-						targets: 22,
-						 data: "degreeLevelName" ,
-						 name: "highestQualificationFk.name" 
-					},
-					{
-						targets: 23,
-						 data: "subjectAreaName" ,
-						 name: "studyAreaFk.name" 
-					},
-					{
-						targets: 24,
-						 data: "leadSourceName" ,
-						 name: "leadSourceFk.name" 
-					},
-					{
-						targets: 25,
-						 data: "countryName2" ,
-						 name: "passportCountryFk.name" 
-					}
+                {
+                    width: 100,
+                    targets: 2,
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+                    render: function (data, type, row) {
+                        let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                        let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}${lastNameInitial}`;
+                        let fullName = `${row.client.firstName} ${row.client.lastName}`;
+                  /*      console.log(row);*/
+                        debugger
+                        // Generate the URLs using JavaScript variables
+                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
+                        let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+           /*             console.log(clientEmailComposeUrl);*/
+
+                        return `
+        <div class="d-flex align-items-center">
+            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
+                <b>${initials}</b>
+            </span>
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}
+                </a> 
+                 <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+            </div>
+        </div>
+    `;
+                    },
+
+                    name: 'concatenatedData',
+
+                },
+                {
+                    targets: 3,
+                    data: 'client.rating',
+                    name: 'rating',
+                },
+                {
+                    targets: 4,
+                    data: 'client.id',
+                    name: 'id',
+                },
+                {
+                    targets: 5,
+                    data: 'userName',
+                    name: 'assigneeName',
+                },
+                {
+                    targets: 6,
+                    data: "client.phoneNo",
+                    name: "phoneNo"
+                },
+                {
+                    targets: 7,
+                    data: 'client.id',
+                    name: 'id',
+                },
+                {
+                    targets: 8,
+                    data: 'client.passportNo',
+                    name: 'passportNo',
+                },
+                {
+                    targets: 9,
+                    data: 'client.city',
+                    name: 'city',
+                },
+                {
+                    targets: 10,
+                    data: 'client.state',
+                    name: 'state',
+                },
+                {
+                    targets: 11,
+                    data: 'client.state',
+                    name: 'state',
+                },
+                {
+                    width: 30,
+                    targets: 12,
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+
+                        var rowId = data.client.id;
+                        var rowData = data.client;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
+                }
             ]
         });
 
@@ -327,7 +268,78 @@
             dataTable.ajax.reload();
         }
 
+
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsis', function (e) {
+            e.preventDefault();
+
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
+
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+
+
+
+            //// Toggle the visibility of the options when the ellipsis is clicked
+            //var options = $(this).next('.options');
+            //options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+
+        // Handle menu item clicks
+        $(document).on('click', '.EmailForm', function (e) {
+            e.preventDefault();
+            debugger
+            var rowId = $(this).data('id');
+            var action = $(this).data('action');
+            _createOrEditModalEmail.open(rowId);
+
+        });
+        // Handle menu item clicks
+        $(document).on('click', 'a[data-action]', function (e) {
+            e.preventDefault();
+
+            var rowId = $(this).data('id');
+            var action = $(this).data('action');
+
+            // Handle the selected action based on the rowId
+            if (action === 'view') {
+                /*_viewProductTypeModal.open({ id: rowId });*/
+                // _createOrEditModal.open({ id: rowId });
+                window.location = "/AppAreaName/Clients/ViewClient/" + rowId;
+
+            } else if (action === 'edit') {
+                //_createOrEditModal.open({ id: rowId });
+                //_createOrEditModal.open({ id: rowId });
+                window.location = "/AppAreaName/Clients/ClientCreateDetail/" + rowId;
+
+            } else if (action === 'delete') {
+                debugger
+                deleteClient(rowId);
+            }
+        });
+        // Add an event listener to handle the click event for the full name link
+        $(document).on('click', '.text-truncate', function (e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+            window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        });
+        //$(document).on('click', '#CreateNewClientEmailButton', function (e) {
+        //    e.preventDefault(); // Prevent the default behavior of the link
+        //    _createOrEditModalEmail.open();
+        //    // window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        //});
         function deleteClient(client) {
+            debugger
             abp.message.confirm(
                 '',
                 app.localize('AreYouSure'),
@@ -343,8 +355,8 @@
                 }
             );
         }
-
-		$('#ShowAdvancedFiltersSpan').click(function () {
+        
+        $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
             $('#HideAdvancedFiltersSpan').show();
             $('#AdvacedAuditFiltersArea').slideDown();
@@ -355,30 +367,44 @@
             $('#ShowAdvancedFiltersSpan').show();
             $('#AdvacedAuditFiltersArea').slideUp();
         });
+        $('#CreateNewClientButton').click(function () {
+            // _createOrEditModal.open();
+            window.location.href = abp.appPath + 'AppAreaName/Clients/ClientCreateDetail';
 
-                
+        });
+        //Client Tags Modal
+        //$('#CreateNewClientsTagsButton').click(function () {
+        //     _createOrEditClientTagModal.open();
 
-		$('#ExportToExcelButton').click(function () {
+        //});
+        //function getClientsTags() {
+        //    dataTable.ajax.reload();
+        //}
+        //abp.event.on('app.createOrEditClientTagsModalSaved', function () {
+        //    getClientsTags();
+        //});
+        $('#ExportToExcelButton').click(function () {
             _clientsService
                 .getClientsToExcel({
-				filter : $('#ClientsTableFilter').val(),
-					firstNameFilter: $('#FirstNameFilterId').val(),
-					lastNameFilter: $('#LastNameFilterId').val(),
-					emailFilter: $('#EmailFilterId').val(),
-					phoneNoFilter: $('#PhoneNoFilterId').val(),
-					minDateofBirthFilter:  getDateFilter($('#MinDateofBirthFilterId')),
-					maxDateofBirthFilter:  getMaxDateFilter($('#MaxDateofBirthFilterId')),
-					universityFilter: $('#UniversityFilterId').val(),
-					minRatingFilter: $('#MinRatingFilterId').val(),
-					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryNameFilter: $('#CountryNameFilterId').val(),
-					userNameFilter: $('#UserNameFilterId').val(),
-					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val()
-				})
+                    filter: $('#ClientsTableFilter').val(),
+                    firstNameFilter: $('#FirstNameFilterId').val(),
+                    lastNameFilter: $('#LastNameFilterId').val(),
+                    emailFilter: $('#EmailFilterId').val(),
+                    phoneNoFilter: $('#PhoneNoFilterId').val(),
+                    minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                    maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                    universityFilter: $('#UniversityFilterId').val(),
+                    minRatingFilter: $('#MinRatingFilterId').val(),
+                    maxRatingFilter: $('#MaxRatingFilterId').val(),
+                    countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                    userNameFilter: $('#UserNameFilterId').val(),
+                    binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                    degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                    subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                    countryName2Filter: $('#CountryName2FilterId').val(),
+                    countryName3Filter: $('#CountryName3FilterId').val()
+                })
                 .done(function (result) {
                     app.downloadTempFile(result);
                 });
@@ -388,32 +414,32 @@
             getClients();
         });
 
-		$('#GetClientsButton').click(function (e) {
+        $('#GetClientsButton').click(function (e) {
             e.preventDefault();
             getClients();
         });
 
-		$(document).keypress(function(e) {
-		  if(e.which === 13) {
-			getClients();
-		  }
-		});
+        $(document).keypress(function (e) {
+            if (e.which === 13) {
+                getClients();
+            }
+        });
 
-        $('.reload-on-change').change(function(e) {
-			getClients();
-		});
+        $('.reload-on-change').change(function (e) {
+            getClients();
+        });
 
-        $('.reload-on-keyup').keyup(function(e) {
-			getClients();
-		});
+        $('.reload-on-keyup').keyup(function (e) {
+            getClients();
+        });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
             getClients();
         });
-		
-		
-		
+
+
+
 
     });
 })();
