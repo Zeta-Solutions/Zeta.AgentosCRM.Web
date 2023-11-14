@@ -1,8 +1,11 @@
 ﻿using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
 
-namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency
+namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrencies
 {
-    public class CRMCurrencyViewModel:GetCRMCurrencyForViewDto
+    public class CRMCurrencyViewModel : GetCRMCurrencyForViewDto
     {
+         
     }
 }
+
+ 

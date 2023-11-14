@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrencies
 @model CreateOrEditCRMCurrencyModalViewModel
 @using Abp.Extensions
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditQuotationCurrency")): L("CreateNewQuotationCurrency")))

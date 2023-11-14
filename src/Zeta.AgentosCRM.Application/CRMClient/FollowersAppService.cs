@@ -1,6 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMClient;
-using Zeta.AgentosCRM.Authorization.Users;
-
+﻿using Zeta.AgentosCRM.Authorization.Users;
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -91,6 +89,28 @@ namespace Zeta.AgentosCRM.CRMClient
             );
 
         }
+
+        public async Task<GetFollowerForViewDto> GetFollowerForView(int id)
+        {
+            var follower = await _followerRepository.GetAsync(id);
+
+            var output = new GetFollowerForViewDto { Follower = ObjectMapper.Map<FollowerDto>(follower) };
+
+            if (output.Follower.ClientId != null)
+            {
+                var _lookupClient = await _lookup_clientRepository.FirstOrDefaultAsync((long)output.Follower.ClientId);
+                output.ClientFirstName = _lookupClient?.FirstName?.ToString();
+            }
+
+            if (output.Follower.UserId != null)
+            {
+                var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Follower.UserId);
+                output.UserName = _lookupUser?.Name?.ToString();
+            }
+
+            return output;
+        }
+
 
         [AbpAuthorize(AppPermissions.Pages_Followers_Edit)]
         public async Task<GetFollowerForEditOutput> GetFollowerForEdit(EntityDto input)

@@ -4,18 +4,15 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace Zeta.AgentosCRM.CRMPartner
 {
     public interface IPartnersAppService : IApplicationService
     {
         Task<PagedResultDto<GetPartnerForViewDto>> GetAll(GetAllPartnersInput input);
+
+        Task<GetPartnerForViewDto> GetPartnerForView(long id);
 
         Task<GetPartnerForEditOutput> GetPartnerForEdit(EntityDto<long> input);
 

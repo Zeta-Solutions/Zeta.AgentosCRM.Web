@@ -17,7 +17,7 @@
 
             <div class="my-3">
                 <label class="form-label" for="masterCategoryId">@L("MasterCategory")</label>
-                @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
+                @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control select2" , @required="required" })
             </div>
 
             <div class="my-3">

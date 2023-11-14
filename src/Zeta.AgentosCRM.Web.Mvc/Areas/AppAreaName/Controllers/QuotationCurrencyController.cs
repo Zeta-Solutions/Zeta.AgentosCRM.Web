@@ -7,7 +7,7 @@ using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMSetup.Dtos;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency; 
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrencies; 
 using Zeta.AgentosCRM.Web.Controllers; 
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
@@ -34,15 +34,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
         public async Task<PartialViewResult> ViewQuotationCurrenyModal(int id)
         {
-            //var GetCRMCurrencyForViewDto = await _cRMCurrenciesAppService.(id);
-            //var model = new CRMCurrencyViewModel()
-            //{
-            //    CRMCurrency = GetCRMCurrencyForViewDto.CRMCurrency,
+            var GetCRMCurrencyForViewDto = await _cRMCurrenciesAppService.GetCRMCurrencyForView(id);
+            var model = new CRMCurrencyViewModel()
+            {
+                CRMCurrency = GetCRMCurrencyForViewDto.CRMCurrency,
 
-            //};
+            };
 
-            //return PartialView("_ViewQuotationCurrenyModal", model);
-            return PartialView("_ViewQuotationCurrenyModal", "");
+            return PartialView("_ViewQuotationCurrenyModal", model);
+            //return PartialView("_ViewQuotationCurrenyModal", "");
         }
 
         [AbpMvcAuthorize(AppPermissions.Pages_CRMCurrencies_Create, AppPermissions.Pages_CRMCurrencies_Edit)]

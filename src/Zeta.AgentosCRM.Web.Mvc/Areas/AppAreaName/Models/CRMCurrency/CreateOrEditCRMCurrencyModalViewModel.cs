@@ -2,7 +2,7 @@
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
 
 using Abp.Extensions;
-namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrency
+namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrencies
 {
     public class CreateOrEditCRMCurrencyModalViewModel
     {

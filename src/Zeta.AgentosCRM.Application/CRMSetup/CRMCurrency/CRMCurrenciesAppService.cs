@@ -5,8 +5,7 @@ using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos;
-using Zeta.AgentosCRM.Dto;
+using Zeta.AgentosCRM.CRMSetup.CRMCurrency.Dtos; 
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
 using Abp.Extensions;
@@ -127,5 +126,13 @@ namespace Zeta.AgentosCRM.CRMSetup.CRMCurrency
             await _crmCurrencyRepository.DeleteAsync(input.Id);
         }
 
+        public async Task<GetCRMCurrencyForViewDto> GetCRMCurrencyForView(int id)
+        {
+            var crmCurrency = await _crmCurrencyRepository.GetAsync(id);
+
+            var output = new GetCRMCurrencyForViewDto { CRMCurrency = ObjectMapper.Map<CRMCurrencyDto>(crmCurrency) };
+
+            return output;
+        }
     }
 }

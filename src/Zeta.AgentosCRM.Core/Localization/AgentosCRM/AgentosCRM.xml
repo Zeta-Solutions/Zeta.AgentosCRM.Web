@@ -1,11 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>
-		<text name="Currency">Currency</text>
-		<text name="CRMCurrency">C r m Currency</text>
-		<text name="CreateNewCRMCurrency">Create new c r m Currency</text>
-		<text name="EditCRMCurrency">Edit c r m Currency</text>
-		<text name="DeleteCRMCurrency">Delete c r m Currency</text>
+	<texts> 
+    <text name="Stage">Stage</text>
+    <text name="Relatedoffice">Related Office</text>
+    <text name="URL">URL</text>
+    <text name="FromName">From Name</text>
+    <text name="Badge">Badge</text>
+    <text name="LastUpdate">Last Update</text>
+    <text name="Totalchecklist">Total Checklist</text>
+    <text name="SelectedWorkFlow">Selected WorkFlow</text>
+    <text name="totalusage">Total Usage</text>
+    <text name="EditDocumentCheckList">Edit Document CheckList</text>
+    <text name="EditDocumentType">Edit Document Type</text>
+    <text name="CreateNewDocumentType">Create New Document Type</text>
+    <text name="DocumentTypeHeaderInfo">Document Type Header Info</text>
+    <text name="DocumentType">Document Type</text>
+    <text name="DocumentCheckListHeaderInfo">Document CheckList Header Info</text>
+    <text name="DocumentCheckList">Document CheckList</text>
+    <text name="CreateNewDocumentCheckList">Create New Document CheckList</text>
+    <text name="EditLeadForm">Edit Lead Form</text> 
+    <text name="CreateNewLeadform">Create New Lead Form</text>
+    <text name="LeadformHeaderInfo">Lead From Header Info</text>
+    <text name="Leadform">Lead Form</text>
+    <text name="Currency">Currency</text>
+    <text name="AllOffice">All Office</text>
+    <text name="selectedoffice">Selected Office</text>
+    <text name="Accessibleoffice">Accessible Office</text>
+    <text name="workflowaccessible">Workflow Accessible</text>
+    <text name="Appointment">Appointment</text>
+    <text name="ClientAppointment">Client appointment</text>
+    <text name="CreateNewClientAppointment">Create new client appointment</text>
+    <text name="EditClientAppointment">Edit client appointment</text>
+    <text name="DeleteClientAppointment">Delete client appointment</text>
+    <text name="Contact">Contact</text>
+    <text name="PartnerContact">Partner contact</text>
+    <text name="CreateNewPartnerContact">Create new partner contact</text>
+    <text name="EditPartnerContact">Edit partner contact</text>
+    <text name="DeletePartnerContact">Delete partner contact</text>
+    <text name="Branch">Branch</text>
+    <text name="EditBranch">Edit branch</text>
+    <text name="DeleteBranch">Delete branch</text>
+    <text name="CRMCurrency">C r m currency</text>
+    <text name="CreateNewCRMCurrency">Create new c r m currency</text>
+    <text name="EditCRMCurrency">Edit c r m currency</text>
+    <text name="DeleteCRMCurrency">Delete c r m currency</text>
 
 
 		<text name="PartnerName">Partner Name</text>

@@ -179,38 +179,30 @@
     function getRegions() {
       dataTable.ajax.reload();
     }
-
-
-
-      // Add a click event handler for the ellipsis icons
+     
       $(document).on('click', '.ellipsis', function (e) {
           e.preventDefault();
 
           var options = $(this).closest('.context-menu').find('.options');
-          var allOptions = $('.options');  // Select all options
+          var allOptions = $('.options');  
 
-          // Close all other open options
           allOptions.not(options).hide();
-
-          // Toggle the visibility of the options
+           
           options.toggle();
       });
-
-      // Close the context menu when clicking outside of it
+       
       $(document).on('click', function (event) {
           if (!$(event.target).closest('.context-menu').length) {
               $('.options').hide();
           }
       });
-
-      // Handle menu item clicks
+       
       $(document).on('click', 'a[data-action]', function (e) {
           e.preventDefault();
 
           var rowId = $(this).data('id');
           var action = $(this).data('action');
-          debugger
-          // Handle the selected action based on the rowId
+          debugger 
           if (action === 'view') {
               _viewRegionModal.open({ id: rowId });
           } else if (action === 'edit') {
@@ -248,7 +240,7 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewFeeButton').click(function () {
+      $('#CreateNewRegionButton').click(function () {
       _createOrEditModal.open();
     });
 

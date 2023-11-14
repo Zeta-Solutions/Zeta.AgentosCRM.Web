@@ -1,0 +1,138 @@
+﻿
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model PartnerViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+
+  
+  @section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/CreateOrEditModal.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    
+}
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script> 
+    }
+ 
+
+
+       
+    <div class="row mt-5">
+
+    <div class="col tittle">
+ @{
+                      var breadcrumbs = new List<BreadcrumbItem>()
+                      {
+                          new BreadcrumbItem("/AppAreaName/Partners", L("Partners")),
+                          new BreadcrumbItem(L("Details")),
+                      };
+                   }
+                  <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">                     
+                  </abp-page-subheader>
+    </div>
+@*     <div class="col text-end mr-4">
+<a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>                           
+
+    </div> *@
+</div>
+
+<div class="@(await GetContainerClass())">
+    <div class=" card card-custom gutter-b">
+        <div class=" card-body">
+             <div id="PartnerInformationsTab">        
+                <div class="row">
+                                <div class="col-6 mb-3">
+                <h6>@L("MasterCategory") :</h6>
+                @Model.MasterCategoryName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PartnerType") :</h6>
+                @Model.PartnerTypeName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("PartnerName") :</h6>
+                @Model.Partner.PartnerName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("BusinessRegistrationNumber") :</h6>
+                @Model.Partner.PhoneNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ServiceWorkflow") :</h6>
+                @Model.WorkflowName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Currency") :</h6>
+                @Model.WorkflowName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Street") :</h6>
+                @Model.Partner.Street
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("City") :</h6>
+                @Model.Partner.City
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("State") :</h6>
+                @Model.Partner.State
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Zip/Post Code") :</h6>
+                @Model.Partner.ZipCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Country") :</h6>
+                @Model.CountryName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Phone") :</h6>
+                @Model.Partner.PhoneNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Email") :</h6>
+                @Model.Partner.Email
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Fax") :</h6>
+                @Model.Partner.Fax
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Website") :</h6>
+                @Model.Partner.Website
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MarketingOfficeEmail") :</h6>
+                @Model.Partner.MarketingEmail
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("University") :</h6>
+                @Model.Partner.University
+            </div>
+
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+  <!-- CSS -->
+
+  <!-- JS -->
+
+
+ 
+
+
+
+
+
+
