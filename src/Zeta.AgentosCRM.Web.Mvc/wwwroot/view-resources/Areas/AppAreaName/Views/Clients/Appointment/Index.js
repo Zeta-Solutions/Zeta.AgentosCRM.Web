@@ -1,8 +1,9 @@
 ﻿(function () {
+    //alert("clientAppointment");
     $(function () {
-        var _$SubjectTable = $('#Appointmenttable');
-        var _subjectsService = abp.services.app.subjects;
-
+        var _$Appointmentstable = $('#Appointmentstable');
+        var _clientAppointmentsService = abp.services.app.clientAppointments;
+        debugger
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -26,7 +27,7 @@
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getSubjects();
+                getClientAppointments();
             });
 
         $('.endDate')
@@ -38,12 +39,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getSubjects();
+                getClientAppointments();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getSubjects();
+                getClientAppointments();
             });
 
         var _permissions = {
@@ -53,9 +54,9 @@
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditAppointmentModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/Appointment/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditAppointmentModal',
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientAppointmentModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Appointment/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditClientsAppoinmentModal',
         });
         var _createOrEditModalEmail = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
@@ -81,18 +82,17 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$SubjectTable.DataTable({
+        var dataTable = _$Appointmentstable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _subjectsService.getAll,
+                ajaxFunction: _clientAppointmentsService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#SubjectsTableFilter').val(),
-                        abbrivationFilter: $('#AbbrivationFilterId').val(),
+                        filter: $('#NameFilterId').val(),
+                        TimeZoneFilter: $('#TimeZoneFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
-                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
                     };
                 },
             },
@@ -115,55 +115,51 @@
                 //},
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
-                },
-                {
-                    targets: 2,
-                    data: 'subject.name',
+                    data: 'clientAppointments.name',
                     name: 'name',
                 },
                 {
+                    targets: 2,
+                    data: 'clientAppointments.timeZone',
+                    name: 'timeZone',
+                },
+                {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientAppointments.appointmentDate',
+                    name: 'appointmentDate',
                 },
                 {
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientAppointments.appointmentTime',
+                    name: 'appointmentTime',
                 },
                 {
                     targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientAppointments.title',
+                    name: 'title',
                 },
                 {
                     targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientAppointments.description',
+                    name: 'description',
                 },
-                {
-                    targets: 7,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
+               
             ],
         });
 
-        function getSubjects() {
+        function getClientAppointments() {
             dataTable.ajax.reload();
         }
 
         function deletePartnerType(subject) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _subjectsService
+                    _clientAppointmentsService
                         .delete({
                             id: subject.id,
                         })
                         .done(function () {
-                            getSubjects(true);
+                            getClientAppointments(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -183,12 +179,11 @@
         });
 
         $('#CreateNewAppointmentButton').click(function () {
-            debugger
             _createOrEditModal.open();
         });
 
         $('#ExportToExcelButton').click(function () {
-            _subjectsService
+            _clientAppointmentsService
                 .getPartnerTypesToExcel({
                     filter: $('#SubjectsTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -200,32 +195,33 @@
                 });
         });
 
-        abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
+        abp.event.on('app.createOrEditClientAppointmentModalSaved', function () {
             getSubjects();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
             e.preventDefault();
-            getSubjects();
+            getClientAppointments();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getSubjects();
+                getClientAppointments();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getSubjects();
+            getClientAppointments();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getSubjects();
+            getClientAppointments();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getSubjects();
+            getClientAppointments();
         });
+      
     });
 })();

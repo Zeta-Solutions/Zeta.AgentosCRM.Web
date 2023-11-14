@@ -61,7 +61,15 @@
             viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
             modalClass: 'ClientEmailCompose'
         });
-
+        var _createOrEditClientTagModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientTags',
+            modalClass: 'CreateOrEditClientTagsModal'
+        });
+        //var _createOrEditModal = new app.ModalManager({
+        //    viewUrl: abp.appPath + 'AppAreaName/Partners/CreateOrEditClientTags',
+        //    scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Partners/Tasks/_CreateOrEditModal.js',
+        //    modalClass: 'CreateOrEditTasksModal',
+        //});
         var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
         function entityHistoryIsEnabled() {
             return abp.auth.hasPermission('Pages.Administration.AuditLogs') &&
@@ -347,7 +355,7 @@
                 }
             );
         }
-
+        
         $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
             $('#HideAdvancedFiltersSpan').show();
@@ -364,8 +372,17 @@
             window.location.href = abp.appPath + 'AppAreaName/Clients/ClientCreateDetail';
 
         });
+        //Client Tags Modal
+        //$('#CreateNewClientsTagsButton').click(function () {
+        //     _createOrEditClientTagModal.open();
 
-
+        //});
+        //function getClientsTags() {
+        //    dataTable.ajax.reload();
+        //}
+        //abp.event.on('app.createOrEditClientTagsModalSaved', function () {
+        //    getClientsTags();
+        //});
         $('#ExportToExcelButton').click(function () {
             _clientsService
                 .getClientsToExcel({

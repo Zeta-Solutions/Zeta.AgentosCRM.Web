@@ -17,7 +17,9 @@
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/IntrestedService/Index.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Appointment/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientTask/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Education/Index.js" asp-append-version="true"></script>
@@ -82,7 +84,8 @@
                             </div>
 
                             <div class="col-lg-12">
-                                <input type="hidden" />
+                                <input type="hidden" value="@Model.Client.FirstName @Model.Client.LastName " id="clientAppID" />
+                                <input type="hidden" value="@Model.Client.Id " id="ID" />
                             </div>
                             <div class="col-lg-12"><input type="hidden" /></div>
                             <div class="col-lg-12"><input type="hidden" /></div>
@@ -102,23 +105,27 @@
                                 <p class="text-muted ">0.00 AUD</p>
                             </div>
                            
-                            <div class="col-lg-12 pb-1 text-start">
+                          @*   <div class="col-lg-12 pb-1 text-start">
                                 <label for="Address" class="form-label form-label-sm">Tags:</label>
                                 <select class="form-select tag form-select-sm bg-light bg-opacity-50" >
                                     <option>OFFSHORE(PAKISTAN)</option>
                                 </select>
-                            </div>
-   @*   <div class="col-lg-12 pb-1 text-start">
+                            </div> *@
+     <div class="col-lg-12 pb-1 text-start">
     <label for="Address" class="form-label form-label-sm">Tags:</label>
-    <button class="add-btn btn-sm btn " style=" color: blue;">
+    <button class="add-btn btn-sm btn " id="CreateNewClientsTagsButton" style=" color: blue;">
         + Add
     </button>
-</div> *@
+</div>
 
 
 
 
 
+
+                            <div class="col-lg-12 ">
+                                <div class="List"></div>
+                            </div>
 
                             <div class="col-lg-12 pb-2 text-start">
                                 <label for="AddedFrom" class="form-label form-label-sm">Client Portal:</label><br />
@@ -159,11 +166,15 @@
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("PassportCountry"):</label>
                                 <p class="text-muted fs-6">@Model.PassportCountry</p>
                             </div>
-                             <div class="col-lg-12 pb-0">
-                                <label class="form-label form-label-sm">Flowers:</label>
-                                <select class="form-select form-select-sm bg-light bg-opacity-50">
-                                    <option><i class="fas fa-plus"> Add</i></option>
-                                </select>
+                            
+                            <div class="col-lg-12 pb-1 text-start">
+                                <label for="Address" class="form-label form-label-sm">Followers:</label>
+                                <button class="add-btn btn-sm btn " id="CreateNewClientsFllowersButton" style=" color: blue;">
+                                    + Add
+                                </button>
+                            </div>
+                             <div class="col-lg-12 pb-2 text-start">
+                                <div class="followersList" ></div>
                             </div>
                             <div class="col-lg-12 pb-0">
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("PassportNo"):</label>
@@ -201,9 +212,7 @@
                             <div class="col-lg-12">
                              
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("Assignee"):</label>
-                                <select class="form-select form-select-sm bg-light bg-opacity-50">
-                                    <option><i class="fas fa-plus"> Add</i></option>
-                                </select>
+                               @Model.Client.AssigneeId
                             </div>
                             <div class="col-lg-12">
                                 <label for="Email" class="form-label form-label-sm">@L("AddedBy"):</label>
@@ -350,7 +359,10 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="AppointmentTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Appointment/AppointmentIndex.cshtml")
+
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Appointment/AppointmentsIndex.cshtml") *@
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Appointment/AppointmentsIndex.cshtml")
+
             </div>
         </div>
          <div class="tab-pane pt-5 mb-7" id="TasksTab" role="tabpanel">
