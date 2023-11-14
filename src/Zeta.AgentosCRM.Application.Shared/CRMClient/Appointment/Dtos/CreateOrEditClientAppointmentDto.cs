@@ -10,6 +10,8 @@ namespace Zeta.AgentosCRM.CRMClient.Appointment.Dtos
         [Required]
         public string TimeZone { get; set; }
 
+
+
         public DateTime AppointmentDate { get; set; }
 
         public DateTime AppointmentTime { get; set; }

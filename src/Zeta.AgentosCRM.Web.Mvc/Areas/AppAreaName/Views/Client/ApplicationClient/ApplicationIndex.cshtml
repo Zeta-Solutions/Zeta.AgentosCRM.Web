@@ -63,16 +63,29 @@
                                     </td>
                                 <td >
                                     <div class="context-menu">
-                                        <div class="dots d-flex flex-column "><span style="font-weight: bold; font-size: 1.2em;">...</span></div>
-                                        <div class="options left">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                            </div>
+                                        <div class="context-menu-options options left">
                                             <ul>
-                                                <li>Edit</li>
+                                                <li class="context-menu-option">Edit</li>
                                                 <li>Delete</li>
                                                 <!-- Add other options as needed -->
                                             </ul>
                                         </div>
                                     </div>
-                                    </td>
+                                   @*  <div class="context-menu">
+                                        <div class="context-menu-trigger">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <button class="context-menu-option">Option 1</button>
+                                            <button class="context-menu-option">Option 2</button>
+                                            <!-- Add more context menu options as needed -->
+                                        </div>
+                                    </div> *@
+                                </td>
                                   
                                 </tr>
                                 <tr>
@@ -104,10 +117,13 @@
                                     </td>
                                 <td>
                                     <div class="context-menu">
-                                        <div class="dots d-flex flex-column "><span style="font-weight: bold; font-size: 1.2em;">...</span></div>
-                                        <div class="options left">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
                                             <ul>
-                                                <li>Edit</li>
+                                                <li class="context-menu-option">Edit</li>
                                                 <li>Delete</li>
                                                 <!-- Add other options as needed -->
                                             </ul>
@@ -145,11 +161,14 @@
                                     </td>
                                 <td>
                                     <div class="context-menu">
-                                        <div class="dots d-flex flex-column "><span style="font-weight: bold; font-size: 1.2em;">...</span></div>
-                                        <div class="options left">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
                                             <ul>
-                                                <li>Edit</li>
-                                                <li>Delete</li>
+                                                <li class="EditAction">Edit</li>
+                                                <li class="DeleteAction">Delete</li>
                                                 <!-- Add other options as needed -->
                                             </ul>
                                         </div>
@@ -161,7 +180,7 @@
 
                             </tbody>
                 </table>
-                        <div class="row col-12 justify-content-end">
+                      @*   <div class="row col-12 justify-content-end">
                             <div class="row col-9">
                             </div>
                             <div class="pagination col-3 ">
@@ -171,7 +190,7 @@
                                 <a href="#">3</a>
                                 <a href="#">&raquo;</a>
                             </div>
-                        </div>
+                        </div> *@
             </div>
         </div>
         </div>

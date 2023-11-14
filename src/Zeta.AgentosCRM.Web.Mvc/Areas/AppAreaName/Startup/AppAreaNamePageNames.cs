@@ -39,6 +39,9 @@
             public const string CRMSetup = "CRMSetup";
             public const string MasterCategories = "CRMSetup.MasterCategories";
             public const string LeadSource = "CRMSetup.LeadSource"; 
+            public const string LeadForm = "CRMSetup.LeadForm"; 
+            public const string DocumentChecklist = "CRMSetup.DocumentChecklist"; 
+            public const string DocumentType= "CRMSetup.DocumentType"; 
             public const string Tag = "CRMSetup.Tag";
             public const string Country = "CRMSetup.Country";
             public const string QuotationCurrency = "CRMSetup.QuotationCurrency";

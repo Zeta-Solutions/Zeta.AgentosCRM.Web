@@ -1,0 +1,502 @@
+﻿@using Zeta.AgentosCRM.CRMClient;
+
+@using System.Globalization
+@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditClientViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
+@section Styles
+    {
+
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  
+
+}
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CreateOrEdit.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
+}
+
+
+
+@{
+    var breadcrumbs = new List<BreadcrumbItem>()
+                    {
+                        new BreadcrumbItem("/AppAreaName/Client", L("Client")),
+                        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+                    };
+}
+<abp-page-subheader title='@(Model.IsEditMode ? (L("EditClient")) : L("ADD NEW CLIENT OR PROSPECT"))' breadcrumbs="breadcrumbs">
+                         <a href="\AppAreaName\Clients\Index" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("BackClientList")</a>                
+
+</abp-page-subheader>
+
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <form name="ClientInformationsForm" role="form" novalidate class="form-validation">
+            <div class="card-body">
+                <div class="form">
+                    <div id="ClientInformationsTab">
+                        @if (Model.IsEditMode)
+                        {
+                            <input type="hidden" name="id" value="@Model.Client.Id" />
+                        }
+                        @* //////Accordion start////// *@
+
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header ">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <span class="toggle-text fw-bold fs-4">PERSONAL DETAILS</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body hv-1 h-75">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="row ">
+
+                                                        <div class="col-md-3 d-flex flex-column align-items-center">
+                                                            <div class="rounded-circle border border-secondary position-relative overflow-hidden" style="width: 150px; height: 150px;">
+                                                                <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" value="@Model.Client.ProfilePictureId" id="imageField" name="imageField" accept="image/*" style="opacity: 0;">
+                                                                <label for="imageField" class="d-block position-absolute top-50 start-50 translate-middle text-center" style="transform: translate(-50%, -50%);">Upload Your Profile Image</label>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <div class="row">
+
+                                                                    @* <div class="col-md-4 mb-3">
+                                                                    <label class="form-label" for="Client_FirstName">@L("FirstName")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
+                                                                    </div> *@
+                                                                    <div class="col-md-4 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_FirstName">@L("FirstName")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
+                                                                    </div>
+                                                                    @*   <div class="col-md-4 mb-3">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                                                                    </div> *@
+                                                                    <div class="col-md-4 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                                                                    </div>
+                                                                    @*                 <div class="col-md-4 mb-3">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
+
+                                                                    <div id="SampleDatePicker" class="input-group">
+                                                                    <input type="datetime" name="SampleDatePicker" value="@Model.Client.DateofBirth" class="form-control  form-control-sm rounded-0 custom-select-input date-picker">
+                                                                    </div>
+                                                                    </div> *@
+                                                                    <div class="col-md-4 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
+                                                                        <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_DateofBirth" type="text" name="dateofBirth" value="@Model.Client.DateofBirth" />
+                                                                    </div>
+                                                                    @*   <div class="col-md-4 mb-3">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_ClientId">@L("ClientId")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_InternalId" value="@Model.Client.InternalId.ToString(CultureInfo.InvariantCulture)" type="number" name="internalId" />
+
+                                                                    </div> *@
+                                                                    <div class="col-md-4 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_InternalId">@L("InternalId")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0 " id="Client_InternalId" value="@Model.Client.InternalId.ToString(CultureInfo.InvariantCulture)" type="number" name="internalId" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        <span class="toggle-text fw-bold fs-4">CONTACT DETAILS</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row ">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    @*  <div class="col-md-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                                                                    </div> *@
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                                                                    </div>
+                                                                    @*   <div class="col-md-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_PhoneNumber">@L("PhoneNumber")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNumber" value="@Model.Client.PhoneNo" type="number" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
+                                                                    </div> *@
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_PhoneNo">@L("PhoneNo")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNo" value="@Model.Client.PhoneNo" type="text" name="phoneNo" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
+                                                                    </div>
+                                                                    @*    @{
+                                                                    var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
+                                                                    foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
+                                                                    }
+                                                                    <div class="my-3 m-form__group">
+                                                                    <label class="form-label" for="Client_ContactPreferences">@L("ContactPreferences")</label>
+                                                                    <select class="form-select m-input m-input--square" name="contactPreferences" id="Client_ContactPreferences" asp-for="@Model.Client.ContactPreferences" asp-items="@selectListContactPreferences">
+                                                                    </select>
+                                                                    </div>  *@
+                                                                   @*  @{
+                                                                        var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
+                                                                        foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
+                                                                    } *@
+                                                                    <div class="col-md-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_ContactPreferences">@L("ContactPreferences")</label><br />
+                                                                        <div class="d-flex">
+                                                                            <button class="btn   btn-secondary flex-grow-1 btn-sm rounded-0">Email</button>
+                                                                            <button class="btn  btn-secondary flex-grow-1 btn-sm rounded-0">SMS</button>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                        <span class="toggle-text fw-bold fs-4">ADDRESS</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseThree" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row hv-1 h-75">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    @*  <div class="my-3 col-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_Street">@L("Street")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Street" value="@Model.Client.Street" type="text" name="street" />
+                                                                    </div> *@
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_Street">@L("Street")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Street" value="@Model.Client.Street" type="text" name="street" />
+                                                                    </div>
+                                                                    @*      <div class="my-3 col-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_City">@L("City")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_City" value="@Model.Client.City" type="text" name="city" />
+                                                                    </div>
+                                                                    <div class="my-3 col-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_State">@L("State")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_State" value="@Model.Client.State" type="text" name="state" />
+
+                                                                    </div>
+                                                                    <div class="my-3 col-4">
+                                                                    <label class="form-label fw-bold text-dark" for="Client_ZipCode">@L("ZipCode")</label>
+                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_ZipCode" value="@Model.Client.ZipCode" type="number" name="zipCode" />
+
+                                                                    </div> *@
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_City">@L("City")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_City" value="@Model.Client.City" type="text" name="city" />
+                                                                    </div>
+
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label" for="Client_State">@L("State")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_State" value="@Model.Client.State" type="text" name="state" />
+                                                                    </div>
+
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_ZipCode">@L("ZipCode")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_ZipCode" value="@Model.Client.ZipCode" type="text" name="zipCode" />
+                                                                    </div>
+
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="countryId">@L("Country")</label>
+                                                                        @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0"  , @required="required" })
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                        <span class="toggle-text fw-bold fs-4">CURRENT VISA INFORMATION</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row">
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label fw-bold text-dark" for="Client_PreferedIntake">@L("PreferedIntake")</label>
+                                                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_PreferedIntake" type="text" name="preferedIntake" value="@Model.Client.PreferedIntake" />
+                                            </div>
+
+                                           @*  <div class="col-md-4 mb-3">
+                                                <label class="form-label fw-bold text-dark" for="CountryName3">@L("PassportCountry")</label>
+                                                <div class="input-group">
+                                                    <input class="form-control rounded-0" id="CountryName3" name="countryName3" value="@Model.CountryName3" type="text" disabled>
+                                                    <button class="btn btn-primary blue rounded-0" id="OpenCountry3LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                                    <button class="btn btn-danger btn-icon" type="button" id="ClearCountryName3Button"><i class="fa fa-times"></i></button>
+                                                </div>
+                                            </div> *@
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label fw-bold text-dark" for="passportCountryId">@L("PassportCountry")</label>
+                                                @Html.DropDownList("passportCountryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.PassportCountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control form-select-lg custom-select-input rounded-0"  , @required="required" })
+                                              </div>
+
+                                           @*  @if (Model.IsEditMode)
+                                            {
+                                                <input class="form-control" id="Client_PassportCountryId" value="@Model.Client.PassportCountryId" type="text" name="passportCountryId" hidden />
+                                            }
+                                            else
+                                            {
+                                                <input class="form-control" id="Client_PassportCountryId" value="" type="text" name="passportCountryId" hidden />
+                                            } *@
+
+                                                                   <div class="col-md-4 mb-3">
+                                            <label class="form-label fw-bold text-dark" for="Client_PassportNo">@L("PassportNo")</label>
+                                            <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PassportNo" value="@Model.Client.PassportNo" type="number" name="passportNo" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label fw-bold text-dark" for="Client_VisaType">@L("VisaType")</label>
+                                            <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_VisaType" value="@Model.Client.VisaType" type="text" name="visaType" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label fw-bold text-dark" for="Client_VisaExpiryDate">@L("VisaExpiryDate")</label>
+                                            <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_VisaExpiryDate" type="text" name="visaExpiryDate" value="@Model.Client.VisaExpiryDate" />
+                                        </div>
+                                        </div>
+
+                 
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                        <span class="toggle-text fw-bold fs-4">EDUCATION</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFive" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="highestQualificationId">@L("HighestQualificationI")</label>
+                                                                        @Html.DropDownList("highestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control"   })
+                                                                    </div>	<div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="studyAreaId">@L("SubjectArea")</label>
+                                                                        @Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   })
+                                                                    </div>
+
+                                                                    <div class="my-3 col-4">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_University">@L("University")</label>
+                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" />
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                        <span class="toggle-text fw-bold fs-4">APPLICATION</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="Client_Application">@L("Application")</label></br>
+                                                                        <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
+                                                                        <p id="p">*Email Adress must be entered to select Application</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                        <span class="toggle-text fw-bold fs-4">Internal</span>
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+
+
+                                                                    <div class="col-md-12 mb-3">
+                                                                        <label class="form-label fw-bold text-dark" for="leadSourceId">@L("LeadSource")</label>
+                                                                        @Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        @* /////accordion end/////// *@
+
+                        <div class="accordion-item">
+                           @*  <h2 class="accordion-header">
+                                <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                    <span class="toggle-text fw-bold fs-4">USER</span>
+                                </button>
+                            </h2> *@
+                            <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+
+
+
+                                                                <div class="col-md-12 mb-3">
+                                                                    <label class="form-label fw-bold text-dark" for="assigneeId">@L("User")</label>
+                                                                    @Html.DropDownList("assigneeId", new SelectList(Model.ClientUserList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AssigneeId.ToString() : "")),@L("SelectAUser"), new { @class = "form-control"  , @required="required" })
+                                                                </div>
+
+                                                                <div class="col-md-12 mb-3">
+                                                                    <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
+                                                                    <div class="input-group">
+                                                                        <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
+                                                                        <button class="btn btn-primary blue" id="OpenBinaryObjectLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                                                        <button class="btn btn-danger btn-icon" type="button" id="ClearBinaryObjectDescriptionButton"><i class="fa fa-times"></i></button>
+                                                                    </div>
+                                                                </div>
+
+                                                                @if (Model.IsEditMode)
+                                                                {
+                                                                    <input class="form-control" id="Client_ProfilePictureId" value="@Model.Client.ProfilePictureId" type="text" name="profilePictureId" hidden />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId" hidden />
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <button type="button" id="saveBtn" class="btn btn-success save-button float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                        @if (!Model.IsEditMode)
+                        {
+                            <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

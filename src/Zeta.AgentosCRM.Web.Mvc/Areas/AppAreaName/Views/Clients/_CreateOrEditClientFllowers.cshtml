@@ -1,0 +1,43 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models
+@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditClientFllowersViewModel
+@section Styles
+   { 
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
+    @section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
+}
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Follower")))
+
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="ClientFollowersInformationsForm" role="form" novalidate class="form-validation">
+      
+
+
+            <input type="hidden" name="clientId" id="ClientId" />
+
+           @*  <div class="my-3 col-12">
+                <label class="form-label fw-bold text-dark" for="tags">@L("Tags")</label>
+                @Html.DropDownList("TagId", new SelectList(Model.ClientTagList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientTag.ClientId.ToString() : "")),@L("SelectATag"), new { @class = "form-control"  , @required="required" })
+            </div> *@
+
+            <div class="my-3 col-12">
+                <label class="form-label fw-bold text-dark" for="followers">@L("Followers")</label>
+                @Html.DropDownList("UserId", new SelectList(Model.clientFolllowersList, "Id", "DisplayName", (Model.IsEditMode ? Model.clientFolllowers.UserId.ToString() : "")), @L("SelectAFollower"), new { @class = "form-control" })
+            </div>
+       
+
+           
+        </form>
+    </div>
+  </div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

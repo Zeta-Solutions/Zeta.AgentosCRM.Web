@@ -16,7 +16,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DegreeLevel;
    }
 
 <abp-page-subheader title='@L("DegreeLevel")' description='@L("DegreeLevelHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_DegreeLevels_Create))
     {
