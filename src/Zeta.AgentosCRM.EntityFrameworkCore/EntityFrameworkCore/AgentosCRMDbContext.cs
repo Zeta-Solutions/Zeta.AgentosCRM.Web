@@ -1,4 +1,17 @@
-﻿using Zeta.AgentosCRM.CRMClient.Appointment;
+﻿using Zeta.AgentosCRM.CRMClient.InterstedServices;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.CRMApplications.Stages;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMProducts;
+using Zeta.AgentosCRM.CRMClient.Education;
+using Zeta.AgentosCRM.CRMPartner.Contract;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.AttachmentTest;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMClient.Appointment;
 using Zeta.AgentosCRM.CRMPartner.Contact;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
@@ -32,6 +45,32 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ClientInterstedService> ClientInterstedServices { get; set; }
+
+        public virtual DbSet<AppointmentInvitee> AppointmentInvitees { get; set; }
+
+        public virtual DbSet<Appointment> Appointments { get; set; }
+
+        public virtual DbSet<CRMTask> CRMTasks { get; set; }
+
+        public virtual DbSet<ApplicationStage> ApplicationStages { get; set; }
+
+        public virtual DbSet<Application> Applications { get; set; }
+
+        public virtual DbSet<Product> Products { get; set; }
+
+        public virtual DbSet<ClientEducation> ClientEducations { get; set; }
+
+        public virtual DbSet<PartnerContract> PartnerContracts { get; set; }
+
+        public virtual DbSet<Note> Notes { get; set; }
+
+        public virtual DbSet<Agent> Agents { get; set; }
+
+        public virtual DbSet<TestAattachment> TestAattachments { get; set; }
+
+        public virtual DbSet<PartnerPromotion> PartnerPromotions { get; set; }
+
         public virtual DbSet<ClientAppointment> ClientAppointments { get; set; }
 
         public virtual DbSet<PartnerContact> PartnerContacts { get; set; }
@@ -112,10 +151,62 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PartnerContact>(p =>
+            modelBuilder.Entity<ClientInterstedService>(c =>
             {
-                p.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ClientEducation>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<AppointmentInvitee>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Appointment>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<CRMTask>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ApplicationStage>(a =>
+                                  {
+                                      a.HasIndex(e => new { e.TenantId });
+                                  });
+            modelBuilder.Entity<Application>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Product>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientEducation>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerContract>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Note>(n =>
+                       {
+                           n.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Agent>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerPromotion>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PartnerContact>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ClientAppointment>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

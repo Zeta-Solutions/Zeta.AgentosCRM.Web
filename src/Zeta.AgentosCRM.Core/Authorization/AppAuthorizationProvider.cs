@@ -30,6 +30,76 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var clientInterstedServices = pages.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices, L("ClientInterstedServices"), multiTenancySides: MultiTenancySides.Tenant);
+            clientInterstedServices.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices_Create, L("CreateNewClientInterstedService"), multiTenancySides: MultiTenancySides.Tenant);
+            clientInterstedServices.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices_Edit, L("EditClientInterstedService"), multiTenancySides: MultiTenancySides.Tenant);
+            clientInterstedServices.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices_Delete, L("DeleteClientInterstedService"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var appointmentInvitees = pages.CreateChildPermission(AppPermissions.Pages_AppointmentInvitees, L("AppointmentInvitees"), multiTenancySides: MultiTenancySides.Tenant);
+            appointmentInvitees.CreateChildPermission(AppPermissions.Pages_AppointmentInvitees_Create, L("CreateNewAppointmentInvitee"), multiTenancySides: MultiTenancySides.Tenant);
+            appointmentInvitees.CreateChildPermission(AppPermissions.Pages_AppointmentInvitees_Edit, L("EditAppointmentInvitee"), multiTenancySides: MultiTenancySides.Tenant);
+            appointmentInvitees.CreateChildPermission(AppPermissions.Pages_AppointmentInvitees_Delete, L("DeleteAppointmentInvitee"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var appointments = pages.CreateChildPermission(AppPermissions.Pages_Appointments, L("Appointments"), multiTenancySides: MultiTenancySides.Tenant);
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Create, L("CreateNewAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Edit, L("EditAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+            appointments.CreateChildPermission(AppPermissions.Pages_Appointments_Delete, L("DeleteAppointment"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var crmTasks = pages.CreateChildPermission(AppPermissions.Pages_CRMTasks, L("CRMTasks"), multiTenancySides: MultiTenancySides.Tenant);
+            crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
+            crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
+            crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var tasks = pages.CreateChildPermission(AppPermissions.Pages_CRMTasks, L("Tasks"), multiTenancySides: MultiTenancySides.Tenant);
+            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewTask"), multiTenancySides: MultiTenancySides.Tenant);
+            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditTask"), multiTenancySides: MultiTenancySides.Tenant);
+            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteTask"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var applicationStages = pages.CreateChildPermission(AppPermissions.Pages_ApplicationStages, L("ApplicationStages"), multiTenancySides: MultiTenancySides.Tenant);
+            applicationStages.CreateChildPermission(AppPermissions.Pages_ApplicationStages_Create, L("CreateNewApplicationStage"), multiTenancySides: MultiTenancySides.Tenant);
+            applicationStages.CreateChildPermission(AppPermissions.Pages_ApplicationStages_Edit, L("EditApplicationStage"), multiTenancySides: MultiTenancySides.Tenant);
+            applicationStages.CreateChildPermission(AppPermissions.Pages_ApplicationStages_Delete, L("DeleteApplicationStage"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var applications = pages.CreateChildPermission(AppPermissions.Pages_Applications, L("Applications"), multiTenancySides: MultiTenancySides.Tenant);
+            applications.CreateChildPermission(AppPermissions.Pages_Applications_Create, L("CreateNewApplication"), multiTenancySides: MultiTenancySides.Tenant);
+            applications.CreateChildPermission(AppPermissions.Pages_Applications_Edit, L("EditApplication"), multiTenancySides: MultiTenancySides.Tenant);
+            applications.CreateChildPermission(AppPermissions.Pages_Applications_Delete, L("DeleteApplication"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var products = pages.CreateChildPermission(AppPermissions.Pages_Products, L("Products"), multiTenancySides: MultiTenancySides.Tenant);
+            products.CreateChildPermission(AppPermissions.Pages_Products_Create, L("CreateNewProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            products.CreateChildPermission(AppPermissions.Pages_Products_Edit, L("EditProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            products.CreateChildPermission(AppPermissions.Pages_Products_Delete, L("DeleteProduct"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var clientEducations = pages.CreateChildPermission(AppPermissions.Pages_ClientEducations, L("ClientEducations"), multiTenancySides: MultiTenancySides.Tenant);
+            clientEducations.CreateChildPermission(AppPermissions.Pages_ClientEducations_Create, L("CreateNewClientEducation"), multiTenancySides: MultiTenancySides.Tenant);
+            clientEducations.CreateChildPermission(AppPermissions.Pages_ClientEducations_Edit, L("EditClientEducation"), multiTenancySides: MultiTenancySides.Tenant);
+            clientEducations.CreateChildPermission(AppPermissions.Pages_ClientEducations_Delete, L("DeleteClientEducation"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var partnerContracts = pages.CreateChildPermission(AppPermissions.Pages_PartnerContracts, L("PartnerContracts"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContracts.CreateChildPermission(AppPermissions.Pages_PartnerContracts_Create, L("CreateNewPartnerContract"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContracts.CreateChildPermission(AppPermissions.Pages_PartnerContracts_Edit, L("EditPartnerContract"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerContracts.CreateChildPermission(AppPermissions.Pages_PartnerContracts_Delete, L("DeletePartnerContract"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var notes = pages.CreateChildPermission(AppPermissions.Pages_Notes, L("Notes"), multiTenancySides: MultiTenancySides.Tenant);
+            notes.CreateChildPermission(AppPermissions.Pages_Notes_Create, L("CreateNewNote"), multiTenancySides: MultiTenancySides.Tenant);
+            notes.CreateChildPermission(AppPermissions.Pages_Notes_Edit, L("EditNote"), multiTenancySides: MultiTenancySides.Tenant);
+            notes.CreateChildPermission(AppPermissions.Pages_Notes_Delete, L("DeleteNote"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var agents = pages.CreateChildPermission(AppPermissions.Pages_Agents, L("Agents"), multiTenancySides: MultiTenancySides.Tenant);
+            agents.CreateChildPermission(AppPermissions.Pages_Agents_Create, L("CreateNewAgent"), multiTenancySides: MultiTenancySides.Tenant);
+            agents.CreateChildPermission(AppPermissions.Pages_Agents_Edit, L("EditAgent"), multiTenancySides: MultiTenancySides.Tenant);
+            agents.CreateChildPermission(AppPermissions.Pages_Agents_Delete, L("DeleteAgent"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var testAattachments = pages.CreateChildPermission(AppPermissions.Pages_TestAattachments, L("TestAattachments"), multiTenancySides: MultiTenancySides.Host);
+            testAattachments.CreateChildPermission(AppPermissions.Pages_TestAattachments_Create, L("CreateNewTestAattachment"), multiTenancySides: MultiTenancySides.Host);
+            testAattachments.CreateChildPermission(AppPermissions.Pages_TestAattachments_Edit, L("EditTestAattachment"), multiTenancySides: MultiTenancySides.Host);
+            testAattachments.CreateChildPermission(AppPermissions.Pages_TestAattachments_Delete, L("DeleteTestAattachment"), multiTenancySides: MultiTenancySides.Host);
+
+            var partnerPromotions = pages.CreateChildPermission(AppPermissions.Pages_PartnerPromotions, L("PartnerPromotions"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerPromotions.CreateChildPermission(AppPermissions.Pages_PartnerPromotions_Create, L("CreateNewPartnerPromotion"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerPromotions.CreateChildPermission(AppPermissions.Pages_PartnerPromotions_Edit, L("EditPartnerPromotion"), multiTenancySides: MultiTenancySides.Tenant);
+            partnerPromotions.CreateChildPermission(AppPermissions.Pages_PartnerPromotions_Delete, L("DeletePartnerPromotion"), multiTenancySides: MultiTenancySides.Tenant);
+
             var clientAppointments = pages.CreateChildPermission(AppPermissions.Pages_ClientAppointments, L("ClientAppointments"), multiTenancySides: MultiTenancySides.Tenant);
             clientAppointments.CreateChildPermission(AppPermissions.Pages_ClientAppointments_Create, L("CreateNewClientAppointment"), multiTenancySides: MultiTenancySides.Tenant);
             clientAppointments.CreateChildPermission(AppPermissions.Pages_ClientAppointments_Edit, L("EditClientAppointment"), multiTenancySides: MultiTenancySides.Tenant);

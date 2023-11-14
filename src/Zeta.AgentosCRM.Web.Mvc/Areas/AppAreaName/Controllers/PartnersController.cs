@@ -88,7 +88,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult CreateOrEditTasksModal()
         {
 
-            return PartialView("Tasks/_CreateOrEditModal", "");
+            return PartialView("CRMTasks/_CreateOrEditModal", "");
 
         }
         public ActionResult CreateOrEditPromotionsModal()
@@ -195,11 +195,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             //    ,
             //    WorkflowName = getPartnerForViewDto.WorkflowName
 
-            //    ,
-            //    CountryName = getPartnerForViewDto.CountryName
-
-            //    ,
-            //    CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
+                ,
+                CountryName = getPartnerForViewDto.CountryName
+                 
 
             //};
 

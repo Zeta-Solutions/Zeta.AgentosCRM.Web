@@ -1,0 +1,31 @@
+﻿
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.TestAattachments
+@model TestAattachmentViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="TestAattachmentInformationsTab">
+        
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.TestAattachment.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Attachment") :</h6>
+                @if (Model.TestAattachment.Attachment.HasValue)
+                {
+                    <a href="@("/File/DownloadBinaryFile?id=" + Model.TestAattachment.Attachment)" target="_blank">@Model.TestAattachment.AttachmentFileName</a>
+                }
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")
+
