@@ -195,11 +195,11 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         //        ,
         //        WorkflowName = getPartnerForViewDto.WorkflowName
 
-                ,
-                CountryName = getPartnerForViewDto.CountryName
+                //,
+                //CountryName = getPartnerForViewDto.CountryName
 
-                ,
-                CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
+                //,
+                //CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
 
         //    };
 

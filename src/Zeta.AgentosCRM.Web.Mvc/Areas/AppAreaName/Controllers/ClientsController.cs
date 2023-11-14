@@ -14,6 +14,9 @@ using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientsAppointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tag;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerTypes;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
+using Zeta.AgentosCRM.CRMAppointments.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -22,15 +25,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
     public class ClientsController : AgentosCRMControllerBase
     {
         private readonly IClientsAppService _clientsAppService;
-        private readonly IClientAppointmentsAppService _clientAppointmentsAppService;
+        private readonly IAppointmentsAppService _appointmentsAppService;
         private readonly IClientTagsAppService _clientTagsAppService;
         private readonly IFollowersAppService _followersAppService;   
 
 
-        public ClientsController(IClientsAppService clientsAppService, IClientAppointmentsAppService clientAppointmentsAppService, IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService)
+        public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService)
         {
             _clientsAppService = clientsAppService;
-            _clientAppointmentsAppService = clientAppointmentsAppService;
+            _appointmentsAppService = appointmentsAppService;
             _clientTagsAppService = clientTagsAppService;
             _followersAppService = followersAppService; 
         }
@@ -211,10 +214,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
        
         public async Task<ActionResult> AppointmentsIndex(int id)
         {
-            var getAppointmentsForViewDto = await _clientAppointmentsAppService.GetClientAppointmentForView(id);
-            var model = new ClientsAppointmentViewModel()
+            var getAppointmentsForViewDto = await _appointmentsAppService.GetAppointmentForView(id);
+            var model = new AppointmentViewModel()
             {
-                ClientAppointment = getAppointmentsForViewDto.ClientAppointment
+                Appointment = getAppointmentsForViewDto.Appointment
                
 
             };
@@ -222,25 +225,25 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("Appointment/AppointmentsIndex", model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_ClientAppointments_Create, AppPermissions.Pages_ClientAppointments_Edit)]
-        public async Task<PartialViewResult> CreateOrEditClientAppointmentModal(long? id)
+        [AbpMvcAuthorize(AppPermissions.Pages_Appointments_Create, AppPermissions.Pages_Appointments_Edit)]
+        public async Task<PartialViewResult> CreateOrEditAppointmentModal(long? id)
         {
-            GetClientAppointmentForEditOutput getClientAppointmentForEditOutput;
+            GetAppointmentForEditOutput getAppointmentForEditOutput;
             if (id.HasValue)
             {
-                getClientAppointmentForEditOutput = await _clientAppointmentsAppService.GetClientAppointmentForEdit(new EntityDto<long> { Id = (long)id });
+                getAppointmentForEditOutput = await _appointmentsAppService.GetAppointmentForEdit(new EntityDto<long> { Id = (long)id });
             }
             else
             {
-                getClientAppointmentForEditOutput = new GetClientAppointmentForEditOutput
+                getAppointmentForEditOutput = new GetAppointmentForEditOutput
                 {
-                    ClientAppointment = new CreateOrEditClientAppointmentDto()
+                    Appointment = new CreateOrEditAppointmentDto()
                 };
             }
-            var ViewModel = new CreateOrEditClientAppointmentViewModel()
+            var ViewModel = new CreateOrEditAppointmentsViewModel()
             {
-                ClientAppointment = getClientAppointmentForEditOutput.ClientAppointment,
-                ClientAppointmentInviteesList = await _clientAppointmentsAppService.GetAllClientForTableDropdown()
+                Appointment = getAppointmentForEditOutput.Appointment,
+                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown()
 
             };
 

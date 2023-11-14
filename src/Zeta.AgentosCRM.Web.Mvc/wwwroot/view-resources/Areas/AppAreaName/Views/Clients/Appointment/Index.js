@@ -2,7 +2,7 @@
     //alert("clientAppointment");
     $(function () {
         var _$Appointmentstable = $('#Appointmentstable');
-        var _clientAppointmentsService = abp.services.app.clientAppointments;
+        var _clientAppointmentsService = abp.services.app.appointments;
         debugger
         var $selectedDate = {
             startDate: null,
@@ -54,7 +54,7 @@
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientAppointmentModal',
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditAppointmentModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Appointment/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditClientsAppoinmentModal',
         });
@@ -115,32 +115,32 @@
                 //},
                 {
                     targets: 1,
-                    data: 'clientAppointments.name',
+                    data: 'appointments.name',
                     name: 'name',
                 },
                 {
                     targets: 2,
-                    data: 'clientAppointments.timeZone',
+                    data: 'appointments.timeZone',
                     name: 'timeZone',
                 },
                 {
                     targets: 3,
-                    data: 'clientAppointments.appointmentDate',
+                    data: 'appointments.appointmentDate',
                     name: 'appointmentDate',
                 },
                 {
                     targets: 4,
-                    data: 'clientAppointments.appointmentTime',
+                    data: 'appointments.appointmentTime',
                     name: 'appointmentTime',
                 },
                 {
                     targets: 5,
-                    data: 'clientAppointments.title',
+                    data: 'appointments.title',
                     name: 'title',
                 },
                 {
                     targets: 6,
-                    data: 'clientAppointments.description',
+                    data: 'appointments.description',
                     name: 'description',
                 },
                

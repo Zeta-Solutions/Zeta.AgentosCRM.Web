@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMAppointments.Dtos;
 using Zeta.AgentosCRM.CRMClient.Appointment;
 using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Countries;
@@ -8,7 +9,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientsAppointmen
 {
     public class CreateOrEditClientAppointmentViewModel
     {
-        public CreateOrEditClientAppointmentDto ClientAppointment { get; set; }
+        public CreateOrEditAppointmentDto ClientAppointment { get; set; }
         public List<ClientAppointmentClientLookupTableDto> ClientAppointmentInviteesList { get; set; }
 
 

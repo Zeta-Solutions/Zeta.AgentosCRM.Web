@@ -1,8 +1,8 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Abp.Extensions
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientsAppointments
-@model CreateOrEditClientAppointmentViewModel
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments
+@model CreateOrEditAppointmentsViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewAppointment")))
 
 <div class="modal-body">
@@ -10,21 +10,22 @@
         <form name="AppointmentInformationsForm" role="form" novalidate class="form-validation">
             @if (Model.IsEditMode)
             {
-                <input type="hidden" name="id" value="@Model.ClientAppointment.ClientId" />
+                <input type="hidden" name="id" value="@Model.Appointment.ClientId" />
             }
-
-            <input type="hidden" name="clientName" id="clientAppID" />
+            <input type="hidden" name="clientId" id="ClientId" />
+@* 
+            <input type="hidden" name="clientId" id="clientAppID" /> *@
     <div class="row">
         <div class="col-6">
             <label class="fw-bold">Related to:</label>
             <br/>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1">
-                <label class="form-check-label" for="relatedTo1">Client</label>
+                <label class="form-check-label" for="relatedTo1" disabled>Client</label>
             </div>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2">
-                <label class="form-check-label" for="relatedTo2">Partner</label>
+                <label class="form-check-label" for="relatedTo2" disabled>Partner</label>
             </div>
         </div>
         <div class="col-6">
@@ -42,17 +43,23 @@
 
             <div class="my-3">
                 <label class="form-label" for="Applointment_TimeZone">@L("TimeZone")</label>
-                <input class="form-control form-control-sm" id="Applointment_TimeZone" value="@Model.ClientAppointment.TimeZone" type="text" name="TimeZone" required />
+                @* @Html.DropDownList("Timezone", Model.TimezoneItems.Select(i => i.ToSelectListItem()), new {@class = "form-select", id = "Timezone"}) *@
+              
+                <input class="form-control form-control-sm" id="Applointment_TimeZone" value="@Model.Appointment.TimeZone" type="text" name="TimeZone" required />
             </div>
+           @*  <div class="mb-5">
+                <label for="Timezone" class="form-label">@L("Timezone")</label>
+                @Html.DropDownList("Timezone", Model.TimezoneItems.Select(i => i.ToSelectListItem()), new {@class = "form-select", id = "Timezone"})
+            </div> *@
             <div class="row col-12">
             <div class="my-3 col-9">
                     <label class="form-label fw-bold text-dark" for="Applointment_Date">@L("Date")</label>
-                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Applointment_Date" value="@Model.ClientAppointment.AppointmentDate" type="datetime" name="AppointmentDate" required />
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Applointment_Date" value="@Model.Appointment.AppointmentDate" type="datetime" name="AppointmentDate" required />
             </div>
                
             <div class="my-3 col-3">
                     <label class="form-label" for="Applointment_Time">@L("Time")</label>
-                    <input class="form-control form-control-sm rounded-0 custom-select-input time-picker" id="Applointment_Time" value="@Model.ClientAppointment.AppointmentTime" type="datetime" name="AppointmentTime" required />
+                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="Applointment_Time" value="@Model.Appointment.AppointmentTime" type="time" name="AppointmentTime" required />
             </div>
             </div>
             <div class="row col-12">
@@ -60,17 +67,17 @@
 
             <div class="my-3">
                     <label class="form-label" for="Applointment_Tittle">@L("Tittle")</label>
-                    <input class="form-control form-control-sm" id="Applointment_Tittle" value="@Model.ClientAppointment.Title" type="text" name="Title" required />
+                    <input class="form-control form-control-sm" id="Applointment_Tittle" value="@Model.Appointment.Title" type="text" name="Title" required />
             </div> 
             <div class="my-3">
                     <label class="form-label" for="Applointment_Description">@L("Description")</label>
-                    <textarea class="form-control form-control-sm" id="Applointment_Description" value="@Model.ClientAppointment.Description" name="Description" required></textarea>
+                    <textarea class="form-control form-control-sm" id="Applointment_Description" value="@Model.Appointment.Description" name="Description" required></textarea>
             </div>
 
                 
                 <div class="my-3">
                     <label class="form-label" for="applointment_Invitees">@L("Invitees")</label>
-                    @Html.DropDownList("applointment_Invitees", new SelectList(Model.ClientAppointmentInviteesList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientAppointment.Id.ToString() : "")),@L("SelectAInvitees"), new { @class = "form-control select2" , @required="required" })
+                    @Html.DropDownList("applointment_Invitees", new SelectList(Model.AppointmentInviteesList,"Id","DisplayName", (Model.IsEditMode ? Model.Appointment.Id.ToString() : "")),@L("SelectAInvitees"), new { @class = "form-control select2" , @required="required" })
             </div>
             </div>
         </form>
