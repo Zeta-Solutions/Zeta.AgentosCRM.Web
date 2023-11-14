@@ -1,19 +1,22 @@
 ﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMCurrencies
-@model CRMCurrencyViewModel
+@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes
+@model FeeTypeViewModel
+ *@
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
-    <div id="CRMCurrencyInformationsTab">
+    <div id="FeeTypeInformationsTab">
 
         <div class="row">
             <div class="col-6 mb-3">
                 <h6>@L("Abbrivation") :</h6>
-                @Model.CRMCurrency.Abbrivation
+                Abbrivation
+                @* @Model.FeeType.Abbrivation *@
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                @Model.CRMCurrency.Name
+                @* @Model.FeeType.Name *@
+                Namee
             </div>
 
         </div>

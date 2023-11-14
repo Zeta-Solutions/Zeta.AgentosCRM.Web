@@ -181,7 +181,7 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewFeeButton').click(function () {
+      $('#CreateNewStatusButton').click(function () {
       _createOrEditModal.open();
     });
 

@@ -178,30 +178,31 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
         public async Task<ActionResult> ViewPartner(int id)
         {
-            var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+            //var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
-            var model = new PartnerViewModel()
-            {
-                Partner = getPartnerForViewDto.Partner
-                ,
-                BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
+            //var model = new PartnerViewModel()
+            //{
+            //    Partner = getPartnerForViewDto.Partner
+            //    ,
+            //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
 
-                ,
-                MasterCategoryName = getPartnerForViewDto.MasterCategoryName
+            //    ,
+            //    MasterCategoryName = getPartnerForViewDto.MasterCategoryName
 
-                ,
-                PartnerTypeName = getPartnerForViewDto.PartnerTypeName
+            //    ,
+            //    PartnerTypeName = getPartnerForViewDto.PartnerTypeName
 
-                ,
-                WorkflowName = getPartnerForViewDto.WorkflowName
+            //    ,
+            //    WorkflowName = getPartnerForViewDto.WorkflowName
 
                 ,
                 CountryName = getPartnerForViewDto.CountryName
                  
 
-            };
+            //};
 
-            return View(model);
+            //return View(model);
+            return View("");
         }
     }
 }
