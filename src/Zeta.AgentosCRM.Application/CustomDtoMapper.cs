@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
+﻿using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
+using Zeta.AgentosCRM.TaskManagement.Followers;
+using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
 using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
@@ -106,6 +108,10 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPromotionProductDto, PromotionProduct>().ReverseMap();
+            configuration.CreateMap<PromotionProductDto, PromotionProduct>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTaskFollowerDto, TaskFollower>().ReverseMap();
+            configuration.CreateMap<TaskFollowerDto, TaskFollower>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
             configuration.CreateMap<ClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
             configuration.CreateMap<CreateOrEditAppointmentInviteeDto, AppointmentInvitee>().ReverseMap();

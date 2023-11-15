@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115104034_Added_TaskFollower")]
+    partial class Added_TaskFollower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2930,58 +2933,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("PartnerPromotions");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Promotion.PromotionProduct", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("PartnerPromotionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PartnerPromotionId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("PromotionProducts");
-                });
-
             modelBuilder.Entity("Zeta.AgentosCRM.CRMProducts.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -5133,25 +5084,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .IsRequired();
 
                     b.Navigation("PartnerFk");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Promotion.PromotionProduct", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Promotion.PartnerPromotion", "PartnerPromotionFk")
-                        .WithMany()
-                        .HasForeignKey("PartnerPromotionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Zeta.AgentosCRM.CRMProducts.Product", "ProductFk")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PartnerPromotionFk");
-
-                    b.Navigation("ProductFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMProducts.Product", b =>

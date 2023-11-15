@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
 	<texts>
+    <text name="PromotionProduct">Promotion product</text>
+    <text name="CreateNewPromotionProduct">Create new promotion product</text>
+    <text name="EditPromotionProduct">Edit promotion product</text>
+    <text name="DeletePromotionProduct">Delete promotion product</text>
+    <text name="TaskFollower">Task follower</text>
+    <text name="CreateNewTaskFollower">Create new task follower</text>
+    <text name="EditTaskFollower">Edit task follower</text>
+    <text name="DeleteTaskFollower">Delete task follower</text>
+
     <text name="InterstedServices">Intersted services</text>
     <text name="ClientInterstedService">Client intersted service</text>
     <text name="CreateNewClientInterstedService">Create new client intersted service</text>
@@ -66,8 +75,7 @@
     <text name="PartnerPromotion">Partner promotion</text>
     <text name="CreateNewPartnerPromotion">Create new partner promotion</text>
     <text name="EditPartnerPromotion">Edit partner promotion</text>
-    <text name="DeletePartnerPromotion">Delete partner promotion</text>
-	<texts> 
+    <text name="DeletePartnerPromotion">Delete partner promotion</text> 
     <text name="Stage">Stage</text>
     <text name="Relatedoffice">Related Office</text>
     <text name="URL">URL</text>
