@@ -5,7 +5,6 @@ using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMApplications;
 using Zeta.AgentosCRM.CRMApplications.Stages;
-
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;

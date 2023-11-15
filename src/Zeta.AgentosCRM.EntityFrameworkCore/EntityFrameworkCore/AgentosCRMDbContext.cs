@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMClient.InterstedServices;
+﻿using Zeta.AgentosCRM.TaskManagement.Followers;
+using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments;
 using Zeta.AgentosCRM.TaskManagement;
@@ -45,6 +46,10 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<PromotionProduct> PromotionProducts { get; set; }
+
+        public virtual DbSet<TaskFollower> TaskFollowers { get; set; }
+
         public virtual DbSet<ClientInterstedService> ClientInterstedServices { get; set; }
 
         public virtual DbSet<AppointmentInvitee> AppointmentInvitees { get; set; }
@@ -151,10 +156,18 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ClientInterstedService>(c =>
+            modelBuilder.Entity<PromotionProduct>(p =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<TaskFollower>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientInterstedService>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ClientEducation>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });
