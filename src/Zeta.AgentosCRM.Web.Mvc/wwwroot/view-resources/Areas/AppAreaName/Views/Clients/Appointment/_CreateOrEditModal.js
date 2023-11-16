@@ -34,13 +34,18 @@
 
     
 
- 
 
+        $(document).on('blur', '#applointment_Invitees', function ()
+        {
+            var applointment_InviteesID=$("#applointment_Invitees").val();
+            console.log(applointment_InviteesID);
+            $("#AddedById").val(applointment_InviteesID);
+        });
     this.save = function () {
         if (!_$clientAppointmentsInformationForm.valid()) {
         return;
-      }
-
+        }
+        debugger
         var ClientAppointment = _$clientAppointmentsInformationForm.serializeFormToObject();
         console.log(ClientAppointment);
       _modalManager.setBusy(true);

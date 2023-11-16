@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditSubjectModal = function () {
-    var _subjectsService = abp.services.app.subjects;
+  app.modals.CreateOrEditEducationModal = function () {
+      var _clientEducationsService = abp.services.app.clientEducations;
 
     var _modalManager;
-      var _$SubjectInformationForm = null;
+      var _$EducationInformationsForm = null;
 
 
 
@@ -17,8 +17,8 @@
         format: 'L',
       });
 
-        _$SubjectInformationForm = _modalManager.getModal().find('form[name=IntrestedServiceInformationsForm]');
-        _$SubjectInformationForm.validate();
+        _$EducationInformationsForm = _modalManager.getModal().find('form[name=EducationInformationsForm]');
+        _$EducationInformationsForm.validate();
     };
 
     
@@ -26,16 +26,16 @@
  
 
     this.save = function () {
-        if (!_$SubjectInformationForm.valid()) {
+        if (!_$EducationInformationsForm.valid()) {
         return;
       }
 
 
-        var Subject = _$SubjectInformationForm.serializeFormToObject();
+        var ClientEducation= _$EducationInformationsForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _subjectsService
-          .createOrEdit(Subject)
+        _clientEducationsService
+            .createOrEdit(ClientEducation)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();

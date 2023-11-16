@@ -1,0 +1,63 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.InterestedServices;
+@model CreateOrEditInterestedServicesViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewIntrestedService")))
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+}
+
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+}
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="IntrestedServiceInformationsForm" role="form" novalidate class="form-validation">
+
+            
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ClientInterestedService.ClientId" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
+            <div class="my-3" hidden>
+                <label class="form-label" for="Name">@L("Name")</label>
+                <input class="form-control form-control-sm" id="Name" value="" type="text" name="Name" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Abbrivation">@L("SelectWorkFlow")</label>
+                @Html.DropDownList("WorkflowId", new SelectList(Model.ClientInterestedServiceList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.Id.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control select2" , @required="required" })
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("SelectPartner")</label>
+                @Html.DropDownList("PartnerId", new SelectList(Model.ClientInterestedServicePartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("SelectProduct")</label>
+                @Html.DropDownList("ProductId", new SelectList(Model.ClientInterestedServiceProductList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.ProductId.ToString() : "")),@L("SelectAProduct"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("SelectBranch")</label>
+                @Html.DropDownList("BranchId", new SelectList(Model.ClientInterestedServiceBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.BranchId.ToString() : "")),@L("SelectAProduct"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="row col-12">
+                <div class="col-md-6 mb-3">
+                      <label for="SampleDatePicker" class="form-label">@L("ExpectedStartDate")</label>
+                       <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientInterestedService.StartDate" type="datetime" name="StartDate" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label form-control-sm" for="Client_Name">@L("ExpectedWinDate")</label>
+                     <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientInterestedService.EndDate" type="datetime" name="EndDate" required />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
