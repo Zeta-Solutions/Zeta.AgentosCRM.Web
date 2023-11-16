@@ -15,14 +15,14 @@
    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
   @section Scripts
 {
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/Index.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Client/IntrestedService/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Application/Index.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientTask/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Education/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Education/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Notes/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
   <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
@@ -313,7 +313,7 @@
     <div class="tab-content ">
             <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ApplicationClient/ApplicationIndex.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Application/ApplicationsIndex.cshtml")
             </div>
         </div>
 
@@ -324,7 +324,12 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="InterestedServiceTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/IntrestedService/IntrestedServiceIndex.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/InterestedService/IntrestedServiceIndex.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="EducationTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Education/EducationIndex.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="NoteTermsTab" role="tabpanel">

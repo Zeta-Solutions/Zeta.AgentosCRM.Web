@@ -1,0 +1,199 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+    <div class="maincard">
+     <div class="col-md-12 text-end mb-3">
+
+        <button id="CreateNewButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddApplication")</button>
+        </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row ">
+                <div class="table-responsive">
+                    <table id="Applicationsstable" class="table border custom-table align-middle fs-8 gy-2 dataTable no-footer">
+                            <thead class="thead gy-7">
+                                <tr>
+                            @* <th></th> *@
+
+                            @* <th>@L("Actions")</th> *@
+                                <th class="pl-3">@L("Name")</th>
+                            <th>@L("WorkFlow")</th>
+                            <th>@L("CurrentStage")</th>
+                            <th>@L("Status")</th>
+                            <th>@L("SalesForecast")</th>
+                            <th>@L("Started")</th>
+                            <th >@L("Lastupdated")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                            <tbody class="border-bottom">
+                                <!-- Dummy data for three rows -->
+                                <tr>
+                                    <td data-v-287fbc8b="" class="">
+                                        <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                            @* <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                                <!-- Added 'me-2' class for right margin -->
+                                                <b>FK</b>
+                                            </span> *@
+                                            <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                    Diploma of Information
+                                                </a>
+                                                <span id="University">Swinburne University </span>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>Australian Education</td>
+                                    <td>Application </td>
+                                    <td>In Progress</td>
+                                    <td>1289</td>
+                                    <td>
+                                       2023-10-2
+                                    </td>
+                                <td >
+                                        2023-10-25
+                                    </td>
+                                <td >
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                            </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="context-menu-option">Edit</li>
+                                                <li>Delete</li>
+                                                <!-- Add other options as needed -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                   @*  <div class="context-menu">
+                                        <div class="context-menu-trigger">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <button class="context-menu-option">Option 1</button>
+                                            <button class="context-menu-option">Option 2</button>
+                                            <!-- Add more context menu options as needed -->
+                                        </div>
+                                    </div> *@
+                                </td>
+                                  
+                                </tr>
+                                <tr>
+                                    <td data-v-287fbc8b="" class="">
+                                        <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                            @* <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>FK</b>
+                                            </span> *@
+                                            <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                    Bachelor Of Information
+                                                </a>
+                                                <span id="University">Swinburne University </span>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>Australian Education</td>
+                                    <td>Application </td>
+                                    <td>In Progress</td>
+                                    <td>1289</td>
+                                    <td>
+                                        2023-10-2
+                                    </td>
+                                    <td>
+                                        2023-10-25
+                                    </td>
+                                <td>
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="context-menu-option">Edit</li>
+                                                <li>Delete</li>
+                                                <!-- Add other options as needed -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                </tr>
+                                <tr>
+                                    <td data-v-287fbc8b="" class="">
+                                        <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                            @* <span class="d-inline-block rounded-circle p-2 text-white bg-primary me-2" title="HASSAN KAMAL">
+                                            <!-- Added 'me-2' class for right margin -->
+                                            <b>FK</b>
+                                            </span> *@
+                                            <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                                <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                    Bachelor Of Information
+                                                </a>
+                                                <span id="University">Swinburne University </span>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>Australian Education</td>
+                                    <td>Application </td>
+                                    <td>In Progress</td>
+                                    <td>1289</td>
+                                    <td>
+                                        2023-10-2
+                                    </td>
+                                    <td>
+                                        2023-10-25
+                                    </td>
+                                <td>
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            @* <span style="font-weight: bold; font-size: 1.2em;">...</span> *@
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="EditAction">Edit</li>
+                                                <li class="DeleteAction">Delete</li>
+                                                <!-- Add other options as needed -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                </tr>
+                              
+
+                            </tbody>
+                </table>
+                      @*   <div class="row col-12 justify-content-end">
+                            <div class="row col-9">
+                            </div>
+                            <div class="pagination col-3 ">
+                                <a href="#">&laquo;</a>
+                                <a href="#">1</a>
+                                <a class="active" href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">&raquo;</a>
+                            </div>
+                        </div> *@
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+@*</div>*@

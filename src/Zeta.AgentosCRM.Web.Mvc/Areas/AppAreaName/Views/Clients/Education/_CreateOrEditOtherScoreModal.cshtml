@@ -1,0 +1,34 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("EditOtherTestScore")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="EducationInformationsForm" role="form" novalidate class="form-validation">
+
+            <input type="hidden" name="id" value="1" />
+
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Abbrivation">@L("SATI")</label>
+                <input class="form-control" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("SATII")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("GRE")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+              <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("GMAT")</label>
+                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

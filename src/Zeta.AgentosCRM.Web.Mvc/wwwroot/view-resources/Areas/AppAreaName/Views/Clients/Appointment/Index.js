@@ -4,6 +4,7 @@
         var _$Appointmentstable = $('#Appointmentstable');
         var _clientAppointmentsService = abp.services.app.appointments;
         debugger
+        console.log(_clientAppointmentsService);
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -58,15 +59,7 @@
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Appointment/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditClientsAppoinmentModal',
         });
-        var _createOrEditModalEmail = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
-            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
-            modalClass: 'ClientEmailCompose',
-        });
-        var _viewSubjectModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/ApplicationClient/ViewApplicationModal',
-            modalClass: 'ViewApplicationModal',
-        });
+     
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -105,58 +98,111 @@
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
+            
                 {
                     targets: 1,
-                    data: 'appointments.name',
-                    name: 'name',
+                    data: 'appointment.title',
+                    name: 'title',
                 },
                 {
                     targets: 2,
-                    data: 'appointments.timeZone',
+                    data: 'appointment.timeZone',
                     name: 'timeZone',
                 },
                 {
                     targets: 3,
-                    data: 'appointments.appointmentDate',
+                    data: 'appointment.appointmentDate',
                     name: 'appointmentDate',
                 },
                 {
                     targets: 4,
-                    data: 'appointments.appointmentTime',
+                    data: 'appointment.appointmentTime',
                     name: 'appointmentTime',
                 },
+              
                 {
                     targets: 5,
-                    data: 'appointments.title',
-                    name: 'title',
+                    data: 'appointment.description',
+                    name: 'description',
                 },
                 {
+                    width: 30,
                     targets: 6,
-                    data: 'appointments.description',
-                    name: 'description',
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        var rowId = data.appointment.id;
+                        console.log(rowId);
+                        var rowData = data.appointment;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
                 },
                
             ],
         });
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsis', function (e) {
+            e.preventDefault();
+            debugger
+            var options = $(this).closest('.context-menu').find('.Appointmentoptions');
+            var allOptions = $('.Appointmentoptions');  // Select all options
 
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.Appointmentoptions').hide();
+            }
+        });
+        $(document).on('click', 'a[data-action]', function (e) {
+            e.preventDefault();
+            debugger
+            var rowId = $(this).data('id');
+            var action = $(this).data('action');
+            debugger
+            // Handle the selected action based on the rowId
+            if (action === 'edit') {
+                _createOrEditModal.open({ id: rowId });
+            } else if (action === 'delete') {
+                console.log(rowId);
+                deleteAppointments(rowId);
+            }
+        });
         function getClientAppointments() {
             dataTable.ajax.reload();
         }
 
-        function deletePartnerType(subject) {
+        function deleteAppointments(appointment) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientAppointmentsService
                         .delete({
-                            id: subject.id,
+                            id: appointment.id,
                         })
                         .done(function () {
                             getClientAppointments(true);
@@ -196,7 +242,7 @@
         });
 
         abp.event.on('app.createOrEditClientAppointmentModalSaved', function () {
-            getSubjects();
+            getClientAppointments();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
