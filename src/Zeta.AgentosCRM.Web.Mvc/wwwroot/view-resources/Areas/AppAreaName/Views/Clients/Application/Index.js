@@ -1,13 +1,15 @@
 ﻿(function () {
     $(function () {
-        var _$SubjectTable = $('#EnglishTestsssScoretable');
-        var _subjectsService = abp.services.app.subjects;
-
+        var _$applicationsTable = $('#Applicationstable');
+        var _applicationsService = abp.services.app.applications;
+        debugger
+        console.log(_applicationsService)
         var $selectedDate = {
             startDate: null,
             endDate: null,
         };
-
+     
+     
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -38,7 +40,7 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getSubjects();
+                getApplications();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
@@ -53,29 +55,11 @@
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditClientEducationModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/Education/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditClientEducationModal',
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditApplicationModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Application/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditApplicationModal',
         });
-        var _createOrEditEnglishScoreModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditEnglishScoreModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/Education/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditEnglishScoreModal',
-        });
-        var _createOrEditOtherScoreModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditOtherScoreModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/Education/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditOtherScoreModal',
-        });
-        var _createOrEditModalEmail = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
-            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
-            modalClass: 'ClientEmailCompose',
-        });
-        var _viewSubjectModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/ApplicationClient/ViewApplicationModal',
-            modalClass: 'ViewApplicationModal',
-        });
+    
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -91,12 +75,12 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$SubjectTable.DataTable({
+        var dataTable = _$applicationsTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _subjectsService.getAll,
+                ajaxFunction: _applicationsService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
@@ -109,71 +93,117 @@
             columnDefs: [
                 {
                     className: ' responsive',
+                   /* className: 'control responsive',*/
                     orderable: false,
                     render: function () {
                         return '';
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
+                    data: 'workflowName',
+                    name: 'workflowNameFk.name',
                 },
                 {
                     targets: 2,
-                    data: 'subject.name',
-                    name: 'name',
+
+                    data: 'partnerPartnerName',
+                    name: 'partnerPartnerNameFk.name',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
+                 
                 },
                 {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    //data: 'application.productName',
+                    //name: 'productName',
+
+                    data: 'productName',
+                    name: 'productNameFk.name',
                 },
                 {
+                    width: 30,
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        var rowId = data.application.id;
+                        console.log(rowId);
+                        var rowData = data.application;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
+                            '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action1="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action1='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
                 },
-                {
-                    targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
-                {
-                    targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
-                {
-                    targets: 7,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
+              
+              
             ],
         });
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.Applicationellipsis', function (e) {
+            e.preventDefault();
+            debugger
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
 
-        function getSubjects() {
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+        });
+
+        // Close the contextcontext menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+        $(document).on('click', 'a[data-action1]', function (e) {
+            e.preventDefault();
+            debugger
+            var rowId = $(this).data('id');
+            var action = $(this).data('action1');
+            debugger
+            // Handle the selected action based on the rowId
+            if (action === 'edit') {
+                _createOrEditModal.open({ id: rowId });
+            } else if (action === 'delete') {
+                console.log(rowId);
+                deleteApplications(rowId);
+            }
+        });
+        function getApplications() {
             dataTable.ajax.reload();
         }
 
-        function deletePartnerType(subject) {
+        function deleteApplications(application) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _subjectsService
+                    _applicationsService
                         .delete({
-                            id: subject.id,
+                            id: application.id,
                         })
                         .done(function () {
-                            getSubjects(true);
+                            getApplications(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -192,18 +222,12 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#AddEducationBackgroundButton').click(function () {
+        $('#CreateNewApplicationButton').click(function () {
             _createOrEditModal.open();
-        });
-        $('#AddEnglishTestScoreButton').click(function () {
-            _createOrEditEnglishScoreModal.open();
-        });
-        $('#AddOtherTestScoreButton').click(function () {
-            _createOrEditOtherScoreModal.open();
         });
 
         $('#ExportToExcelButton').click(function () {
-            _subjectsService
+            _applicationsService
                 .getPartnerTypesToExcel({
                     filter: $('#SubjectsTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -215,8 +239,8 @@
                 });
         });
 
-        abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
-            getSubjects();
+        abp.event.on('app.createOrEditApplicationsModalSaved', function () {
+            getApplications();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
@@ -231,16 +255,16 @@
         });
 
         $('.reload-on-change').change(function (e) {
-            getSubjects();
+            getApplications();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getSubjects();
+            getApplications();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getSubjects();
+            getApplications();
         });
     });
 })();

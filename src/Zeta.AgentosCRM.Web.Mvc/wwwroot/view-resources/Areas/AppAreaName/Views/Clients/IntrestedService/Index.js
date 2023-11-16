@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
-        var _$SubjectTable = $('#IntrestedServicetable');
-        var _subjectsService = abp.services.app.subjects;
+        var _$IntrestedServicestableTable = $('#IntrestedServicestable');
+        var _clientInterstedServices = abp.services.app.clientInterstedServices;
 
         var $selectedDate = {
             startDate: null,
@@ -21,12 +21,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getSubjects();
+                getclientInterstedService();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getSubjects();
+                getclientInterstedService();
             });
 
         $('.endDate')
@@ -38,12 +38,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getSubjects();
+                getclientInterstedService();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getSubjects();
+                getclientInterstedService();
             });
 
         var _permissions = {
@@ -53,19 +53,11 @@
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditIntrestedServiceModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/IntrestedService/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditIntrestedServiceModal',
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditIntrestedServiceModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditInterestedServicesModal',
         });
-        var _createOrEditModalEmail = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
-            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
-            modalClass: 'ClientEmailCompose',
-        });
-        var _viewSubjectModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/ApplicationClient/ViewApplicationModal',
-            modalClass: 'ViewApplicationModal',
-        });
+  
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -81,12 +73,12 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$SubjectTable.DataTable({
+        var dataTable = _$IntrestedServicestableTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _subjectsService.getAll,
+                ajaxFunction: _clientInterstedServices.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
@@ -105,65 +97,124 @@
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
-                },
-                {
-                    targets: 2,
-                    data: 'subject.name',
+                    data: 'clientInterstedService.name',
                     name: 'name',
                 },
                 {
+                    targets: 2,
+
+                    data: 'partnerPartnerName',
+                    name: 'partnerPartnerNameFk.name',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
+
+                },
+                {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    //data: 'application.productName',
+                    //name: 'productName',
+
+                    data: 'productName',
+                    name: 'productNameFk.name',
                 },
                 {
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'branchName',
+                    name: 'branchNameFk.name',
                 },
                 {
                     targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientInterstedService.startDate',
+                    name: 'startDate',
                 },
                 {
                     targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientInterstedService.endDate',
+                    name: 'endDate',
                 },
                 {
+                    width: 30,
                     targets: 7,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        var rowId = data.clientInterstedService.id;
+                        console.log(rowId);
+                        var rowData = data.clientInterstedService;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
+                            '<div class="Serviceellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action2="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action2='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
                 },
+               
             ],
         });
 
-        function getSubjects() {
+        function getclientInterstedService() {
             dataTable.ajax.reload();
         }
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.Serviceellipsis', function (e) {
+            e.preventDefault();
+            debugger
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
 
-        function deletePartnerType(subject) {
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+        });
+
+        // Close the contextcontext menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+        $(document).on('click', 'a[data-action2]', function (e) {
+            e.preventDefault();
+            debugger
+            var rowId = $(this).data('id');
+            var action = $(this).data('action2');
+            debugger
+            // Handle the selected action based on the rowId
+            if (action === 'edit') {
+                _createOrEditModal.open({ id: rowId });
+            } else if (action === 'delete') {
+                console.log(rowId);
+                deleteclientInterstedService(rowId);
+            }
+        });
+        function deleteclientInterstedService(clientInterstedService) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _subjectsService
+                    _clientInterstedServices
                         .delete({
-                            id: subject.id,
+                            id: clientInterstedService.id,
                         })
                         .done(function () {
-                            getSubjects(true);
+                            getclientInterstedService(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -199,32 +250,32 @@
                 });
         });
 
-        abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
-            getSubjects();
+        abp.event.on('app.createOrEditInterstedInformationFormModalSaved', function () {
+            getclientInterstedService();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
             e.preventDefault();
-            getSubjects();
+            getclientInterstedService();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getSubjects();
+                getclientInterstedService();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getSubjects();
+            getclientInterstedService();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getSubjects();
+            getclientInterstedService();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getSubjects();
+            getclientInterstedService();
         });
     });
 })();

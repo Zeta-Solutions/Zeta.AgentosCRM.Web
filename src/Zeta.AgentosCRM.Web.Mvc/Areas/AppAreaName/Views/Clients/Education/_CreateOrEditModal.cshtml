@@ -1,0 +1,111 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
+@model CreateOrEditEducationViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewEducationBackground")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="EducationInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ClientEducation.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
+
+            <div class="my-3">
+                <label class="form-label" for="DegreeTitle">@L("DegreeTitle")</label>
+                <input class="form-control" id="DegreeTitle" value="@Model.ClientEducation.DegreeTitle" type="text" name="DegreeTitle" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxDegreeTitleLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinDegreeTitleLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="DegreeLevel">@L("DegreeLevel")</label>
+                @Html.DropDownList("DegreeLevelId", new SelectList(Model.ClientEducationDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientEducation.DegreeLevelId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Institution">@L("Institution")</label>
+                <input class="form-control" id="Institution_Name" value="@Model.ClientEducation.Institution" type="text" name="Institution" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxInstitutionLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinInstitutionLength" />
+            </div>
+            <div class="my-3 col-9">
+                <label class="form-label" for="CourseStart">@L("CourseStart")</label>
+                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseStartDate" type="datetime" name="CourseStartDate" required />
+            </div>
+            <div class="my-3 col-3">
+                <label class="form-label" for="CourseEnd">@L("CourseEnd")</label>
+                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseEndDate" type="datetime" name="CourseEndDate" required />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="SubjectArea">@L("SubjectArea")</label>
+                @Html.DropDownList("SubjectAreaId", new SelectList(Model.ClientEducationSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientEducation.SubjectAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Subject">@L("Subject")</label>
+                @Html.DropDownList("SubjectId", new SelectList(Model.ClientEducationSubjectList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientEducation.SubjectId.ToString() : "")),@L("SelectASubject"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="col-12">
+                <div class="col-6">
+                    <label class="fw-bold">Academic Score:</label>
+                    <br />
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1">
+                        <label class="form-check-label" for="relatedTo1">Percentage</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2">
+                        <label class="form-check-label" for="relatedTo2">GPA</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <input type="number"/>
+                </div>
+            </div>
+         @*    <div class="row col-12">
+                <div class="my-3 col-9">
+                    <label class="form-label" for="Application_Name">@L("CourseStart")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseStartDate" type="datetime" name="CourseStartDate" required />
+                </div>
+                <div class="my-3 col-3">
+                    <label class="form-label" for="Application_Name">@L("CourseEnd")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseEndDate" type="datetime" name="CourseEndDate" required />
+                </div>
+            </div> *@
+           @*  <div class="row col-12">
+
+
+
+                <div class="my-3">
+                    <label class="form-label" for="Application_Name">@L("SubjectArea")</label>
+                    @Html.DropDownList("SubjectAreaId", new SelectList(Model.ClientEducationSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientEducation.SubjectAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control select2" , @required="required" })
+                </div>
+                <div class="my-3">
+                    <label class="form-label" for="Application_Name">@L("Subject")</label>
+                    @Html.DropDownList("SubjectId", new SelectList(Model.ClientEducationSubjectList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientEducation.SubjectId.ToString() : "")),@L("SelectASubject"), new { @class = "form-control select2" , @required="required" })
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="fw-bold">Academic Score:</label>
+                        <br />
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1">
+                            <label class="form-check-label" for="relatedTo1">Percentage</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2">
+                            <label class="form-check-label" for="relatedTo2">GPA</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+
+                            <input class="form-control" id="Application_Name" value="" type="number" name="name" required "   />
+                        </div>
+                    </div>
+                </div>
+            </div>  *@
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

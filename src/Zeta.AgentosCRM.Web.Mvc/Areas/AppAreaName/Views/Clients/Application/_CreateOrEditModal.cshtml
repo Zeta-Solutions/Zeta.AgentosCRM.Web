@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications
+@model CreateOrEditApplicationsViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewApplication")))
+ 
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="ApplicationsInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.Application.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
+            <div class="my-3" hidden>
+                <label class="form-label" for="Name">@L("Name")</label>
+                <input class="form-control form-control-sm" id="Name" value="" type="text" name="Name" required />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_SelectWorkFlow">@L("SelectWorkFlow")</label>
+                @Html.DropDownList("WorkflowId", new SelectList(Model.ApplicationWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.WorkflowId.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_PartnerandBranch">@L("SelectPartnerandBranch")</label>
+                @Html.DropDownList("PartnerId", new SelectList(Model.ApplicationPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control select2" , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Product">@L("SelectProduct")</label>
+                @Html.DropDownList("ProductId", new SelectList(Model.ApplicationProductList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.ProductId.ToString() : "")),@L("SelectAProduct"), new { @class = "form-control select2" , @required="required" })
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
