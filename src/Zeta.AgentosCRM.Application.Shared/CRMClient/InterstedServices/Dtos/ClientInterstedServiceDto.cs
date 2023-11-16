@@ -19,5 +19,7 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos
 
         public long BranchId { get; set; }
 
+        public int WorkflowId { get; set; }
+
     }
 }
