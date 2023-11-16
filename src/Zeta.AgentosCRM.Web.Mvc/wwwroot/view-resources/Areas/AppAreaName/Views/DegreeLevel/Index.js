@@ -257,17 +257,17 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            _degreeLevelsService
-                .getDegreeLevelsToExcel({
-                    filter: $('#DegreeLevelsTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //$('#ExportToExcelButton').click(function () {
+        //    _degreeLevelsService
+        //        .getDegreeLevelsToExcel({
+        //            filter: $('#DegreeLevelsTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.createOrEditDegeeLevelModalSaved', function () {
             getdegreeLevels();

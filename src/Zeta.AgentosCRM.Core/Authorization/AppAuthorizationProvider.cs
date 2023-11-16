@@ -30,6 +30,16 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var promotionProducts = pages.CreateChildPermission(AppPermissions.Pages_PromotionProducts, L("PromotionProducts"), multiTenancySides: MultiTenancySides.Tenant);
+            promotionProducts.CreateChildPermission(AppPermissions.Pages_PromotionProducts_Create, L("CreateNewPromotionProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            promotionProducts.CreateChildPermission(AppPermissions.Pages_PromotionProducts_Edit, L("EditPromotionProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            promotionProducts.CreateChildPermission(AppPermissions.Pages_PromotionProducts_Delete, L("DeletePromotionProduct"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var taskFollowers = pages.CreateChildPermission(AppPermissions.Pages_TaskFollowers, L("TaskFollowers"), multiTenancySides: MultiTenancySides.Tenant);
+            taskFollowers.CreateChildPermission(AppPermissions.Pages_TaskFollowers_Create, L("CreateNewTaskFollower"), multiTenancySides: MultiTenancySides.Tenant);
+            taskFollowers.CreateChildPermission(AppPermissions.Pages_TaskFollowers_Edit, L("EditTaskFollower"), multiTenancySides: MultiTenancySides.Tenant);
+            taskFollowers.CreateChildPermission(AppPermissions.Pages_TaskFollowers_Delete, L("DeleteTaskFollower"), multiTenancySides: MultiTenancySides.Tenant);
+
             var clientInterstedServices = pages.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices, L("ClientInterstedServices"), multiTenancySides: MultiTenancySides.Tenant);
             clientInterstedServices.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices_Create, L("CreateNewClientInterstedService"), multiTenancySides: MultiTenancySides.Tenant);
             clientInterstedServices.CreateChildPermission(AppPermissions.Pages_ClientInterstedServices_Edit, L("EditClientInterstedService"), multiTenancySides: MultiTenancySides.Tenant);
@@ -49,11 +59,6 @@ namespace Zeta.AgentosCRM.Authorization
             crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
             crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
             crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
-
-            //var tasks = pages.CreateChildPermission(AppPermissions.Pages_CRMTasks, L("Tasks"), multiTenancySides: MultiTenancySides.Tenant);
-            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewTask"), multiTenancySides: MultiTenancySides.Tenant);
-            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditTask"), multiTenancySides: MultiTenancySides.Tenant);
-            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteTask"), multiTenancySides: MultiTenancySides.Tenant);
 
             var applicationStages = pages.CreateChildPermission(AppPermissions.Pages_ApplicationStages, L("ApplicationStages"), multiTenancySides: MultiTenancySides.Tenant);
             applicationStages.CreateChildPermission(AppPermissions.Pages_ApplicationStages_Create, L("CreateNewApplicationStage"), multiTenancySides: MultiTenancySides.Tenant);

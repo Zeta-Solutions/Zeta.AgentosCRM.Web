@@ -259,6 +259,7 @@
         });
 
         $('#ExportToExcelButton').click(function () {
+            debugger
             _taskCategoriesService
                 .getMasterCategoriesToExcel({
                     filter: $('#TaskCategoriesTableFilter').val(),

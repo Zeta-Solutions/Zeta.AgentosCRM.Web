@@ -250,7 +250,7 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewFeeButton').click(function () {
+      $('#CreateNewMonthButton').click(function () {
       _createOrEditModal.open();
     });
 

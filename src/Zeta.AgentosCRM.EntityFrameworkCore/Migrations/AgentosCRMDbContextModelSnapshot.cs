@@ -2930,6 +2930,58 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("PartnerPromotions");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Promotion.PromotionProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PartnerPromotionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartnerPromotionId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("PromotionProducts");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMProducts.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -4379,6 +4431,58 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("CRMTasks");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.TaskManagement.Followers.TaskFollower", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CRMTaskId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CRMTaskId");
+
+                    b.HasIndex("TenantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TaskFollowers");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.Editions.SubscribableEdition", b =>
                 {
                     b.HasBaseType("Abp.Application.Editions.Edition");
@@ -5031,6 +5135,25 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("PartnerFk");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMPartner.Promotion.PromotionProduct", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Promotion.PartnerPromotion", "PartnerPromotionFk")
+                        .WithMany()
+                        .HasForeignKey("PartnerPromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zeta.AgentosCRM.CRMProducts.Product", "ProductFk")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PartnerPromotionFk");
+
+                    b.Navigation("ProductFk");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMProducts.Product", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", "BranchFk")
@@ -5200,6 +5323,25 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("TaskCategoryFk");
 
                     b.Navigation("TaskPriorityFk");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.TaskManagement.Followers.TaskFollower", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.TaskManagement.CRMTask", "CRMTaskFk")
+                        .WithMany()
+                        .HasForeignKey("CRMTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zeta.AgentosCRM.Authorization.Users.User", "UserFk")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CRMTaskFk");
+
+                    b.Navigation("UserFk");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

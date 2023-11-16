@@ -1,10 +1,9 @@
 ﻿(function () {
     $("#kt_app_sidebar_toggle").trigger("click");
     $(function () {
-        var _$Clienttable = $('#Clienttable');
+        var _$Clienttable = $('#ClientsTable');
         debugger;
         var _clientService = abp.services.app.clients;
-        console.log(_clientService);
     var $selectedDate = {
       startDate: null,
       endDate: null,
@@ -23,12 +22,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-          getSubjects();
+          getClientss();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-          getSubjects();
+          getClientss();
       });
 
     $('.endDate')
@@ -40,12 +39,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-          getSubjects();
+          getClientss();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-          getSubjects();
+          getClientss();
       });
 
     var _permissions = {
@@ -92,7 +91,7 @@
       }
       return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-  
+        let concatenatedData = [];
         var dataTable = _$Clienttable.DataTable({
             paging: true,
             serverSide: true,
@@ -107,6 +106,7 @@
                     };
                 },
             },
+            
             columnDefs: [
                 {
                     className: 'control responsive',
@@ -116,98 +116,203 @@
                     },
                     targets: 0,
                 },
+
                 {
-                    width: 120,
                     targets: 1,
                     data: null,
                     orderable: false,
                     autoWidth: false,
                     defaultContent: '',
-                    rowAction: {
-                        cssClass: 'btn btn-brand dropdown-toggle',
-                        text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                        items: [
-                            {
-                                text: app.localize('View'),
-                                action: function (data) {
-                                    window.location.href = abp.appPath + 'AppAreaName/Client/ClientDetail';
-                                    //_viewServiceCategoryModal.open({ id: data.record.serviceCategory.id });
-                                },
-                            },
-                            {
-                                text: app.localize('Email'),
-                                //visible: function () {
-                                //    return _permissions.edit;
-                                //},
-                                action: function (data) {
-                                    _createOrEditModalEmail.open();
-                                },
-                            },
-                            {
-                                text: app.localize('Delete'),
-                                visible: function () {
-                                    return _permissions.delete;
-                                },
-                                action: function (data) {
-                                    deletePartnerType(data.record.clients);
-                                },
-                            },
-                        ],
-                    },
-                },
-                //{
-                //    targets: 2,
-                //    data: 'clients.AddedFrom',
-                //    name: 'AddedFrom',
-                //},
-                //{
-                //    targets: 3,
-                //    data: 'clients.Rating',
-                //    name: 'Rating',
-                //},
-                //{
-                //    targets: 4,
-                //    data: 'Client.InternalId',
-                //    name: 'InternalId',
-                //},
-                //{
-                //    targets: 5,
-                //    data: 'Client.AssigneeId',
-                //    name: 'AssigneeId',
-                //},
-                //{
-                //    targets: 6,
-                //    data: 'Client.PhoneNo',
-                //    name: 'PhoneNo',
-                //},
-                //{
-                //    targets: 7,
-                //    data: 'Client.ClientPortal',
-                //    name: 'ClientPortal',
-                //},
-                //{
-                //    targets: 8,
-                //    data: 'Client.PassportNo',
-                //    name: 'PassportNo',
-                //},
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        var rowId = data.client.id;
+                        var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+                            '<div class="ellipsis"><input type="checkbox" ></div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+                }, 
                 {
+                    width: 100,
                     targets: 2,
-                    data: 'client.FirstName',
-                    name: 'FirstName',
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+                    render: function (data, type, row) {
+                        let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                        let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}${lastNameInitial}`;
+                        let fullName = `${row.client.firstName} ${row.client.lastName}`;
+
+                        // Generate the URLs using JavaScript variables
+                        let clientDetailUrl = `/AppAreaName/Client/ClientDetail?id=${row.client.id}`;
+                        let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.client.id}`;
+
+                        return `
+        <div class="d-flex align-items-center">
+            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
+                <b>${initials}</b>
+            </span>
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}
+                </a>
+                <a href="${clientEmailComposeUrl}" class="text-decoration-none">
+                    <span class="text-truncate" id="CreateNewClientEmailButton">${row.client.email}</span>
+                </a>
+            </div>
+        </div>
+    `;
+                    },
+
+                    name: 'concatenatedData',
+                    
+                }, 
+                
+                {
+                    targets: 3,
+                    data: 'client.rating',
+                    name: 'rating',
                 },
-                //{
-                //    targets: 10,
-                //    data: 'Client.PreferedIntake',
-                //    name: 'PreferedIntake',
-                //}, 
-              
+                {
+                    targets: 4,
+                    data: 'client.id',
+                    name: 'id',
+                },
+                {
+                    targets: 5,
+                    data: 'userName',
+                    name: 'assigneeName',
+                },
+                {
+                    targets: 6,
+                    data: "client.phoneNo",
+                    name: "phoneNo" 
+                },
+                {
+                    targets: 7,
+                    data: 'client.clientPortal',
+                    name: 'clientPortal',
+                },
+                {
+                    targets: 8,
+                    data: 'client.passportNo',
+                    name: 'passportNo',
+                },
+                {
+                    targets: 9,
+                    data: 'client.city',
+                    name: 'city',
+                },
+                {
+                    targets: 10,
+                    data: 'client.state',
+                    name: 'state',
+                },  
+                {
+                    targets: 11,
+                    data: 'client.state',
+                    name: 'state',
+                },  
+                {
+                    width: 30,
+                    targets: 12,
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+                  
+                    render: function (data, type, full, meta) {
+
+                        var rowId = data.client.id;
+                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li  style="color:black"><a href="#" style="color: black;" data-action="view" data-id="' + rowId + '">View</a></li>' +
+                            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<li ><a href="#" style="color: black;" data-action="delete" data-id="' + rowId + '">Delete</a></li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
+                }
             ],
         });
 
-
-    function getSubjects() {
+        // Add an event listener to handle the click event for the full name link
+        $(document).on('click', '.text-truncate', function (e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+            window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        });
+        $(document).on('click', '#CreateNewClientEmailButton', function (e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+            _createOrEditModalEmail.open();
+           // window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        });
+    function getClientss() {
       dataTable.ajax.reload();
-    }
+        }
+
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsis', function (e) {
+            e.preventDefault();
+
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
+
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+
+
+
+            //// Toggle the visibility of the options when the ellipsis is clicked
+            //var options = $(this).next('.options');
+            //options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+
+        // Handle menu item clicks
+        $(document).on('click', 'a[data-action]', function (e) {
+            e.preventDefault();
+
+            var rowId = $(this).data('id');
+            var action = $(this).data('action');
+
+            // Handle the selected action based on the rowId
+            if (action === 'view') {
+                /*_viewProductTypeModal.open({ id: rowId });*/
+                _createOrEditModal.open({ id: rowId });
+            } else if (action === 'edit') {
+                //_createOrEditModal.open({ id: rowId });
+                _createOrEditModal.open({ id: rowId });
+
+            } else if (action === 'delete') {
+                _createOrEditModal.open({rowId });
+
+                //deleteProductType(rowId);
+            }
+        });
+
+
 
     function deletePartnerType(subject) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
@@ -217,7 +322,7 @@
                 id: subject.id,
             })
             .done(function () {
-                getSubjects(true);
+                getClientss(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -237,7 +342,9 @@
     });
 
         $('#CreateNewClientButton').click(function () {
-      _createOrEditModal.open();
+           // _createOrEditModal.open();
+            window.location.href = abp.appPath + 'AppAreaName/Client/ClientCreateDetail';
+
         });
         $('#CreateNewClientEmailButton').click(function () {
             _createOrEditModalEmail.open();
@@ -269,31 +376,31 @@
     });
 
     abp.event.on('app.createOrEditClientModalSaved', function () {
-        getSubjects();
+        getClientss();
     });
 
-      $('#GetSubjectAreaButton').click(function (e) {
+      $('#getClientsAreaButton').click(function (e) {
       e.preventDefault();
-        getSubjects();
+        getClientss();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-          getSubjects();
+          getClientss();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-        getSubjects();
+        getClientss();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-        getSubjects();
+        getClientss();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-        getSubjects();
+        getClientss();
     });
   });
 })();

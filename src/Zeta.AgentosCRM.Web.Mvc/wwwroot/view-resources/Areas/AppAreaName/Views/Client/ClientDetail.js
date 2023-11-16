@@ -1,10 +1,91 @@
 ﻿(function () {
     $(function () {
             $("#kt_app_sidebar_toggle").trigger("click");
-        
+
+        //alert("23123");
         var _$Clienttable = $('#Clienttable');
         debugger;
         var _clientService = abp.services.app.clients;
+        var _$clientInformationForm = $('form[name=ClientInformationsForm]');
+       // _$clientInformationForm.validate();
+
+        function save(successCallback) {
+            //if (!_$clientInformationForm.valid()) {
+            //    return;
+            //}
+            //if ($('#Client_CountryCodeId').prop('required') && $('#Client_CountryCodeId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
+            //    return;
+            //}
+            //if ($('#Client_AssigneeId').prop('required') && $('#Client_AssigneeId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('User')));
+            //    return;
+            //}
+            //if ($('#Client_ProfilePictureId').prop('required') && $('#Client_ProfilePictureId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('BinaryObject')));
+            //    return;
+            //}
+            //if ($('#Client_HighestQualificationId').prop('required') && $('#Client_HighestQualificationId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('DegreeLevel')));
+            //    return;
+            //}
+            //if ($('#Client_StudyAreaId').prop('required') && $('#Client_StudyAreaId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('SubjectArea')));
+            //    return;
+            //}
+            //if ($('#Client_LeadSourceId').prop('required') && $('#Client_LeadSourceId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('LeadSource')));
+            //    return;
+            //}
+            //if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
+            //    return;
+            //}
+            //if ($('#Client_PassportCountryId').prop('required') && $('#Client_PassportCountryId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
+            //    return;
+            //}
+
+
+
+            var client = _$clientInformationForm.serializeFormToObject();
+
+
+
+            abp.ui.setBusy();
+            _clientService.createOrEdit(
+                client
+            ).done(function () {
+                abp.notify.info(app.localize('SavedSuccessfully'));
+                abp.event.trigger('app.createOrEditClientModalSaved');
+
+                if (typeof (successCallback) === 'function') {
+                    successCallback();
+                }
+            }).always(function () {
+                abp.ui.clearBusy();
+            });
+        };
+
+        function clearForm() {
+            _$clientInformationForm[0].reset();
+        }
+        $('#saveBtn').click(function () {
+            //alert("ok");
+            save(function () {
+                debugger
+                alert("123");
+                window.location = "/AppAreaName/Client";
+            });
+        });
+
+        $('#saveAndNewBtn').click(function () {
+            save(function () {
+                if (!$('input[name=id]').val()) {//if it is create page
+                    clearForm();
+                }
+            });
+        });
         console.log(_clientService);
     var $selectedDate = {
       startDate: null,
@@ -209,7 +290,7 @@
     function getSubjects() {
       dataTable.ajax.reload();
     }
-
+    
     function deletePartnerType(subject) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
@@ -286,10 +367,11 @@
     $('.reload-on-keyup').keyup(function (e) {
         getSubjects();
     });
-
+    
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
         getSubjects();
     });
+       
   });
 })();

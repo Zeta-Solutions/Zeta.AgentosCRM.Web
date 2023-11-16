@@ -164,8 +164,7 @@
         function getProductTypes() {
             dataTable.ajax.reload();
         }
-
-        // Add a click event handler for the ellipsis icons
+         
         $(document).on('click', '.ellipsis', function (e) {
             e.preventDefault();
 
@@ -184,22 +183,19 @@
             //var options = $(this).next('.options');
             //options.toggle();
         });
-
-        // Close the context menu when clicking outside of it
+         
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
                 $('.options').hide();
             }
         });
-
-        // Handle menu item clicks
+         
         $(document).on('click', 'a[data-action]', function (e) {
             e.preventDefault();
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-
-            // Handle the selected action based on the rowId
+             
             if (action === 'view') {
                 _viewProductTypeModal.open({ id: rowId });
             } else if (action === 'edit') {
