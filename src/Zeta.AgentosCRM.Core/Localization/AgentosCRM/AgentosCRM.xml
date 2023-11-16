@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="InterstedServices">Intersted services</text>
+	<texts>    <text name="PromotionProduct">Promotion product</text>
+    <text name="CreateNewPromotionProduct">Create new promotion product</text>
+    <text name="EditPromotionProduct">Edit promotion product</text>
+    <text name="DeletePromotionProduct">Delete promotion product</text>
+    <text name="TaskFollower">Task follower</text>
+    <text name="CreateNewTaskFollower">Create new task follower</text>
+    <text name="EditTaskFollower">Edit task follower</text>
+    <text name="DeleteTaskFollower">Delete task follower</text>
+
+    <text name="InterstedServices">Intersted services</text>
     <text name="ClientInterstedService">Client intersted service</text>
     <text name="CreateNewClientInterstedService">Create new client intersted service</text>
     <text name="EditClientInterstedService">Edit client intersted service</text>
@@ -1681,5 +1690,5 @@
 		<text name="UiCustomization_Toolbar_MobileFixedHeader">Mobile fixed header</text>
 		<text name="UiCustomization_Toolbar">Toolbar</text>
 		<text name="IncorrectImageDimensions">Image size exceeds allowed limits</text>
-	</texts>
+	</texts> 
 </localizationDictionary>

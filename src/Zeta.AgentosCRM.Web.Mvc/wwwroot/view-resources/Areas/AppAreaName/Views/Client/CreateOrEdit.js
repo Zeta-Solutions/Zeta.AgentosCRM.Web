@@ -225,7 +225,7 @@
         
         $('#saveBtn').click(function(){
             save(function(){
-                window.location="/AppAreaName/Client";
+                window.location="/AppAreaName/Clients";
             });
         });
         

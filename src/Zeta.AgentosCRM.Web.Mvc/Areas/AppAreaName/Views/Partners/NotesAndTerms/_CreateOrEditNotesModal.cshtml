@@ -1,0 +1,40 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@model CreateOrEditNotesModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNoteAndTerm")))
+
+<div class="modal-body">
+    <div id="NotesAndTermsInformationsTab">
+        <form name="NotesAndTermsInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.Note.Id" />
+            }
+
+            <input type="hidden" name="partnerId" id="partnerId" value="" />
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="Title" class="form-label">Title</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Title" name="Title" value="@Model.Note.Title">
+                </div>
+                <div class="col-12">
+                    <label for="messageTextarea" class="form-label">Description</label>
+                    <textarea class="form-control custom-small-input rounded-0" id="messageTextarea" rows="6" maxlength="255" name="Description">@Model.Note.Description</textarea>
+
+               @*      <input type="text" class="form-control custom-small-input rounded-0" id="Title" name="Description" value="@Model.Note.Description"> *@
+                   @*  <div class="invalid-feedback">
+                        Please enter a message.
+                    </div> *@
+                </div>
+               @*  <div class="col-12 mt-3">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-secondary custom-button" type="submit">Cancel</button>
+                </div> *@
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

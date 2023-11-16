@@ -164,10 +164,11 @@
                 </div>
             <div class="row align-items-center">
 				<div class="table-responsive">
-                    <table id="ClientsssTable" class="table border  align-middle  fs-8 gy-2 dataTable no-footer " >
+                    <table id="ClientsTable" class="table border  align-middle  fs-8 gy-2 dataTable no-footer " >
     <thead class="thead gy-7" >
         <tr>
-           <th class="align-middle" style="padding:4px"><input type="checkbox" ></th>
+           <th class="align-middle" style="padding:2px"></th>
+                                <th><input type="checkbox"></th>
             <th >@L("Name")</th>
             <th >@L("AddedFrom")</th>
             <th >@L("Rating")</th>
@@ -178,11 +179,12 @@
             <th>@L("Passport")</th>
             <th>@L("City")</th>
             <th>@L("Status")</th>
+            <th></th>
         </tr>
     </thead>
-                        <tbody class="border-bottom">
+                        <tbody >
         <!-- Dummy data for three rows -->
-                            <tr >
+                       @*      <tr >
             <td class="align-middle" style="padding:4px"> <input type="checkbox" ></td>
                                 <td data-v-287fbc8b="" class="">
                                     <div data-v-b0d0ffe4="" class="d-flex align-items-center">
@@ -297,20 +299,10 @@
                                 </td>
                                 <td>In Progress</td>
                             </tr>
-     
+      *@
     </tbody>
 </table>
-                             <div class="row col-12 justify-content-end">
-                <div class="row col-9">
-                    </div>
-                <div class="pagination col-3 ">
-  <a href="#">&laquo;</a>
-  <a href="#">1</a>
-  <a class="active" href="#">2</a>
-  <a href="#">3</a>
-  <a href="#">&raquo;</a>
-</div>
-</div>
+                 
 
 				</div>
             </div>

@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMClient.InterstedServices;
+﻿using Zeta.AgentosCRM.TaskManagement.Followers;
+using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments;
 using Zeta.AgentosCRM.TaskManagement;
@@ -34,6 +35,8 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(PromotionProduct),
+            typeof(TaskFollower),
             typeof(ClientInterstedService),
             typeof(AppointmentInvitee),
             typeof(Appointment),
