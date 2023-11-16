@@ -3,7 +3,7 @@
 
 
 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Tasks/Index.js" asp-append-version="true"></script>
 @*if u want to give margin and padding between left and right*@
 @*<div class="@(await GetContainerClass())">*@
 <div class="maincard">
@@ -11,52 +11,34 @@
 
         <button id="CreateNewTaskButton" class="btn btn-primary btn-sm blue"><i class="fa fa-plus"></i> @L("AddTask")</button>
     </div>
-    <div class="card">
+  @* 
+     <div class="card">
 
         <div class="card-body">
             <div class="form">
                 <div class="fixed-width-div">
                     <div style="overflow-x: auto;">
                     </div>
-                    <div class="row align-items-center">
-                        <div class="table-responsive">
-                            <table id="Tasktable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
-                            <thead>
-                                <tr>
-                                    <th></th>
-
-                                  @*  <th>@L("Actions")</th>*@
-                                    <th>@L("Name")</th>
-                                    <th>@L("WorkFlow")</th>
-                                    <th>@L("CurrentStage")</th>
-                                    <th>@L("Status")</th>
-                                    <th>@L("SalesForecast")</th>
-                                    <th>@L("Started")</th>
-                                    <th>@L("Lastupdated")</th>
-                                </tr>
-                            </thead>
-                            @*                     <tbody>
-                            <tr>
-                            <td>1</td> <!-- Dummy data, you can use a loop to generate multiple rows -->
-                            <td>
-                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="btn btn-primary">View</a>
-                            </td>
-                            <td>Dummy Abbreviation</td>
-                            <td>Dummy Name</td>
-                            <td>Dummy Added From</td>
-                            <td>Dummy Tags</td>
-                            <td>Dummy Ratings</td>
-                            <td>Dummy Internal ID</td>
-                            <td>Dummy Client ID</td>
-                            </tr>
-
-                            </tbody>*@
-                        </table>
-                    </div>
-                    </div>
+                       <div class="row align-items-center">
+                <table id="Tasktable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                             
+                            <th >@L("Name")</th>
+                                    <th >@L("Email")</th>
+                                    <th >@L("Department")</th>
+                                    <th >@L("Position")</th>
+                                    <th >@L("Branch")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> *@
+    <div id="cardTaskContainer" class="container"></div>
 </div>
 @*</div>*@

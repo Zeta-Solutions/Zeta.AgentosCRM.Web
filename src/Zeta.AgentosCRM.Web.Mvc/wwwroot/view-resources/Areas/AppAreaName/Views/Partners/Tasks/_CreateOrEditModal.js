@@ -1,9 +1,28 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditSubjectModal = function () {
-    var _subjectsService = abp.services.app.subjects;
+    app.modals.CreateOrEditTaskModal = function () {
+        $('#taskCategoryId').select2({
+            width: '350px',
+            // Adjust the width as needed
+        });
+        $('#assigneeId').select2({
+            width: '350px',
+            // Adjust the width as needed
+        });
+        $('#taskPriorityId').select2({
+            width: '350px',
+            // Adjust the width as needed
+        });
+        $('#followerId').select2({
+            width: '750px',
+            // Adjust the width as needed
+        });
+        var hiddenfield = $("#PartnerId").val();
+
+        $("#partnerId").val(hiddenfield);
+      var _cRMTasksService = abp.services.app.cRMTasks;
 
     var _modalManager;
-      var _$SubjectInformationForm = null;
+      var _$tasksInformationForm = null;
 
 
 
@@ -17,8 +36,8 @@
         format: 'L',
       });
 
-        _$SubjectInformationForm = _modalManager.getModal().find('form[name=TaskInformationsForm]');
-        _$SubjectInformationForm.validate();
+        _$tasksInformationForm = _modalManager.getModal().find('form[name=TaskInformationsForm]');
+        _$tasksInformationForm.validate();
     };
 
     
@@ -26,15 +45,15 @@
  
 
     this.save = function () {
-        if (!_$SubjectInformationForm.valid()) {
+        if (!_$tasksInformationForm.valid()) {
         return;
       }
 
 
-        var Subject = _$SubjectInformationForm.serializeFormToObject();
+        var Subject = _$tasksInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-      _subjectsService
+      _cRMTasksService
           .createOrEdit(Subject)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));

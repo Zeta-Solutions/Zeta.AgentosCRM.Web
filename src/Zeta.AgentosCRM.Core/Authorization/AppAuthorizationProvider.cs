@@ -50,10 +50,10 @@ namespace Zeta.AgentosCRM.Authorization
             crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
             crmTasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteCRMTask"), multiTenancySides: MultiTenancySides.Tenant);
 
-            var tasks = pages.CreateChildPermission(AppPermissions.Pages_CRMTasks, L("Tasks"), multiTenancySides: MultiTenancySides.Tenant);
-            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewTask"), multiTenancySides: MultiTenancySides.Tenant);
-            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditTask"), multiTenancySides: MultiTenancySides.Tenant);
-            tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteTask"), multiTenancySides: MultiTenancySides.Tenant);
+            //var tasks = pages.CreateChildPermission(AppPermissions.Pages_CRMTasks, L("Tasks"), multiTenancySides: MultiTenancySides.Tenant);
+            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Create, L("CreateNewTask"), multiTenancySides: MultiTenancySides.Tenant);
+            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Edit, L("EditTask"), multiTenancySides: MultiTenancySides.Tenant);
+            //tasks.CreateChildPermission(AppPermissions.Pages_CRMTasks_Delete, L("DeleteTask"), multiTenancySides: MultiTenancySides.Tenant);
 
             var applicationStages = pages.CreateChildPermission(AppPermissions.Pages_ApplicationStages, L("ApplicationStages"), multiTenancySides: MultiTenancySides.Tenant);
             applicationStages.CreateChildPermission(AppPermissions.Pages_ApplicationStages_Create, L("CreateNewApplicationStage"), multiTenancySides: MultiTenancySides.Tenant);
