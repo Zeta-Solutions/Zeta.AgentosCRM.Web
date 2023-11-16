@@ -24,6 +24,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
         public string PartnerTypeNameFilter { get; set; }
 
         public string BranchNameFilter { get; set; }
+        public int? PartnerIdFilter { get; set; }
 
     }
 }
