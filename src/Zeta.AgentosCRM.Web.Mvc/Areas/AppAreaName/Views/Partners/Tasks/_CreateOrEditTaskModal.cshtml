@@ -1,0 +1,85 @@
+﻿@using System.Globalization
+@model CreateOrEditTaskModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewTask")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="TaskInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.CRMTask.Id" />
+            }
+            <input type="hidden" name="partnerId" id="partnerId" value="" />
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Abbrivation">@L("Tittle")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.CRMTask.Title">
+                </div>
+
+                <div class="my-3 col-6">
+
+
+                    <label for="UNIVERSITY" class="form-label">@L("Category")</label>
+                    <select class="form-select select2 custom-small-input rounded-0 " id="UNIVERSITY" name="UNIVERSITY">
+                        <option value="University">Category 1</option>
+                        <option value="University">Category 2</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("Assignee")</label>
+                    <select class="form-select select2 custom-small-input rounded-0 " id="UNIVERSITY" name="UNIVERSITY">
+                        <option value="University">Assignee 1</option>
+                        <option value="University">Assignee 2</option>
+                    </select>
+                </div>
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("Priority")</label>
+                    <select class="form-select select2 custom-small-input rounded-0 " id="UNIVERSITY" name="UNIVERSITY">
+                        <option value="University">Priority 1</option>
+                        <option value="University">Priority 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row col-12">
+
+
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("DueDate")</label>
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value=" " type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                </div>
+                <div class="my-3 col-3">
+                    <label class="form-label" for="Application_Name">@L("DueTime")</label>
+                    <input class="form-control custom-small-input rounded-0" id="Application_Name" value=" " type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                </div>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("Description")</label>
+                <textarea class="form-control custom-small-input rounded-0" id="Application_Name" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength"> </textarea>
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("Followers")</label>
+                <select class="form-select select2 custom-small-input rounded-0 " id="UNIVERSITY" name="UNIVERSITY">
+                    <option value="University">Followers 1</option>
+                    <option value="University">Followers 2</option>
+                </select>
+            </div>
+            <span class="btn btn-primary btn-sm fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Attchment...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="files">
+            </span>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

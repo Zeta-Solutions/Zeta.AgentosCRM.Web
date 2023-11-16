@@ -4,10 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.CRMNotes.Dtos;
 using Zeta.AgentosCRM.CRMPartner;
+using Zeta.AgentosCRM.CRMPartner.Contact;
+using Zeta.AgentosCRM.CRMPartner.Contact.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Contract;
+using Zeta.AgentosCRM.CRMPartner.Contract.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.TaskManagement.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
 using Zeta.AgentosCRM.Web.Controllers;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
@@ -17,10 +32,23 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
     public class PartnersController : AgentosCRMControllerBase
     {
         private readonly IPartnersAppService _partnersAppService;
-        public PartnersController(IPartnersAppService partnersAppService)
+        private readonly IBranchesAppService _branchsAppService;
+        private readonly IPartnerContactsAppService _partnerContactsAppService;
+        private readonly IPartnerContractsAppService _partnerContractsAppService;
+        private readonly INotesAppService _notesAppService;
+        private readonly IPartnerPromotionsAppService _partnerPromotionsAppService;
+        private readonly ICRMTasksAppService _cRMTasksAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService)
         {
             _partnersAppService = partnersAppService;
+            _branchsAppService = branchsAppService;
+            _partnerContactsAppService = partnerContactsAppService;
+            _partnerContractsAppService = partnerContractsAppService;
+            _notesAppService = notesAppService;
+            _partnerPromotionsAppService = partnerPromotionsAppService;
+            _cRMTasksAppService = cRMTasksAppService;
         }
+      
         public IActionResult Index()
         {
             var model= new PartnersViewModel
@@ -56,11 +84,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("Products/_CreateOrEditModal", "");
         }
-        public ActionResult CreateOrEditBranchesModal(int? id)
-        {
 
-            return PartialView("Branches/_CreateOrEditModal", "");
-        }
         public ActionResult ViewApplicationDetails()
         {
 
@@ -73,36 +97,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("ComposeEmail/_CreateOrEditModal", "");
 
         } 
-        public ActionResult CreateOrEditContactslModal()
-        {
 
-            return PartialView("Contacts/_CreateOrEditModal", "");
-
-        }
         public ActionResult CreateOrEditApponitmentlModal()
         {
 
             return PartialView("Appointments/_CreateOrEditModal", "");
 
         }
-        public ActionResult CreateOrEditTasksModal()
-        {
 
-            return PartialView("CRMTasks/_CreateOrEditModal", "");
 
-        }
-        public ActionResult CreateOrEditPromotionsModal()
-        {
 
-            return PartialView("Promotions/_CreateOrEditModal", "");
-
-        }
-        public ActionResult CreateOrEditNotesAndTermsModal()
-        {
-
-            return PartialView("NotesAndTerms/_CreateOrEditModal", "");
-
-        }
         public ActionResult AddPartnersDetails()
         {
 
@@ -151,23 +155,23 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var viewModel = new CreateOrEditPartnerViewModel()
             {
                 Partner = getPartnerForEditOutput.Partner,
-                PartnerName = getPartnerForEditOutput.Partner.PartnerName,
-                //BusinessRegistrationNumber = getPartnerForEditOutput.BusinessRegistrationNumber,
-                Street = getPartnerForEditOutput.Partner.Street,
-                City = getPartnerForEditOutput.Partner.City,
-                State = getPartnerForEditOutput.Partner.State,
-                Zipcode = getPartnerForEditOutput.Partner.ZipCode,
-                Phone = getPartnerForEditOutput.Partner.PhoneNo,
-                Email = getPartnerForEditOutput.Partner.Email,
-                Fax = getPartnerForEditOutput.Partner.Fax,
-                Website = getPartnerForEditOutput.Partner.Website,
-                MarketingOfficeEmail = getPartnerForEditOutput.Partner.MarketingEmail,
-                University = getPartnerForEditOutput.Partner.University,
+                //PartnerName = getPartnerForEditOutput.Partner.PartnerName,
+                ////BusinessRegistrationNumber = getPartnerForEditOutput.BusinessRegistrationNumber,
+                //Street = getPartnerForEditOutput.Partner.Street,
+                //City = getPartnerForEditOutput.Partner.City,
+                //State = getPartnerForEditOutput.Partner.State,
+                //Zipcode = getPartnerForEditOutput.Partner.ZipCode,
+                //Phone = getPartnerForEditOutput.Partner.PhoneNo,
+                //Email = getPartnerForEditOutput.Partner.Email,
+                //Fax = getPartnerForEditOutput.Partner.Fax,
+                //Website = getPartnerForEditOutput.Partner.Website,
+                //MarketingOfficeEmail = getPartnerForEditOutput.Partner.MarketingEmail,
+                //University = getPartnerForEditOutput.Partner.University,
                 //Currency = getPartnerForEditOutput.Partner.Currency,
                 MasterCategoryName = getPartnerForEditOutput.MasterCategoryName,
                 PartnerTypeName = getPartnerForEditOutput.PartnerTypeName,
                 WorkflowName = getPartnerForEditOutput.WorkflowName,
-                CountryName2 = getPartnerForEditOutput.CountryName,
+                CountryName = getPartnerForEditOutput.CountryName,
                 PartnerCountryList = await _partnersAppService.GetAllCountryForTableDropdown(),
                 PartnerMasterCategoryList = await _partnersAppService.GetAllMasterCategoryForTableDropdown(),
                 PartnerPartnerTypeList = await _partnersAppService.GetAllPartnerTypeForTableDropdown(),
@@ -175,35 +179,281 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
 
             return View(viewModel);
+
         }
-        //public async Task<ActionResult> ViewPartner(int id)
-        //{
-        //    var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+        public async Task<ActionResult> DetailsForm(int id)
+        {
+            //var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
-        //    var model = new PartnerViewModel()
-        //    {
-        //        Partner = getPartnerForViewDto.Partner
-        //        ,
-        //        BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
+            //var model = new PartnerViewModel()
+            //{
+            //    Partner = getPartnerForViewDto.Partner
+            //    ,
+            //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
 
-        //        ,
-        //        MasterCategoryName = getPartnerForViewDto.MasterCategoryName
+            //    ,
+            //    MasterCategoryName = getPartnerForViewDto.MasterCategoryName
 
-        //        ,
-        //        PartnerTypeName = getPartnerForViewDto.PartnerTypeName
-
-        //        ,
-        //        WorkflowName = getPartnerForViewDto.WorkflowName
-
-                //,
+            //    ,
+            //    PartnerTypeName = getPartnerForViewDto.PartnerTypeName
+ 
+              //  ,
                 //CountryName = getPartnerForViewDto.CountryName
 
                 //,
                 //CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
+ 
+            //    ,
+            //    WorkflowName = getPartnerForViewDto.WorkflowName 
+            //};
+ 
 
-        //    };
+            //return View(model);
+            return View("");
+        }
 
-        //    return View(model);
-        //}
+
+        public async Task<ActionResult> Branches(int id)
+        {
+            var getBranchForViewDto = await _branchsAppService.GetBranchForView(id);
+            var model = new BranchViewModel()
+            {
+                Branch = getBranchForViewDto.Branch
+               ,
+                CountryName = getBranchForViewDto.CountryName
+
+            };
+
+            return View("Branches/Branches", model);
+        }
+
+        public async Task<PartialViewResult> CreateOrEditBranchesModal(long? id)
+        {
+            GetBranchForEditOutput getBranchForEditOutput;
+            if (id.HasValue)
+            {
+                getBranchForEditOutput = await _branchsAppService.GetBranchForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getBranchForEditOutput = new GetBranchForEditOutput
+                {
+                    Branch = new CreateOrEditBranchDto()
+                };
+            }
+                var viewModel = new CreateOrEditBranchModalViewModel()
+                {
+                    Branch=getBranchForEditOutput.Branch, 
+                    CountryName = getBranchForEditOutput.CountryName,
+                    //PartnerId= partnerId,
+                    BranchCountryList = await _branchsAppService.GetAllCountryForTableDropdown(),
+
+                };
+            
+            return PartialView("Branches/_CreateOrEditBranchesModal", viewModel);
+        }
+     
+        public async Task<PartialViewResult> CreateOrEditContactslModal(long? id)
+        {
+            GetPartnerContactForEditOutput getPartnerContactForEditOutput;
+            if (id.HasValue)
+            {
+                getPartnerContactForEditOutput = await _partnerContactsAppService.GetPartnerContactForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getPartnerContactForEditOutput = new GetPartnerContactForEditOutput
+                {
+                    PartnerContact = new CreateOrEditPartnerContactDto()
+                };
+            }
+            var viewModel = new CreateOrEditPartnerContactModalViewModel()
+            {
+                PartnerContact = getPartnerContactForEditOutput.PartnerContact,
+                BranchName = getPartnerContactForEditOutput.BranchName,
+                //PartnerId= partnerId,
+                PartnerContactBranchList = await _partnerContactsAppService.GetAllBranchForTableDropdown(),
+
+            };
+            return PartialView("Contacts/_CreateOrEditModal", viewModel);
+
+        }
+        public async Task<ActionResult> Contacts(int id)
+        {
+            var getPartnerContactForViewDto = await _partnerContactsAppService.GetPartnerContactForView(id);
+            var model = new PartnerContactViewModel()
+            {
+                PartnerContact = getPartnerContactForViewDto.PartnerContact
+               ,
+                BranchName = getPartnerContactForViewDto.BranchName
+
+            };
+
+            return View("Contacts/Contacts", model);
+        }
+
+
+        public ActionResult CreateOrEditNotesAndTermsModal()
+        {
+
+            return PartialView("NotesAndTerms/_CreateOrEditModal", "");
+
+        }
+        public async Task<ActionResult> NotesAndTerms(int id)
+        {
+            var getNoteForViewDto = await _notesAppService.GetNoteForView(id);
+            var model = new NoteViewModel()
+            {
+                Note = getNoteForViewDto.Note
+            
+
+            };
+
+            return View("NotesAndTerms/NotesAndTerms", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditNotesModal(long? id)
+        {
+            GetNoteForEditOutput getNotesForEditOutput;
+            if (id.HasValue)
+            {
+                getNotesForEditOutput = await _notesAppService.GetNoteForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getNotesForEditOutput = new GetNoteForEditOutput
+                {
+                    Note = new CreateOrEditNoteDto()
+                };
+            }
+            var viewModel = new CreateOrEditNotesModalViewModel()
+            {
+                Note = getNotesForEditOutput.Note,
+               
+
+            };
+
+            return PartialView("NotesAndTerms/_CreateOrEditNotesModal", viewModel);
+        }
+        public async Task<PartialViewResult> CreateOrEditAgreementsModal(long? id)
+        {
+            GetPartnerContractForEditOutput getPartnerContractForEditOutput;
+
+            if (id.HasValue)
+            {
+                getPartnerContractForEditOutput = await _partnerContractsAppService.GetPartnerContractForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getPartnerContractForEditOutput = new GetPartnerContractForEditOutput
+                {
+                    PartnerContract = new CreateOrEditPartnerContractDto()
+                };
+                getPartnerContractForEditOutput.PartnerContract.ContractExpiryDate = DateTime.Now;
+                //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditPartnerContractModalViewModel()
+            {
+                PartnerContract = getPartnerContractForEditOutput.PartnerContract,
+                AgentName = getPartnerContractForEditOutput.AgentName,
+                RegionName = getPartnerContractForEditOutput.RegionName,
+                PartnerContractAgentList = await _partnerContractsAppService.GetAllAgentForTableDropdown(),
+                PartnerContractRegionList = await _partnerContractsAppService.GetAllRegionForTableDropdown(),
+
+            };
+            return PartialView("Agreements/_CreateOrEditAgreementsModal", viewModel);
+
+        }
+        public async Task<ActionResult> Agreements(int id)
+        {
+            var getPartnerContractForViewDto = await _partnerContractsAppService.GetPartnerContractForView(id);
+            var model = new PartnerContractViewModel()
+            {
+                PartnerContract = getPartnerContractForViewDto.PartnerContract
+
+
+            };
+
+            return View("Agreements/Agreements", model);
+        }
+
+        public async Task<PartialViewResult> CreateOrEditPromotionslModal(long? id)
+        {
+            GetPartnerPromotionForEditOutput getPartnerPromotionForEditOutput;
+            if (id.HasValue)
+            {
+                getPartnerPromotionForEditOutput = await _partnerPromotionsAppService.GetPartnerPromotionForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getPartnerPromotionForEditOutput = new GetPartnerPromotionForEditOutput
+                {
+                    PartnerPromotion = new CreateOrEditPartnerPromotionDto()
+                };
+                getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
+                getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
+            }
+           
+            var viewModel = new CreateOrEditPartnerPromotionsModalViewModel()
+            {
+                PartnerPromotion = getPartnerPromotionForEditOutput.PartnerPromotion,
+               
+
+            };
+            return PartialView("Promotions/_CreateOrEditPromotionslModal", viewModel);
+
+        }
+        public async Task<ActionResult> Promotions(int id)
+        {
+            var getPartnerPromotionForViewDto = await _partnerPromotionsAppService.GetPartnerPromotionForView(id);
+            var model = new PartnerPromotionViewModel()
+            {
+                PartnerPromotion = getPartnerPromotionForViewDto.PartnerPromotion
+
+
+            };
+
+            return View("Promotions/Promotions", model);
+        }
+        public async Task<ActionResult> Tasks(int id)
+        {
+            var getCRMTaskForViewDto = await _cRMTasksAppService.GetCRMTaskForView(id);
+            var model = new TaskViewModel()
+            {
+                CRMTask = getCRMTaskForViewDto.CRMTask
+
+
+            };
+
+            return View("Tasks/Tasks", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditTasksModal(long? id)
+        {
+            GetCRMTaskForEditOutput getCRMTaskForEditOutput;
+            if (id.HasValue)
+            {
+                getCRMTaskForEditOutput = await _cRMTasksAppService.GetCRMTaskForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getCRMTaskForEditOutput = new GetCRMTaskForEditOutput
+                {
+                    CRMTask = new CreateOrEditCRMTaskDto()
+                };
+                //getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
+                //getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditTaskModalViewModel()
+            {
+                CRMTask = getCRMTaskForEditOutput.CRMTask,
+
+
+            };
+            return PartialView("Task/_CreateOrEditTasksModal", viewModel);
+
+        }
+ 
     }
 }

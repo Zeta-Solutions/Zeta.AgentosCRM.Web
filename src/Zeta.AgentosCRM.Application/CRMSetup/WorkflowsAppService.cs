@@ -14,6 +14,9 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Microsoft.AspNetCore.Identity;
+using Zeta.AgentosCRM.Authorization.Users.Dto;
+using Castle.Windsor.Diagnostics.Extensions;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
@@ -89,8 +92,15 @@ namespace Zeta.AgentosCRM.CRMSetup
         {
             var workflow = await _workflowRepository.FirstOrDefaultAsync(input.Id);
 
-            var output = new GetWorkflowForEditOutput { Workflow = ObjectMapper.Map<CreateOrEditWorkflowDto>(workflow) };
 
+            var allWorkflowSteps = await _workflowStepRepository.GetAllListAsync();
+
+            var output = new GetWorkflowForEditOutput 
+            { 
+                Workflow = ObjectMapper.Map<CreateOrEditWorkflowDto>(workflow),
+                WorkflowStep = ObjectMapper.Map<List<CreateOrEditWorkflowStepDto>>(allWorkflowSteps)
+            };
+             
             return output;
         }
 
@@ -134,10 +144,20 @@ namespace Zeta.AgentosCRM.CRMSetup
             var workflow = await _workflowRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, workflow);
 
+            
             foreach (var step in input.Steps)
             {
-                var workflowStep= await _workflowStepRepository.FirstOrDefaultAsync((int)step.Id);
-                ObjectMapper.Map(step, workflowStep);
+                if (step.Id == 0)
+                { 
+                    var stepEntity = ObjectMapper.Map<WorkflowStep>(step);
+                    await _workflowStepRepository.InsertAsync(stepEntity);
+                }
+                else
+                {
+                    var workflowStep = await _workflowStepRepository.FirstOrDefaultAsync((int)step.Id);
+                    ObjectMapper.Map(step, workflowStep);
+                }
+                 
             }
 
         }

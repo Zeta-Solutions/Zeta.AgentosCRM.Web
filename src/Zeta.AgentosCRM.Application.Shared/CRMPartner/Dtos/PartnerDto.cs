@@ -43,5 +43,8 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public int? CurrencyId { get; set; }
 
+        public DateTime? CreationTime { get; set; }
+
+
     }
 }

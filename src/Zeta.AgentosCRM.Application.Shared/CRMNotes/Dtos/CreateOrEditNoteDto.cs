@@ -19,5 +19,6 @@ namespace Zeta.AgentosCRM.CRMNotes.Dtos
 
         public long? PartnerId { get; set; }
 
+
     }
 }
