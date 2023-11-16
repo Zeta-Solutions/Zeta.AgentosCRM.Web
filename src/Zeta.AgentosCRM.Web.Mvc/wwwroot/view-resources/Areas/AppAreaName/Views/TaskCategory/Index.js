@@ -258,18 +258,18 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            debugger
-            _taskCategoriesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#TaskCategoriesTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //$('#ExportToExcelButton').click(function () {
+        //    debugger
+        //    _taskCategoriesService
+        //        .getMasterCategoriesToExcel({
+        //            filter: $('#TaskCategoriesTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.createOrEditTaskCategoryModalSaved', function () {
             getCategories();

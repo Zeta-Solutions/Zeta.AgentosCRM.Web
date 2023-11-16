@@ -254,24 +254,13 @@
       _createOrEditModal.open();
     });
 
-    $('#ExportToExcelButton').click(function () {
-        _feeTypesService
-        .getMasterCategoriesToExcel({
-          filter: $('#MasterCategoriesTableFilter').val(),
-          abbrivationFilter: $('#AbbrivationFilterId').val(),
-          nameFilter: $('#NameFilterId').val(),
-        })
-        .done(function (result) {
-          app.downloadTempFile(result);
-        });
-    });
 
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
           debugger
           getFeeTypes();
     });
 
-    $('#GetMasterCategoriesButton').click(function (e) {
+      $('#GetFeetypesButton').click(function (e) {
       e.preventDefault();
         getFeeTypes();
     });

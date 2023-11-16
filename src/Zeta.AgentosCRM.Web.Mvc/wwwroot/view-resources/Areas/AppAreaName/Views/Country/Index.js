@@ -205,7 +205,7 @@
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.ellipsis', function (e) {
             e.preventDefault();
-
+            debugger
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -218,6 +218,7 @@
 
         // Close the context menu when clicking outside of it
         $(document).on('click', function (event) {
+            debugger
             if (!$(event.target).closest('.context-menu').length) {
                 $('.options').hide();
             }
@@ -272,20 +273,20 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            _masterCategoriesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#CountryTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                    codeFilter: $('#CodeFilterId').val(),
-                    iconFilter: $('#IconFilterId').val(),
-                    regionNameFilter: $('#RegionNameFilterId').val(),
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //$('#ExportToExcelButton').click(function () {
+        //    _masterCategoriesService
+        //        .getMasterCategoriesToExcel({
+        //            filter: $('#CountryTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //            codeFilter: $('#CodeFilterId').val(),
+        //            iconFilter: $('#IconFilterId').val(),
+        //            regionNameFilter: $('#RegionNameFilterId').val(),
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.createOrEditCountryModalSaved', function () {
             getCountries();

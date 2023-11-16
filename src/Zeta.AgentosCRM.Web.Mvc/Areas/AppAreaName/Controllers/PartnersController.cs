@@ -56,7 +56,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
       
         public IActionResult Index()
         {
-            var model= new PartnersViewModel
+            var model = new PartnersViewModel
             {
                 FilterText = ""
             };
@@ -66,7 +66,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult PartnersDetails()
         {
 
-           // return RedirectToAction("DetailsForm.cshtml");
+            // return RedirectToAction("DetailsForm.cshtml");
             return View("~/Areas/AppAreaName/Views/Partners/DetailsForm.cshtml");
         }
         public ActionResult InformationsDetails()
@@ -115,7 +115,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult AddPartnersDetails()
         {
 
-           //return PartialView("_ViewPartnersDetails");
+            //return PartialView("_ViewPartnersDetails");
 
             return View("~/Areas/AppAreaName/Views/Partners/InformationsDetails.cshtml");
 
@@ -193,9 +193,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
                 ,
                 PartnerTypeName = getPartnerForViewDto.PartnerTypeName
-
+ 
                 ,
-                WorkflowName = getPartnerForViewDto.WorkflowName
+                WorkflowName = getPartnerForViewDto.WorkflowName 
 
                 ,
                 CountryName = getPartnerForViewDto.CountryName

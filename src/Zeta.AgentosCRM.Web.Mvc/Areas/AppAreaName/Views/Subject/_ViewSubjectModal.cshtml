@@ -19,15 +19,15 @@
 
             <div class="col-6 mb-3">
                 <h6>(@L("SubjectArea")) @L("Name") :</h6>
-                 
-                @if (!string.IsNullOrEmpty(Model.SubjectAreaName))
+                 @Model.SubjectAreaName
+                @* @if (!string.IsNullOrEmpty(Model.SubjectAreaName))
                 {
                     @Model.SubjectAreaName
                 }
                 else
                 {
                     <span>No Subject Area Name Available</span>
-                }
+                } *@
                 @*@Model.SubjectAreaName   *@           
             </div>
 

@@ -305,26 +305,26 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            _productTypesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                    masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
+        //$('#ExportToExcelButton').click(function () {
+        //    _productTypesService
+        //        .getMasterCategoriesToExcel({
+        //            filter: $('#MasterCategoriesTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //            masterCategoryNameFilter: $('#MasterCategoryNameFilterId').val(),
 
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.createOrEditProductTypeModalSaved', function () {
 
             getProductTypes();
         });
 
-        $('#GetMasterCategoriesButton').click(function (e) {
+        $('#GetPartnerTypesButton').click(function (e) {
             e.preventDefault();
             getProductTypes();
         });

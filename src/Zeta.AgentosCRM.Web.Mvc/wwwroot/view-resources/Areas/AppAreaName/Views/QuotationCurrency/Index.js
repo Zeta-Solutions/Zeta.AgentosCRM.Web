@@ -217,24 +217,25 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            _QuotationCurrenciesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#QuotationCurrencyTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //$('#ExportToExcelButton').click(function () {
+        //    _QuotationCurrenciesService
+        //        .getMasterCategoriesToExcel({
+        //            filter: $('#QuotationCurrencyTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.CreateOrEditQuotationCurrencyModalSaved', function () {
             getcRMCurrencies();
 
         });
 
-        $('#GetMasterCategoriesButton').click(function (e) {
+        $('#GetQuotationCurrenciesButton').click(function (e) {
+            debugger
             e.preventDefault();
             getcRMCurrencies();
 

@@ -243,24 +243,13 @@
       $('#CreateNewRegionButton').click(function () {
       _createOrEditModal.open();
     });
-
-    $('#ExportToExcelButton').click(function () {
-        _regionsService
-        .getMasterCategoriesToExcel({
-          filter: $('#MasterCategoriesTableFilter').val(),
-          abbrivationFilter: $('#AbbrivationFilterId').val(),
-          nameFilter: $('#NameFilterId').val(),
-        })
-        .done(function (result) {
-          app.downloadTempFile(result);
-        });
-    });
+     
 
       abp.event.on('app.createOrEditRegionModalSaved', function () {
         getRegions();
     });
 
-    $('#GetMasterCategoriesButton').click(function (e) {
+      $('#GetRegionsButton').click(function (e) {
       e.preventDefault();
         getRegions();
     });
