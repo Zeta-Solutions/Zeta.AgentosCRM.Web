@@ -253,23 +253,23 @@
             _createOrEditModal.open();
         });
 
-        $('#ExportToExcelButton').click(function () {
-            _installmentTypesService
-                .getMasterCategoriesToExcel({
-                    filter: $('#MasterCategoriesTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
-                    nameFilter: $('#NameFilterId').val(),
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
-        });
+        //$('#ExportToExcelButton').click(function () {
+        //    _installmentTypesService
+        //        .getMasterCategoriesToExcel({
+        //            filter: $('#MasterCategoriesTableFilter').val(),
+        //            abbrivationFilter: $('#AbbrivationFilterId').val(),
+        //            nameFilter: $('#NameFilterId').val(),
+        //        })
+        //        .done(function (result) {
+        //            app.downloadTempFile(result);
+        //        });
+        //});
 
         abp.event.on('app.createOrEditInstallmentTypeModalSaved', function () {
             getInstallmentTypes();
         });
 
-        $('#GetMasterCategoriesButton').click(function (e) {
+        $('#GetInstallmentTypesButton').click(function (e) {
             e.preventDefault();
             getInstallmentTypes();
         });

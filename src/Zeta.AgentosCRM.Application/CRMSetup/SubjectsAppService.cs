@@ -97,7 +97,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
             var output = new GetSubjectForViewDto { Subject = ObjectMapper.Map<SubjectDto>(subjectArea) };
 
-            if (output.SubjectAreaName != null)
+            if (output.Subject.SubjectAreaId != null)
             {
                 var _lookupSubject = await _lookup_subjectAreaRepository.FirstOrDefaultAsync((int)output.Subject.SubjectAreaId);
                 output.SubjectAreaName = _lookupSubject?.Name?.ToString();

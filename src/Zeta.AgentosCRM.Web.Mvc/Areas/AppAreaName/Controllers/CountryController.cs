@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.CRMSetup.Countries.Dtos;
+using Zeta.AgentosCRM.CRMSetup.ProductType.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Countries;
 using Zeta.AgentosCRM.Web.Controllers;
 
@@ -64,6 +65,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var model = new CountryViewModel()
             {
                 Country = getCountriesForViewDto.Country
+                ,
+
+                RegionName = getCountriesForViewDto.RegionName
             };
             return PartialView("_ViewCountryModal", model);
         }

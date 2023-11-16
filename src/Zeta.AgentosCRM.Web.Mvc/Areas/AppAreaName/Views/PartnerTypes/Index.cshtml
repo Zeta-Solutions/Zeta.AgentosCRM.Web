@@ -14,7 +14,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.PartnerTypes;
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
 <abp-page-subheader title='@L("PartnerTypes")' description='@L("PartnerTypesHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_CRMSetup_PartnerTypes_Create))
     {

@@ -23,7 +23,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
         public IActionResult Index()
         {
-            var model= new PartnersViewModel
+            var model = new PartnersViewModel
             {
                 FilterText = ""
             };
@@ -33,7 +33,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult PartnersDetails()
         {
 
-           // return RedirectToAction("DetailsForm.cshtml");
+            // return RedirectToAction("DetailsForm.cshtml");
             return View("~/Areas/AppAreaName/Views/Partners/DetailsForm.cshtml");
         }
         public ActionResult InformationsDetails()
@@ -72,7 +72,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("ComposeEmail/_CreateOrEditModal", "");
 
-        } 
+        }
         public ActionResult CreateOrEditContactslModal()
         {
 
@@ -106,7 +106,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         public ActionResult AddPartnersDetails()
         {
 
-           //return PartialView("_ViewPartnersDetails");
+            //return PartialView("_ViewPartnersDetails");
 
             return View("~/Areas/AppAreaName/Views/Partners/InformationsDetails.cshtml");
 
@@ -176,33 +176,33 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(viewModel);
         }
-        public async Task<ActionResult> ViewPartner(int id)
-        {
-            //var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+        //public async Task<ActionResult> ViewPartner(int id)
+        //{
+        //    //var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
-            //var model = new PartnerViewModel()
-            //{
-            //    Partner = getPartnerForViewDto.Partner
-            //    ,
-            //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
+        //    //var model = new PartnerViewModel()
+        //    //{
+        //    //    Partner = getPartnerForViewDto.Partner
+        //    //    ,
+        //    //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
 
-            //    ,
-            //    MasterCategoryName = getPartnerForViewDto.MasterCategoryName
+        //    //    ,
+        //    //    MasterCategoryName = getPartnerForViewDto.MasterCategoryName
 
-            //    ,
-            //    PartnerTypeName = getPartnerForViewDto.PartnerTypeName
+        //    //    ,
+        //    //    PartnerTypeName = getPartnerForViewDto.PartnerTypeName
 
-            //    ,
-            //    WorkflowName = getPartnerForViewDto.WorkflowName
+        //    //    ,
+        //    //    WorkflowName = getPartnerForViewDto.WorkflowName
 
-                ,
-                CountryName = getPartnerForViewDto.CountryName
+        //        ,
+        //      //  CountryName = getPartnerForViewDto.CountryName
                  
 
-            //};
+        //    //};
 
-            //return View(model);
-            return View("");
-        }
+        //    //return View(model);
+        //    return View("");
+        //}
     }
 }
