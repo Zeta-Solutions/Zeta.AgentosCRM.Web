@@ -31,5 +31,7 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
 
         Task<List<ClientInterstedServiceBranchLookupTableDto>> GetAllBranchForTableDropdown();
 
+        Task<List<ClientInterstedServiceWorkflowLookupTableDto>> GetAllWorkflowForTableDropdown();
+
     }
 }

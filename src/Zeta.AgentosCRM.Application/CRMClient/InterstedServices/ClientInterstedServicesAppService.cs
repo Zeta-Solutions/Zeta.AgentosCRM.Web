@@ -1,24 +1,18 @@
-﻿using Zeta.AgentosCRM.CRMClient;
-using Zeta.AgentosCRM.CRMPartner;
+﻿using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMProducts;
-using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
-
-using System;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;  
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
-using Zeta.AgentosCRM.Dto;
+using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos; 
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.Authorization;
-using Abp.Extensions;
+using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup;
 
 namespace Zeta.AgentosCRM.CRMClient.InterstedServices
 {
@@ -30,15 +24,22 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
         private readonly IRepository<Product, long> _lookup_productRepository;
         private readonly IRepository<Branch, long> _lookup_branchRepository;
+        private readonly IRepository<Workflow, int> _lookup_workflowRepository;
 
-        public ClientInterstedServicesAppService(IRepository<ClientInterstedService, long> clientInterstedServiceRepository, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<Product, long> lookup_productRepository, IRepository<Branch, long> lookup_branchRepository)
+        public ClientInterstedServicesAppService(
+            IRepository<ClientInterstedService, long> clientInterstedServiceRepository,
+            IRepository<Client, long> lookup_clientRepository,
+            IRepository<Partner, long> lookup_partnerRepository,
+            IRepository<Product, long> lookup_productRepository,
+            IRepository<Branch, long> lookup_branchRepository,
+            IRepository<Workflow, int> lookup_workflowRepository)
         {
             _clientInterstedServiceRepository = clientInterstedServiceRepository;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_partnerRepository = lookup_partnerRepository;
             _lookup_productRepository = lookup_productRepository;
             _lookup_branchRepository = lookup_branchRepository;
-
+            _lookup_workflowRepository = lookup_workflowRepository;
         }
 
         public async Task<PagedResultDto<GetClientInterstedServiceForViewDto>> GetAll(GetAllClientInterstedServicesInput input)
@@ -49,6 +50,7 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                         .Include(e => e.PartnerFk)
                         .Include(e => e.ProductFk)
                         .Include(e => e.BranchFk)
+                        .Include(e => e.WorkflowFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(input.MinStartDateFilter != null, e => e.StartDate >= input.MinStartDateFilter)
@@ -58,7 +60,8 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter);
 
             var pagedAndFilteredClientInterstedServices = filteredClientInterstedServices
                 .OrderBy(input.Sorting ?? "id asc")
@@ -77,6 +80,9 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                                           join o4 in _lookup_branchRepository.GetAll() on o.BranchId equals o4.Id into j4
                                           from s4 in j4.DefaultIfEmpty()
 
+                                          join o5 in _lookup_workflowRepository.GetAll() on o.WorkflowId equals o5.Id into j5
+                                          from s5 in j5.DefaultIfEmpty()
+
                                           select new
                                           {
 
@@ -87,7 +93,8 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                                               ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                               PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString(),
                                               ProductName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
-                                              BranchName = s4 == null || s4.Name == null ? "" : s4.Name.ToString()
+                                              BranchName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                                              WorkflowName = s5 == null || s5.Name == null ? "" : s5.Name.ToString()
                                           };
 
             var totalCount = await filteredClientInterstedServices.CountAsync();
@@ -110,7 +117,8 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                     ClientFirstName = o.ClientFirstName,
                     PartnerPartnerName = o.PartnerPartnerName,
                     ProductName = o.ProductName,
-                    BranchName = o.BranchName
+                    BranchName = o.BranchName,
+                    WorkflowName = o.WorkflowName
                 };
 
                 results.Add(res);
@@ -153,6 +161,12 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                 output.BranchName = _lookupBranch?.Name?.ToString();
             }
 
+            if (output.ClientInterstedService.WorkflowId != null)
+            {
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.ClientInterstedService.WorkflowId);
+                output.WorkflowName = _lookupWorkflow?.Name?.ToString();
+            }
+
             return output;
         }
 
@@ -185,6 +199,12 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
             {
                 var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync((long)output.ClientInterstedService.BranchId);
                 output.BranchName = _lookupBranch?.Name?.ToString();
+            }
+
+            if (output.ClientInterstedService.WorkflowId != null)
+            {
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.ClientInterstedService.WorkflowId);
+                output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 
             return output;
@@ -270,6 +290,17 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
                 {
                     Id = branch.Id,
                     DisplayName = branch == null || branch.Name == null ? "" : branch.Name.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_ClientInterstedServices)]
+        public async Task<List<ClientInterstedServiceWorkflowLookupTableDto>> GetAllWorkflowForTableDropdown()
+        {
+            return await _lookup_workflowRepository.GetAll()
+                .Select(workflow => new ClientInterstedServiceWorkflowLookupTableDto
+                {
+                    Id = workflow.Id,
+                    DisplayName = workflow == null || workflow.Name == null ? "" : workflow.Name.ToString()
                 }).ToListAsync();
         }
 

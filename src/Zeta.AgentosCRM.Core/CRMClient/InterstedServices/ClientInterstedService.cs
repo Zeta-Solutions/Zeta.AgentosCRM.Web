@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.CRMSetup;
 
 namespace Zeta.AgentosCRM.CRMClient.InterstedServices
 {
@@ -42,6 +43,11 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices
 
         [ForeignKey("BranchId")]
         public Branch BranchFk { get; set; }
+
+        public virtual int WorkflowId { get; set; }
+
+        [ForeignKey("WorkflowId")]
+        public Workflow WorkflowFk { get; set; }
 
     }
 }
