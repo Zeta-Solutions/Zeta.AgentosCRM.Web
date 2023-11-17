@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.TaskManagement.Followers;
+﻿using Zeta.AgentosCRM.CRMClient.CheckIn;
+using Zeta.AgentosCRM.TaskManagement.Followers;
 using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments;
@@ -35,6 +36,9 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(CheckInLog),
+            typeof(OtherTestScore),
+            typeof(EnglisTestScore),
             typeof(PromotionProduct),
             typeof(TaskFollower),
             typeof(ClientInterstedService),
