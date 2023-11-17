@@ -5,7 +5,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
 
     [Area("AppAreaName")]
-    public class DocumentTypeController : AgentosCRMControllerBase
+    public class EmailTemplateController : AgentosCRMControllerBase
     {
         public IActionResult Index()
         {
@@ -16,4 +16,5 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("_CreateOrEditModal", "");
         }
     }
+
 }

@@ -356,15 +356,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                                 AppPermissions.Pages_FeeTypes)
                         )
                     )
-                    //.AddItem(new MenuItemDefinition(
-                    //        AppAreaNamePageNames.Tenant.Month,
-                    //        L("Month"),
-                    //        url: "AppAreaName/Month",
-                    //        icon: "flaticon-more",
-                    //        permissionDependency: new SimplePermissionDependency(
-                    //            AppPermissions.Pages_CRMSetup_PartnerTypes)
-                    //    )
-                    //)
+                    .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.EmailTemplate,
+                            L("EmailTemplate"),
+                            url: "AppAreaName/EmailTemplate",
+                            icon: "flaticon-more"
+                            //,
+                            //permissionDependency: new SimplePermissionDependency(
+                            //    AppPermissions.Pages_CRMSetup_PartnerTypes)
+                        )
+                    )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Regions,
                             L("Regions"),

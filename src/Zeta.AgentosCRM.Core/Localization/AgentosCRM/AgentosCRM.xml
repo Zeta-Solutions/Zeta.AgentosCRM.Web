@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="PromotionProduct">Promotion product</text>
+	<texts>
+    <text name="PromotionProduct">Promotion product</text>
     <text name="CreateNewPromotionProduct">Create new promotion product</text>
     <text name="EditPromotionProduct">Edit promotion product</text>
     <text name="DeletePromotionProduct">Delete promotion product</text>
@@ -1690,5 +1691,10 @@
 		<text name="UiCustomization_Toolbar_MobileFixedHeader">Mobile fixed header</text>
 		<text name="UiCustomization_Toolbar">Toolbar</text>
 		<text name="IncorrectImageDimensions">Image size exceeds allowed limits</text>
+		<text name="EmailTemplate">Email Template</text>
+		<text name="Body">Body</text>
+		<text name="CreateNewEmailTemplate">Create New Email Template</text>
+		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
+		<!--<text name="EmailTemplate">Email Template</text>-->
 	</texts> 
 </localizationDictionary>
