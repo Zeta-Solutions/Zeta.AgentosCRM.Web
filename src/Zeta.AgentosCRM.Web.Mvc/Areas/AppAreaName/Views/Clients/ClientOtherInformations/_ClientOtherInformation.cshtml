@@ -1,8 +1,14 @@
-﻿@using System.Globalization
+﻿@using Zeta.AgentosCRM.CRMClient;
+@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
 @model CreateOrEditClientViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+@{
+    // ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+}
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />

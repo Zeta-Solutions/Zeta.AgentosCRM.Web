@@ -27,7 +27,12 @@ using System.Collections.Generic;
 using Zeta.AgentosCRM.CRMClient.Education;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
 using Zeta.AgentosCRM.CRMClient.Education.Dtos;
-
+using Zeta.AgentosCRM.CRMNotes.Dtos;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
+using Zeta.AgentosCRM.CRMNotes;
+using Zeta.AgentosCRM.TaskManagement;
+using Zeta.AgentosCRM.TaskManagement.Dtos;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
@@ -41,13 +46,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IApplicationsAppService _applicationsAppService;
         private readonly IClientInterstedServicesAppService _clientInterstedServicesAppService;
         private readonly IClientEducationsAppService _clientEducationsAppService;
-
+        private readonly INotesAppService _notesAppService;
+        private readonly ICRMTasksAppService _cRMTasksAppService;
 
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
             IApplicationsAppService applicationsAppService ,
-            IClientInterstedServicesAppService clientInterstedServicesAppService, IClientEducationsAppService clientEducationsAppService)
+            IClientInterstedServicesAppService clientInterstedServicesAppService,
+            IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, ICRMTasksAppService cRMTasksAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -56,6 +63,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _applicationsAppService = applicationsAppService;
             _clientInterstedServicesAppService = clientInterstedServicesAppService;
             _clientEducationsAppService = clientEducationsAppService;
+            _notesAppService = notesAppService;
+            _cRMTasksAppService = cRMTasksAppService;
         }
 
         #region "Clents"
@@ -404,7 +413,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 ClientInterestedServiceList = await _clientInterstedServicesAppService.GetAllClientForTableDropdown(),
                 ClientInterestedServicePartnerList = await _clientInterstedServicesAppService.GetAllPartnerForTableDropdown(),
                 ClientInterestedServiceProductList = await _clientInterstedServicesAppService.GetAllProductForTableDropdown(),
-                ClientInterestedServiceBranchList = await _clientInterstedServicesAppService.GetAllBranchForTableDropdown()
+                ClientInterestedServiceBranchList = await _clientInterstedServicesAppService.GetAllBranchForTableDropdown(),
+                ClientInterestedServiceWorkflowList = await _clientInterstedServicesAppService.GetAllWorkflowForTableDropdown()
 
             };
 
@@ -469,6 +479,91 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("Education/_CreateOrEditOtherScoreModal", "");
             //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+        }
+        #endregion
+
+        #region "Notes ANd Terms"
+        public async Task<ActionResult> NotesAndTerms(int id)
+        {
+            var getNoteForViewDto = await _notesAppService.GetNoteForView(id);
+            var model = new NoteViewModel()
+            {
+                Note = getNoteForViewDto.Note
+
+
+            };
+
+            return View("NotesAndTerms/NotesAndTerms", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditNotesModal(long? id)
+        {
+            GetNoteForEditOutput getNotesForEditOutput;
+            if (id.HasValue)
+            {
+                getNotesForEditOutput = await _notesAppService.GetNoteForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getNotesForEditOutput = new GetNoteForEditOutput
+                {
+                    Note = new CreateOrEditNoteDto()
+                };
+            }
+            var viewModel = new CreateOrEditNotesModalViewModel()
+            {
+                Note = getNotesForEditOutput.Note,
+
+
+            };
+
+            return PartialView("NotesAndTerms/_CreateOrEditNotesModal", viewModel);
+        }
+        #endregion
+
+        #region "Tasks"
+        public async Task<ActionResult> Tasks(int id)
+        {
+            var getCRMTaskForViewDto = await _cRMTasksAppService.GetCRMTaskForView(id);
+            var model = new TaskViewModel()
+            {
+                CRMTask = getCRMTaskForViewDto.CRMTask
+
+
+            };
+
+            return View("Tasks/Tasks", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditTasksModal(long? id)
+        {
+            GetCRMTaskForEditOutput getCRMTaskForEditOutput;
+            if (id.HasValue)
+            {
+                getCRMTaskForEditOutput = await _cRMTasksAppService.GetCRMTaskForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getCRMTaskForEditOutput = new GetCRMTaskForEditOutput
+                {
+                    CRMTask = new CreateOrEditCRMTaskDto()
+                };
+                getCRMTaskForEditOutput.CRMTask.DueDate = DateTime.Now;
+                getCRMTaskForEditOutput.CRMTask.DueTime = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditTaskModalViewModel()
+            {
+                CRMTask = getCRMTaskForEditOutput.CRMTask,
+                TaskCategoryName = getCRMTaskForEditOutput.TaskCategoryName,
+                TaskPriorityName = getCRMTaskForEditOutput.TaskPriorityName,
+                TaskUserName = getCRMTaskForEditOutput.UserName,
+                CRMTaskTaskCategoryList = await _cRMTasksAppService.GetAllTaskCategoryForTableDropdown(),
+                CRMTaskTaskPriorityList = await _cRMTasksAppService.GetAllTaskPriorityForTableDropdown(),
+                CRMTaskUserList = await _cRMTasksAppService.GetAllUserForTableDropdown(),
+
+
+            };
+            return PartialView("Tasks/_CreateOrEditTaskModal", viewModel);
+
         }
         #endregion
     }

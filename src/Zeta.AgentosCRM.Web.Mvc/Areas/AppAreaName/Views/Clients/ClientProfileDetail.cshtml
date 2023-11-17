@@ -20,10 +20,10 @@
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientTask/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Tasks/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Education/Index.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/Notes/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
   <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
@@ -334,7 +334,7 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="NoteTermsTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Notes/ClientNotesIndex.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/NotesAndTerms/NotesAndTerms.cshtml")
             </div>
         </div>        
         <div class="tab-pane pt-5 mb-7" id="QuotationTab" role="tabpanel">
@@ -349,7 +349,7 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="OtherInformationTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientOtherInformation.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ClientOtherInformations/OtherInformations.cshtml")
             </div>
         </div>
          <div class="tab-pane pt-5 mb-7" id="DocumentTab" role="tabpanel">
@@ -372,7 +372,7 @@
         </div>
          <div class="tab-pane pt-5 mb-7" id="TasksTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ClientTask/TaskIndex.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Tasks/Tasks.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="EducationTab" role="tabpanel">
