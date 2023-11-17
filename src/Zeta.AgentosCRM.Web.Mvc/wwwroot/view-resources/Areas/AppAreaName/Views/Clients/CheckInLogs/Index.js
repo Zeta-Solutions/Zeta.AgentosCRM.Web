@@ -1,7 +1,14 @@
 ﻿(function () {
     $(function () {
-        var _$IntrestedServicestableTable = $('#IntrestedServicestable');
-        var _clientInterstedServices = abp.services.app.clientInterstedServices;
+        var _$checkInLogstableTable = $('#CheckInLogstable');
+        var _checkInLogsServices = abp.services.app.checkInLogs;
+
+        var dateTimeString = "2023-01-01T00:00:00Z"; // Replace this with your date-time string
+
+        var date = new Date(dateTimeString);
+        var formattedDate = date.toISOString().split('T')[0]; // Extracting only the date part
+
+        $('#dateDisplay').text(formattedDate);
 
         var $selectedDate = {
             startDate: null,
@@ -53,11 +60,11 @@
         };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditIntrestedServiceModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditInterestedServicesModal',
+            viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditCheckInLogsModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/CheckInLogs/CreateOrEditModal.js',
+            modalClass: 'CreateOrEditcheckInLogsModal',
         });
-  
+
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -73,12 +80,12 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$IntrestedServicestableTable.DataTable({
+        var dataTable = _$checkInLogstableTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _clientInterstedServices.getAll,
+                ajaxFunction: _checkInLogsServices.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
@@ -99,40 +106,37 @@
                 },
                 {
                     targets: 1,
-                    data: 'workflowName',
-                    name: 'workflowNameFk.name',
+                    data: 'checkInLog.title',
+                    name: 'title',
                 },
                 {
                     targets: 2,
 
-                    data: 'partnerPartnerName',
-                    name: 'partnerPartnerNameFk.name',
-                    //data: 'application.work',
-                    //name: 'partnerPartnerName',
+                    data: 'checkInLog.checkInPurpose',
+                    name: 'checkInPurpose',
 
                 },
                 {
                     targets: 3,
                     //data: 'application.productName',
                     //name: 'productName',
-
-                    data: 'productName',
-                    name: 'productNameFk.name',
+                    data: 'checkInLog.checkInStatus',
+                    name: 'checkInStatus',
                 },
                 {
                     targets: 4,
-                    data: 'branchName',
-                    name: 'branchNameFk.name',
+                    data: 'checkInLog.checkInDate',
+                    name: 'checkInDate',
                 },
                 {
                     targets: 5,
-                    data: 'clientInterstedService.startDate',
-                    name: 'startDate',
+                    data: 'checkInLog.startTime',
+                    name: 'startTime',
                 },
                 {
                     targets: 6,
-                    data: 'clientInterstedService.endDate',
-                    name: 'endDate',
+                    data: 'checkInLog.endTime',
+                    name: 'endTime',
                 },
                 {
                     width: 30,
@@ -144,17 +148,17 @@
 
                     render: function (data, type, full, meta) {
                         console.log(data);
-                        var rowId = data.clientInterstedService.id;
+                        var rowId = data.checkInLog.id;
                         console.log(rowId);
-                        var rowData = data.clientInterstedService;
+                        var rowData = data.checkInLog;
                         var RowDatajsonString = JSON.stringify(rowData);
                         console.log(RowDatajsonString);
                         var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
-                            '<div class="Serviceellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="Checkellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action2="edit" data-id="' + rowId + '">Edit</a></li>' +
-                            "<a href='#' style='color: black;' data-action2='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '<li ><a href="#" style="color: black;" data-action6="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action6='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
@@ -165,7 +169,7 @@
 
 
                 },
-               
+
             ],
         });
 
@@ -173,7 +177,7 @@
             dataTable.ajax.reload();
         }
         // Add a click event handler for the ellipsis icons
-        $(document).on('click', '.Serviceellipsis', function (e) {
+        $(document).on('click', '.Checkellipsis', function (e) {
             e.preventDefault();
             debugger
             var options = $(this).closest('.context-menu').find('.options');
@@ -192,11 +196,11 @@
                 $('.options').hide();
             }
         });
-        $(document).on('click', 'a[data-action2]', function (e) {
+        $(document).on('click', 'a[data-action6]', function (e) {
             e.preventDefault();
             debugger
             var rowId = $(this).data('id');
-            var action = $(this).data('action2');
+            var action = $(this).data('action6');
             debugger
             // Handle the selected action based on the rowId
             if (action === 'edit') {
@@ -206,12 +210,12 @@
                 deleteclientInterstedService(rowId);
             }
         });
-        function deleteclientInterstedService(clientInterstedService) {
+        function deleteclientInterstedService(checkInLogs) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _clientInterstedServices
+                    _checkInLogsServices
                         .delete({
-                            id: clientInterstedService.id,
+                            id: checkInLogs.id,
                         })
                         .done(function () {
                             getclientInterstedService(true);
@@ -233,7 +237,7 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewIntrestedServiceButton').click(function () {
+        $('#CreateNewCheckInLogsButton').click(function () {
             _createOrEditModal.open();
         });
 
@@ -250,7 +254,7 @@
                 });
         });
 
-        abp.event.on('app.createOrEditInterstedInformationFormModalSaved', function () {
+        abp.event.on('app.createOrEditCheckInInformationFormModalSaved', function () {
             getclientInterstedService();
         });
 
