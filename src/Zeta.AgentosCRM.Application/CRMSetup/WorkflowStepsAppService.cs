@@ -46,7 +46,8 @@ namespace Zeta.AgentosCRM.CRMSetup
                         .WhereIf(input.WorkflowIdFilter.HasValue, e => false || e.WorkflowId == input.WorkflowIdFilter.Value);
 
             var pagedAndFilteredWorkflowSteps = filteredWorkflowSteps
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "srlNo asc")
+                .ThenBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var workflowSteps = from o in pagedAndFilteredWorkflowSteps
@@ -54,8 +55,7 @@ namespace Zeta.AgentosCRM.CRMSetup
                                 from s1 in j1.DefaultIfEmpty()
 
                                 select new
-                                {
-
+                                { 
                                     o.SrlNo,
                                     o.Abbrivation,
                                     o.Name,

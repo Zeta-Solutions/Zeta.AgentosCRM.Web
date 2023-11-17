@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function () { 
   $(function () {
       var _$FeeTypeTable = $('#LeadFormTable');
     //var _masterCategoriesService = abp.services.app.masterCategories;
@@ -8,6 +8,7 @@
       startDate: null,
       endDate: null,
     };
+
 
     $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
       $(this).val(picker.startDate.format('MM/DD/YYYY'));
@@ -22,12 +23,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.startDate = picker.startDate;
-          getDocumentType();
+          getDocumentCheckList();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.startDate = null;
-          getDocumentType();
+          getDocumentCheckList();
       });
 
     $('.endDate')
@@ -39,12 +40,12 @@
       })
       .on('apply.daterangepicker', (ev, picker) => {
         $selectedDate.endDate = picker.startDate;
-          getDocumentType();
+          getDocumentCheckList();
       })
       .on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
         $selectedDate.endDate = null;
-          getDocumentType();
+          getDocumentCheckList();
       });
 
     //var _permissions = {
@@ -54,15 +55,15 @@
     //};
 
     var _createOrEditModal = new app.ModalManager({
-        viewUrl: abp.appPath + 'AppAreaName/DocumentType/CreateOrEditModal',
-        scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumentType/_CreateOrEditModal.js',
+        viewUrl: abp.appPath + 'AppAreaName/EmailTemplate/CreateOrEditModal',
+        scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/EmailTemplate/_CreateOrEditModal.js',
         modalClass: 'CreateOrEditModal',
     });
 
-    //var _viewFeeTypeModal = new app.ModalManager({
-    //    viewUrl: abp.appPath + 'AppAreaName/DocumnetType/ViewLeadFormModal',
-    //    modalClass: 'ViewLeadFormModal',
-    //});
+    var _viewFeeTypeModal = new app.ModalManager({
+        viewUrl: abp.appPath + 'AppAreaName/EmailTemplate/ViewLeadFormModal',
+        modalClass: 'ViewLeadFormModal',
+    });
 
     var getDateFilter = function (element) {
       if ($selectedDate.startDate == null) {
@@ -139,7 +140,7 @@
       //        },
       //    ],
       //});
-      function getDocumentType() {
+      function getDocumentCheckList() {
       dataTable.ajax.reload();
     }
 
@@ -192,7 +193,7 @@
                     id: feeType.id,
             })
             .done(function () {
-                getDocumentType(true);
+                getDocumentCheckList(true);
               abp.notify.success(app.localize('SuccessfullyDeleted'));
             });
         }
@@ -211,7 +212,8 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewDocumentType').click(function () {
+      $('#CreateNewEmailTemplate').click(function () {
+       
           debugger
       _createOrEditModal.open();
     });
@@ -230,31 +232,31 @@
 
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
           debugger
-          getDocumentType();
+          getDocumentCheckList();
     });
 
     $('#GetMasterCategoriesButton').click(function (e) {
       e.preventDefault();
-        getDocumentType();
+        getDocumentCheckList();
     });
 
     $(document).keypress(function (e) {
       if (e.which === 13) {
-          getDocumentType();
+          getDocumentCheckList();
       }
     });
 
     $('.reload-on-change').change(function (e) {
-        getDocumentType();
+        getDocumentCheckList();
     });
 
     $('.reload-on-keyup').keyup(function (e) {
-        getDocumentType();
+        getDocumentCheckList();
     });
 
     $('#btn-reset-filters').click(function (e) {
       $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-        getDocumentType();
+        getDocumentCheckList();
     });
   });
 })();

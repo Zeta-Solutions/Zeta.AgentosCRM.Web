@@ -11,8 +11,26 @@
             axis: "y",
             containment: "parent",
             cursor: "move",
-            zIndex: 1000
+            zIndex: 1000,
+
+            update: function (event, ui) {
+                updateIndices();
+            }
         });
+
+        // Initialize the sortable
+        $("#sortable").disableSelection();
+
+        // Function to update indices based on the current order
+        function updateIndices() {
+            $("#sortable .timeline-item").each(function (index) {
+                // Update the index for each item
+                $(this).find(".SrlNo-input").text(index);
+            });
+        }
+
+        // Initially update indices
+        updateIndices();
         var _modalManager;
         var _$workflowInformationForm = null;
         var workflowId = $("#WorkflowId").val();
@@ -26,9 +44,14 @@
                 dataType: 'json',
             })
                 .done(function (data) {
+                    debugger;
+
+
                     var TotalRecord = data.result.items;
 
                     $.each(TotalRecord, function (index, item) {
+                        debugger;
+                          
                         var newTimelineItem = `
     <div class="col-12 timeline-item  timeline-itemRowDelete ">
         <div class="timeline-item col-11">
@@ -93,10 +116,10 @@
         var Abbrivation = document.getElementById("abbrivation");
         var Name = document.getElementById("name");
         $(document).on('click', '.add-button-WorkFlow', function () {
-            /*debugger;*/
+            debugger;
             //var newIndex = 0;
-            //var newIndex = $("#sortable .timeline-item").length + 1;  
-            var newIndex = $("#sortable").length + 1;
+            var newIndex = $("#sortable .timeline-item").length + 1;
+            //var newIndex = $("#sortable").length + 1;
             var newTimelineItem = `
     <div class="col-12 timeline-item timeline-itemRowDelete">
         <div class="timeline-item col-11">
@@ -428,7 +451,7 @@
             }, []);
 
             var Steps = JSON.stringify(uniqueDataRows);
-
+            console.log(Steps);
             Steps = JSON.parse(Steps);
 
 
