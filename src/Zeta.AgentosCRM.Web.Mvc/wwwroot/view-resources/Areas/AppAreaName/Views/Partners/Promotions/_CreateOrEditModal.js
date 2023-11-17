@@ -1,7 +1,88 @@
-﻿(function ($) {
-
+﻿(function ($) { 
     app.modals.CreateOrEditPromotionsModal = function () {
         debugger
+        $('#productId').select2({
+            multiple: true,
+            width: '650px',
+            // Adjust the width as needed
+        });
+        //if (result.ContactOwner.length > 0) {
+        //    var ms_val = 0, Degree = 0, Course = 0;
+        //    $.each(result.ContactOwner, function (index, obj) {
+        //        ms_val += "," + obj.OwnerID;
+        //    });
+        //    var ms_array = ms_val.split(',');
+        //    $("#ddlContactOwner").val(ms_array).trigger("chosen:updated");
+        //}
+        if ($('input[name="ApplyTo"]:checked').val() === "false") {
+
+            document.getElementById("field1").style.display = 'block';
+
+        } else {
+            document.getElementById("field1").style.display = 'none';
+        }
+        //var selectId = <text>@Html.Raw(Model.SelectId)</text>;
+     
+        //$('#productId').val(selectId).trigger('change');
+        //$.ajax({
+        //    url: abp.appPath + 'api/services/app/PromotionProducts/GetAllProductForTableDropdown',
+        //    method: 'GET',
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        debugger
+        //        // Populate the dropdown with the fetched data
+        //        populateDropdown(data);
+        //    },
+        //    error: function (error) {
+        //        console.error('Error fetching data:', error);
+        //    }
+        //});
+
+        //var dataRows = []; // Declare dataRows outside the function to maintain its state
+         // Declare Steps outside the function to make it accessible
+
+        //function populateDropdown(data) {
+        //    var dropdown = $('#productId');
+
+        //    //dropdown.on('change', function () {
+        //    //    var selectedOption = $('option:selected', this);
+        //    //    var dataIdValue = selectedOption.data('id');
+
+        //    //    if (!dataRows.find(row => row.ddlValue === dataIdValue)) {
+        //    //        dataRows.push({
+        //    //            ddlValue: dataIdValue
+        //    //        });
+        //    //    } else {
+        //    //        // Remove the item if already exists in dataRows
+        //    //        dataRows = dataRows.filter(row => row.ddlValue !== dataIdValue);
+        //    //    }
+
+        //    //    // Now you can use or log the updated dataRows array
+        //    //    console.log('Updated dataRows:', dataRows);
+
+        //    //    // Update the global Steps array
+        //    //    Steps = dataRows.slice(); // Copy the array to avoid reference issues
+
+        //    //    // Now Steps contains the updated array
+        //    //    console.log('Updated Steps:', Steps);
+        //    //});
+
+        //    dropdown.empty();
+
+        //    $.each(data.result, function (index, item) {
+        //        if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+        //            dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+        //        } else {
+        //            console.warn('Invalid item:', item);
+        //        }
+        //    });
+        //}
+        
+
+        // Call populateDropdown with your data
+        //populateDropdown(yourData);
+
+        // You can use or log the initial state of dataRows
         $('input[name="ApplyTo"]').change(function () {
             if ($(this).val() === "false") {
                 document.getElementById("field1").style.display = 'block';
@@ -15,8 +96,8 @@
                 // $("#field2 label, #field2 input").show();
             }
         });
-        $("#EditUser_IsActive").prop("checked", true);
-        document.getElementById("field1").style.display = 'none';
+       // $("#EditUser_IsActive").prop("checked", true);
+        //document.getElementById("field1").style.display = 'none';
         var hiddenfield = $("#PartnerId").val();
 
         $("#partnerId").val(hiddenfield);
@@ -45,8 +126,24 @@
             if (!_$partnerPromotionsInformationForm.valid()) {
                 return;
             }
+            var datarows = [];
+            var datarowsList = $("#productId :selected").map(function (i, el) {
+                debugger
+                return $(el).val();
+            }).get();
+            $.each(datarowsList, function (index, value) {
+                var datarowsItem = {
+                    ProductId: datarowsList[index]
+                }
+                datarows.push(datarowsItem);
+            });
+            var Steps = JSON.stringify(datarows);
+
+            Steps = JSON.parse(Steps);
+       
 
             var leadSources = _$partnerPromotionsInformationForm.serializeFormToObject();
+            leadSources.Steps = Steps;
             debugger
             _modalManager.setBusy(true);
             _partnerPromotionsService
