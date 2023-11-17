@@ -14,6 +14,7 @@
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Products/Products.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Application/Application.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Branches/Branches.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Contacts/Contacts.js" asp-append-version="true"></script>
@@ -278,7 +279,7 @@
         <div class="tab-content">
             <div class="tab-pane pt-3 active" id="ApplicationsTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Applications/_Application.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Partners/Applications/Application.cshtml")
                 </div>
             </div>
 
