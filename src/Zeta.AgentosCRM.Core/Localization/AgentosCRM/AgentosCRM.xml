@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="PromotionProduct">Promotion product</text>
+	<texts>    <text name="CheckIn">Check in</text>
+    <text name="CheckInLog">Check in log</text>
+    <text name="CreateNewCheckInLog">Create new check in log</text>
+    <text name="EditCheckInLog">Edit check in log</text>
+    <text name="DeleteCheckInLog">Delete check in log</text>
+    <text name="OtherTestScore">Other test score</text>
+    <text name="CreateNewOtherTestScore">Create new other test score</text>
+    <text name="EditOtherTestScore">Edit other test score</text>
+    <text name="DeleteOtherTestScore">Delete other test score</text>
+    <text name="EnglisTestScore">Englis test score</text>
+    <text name="CreateNewEnglisTestScore">Create new englis test score</text>
+    <text name="EditEnglisTestScore">Edit englis test score</text>
+    <text name="DeleteEnglisTestScore">Delete englis test score</text>
+    <text name="PromotionProduct">Promotion product</text>
     <text name="CreateNewPromotionProduct">Create new promotion product</text>
     <text name="EditPromotionProduct">Edit promotion product</text>
     <text name="DeletePromotionProduct">Delete promotion product</text>
