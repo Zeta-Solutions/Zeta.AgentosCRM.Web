@@ -21,6 +21,7 @@
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Tasks/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CheckInLogs/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Education/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
@@ -211,7 +212,7 @@
                             </div>
                             <div class="col-lg-12">
                              
-                                <label for="AddedFrom" class="form-label form-label-sm">@L("Assignee"):</label>
+                                <label for="AddedFrom" id="AssigneeId" class="form-label form-label-sm">@L("Assignee"):</label>
                                @Model.Client.AssigneeId
                             </div>
                             <div class="col-lg-12">
@@ -243,11 +244,11 @@
 
           ml-3 pl-2
         ">
-                    <li class="nav-item">
+                  @*   <li class="nav-item">
                         <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
                             @L("Activities")
                         </a>
-                    </li>
+                    </li> *@
                     <li class="nav-item">
                             <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
                             @L("Application")
@@ -317,11 +318,11 @@
             </div>
         </div>
 
-        <div class="tab-pane pt-5 mb-7 " id="ActivitiesTab" role="tabpanel">
+        @* <div class="tab-pane pt-5 mb-7 " id="ActivitiesTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_Activites.cshtml")
             </div>
-        </div>
+        </div> *@
         <div class="tab-pane pt-5 mb-7" id="InterestedServiceTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/InterestedService/IntrestedServiceIndex.cshtml")
@@ -344,7 +345,7 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="CheckinLogsTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClietCheckinLogs.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ClientCheckInLogs/CheckInLogs.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="OtherInformationTab" role="tabpanel">

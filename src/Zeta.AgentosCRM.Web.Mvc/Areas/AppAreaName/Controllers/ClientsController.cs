@@ -33,6 +33,10 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
 using Zeta.AgentosCRM.CRMNotes;
 using Zeta.AgentosCRM.TaskManagement;
 using Zeta.AgentosCRM.TaskManagement.Dtos;
+using Zeta.AgentosCRM.CRMClient.CheckIn;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.CheckInLogs;
+using Zeta.AgentosCRM.CRMClient.CheckIn.Dtos;
+
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
@@ -48,13 +52,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IClientEducationsAppService _clientEducationsAppService;
         private readonly INotesAppService _notesAppService;
         private readonly ICRMTasksAppService _cRMTasksAppService;
-
+        private readonly ICheckInLogsAppService _checkInLogsAppService;
+        
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
             IApplicationsAppService applicationsAppService ,
             IClientInterstedServicesAppService clientInterstedServicesAppService,
-            IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, ICRMTasksAppService cRMTasksAppService)
+            IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, 
+            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -65,6 +71,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _clientEducationsAppService = clientEducationsAppService;
             _notesAppService = notesAppService;
             _cRMTasksAppService = cRMTasksAppService;
+            _checkInLogsAppService = checkInLogsAppService;
         }
 
         #region "Clents"
@@ -564,6 +571,47 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return PartialView("Tasks/_CreateOrEditTaskModal", viewModel);
 
+        }
+        #endregion
+
+        #region "Check-In Logs"
+        public async Task<ActionResult> CheckInLogsIndex(int id)
+        {
+            var getCheckInLogsForViewDto = await _checkInLogsAppService.GetCheckInLogForView(id);
+            var model = new CheckInLogViewModel()
+            {
+                CheckInLog = getCheckInLogsForViewDto.CheckInLog
+
+
+            };
+
+            return View("ClientCheckInLogs/CheckInLogs", model);
+        }
+
+        [AbpMvcAuthorize(AppPermissions.Pages_CheckInLogs_Create, AppPermissions.Pages_CheckInLogs_Edit)]
+        public async Task<PartialViewResult> CreateOrEditCheckInLogsModal(long? id)
+        {
+            GetCheckInLogForEditOutput getCheckInLogForEditOutput;
+            if (id.HasValue)
+            {
+                getCheckInLogForEditOutput = await _checkInLogsAppService.GetCheckInLogForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getCheckInLogForEditOutput = new GetCheckInLogForEditOutput
+                {
+                    CheckInLog = new CreateOrEditCheckInLogDto()
+                };
+            }
+            var viewModel = new CreateOrEditCheckInLogsViewModel()
+            {
+                CheckInLog = getCheckInLogForEditOutput.CheckInLog,
+                CheckInLogClientList = await _checkInLogsAppService.GetAllClientForTableDropdown(),
+                CheckInLogUserList = await _checkInLogsAppService.GetAllUserForTableDropdown(),
+
+            };
+
+            return PartialView("ClientCheckInLogs/_CreateOrEditModal", viewModel);
         }
         #endregion
     }

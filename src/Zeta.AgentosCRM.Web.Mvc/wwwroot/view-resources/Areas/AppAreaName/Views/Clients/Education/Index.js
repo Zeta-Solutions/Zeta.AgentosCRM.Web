@@ -9,65 +9,7 @@
         //CArd start
         getnotesreload(dynamicValue);
         var globalData; // Declare the data variable in a broader scope
-
-        function createCard(item) {
-            debugger
-            var clientEducation = item.clientEducation;
-
-            // Create a single row for all cards
-            var mainDiv = $('<div>').addClass('maincard maindivcard').css({
-                'margin-left': '0.2px',
-            });
-            var cardContainer = $('<div>').addClass('row'); // New container for cards in a row
-
-            // Create a column for each card
-            var colDiv = $('<div>').addClass('col-md-12');
-            var cardDiv = $('<div>').addClass('card');
-            var cardBodyDiv = $('<div>').addClass('card-body');
-
-            // Create a row for the card title and dots
-            var titleRowDiv = $('<div>').addClass('row');
-            var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
-            var cardTitle = $('<h5>').addClass('card-title');
-            debugger
-            // Include context menu HTML within the title
-            //var rowId = data.partner.id;
-            //var rowData = data.partner;
-            //var RowDatajsonString = JSON.stringify(rowData);
-            cardTitle.html(item.clientEducation.degreeTitle +
-                '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
-                '<div class="ellipsis123"><a href="#" data-id="' + item.clientEducation.institution + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
-                '<ul style="list-style: none; padding: 0;color:black">' +
-                /*   '<a href="#" style="color: black;" data-action="view" data-id="' + branch.id + '"><li>View</li></a>' +*/
-                '<a href="#" style="color: black;" data-action123="edit" data-id="' + clientEducation.id + '"><li>Edit</li></a>' +
-                "<a href='#' style='color: black;' data-action123='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
-                '</ul>' +
-                '</div>' +
-                '</div>');
-
-            // Append title and dots to the title column
-            titleColDiv.append(cardTitle);
-            titleRowDiv.append(titleColDiv);
-
-            // Create a column for the card information
-            var infoColDiv = $('<div>').addClass('col-md-5'); // Adjust the column size as needed
-            var infoParagraph = $('<p>').addClass('card-text');
-            infoParagraph.html( item.clientEducation.institution);
-
-            cardBodyDiv.append(titleRowDiv, infoParagraph);
-            cardDiv.append(cardBodyDiv);
-            colDiv.append(cardDiv);
-            cardContainer.append(colDiv);
-
-            // Append the card container to the mainDiv
-            mainDiv.append(cardContainer);
-
-            return mainDiv; // Return the created card
-        }
-
-
-
+         
 
 
 
@@ -198,36 +140,7 @@
                         });
                 }
             });
-        }
-        //function processData(data) {
-        //    debugger;
-        //    var cardContainer = $('#cardContainerEducation'); // Replace '#cardContainerEducation' with your actual container selector
-
-        //    // Check if globalData.result.items is an array before attempting to iterate
-        //    if (Array.isArray(globalData.result.items)) {
-        //        // Iterate through items and create cards
-        //        for (var i = 0; i < globalData.result.items.length; i++) {
-        //            var item = globalData.result.items[i];
-        //            var card = createCard(item);
-
-        //            var rowDiv = $('<div>').addClass('row mt-3');
-        //            var colDiv = $('<div>').addClass('col-md-12'); // Set the column size to 12 to display one card per row
-        //            colDiv.append(card);
-        //            rowDiv.append(colDiv);
-
-        //            cardContainer.append(rowDiv);
-        //        }
-        //    } else {
-        //        console.error('globalData.result.items is not an array:', globalData.result.items);
-        //    }
-
-        //}
-
-
-
-        ///card end
-
-
+        }  
 
         var $selectedDate = {
             startDate: null,
