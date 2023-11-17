@@ -1,9 +1,146 @@
 ﻿(function () {
-    alert("edu");
     $(function () {
         var _$EducationEnglishTestScoreTable = $('#EnglishTestScoretable');
         var _$EducationOtherTestScoreTable = $('#OtherTestScoretable');
         var _clientEducationsService = abp.services.app.clientEducations;
+
+        var hiddenfield = $("#clientId").val();
+        var dynamicValue = hiddenfield;
+        //CArd start
+        getnotesreload(dynamicValue);
+        var globalData; // Declare the data variable in a broader scope
+         
+
+
+
+        function getnotesreload(dynamicValue) {
+            debugger
+
+
+            var branchesAjax = $.ajax({
+                url: abp.appPath + 'api/services/app/ClientEducations/GetAll',
+                data: {
+                    ClientIdFilter: dynamicValue,
+                },
+                method: 'GET',
+                dataType: 'json',
+            })
+                .done(function (data) {
+                    
+                    var Card = data.result.items;
+                    $.each(Card, function (index, item) {
+                        debugger
+
+                        const CourseStartDate = new Date(item.clientEducation.courseStartDate);
+                        const CourseendDate = new Date(item.clientEducation.courseEndDate);
+
+                        // Convert timestamp to a readable date format
+                        const formattedStartDate = CourseStartDate.toLocaleDateString(); // Adjust this according to the format you desire
+                        const formattedEndDate = CourseendDate.toLocaleDateString(); 
+                        
+                        // Convert the date string to a Date object
+                        const Startdate = new Date(formattedStartDate);
+                        const Enddate = new Date(formattedEndDate);
+
+                        // Array of month names in English
+                        const monthsInEnglish = [
+                            'January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'
+                        ];
+
+                        // Extract month in English
+                        const Startmonth = monthsInEnglish[Startdate.getMonth()];
+                        const Endmonth = monthsInEnglish[Enddate.getMonth()];
+
+                        // Extract year
+                        const Startyear = Startdate.getFullYear();
+                        const Endyear = Enddate.getFullYear();
+
+                        // The formatted date in English (Month and Year)
+                        const formattedStartDateEnglish = `${Startmonth} ${Startyear}`;
+                        const formattedEndDateEnglish = `${Endmonth} ${Endyear}`;
+
+                        // Now you can use formattedDateEnglish where needed
+                        console.log('Formatted Date:', formattedStartDateEnglish); // Example output: "December 2009"
+                        console.log('Formatted Date:', formattedEndDateEnglish); // Example output: "December 2009"
+
+
+// Adjust this according to the format you desire
+                       
+                        var rowId = item.clientEducation.id;
+                        var CardDiv = '<div class="row"><div class="col-lg-6"><span><span style="font-weight:bold;">' + item.clientEducation.degreeTitle + '</span><br>' + item.clientEducation.institution + '<span></div>'
+                            + '<div class="col-lg-5"><span><span style="background-color:lightgray;border-radius: 5px; padding: 0 5px;""> ' + formattedStartDateEnglish + ' - ' + formattedEndDateEnglish + ' </span> <br> <span style="color:blue;font-weight:bold;"><span>Score: </span> ' + item.clientEducation.acadmicScore + ' GPA' + '</span><br><span>' + item.clientEducation.degreeTitle +' >> ' + item.subjectAreaName + ' >>' + item.subjectName+'</span>' + '</span></div>' +
+                            '<div class="col-lg-1">' +
+                            '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<a href="#" style="color: black;" Education-data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                            '<a href="#" style="color: black;" Education-data-action="delete" data-id="' + rowId  + '"><li>Delete</li></a>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>' +'</div></div><br><br>';
+                        $("#cardContainerEducation").append(CardDiv);
+                    });
+                     
+                })
+                .fail(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsis', function (e) {
+            e.preventDefault();
+
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
+
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.options').hide();
+            }
+        });
+
+        // Handle menu item clicks
+        $(document).on('click', 'a[Education-data-action]', function (e) {
+            e.preventDefault();
+
+            var rowId = $(this).data('id');
+            var action = $(this).attr('Education-data-action');
+            debugger
+            // Handle the selected action based on the rowId
+             if (action === 'edit') {
+                _createOrEditModal.open({ id: rowId });
+            } else if (action === 'delete') {
+                
+                deleteMasterCategory(rowId);
+            }
+        });
+
+        function deleteMasterCategory(rowId) {
+            abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
+                if (isConfirmed) {
+                    _clientEducationsService
+                        .delete({
+                            id: rowId,
+                        })
+                        .done(function () {
+                            //getSubjectAreas(true);
+                            debugger
+                            abp.notify.success(app.localize('SuccessfullyDeleted'));
+                        });
+                }
+            });
+        }  
 
         var $selectedDate = {
             startDate: null,
@@ -188,14 +325,7 @@
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
+            
                 {
                     targets: 1,
                     data: 'subject.abbrivation',
@@ -265,7 +395,6 @@
         });
 
         $('#AddEducationBackgroundButton').click(function () {
-            alert("ok");
             _createOrEditModal.open();
         });
         $('#AddEnglishTestScoreButton').click(function () {
@@ -291,6 +420,8 @@
         abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
             getSubjects();
         });
+      
+
 
         $('#GetSubjectAreaButton').click(function (e) {
             e.preventDefault();

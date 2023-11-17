@@ -1,6 +1,8 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMSetup.Dtos;
 
 namespace Zeta.AgentosCRM.CRMPartner.Promotion.Dtos
 {
@@ -12,5 +14,6 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion.Dtos
 
         public string AttachmentFileName { get; set; }
 
+        public List<CreateOrEditPromotionProductDto> PromotionProduct { get; set; }
     }
 }

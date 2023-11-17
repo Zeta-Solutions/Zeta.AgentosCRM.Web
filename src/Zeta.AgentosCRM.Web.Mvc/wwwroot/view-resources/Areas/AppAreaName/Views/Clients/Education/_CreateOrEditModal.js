@@ -2,6 +2,14 @@
   app.modals.CreateOrEditEducationModal = function () {
       var _clientEducationsService = abp.services.app.clientEducations;
 
+     
+      var hiddenfield = $("#ID").val();
+      $("#ClientId").val(hiddenfield);
+      var _modalManager;
+      var _$clientTagsInformationForm = null;
+
+      $('input[name*="clientId"]').val(hiddenfield)
+
     var _modalManager;
       var _$EducationInformationsForm = null;
 

@@ -62,7 +62,7 @@
                         var userId = correspondingTag.follower.userId;
 
                         // Construct HTML for a button with the given tagId and tagName values
-                        var buttonHTML = '<div class="col-12"><button style="border:none" class="deleteUser" value="' + userId + '"><span>' + userName + '</span> ✖</button></div>';
+                        var buttonHTML = '<div class="col-12"><button style="border: none;" class="deleteUser" value="' + userId + '"><span>' + userName + '</span> ✖</button></div>';
 
                         $(".followersList").append(buttonHTML); // Append the button HTML to the element with class "List"
                     });

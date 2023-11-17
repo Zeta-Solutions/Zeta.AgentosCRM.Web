@@ -31,7 +31,7 @@
 
             <div class="my-3">
                 <label class="form-label" for="Application_Abbrivation">@L("SelectWorkFlow")</label>
-                @Html.DropDownList("WorkflowId", new SelectList(Model.ClientInterestedServiceList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.Id.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control select2" , @required="required" })
+                @Html.DropDownList("WorkflowId", new SelectList(Model.ClientInterestedServiceWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientInterestedService.WorkflowId.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control select2" , @required="required" })
             </div>
 
             <div class="my-3">

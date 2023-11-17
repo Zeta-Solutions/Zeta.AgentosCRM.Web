@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
+﻿using Zeta.AgentosCRM.CRMClient.CheckIn.Dtos;
+using Zeta.AgentosCRM.CRMClient.CheckIn;
+using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
 using Zeta.AgentosCRM.TaskManagement.Followers;
 using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
 using Zeta.AgentosCRM.CRMClient.InterstedServices;
@@ -108,6 +110,12 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCheckInLogDto, CheckInLog>().ReverseMap();
+            configuration.CreateMap<CheckInLogDto, CheckInLog>().ReverseMap();
+            configuration.CreateMap<CreateOrEditOtherTestScoreDto, OtherTestScore>().ReverseMap();
+            configuration.CreateMap<OtherTestScoreDto, OtherTestScore>().ReverseMap();
+            configuration.CreateMap<CreateOrEditEnglisTestScoreDto, EnglisTestScore>().ReverseMap();
+            configuration.CreateMap<EnglisTestScoreDto, EnglisTestScore>().ReverseMap();
             configuration.CreateMap<CreateOrEditPromotionProductDto, PromotionProduct>().ReverseMap();
             configuration.CreateMap<PromotionProductDto, PromotionProduct>().ReverseMap();
             configuration.CreateMap<CreateOrEditTaskFollowerDto, TaskFollower>().ReverseMap();
