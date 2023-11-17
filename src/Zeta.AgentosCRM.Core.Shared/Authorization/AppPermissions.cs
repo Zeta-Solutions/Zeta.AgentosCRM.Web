@@ -6,6 +6,21 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_CheckInLogs = "Pages.CheckInLogs";
+        public const string Pages_CheckInLogs_Create = "Pages.CheckInLogs.Create";
+        public const string Pages_CheckInLogs_Edit = "Pages.CheckInLogs.Edit";
+        public const string Pages_CheckInLogs_Delete = "Pages.CheckInLogs.Delete";
+
+        public const string Pages_OtherTestScores = "Pages.OtherTestScores";
+        public const string Pages_OtherTestScores_Create = "Pages.OtherTestScores.Create";
+        public const string Pages_OtherTestScores_Edit = "Pages.OtherTestScores.Edit";
+        public const string Pages_OtherTestScores_Delete = "Pages.OtherTestScores.Delete";
+
+        public const string Pages_EnglisTestScores = "Pages.EnglisTestScores";
+        public const string Pages_EnglisTestScores_Create = "Pages.EnglisTestScores.Create";
+        public const string Pages_EnglisTestScores_Edit = "Pages.EnglisTestScores.Edit";
+        public const string Pages_EnglisTestScores_Delete = "Pages.EnglisTestScores.Delete";
+
         public const string Pages_PromotionProducts = "Pages.PromotionProducts";
         public const string Pages_PromotionProducts_Create = "Pages.PromotionProducts.Create";
         public const string Pages_PromotionProducts_Edit = "Pages.PromotionProducts.Edit";
