@@ -62,8 +62,8 @@ namespace Zeta.AgentosCRM.CRMProducts
                         .WhereIf(input.IntakeMonthFilter.HasValue && input.IntakeMonthFilter > -1, e => e.IntakeMonth == intakeMonthFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerTypeNameFilter), e => e.PartnerTypeFk != null && e.PartnerTypeFk.Name == input.PartnerTypeNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter)
+                         .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
             var pagedAndFilteredProducts = filteredProducts
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

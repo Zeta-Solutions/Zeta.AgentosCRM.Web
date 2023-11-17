@@ -1,0 +1,159 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+<div class="maincard">
+    <div class="col-md-12 text-end mb-3">
+
+        <button id="CreateNewApplicationButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddApplication")</button>
+    </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row ">
+                <div class="table-responsive">
+                    <table id="Applicationstable" class="table border custom-table align-middle fs-8 gy-2 dataTable no-footer">
+                        <thead class="thead gy-7">
+                            <tr>
+                                <th></th>
+
+                                <th>@L("WorkFlow")</th>
+                                <th>@L("Partner")</th>
+                                <th>@L("Product")</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        @* <tbody class="border-bottom">
+                            <tr>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                      
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Diploma of Information
+                                            </a>
+                                            <span id="University">Swinburne University </span>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>Australian Education</td>
+                                <td>Application </td>
+                                <td>In Progress</td>
+                                <td>1289</td>
+                                <td>
+                                    2023-10-2
+                                </td>
+                                <td>
+                                    2023-10-25
+                                </td>
+                                <td>
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="context-menu-option">Edit</li>
+                                                <li>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                 
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                      
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Bachelor Of Information
+                                            </a>
+                                            <span id="University">Swinburne University </span>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>Australian Education</td>
+                                <td>Application </td>
+                                <td>In Progress</td>
+                                <td>1289</td>
+                                <td>
+                                    2023-10-2
+                                </td>
+                                <td>
+                                    2023-10-25
+                                </td>
+                                <td>
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="context-menu-option">Edit</li>
+                                                <li>Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td data-v-287fbc8b="" class="">
+                                    <div data-v-b0d0ffe4="" class="d-flex align-items-center">
+                                      
+                                        <div data-v-b0d0ffe4="" class="d-flex flex-column">
+                                            <a href="@Url.Action("ClientDetail", "Client", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+                                                Bachelor Of Information
+                                            </a>
+                                            <span id="University">Swinburne University </span>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>Australian Education</td>
+                                <td>Application </td>
+                                <td>In Progress</td>
+                                <td>1289</td>
+                                <td>
+                                    2023-10-2
+                                </td>
+                                <td>
+                                    2023-10-25
+                                </td>
+                                <td>
+                                    <div class="context-menu">
+                                        <div class="dots context-menu-trigger">
+                                            <i class="fas fa-ellipsis-v iconsDots"></i>
+                                        </div>
+                                        <div class="context-menu-options options left">
+                                            <ul>
+                                                <li class="EditAction">Edit</li>
+                                                <li class="DeleteAction">Delete</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody> *@
+                    </table>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@

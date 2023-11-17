@@ -16,7 +16,17 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tag;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerTypes;
 using Zeta.AgentosCRM.CRMAppointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications;
 using Zeta.AgentosCRM.CRMAppointments.Dtos;
+using Zeta.AgentosCRM.CRMApplications.Dtos;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMClient.InterstedServices;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.InterestedServices;
+using Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos;
+using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMClient.Education;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
+using Zeta.AgentosCRM.CRMClient.Education.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -27,15 +37,25 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IClientsAppService _clientsAppService;
         private readonly IAppointmentsAppService _appointmentsAppService;
         private readonly IClientTagsAppService _clientTagsAppService;
-        private readonly IFollowersAppService _followersAppService;   
+        private readonly IFollowersAppService _followersAppService;
+        private readonly IApplicationsAppService _applicationsAppService;
+        private readonly IClientInterstedServicesAppService _clientInterstedServicesAppService;
+        private readonly IClientEducationsAppService _clientEducationsAppService;
 
 
-        public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService)
+
+        public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
+            IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
+            IApplicationsAppService applicationsAppService ,
+            IClientInterstedServicesAppService clientInterstedServicesAppService, IClientEducationsAppService clientEducationsAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
             _clientTagsAppService = clientTagsAppService;
-            _followersAppService = followersAppService; 
+            _followersAppService = followersAppService;
+            _applicationsAppService = applicationsAppService;
+            _clientInterstedServicesAppService = clientInterstedServicesAppService;
+            _clientEducationsAppService = clientEducationsAppService;
         }
 
         #region "Clents"
@@ -298,6 +318,158 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("_CreateOrEditClientFllowers", ViewModel);
         }
         #endregion
+        #region "Application"
 
+        [AbpMvcAuthorize(AppPermissions.Pages_Applications_Create, AppPermissions.Pages_Applications_Edit)]
+        public async Task<ActionResult> ApplicationsIndex(long? id)
+        {
+            long applicationId = id.GetValueOrDefault();
+            var getApplicationForViewDto = await _applicationsAppService.GetApplicationForView(applicationId);
+            var model = new ApplicationViewModel()
+            {
+                Application = getApplicationForViewDto.Application
+
+
+            };
+
+            return View("Application/ApplicationsIndex", model);
+            //return View("~/Application/ApplicationsIndex.cshtml");
+        }
+        public async Task<PartialViewResult> CreateOrEditApplicationModal(long? id)
+        {
+            GetApplicationForEditOutput getApplicationForEditOutput;
+            if (id.HasValue)
+            {
+                getApplicationForEditOutput = await _applicationsAppService.GetApplicationForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getApplicationForEditOutput = new GetApplicationForEditOutput
+                {
+                    Application = new CreateOrEditApplicationDto()
+                };
+            }
+            var ViewModel = new CreateOrEditApplicationsViewModel()
+            {
+                Application = getApplicationForEditOutput.Application,
+                ApplicationWorkflowList = await _applicationsAppService.GetAllWorkflowForTableDropdown(),
+                ApplicationPartnerList = await _applicationsAppService.GetAllPartnerForTableDropdown(),
+                ApplicationProductList = await _applicationsAppService.GetAllProductForTableDropdown()
+
+            };
+
+            return PartialView("Application/_CreateOrEditModal", ViewModel);
+            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+
+
+        }
+
+        #endregion
+
+        #region  "Interested Service"
+
+
+         public async Task<ActionResult> InterestedServicesIndex(long? id)
+        {
+            long applicationId = id.GetValueOrDefault();
+            var getInterestedServicesForViewDto = await _clientInterstedServicesAppService.GetClientInterstedServiceForView(applicationId);
+            var model = new InterestedServiceViewModel()
+            {
+                ClientInterstedService = getInterestedServicesForViewDto.ClientInterstedService
+
+
+            };
+
+            return View("IntrestedService/IntrestedServiceIndex", model);
+            //return View("~/Application/ApplicationsIndex.cshtml");
+        }
+        [AbpMvcAuthorize(AppPermissions.Pages_ClientInterstedServices_Create, AppPermissions.Pages_ClientInterstedServices_Edit)]
+        public async Task<PartialViewResult> CreateOrEditIntrestedServiceModal(long? id)
+        {
+            GetClientInterstedServiceForEditOutput getClientInterstedServiceForEditOutput;
+            if (id.HasValue)
+            {
+                getClientInterstedServiceForEditOutput = await _clientInterstedServicesAppService.GetClientInterstedServiceForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientInterstedServiceForEditOutput = new GetClientInterstedServiceForEditOutput
+                {
+                    ClientInterstedService = new CreateOrEditClientInterstedServiceDto()
+                };
+            }
+            var ViewModel = new CreateOrEditInterestedServicesViewModel()
+            {
+                ClientInterestedService = getClientInterstedServiceForEditOutput.ClientInterstedService,
+                ClientInterestedServiceList = await _clientInterstedServicesAppService.GetAllClientForTableDropdown(),
+                ClientInterestedServicePartnerList = await _clientInterstedServicesAppService.GetAllPartnerForTableDropdown(),
+                ClientInterestedServiceProductList = await _clientInterstedServicesAppService.GetAllProductForTableDropdown(),
+                ClientInterestedServiceBranchList = await _clientInterstedServicesAppService.GetAllBranchForTableDropdown()
+
+            };
+
+            return PartialView("InterestedService/_CreateOrEditModal", ViewModel);
+
+
+        }
+
+
+
+
+        #endregion
+        #region "Education"
+        public async Task<ActionResult> EducationIndex(long? id)
+        {
+            long applicationId = id.GetValueOrDefault();
+            var getClientEducationForViewDto = await _clientEducationsAppService.GetClientEducationForView(applicationId);
+            var model = new EducationViewModel()
+            {
+                ClientEducation = getClientEducationForViewDto.ClientEducation
+
+
+            };
+
+            return View("Education/EducationIndex", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditClientEducationModal(int? id)
+        {
+            GetClientEducationForEditOutput getClientEducationForEditOutput;
+            if (id.HasValue)
+            {
+                getClientEducationForEditOutput = await _clientEducationsAppService.GetClientEducationForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientEducationForEditOutput = new GetClientEducationForEditOutput
+                {
+                    ClientEducation = new CreateOrEditClientEducationDto()
+                };
+            }
+            var ViewModel = new CreateOrEditEducationViewModel()
+            {
+                ClientEducation = getClientEducationForEditOutput.ClientEducation,
+                ClientEducationDegreeLevelList = await _clientEducationsAppService.GetAllDegreeLevelForTableDropdown(),
+                ClientEducationSubjectList = await _clientEducationsAppService.GetAllSubjectForTableDropdown(),
+                ClientEducationSubjectAreaList = await _clientEducationsAppService.GetAllSubjectAreaForTableDropdown(),
+
+            };
+           
+
+            return PartialView("Education/_CreateOrEditModal", ViewModel);
+            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+        }
+        public async Task<PartialViewResult> CreateOrEditEnglishScoreModal(int? id)
+        {
+
+            return PartialView("Education/_CreateOrEditEnglishScoreModal", "");
+            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+        }
+        public async Task<PartialViewResult> CreateOrEditOtherScoreModal(int? id)
+        {
+
+            return PartialView("Education/_CreateOrEditOtherScoreModal", "");
+            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+        }
+        #endregion
     }
 }

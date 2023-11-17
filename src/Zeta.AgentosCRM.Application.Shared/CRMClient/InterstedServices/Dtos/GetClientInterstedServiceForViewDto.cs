@@ -12,5 +12,7 @@
 
         public string BranchName { get; set; }
 
+        public string WorkflowName { get; set; }
+
     }
 }

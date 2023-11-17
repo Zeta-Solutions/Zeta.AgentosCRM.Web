@@ -16,12 +16,15 @@ using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
 using Zeta.AgentosCRM.CRMPartner.Promotion;
 using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.CRMProducts;
+using Zeta.AgentosCRM.CRMProducts.Dtos;
 using Zeta.AgentosCRM.TaskManagement;
 using Zeta.AgentosCRM.TaskManagement.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
 using Zeta.AgentosCRM.Web.Controllers;
 
@@ -38,7 +41,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly INotesAppService _notesAppService;
         private readonly IPartnerPromotionsAppService _partnerPromotionsAppService;
         private readonly ICRMTasksAppService _cRMTasksAppService;
-        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService)
+        private readonly IProductsAppService _productsAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService, IProductsAppService productsAppService)
         {
             _partnersAppService = partnersAppService;
             _branchsAppService = branchsAppService;
@@ -47,6 +51,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _notesAppService = notesAppService;
             _partnerPromotionsAppService = partnerPromotionsAppService;
             _cRMTasksAppService = cRMTasksAppService;
+            _productsAppService = productsAppService;
         }
       
         public IActionResult Index()
@@ -115,14 +120,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("~/Areas/AppAreaName/Views/Partners/InformationsDetails.cshtml");
 
         }
-        public ActionResult AddProductsDetails()
-        {
 
-            //return PartialView("_ViewPartnersDetails");
-
-            return View("~/Areas/AppAreaName/Views/Partners/Products/AddProducts.cshtml");
-
-        }
         public ActionResult AddApplicationForm()
         {
 
@@ -179,45 +177,36 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
 
             return View(viewModel);
-
         }
         public async Task<ActionResult> DetailsForm(int id)
         {
-            //var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
+            var getPartnerForViewDto = await _partnersAppService.GetPartnerForView(id);
 
-            //var model = new PartnerViewModel()
-            //{
-            //    Partner = getPartnerForViewDto.Partner
-            //    ,
-            //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
+            var model = new PartnerViewModel()
+            {
+                Partner = getPartnerForViewDto.Partner
+                ,
+                BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
 
-        //    //var model = new PartnerViewModel()
-        //    //{
-        //    //    Partner = getPartnerForViewDto.Partner
-        //    //    ,
-        //    //    BinaryObjectDescription = getPartnerForViewDto.BinaryObjectDescription
+                ,
+                MasterCategoryName = getPartnerForViewDto.MasterCategoryName
 
-        //    //    ,
-        //    //    MasterCategoryName = getPartnerForViewDto.MasterCategoryName
-
-            //    ,
-            //    PartnerTypeName = getPartnerForViewDto.PartnerTypeName
+                ,
+                PartnerTypeName = getPartnerForViewDto.PartnerTypeName
  
-              //  ,
-                //CountryName = getPartnerForViewDto.CountryName
+                ,
+                WorkflowName = getPartnerForViewDto.WorkflowName 
+
+                ,
+                CountryName = getPartnerForViewDto.CountryName
 
                 //,
                 //CountryDisplayProperty2 = getPartnerForViewDto.CountryDisplayProperty2
- 
-            //    ,
-            //    WorkflowName = getPartnerForViewDto.WorkflowName 
-            //};
- 
 
-            //return View(model);
-            return View("");
+            };
+
+            return View(model);
         }
-
 
         public async Task<ActionResult> Branches(int id)
         {
@@ -447,19 +436,78 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     CRMTask = new CreateOrEditCRMTaskDto()
                 };
-                //getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
-                //getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
+                getCRMTaskForEditOutput.CRMTask.DueDate = DateTime.Now;
+                getCRMTaskForEditOutput.CRMTask.DueTime = DateTime.Now;
             }
 
             var viewModel = new CreateOrEditTaskModalViewModel()
             {
                 CRMTask = getCRMTaskForEditOutput.CRMTask,
+                TaskCategoryName = getCRMTaskForEditOutput.TaskCategoryName,
+                TaskPriorityName = getCRMTaskForEditOutput.TaskPriorityName,
+                TaskUserName = getCRMTaskForEditOutput.UserName,
+                CRMTaskTaskCategoryList = await _cRMTasksAppService.GetAllTaskCategoryForTableDropdown(),
+                CRMTaskTaskPriorityList = await _cRMTasksAppService.GetAllTaskPriorityForTableDropdown(),
+                CRMTaskUserList = await _cRMTasksAppService.GetAllUserForTableDropdown(),
 
 
             };
-            return PartialView("Task/_CreateOrEditTasksModal", viewModel);
+            return PartialView("Tasks/_CreateOrEditTaskModal", viewModel);
 
         }
- 
+        public async Task<ActionResult> AddProducts(long? id)
+        {
+            GetProductForEditOutput getProductForEditOutput;
+
+            if (id.HasValue)
+            {
+                getProductForEditOutput = await _productsAppService.GetProductForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getProductForEditOutput = new GetProductForEditOutput
+                {
+                    Product = new CreateOrEditProductDto()
+                };
+                //getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
+                //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditProductModalViewModel()
+            {
+                Product = getProductForEditOutput.Product,
+
+                PartnerName = getProductForEditOutput.PartnerPartnerName,
+                PartnerTypeName = getProductForEditOutput.PartnerTypeName,
+                BranchName = getProductForEditOutput.BranchName,
+                ProductPartnerList = await _productsAppService.GetAllPartnerForTableDropdown(),
+                ProductPartnerTypeList = await _productsAppService.GetAllPartnerTypeForTableDropdown(),
+                ProductBranchList = await _productsAppService.GetAllBranchForTableDropdown(),
+              
+            };
+
+            return View("Products/AddProducts", viewModel);
+        }
+        //public ActionResult AddProductsDetails()
+        //{
+
+        //    //return PartialView("_ViewPartnersDetails");
+
+        //    return View("~/Areas/AppAreaName/Views/Partners/Products/AddProducts.cshtml");
+
+        //}
+        public async Task<ActionResult> Products(int id)
+        {
+            var getProductForViewDto = await _productsAppService.GetProductForView(id);
+            var model = new ProductViewModel()
+            {
+                Product = getProductForViewDto.Product
+
+
+            };
+
+            return View("Products/Products", model);
+        }
     }
 }

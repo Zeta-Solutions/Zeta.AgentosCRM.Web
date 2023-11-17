@@ -10,7 +10,7 @@
         <form name="AppointmentInformationsForm" role="form" novalidate class="form-validation">
             @if (Model.IsEditMode)
             {
-                <input type="hidden" name="id" value="@Model.Appointment.ClientId" />
+                <input type="hidden" name="id" value="@Model.Appointment.Id" />
             }
             <input type="hidden" name="clientId" id="ClientId" />
 @* 
@@ -20,12 +20,12 @@
             <label class="fw-bold">Related to:</label>
             <br/>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1">
-                <label class="form-check-label" for="relatedTo1" disabled>Client</label>
+                        <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1" disabled>
+                <label class="form-check-label" for="relatedTo1" >Client</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2">
-                <label class="form-check-label" for="relatedTo2" disabled>Partner</label>
+                        <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2" disabled>
+                <label class="form-check-label" for="relatedTo2" >Partner</label>
             </div>
         </div>
         <div class="col-6">
@@ -59,8 +59,10 @@
                
             <div class="my-3 col-3">
                     <label class="form-label" for="Applointment_Time">@L("Time")</label>
-                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="Applointment_Time" value="@Model.Appointment.AppointmentTime" type="time" name="AppointmentTime" required />
-            </div>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="Applointment_Time" value="2023-01-01 06:30:00" type="datetime" name="AppointmentTime" required />
+
+                </div>
+              
             </div>
             <div class="row col-12">
           
@@ -79,6 +81,10 @@
                     <label class="form-label" for="applointment_Invitees">@L("Invitees")</label>
                     @Html.DropDownList("applointment_Invitees", new SelectList(Model.AppointmentInviteesList,"Id","DisplayName", (Model.IsEditMode ? Model.Appointment.Id.ToString() : "")),@L("SelectAInvitees"), new { @class = "form-control select2" , @required="required" })
             </div>
+                <div class="my-3" hidden>
+                    <label class="form-label" for="applointment_AddedBy">@L("AddedBy")</label>
+                    <input class="form-control form-control-sm" id="AddedById" value="" type="text" name="AddedById" required />
+                </div>
             </div>
         </form>
     </div>
