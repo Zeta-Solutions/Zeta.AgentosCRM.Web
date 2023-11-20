@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.TaskManagement.Followers;
+﻿using Zeta.AgentosCRM.CRMClient.CheckIn;
+using Zeta.AgentosCRM.TaskManagement.Followers;
 using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments;
@@ -46,6 +47,12 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<CheckInLog> CheckInLogs { get; set; }
+
+        public virtual DbSet<OtherTestScore> OtherTestScores { get; set; }
+
+        public virtual DbSet<EnglisTestScore> EnglisTestScores { get; set; }
+
         public virtual DbSet<PromotionProduct> PromotionProducts { get; set; }
 
         public virtual DbSet<TaskFollower> TaskFollowers { get; set; }
@@ -156,10 +163,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PromotionProduct>(p =>
+            modelBuilder.Entity<CheckInLog>(c =>
             {
-                p.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<OtherTestScore>(o =>
+                       {
+                           o.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<EnglisTestScore>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PromotionProduct>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<TaskFollower>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });

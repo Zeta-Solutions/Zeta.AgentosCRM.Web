@@ -13,5 +13,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         {
             return View();
         }
+        public IActionResult CreateOrEditModal()
+        {
+            return PartialView("_CreateOrEditModal", "");
+        }
     }
 }

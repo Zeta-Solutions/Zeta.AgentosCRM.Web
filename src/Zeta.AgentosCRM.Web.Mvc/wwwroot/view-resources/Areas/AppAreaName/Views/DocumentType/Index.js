@@ -47,22 +47,22 @@
           getDocumentType();
       });
 
-    var _permissions = {
-        create: abp.auth.hasPermission('Pages.FeeTypes.Create'),
-        edit: abp.auth.hasPermission('Pages.FeeTypes.Edit'),
-        delete: abp.auth.hasPermission('Pages.FeeTypes.Delete'),
-    };
+    //var _permissions = {
+    //    create: abp.auth.hasPermission('Pages.FeeTypes.Create'),
+    //    edit: abp.auth.hasPermission('Pages.FeeTypes.Edit'),
+    //    delete: abp.auth.hasPermission('Pages.FeeTypes.Delete'),
+    //};
 
     var _createOrEditModal = new app.ModalManager({
-        viewUrl: abp.appPath + 'AppAreaName/DocumnetType/CreateOrEditModal',
-        scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumnetType/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditFeeTypeModal',
+        viewUrl: abp.appPath + 'AppAreaName/DocumentType/CreateOrEditModal',
+        scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumentType/_CreateOrEditModal.js',
+        modalClass: 'CreateOrEditModal',
     });
 
-    var _viewFeeTypeModal = new app.ModalManager({
-        viewUrl: abp.appPath + 'AppAreaName/DocumnetType/ViewLeadFormModal',
-        modalClass: 'ViewLeadFormModal',
-    });
+    //var _viewFeeTypeModal = new app.ModalManager({
+    //    viewUrl: abp.appPath + 'AppAreaName/DocumnetType/ViewLeadFormModal',
+    //    modalClass: 'ViewLeadFormModal',
+    //});
 
     var getDateFilter = function (element) {
       if ($selectedDate.startDate == null) {
@@ -211,22 +211,22 @@
       $('#AdvacedAuditFiltersArea').slideUp();
     });
 
-      $('#CreateNewFeeButton').click(function () {
+      $('#CreateNewDocumentType').click(function () {
           debugger
       _createOrEditModal.open();
     });
 
-    $('#ExportToExcelButton').click(function () {
-        _feeTypesService
-        .getMasterCategoriesToExcel({
-          filter: $('#MasterCategoriesTableFilter').val(),
-          abbrivationFilter: $('#AbbrivationFilterId').val(),
-          nameFilter: $('#NameFilterId').val(),
-        })
-        .done(function (result) {
-          app.downloadTempFile(result);
-        });
-    });
+    //$('#ExportToExcelButton').click(function () {
+    //    _feeTypesService
+    //    .getMasterCategoriesToExcel({
+    //      filter: $('#MasterCategoriesTableFilter').val(),
+    //      abbrivationFilter: $('#AbbrivationFilterId').val(),
+    //      nameFilter: $('#NameFilterId').val(),
+    //    })
+    //    .done(function (result) {
+    //      app.downloadTempFile(result);
+    //    });
+    //});
 
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
           debugger

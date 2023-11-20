@@ -12,6 +12,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.InterestedService
         public List<ClientInterstedServicePartnerLookupTableDto> ClientInterestedServicePartnerList { get; set; }
         public List<ClientInterstedServiceProductLookupTableDto> ClientInterestedServiceProductList { get; set; }
         public List<ClientInterstedServiceBranchLookupTableDto> ClientInterestedServiceBranchList { get; set; }
+        public List<ClientInterstedServiceWorkflowLookupTableDto> ClientInterestedServiceWorkflowList { get; set; }
 
 
         public bool IsEditMode => ClientInterestedService.Id.HasValue;

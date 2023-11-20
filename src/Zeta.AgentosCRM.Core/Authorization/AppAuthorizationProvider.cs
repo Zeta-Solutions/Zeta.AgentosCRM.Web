@@ -30,6 +30,21 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var checkInLogs = pages.CreateChildPermission(AppPermissions.Pages_CheckInLogs, L("CheckInLogs"), multiTenancySides: MultiTenancySides.Tenant);
+            checkInLogs.CreateChildPermission(AppPermissions.Pages_CheckInLogs_Create, L("CreateNewCheckInLog"), multiTenancySides: MultiTenancySides.Tenant);
+            checkInLogs.CreateChildPermission(AppPermissions.Pages_CheckInLogs_Edit, L("EditCheckInLog"), multiTenancySides: MultiTenancySides.Tenant);
+            checkInLogs.CreateChildPermission(AppPermissions.Pages_CheckInLogs_Delete, L("DeleteCheckInLog"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var otherTestScores = pages.CreateChildPermission(AppPermissions.Pages_OtherTestScores, L("OtherTestScores"), multiTenancySides: MultiTenancySides.Tenant);
+            otherTestScores.CreateChildPermission(AppPermissions.Pages_OtherTestScores_Create, L("CreateNewOtherTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+            otherTestScores.CreateChildPermission(AppPermissions.Pages_OtherTestScores_Edit, L("EditOtherTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+            otherTestScores.CreateChildPermission(AppPermissions.Pages_OtherTestScores_Delete, L("DeleteOtherTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var englisTestScores = pages.CreateChildPermission(AppPermissions.Pages_EnglisTestScores, L("EnglisTestScores"), multiTenancySides: MultiTenancySides.Tenant);
+            englisTestScores.CreateChildPermission(AppPermissions.Pages_EnglisTestScores_Create, L("CreateNewEnglisTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+            englisTestScores.CreateChildPermission(AppPermissions.Pages_EnglisTestScores_Edit, L("EditEnglisTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+            englisTestScores.CreateChildPermission(AppPermissions.Pages_EnglisTestScores_Delete, L("DeleteEnglisTestScore"), multiTenancySides: MultiTenancySides.Tenant);
+
             var promotionProducts = pages.CreateChildPermission(AppPermissions.Pages_PromotionProducts, L("PromotionProducts"), multiTenancySides: MultiTenancySides.Tenant);
             promotionProducts.CreateChildPermission(AppPermissions.Pages_PromotionProducts_Create, L("CreateNewPromotionProduct"), multiTenancySides: MultiTenancySides.Tenant);
             promotionProducts.CreateChildPermission(AppPermissions.Pages_PromotionProducts_Edit, L("EditPromotionProduct"), multiTenancySides: MultiTenancySides.Tenant);

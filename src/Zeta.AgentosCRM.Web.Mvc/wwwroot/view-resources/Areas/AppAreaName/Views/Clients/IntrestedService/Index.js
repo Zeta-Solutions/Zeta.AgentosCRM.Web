@@ -99,8 +99,8 @@
                 },
                 {
                     targets: 1,
-                    data: 'clientInterstedService.name',
-                    name: 'name',
+                    data: 'workflowName',
+                    name: 'workflowNameFk.name',
                 },
                 {
                     targets: 2,
