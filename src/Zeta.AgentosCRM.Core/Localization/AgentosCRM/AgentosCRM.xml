@@ -1695,6 +1695,11 @@
 		<text name="Body">Body</text>
 		<text name="CreateNewEmailTemplate">Create New Email Template</text>
 		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
-		<!--<text name="EmailTemplate">Email Template</text>-->
+		<text name="Uploaddocumentsfromclientportal">Uploaddocumentsfromclientportal</text>
+		<text name="indoortoproceednextstage">indoortoproceednextstage</text>
+		<text name="selectedProduct">selectedProduct</text>
+		<text name="AllProduct">AllProduct</text>
+		<text name="selectedPartner">selectedPartner</text>
+		<text name="AllPartner">AllPartner</text>
 	</texts> 
 </localizationDictionary>

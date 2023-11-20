@@ -17,5 +17,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         {
             return PartialView("_CreateOrEditModal", "");
         }
+        public IActionResult AddCheckList()
+        {
+            return PartialView("AddNewCheckList/_AddNewCheckList", "");
+        }
     }
 }

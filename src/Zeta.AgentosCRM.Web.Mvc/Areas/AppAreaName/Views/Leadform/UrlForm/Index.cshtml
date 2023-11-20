@@ -7,18 +7,18 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
 } *@
 @section Scripts
     {
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/DocumentCheckList/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Leadform/Index.js" asp-append-version="true"></script>
 }
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
-<abp-page-subheader title='@L("DocumentCheckList")' description='@L("DocumentCheckListHeaderInfo")'>
+<abp-page-subheader title='@L("Leadform")' description='@L("LeadformHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
     { *@
-    <button id="CreateNewDocumentCheckList" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewDocumentCheckList")</button>
+    <button id="CreateNewLeadform" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewLeadform")</button>
     @*  } *@
 </abp-page-subheader>
 
@@ -73,12 +73,12 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
                         <tr>
                             <th></th>
 
-                            <th>@L("SelectedWorkFlow")</th>
-                            <th>@L("Totalchecklist")</th>
-                            <th>@L("AddedBy")</th>
-                            <th>@L("Status")</th>
-                            <th>@L("AddedOn")</th>
-                            <th>@L("LastUpdate")</th>
+                            <th>@L("Badge")</th>
+                            <th>@L("FromName")</th>
+                            <th>@L("URL")</th>
+                            <th>@L("Relatedoffice")</th>
+                            <th>@L("Source")</th>
+                            <th>@L("Stage")</th>
                             <th>@L("Action")</th>
                         </tr>
                     </thead>
@@ -87,8 +87,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
                             <td></td>
                             <td>OffshoreOneezaUNSW</td>
                             <td>OffshoreOneezaUNSW</td>
-                            <td>  <button id="NewCheckList">Add</button></td>
-                            @* <td >  <a href="~/view-resources/Areas/AppAreaName/Views/DocumentCheckList/Index.js" class="btn btn-sm btn-primary">@L("Add")</a></td> *@
+                            <td><a href="https://www.google.com.pk/">Google</a></td>
                             <td>Lahore Office</td>
                             <td>Other Online Source</td>
                             <td>Active /Non Active</td>

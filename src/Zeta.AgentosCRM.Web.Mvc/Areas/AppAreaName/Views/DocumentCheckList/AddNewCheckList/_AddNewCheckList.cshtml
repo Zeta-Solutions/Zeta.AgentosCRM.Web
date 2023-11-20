@@ -1,0 +1,92 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; *@
+@using Abp.Extensions
+@*@model  FeeTypesViewModel
+ @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
+} *@
+@section Scripts
+    {
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/DocumentCheckList/_CreateOrEidtModal.js" asp-append-version="true"></script> *@
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/DocumentCheckList/AddDocumentCheckList/AddNewCheckList.js" asp-append-version="true"></script>
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/DocumentCheckList/Index.js" asp-append-version="true"></script> *@
+
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
+@* <abp-page-subheader title='@L("AddNewcheckList")' description='@L("fields are mandatory")'>
+
+</abp-page-subheader>
+ *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AddNewcheckList")))
+<div class="modal-body">
+    <div id="FeeTypeInformationsTab">
+        <form name="FeeTypeInformationsForm" role="form" novalidate class="form-validation">
+
+            <input type="hidden" name="id" />
+
+            <div class="my-3">
+                <label class="form-label" for="FeeType_DocumentType">@L("DocumentType")</label>
+                <input class="form-control" id="FeeType_DocumentType" value="DocumentType" type="text" name="DocumentType" required />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="FeeType_Description">@L("Description")</label>
+                <input class="form-control" id="FeeType_Description" value="Description" type="text" name="Description" required />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Workflow_Name">@L("applyto")</label>
+                <div class="col-12">
+                    <div class="col-6">
+                        <input type="radio" id="AllPartner" name="PartnerType" checked  />
+                        <label class="form-label" for="AllPartner">@L("AllPartner")</label>
+
+                        <input type="radio" id="selectedPartner" name="PartnerType"  />
+                        <label class="form-label" for="selectedPartner">@L("selectedPartner")</label>
+                    </div>
+                </div>
+
+            </div>
+             <div class="my-3" id="DDlPartners">
+                        <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
+                        <input class="form-control" id="ProductID" autocomplete="off" value=" " type="text" name="name" required />
+                    </div>
+            <div class="my-3" id="RadioProducts">
+                <div class="col-12">
+                    <div class="col-6">
+                        <input type="radio" id="AllProduct" name="ProductType" checked/>
+                        <label class="form-label" for="AllProduct">@L("AllProduct")</label>
+
+                        <input type="radio" id="selectedProduct" name="ProductType"  />
+                        <label class="form-label" for="selectedProduct">@L("selectedProduct")</label>
+                    </div>
+                </div>
+
+            </div>
+            
+             <div class="my-3" id="DDlProduct">
+                        <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
+                        <input class="form-control" id="Workflow_Name" autocomplete="off" value=" " type="text" name="name" required />
+                    </div>
+            <div class="my-3">
+                <div class="col-12">
+
+                    <input type="checkbox" id="allOffice"/>
+                    <label class="form-label" for="allOffice">@L("Uploaddocumentsfromclientportal")</label> <br />
+                    <input type="checkbox" id="selectedOffice"/>
+                    <label class="form-label" for="selectedOffice">@L("indoortoproceednextstage")</label>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+ 

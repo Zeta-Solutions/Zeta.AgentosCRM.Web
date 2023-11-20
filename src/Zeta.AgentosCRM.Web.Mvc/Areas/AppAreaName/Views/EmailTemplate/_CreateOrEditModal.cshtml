@@ -29,12 +29,16 @@
             
             <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("Body")</label>
-                <div id="kt_docs_quill_basic" name="kt_docs_quill_basic" class="min-h-200px">
-                </div>
-                @* <textarea rows="3" class="form-control" type="text" name="name"></textarea> *@
+                @* <div id="kt_docs_quill_basic" name="kt_docs_quill_basic" class="min-h-200px">
+                </div> *@
+                <textarea rows="3" class="form-control" type="text" name="name"></textarea>
                 @* <input class="form-control" id="FeeType_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" /> *@
             </div>
-
+            <div class="my-3">
+                <label class="form-label" for="FeeType_Name">@L("Attachments")</label>
+                <input type="file" id="actual-btn" hidden/>
+                <label for="actual-btn">Add files</label>
+            </div>
         </form>
     </div>
 </div>
