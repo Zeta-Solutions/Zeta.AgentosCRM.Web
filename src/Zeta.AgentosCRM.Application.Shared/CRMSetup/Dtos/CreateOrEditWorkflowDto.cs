@@ -15,5 +15,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
         [Required]
         public List<CreateOrEditWorkflowStepDto> Steps { get; set; }
 
+        public bool IsForAllOffices { get; set; }
+
     }
 }

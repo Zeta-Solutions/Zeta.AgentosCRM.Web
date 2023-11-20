@@ -15,5 +15,7 @@ namespace Zeta.AgentosCRM.CRMSetup
         [StringLength(WorkflowConsts.MaxNameLength, MinimumLength = WorkflowConsts.MinNameLength)]
         public virtual string Name { get; set; }
 
+        public virtual bool IsForAllOffices { get; set; }
+
     }
 }
