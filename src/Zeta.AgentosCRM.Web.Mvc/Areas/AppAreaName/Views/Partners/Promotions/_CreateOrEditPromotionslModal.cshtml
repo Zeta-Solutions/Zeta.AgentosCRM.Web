@@ -72,9 +72,9 @@
                                 <div class="form-group col-12" id="field1" style="display">
                                     <label for="email" class="form-label">@L("Products")</label>
                                    
-                                    @Html.DropDownList("productId", new SelectList(Model.PromotionProductProductList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductIdList.ToString() : "")),@L("SelectAProduct"), htmlAttributes: new { @class = "form-control e1", @multiple = "multiple", @placeholder = "Select / Search here!" })
+                                    @* @Html.DropDownList("productId", new SelectList(Model.PromotionProductProductList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductIdList.ToString() : "")),@L("SelectAProduct"), htmlAttributes: new { @class = "form-control e1", @multiple = "multiple", @placeholder = "Select / Search here!" }) *@
                                     @* @Html.DropDownList("productId", new SelectList(Model.PromotionProductProductList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerPromotionProductList.ToString() : "")),@L("SelectAProduct"), new { @class = "form-control" , @required="required" }) *@
-                                    @* <select id="productId" class="form-select select2" data-id="" data-control="select2"></select> *@
+                                    <select id="productId" class="form-select select2" data-id="" data-control="select2"></select>
                                 </div>
                             </div>
 

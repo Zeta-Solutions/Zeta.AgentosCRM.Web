@@ -2,17 +2,19 @@
     app.modals.CreateOrEditClientsAppoinmentModal = function () {
         debugger;
         var _clientAppointmentsService = abp.services.app.appointments;
-        //var hiddenfield = $("#clientId").val();
-        var hiddenfield = $("#clientAppID").val();
-        //$("#clientId").val(hiddenfield);
-        $("#Applointment_ClietName").val(hiddenfield);
+      
+      
+        var hiddenfield2 = $('[name="partnerName"]').val();
+        $("#Applointment_PartnerName").val(hiddenfield2);
         //$("#applointment_Invitees").select2();
-        var hiddenfield = $("#ID").val();
-        $("#ClientId").val(hiddenfield);
+        
+        var hiddenfield = $("#PartnerId").val();
+        $("#partnerId").val(hiddenfield);
+        //$('[name="PartnerId"]').val(hiddenfield);
         var _modalManager;
         var _$clientTagsInformationForm = null;
 
-        $('input[name*="clientId"]').val(hiddenfield)
+       
         var _modalManager;
         var _$clientAppointmentsInformationForm = null;
 
