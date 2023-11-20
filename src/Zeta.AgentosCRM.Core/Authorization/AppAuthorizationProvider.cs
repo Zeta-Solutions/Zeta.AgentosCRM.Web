@@ -30,6 +30,16 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var clientQuotationDetails = pages.CreateChildPermission(AppPermissions.Pages_ClientQuotationDetails, L("ClientQuotationDetails"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationDetails.CreateChildPermission(AppPermissions.Pages_ClientQuotationDetails_Create, L("CreateNewClientQuotationDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationDetails.CreateChildPermission(AppPermissions.Pages_ClientQuotationDetails_Edit, L("EditClientQuotationDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationDetails.CreateChildPermission(AppPermissions.Pages_ClientQuotationDetails_Delete, L("DeleteClientQuotationDetail"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var clientQuotationHeads = pages.CreateChildPermission(AppPermissions.Pages_ClientQuotationHeads, L("ClientQuotationHeads"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationHeads.CreateChildPermission(AppPermissions.Pages_ClientQuotationHeads_Create, L("CreateNewClientQuotationHead"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationHeads.CreateChildPermission(AppPermissions.Pages_ClientQuotationHeads_Edit, L("EditClientQuotationHead"), multiTenancySides: MultiTenancySides.Tenant);
+            clientQuotationHeads.CreateChildPermission(AppPermissions.Pages_ClientQuotationHeads_Delete, L("DeleteClientQuotationHead"), multiTenancySides: MultiTenancySides.Tenant);
+
             var checkInLogs = pages.CreateChildPermission(AppPermissions.Pages_CheckInLogs, L("CheckInLogs"), multiTenancySides: MultiTenancySides.Tenant);
             checkInLogs.CreateChildPermission(AppPermissions.Pages_CheckInLogs_Create, L("CreateNewCheckInLog"), multiTenancySides: MultiTenancySides.Tenant);
             checkInLogs.CreateChildPermission(AppPermissions.Pages_CheckInLogs_Edit, L("EditCheckInLog"), multiTenancySides: MultiTenancySides.Tenant);

@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ClientQuotationDetails = "Pages.ClientQuotationDetails";
+        public const string Pages_ClientQuotationDetails_Create = "Pages.ClientQuotationDetails.Create";
+        public const string Pages_ClientQuotationDetails_Edit = "Pages.ClientQuotationDetails.Edit";
+        public const string Pages_ClientQuotationDetails_Delete = "Pages.ClientQuotationDetails.Delete";
+
+        public const string Pages_ClientQuotationHeads = "Pages.ClientQuotationHeads";
+        public const string Pages_ClientQuotationHeads_Create = "Pages.ClientQuotationHeads.Create";
+        public const string Pages_ClientQuotationHeads_Edit = "Pages.ClientQuotationHeads.Edit";
+        public const string Pages_ClientQuotationHeads_Delete = "Pages.ClientQuotationHeads.Delete";
+
         public const string Pages_CheckInLogs = "Pages.CheckInLogs";
         public const string Pages_CheckInLogs_Create = "Pages.CheckInLogs.Create";
         public const string Pages_CheckInLogs_Edit = "Pages.CheckInLogs.Edit";
