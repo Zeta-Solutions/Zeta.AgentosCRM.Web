@@ -1,6 +1,7 @@
 ﻿(function ($) { 
     app.modals.CreateOrEditPromotionsModal = function () {
         debugger
+    
         $('#productId').select2({
             multiple: true,
             width: '650px',
@@ -21,64 +22,130 @@
         } else {
             document.getElementById("field1").style.display = 'none';
         }
+
         //var selectId = <text>@Html.Raw(Model.SelectId)</text>;
-     
+
         //$('#productId').val(selectId).trigger('change');
-        //$.ajax({
-        //    url: abp.appPath + 'api/services/app/PromotionProducts/GetAllProductForTableDropdown',
-        //    method: 'GET',
-        //    dataType: 'json',
-        //    success: function (data) {
-        //        debugger
-        //        // Populate the dropdown with the fetched data
-        //        populateDropdown(data);
-        //    },
-        //    error: function (error) {
-        //        console.error('Error fetching data:', error);
-        //    }
-        //});
+        var hiddenfield = $("#PartnerId").val();
+        var dynamicValue = hiddenfield;
 
-        //var dataRows = []; // Declare dataRows outside the function to maintain its state
-         // Declare Steps outside the function to make it accessible
+        $.ajax({
+            url: abp.appPath + 'api/services/app/PromotionProducts/GetAllProductForTableDropdown',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                PartnerIdFilter: dynamicValue,
+            },
+            success: function (data) {
+                debugger
+                // Populate the dropdown with the fetched data
+                populateDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
 
-        //function populateDropdown(data) {
-        //    var dropdown = $('#productId');
+        var dataRows = []; // Declare dataRows outside the function to maintain its state
+          //Declare Steps outside the function to make it accessible
 
-        //    //dropdown.on('change', function () {
-        //    //    var selectedOption = $('option:selected', this);
-        //    //    var dataIdValue = selectedOption.data('id');
+        function populateDropdown(data) {
+            var dropdown = $('#productId');
 
-        //    //    if (!dataRows.find(row => row.ddlValue === dataIdValue)) {
-        //    //        dataRows.push({
-        //    //            ddlValue: dataIdValue
-        //    //        });
-        //    //    } else {
-        //    //        // Remove the item if already exists in dataRows
-        //    //        dataRows = dataRows.filter(row => row.ddlValue !== dataIdValue);
-        //    //    }
+            //dropdown.on('change', function () {
+            //    var selectedOption = $('option:selected', this);
+            //    var dataIdValue = selectedOption.data('id');
 
-        //    //    // Now you can use or log the updated dataRows array
-        //    //    console.log('Updated dataRows:', dataRows);
+            //    if (!dataRows.find(row => row.ddlValue === dataIdValue)) {
+            //        dataRows.push({
+            //            ddlValue: dataIdValue
+            //        });
+            //    } else {
+            //        // Remove the item if already exists in dataRows
+            //        dataRows = dataRows.filter(row => row.ddlValue !== dataIdValue);
+            //    }
 
-        //    //    // Update the global Steps array
-        //    //    Steps = dataRows.slice(); // Copy the array to avoid reference issues
+            //    // Now you can use or log the updated dataRows array
+            //    console.log('Updated dataRows:', dataRows);
 
-        //    //    // Now Steps contains the updated array
-        //    //    console.log('Updated Steps:', Steps);
-        //    //});
+            //    // Update the global Steps array
+            //    Steps = dataRows.slice(); // Copy the array to avoid reference issues
 
-        //    dropdown.empty();
+            //    // Now Steps contains the updated array
+            //    console.log('Updated Steps:', Steps);
+            //});
 
-        //    $.each(data.result, function (index, item) {
-        //        if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
-        //            dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
-        //        } else {
-        //            console.warn('Invalid item:', item);
-        //        }
-        //    });
-        //}
-        
+            dropdown.empty();
 
+            $.each(data.result, function (index, item) {
+                if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+                    dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+                } else {
+                    console.warn('Invalid item:', item);
+                }
+            });
+        }
+        var idValue = 0;
+        var idElements = document.getElementsByName("id");
+
+        if (idElements.length > 0) {
+            // Check if at least one element with the name "id" is found
+            var idElement = idElements[0];
+
+            if (idElement.value !== undefined) {
+                // Check if the value property is defined
+                idValue = idElement.value;
+            } else {
+                console.error("Element with name 'id' does not have a value attribute.");
+            }
+        } else {
+            console.error("Element with name 'id' not found.");
+        }
+        if (idValue > 0) {
+
+     
+        $.ajax({
+            url: abp.appPath + 'api/services/app/PartnerPromotions/GetPartnerPromotionForEdit?id=' + idValue,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                debugger
+                // Populate the dropdown with the fetched data
+                updateProductDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+        }
+        function updateProductDropdown(data) {
+            debugger;
+            var ms_val = 0;
+
+            // Assuming data.result.promotionproduct is an array of objects with OwnerID property
+            $.each(data.result.promotionProduct, function (index, obj) {
+                ms_val += "," + obj.productId;
+               
+            });
+
+            //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
+            var ms_array = ms_val.split(',');
+            var $productId = $("#productId");
+
+            // Clear existing options in Select2
+            //$productId.empty();
+            $productId.val(ms_array).trigger('change');
+            // Add new options
+            //$.each(ms_array, function (index, value) {
+            //    debugger
+            //    var newOption = new Option(value, value, true, true);
+            //    $productId.append(newOption).trigger('change');
+            //    //$productId.val(newOption).trigger("chosen:updated");
+            //});
+            // Assuming #ddlContactOwner is a multiple-select dropdown using a library like Chosen
+           // $("#productId").val(ms_array).trigger("chosen:updated");
+          /*  $('#productId').val(selectId).trigger('change');*/
+        }
         // Call populateDropdown with your data
         //populateDropdown(yourData);
 

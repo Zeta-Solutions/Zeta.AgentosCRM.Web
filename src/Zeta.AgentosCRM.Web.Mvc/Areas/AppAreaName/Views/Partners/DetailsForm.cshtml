@@ -4,13 +4,12 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.TagHelpers
 
-<!DOCTYPE html>
-<html>
-<head>
+
+@* <head>
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
+</head> *@
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Products/Products.js" asp-append-version="true"></script>
@@ -26,22 +25,27 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
-
+    
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+     
 }
-
 @section Styles
     {
+   
+
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/Application/Application.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
-
+       
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
     }
-<body class="mt-3">
+< class="mt-3">
 
 
     <div class="cards">
@@ -109,7 +113,7 @@
 
                             <div class="col-lg-12 mt-1 text-start">
                                 <div class="d-flex align-items-center  pb-4">
-                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput"id="partnerName">
+                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput">
                                          @Model.Partner.PartnerName
                                     </a>
                                 </div>
@@ -119,7 +123,8 @@
                                 <p class="text-muted"> @Model.Partner.Email</p>
                             </div>
                             <div class="col-lg-12">
-                                <input type="hidden" value="@Model.Partner.Id" id="PartnerId"/>
+                                <input type="hidden" value="@Model.Partner.Id" id="PartnerId"name="PartnerId"/>
+                                <input type="hidden" value="@Model.Partner.PartnerName" id="partnerName" name="partnerName" />
                             </div>
                             <div class="col-lg-12"><input type="hidden" /></div>
                             <div class="col-lg-12"><input type="hidden" /></div>
@@ -342,5 +347,3 @@
         </div>
     </div>
 
-</body>
-</html>

@@ -194,6 +194,19 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
             ObjectMapper.Map(input, partnerPromotion);
             partnerPromotion.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
 
+            var promotionProduct = await _promotionProductRepository.GetAllListAsync(p => p.PartnerPromotionId == input.Id);
+            foreach (var item in promotionProduct)
+            {
+                await _promotionProductRepository.DeleteAsync(item.Id);
+            }
+            //var partnerPromotionId = _partnerPromotionRepository.InsertAndGetIdAsync(partnerPromotion).Result;
+            foreach (var step in input.Steps)
+            {
+                step.PartnerPromotionId = partnerPromotion.Id;
+                var stepEntity = ObjectMapper.Map<PromotionProduct>(step);
+                await _promotionProductRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_PartnerPromotions_Delete)]

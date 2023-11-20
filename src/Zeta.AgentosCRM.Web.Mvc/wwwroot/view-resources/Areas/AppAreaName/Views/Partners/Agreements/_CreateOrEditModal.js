@@ -12,10 +12,10 @@
 
         var _partnerContractsService = abp.services.app.partnerContracts;
         var hiddenfield = $("#PartnerId").val();
-
-        $("#partnerId").val(hiddenfield);
-
-
+        //var hiddenfield = $('[name="partnerid"]').val();
+       $("#partnerId").val(hiddenfield);
+        
+     
         var _modalManager;
         var _$partnerContractsInformationForm = null;
 

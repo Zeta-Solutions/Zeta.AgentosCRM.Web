@@ -189,9 +189,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
         }
 
         [AbpAuthorize(AppPermissions.Pages_PromotionProducts)]
-        public async Task<List<PromotionProductProductLookupTableDto>> GetAllProductForTableDropdown()
+        public async Task<List<PromotionProductProductLookupTableDto>> GetAllProductForTableDropdown(long? PartnerIdFilter)
         {
             return await _lookup_productRepository.GetAll()
+                 .WhereIf(PartnerIdFilter != 0, e => e.PartnerId == PartnerIdFilter)
                 .Select(product => new PromotionProductProductLookupTableDto
                 {
                     Id = product.Id,
