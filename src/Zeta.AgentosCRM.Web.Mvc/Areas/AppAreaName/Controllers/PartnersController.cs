@@ -404,16 +404,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
                 getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
             }
-            var productId= new List<long>();
-            foreach (var item in getPartnerPromotionForEditOutput.PromotionProduct)
-            {
-                productId.Add(item.ProductId);
-            }
+            //var productId= new List<long>();
+            //foreach (var item in getPartnerPromotionForEditOutput.PromotionProduct)
+            //{
+            //    productId.Add(item.ProductId);
+            //}
             var viewModel = new CreateOrEditPartnerPromotionsModalViewModel()
             {
                 PartnerPromotion = getPartnerPromotionForEditOutput.PartnerPromotion, 
-                ProductIdList = productId,
-                PromotionProductProductList = await _promotionProductsAppService.GetAllProductForTableDropdown()
+                //ProductIdList = productId,
+                PromotionProductProductList = await _promotionProductsAppService.GetAllProductForTableDropdown(id)
             };
           
             return PartialView("Promotions/_CreateOrEditPromotionslModal", viewModel);
