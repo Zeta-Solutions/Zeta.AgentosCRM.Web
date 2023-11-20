@@ -8,6 +8,6 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
     {
         public string Name { get; set; }
 
-
+        public bool IsForAllOffices { get; set; } 
     }
 }

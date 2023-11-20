@@ -71,9 +71,16 @@
                 </div>
            
            
-                <div class="form-group col-6 mt-1">
+                @* <div class="form-group col-6 mt-1">
                     <label for="text" class="form-label">Phone</label>
                     <input type="number" class="form-control custom-small-input rounded-0" id="PhoneNo" name="PhoneNo" value="@Model.Branch.PhoneNo">
+                </div> *@
+                <div class="form-group col-6 mt-1" style="display: flex; flex-direction: column;">
+                    <label for="Phone" class="form-label">@L("Phone")</label>
+                    <input type="hidden" value="@Model.Branch.PhoneCode" id="PhoneCode" name="PhoneCode" />
+                    <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Branch.PhoneNo">
+                    <span id="valid-msg" class="hide">✓ Valid</span>
+                    <span id="error-msg" class="hide"></span>
                 </div>
             </div>
             <div class="row mt-3">

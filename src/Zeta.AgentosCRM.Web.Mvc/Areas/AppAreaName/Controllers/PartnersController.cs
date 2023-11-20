@@ -2,8 +2,14 @@
 using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMApplications.Dtos;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.CRMAppointments.Dtos;
+using Zeta.AgentosCRM.CRMClient.Dtos;
 using Zeta.AgentosCRM.CRMNotes;
 using Zeta.AgentosCRM.CRMNotes.Dtos;
 using Zeta.AgentosCRM.CRMPartner;
@@ -20,6 +26,9 @@ using Zeta.AgentosCRM.CRMProducts;
 using Zeta.AgentosCRM.CRMProducts.Dtos;
 using Zeta.AgentosCRM.TaskManagement;
 using Zeta.AgentosCRM.TaskManagement.Dtos;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.LeadSource;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
@@ -42,7 +51,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IPartnerPromotionsAppService _partnerPromotionsAppService;
         private readonly ICRMTasksAppService _cRMTasksAppService;
         private readonly IProductsAppService _productsAppService;
-        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService, IProductsAppService productsAppService)
+        private readonly IAppointmentsAppService _appointmentsAppService;
+        private readonly IApplicationsAppService _applicationsAppService;
+        private readonly IPromotionProductsAppService _promotionProductsAppService;
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService, IProductsAppService productsAppService, IAppointmentsAppService appointmentsAppService, IApplicationsAppService applicationsAppService, IPromotionProductsAppService promotionProductsAppService)
         {
             _partnersAppService = partnersAppService;
             _branchsAppService = branchsAppService;
@@ -52,8 +64,11 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _partnerPromotionsAppService = partnerPromotionsAppService;
             _cRMTasksAppService = cRMTasksAppService;
             _productsAppService = productsAppService;
+            _appointmentsAppService = appointmentsAppService;
+            _applicationsAppService = applicationsAppService;
+            _promotionProductsAppService = promotionProductsAppService;
         }
-      
+
         public IActionResult Index()
         {
             var model = new PartnersViewModel
@@ -389,13 +404,18 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 getPartnerPromotionForEditOutput.PartnerPromotion.StartDate = DateTime.Now;
                 getPartnerPromotionForEditOutput.PartnerPromotion.ExpiryDate = DateTime.Now;
             }
-           
+            //var productId= new List<long>();
+            //foreach (var item in getPartnerPromotionForEditOutput.PromotionProduct)
+            //{
+            //    productId.Add(item.ProductId);
+            //}
             var viewModel = new CreateOrEditPartnerPromotionsModalViewModel()
             {
-                PartnerPromotion = getPartnerPromotionForEditOutput.PartnerPromotion,
-               
-
+                PartnerPromotion = getPartnerPromotionForEditOutput.PartnerPromotion, 
+                //ProductIdList = productId,
+                PromotionProductProductList = await _promotionProductsAppService.GetAllProductForTableDropdown(id)
             };
+          
             return PartialView("Promotions/_CreateOrEditPromotionslModal", viewModel);
 
         }
@@ -509,5 +529,93 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View("Products/Products", model);
         }
+
+
+        public async Task<ActionResult> AppointmentsIndex(int id)
+        {
+            var getAppointmentsForViewDto = await _appointmentsAppService.GetAppointmentForView(id);
+            var model = new AppointmentViewModel()
+            {
+                Appointment = getAppointmentsForViewDto.Appointment
+
+
+            };
+
+            return View("Appointments/AppointmentIndex", model);
+        }
+
+        public async Task<PartialViewResult> CreateOrEditAppointmentModal(long? id)
+        {
+            GetAppointmentForEditOutput getAppointmentForEditOutput;
+            if (id.HasValue)
+            {
+                getAppointmentForEditOutput = await _appointmentsAppService.GetAppointmentForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getAppointmentForEditOutput = new GetAppointmentForEditOutput
+                {
+                    Appointment = new CreateOrEditAppointmentDto()
+                };
+            }
+            var ViewModel = new CreateOrEditAppointmentsViewModel()
+            {
+                Appointment = getAppointmentForEditOutput.Appointment,
+                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown()
+
+            };
+
+            //return PartialView("_CreateOrEditModal", ViewModel);
+            return PartialView("Appointments/_CreateOrEditAppointmentModal", ViewModel);
+
+        }
+        #region "Application"
+
+        [AbpMvcAuthorize(AppPermissions.Pages_Applications_Create, AppPermissions.Pages_Applications_Edit)]
+        public async Task<ActionResult> ApplicationsIndex(long? id)
+        {
+            long applicationId = id.GetValueOrDefault();
+            var getApplicationForViewDto = await _applicationsAppService.GetApplicationForView(applicationId);
+            var model = new ApplicationViewModel()
+            {
+                Application = getApplicationForViewDto.Application
+
+
+            };
+
+            return View("Applications/Application", model);
+            //return View("~/Application/ApplicationsIndex.cshtml");
+        }
+        public async Task<PartialViewResult> CreateOrEditApplicationModal(long? id)
+        {
+            GetApplicationForEditOutput getApplicationForEditOutput;
+            if (id.HasValue)
+            {
+                getApplicationForEditOutput = await _applicationsAppService.GetApplicationForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getApplicationForEditOutput = new GetApplicationForEditOutput
+                {
+                    Application = new CreateOrEditApplicationDto()
+                };
+            }
+            var ViewModel = new CreateOrEditApplicationsViewModel()
+            {
+                Application = getApplicationForEditOutput.Application,
+                ApplicationWorkflowList = await _applicationsAppService.GetAllWorkflowForTableDropdown(),
+                ApplicationPartnerList = await _applicationsAppService.GetAllPartnerForTableDropdown(),
+                ApplicationProductList = await _applicationsAppService.GetAllProductForTableDropdown()
+
+            };
+
+            return PartialView("Applications/_CreateOrEditModal", ViewModel);
+            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+
+
+        }
+
+        #endregion
+
     }
 }

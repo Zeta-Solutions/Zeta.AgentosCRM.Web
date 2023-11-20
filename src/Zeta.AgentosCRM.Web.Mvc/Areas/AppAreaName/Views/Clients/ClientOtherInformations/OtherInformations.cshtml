@@ -1,0 +1,71 @@
+﻿@using Zeta.AgentosCRM.CRMClient;
+
+@using System.Globalization
+@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@* @model CreateOrEditClientViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.TagHelpers
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
+} *@
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
+    }
+
+
+<div class="card maincard">
+    <div class="card-body ">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header ">
+                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Education
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="fw-bold text-dark" for="highestQualification">@L("HighestQualificationI")</label>
+                                            <p class="text-muted">
+                                                @Model.DegreeLevelName
+                                             @*    @Html.DropDownList("HighestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectAHighestQualification"), new { @class = "form-control " , @required="required" })
+                                            <input type="text" class="form-control" id="highestQualification"> *@
+                                        </div>
+                                       @*  <div class="col-md-4">
+                                            <label for="ielts">IELTS/PTS Training Required:</label>
+                                            <input type="text" class="form-control" id="ielts">
+                                        </div> *@
+                                        <div class="col-md-4">
+                                            <label for="preferredStudyArea">@L("SubjectArea")</label>
+                                            <p class="text-muted">
+                                                @Model.SubjectAreaName
+                                            @* @Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   }) *@
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="preferredUniversity">@L("PreferedUniversity")</label>
+                                            <p class="text-muted">
+                                                @Model.Client.University
+                                            @* <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" /> *@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* <div class="col-12 mt-3 ml-2">
+            <button class="btn btn-primary btn-sm ml-2" style="margin-left: 15px;" type="submit">Save</button>
+            </div> *@
+        </div>
+
+    </div>
+</div>

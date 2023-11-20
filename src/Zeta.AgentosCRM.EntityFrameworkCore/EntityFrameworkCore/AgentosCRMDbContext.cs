@@ -1,4 +1,9 @@
-﻿using Zeta.AgentosCRM.TaskManagement.Followers;
+﻿using Zeta.AgentosCRM.CRMSetup.Email;
+using Zeta.AgentosCRM.CRMSetup.Documents;
+using Zeta.AgentosCRM.CRMClient.Qoutation;
+using Zeta.AgentosCRM.CRMClient.Quotation;
+using Zeta.AgentosCRM.CRMClient.CheckIn;
+using Zeta.AgentosCRM.TaskManagement.Followers;
 using Zeta.AgentosCRM.CRMClient.InterstedServices;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments;
@@ -46,6 +51,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+
+        public virtual DbSet<WorkflowOffice> WorkflowOffices { get; set; }
+
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+
+        public virtual DbSet<ClientQuotationDetail> ClientQuotationDetails { get; set; }
+
+        public virtual DbSet<ClientQuotationHead> ClientQuotationHeads { get; set; }
+
+        public virtual DbSet<CheckInLog> CheckInLogs { get; set; }
+
+        public virtual DbSet<OtherTestScore> OtherTestScores { get; set; }
+
+        public virtual DbSet<EnglisTestScore> EnglisTestScores { get; set; }
+
         public virtual DbSet<PromotionProduct> PromotionProducts { get; set; }
 
         public virtual DbSet<TaskFollower> TaskFollowers { get; set; }
@@ -156,10 +177,42 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PromotionProduct>(p =>
+            modelBuilder.Entity<EmailTemplate>(x =>
             {
-                p.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<WorkflowOffice>(w =>
+                       {
+                           w.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<DocumentType>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientQuotationDetail>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientQuotationHead>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<CheckInLog>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<OtherTestScore>(o =>
+                       {
+                           o.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<EnglisTestScore>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<PromotionProduct>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<TaskFollower>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });

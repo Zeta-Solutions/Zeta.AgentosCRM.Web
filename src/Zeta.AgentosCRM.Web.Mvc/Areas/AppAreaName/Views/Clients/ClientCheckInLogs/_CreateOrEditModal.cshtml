@@ -1,0 +1,68 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.CheckInLogs;
+@model CreateOrEditCheckInLogsViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateOrEditChekInLogs")))
+
+<div class="modal-body">
+    <div id="ContractsInformationsTab">
+        <form name="CheckIngLogsInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.CheckInLog.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
+            <div class="row col-12">
+                <div class="form-group col-6">
+                    <label class="form-label fw-bold text-dark" for="Title">@L("Title")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Title" name="Title" value="@Model.CheckInLog.Title" required maxlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MaxTitleLength" minlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MinTitleLength">
+                    @*  <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="ContractExpiryDate" value="@Model.PartnerContract.ContractExpiryDate" type="datetime" name="ContractExpiryDate"  /> *@
+                </div>
+
+
+                <div class="form-group col-6 " >
+                    <label class="form-label fw-bold text-dark" for="CheckInPurpose">@L("CheckInPurpose")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="CheckInPurpose" name="CheckInPurpose" value="@Model.CheckInLog.CheckInPurpose" required maxlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MaxCheckInPurposeLength" minlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MinCheckInPurposeLength">
+
+                </div>
+                <div class="form-group col-6 " hidden>
+                    <label class="form-label fw-bold text-dark" for="CheckInPurpose">@L("CheckInAssignee")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="CheckInAssigneeId" name="" value="@Model.CheckInLog.CheckInAssigneeId" required maxlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MaxCheckInPurposeLength" minlength="@Zeta.AgentosCRM.CRMClient.CheckIn.CheckInLogConsts.MinCheckInPurposeLength">
+
+                </div>
+            </div>
+            <div class="row col-12 mt-1">
+                <div class="form-group col-6 ">
+                    <label class="form-label fw-bold text-dark" for="CheckInStatus">@L("CheckInStatus")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="CheckInStatus" name="CheckInStatus" value="@Model.CheckInLog.CheckInStatus">
+
+                </div> 
+                <div class="form-group col-6 ">
+                    <label class="form-label fw-bold text-dark" for="CheckInDate">@L("CheckInDate")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="CheckInDate" type="datetime" name="CheckInDate" value="@Model.CheckInLog.CheckInDate" />
+                </div> 
+                <div class="form-group col-6 ">
+                    <label class="form-label fw-bold text-dark" for="StartTime">@L("StartTime")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="StartTime" type="time" name="StartTime" value="@Model.CheckInLog.StartTime" />
+                </div>  
+                <div class="form-group col-6 ">
+                    <label class="form-label fw-bold text-dark" for="EndTime">@L("EndTime")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="EndTime" type="time" name="EndTime" value="@Model.CheckInLog.EndTime" />
+                </div>
+                <div class="my-3">
+                    <label class="form-label" for="Application_Product">@L("Assignee")</label>
+                    @Html.DropDownList("CheckInAssigneeId", new SelectList(Model.CheckInLogUserList,"Id","DisplayName", (Model.IsEditMode ? Model.CheckInLog.CheckInAssigneeId.ToString() : "")),@L("SelectAssignee"), new { @class = "form-control select2" , @required="required" })
+                </div>
+
+               
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

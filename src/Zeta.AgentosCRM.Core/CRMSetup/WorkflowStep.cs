@@ -28,5 +28,17 @@ namespace Zeta.AgentosCRM.CRMSetup
         [ForeignKey("WorkflowId")]
         public Workflow WorkflowFk { get; set; }
 
+        public virtual bool IsPartnerClientIdRequired { get; set; }
+
+        public virtual bool IsStartEndDateRequired { get; set; }
+
+        public virtual bool IsNoteRequired { get; set; }
+
+        public virtual bool IsApplicationIntakeRequired { get; set; }
+
+        public virtual bool IsActive { get; set; }
+
+        public virtual bool IsWinStage { get; set; }
+
     }
 }

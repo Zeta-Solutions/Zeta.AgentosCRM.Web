@@ -1,0 +1,44 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Tasks/Index.js" asp-append-version="true"></script>
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+<div class="maincard">
+    <div class="col-md-12 text-end mb-3">
+
+        <button id="CreateNewTaskButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddTask")</button>
+    </div>
+  @* 
+     <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                       <div class="row align-items-center">
+                <table id="Tasktable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                             
+                            <th >@L("Name")</th>
+                                    <th >@L("Email")</th>
+                                    <th >@L("Department")</th>
+                                    <th >@L("Position")</th>
+                                    <th >@L("Branch")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+    <div id="cardTaskContainer" class="container"></div>
+</div>
+@*</div>*@
