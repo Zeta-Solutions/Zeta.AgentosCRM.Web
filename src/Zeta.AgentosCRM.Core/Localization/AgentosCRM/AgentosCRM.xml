@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="Qoutation">Qoutation</text>
+	<texts>    <text name="EditEmailTemplate">Edit email template</text>
+    <text name="DeleteEmailTemplate">Delete email template</text>
+    <text name="WorkflowOffice">Workflow office</text>
+    <text name="CreateNewWorkflowOffice">Create new workflow office</text>
+    <text name="EditWorkflowOffice">Edit workflow office</text>
+    <text name="DeleteWorkflowOffice">Delete workflow office</text>
+    <text name="DeleteDocumentType">Delete document type</text>
+    <text name="Qoutation">Qoutation</text>
     <text name="ClientQuotationDetail">Client quotation detail</text>
     <text name="CreateNewClientQuotationDetail">Create new client quotation detail</text>
     <text name="EditClientQuotationDetail">Edit client quotation detail</text>
