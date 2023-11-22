@@ -27,5 +27,7 @@ namespace Zeta.AgentosCRM.CRMNotes
 
         Task<List<NotePartnerLookupTableDto>> GetAllPartnerForTableDropdown();
 
+        Task<List<NoteAgentLookupTableDto>> GetAllAgentForTableDropdown();
+
     }
 }

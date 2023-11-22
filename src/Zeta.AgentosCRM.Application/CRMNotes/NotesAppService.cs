@@ -1,7 +1,5 @@
 ﻿using Zeta.AgentosCRM.CRMClient;
-using Zeta.AgentosCRM.CRMPartner;
-
-using System;
+using Zeta.AgentosCRM.CRMPartner; 
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
@@ -12,12 +10,10 @@ using Zeta.AgentosCRM.CRMNotes.Exporting;
 using Zeta.AgentosCRM.CRMNotes.Dtos;
 using Zeta.AgentosCRM.Dto;
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.Authorization;
-using Abp.Extensions;
+using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
+using Microsoft.EntityFrameworkCore; 
+using Zeta.AgentosCRM.CRMAgent;
 
 namespace Zeta.AgentosCRM.CRMNotes
 {
@@ -28,14 +24,19 @@ namespace Zeta.AgentosCRM.CRMNotes
         private readonly INotesExcelExporter _notesExcelExporter;
         private readonly IRepository<Client, long> _lookup_clientRepository;
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
+        private readonly IRepository<Agent, long> _lookup_agentRepository;
 
-        public NotesAppService(IRepository<Note, long> noteRepository, INotesExcelExporter notesExcelExporter, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository)
+        public NotesAppService(IRepository<Note, long> noteRepository,
+                               INotesExcelExporter notesExcelExporter,
+                               IRepository<Client, long> lookup_clientRepository,
+                               IRepository<Partner, long> lookup_partnerRepository,
+                               IRepository<Agent, long> lookup_agentRepository)
         {
             _noteRepository = noteRepository;
             _notesExcelExporter = notesExcelExporter;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_partnerRepository = lookup_partnerRepository;
-
+            _lookup_agentRepository = lookup_agentRepository;
         }
 
         public async Task<PagedResultDto<GetNoteForViewDto>> GetAll(GetAllNotesInput input)
@@ -44,14 +45,14 @@ namespace Zeta.AgentosCRM.CRMNotes
             var filteredNotes = _noteRepository.GetAll()
                         .Include(e => e.ClientFk)
                         .Include(e => e.PartnerFk)
+                        .Include(e => e.AgentFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Title.Contains(input.Filter) || e.Description.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title.Contains(input.TitleFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString()
-, e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()
-) == input.ClientDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString(), e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()) == input.ClientDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMAgentAgentNameFilter), e => e.AgentFk != null && e.AgentFk.Name == input.CRMAgentAgentNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
-             .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
+                        .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
 
             var pagedAndFilteredNotes = filteredNotes
                 .OrderBy(input.Sorting ?? "id asc")
@@ -63,6 +64,9 @@ namespace Zeta.AgentosCRM.CRMNotes
 
                         join o2 in _lookup_partnerRepository.GetAll() on o.PartnerId equals o2.Id into j2
                         from s2 in j2.DefaultIfEmpty()
+                        
+                        join o3 in _lookup_agentRepository.GetAll() on o.AgentId equals o3.Id into j3
+                        from s3 in j3.DefaultIfEmpty()
 
                         select new
                         {
@@ -70,10 +74,9 @@ namespace Zeta.AgentosCRM.CRMNotes
                             o.Title,
                             o.Description,
                             Id = o.Id,
-                            ClientDisplayProperty = string.Format("{0} {1}", s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString()
-        , s1 == null || s1.LastName == null ? "" : s1.LastName.ToString()
-        ),
-                            PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString()
+                            ClientDisplayProperty = string.Format("{0} {1}", s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(), s1 == null || s1.LastName == null ? "" : s1.LastName.ToString()),
+                            PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString(),
+                            CRMAgentAgentName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
                         };
 
             var totalCount = await filteredNotes.CountAsync();
@@ -93,7 +96,8 @@ namespace Zeta.AgentosCRM.CRMNotes
                         Id = o.Id,
                     },
                     ClientDisplayProperty = o.ClientDisplayProperty,
-                    PartnerPartnerName = o.PartnerPartnerName
+                    PartnerPartnerName = o.PartnerPartnerName,
+                    CRMAgentAgentName = o.CRMAgentAgentName
                 };
 
                 results.Add(res);
@@ -123,6 +127,12 @@ namespace Zeta.AgentosCRM.CRMNotes
                 var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.Note.PartnerId);
                 output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
             }
+            
+            if (output.Note.AgentId != null)
+            {
+                var _lookupAgent = await _lookup_agentRepository.FirstOrDefaultAsync((long)output.Note.AgentId);
+                output.CRMAgentAgentName = _lookupAgent?.Name?.ToString();
+            }
 
             return output;
         }
@@ -144,6 +154,12 @@ namespace Zeta.AgentosCRM.CRMNotes
             {
                 var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.Note.PartnerId);
                 output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
+            }
+
+            if (output.Note.AgentId != null)
+            {
+                var _lookupAgent = await _lookup_agentRepository.FirstOrDefaultAsync((long)output.Note.AgentId);
+                output.CRMAgentAgentName = _lookupAgent?.Name?.ToString();
             }
 
             return output;
@@ -195,13 +211,13 @@ namespace Zeta.AgentosCRM.CRMNotes
             var filteredNotes = _noteRepository.GetAll()
                         .Include(e => e.ClientFk)
                         .Include(e => e.PartnerFk)
+                        .Include(e => e.AgentFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Title.Contains(input.Filter) || e.Description.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TitleFilter), e => e.Title.Contains(input.TitleFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString()
-, e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()
-) == input.ClientDisplayPropertyFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString(), e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()) == input.ClientDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMAgentAgentNameFilter), e => e.AgentFk != null && e.AgentFk.Name == input.CRMAgentAgentNameFilter);
 
             var query = (from o in filteredNotes
                          join o1 in _lookup_clientRepository.GetAll() on o.ClientId equals o1.Id into j1
@@ -209,6 +225,9 @@ namespace Zeta.AgentosCRM.CRMNotes
 
                          join o2 in _lookup_partnerRepository.GetAll() on o.PartnerId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
+
+                         join o3 in _lookup_agentRepository.GetAll() on o.AgentId equals o3.Id into j3
+                         from s3 in j3.DefaultIfEmpty()
 
                          select new GetNoteForViewDto()
                          {
@@ -218,10 +237,9 @@ namespace Zeta.AgentosCRM.CRMNotes
                                  Description = o.Description,
                                  Id = o.Id
                              },
-                             ClientDisplayProperty = string.Format("{0} {1}", s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString()
-, s1 == null || s1.LastName == null ? "" : s1.LastName.ToString()
-),
-                             PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString()
+                             ClientDisplayProperty = string.Format("{0} {1}", s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(), s1 == null || s1.LastName == null ? "" : s1.LastName.ToString()),
+                             PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString(),
+                             CRMAgentAgentName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
                          });
 
             var noteListDtos = await query.ToListAsync();
@@ -248,6 +266,17 @@ namespace Zeta.AgentosCRM.CRMNotes
                 {
                     Id = partner.Id,
                     DisplayName = partner == null || partner.PartnerName == null ? "" : partner.PartnerName.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_Notes)]
+        public async Task<List<NoteAgentLookupTableDto>> GetAllAgentForTableDropdown()
+        {
+            return await _lookup_agentRepository.GetAll()
+                .Select(agent => new NoteAgentLookupTableDto
+                {
+                    Id = agent.Id,
+                    DisplayName = agent == null || agent.Name == null ? "" : agent.Name.ToString()
                 }).ToListAsync();
         }
 

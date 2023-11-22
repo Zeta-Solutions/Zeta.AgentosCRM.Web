@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.CRMAgent;
 
 namespace Zeta.AgentosCRM.CRMNotes
 {
@@ -32,6 +33,11 @@ namespace Zeta.AgentosCRM.CRMNotes
 
         [ForeignKey("PartnerId")]
         public Partner PartnerFk { get; set; }
+
+        public virtual long? AgentId { get; set; }
+
+        [ForeignKey("AgentId")]
+        public Agent AgentFk { get; set; }
 
     }
 }

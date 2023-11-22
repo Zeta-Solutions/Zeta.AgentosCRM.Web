@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_AgentContacts = "Pages.AgentContacts";
+        public const string Pages_AgentContacts_Create = "Pages.AgentContacts.Create";
+        public const string Pages_AgentContacts_Edit = "Pages.AgentContacts.Edit";
+        public const string Pages_AgentContacts_Delete = "Pages.AgentContacts.Delete";
+
         public const string Pages_EmailTemplates = "Pages.EmailTemplates";
         public const string Pages_EmailTemplates_Create = "Pages.EmailTemplates.Create";
         public const string Pages_EmailTemplates_Edit = "Pages.EmailTemplates.Edit";

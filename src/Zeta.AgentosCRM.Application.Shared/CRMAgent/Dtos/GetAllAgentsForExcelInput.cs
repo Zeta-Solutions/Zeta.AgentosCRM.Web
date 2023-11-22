@@ -11,6 +11,8 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
 
         public int? IsSuperAgentFilter { get; set; }
 
+        public int? IsSubAgentFilter { get; set; }
+
         public int? IsBusinessFilter { get; set; }
 
         public string PhoneNoFilter { get; set; }
@@ -22,6 +24,8 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
         public string StreetFilter { get; set; }
 
         public string StateFilter { get; set; }
+
+        public string ZipCodeFilter { get; set; }
 
         public decimal? MaxIncomeSharingPerFilter { get; set; }
         public decimal? MinIncomeSharingPerFilter { get; set; }
