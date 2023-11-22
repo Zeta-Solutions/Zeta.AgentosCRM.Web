@@ -1,0 +1,44 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+
+@*if u want to give margin and padding between left and right*@
+@*<div class="@(await GetContainerClass())">*@
+    <div class="maincard">
+     <div class="col-md-12 text-end mb-3">
+
+        <button id="CreateNewQuotation" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddQuotation")</button>
+        </div>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+            </div>
+            <div class="row align-items-center">
+                        <table id="ClientsQuotationtable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                           @* <th>@L("Action")</th>*@
+                            <th>@L("Status")</th>
+                            <th>@L("Product")</th>
+                            <th>@L("TotalFee")</th>
+                            <th>@L("DueDate")</th>
+                            <th>@L("Createdon")</th>
+                            <th>@L("CreatedBy")</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    </div>
+@*</div>*@

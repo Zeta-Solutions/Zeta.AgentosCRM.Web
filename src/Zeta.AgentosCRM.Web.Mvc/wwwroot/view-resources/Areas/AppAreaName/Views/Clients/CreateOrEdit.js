@@ -11,6 +11,78 @@
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
         _$clientInformationForm.validate();
 
+        //
+        var input = document.querySelector("#phone");
+        const errorMsg = document.querySelector("#error-msg");
+        const validMsg = document.querySelector("#valid-msg");
+
+        const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+
+        var iti = intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function (success, failure) {
+                // Simulate a successful IP lookup to set the initial country
+                var countryCode = "PK"; // Replace with the appropriate country code
+                //$.get("https://ipinfo.io/", function () { }, "jsonp").always(function (resp) {
+                //    var countryCode = (resp && resp.country) ? resp.country : "";
+                //    success(countryCode);
+                //});
+                success(countryCode);
+            },
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+        });
+
+        // Manually set the phone number and selected country code (e.g., "US")
+        //var savedPhoneNumber = "123-456-7890"; // Replace with your saved phone number
+        var settittle = $("#PhoneCode").val();
+        var selectedCountry = settittle; // Replace with the appropriate country code
+
+        // Set the phone number value and selected country
+        //input.value = savedPhoneNumber;
+        iti.setCountry(selectedCountry);
+
+        // Change the flag and title based on a condition
+        var condition = true; // Change this to your condition
+
+        // Get the element by its class name
+        var flagElement = document.querySelector(".iti__selected-flag");
+
+        if (condition) {
+            // Change the title attribute
+            //flagElement.setAttribute("title", "India (भारत): +91"); // Replace "New Title" and "+XX" with your desired values
+
+            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
+            // flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
+        }
+        const reset = () => {
+            input.classList.remove("error");
+            errorMsg.innerHTML = "";
+            errorMsg.classList.add("hide");
+            validMsg.classList.add("hide");
+        };
+
+        input.addEventListener('blur', () => {
+            reset();
+            if (input.value.trim()) {
+                if (iti.isValidNumber()) {
+                    validMsg.classList.remove("hide");
+                } else {
+                    input.classList.add("error");
+                    const errorCode = iti.getValidationError();
+                    errorMsg.innerHTML = errorMap[errorCode];
+                    errorMsg.classList.remove("hide");
+                }
+            }
+        });
+        // on keyup / change flag: reset
+        input.addEventListener('change', reset);
+        input.addEventListener('keyup', reset);
+
+
+
+        //
+
 		        var _ClientcountryLookupTableModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CountryLookupTableModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/_ClientCountryLookupTableModal.js',

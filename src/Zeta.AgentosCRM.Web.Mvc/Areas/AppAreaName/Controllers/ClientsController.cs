@@ -53,14 +53,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly INotesAppService _notesAppService;
         private readonly ICRMTasksAppService _cRMTasksAppService;
         private readonly ICheckInLogsAppService _checkInLogsAppService;
-        
+        private readonly IEnglisTestScoresAppService _englisTestScoresAppService;
+        private readonly IOtherTestScoresAppService _otherTestScoresAppService;
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
             IApplicationsAppService applicationsAppService ,
             IClientInterstedServicesAppService clientInterstedServicesAppService,
             IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, 
-            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService)
+            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService, 
+            IEnglisTestScoresAppService englisTestScoresAppService, IOtherTestScoresAppService otherTestScoresAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -72,6 +74,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _notesAppService = notesAppService;
             _cRMTasksAppService = cRMTasksAppService;
             _checkInLogsAppService = checkInLogsAppService;
+            _englisTestScoresAppService = englisTestScoresAppService;
+            _otherTestScoresAppService = otherTestScoresAppService;
         }
 
         #region "Clents"
@@ -473,19 +477,53 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
            
 
             return PartialView("Education/_CreateOrEditModal", ViewModel);
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
         }
         public async Task<PartialViewResult> CreateOrEditEnglishScoreModal(int? id)
         {
+            GetEnglisTestScoreForEditOutput getEnglisTestScoreForEditOutput;
+            if (id.HasValue)
+            {
+                getEnglisTestScoreForEditOutput = await _englisTestScoresAppService.GetEnglisTestScoreForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getEnglisTestScoreForEditOutput = new GetEnglisTestScoreForEditOutput
+                {
+                    EnglisTestScore = new CreateOrEditEnglisTestScoreDto()
+                };
+            }
+            var ViewModel = new CreateOrEditEnglishScoreViewModel()
+            {
+                EnglishTestScore = getEnglisTestScoreForEditOutput.EnglisTestScore,
+                EnglishTestScoreList = await _englisTestScoresAppService.GetAllClientForTableDropdown(),
 
-            return PartialView("Education/_CreateOrEditEnglishScoreModal", "");
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+            };
+
+            return PartialView("Education/_CreateOrEditEnglishScoreModal", ViewModel);
         }
         public async Task<PartialViewResult> CreateOrEditOtherScoreModal(int? id)
         {
 
-            return PartialView("Education/_CreateOrEditOtherScoreModal", "");
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+            GetOtherTestScoreForEditOutput getOtherTestScoreForEditOutput;
+            if (id.HasValue)
+            {
+                getOtherTestScoreForEditOutput = await _otherTestScoresAppService.GetOtherTestScoreForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getOtherTestScoreForEditOutput = new GetOtherTestScoreForEditOutput
+                {
+                    OtherTestScore = new CreateOrEditOtherTestScoreDto()
+                };
+            }
+            var ViewModel = new CreateOrEditOtherTestScoresViewModel()
+            {
+                OtherTestScore = getOtherTestScoreForEditOutput.OtherTestScore,
+                OtherTestScoreList = await _otherTestScoresAppService.GetAllClientForTableDropdown(),
+
+            };
+
+            return PartialView("Education/_CreateOrEditOtherScoreModal", ViewModel);
         }
         #endregion
 
