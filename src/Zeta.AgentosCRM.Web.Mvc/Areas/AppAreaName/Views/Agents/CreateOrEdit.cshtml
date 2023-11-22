@@ -1,0 +1,394 @@
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Agents;
+@using Zeta.AgentosCRM.Web.TagHelpers;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditAgentsViewModel
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/CreateOrEditModal.js" asp-append-version="true"></script>
+}
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+    }
+
+
+
+
+
+<div class="row ">
+    <div class="col ">
+        @{
+            var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/AppAreaName/Agents", L("Agents")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
+    </div>
+</div>
+<div class="@(await GetContainerClass())">
+    <div class="card maincard mt-4">
+        <form name="AgentInformationsForm" role="form" novalidate class="form-validation">
+            <div class="card-body ">
+                <div id="AgentInformationsTab">
+                    @if (Model.IsEditMode)
+                    {
+                        <input type="hidden" name="id" value="@Model.Agent.Id" />
+                    }
+                    <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
+
+
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Agent Type
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                               
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label class="form-check  form-check-inline">
+                                                                        <input id="IsSuperAgent" type="checkbox" name="IsSuperAgent" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsSuperAgent ? "checked=\"checked\"" : "")>
+                                                                        <span class="form-check-label">
+                                                                            @L("SuperAgent")
+                                                                        </span>
+                                                                    </label>
+                                                                    <label class="form-check  form-check-inline ml-3 mt-3">
+                                                                        <input id="IsSubAgent" type="checkbox" name="IsSubAgent" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsSuperAgent ? "checked=\"checked\"" : "")>
+                                                                        <span class="form-check-label">
+                                                                            @L("SubAgent")
+                                                                        </span>
+                                                                    </label>
+                                                                   
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Agent Structure
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                
+                                                                <div class="col-12 mt-3 ml-2">
+
+                                                                    <div class="form-check form-check-inline">
+                                                                        @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
+                                                                        <input type="radio" class="form-check-input" id="option2" name="IsBusiness" value="false" @(!Model.Agent.IsBusiness ? "checked=\"checked\"" : "")>
+                                                                        
+                                                                        <label class="form-check-label" for="AllProducts">@L("Individual 1")</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline ml-3 mt-3 ">
+                                                                        <input id="EditUser_IsActive" type="radio" name="IsBusiness" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsBusiness ? "checked=\"checked\"" : "")>
+                                                                        <label class="form-check-label" for="SelectProducts">@L("Bussiness") </label>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header ">
+
+                                <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    PRIMARY INFORMATION
+                                </button>
+
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                                <div class="accordion-body hv-1 h-75">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    @* <div class="col-md-2" >
+                                                    <div class="rounded-circle border border-dotted border-secondary position-relative overflow-hidden" style="margin-top: 20px;"> <!-- Adjust the margin-top value -->
+                                                    <img src="~/Common/Images/upload-image.png" width="160" height="150" class="img-thumbnail img-rounded user-edit-dialog-profile-image" />
+                                                    </div>
+                                                    </div> *@
+                                                    @* <div  class="col-md-4 d-flex flex-column align-items-center">
+                                                    <img src="~/Common/Images/default-profile-picture.png" alt="Avatar"style="height: 120px;">
+                                                    </div>     *@
+                                                    <div class="col-md-4 text-center margin-top-15">
+
+
+                                                        <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image" />
+
+
+
+                                                        @* <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button> *@
+                                                        <br />   <span class="btn btn-white btn-outline btn-sm  me-1 rounded-0 fileinput-button">
+                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                            <span>Add upload Picture ...</span>
+                                                            <!-- The file input field used as target for the file upload widget -->
+                                                            <input id="fileupload" type="file" name="files">
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3" id="field1">
+                                                                    <label for="Name" class="form-label">@L("FullName")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.Agent.Name">
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3" id="field3">
+                                                                    <label for="Name" class="form-label">@L("PrimaryContactName")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="PrimaryContactName" name="PrimaryContactName" value="@Model.Agent.PrimaryContactName">
+                                                                </div>
+                                                                <div class="col-md-6 mb-3" id="field4">
+                                                                    <label for="businessRegistrationNumber" class="form-label">@L("TaxNumber")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="TaxNo" name="TaxNo" value="@Model.Agent.TaxNo">
+                                                                </div>
+                                                                <div class="col-md-6 mb-3" id="field5">
+
+                                                                    <label class="form-label fw-bold text-dark" for="Client_Name">@L("ContractExpirayDate")</label>
+
+                                                                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="ContractExpiryDate" type="text" name="ContractExpiryDate" value="@Model.Agent.ContractExpiryDate" />
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Address
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                                <div class="accordion-body ">
+                                    <div class="row hv-1 h-75">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="my-3 col-4">
+                                                                    <label for="Street" class="form-label">@L("Street")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street" value="@Model.Agent.Street">
+                                                                </div>
+                                                                <div class="my-3 col-4">
+                                                                    <label for="City" class="form-label">@L("City")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="City" name="City" value="@Model.Agent.City">
+                                                                </div>
+                                                                <div class="my-3 col-4">
+                                                                    <label for="State" class="form-label"> @L("State")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="State" name="State" value="@Model.Agent.State">
+                                                                </div>
+                                                               @*  <div class="my-3 col-4">
+                                                                    <label for="Zip" class="form-label">@L("ZipCode")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="ZipCode" name="ZipCode" value="@Model.Agent.ZipCode">
+                                                                </div> *@
+                                                                <div class="my-3 col-4">
+                                                                    <label for="Country" class="form-label">@L("Country")</label>
+                                                                    @Html.DropDownList("countryId", new SelectList(Model.AgentCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Contact Details
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                @*  <div class="col-md-4 mb-3">
+                                                                <label for="Phone" class="form-label">Phone</label>
+                                                                <input type="number" class="form-control custom-small-input" id="Phone" name="Phone">
+                                                                </div> *@
+
+                                                                <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
+                                                                    <input type="hidden" value="@Model.Agent.PhoneCode" id="PhoneCode" name="PhoneCode" />
+                                                                    <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Agent.PhoneNo">
+                                                                    <span id="valid-msg" class="hide">✓ Valid</span>
+                                                                    <span id="error-msg" class="hide"></span>
+                                                                </div>
+
+
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="Email" class="form-label">@L("Email")</label>
+                                                                    <input class="form-control custom-small-input rounded-0" id="Email" value="@Model.Agent.Email" type="text" name="Email" required maxlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MinEmailLength" />
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>@*
+                        <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        Branch
+                        </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                        <div class="row">
+                        <div class="col-md-12">
+                        <div class="form-group text-center">
+                        <div class="row">
+                        <div class="col-md-12">
+                        <div class="form-group">
+                        <div class="row">
+                        <div class="col-md-4">
+                        <button class="btn btn-primary">Add Branch</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div> *@
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                    OFFICE AND INCOME SHARING DETAILS
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFive" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="partnerType" class="form-label">@L("RelatedOffice")</label>
+                                                                    <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
+                                                                        <option value="Category">Lahore office </option>
+                                                                        <option value="Category">india office</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3" id="field9" style="display:none">
+                                                                    <label for="partnerType" class="form-label">@L("IncomeSharingPercentage")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="IncomeSharingPer" name="IncomeSharingPer" value="@Model.Agent.IncomeSharingPer">
+                                                                </div>
+                                                                <div class="col-md-4 mb-3" id="field10" style="display:none">
+                                                                    <label for="partnerType" class="form-label">@L("ClaimRevenuePercentage")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="ClaimRevenuePer" name="ClaimRevenuePer" value="@Model.Agent.ClaimRevenuePer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row align-items-center">
+                                <div class="col-lg-12">
+                                    <button type="button" id="saveBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                     @if (!Model.IsEditMode)
+                                    {
+                                    <button type="button" id="saveAndNewBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- CSS -->
+<!-- JS -->

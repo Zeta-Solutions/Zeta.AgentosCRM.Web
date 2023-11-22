@@ -36,7 +36,7 @@
                 </div>
                 <div class="my-3 col-6">
                     <label class="form-label" for="Application_Name">@L("Priority")</label>
-                    @Html.DropDownList("taskPriorityId", new SelectList(Model.CRMTaskTaskPriorityList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.TaskPriorityId.ToString() : "")),@L("SelectACategory"), new { @class = "form-control" , @required="required" })
+                    @Html.DropDownList("taskPriorityId", new SelectList(Model.CRMTaskTaskPriorityList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.TaskPriorityId.ToString() : "")),@L("SelectAPriority"), new { @class = "form-control" , @required="required" })
                 </div>
             </div>
             <div class="row col-12">
