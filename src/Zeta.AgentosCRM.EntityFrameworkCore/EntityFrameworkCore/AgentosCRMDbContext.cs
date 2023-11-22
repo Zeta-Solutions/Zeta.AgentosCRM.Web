@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Email;
+﻿using Zeta.AgentosCRM.CRMAgent.Contacts;
+using Zeta.AgentosCRM.CRMSetup.Email;
 using Zeta.AgentosCRM.CRMSetup.Documents;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation;
@@ -51,6 +52,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<AgentContact> AgentContacts { get; set; }
+
         public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
 
         public virtual DbSet<WorkflowOffice> WorkflowOffices { get; set; }
@@ -177,10 +180,14 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EmailTemplate>(x =>
+            modelBuilder.Entity<AgentContact>(a =>
             {
-                x.HasIndex(e => new { e.TenantId });
+                a.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<EmailTemplate>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<WorkflowOffice>(w =>
                        {
                            w.HasIndex(e => new { e.TenantId });
