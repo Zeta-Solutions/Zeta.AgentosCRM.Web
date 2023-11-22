@@ -1,4 +1,8 @@
-﻿using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.Email.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Email;
+using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Documents;
+using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation;
@@ -114,6 +118,12 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditEmailTemplateDto, EmailTemplate>().ReverseMap();
+            configuration.CreateMap<EmailTemplateDto, EmailTemplate>().ReverseMap();
+            configuration.CreateMap<CreateOrEditWorkflowOfficeDto, WorkflowOffice>().ReverseMap();
+            configuration.CreateMap<WorkflowOfficeDto, WorkflowOffice>().ReverseMap();
+            configuration.CreateMap<CreateOrEditDocumentTypeDto, DocumentType>().ReverseMap();
+            configuration.CreateMap<DocumentTypeDto, DocumentType>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientQuotationDetailDto, ClientQuotationDetail>().ReverseMap();
             configuration.CreateMap<ClientQuotationDetailDto, ClientQuotationDetail>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientQuotationHeadDto, ClientQuotationHead>().ReverseMap();

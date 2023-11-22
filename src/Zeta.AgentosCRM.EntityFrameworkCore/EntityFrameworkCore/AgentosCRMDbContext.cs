@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMClient.Qoutation;
+﻿using Zeta.AgentosCRM.CRMSetup.Email;
+using Zeta.AgentosCRM.CRMSetup.Documents;
+using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation;
 using Zeta.AgentosCRM.CRMClient.CheckIn;
 using Zeta.AgentosCRM.TaskManagement.Followers;
@@ -49,6 +51,12 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+
+        public virtual DbSet<WorkflowOffice> WorkflowOffices { get; set; }
+
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+
         public virtual DbSet<ClientQuotationDetail> ClientQuotationDetails { get; set; }
 
         public virtual DbSet<ClientQuotationHead> ClientQuotationHeads { get; set; }
@@ -169,10 +177,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ClientQuotationDetail>(c =>
+            modelBuilder.Entity<EmailTemplate>(x =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<WorkflowOffice>(w =>
+                       {
+                           w.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<DocumentType>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientQuotationDetail>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ClientQuotationHead>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });
