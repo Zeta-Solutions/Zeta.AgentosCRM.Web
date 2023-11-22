@@ -1,5 +1,7 @@
 ﻿(function () {
     $(function () {
+
+
         var hiddenfield = $("#PartnerId").val();
         var dynamicValue = hiddenfield;
         

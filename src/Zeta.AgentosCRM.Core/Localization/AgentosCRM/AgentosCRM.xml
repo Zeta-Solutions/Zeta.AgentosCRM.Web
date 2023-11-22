@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="CheckIn">Check in</text>
+	<texts>    <text name="EditEmailTemplate">Edit email template</text>
+    <text name="DeleteEmailTemplate">Delete email template</text>
+    <text name="WorkflowOffice">Workflow office</text>
+    <text name="CreateNewWorkflowOffice">Create new workflow office</text>
+    <text name="EditWorkflowOffice">Edit workflow office</text>
+    <text name="DeleteWorkflowOffice">Delete workflow office</text>
+    <text name="DeleteDocumentType">Delete document type</text>
+    <text name="Qoutation">Qoutation</text>
+    <text name="ClientQuotationDetail">Client quotation detail</text>
+    <text name="CreateNewClientQuotationDetail">Create new client quotation detail</text>
+    <text name="EditClientQuotationDetail">Edit client quotation detail</text>
+    <text name="DeleteClientQuotationDetail">Delete client quotation detail</text>
+
+    <text name="Quotation">Quotation</text>
+    <text name="ClientQuotationHead">Client quotation head</text>
+    <text name="CreateNewClientQuotationHead">Create new client quotation head</text>
+    <text name="EditClientQuotationHead">Edit client quotation head</text>
+    <text name="DeleteClientQuotationHead">Delete client quotation head</text>
+
+    <text name="PromotionProduct">Promotion product</text>
+    <text name="CreateNewPromotionProduct">Create new promotion product</text>
+    <text name="EditPromotionProduct">Edit promotion product</text>
+    <text name="DeletePromotionProduct">Delete promotion product</text>
+    <text name="TaskFollower">Task follower</text>
+    <text name="CreateNewTaskFollower">Create new task follower</text>
+    <text name="EditTaskFollower">Edit task follower</text>
+    <text name="DeleteTaskFollower">Delete task follower</text>
+    <text name="CheckIn">Check in</text>
     <text name="CheckInLog">Check in log</text>
     <text name="CreateNewCheckInLog">Create new check in log</text>
     <text name="EditCheckInLog">Edit check in log</text>
@@ -13,15 +40,7 @@
     <text name="CreateNewEnglisTestScore">Create new englis test score</text>
     <text name="EditEnglisTestScore">Edit englis test score</text>
     <text name="DeleteEnglisTestScore">Delete englis test score</text>
-    <text name="PromotionProduct">Promotion product</text>
-    <text name="CreateNewPromotionProduct">Create new promotion product</text>
-    <text name="EditPromotionProduct">Edit promotion product</text>
-    <text name="DeletePromotionProduct">Delete promotion product</text>
-    <text name="TaskFollower">Task follower</text>
-    <text name="CreateNewTaskFollower">Create new task follower</text>
-    <text name="EditTaskFollower">Edit task follower</text>
-    <text name="DeleteTaskFollower">Delete task follower</text>
-
+           
     <text name="InterstedServices">Intersted services</text>
     <text name="ClientInterstedService">Client intersted service</text>
     <text name="CreateNewClientInterstedService">Create new client intersted service</text>
@@ -229,10 +248,6 @@
 		<text name="TOEFl">TOEFl</text>
 		<text name="IELTS">IELTS</text>
 		<text name="PTE">PTE</text>
-
-
-
-
 		<text name="Assignee">Assignee</text>
 		<text name="Phone">Phone</text>
 		<text name="Passport">Passport</text>
@@ -1703,5 +1718,10 @@
 		<text name="UiCustomization_Toolbar_MobileFixedHeader">Mobile fixed header</text>
 		<text name="UiCustomization_Toolbar">Toolbar</text>
 		<text name="IncorrectImageDimensions">Image size exceeds allowed limits</text>
+		<text name="EmailTemplate">Email Template</text>
+		<text name="Body">Body</text>
+		<text name="CreateNewEmailTemplate">Create New Email Template</text>
+		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
+		<!--<text name="EmailTemplate">Email Template</text>-->
 	</texts> 
 </localizationDictionary>

@@ -6,6 +6,31 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_EmailTemplates = "Pages.EmailTemplates";
+        public const string Pages_EmailTemplates_Create = "Pages.EmailTemplates.Create";
+        public const string Pages_EmailTemplates_Edit = "Pages.EmailTemplates.Edit";
+        public const string Pages_EmailTemplates_Delete = "Pages.EmailTemplates.Delete";
+
+        public const string Pages_WorkflowOffices = "Pages.WorkflowOffices";
+        public const string Pages_WorkflowOffices_Create = "Pages.WorkflowOffices.Create";
+        public const string Pages_WorkflowOffices_Edit = "Pages.WorkflowOffices.Edit";
+        public const string Pages_WorkflowOffices_Delete = "Pages.WorkflowOffices.Delete";
+
+        public const string Pages_DocumentTypes = "Pages.DocumentTypes";
+        public const string Pages_DocumentTypes_Create = "Pages.DocumentTypes.Create";
+        public const string Pages_DocumentTypes_Edit = "Pages.DocumentTypes.Edit";
+        public const string Pages_DocumentTypes_Delete = "Pages.DocumentTypes.Delete";
+
+        public const string Pages_ClientQuotationDetails = "Pages.ClientQuotationDetails";
+        public const string Pages_ClientQuotationDetails_Create = "Pages.ClientQuotationDetails.Create";
+        public const string Pages_ClientQuotationDetails_Edit = "Pages.ClientQuotationDetails.Edit";
+        public const string Pages_ClientQuotationDetails_Delete = "Pages.ClientQuotationDetails.Delete";
+
+        public const string Pages_ClientQuotationHeads = "Pages.ClientQuotationHeads";
+        public const string Pages_ClientQuotationHeads_Create = "Pages.ClientQuotationHeads.Create";
+        public const string Pages_ClientQuotationHeads_Edit = "Pages.ClientQuotationHeads.Edit";
+        public const string Pages_ClientQuotationHeads_Delete = "Pages.ClientQuotationHeads.Delete";
+
         public const string Pages_CheckInLogs = "Pages.CheckInLogs";
         public const string Pages_CheckInLogs_Create = "Pages.CheckInLogs.Create";
         public const string Pages_CheckInLogs_Edit = "Pages.CheckInLogs.Edit";

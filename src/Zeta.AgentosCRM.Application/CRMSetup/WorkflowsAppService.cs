@@ -17,6 +17,7 @@ using Zeta.AgentosCRM.Storage;
 using Microsoft.AspNetCore.Identity;
 using Zeta.AgentosCRM.Authorization.Users.Dto;
 using Castle.Windsor.Diagnostics.Extensions;
+using System.Collections;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
@@ -95,10 +96,12 @@ namespace Zeta.AgentosCRM.CRMSetup
 
             var allWorkflowSteps = await _workflowStepRepository.GetAllListAsync();
 
+            var sortedListDescending = allWorkflowSteps.OrderBy(i => i.SrlNo).ToList();
+
             var output = new GetWorkflowForEditOutput 
             { 
                 Workflow = ObjectMapper.Map<CreateOrEditWorkflowDto>(workflow),
-                WorkflowStep = ObjectMapper.Map<List<CreateOrEditWorkflowStepDto>>(allWorkflowSteps)
+                WorkflowStep = ObjectMapper.Map<List<CreateOrEditWorkflowStepDto>>(sortedListDescending)
             };
              
             return output;

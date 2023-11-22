@@ -23,7 +23,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
 
         Task<List<PromotionProductPartnerPromotionLookupTableDto>> GetAllPartnerPromotionForTableDropdown();
 
-        Task<List<PromotionProductProductLookupTableDto>> GetAllProductForTableDropdown();
+        Task<List<PromotionProductProductLookupTableDto>> GetAllProductForTableDropdown(long? id);
 
     }
 }

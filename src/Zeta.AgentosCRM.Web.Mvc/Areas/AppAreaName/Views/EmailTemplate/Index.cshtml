@@ -1,0 +1,161 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@*@model  FeeTypesViewModel
+ @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
+} *@
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/EmailTemplate/Index.js" asp-append-version="true"></script>
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+   }
+<abp-page-subheader title='@L("EmailTemplate")' description='@L("EmailTemplateHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+
+    @* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
+    { *@
+    <button id="CreateNewEmailTemplate" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewEmailTemplate")</button>
+    @*  } *@
+</abp-page-subheader>
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+
+                        <div class="my-3">
+                            <div class="input-group">
+                                <input type="text" id="MasterCategoriesTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")'>
+                                @* value="@Model.FilterText" *@
+                                <button id="GetMasterCategoriesButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                <div class="col-md-12">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
+                        <input type="text" class="form-control reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="NameFilterId">@L("Name")</label>
+                        <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-xl-12">
+                    <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                    <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-3 Emailtemplate">
+                    <div class="Card-head" style="font-weight:bold;">ENQUIRY</div>
+                    <div class="Card-Body">
+                        <div><span>Client First||||||{Clients_Dob}</span></div>
+                        <div><span>Asdasad</span></div>
+                        <div><span>Attachment</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 Emailtemplate">
+                    <div class="Card-head" style="font-weight:bold;">ENQUIRY</div>
+                    <div class="Card-Body">
+                        <div><span>Client First||||||{Clients_Dob}</span></div>
+                        <div><span>Asdasad</span></div>
+                        <div><span>Attachment</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 Emailtemplate">
+                    <div class="Card-head" style="font-weight:bold;">ENQUIRY</div>
+                    <div class="Card-Body">
+                        <div><span>Client First||||||{Clients_Dob}</span></div>
+                        <div><span>Asdasad</span></div>
+                        <div><span>Attachment</span></div>
+                    </div>
+                </div>
+               @*  <table id="LeadFormTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>@L("SelectedWorkFlow")</th>
+                            <th>@L("Totalchecklist")</th>
+                            <th>@L("AddedBy")</th>
+                            <th>@L("Status")</th>
+                            <th>@L("AddedOn")</th>
+                            <th>@L("LastUpdate")</th>
+                            <th>@L("Action")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>OffshoreOneezaUNSW</td>
+                            <td>OffshoreOneezaUNSW</td>
+                            <td><a href="https://www.google.com.pk/">Google</a></td>
+                            <td>Lahore Office</td>
+                            <td>Other Online Source</td>
+                            <td>Active /Non Active</td>
+                            <td>3 Dot</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>OffshoreOneezaUNSW</td>
+                            <td>OffshoreOneezaUNSW</td>
+                            <td><a href="https://www.google.com.pk/">Google</a></td>
+                            <td>Lahore Office</td>
+                            <td>Other Online Source</td>
+                            <td>Active /Non Active</td>
+                            <td>3 Dot</td>
+                        </tr>
+                    </tbody>
+                </table> *@
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .Emailtemplate {
+            border: 1px solid #000; /* Add a solid black border to the card */
+            border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+            margin: 10px; /* Optional: Add margin for spacing */
+            padding: 10px; /* Optional: Add padding for content spacing */
+        }
+
+        .Card-head {
+            border-bottom: 1px solid #000; /* Add a solid black border to the Card-head */
+            padding-bottom: 5px; /* Optional: Add padding for space between heading and body */
+            margin-bottom: 10px; /* Optional: Add margin for space between heading and body */
+        }
+
+        .Card-Body {
+            /* Optional: Add padding for space within the body */
+            padding: 10px;
+        }
+
+        /* Optional: Add styles for the attachment div */
+        .Card-Body div:nth-child(3) {
+            border-top: 1px solid #000; /* Add a solid black border to the Attachment div */
+            padding-top: 5px; /* Optional: Add padding for space between Attachment and the content above */
+            margin-top: 10px; /* Optional: Add margin for space between Attachment and the content above */
+        }
+    </style>

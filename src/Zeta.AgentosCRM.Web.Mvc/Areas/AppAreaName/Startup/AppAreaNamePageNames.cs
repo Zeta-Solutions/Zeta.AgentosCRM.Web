@@ -45,7 +45,7 @@
             public const string Tag = "CRMSetup.Tag";
             public const string Country = "CRMSetup.Country";
             public const string QuotationCurrency = "CRMSetup.QuotationCurrency";
-            //public const string Course = "CRMSetup.Course";
+            public const string EmailTemplate = "CRMSetup.EmailTemplate";
             public const string ServiceCategory = "CRMSetup.ServiceCategory";
             public const string InstallmentType = "CRMSetup.InstallmentType";
             public const string FeeType = "CRMSetup.FeeType";

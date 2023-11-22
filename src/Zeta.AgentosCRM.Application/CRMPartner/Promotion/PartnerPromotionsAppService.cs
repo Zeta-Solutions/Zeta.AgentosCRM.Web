@@ -16,6 +16,10 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup.Dtos;
+using Zeta.AgentosCRM.CRMSetup;
+using Stripe;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Zeta.AgentosCRM.CRMPartner.Promotion
 {
@@ -24,18 +28,19 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
     {
         private readonly IRepository<PartnerPromotion, long> _partnerPromotionRepository;
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
+        private readonly IRepository<PromotionProduct,long> _promotionProductRepository;
 
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
 
-        public PartnerPromotionsAppService(IRepository<PartnerPromotion, long> partnerPromotionRepository, IRepository<Partner, long> lookup_partnerRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        public PartnerPromotionsAppService(IRepository<PartnerPromotion, long> partnerPromotionRepository, IRepository<Partner, long> lookup_partnerRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<PromotionProduct,long> promotionProductRepository)
         {
             _partnerPromotionRepository = partnerPromotionRepository;
             _lookup_partnerRepository = lookup_partnerRepository;
 
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
-
+            _promotionProductRepository = promotionProductRepository;
         }
 
         public async Task<PagedResultDto<GetPartnerPromotionForViewDto>> GetAll(GetAllPartnerPromotionsInput input)
@@ -129,8 +134,13 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
         public async Task<GetPartnerPromotionForEditOutput> GetPartnerPromotionForEdit(EntityDto<long> input)
         {
             var partnerPromotion = await _partnerPromotionRepository.FirstOrDefaultAsync(input.Id);
+            var promotionProduct = await _promotionProductRepository.GetAllListAsync(p => p.PartnerPromotionId == input.Id );
 
-            var output = new GetPartnerPromotionForEditOutput { PartnerPromotion = ObjectMapper.Map<CreateOrEditPartnerPromotionDto>(partnerPromotion) };
+            var output = new GetPartnerPromotionForEditOutput
+            {
+                PartnerPromotion = ObjectMapper.Map<CreateOrEditPartnerPromotionDto>(partnerPromotion),
+                PromotionProduct = ObjectMapper.Map<List<CreateOrEditPromotionProductDto>>(promotionProduct)
+            };
 
             if (output.PartnerPromotion.PartnerId != null)
             {
@@ -156,7 +166,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
         }
 
         [AbpAuthorize(AppPermissions.Pages_PartnerPromotions_Create)]
-        protected virtual async Task Create(CreateOrEditPartnerPromotionDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditPartnerPromotionDto input)
         {
             var partnerPromotion = ObjectMapper.Map<PartnerPromotion>(input);
 
@@ -164,8 +174,15 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
             {
                 partnerPromotion.TenantId = (int)AbpSession.TenantId;
             }
-
-            await _partnerPromotionRepository.InsertAsync(partnerPromotion);
+            var partnerPromotionId = _partnerPromotionRepository.InsertAndGetIdAsync(partnerPromotion).Result;
+            foreach (var step in input.Steps)
+            {
+                step.PartnerPromotionId = partnerPromotionId;
+                var stepEntity = ObjectMapper.Map<PromotionProduct>(step);
+                await _promotionProductRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            //await _partnerPromotionRepository.InsertAsync(partnerPromotion);
             partnerPromotion.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
 
         }
@@ -177,6 +194,19 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion
             ObjectMapper.Map(input, partnerPromotion);
             partnerPromotion.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
 
+            var promotionProduct = await _promotionProductRepository.GetAllListAsync(p => p.PartnerPromotionId == input.Id);
+            foreach (var item in promotionProduct)
+            {
+                await _promotionProductRepository.DeleteAsync(item.Id);
+            }
+            //var partnerPromotionId = _partnerPromotionRepository.InsertAndGetIdAsync(partnerPromotion).Result;
+            foreach (var step in input.Steps)
+            {
+                step.PartnerPromotionId = partnerPromotion.Id;
+                var stepEntity = ObjectMapper.Map<PromotionProduct>(step);
+                await _promotionProductRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_PartnerPromotions_Delete)]

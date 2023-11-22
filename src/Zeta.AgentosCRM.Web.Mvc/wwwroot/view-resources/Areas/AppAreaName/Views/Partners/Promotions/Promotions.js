@@ -1,7 +1,8 @@
 ﻿(function () {
     $(function () {
 
-        debugger
+      
+      
         var _$PartnerPromotionTable = $('#Promotionstable');
         var _partnerPromotionsService = abp.services.app.partnerPromotions;
 

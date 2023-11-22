@@ -11,6 +11,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion.Dtos
 
         public long PartnerPromotionId { get; set; }
 
+
         public long ProductId { get; set; }
 
     }
