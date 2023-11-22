@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="EditEmailTemplate">Edit email template</text>
+	<texts>    <text name="AgentContact">Agent contact</text>
+    <text name="CreateNewAgentContact">Create new agent contact</text>
+    <text name="EditAgentContact">Edit agent contact</text>
+    <text name="DeleteAgentContact">Delete agent contact</text>
+    <text name="EditEmailTemplate">Edit email template</text>
     <text name="DeleteEmailTemplate">Delete email template</text>
     <text name="WorkflowOffice">Workflow office</text>
     <text name="CreateNewWorkflowOffice">Create new workflow office</text>

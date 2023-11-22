@@ -12,5 +12,7 @@ namespace Zeta.AgentosCRM.CRMNotes.Dtos
 
         public string PartnerPartnerName { get; set; }
 
+        public string CRMAgentAgentName { get; set; }
+
     }
 }

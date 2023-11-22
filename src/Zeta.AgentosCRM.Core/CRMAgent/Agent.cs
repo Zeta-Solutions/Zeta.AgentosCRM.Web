@@ -21,6 +21,8 @@ namespace Zeta.AgentosCRM.CRMAgent
 
         public virtual bool IsSuperAgent { get; set; }
 
+        public virtual bool IsSubAgent { get; set; }
+
         public virtual bool IsBusiness { get; set; }
 
         public virtual string PhoneNo { get; set; }
@@ -36,6 +38,8 @@ namespace Zeta.AgentosCRM.CRMAgent
         public virtual string Street { get; set; }
 
         public virtual string State { get; set; }
+
+        public virtual string ZipCode { get; set; }
 
         public virtual decimal IncomeSharingPer { get; set; }
 
