@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMAgent;
@@ -93,7 +94,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     Agent = new CreateOrEditAgentDto()
                 };
-                //getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                getAgentForEditOutput.Agent.ContractExpiryDate = DateTime.Now;
                 //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
                 //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
             }
@@ -103,7 +104,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 Agent = getAgentForEditOutput.Agent,
               
                 CountryName = getAgentForEditOutput.CountryName,
+                OrganizationUnitName = getAgentForEditOutput.OrganizationUnitDisplayName,
                 AgentCountryList = await _agentsAppService.GetAllCountryForTableDropdown(),
+                AgentOrganizationUnitList = await _agentsAppService.GetAllOrganizationUnitForTableDropdown(),
                
             };
 

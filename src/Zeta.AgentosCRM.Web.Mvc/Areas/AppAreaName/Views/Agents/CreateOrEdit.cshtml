@@ -345,10 +345,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="partnerType" class="form-label">@L("RelatedOffice")</label>
-                                                                    <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
-                                                                        <option value="Category">Lahore office </option>
-                                                                        <option value="Category">india office</option>
-                                                                    </select>
+                                                                    @Html.DropDownList("organizationUnitId", new SelectList(Model.AgentOrganizationUnitList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.OrganizationUnitId.ToString() : "")),@L("SelectAOrganizationUnitId"), new { @class = "form-control" , @required="required" })
                                                                 </div>
                                                                 <div class="col-md-4 mb-3" id="field9" style="display:none">
                                                                     <label for="partnerType" class="form-label">@L("IncomeSharingPercentage")</label>
