@@ -2,28 +2,97 @@
     $(function () {
         debugger
         $("#kt_app_sidebar_toggle").trigger("click");
-        $('#masterCategoryId').select2({
-            width: '280px',
-      
-        });
-       
-        $('#partnerTypeId').select2({
-            width: '280px',
+        //$('#masterCategoryId').select2({
+        //    width: '280px',
 
-        });
-        $('#workflowId').select2({
-            width: '280px',
+        //});
 
-        });
+        //$('#partnerTypeId').select2({
+        //    width: '280px',
+
+        //});
+        //$('#workflowId').select2({
+        //    width: '280px',
+
+        //});
         $('#countryId').select2({
             width: '400px',
 
         });
-        $('#currencyId').select2({
-            width: '250px',
+        //$('#currencyId').select2({
+        //    width: '250px',
 
+        //});
+
+            var isSuperAgent = $('#IsSuperAgent').is(":checked");
+            var isSubAgent = $('#IsSubAgent').is(":checked");
+
+            if (isSuperAgent && isSubAgent) {
+                document.getElementById("field9").style.display = 'block';
+                document.getElementById("field10").style.display = 'block';
+            } else if (isSuperAgent) {
+                document.getElementById("field9").style.display = 'block';
+                document.getElementById("field10").style.display = 'none';
+            } else if (isSubAgent) {
+                document.getElementById("field9").style.display = 'none';
+                document.getElementById("field10").style.display = 'block';
+            } else {
+                document.getElementById("field9").style.display = 'none';
+                document.getElementById("field10").style.display = 'none';
+            }
+        
+        if ($('input[name="IsBusiness"]:checked').val() === "false") {
+            document.getElementById("field1").querySelector("label[for='Name']").textContent = 'Full Name';
+            document.getElementById("field3").style.display = 'none';
+            document.getElementById("field4").style.display = 'none';
+            document.getElementById("field5").style.display = 'none';
+        }
+        else {
+            document.getElementById("field1").querySelector("label[for='Name']").textContent = 'Business Name';
+            document.getElementById("field3").style.display = 'block';
+            document.getElementById("field4").style.display = 'block';
+            document.getElementById("field5").style.display = 'block';
+        }
+       
+       
+        $('input[name="IsBusiness"]').change(function () {
+            if (this.value === "false") {
+                document.getElementById("field1").querySelector("label[for='Name']").textContent = 'Full Name';
+                document.getElementById("field3").style.display = 'none';
+                document.getElementById("field4").style.display = 'none';
+                document.getElementById("field5").style.display = 'none';
+                //$("#field1").show();
+            } else if (this.value === "true") {
+                // Hide the label and field for option1
+                //$("#field1 label, #field1 input").hide();
+                document.getElementById("field1").querySelector("label[for='Name']").textContent = 'Business Name';
+                document.getElementById("field3").style.display = 'block';
+                document.getElementById("field4").style.display = 'block';
+                document.getElementById("field5").style.display = 'block';
+                // Show the label and field for option2
+                // $("#field2 label, #field2 input").show();
+            }
         });
+       
+        $('input[name="IsSuperAgent"], input[name="IsSubAgent"]').change(function () {
+            
+            var isSuperAgent = $('#IsSuperAgent').is(":checked");
+            var isSubAgent = $('#IsSubAgent').is(":checked");
 
+            if (isSuperAgent && isSubAgent) {
+                document.getElementById("field9").style.display = 'block';
+                document.getElementById("field10").style.display = 'block';
+            } else if (isSuperAgent) {
+                document.getElementById("field9").style.display = 'block';
+                document.getElementById("field10").style.display = 'none';
+            } else if (isSubAgent) {
+                document.getElementById("field9").style.display = 'none';
+                document.getElementById("field10").style.display = 'block';
+            } else {
+                document.getElementById("field9").style.display = 'none';
+                document.getElementById("field10").style.display = 'none';
+            }
+        });
         var input = document.querySelector("#phone");
         const errorMsg = document.querySelector("#error-msg");
         const validMsg = document.querySelector("#valid-msg");
@@ -90,19 +159,19 @@
         // on keyup / change flag: reset
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
-        
-    
-     
-        
-
-        
 
 
 
-        var _partnersService = abp.services.app.partners;
 
-        var _$partnerInformationForm = $('form[name=PartnerInformationsForm]');
-        _$partnerInformationForm.validate();
+
+
+
+
+
+        var _agentsService = abp.services.app.agents;
+
+        var _$agentInformationForm = $('form[name=AgentInformationsForm]');
+        _$agentInformationForm.validate();
 
         var _ClientcountryLookupTableModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CountryLookupTableModal',
@@ -170,11 +239,11 @@
 
         $('#OpenBinaryObjectLookupTableButton').click(function () {
 
-            var client = _$partnerInformationForm.serializeFormToObject();
+            var client = _$agentInformationForm.serializeFormToObject();
 
             _ClientbinaryObjectLookupTableModal.open({ id: client.profilePictureId, displayName: client.binaryObjectDescription }, function (data) {
-                _$partnerInformationForm.find('input[name=binaryObjectDescription]').val(data.displayName);
-                _$partnerInformationForm.find('input[name=profilePictureId]').val(data.id);
+                _$agentInformationForm.find('input[name=binaryObjectDescription]').val(data.displayName);
+                _$agentInformationForm.find('input[name=profilePictureId]').val(data.id);
             });
         });
 
@@ -245,11 +314,11 @@
 
         $('#OpenCountry3LookupTableButton').click(function () {
 
-            var client = _$partnerInformationForm.serializeFormToObject();
+            var client = _$agentInformationForm.serializeFormToObject();
 
             _ClientcountryLookupTableModal.open({ id: client.passportCountryId, displayName: client.countryName3 }, function (data) {
-                _$partnerInformationForm.find('input[name=countryName3]').val(data.displayName);
-                _$partnerInformationForm.find('input[name=passportCountryId]').val(data.id);
+                _$agentInformationForm.find('input[name=countryName3]').val(data.displayName);
+                _$agentInformationForm.find('input[name=passportCountryId]').val(data.id);
             });
         });
 
@@ -261,33 +330,33 @@
 
 
         function save(successCallback) {
-            if (!_$partnerInformationForm.valid()) {
+            if (!_$agentInformationForm.valid()) {
                 return;
             }
-            if ($('#Partner_PartnerName').prop('required') && $('#Partner_PartnerName').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('PartnerName')));
-                return;
-            }
-            if ($('#workflowId').prop('required') && $('#workflowId').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('workflow')));
-                return;
-            }
-            if ($('#partnerTypeId').prop('required') && $('#partnerTypeId').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('partnerType')));
-                return;
-            }
-            if ($('#masterCategoryId').prop('required') && $('#masterCategoryId').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('masterCategory')));
-                return;
-            }
-            if ($('#Partner_Email').prop('required') && $('#Partner_Email').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('Email')));
-                return;
-            }
-            if ($('#University').prop('required') && $('#University').val() == '') {
-                abp.message.error(app.localize('{0}IsRequired', app.localize('University')));
-                return;
-            }
+            //if ($('#Partner_PartnerName').prop('required') && $('#Partner_PartnerName').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('PartnerName')));
+            //    return;
+            //}
+            //if ($('#workflowId').prop('required') && $('#workflowId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('workflow')));
+            //    return;
+            //}
+            //if ($('#partnerTypeId').prop('required') && $('#partnerTypeId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('partnerType')));
+            //    return;
+            //}
+            //if ($('#masterCategoryId').prop('required') && $('#masterCategoryId').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('masterCategory')));
+            //    return;
+            //}
+            //if ($('#Partner_Email').prop('required') && $('#Partner_Email').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('Email')));
+            //    return;
+            //}
+            //if ($('#University').prop('required') && $('#University').val() == '') {
+            //    abp.message.error(app.localize('{0}IsRequired', app.localize('University')));
+            //    return;
+            //}
             //if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
             //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
             //    return;
@@ -299,12 +368,12 @@
 
 
 
-            var partner = _$partnerInformationForm.serializeFormToObject();
+            var partner = _$agentInformationForm.serializeFormToObject();
 
 
 
             abp.ui.setBusy();
-            _partnersService.createOrEdit(
+            _agentsService.createOrEdit(
                 partner
             ).done(function () {
                 abp.notify.info(app.localize('SavedSuccessfully'));
@@ -321,7 +390,7 @@
 
         function clearForm() {
             debugger
-            _$partnerInformationForm[0].reset();
+            _$agentInformationForm[0].reset();
         }
 
         $('#saveBtn').click(function () {
@@ -335,7 +404,7 @@
             // Save the title value to a field (e.g., an input field with the ID "myField")
             $("#PhoneCode").val(subcode[2]);
             save(function () {
-                window.location = "/AppAreaName/Partners";
+                window.location = "/AppAreaName/Agents";
             });
         });
 

@@ -1,5 +1,5 @@
 ﻿(function () { 
-  $(function () {
+  (function () {
       var _$FeeTypeTable = $('#LeadFormTable');
     //var _masterCategoriesService = abp.services.app.masterCategories;
       //var _feeTypesService = abp.services.app.feeTypes;

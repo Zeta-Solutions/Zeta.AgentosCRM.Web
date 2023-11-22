@@ -1,4 +1,6 @@
-﻿    @section Scripts
+﻿@using Zeta.AgentosCRM.Web.TagHelpers;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+    @section Scripts
 {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
@@ -10,9 +12,7 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" />
-      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
     }
@@ -20,22 +20,26 @@
 
 
        
-    <div class="row mt-5">
-    <div class="col">
-        <span class="tittle ml-4">ADD NEW Agents</span>
-    </div>
-    <div class="col text-end mr-4">
-@*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
-<a href="\AppAreaName\Agents\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("AgentList")</a>                           
-@* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
+
+<div class="row ">
+    <div class="col ">
+        @{
+            var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/AppAreaName/Agents", L("Agents")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
+        <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+        </abp-page-subheader>
     </div>
 </div>
- 
-    <span class="text-muted me-4 ml-4 mt-1">(Agents Headers info)</span>
+<div class="@(await GetContainerClass())">
 <div class="card maincard mt-4">
+    <form name="AgentInformationsForm" role="form" novalidate class="form-validation">
     <div class="card-body ">
-        
-         <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
+                <div id="AgentInformationsTab">
+                    <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
 
 
         <div class="accordion accordion-flush" id="accordionFlushExample" >
@@ -59,14 +63,14 @@
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="checkbox1">
         <label class="form-check-label" for="checkbox1">
-            Super Agent
+                                                                            @L("SuperAgent")
         </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="checkbox2">
         <label class="form-check-label" for="checkbox2">
-            Sub Agent
-        </label>
+                                                                            @L("SubAgent")
+                                                                        </label>
     </div>
 </div>
 
@@ -102,13 +106,13 @@
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="radioGroup" id="radio1" value="option1">
         <label class="form-check-label" for="radio1">
-            Individual 1
+                                                                            @L(" Individual 1")
         </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="radioGroup" id="radio2" value="option2">
         <label class="form-check-label" for="radio2">
-           Bussiness
+                                                                            @L(" Bussiness")
         </label>
     </div>
 </div>
@@ -169,24 +173,21 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                      <div class="col-md-6 mb-3"id="field1">
-                                                        <label for="partnerName" class="form-label">Full Name</label>
+                                                                    <label for="partnerName" class="form-label">@L("FullName")</label>
                                                         <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
-                                                    <div class="col-md-6 mb-3" id="field2">
-                                                        <label for="partnerName" class="form-label">Bussiness Name</label>
-                                                        <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
-                                                    </div>
+                                                 
                                                     <div class="col-md-6 mb-3"id="field3">
-                                                        <label for="partnerName" class="form-label">Primary Contact Name</label>
+                                                                    <label for="partnerName" class="form-label">@L("PrimaryContactName")</label>
                                                         <input type="text" class="form-control custom-small-input rounded-0" id="partnerName" name="partnerName">
                                                     </div>
                                                     <div class="col-md-6 mb-3" id="field4">
-                                                        <label for="businessRegistrationNumber" class="form-label">Tax Number</label>
+                                                                    <label for="businessRegistrationNumber" class="form-label">@L("TaxNumber")</label>
                                                         <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="businessRegistrationNumber">
                                                     </div>
                                                     <div class="col-md-6 mb-3" id="field5">
                                                        
-                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("Contact Expiray Date")</label>
+                                                        <label class="form-label fw-bold text-dark" for="Client_Name">@L("ContactExpirayDate")</label>
 
                                                         <div id="SampleDatePicker" class="input-group">
                                                             <input type="datetime" name="SampleDatePicker" class="form-control form-control-sm rounded-0 custom-select-input date-picker">
@@ -220,23 +221,23 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="my-3 col-4">
-                                                        <label for="Street" class="form-label">Street</label>
+                                                                    <label for="Street" class="form-label">@L("Street")</label>
                                                         <input type="text" class="form-control custom-small-input rounded-0" id="Street" name="Street">
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label for="City" class="form-label">City</label>
+                                                                    <label for="City" class="form-label">@L("City")</label>
                                                         <input type="text" class="form-control custom-small-input  rounded-0" id="City" name="City">
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label for="State" class="form-label"> State</label>
+                                                                    <label for="State" class="form-label"> @L("State")</label>
                                                         <input type="text" class="form-control custom-small-input  rounded-0" id="State" name="State">
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label for="Zip" class="form-label">Zip/Post Code</label>
+                                                                    <label for="Zip" class="form-label">@L("ZipCode")</label>
                                                         <input type="text" class="form-control custom-small-input  rounded-0" id="Zip" name="Zip">
                                                     </div>
                                                     <div class="my-3 col-4">
-                                                        <label for="Country" class="form-label">Country</label>
+                                                                    <label for="Country" class="form-label">@L("Country")</label>
                                                        <select id="Countryddl" class="form-select select2" data-control="select2">
                                                             <option value="Category">Country 1</option>
                                                             <option value="Category">Country 2</option>
@@ -274,13 +275,13 @@
                                                     </div> *@
                                                       
                                             <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
-                                                <label for="Phone" class="form-label">Phone</label>
+                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="Phone">
                                             </div>
 
 
                                                     <div class="col-md-4 mb-3">
-                                                        <label for="Email" class="form-label">Email</label>
+                                                                    <label for="Email" class="form-label">@L("Email")</label>
                                                         <input type="email" class="form-control custom-small-input  rounded-0" id="Email" name="Email">
                                                     </div>
                                                     
@@ -354,14 +355,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mt-3">
-                <button class="btn btn-primary" type="submit">Save</button>
-                <button class="btn btn-primary" type="submit">Save And New</button>
-            </div>
-        </div>
+                        <div class="card-footer">
+                            <div class="row align-items-center">
+                                <div class="col-lg-12">
+                                    <button type="button" id="saveBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                   @*  @if (!Model.IsEditMode)
+                                    {
+                                        <button type="button" id="saveAndNewBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                    } *@
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+                </div>
+        </form>
     </div>
 </div>
+
 
 
 
@@ -374,39 +386,7 @@
 
 
 
-    <script>
-        var input = document.querySelector("#phone");
-        var iti = intlTelInput(input, {
-          initialCountry: "auto",
-          geoIpLookup: function (success, failure) {
-            // Simulate a successful IP lookup to set the initial country
-            var countryCode = "PK"; // Replace with the appropriate country code
-            success(countryCode);
-          },
-        });
 
-        // Manually set the phone number and selected country code (e.g., "US")
-        var savedPhoneNumber = "+1 123-456-7890"; // Replace with your saved phone number
-        var selectedCountry = "PK"; // Replace with the appropriate country code
-
-        // Set the phone number value and selected country
-        input.value = savedPhoneNumber;
-        iti.setCountry(selectedCountry);
-
-        // Change the flag and title based on a condition
-        var condition = true; // Change this to your condition
-
-        // Get the element by its class name
-        var flagElement = document.querySelector(".iti__selected-flag");
-
-        if (condition) {
-            // Change the title attribute
-            flagElement.setAttribute("title", "New Title: +XX"); // Replace "New Title" and "+XX" with your desired values
-
-            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
-            flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
-        }
-    </script>
 
 
 

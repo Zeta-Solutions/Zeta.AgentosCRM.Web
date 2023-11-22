@@ -82,7 +82,7 @@
 @* <div  class="col-md-4 d-flex flex-column align-items-center">
 <img src="~/Common/Images/default-profile-picture.png" alt="Avatar"style="height: 120px;">
      </div>     *@        
-          <div class="col-md-4 text-center margin-top-15">
+          <div class="col-md-3 text-center margin-top-15">
                        
                         
                             <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
@@ -99,30 +99,30 @@
                         
                     </div>
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-4 mb-3">
                                                                     <label for="masterCategory" class="form-label">@L("MasterCategory")<span class="text-danger">*</span></label>
                                                                     @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
                                                             
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-4 mb-3">
                                                                     <label for="partnerType" class="form-label">@L("PartnerType")<span class="text-danger">*</span></label>
                                                         @Html.DropDownList("partnerTypeId", new SelectList(Model.PartnerPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.PartnerTypeId.ToString() : "")),@L("SelectAPartnerType"), new { @class = "form-control" , @required="required" })
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-4 mb-3">
                                                                     <label for="partnerName" class="form-label">@L("PartnerName")<span class="text-danger">*</span></label>
                                                                     <input class="form-control custom-small-input rounded-0" id="Partner_PartnerName" value="@Model.Partner.PartnerName" type="text" name="PartnerName" required maxlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MaxPartnerNameLength" minlength="@Zeta.AgentosCRM.CRMPartner.PartnerConsts.MinPartnerNameLength" />
                                            
 
 
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-4 mb-3">
                                                                     <label for="businessRegistrationNumber" class="form-label">@L("BusinessRegistrationNumber")</label>
-                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="BusinessRegNo" value="@Model.Partner.BusinessRegNo">
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="BusinessRegNo" value="@Model.Partner.BusinessRegNo"style="width: 280px;">
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
+                                                    <div class="col-md-4 mb-3">
                                                                     <label for="serviceWorkflow" class="form-label">@L("ServiceWorkflow")<span class="text-danger">*</span></label>
                                                                     @Html.DropDownList("workflowId", new SelectList(Model.PartnerWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
                                                     </div>

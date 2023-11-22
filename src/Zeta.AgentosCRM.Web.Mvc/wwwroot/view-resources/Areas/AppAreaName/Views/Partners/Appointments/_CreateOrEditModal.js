@@ -4,7 +4,7 @@
         var _clientAppointmentsService = abp.services.app.appointments;
       
       
-        var hiddenfield2 = $('[name="partnerName"]').val();
+           var hiddenfield2 = $('[name="partnerName"]').val();
         $("#Applointment_PartnerName").val(hiddenfield2);
         //$("#applointment_Invitees").select2();
         

@@ -15,7 +15,7 @@
 @*<div class="@(await GetContainerClass())">*@
 <div class="maincard">
     <div class="col-md-12 text-end mb-3">
-          @if (IsGranted(AppPermissions.Pages_ClientAppointments))
+    @if (IsGranted(AppPermissions.Pages_ClientAppointments))
     {
     <button id="CreateNewAppointmentButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddAppointment")</button>
     }
