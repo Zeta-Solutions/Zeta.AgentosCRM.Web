@@ -222,7 +222,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
-
+        #region Branches
         public async Task<ActionResult> Branches(int id)
         {
             var getBranchForViewDto = await _branchsAppService.GetBranchForView(id);
@@ -262,7 +262,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             
             return PartialView("Branches/_CreateOrEditBranchesModal", viewModel);
         }
-     
+        #endregion
+        #region Contacts
         public async Task<PartialViewResult> CreateOrEditContactslModal(long? id)
         {
             GetPartnerContactForEditOutput getPartnerContactForEditOutput;
@@ -301,8 +302,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View("Contacts/Contacts", model);
         }
-
-
+        #endregion
+        #region NotesAndTerms
         public ActionResult CreateOrEditNotesAndTermsModal()
         {
 
@@ -344,6 +345,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("NotesAndTerms/_CreateOrEditNotesModal", viewModel);
         }
+        #endregion
+        #region Agreements
         public async Task<PartialViewResult> CreateOrEditAgreementsModal(long? id)
         {
             GetPartnerContractForEditOutput getPartnerContractForEditOutput;
@@ -387,7 +390,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View("Agreements/Agreements", model);
         }
-
+        #endregion
+        #region Promotions
         public async Task<PartialViewResult> CreateOrEditPromotionslModal(long? id)
         {
             GetPartnerPromotionForEditOutput getPartnerPromotionForEditOutput;
@@ -431,6 +435,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View("Promotions/Promotions", model);
         }
+        #endregion
+        #region Task
         public async Task<ActionResult> Tasks(int id)
         {
             var getCRMTaskForViewDto = await _cRMTasksAppService.GetCRMTaskForView(id);
@@ -475,6 +481,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Tasks/_CreateOrEditTaskModal", viewModel);
 
         }
+        #endregion
+        #region Products
         public async Task<ActionResult> AddProducts(long? id)
         {
             GetProductForEditOutput getProductForEditOutput;
@@ -530,7 +538,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View("Products/Products", model);
         }
 
-
+        #endregion
+        #region Appointments
         public async Task<ActionResult> AppointmentsIndex(int id)
         {
             var getAppointmentsForViewDto = await _appointmentsAppService.GetAppointmentForView(id);
@@ -569,6 +578,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Appointments/_CreateOrEditAppointmentModal", ViewModel);
 
         }
+        #endregion
         #region "Application"
 
         [AbpMvcAuthorize(AppPermissions.Pages_Applications_Create, AppPermissions.Pages_Applications_Edit)]
