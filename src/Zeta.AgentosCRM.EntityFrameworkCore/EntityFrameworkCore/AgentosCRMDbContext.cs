@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMAgent.Contacts;
+﻿using Zeta.AgentosCRM.CRMSetup.Account;
+using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMSetup.Email;
 using Zeta.AgentosCRM.CRMSetup.Documents;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
@@ -46,12 +47,23 @@ using Zeta.AgentosCRM.MultiTenancy;
 using Zeta.AgentosCRM.MultiTenancy.Accounting;
 using Zeta.AgentosCRM.MultiTenancy.Payments;
 using Zeta.AgentosCRM.Storage;
-using PayPalCheckoutSdk.Orders;
 
 namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<TaxSetting> TaxSettings { get; set; }
+
+        public virtual DbSet<PaymentInvoiceType> PaymentInvoiceTypes { get; set; }
+
+        public virtual DbSet<InvoiceType> InvoiceTypes { get; set; }
+
+        public virtual DbSet<ManualPaymentDetail> ManualPaymentDetails { get; set; }
+
+        public virtual DbSet<InvoiceAddress> InvoiceAddresses { get; set; }
+
+        public virtual DbSet<BusinessRegNummber> BusinessRegNummbers { get; set; }
+
         public virtual DbSet<AgentContact> AgentContacts { get; set; }
 
         public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
@@ -180,10 +192,34 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<AgentContact>(a =>
+            modelBuilder.Entity<TaxSetting>(t =>
             {
-                a.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<PaymentInvoiceType>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<InvoiceType>(i =>
+                       {
+                           i.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ManualPaymentDetail>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<InvoiceAddress>(i =>
+                       {
+                           i.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<BusinessRegNummber>(b =>
+                       {
+                           b.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<AgentContact>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<EmailTemplate>(x =>
                        {
                            x.HasIndex(e => new { e.TenantId });
