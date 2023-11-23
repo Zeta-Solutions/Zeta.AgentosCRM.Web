@@ -1,13 +1,14 @@
 ﻿(function () {
-    alert("ok");
     $(function () {
         var _$clientQuotationHeadsTable = $('#ClientsQuotationtable');
         var _clientQuotationHeadsService = abp.services.app.clientQuotationHeads;
+        var _clientQuotationDetailService = abp.services.app.clientQuotationDetails;
 
         var $selectedDate = {
             startDate: null,
             endDate: null,
         };
+
 
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
@@ -63,7 +64,7 @@
             //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
             modalClass: 'ClientEmailCompose',
         });
-     
+
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -84,7 +85,7 @@
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _clientQuotationHeadsService.getAll,
+                ajaxFunction: _clientQuotationDetailService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
@@ -103,44 +104,37 @@
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
+             
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
+                    data: 'clientQuotationDetail.description',
+                    name: 'description',
                 },
                 {
                     targets: 2,
-                    data: 'subject.name',
-                    name: 'name',
+                    data: 'productName',
+                    name: 'productNameFk.name',
                 },
                 {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientQuotationDetail.description',
+                    name: 'description',
                 },
                 {
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientQuotationDetail.description',
+                    name: 'description',
                 },
                 {
                     targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
-                {
+                    data: 'clientQuotationDetail.description',
+                    name: 'description',
+                },  {
                     targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'clientQuotationDetail.description',
+                    name: 'description',
                 },
+
             ],
         });
 
@@ -176,9 +170,9 @@
         });
 
         $('#CreateNewQuotation').click(function () {
-           // _createOrEditModal.open();
+            // _createOrEditModal.open();
         });
-       
+
         $('#CreateNewQuotation').click(function () {
             debugger
             var hiddenfield = $("#ID").val();
@@ -190,7 +184,7 @@
             // Redirect to the constructed URL
             //window.location.href = url;
             // _createOrEditModal.open();
-          
+
 
         });
         $('#ExportToExcelButton').click(function () {
