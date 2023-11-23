@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMAgent.Contacts.Dtos;
+﻿using Zeta.AgentosCRM.CRMSetup.Account.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Account;
+using Zeta.AgentosCRM.CRMAgent.Contacts.Dtos;
 using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMSetup.Email.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Email;
@@ -120,6 +122,18 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditTaxSettingDto, TaxSetting>().ReverseMap();
+            configuration.CreateMap<TaxSettingDto, TaxSetting>().ReverseMap();
+            configuration.CreateMap<CreateOrEditPaymentInvoiceTypeDto, PaymentInvoiceType>().ReverseMap();
+            configuration.CreateMap<PaymentInvoiceTypeDto, PaymentInvoiceType>().ReverseMap();
+            configuration.CreateMap<CreateOrEditInvoiceTypeDto, InvoiceType>().ReverseMap();
+            configuration.CreateMap<InvoiceTypeDto, InvoiceType>().ReverseMap();
+            configuration.CreateMap<CreateOrEditManualPaymentDetailDto, ManualPaymentDetail>().ReverseMap();
+            configuration.CreateMap<ManualPaymentDetailDto, ManualPaymentDetail>().ReverseMap();
+            configuration.CreateMap<CreateOrEditInvoiceAddressDto, InvoiceAddress>().ReverseMap();
+            configuration.CreateMap<InvoiceAddressDto, InvoiceAddress>().ReverseMap();
+            configuration.CreateMap<CreateOrEditBusinessRegNummberDto, BusinessRegNummber>().ReverseMap();
+            configuration.CreateMap<BusinessRegNummberDto, BusinessRegNummber>().ReverseMap();
             configuration.CreateMap<CreateOrEditAgentContactDto, AgentContact>().ReverseMap();
             configuration.CreateMap<AgentContactDto, AgentContact>().ReverseMap();
             configuration.CreateMap<CreateOrEditEmailTemplateDto, EmailTemplate>().ReverseMap();
