@@ -22,7 +22,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Tasks/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CheckInLogs/Index.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotation.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Education/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
@@ -113,7 +113,7 @@
                                 </select>
                             </div> *@
      <div class="col-lg-12 pb-1 text-start">
-    <label for="Address" class="form-label form-label-sm">Tags:</label>
+    <label for="Address" class="form-label form-label-sm">@L("Tags"):</label>
     <button class="add-btn btn-sm btn " id="CreateNewClientsTagsButton" style=" color: blue;">
         + Add
     </button>
@@ -129,7 +129,7 @@
                             </div>
 
                             <div class="col-lg-12 pb-2 text-start">
-                                <label for="AddedFrom" class="form-label form-label-sm">Client Portal:</label><br />
+                                <label for="AddedFrom" class="form-label form-label-sm">@L("ClientPortal"):</label><br />
                                 <span class="form-check form-switch form-switch-sm form-check-custom  form-check-solid ">
                                     <input class="form-check-input form-check-sm" type="checkbox" id="NotificationSettigs_ReceiveNotifications" checked="checked">
                                 </span>
@@ -169,7 +169,7 @@
                             </div>
                             
                             <div class="col-lg-12 pb-1 text-start">
-                                <label for="Address" class="form-label form-label-sm">Followers:</label>
+                                <label for="Address" class="form-label form-label-sm">@L("Followers"):</label>
                                 <button class="add-btn btn-sm btn " id="CreateNewClientsFllowersButton" style=" color: blue;">
                                     + Add
                                 </button>
@@ -340,7 +340,7 @@
         </div>        
         <div class="tab-pane pt-5 mb-7" id="QuotationTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/ClientQuotation/ClientQuotationIndex.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotationIndex.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="CheckinLogsTab" role="tabpanel">

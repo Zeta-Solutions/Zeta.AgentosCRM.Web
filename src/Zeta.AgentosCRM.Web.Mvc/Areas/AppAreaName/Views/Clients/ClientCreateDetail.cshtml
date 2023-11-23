@@ -14,13 +14,17 @@
     {
 
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
 
 }
 @section Scripts
     {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CreateOrEdit.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+
 }
 
 
@@ -83,7 +87,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_FirstName">@L("FirstName")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
                                                                     </div>
                                                                     @*   <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
@@ -91,7 +95,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
                                                                     </div>
                                                                     @*                 <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
@@ -102,7 +106,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
-                                                                        <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_DateofBirth" type="text" name="dateofBirth" value="@Model.Client.DateofBirth" />
+                                                                        <input class="form-control  rounded-0 custom-small-input date-picker" id="Client_DateofBirth" type="text" name="dateofBirth" value="@Model.Client.DateofBirth" />
                                                                     </div>
                                                                     @*   <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_ClientId">@L("ClientId")</label>
@@ -111,7 +115,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_InternalId">@L("InternalId")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0 " id="Client_InternalId" value="@Model.Client.InternalId.ToString(CultureInfo.InvariantCulture)" type="number" name="internalId" />
+                                                                        <input class="form-control  custom-small-input rounded-0 " id="Client_InternalId" value="@Model.Client.InternalId.ToString(CultureInfo.InvariantCulture)" type="number" name="internalId" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -144,16 +148,24 @@
                                                                     </div> *@
                                                                     <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                                                                        <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
                                                                     </div>
                                                                     @*   <div class="col-md-4">
                                                                     <label class="form-label fw-bold text-dark" for="Client_PhoneNumber">@L("PhoneNumber")</label>
                                                                     <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNumber" value="@Model.Client.PhoneNo" type="number" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
                                                                     </div> *@
-                                                                    <div class="col-md-4">
+                                                                  @*   <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_PhoneNo">@L("PhoneNo")</label>
                                                                         <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNo" value="@Model.Client.PhoneNo" type="text" name="phoneNo" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
-                                                                    </div>
+                                                                    </div> *@
+                                                                                
+                                            <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
+                                                                    <input type="hidden" value="@@Model.Client.PhoneNo" id="PhoneCode" name="PhoneCode" />
+                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
+                                                        <span id="valid-msg" class="hide">✓ Valid</span>
+                                                        <span id="error-msg" class="hide"></span>
+                                            </div>
                                                                     @*    @{
                                                                     var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
                                                                     foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
@@ -208,7 +220,7 @@
                                                                     </div> *@
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Street">@L("Street")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Street" value="@Model.Client.Street" type="text" name="street" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_Street" value="@Model.Client.Street" type="text" name="street" />
                                                                     </div>
                                                                     @*      <div class="my-3 col-4">
                                                                     <label class="form-label fw-bold text-dark" for="Client_City">@L("City")</label>
@@ -226,7 +238,7 @@
                                                                     </div> *@
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_City">@L("City")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_City" value="@Model.Client.City" type="text" name="city" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_City" value="@Model.Client.City" type="text" name="city" />
                                                                     </div>
 
                                                                     <div class="my-3 col-4">
@@ -236,7 +248,7 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_ZipCode">@L("ZipCode")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_ZipCode" value="@Model.Client.ZipCode" type="text" name="zipCode" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_ZipCode" value="@Model.Client.ZipCode" type="text" name="zipCode" />
                                                                     </div>
 
                                                                     <div class="my-3 col-4">
