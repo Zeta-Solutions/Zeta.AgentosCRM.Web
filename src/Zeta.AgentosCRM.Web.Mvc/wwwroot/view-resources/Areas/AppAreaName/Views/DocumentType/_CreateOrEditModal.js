@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditFeeTypeModal = function () {
-      var _feeTypesService = abp.services.app.feeTypes;
+  app.modals.CreateOrEditDocumentTypeModal = function () {
+      var _documentTypesService = abp.services.app.documentTypes;
 
     var _modalManager;
-    var _$feeTypesInformationForm = null;
+    var _$documentTypesInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,19 +15,19 @@
         format: 'L',
       });
 
-        _$feeTypesInformationForm = _modalManager.getModal().find('form[name=FeeTypeInformationsForm]');
-        _$feeTypesInformationForm.validate();
+        _$documentTypesInformationForm = _modalManager.getModal().find('form[name=DocumentTypeInformationsForm]');
+        _$documentTypesInformationForm.validate();
     };
 
     this.save = function () {
-        if (!_$feeTypesInformationForm.valid()) {
+        if (!_$documentTypesInformationForm.valid()) {
         return;
       }
 
-        var feeType = _$feeTypesInformationForm.serializeFormToObject();
+        var feeType = _$documentTypesInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-        _feeTypesService
+        _documentTypesService
             .createOrEdit(feeType)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));

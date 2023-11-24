@@ -1,32 +1,31 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes
-@model CreateOrEditFeeTypeModalViewModel *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes
+@model CreateOrEditDocumentTypeModalViewModel
 @using Abp.Extensions
 
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDocumentType")))
-@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocumentType")) : L("CreateNewDocumentType"))) *@
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDocumentType"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocumentType")) : L("CreateNewDocumentType")))
 
 <div class="modal-body">
-    <div id="FeeTypeInformationsTab">
-        <form name="FeeTypeInformationsForm" role="form" novalidate class="form-validation">
+    <div id="DocumentTypeInformationsTab">
+        <form name="DocumentTypeInformationsForm" role="form" novalidate class="form-validation">
 
-            @* @if (Model.IsEditMode)
-            { *@
-                <input type="hidden" name="id"  />
-            @*  } value="@Model.FeeType.Id"*@
-
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.DocumentType.Id" />
+            }
             <div class="my-3">
-                <label class="form-label" for="DocumentType">@L("DocumentType")</label>
-                <input class="form-control" id="DocumentType" />
+                <label class="form-label" for="DocumentType">@L("Abbrivation")</label>
+                <input class="form-control" id="DocumentType" name="abbrivation" value="@Model.DocumentType.Abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinAbbrivationLength" />
             </div>
-@* 
+
             <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("Name")</label>
-                <input class="form-control" id="FeeType_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" />
+                <input class="form-control" id="FeeType_Name" value="@Model.DocumentType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinNameLength" />
             </div>
- *@
+
         </form>
     </div>
 </div>

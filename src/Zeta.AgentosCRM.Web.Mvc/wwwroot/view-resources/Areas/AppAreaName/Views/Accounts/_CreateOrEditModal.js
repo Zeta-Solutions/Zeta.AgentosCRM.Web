@@ -1,9 +1,9 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditEmailTemplateModal = function () {
-      var _emailTemplatesService = abp.services.app.emailTemplates;
+  app.modals.CreateOrEditModal = function () {
+      var _documentTypesService = abp.services.app.documentTypes;
 
     var _modalManager;
-    var _$emailTemplatesInformationForm = null;
+    var _$documentTypesInformationForm = null;
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,24 +15,24 @@
         format: 'L',
       });
 
-        _$emailTemplatesInformationForm = _modalManager.getModal().find('form[name=EmailTemplateInformationsForm]');
-        _$emailTemplatesInformationForm.validate();
+        _$documentTypesInformationForm = _modalManager.getModal().find('form[name=DocumentTypeInformationsForm]');
+        _$documentTypesInformationForm.validate();
     };
 
     this.save = function () {
-        if (!_$emailTemplatesInformationForm.valid()) {
+        if (!_$documentTypesInformationForm.valid()) {
         return;
       }
 
-        var feeType = _$emailTemplatesInformationForm.serializeFormToObject();
-        debugger
+        var feeType = _$documentTypesInformationForm.serializeFormToObject();
+
       _modalManager.setBusy(true);
-        _emailTemplatesService
+        _documentTypesService
             .createOrEdit(feeType)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-            abp.event.trigger('app.createOrEditEmailTemplateModalSaved');
+          abp.event.trigger('app.createOrEditFeeTypeModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

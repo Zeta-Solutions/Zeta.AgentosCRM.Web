@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes *@
+@* @model CreateOrEditDocumentTypeModalViewModel *@
+@* @using Abp.Extensions *@
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewMaunalTaxDetail")))
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditMaunalTaxDetail")) : L("CreateNewMaunalTaxDetail"))) *@
+
+<div class="modal-body">
+    <div id="DocumentTypeInformationsTab">
+        <form name="DocumentTypeInformationsForm" role="form" novalidate class="form-validation">
+@* 
+            @if (Model.IsEditMode)
+            { *@
+                <input type="hidden" name="id" value=" " />
+            @* } *@
+            <div class="my-3">
+                <label class="form-label" for="DocumentType">@L("PaymentOptionName")</label>
+                <input class="form-control" id="DocumentType" name="abbrivation" value="Name"    />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="FeeType_Name">@L("PaymentDetailContent")</label>
+                <textarea class="form-control"></textarea>
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="FeeType_Name">@L("DefaultforInvoiceType")</label>
+                <input class="form-control" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -29,20 +29,35 @@
                         <label class="form-label" for="Workflow_Name">@L("workflowaccessible")</label>
                         <div class="col-12">
                             <div class="col-6">
-                                <input type="radio" id="allOffice" name="officeType" />
+                                <input type="radio" id="allOffice" name="IsForAllOffices" value="true" @Html.Raw(Model.Workflow.IsForAllOffices ? "checked=\"checked\"" : "") />
                                 <label class="form-label" for="allOffice">@L("AllOffice")</label>
 
-                                <input type="radio" id="selectedOffice" name="officeType" checked />
+                                <input type="radio" id="selectedOffice" name="IsForAllOffices" value="false" @(!Model.Workflow.IsForAllOffices ? "checked=\"checked\"" : "") />
                                 <label class="form-label" for="selectedOffice">@L("selectedoffice")</label>
                             </div>
                         </div>
 
                     </div>
-
+                    @* @if (Model.Workflow.IsForAllOffices == false)
+                    { *@
                     <div class="my-3" id="showhide">
-                        <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="@Model.Workflow.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
-                    </div>
+                            <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
+                        <select id="WorkFlowOfficeId" class="form-select select2" data-id="" data-control="select2"></select>
+
+
+                        @* <input class="form-control" id="Workflow_Name" autocomplete="off" value="@Model.Workflow.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" /> *@
+                        </div>
+                    @* <div class="col-md-4 mb-3">
+                        <label for="partnerType" class="form-label">@L("RelatedOffice")</label>
+                        @Html.DropDownList("organizationUnitId", new SelectList(Model.AgentOrganizationUnitList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.OrganizationUnitId.ToString() : "")),@L("SelectAOrganizationUnitId"), new { @class = "form-control" , @required="required" })
+                    </div> *@ @* } *@
+                   @*  else
+                    {
+                        <div class="my-3" id="showhide">
+                            <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
+                            <input class="form-control" id="Workflow_Name" autocomplete="off" value="@Model.Workflow.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                        </div>
+                    } *@
                 </div>
                 <div class="col-lg-3">
                     <div style="background-color: #f2f2f2; font-size: 11px;  padding: 10px;">
@@ -105,8 +120,8 @@
                     <button type="button" class="btn btn-primary add-button-WorkFlow"> @L("Add")</button>
                 </div>
             </div>
-            
-        </form>  
+
+        </form>
     </div>
 </div>
 
@@ -129,7 +144,7 @@
     .timeline-item {
         display: flex;
         margin-bottom: 20px;
-        position: relative; 
+        position: relative;
         pending-top: 40px;
     }
 

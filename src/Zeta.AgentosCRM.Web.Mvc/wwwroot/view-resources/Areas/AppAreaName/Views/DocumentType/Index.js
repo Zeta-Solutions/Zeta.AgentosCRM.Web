@@ -1,8 +1,7 @@
 ﻿(function () {
   $(function () {
-      var _$FeeTypeTable = $('#LeadFormTable');
-    //var _masterCategoriesService = abp.services.app.masterCategories;
-      //var _feeTypesService = abp.services.app.feeTypes;
+      var _$DocumentTypeTable = $('#DocumentTypeTable'); 
+      var _documentTypesService = abp.services.app.documentTypes;
 
     var $selectedDate = {
       startDate: null,
@@ -56,13 +55,13 @@
     var _createOrEditModal = new app.ModalManager({
         viewUrl: abp.appPath + 'AppAreaName/DocumentType/CreateOrEditModal',
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumentType/_CreateOrEditModal.js',
-        modalClass: 'CreateOrEditModal',
+        modalClass: 'CreateOrEditDocumentTypeModal',
     });
 
-    //var _viewFeeTypeModal = new app.ModalManager({
-    //    viewUrl: abp.appPath + 'AppAreaName/DocumnetType/ViewLeadFormModal',
-    //    modalClass: 'ViewLeadFormModal',
-    //});
+    var _viewFeeTypeModal = new app.ModalManager({
+        viewUrl: abp.appPath + 'AppAreaName/DocumentType/ViewDocumentTypeModal',
+        modalClass: 'ViewDocumentTypeModal',
+    });
 
     var getDateFilter = function (element) {
       if ($selectedDate.startDate == null) {
@@ -77,117 +76,113 @@
       }
       return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
     };
-      //var dataTable = _$FeeTypeTable.DataTable({
+      var dataTable = _$DocumentTypeTable.DataTable({
           
-      //    paging: true,
-      //    serverSide: true,
-      //    processing: true,
-      //    listAction: {
-      //        ajaxFunction: _feeTypesService.getAll,
-      //        inputFilter: function () {
-      //            return {
-      //                filter: $('#MasterCategoriesTableFilter').val(),
-      //                abbrivationFilter: $('#AbbrivationFilterId').val(),
-      //                nameFilter: $('#NameFilterId').val(),
-      //            };
-      //        },
-      //    },
-      //    columnDefs: [
-      //        {
-      //            className: 'control responsive',
-      //            orderable: false,
-      //            render: function () {
-      //                return '';
-      //            },
-      //            targets: 0,
-      //        }, 
-      //        {
-      //            targets: 1,
-      //            data: 'feeType.abbrivation',
-      //            name: 'abbrivation',
-      //        },
-      //        {
-      //            targets: 2,
-      //            data: 'feeType.name',
-      //            name: 'name',
-      //        },
-      //        {
-      //            targets: 3,
-      //            width: 30,
-      //            data: null,
-      //            orderable: false,
-      //            searchable: false,
-      //            render: function (data, type, full, meta) {
-      //                console.log(data);
-      //                var rowId = data.feeType.id;
-      //                var rowData = data.feeType;
-      //                var RowDatajsonString = JSON.stringify(rowData);
+          paging: true,
+          serverSide: true,
+          processing: true,
+          listAction: {
+              ajaxFunction: _documentTypesService.getAll,
+              inputFilter: function () {
+                  return {
+                      filter: $('#MasterCategoriesTableFilter').val(),
+                      abbrivationFilter: $('#AbbrivationFilterId').val(),
+                      nameFilter: $('#NameFilterId').val(),
+                  };
+              },
+          },
+          columnDefs: [
+              {
+                  className: 'control responsive',
+                  orderable: false,
+                  render: function () {
+                      return '';
+                  },
+                  targets: 0,
+              }, 
+              {
+                  targets: 1,
+                  data: 'documentType.abbrivation',
+                  name: 'abbrivation',
+              },
+              {
+                  targets: 2,
+                  data: 'documentType.name',
+                  name: 'name',
+              },
+              {
+                  targets: 3,
+                  width: 30,
+                  data: null,
+                  orderable: false,
+                  searchable: false,
+                  render: function (data, type, full, meta) {
+                      console.log(data);
+                      var rowId = data.documentType.id;
+                      var rowData = data.documentType;
+                      var RowDatajsonString = JSON.stringify(rowData);
 
-      //                var contextMenu = '<div class="context-menu" style="position:relative;">' +
-      //                    '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
-      //                    '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
-      //                    '<ul style="list-style: none; padding: 0;color:black">' +
-      //                    '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
-      //                    '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
-      //                    "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
-      //                    '</ul>' +
-      //                    '</div>' +
-      //                    '</div>';
+                      var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                          '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                          '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                          '<ul style="list-style: none; padding: 0;color:black">' +
+                          '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                          '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                          "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                          '</ul>' +
+                          '</div>' +
+                          '</div>';
 
-      //                return contextMenu;
-      //            }
-      //        },
-      //    ],
-      //});
+                      return contextMenu;
+                  }
+              },
+          ],
+      });
       function getDocumentType() {
       dataTable.ajax.reload();
     }
 
 
+     
+      $(document).on('click', '.ellipsis', function (e) {
+          e.preventDefault();
 
-      //// Add a click event handler for the ellipsis icons
-      //$(document).on('click', '.ellipsis', function (e) {
-      //    e.preventDefault();
+          var options = $(this).closest('.context-menu').find('.options');
+          var allOptions = $('.options');  
+          allOptions.not(options).hide();
+           
+          options.toggle();
+      });
+       
+      $(document).on('click', function (event) {
+          if (!$(event.target).closest('.context-menu').length) {
+              $('.options').hide();
+          }
+      });
 
-      //    var options = $(this).closest('.context-menu').find('.options');
-      //    var allOptions = $('.options');  // Select all options
+      // Handle menu item clicks
+      $(document).on('click', 'a[data-action]', function (e) {
+          e.preventDefault();
 
-      //    // Close all other open options
-      //    allOptions.not(options).hide();
-
-      //    // Toggle the visibility of the options
-      //    options.toggle();
-      //});
-
-      //// Close the context menu when clicking outside of it
-      //$(document).on('click', function (event) {
-      //    if (!$(event.target).closest('.context-menu').length) {
-      //        $('.options').hide();
-      //    }
-      //});
-
-      //// Handle menu item clicks
-      //$(document).on('click', 'a[data-action]', function (e) {
-      //    e.preventDefault();
-
-      //    var rowId = $(this).data('id');
-      //    var action = $(this).data('action');
-      //    debugger
-      //    // Handle the selected action based on the rowId
-      //    if (action === 'view') {
-      //        _viewFeeTypeModal.open({ id: rowId });
-      //    } else if (action === 'edit') {
-      //        _createOrEditModal.open({ id: rowId });
-      //    } else if (action === 'delete') {
-      //        console.log(rowId);
-      //        deleteFeeType(rowId);
-      //    }
-      //});
+          var rowId = $(this).data('id');
+          var action = $(this).data('action');
+          debugger
+          // Handle the selected action based on the rowId
+          if (action === 'view') {
+              debugger
+              _viewFeeTypeModal.open({ id: rowId });
+          } else if (action === 'edit') {
+              _createOrEditModal.open({ id: rowId });
+          } else if (action === 'delete') {
+              console.log(rowId);
+              deleteFeeType(rowId);
+          }
+      });
 
       function deleteFeeType(feeType) {
       abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
         if (isConfirmed) {
-            _feeTypesService
+            _documentTypesService
                 .delete({
                     id: feeType.id,
             })
@@ -215,19 +210,7 @@
           debugger
       _createOrEditModal.open();
     });
-
-    //$('#ExportToExcelButton').click(function () {
-    //    _feeTypesService
-    //    .getMasterCategoriesToExcel({
-    //      filter: $('#MasterCategoriesTableFilter').val(),
-    //      abbrivationFilter: $('#AbbrivationFilterId').val(),
-    //      nameFilter: $('#NameFilterId').val(),
-    //    })
-    //    .done(function (result) {
-    //      app.downloadTempFile(result);
-    //    });
-    //});
-
+     
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
           debugger
           getDocumentType();

@@ -1722,6 +1722,24 @@
 		<text name="Body">Body</text>
 		<text name="CreateNewEmailTemplate">Create New Email Template</text>
 		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
-		<!--<text name="EmailTemplate">Email Template</text>-->
+		<text name="SelectAPartnerType">Select a PartnerType</text>
+		<text name="SelectAWorkFlow">Select a WorkFlow</text>
+		<text name="Fax">Fax</text>
+		<text name="AssociatedPartner">Associated Partner</text>
+		<text name="SelectABranch">Select a Branch</text>
+		<text name="SelectAProductType">Select a ProductType</text>
+		<text name="IntakeMonth">Intake Month</text>
+		<text name="Products">Products</text>
+		<text name="ContractExpiryDate">Contract Expiry Date</text>
+		<text name="Department">Department</text>
+		<text name="Position">Position</text>
+		<text name="SelectAInvitees">Select a Invitees</text>
+		<text name="SelectAFollower">Select a Follower</text>
+		<text name="SelectACategory">Select a Category</text>
+		<text name="SelectAAssignee">Select a Assignee</text>
+		<text name="SelectAPriority">Select a Priority</text>
+		<text name="ExpirayDate">Expiray Date</text>
+		<text name="PromotionTitle">Promotion Title</text>
+		<text name="StartDate">Start Date</text>
 	</texts> 
 </localizationDictionary>

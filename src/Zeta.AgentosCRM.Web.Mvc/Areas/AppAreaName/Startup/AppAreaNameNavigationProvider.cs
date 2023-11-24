@@ -282,6 +282,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             )
                     )
                      .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.Accounts,
+                            L("Accounts"),
+                            url: "AppAreaName/Accounts",
+                            icon: "flaticon-more"
+                            //,
+                            //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_LeadSources)
+                          
+                            )
+                    )
+                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Tag,
                             L("Tag"),
                             url: "AppAreaName/Tag",
