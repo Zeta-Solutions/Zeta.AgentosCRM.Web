@@ -1,4 +1,6 @@
 ﻿(function () {
+	$("#kt_app_sidebar_toggle").trigger("click");
+
 	$(function () {
 
 		var _$partnersTable = $('#PartnersTable');

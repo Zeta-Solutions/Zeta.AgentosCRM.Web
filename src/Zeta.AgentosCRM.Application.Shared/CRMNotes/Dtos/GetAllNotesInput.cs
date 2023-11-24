@@ -13,7 +13,10 @@ namespace Zeta.AgentosCRM.CRMNotes.Dtos
 
         public string ClientDisplayPropertyFilter { get; set; }
 
+        public string CRMAgentAgentNameFilter { get; set; }
+
         public string PartnerPartnerNameFilter { get; set; }
+
         public int? PartnerIdFilter { get; set; }
 
     }

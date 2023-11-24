@@ -30,6 +30,41 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var taxSettings = pages.CreateChildPermission(AppPermissions.Pages_TaxSettings, L("TaxSettings"), multiTenancySides: MultiTenancySides.Tenant);
+            taxSettings.CreateChildPermission(AppPermissions.Pages_TaxSettings_Create, L("CreateNewTaxSetting"), multiTenancySides: MultiTenancySides.Tenant);
+            taxSettings.CreateChildPermission(AppPermissions.Pages_TaxSettings_Edit, L("EditTaxSetting"), multiTenancySides: MultiTenancySides.Tenant);
+            taxSettings.CreateChildPermission(AppPermissions.Pages_TaxSettings_Delete, L("DeleteTaxSetting"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var paymentInvoiceTypes = pages.CreateChildPermission(AppPermissions.Pages_PaymentInvoiceTypes, L("PaymentInvoiceTypes"), multiTenancySides: MultiTenancySides.Tenant);
+            paymentInvoiceTypes.CreateChildPermission(AppPermissions.Pages_PaymentInvoiceTypes_Create, L("CreateNewPaymentInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+            paymentInvoiceTypes.CreateChildPermission(AppPermissions.Pages_PaymentInvoiceTypes_Edit, L("EditPaymentInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+            paymentInvoiceTypes.CreateChildPermission(AppPermissions.Pages_PaymentInvoiceTypes_Delete, L("DeletePaymentInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var invoiceTypes = pages.CreateChildPermission(AppPermissions.Pages_InvoiceTypes, L("InvoiceTypes"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceTypes.CreateChildPermission(AppPermissions.Pages_InvoiceTypes_Create, L("CreateNewInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceTypes.CreateChildPermission(AppPermissions.Pages_InvoiceTypes_Edit, L("EditInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceTypes.CreateChildPermission(AppPermissions.Pages_InvoiceTypes_Delete, L("DeleteInvoiceType"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var manualPaymentDetails = pages.CreateChildPermission(AppPermissions.Pages_ManualPaymentDetails, L("ManualPaymentDetails"), multiTenancySides: MultiTenancySides.Tenant);
+            manualPaymentDetails.CreateChildPermission(AppPermissions.Pages_ManualPaymentDetails_Create, L("CreateNewManualPaymentDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            manualPaymentDetails.CreateChildPermission(AppPermissions.Pages_ManualPaymentDetails_Edit, L("EditManualPaymentDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            manualPaymentDetails.CreateChildPermission(AppPermissions.Pages_ManualPaymentDetails_Delete, L("DeleteManualPaymentDetail"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var invoiceAddresses = pages.CreateChildPermission(AppPermissions.Pages_InvoiceAddresses, L("InvoiceAddresses"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceAddresses.CreateChildPermission(AppPermissions.Pages_InvoiceAddresses_Create, L("CreateNewInvoiceAddress"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceAddresses.CreateChildPermission(AppPermissions.Pages_InvoiceAddresses_Edit, L("EditInvoiceAddress"), multiTenancySides: MultiTenancySides.Tenant);
+            invoiceAddresses.CreateChildPermission(AppPermissions.Pages_InvoiceAddresses_Delete, L("DeleteInvoiceAddress"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var businessRegNummbers = pages.CreateChildPermission(AppPermissions.Pages_BusinessRegNummbers, L("BusinessRegNummbers"), multiTenancySides: MultiTenancySides.Tenant);
+            businessRegNummbers.CreateChildPermission(AppPermissions.Pages_BusinessRegNummbers_Create, L("CreateNewBusinessRegNummber"), multiTenancySides: MultiTenancySides.Tenant);
+            businessRegNummbers.CreateChildPermission(AppPermissions.Pages_BusinessRegNummbers_Edit, L("EditBusinessRegNummber"), multiTenancySides: MultiTenancySides.Tenant);
+            businessRegNummbers.CreateChildPermission(AppPermissions.Pages_BusinessRegNummbers_Delete, L("DeleteBusinessRegNummber"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var agentContacts = pages.CreateChildPermission(AppPermissions.Pages_AgentContacts, L("AgentContacts"), multiTenancySides: MultiTenancySides.Tenant);
+            agentContacts.CreateChildPermission(AppPermissions.Pages_AgentContacts_Create, L("CreateNewAgentContact"), multiTenancySides: MultiTenancySides.Tenant);
+            agentContacts.CreateChildPermission(AppPermissions.Pages_AgentContacts_Edit, L("EditAgentContact"), multiTenancySides: MultiTenancySides.Tenant);
+            agentContacts.CreateChildPermission(AppPermissions.Pages_AgentContacts_Delete, L("DeleteAgentContact"), multiTenancySides: MultiTenancySides.Tenant);
+
             var emailTemplates = pages.CreateChildPermission(AppPermissions.Pages_EmailTemplates, L("EmailTemplates"), multiTenancySides: MultiTenancySides.Tenant);
             emailTemplates.CreateChildPermission(AppPermissions.Pages_EmailTemplates_Create, L("CreateNewEmailTemplate"), multiTenancySides: MultiTenancySides.Tenant);
             emailTemplates.CreateChildPermission(AppPermissions.Pages_EmailTemplates_Edit, L("EditEmailTemplate"), multiTenancySides: MultiTenancySides.Tenant);

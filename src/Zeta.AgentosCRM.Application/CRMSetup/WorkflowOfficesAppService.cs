@@ -1,22 +1,15 @@
-﻿using Abp.Organizations;
-using Zeta.AgentosCRM.CRMSetup;
-
-using System;
+﻿using Abp.Organizations; 
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMSetup.Dtos;
-using Zeta.AgentosCRM.Dto;
+using Zeta.AgentosCRM.CRMSetup.Dtos; 
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.Authorization;
-using Abp.Extensions;
+using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
+using Microsoft.EntityFrameworkCore; 
 
 namespace Zeta.AgentosCRM.CRMSetup
 {

@@ -1,6 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="EditEmailTemplate">Edit email template</text>
+	<texts>    <text name="TaxSetting">Tax setting</text>
+    <text name="CreateNewTaxSetting">Create new tax setting</text>
+    <text name="EditTaxSetting">Edit tax setting</text>
+    <text name="DeleteTaxSetting">Delete tax setting</text>
+    <text name="PaymentInvoiceType">Payment invoice type</text>
+    <text name="CreateNewPaymentInvoiceType">Create new payment invoice type</text>
+    <text name="EditPaymentInvoiceType">Edit payment invoice type</text>
+    <text name="DeletePaymentInvoiceType">Delete payment invoice type</text>
+    <text name="InvoiceType">Invoice type</text>
+    <text name="CreateNewInvoiceType">Create new invoice type</text>
+    <text name="EditInvoiceType">Edit invoice type</text>
+    <text name="DeleteInvoiceType">Delete invoice type</text>
+    <text name="ManualPaymentDetail">Manual payment detail</text>
+    <text name="CreateNewManualPaymentDetail">Create new manual payment detail</text>
+    <text name="EditManualPaymentDetail">Edit manual payment detail</text>
+    <text name="DeleteManualPaymentDetail">Delete manual payment detail</text>
+    <text name="InvoiceAddress">Invoice address</text>
+    <text name="CreateNewInvoiceAddress">Create new invoice address</text>
+    <text name="EditInvoiceAddress">Edit invoice address</text>
+    <text name="DeleteInvoiceAddress">Delete invoice address</text>
+    <text name="BusinessRegNummber">Business reg nummber</text>
+    <text name="CreateNewBusinessRegNummber">Create new business reg nummber</text>
+    <text name="EditBusinessRegNummber">Edit business reg nummber</text>
+    <text name="DeleteBusinessRegNummber">Delete business reg nummber</text>
+    <text name="AgentContact">Agent contact</text>
+    <text name="CreateNewAgentContact">Create new agent contact</text>
+    <text name="EditAgentContact">Edit agent contact</text>
+    <text name="DeleteAgentContact">Delete agent contact</text>
+    <text name="EditEmailTemplate">Edit email template</text>
     <text name="DeleteEmailTemplate">Delete email template</text>
     <text name="WorkflowOffice">Workflow office</text>
     <text name="CreateNewWorkflowOffice">Create new workflow office</text>

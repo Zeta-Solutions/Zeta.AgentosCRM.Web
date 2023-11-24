@@ -84,7 +84,7 @@
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="Country" class="form-label">@L("ProductType")</label>
-                                              @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAPartnerType"), new { @class = "form-control" , @required="required" })
+                                                        @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAProductType"), new { @class = "form-control" , @required="required" })
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="Name" class="form-label">@L("RevenueType") </label>

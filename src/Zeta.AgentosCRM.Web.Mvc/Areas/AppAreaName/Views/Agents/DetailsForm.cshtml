@@ -1,18 +1,28 @@
 ﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Agents;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+@model AgentViewModel
 @{
     ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
 }
 @section Scripts
     {
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script> *@
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/_NotesAndTerms.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/NotesAndTerms.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Applications/Applications.js" asp-append-version="true"></script>
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.js" asp-append-version="true"></script> *@
 }
  
 @section Styles
     {
+  <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/Application/Application.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+       
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
   }
 @{
     ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
@@ -31,7 +41,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="col-lg-12 mb-3 text-start">
-                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative p-7">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative p-3">
                                 <img src="/Common/Images/Agent.jpg" alt="Metronic"class="rounded-circle" />
                                 @*                                <div class="
                                 position-absolute
@@ -78,31 +88,28 @@
                                         <span class="fa fa-archive"></span>
                                     </a> *@
                                 </div>
+                                <div class="col-1">
+                                  @*   <a class="bg-transparent" data-toggle="tooltip" title="Archived">
+                                        <span class="fa fa-archive"></span>
+                                    </a> *@
+                                </div>
                                 <div class="col-1"></div>
                                 <div class="col-1"></div>
                                 <div class="col-1"></div>
                             </div>
                         </div>
-                        <div class="col-lg-12 mt-1 ms-14 text-start">
-                            <div class="d-flex align-items-center   pb-2">
-                                <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
-                                   PRO FUTURE
-                                </a>
+                        <div class="col-lg-12 mt-1 text-start">
+                                <div class="d-flex align-items-center  pb-4">
+                                    <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput">
+                                         @Model.Agent.Name
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12 mt-1 ms-10 text-start">
-                            
-                             <label for="Address" class="form-label form-label-sm"> Email: 
-                                     </label><br />
-                                     <div class="d-flex align-items-center  pb-4">
-                                @* <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
-                                    PRO FUTURE
-                                </a> *@
-                                
-                           <p class="text-muted">profuteureint.applications@gmail.com</p>
-                           
+                        
+                        <div class="col-lg-12 text-start ">
+                                <label for="AddedFrom " class="custominput">Email:</label>
+                            <p class="text-muted"> @Model.Agent.Email</p>
                             </div>
-                        </div>
                         <div class="col-lg-12 text-start">
                             <label for="AddedFrom" hidden>Email:</label>
                             <p mailto:class="text-muted" hidden>example@gmail.com</p>
@@ -110,19 +117,19 @@
                         <div class="col-lg-12">
                             <input type="hidden" />
                         </div>
-                        <div class="col-lg-12"><input type="hidden" /></div>
-                        <div class="col-lg-12"><input type="hidden" /></div>
+                       <input type="hidden" value="@Model.Agent.Id" id="AgentId"name="AgentId"/>
+                         <input type="hidden" value="@Model.Agent.Name" id="AgentName" name="AgentName" />
                     </div>
                 </div>
             </div>
             @* ////Card 2///  *@
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="card shadow">
                     <div class="card-body text-start">
                         <div class="col-lg-12   text-start">
-                            <label for="AddedFrom" class="form-label form-label-sm">General Information::</label>
-                            <p class="">Phone No:</p>
-                            <p class="text-muted">+61435208166</p>
+                          
+                           <label for="AddedFrom " class="custominput">Phone No:</label>
+                            <p class="text-muted">  @Model.Agent.PhoneNo</p>
                         </div>
                         @* <div class="col-lg-12 text-start">
                             <label for="Address" class="form-label form-label-sm"> Email:  </label><br />
@@ -131,27 +138,46 @@
                         </div> *@
                         <div class="col-lg-12 mb-3 text-start">
                             <label for="ClientId" class="form-label form-label-sm"> Address:</label><br />
-                            <p class="text-muted">78-A Garden Block garden Town, Lahore, Punjab, Pakistan</p>
+                           <p class="text-muted">@Model.Agent.Street, @Model.Agent.City, @Model.Agent.State,  @Model.CountryName</p>
                         </div>
                         <div class="col-lg-12 mb-3 text-start">
-                            <label for="ClientId" class="form-label form-label-sm">  Agent Type:</label><br />
-                            <p class="text-muted">
-                                <button value="Sub agent">Sub Agent</button>
-                            </p>
-                        </div>
+                        <label for="ClientId" class="form-label form-label-sm">Agent Type:</label><br />
+                        <p class="text-muted">
+                        @if (Model.Agent.IsSuperAgent)
+                        {
+                            <button  value="Sub agent">Super Agent</button>
+                        }
+                        else
+                        {
+                            <button  value="Sub agent">Sub Agent</button>
+                        }
+                    </p>
+
+                    </div>
                         <div class="col-lg-12 pb-2 text-start">
                             <label for="Phone" class="form-label form-label-sm">
                                 Income Sharing Percentage:
                             </label><br />
-                            <p class="text-muted">0.00%</p>
+                            <p class="text-muted">@Model.Agent.IncomeSharingPer</p>
                         </div>
-                        
+                          <div class="col-lg-12 pb-2 text-start">
+                            <label for="Phone" class="form-label form-label-sm">
+                                Associated Offices:
+                            </label><br />
+                            <p class="text-muted">Lahore Office</p>
+                        </div>
+                        <div class="col-lg-12 pb-2 text-start">
+                            <label for="Phone" class="form-label form-label-sm">
+                                Tax Number:
+                            </label><br />
+                            <p class="text-muted">@Model.Agent.TaxNo</p>
+                        </div>
 
                     </div>
                 </div>
             </div>
             @* ////Card 3///  *@
-            <div class="col-md-4">
+           @*  <div class="col-md-4">
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="col-lg-12 pb-2 text-start">
@@ -164,7 +190,7 @@
                             <label for="Phone" class="form-label form-label-sm">
                                 Tax Number:
                             </label><br />
-                            <p class="text-muted">-</p>
+                            <p class="text-muted">@Model.Agent.TaxNo</p>
                         </div>
                       @*   <div class="col-lg-12">
                             <label for="AddedFrom" class="form-label form-label-sm">Services:</label>
@@ -182,11 +208,11 @@
                             <label for="AddedFrom" class="form-label form-label-sm">Currency code:</label>
                             <p class="text-secondary">AUD</p>
                         </div>
- *@
+ 
 
                     </div>
                 </div>
-            </div>
+            </div> *@
             @* ////Card 4///  *@
 
         </div>
@@ -435,16 +461,22 @@
           border-transparent
 
           fw-bolder
-          flex-nowrap
+          flex-nowrap 
+
         ">
                     <li class="nav-item">
-                        <a href="#NoteTerm" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                        <a href="#NoteTerm" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active"aria-selected="true">
                             @L("NotesAndTerms")
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#ReferredClientTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
                             @L("ReferredClients")
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="#AgentContactsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("Agent Contacts")
                         </a>
                     </li>
                     <li class="nav-item">
@@ -469,11 +501,18 @@
     <div class="tab-content ">
         <div class="tab-pane pt-5 active" id="NoteTerm" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/NotesAndTerms.cshtml")
             </div>
         </div>
 
         <div class="tab-pane pt-5 mb-7" id="ReferredClientTab" role="tabpanel">
+            <div class="list-group">
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/Index.cshtml")
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="AgentContactsTab" role="tabpanel">
             <div class="list-group">
                 @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/Index.cshtml")

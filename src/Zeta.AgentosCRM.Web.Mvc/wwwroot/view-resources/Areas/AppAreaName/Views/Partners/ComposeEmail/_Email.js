@@ -1,5 +1,5 @@
 ﻿(function () {
-    $(function () {
+   (function () {
         var _$LeadSourceTable = $('#EmailTable');
         var _leadSourcesService = abp.services.app.leadSources;
 

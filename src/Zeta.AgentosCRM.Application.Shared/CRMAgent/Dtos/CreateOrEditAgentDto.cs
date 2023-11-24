@@ -13,6 +13,8 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
 
         public bool IsSuperAgent { get; set; }
 
+        public bool IsSubAgent { get; set; }
+
         public bool IsBusiness { get; set; }
 
         public string PhoneNo { get; set; }
@@ -28,6 +30,8 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
         public string Street { get; set; }
 
         public string State { get; set; }
+
+        public string ZipCode { get; set; }
 
         public decimal IncomeSharingPer { get; set; }
 

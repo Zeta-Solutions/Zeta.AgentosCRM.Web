@@ -1,9 +1,11 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditFeeTypeModal = function () {
-      var _feeTypesService = abp.services.app.feeTypes;
+  app.modals.CreateOrEditSubjectModal = function () {
+    var _subjectsService = abp.services.app.subjects;
 
     var _modalManager;
-    var _$feeTypesInformationForm = null;
+      var _$SubjectInformationForm = null;
+
+
 
     this.init = function (modalManager) {
       _modalManager = modalManager;
@@ -15,24 +17,29 @@
         format: 'L',
       });
 
-        _$feeTypesInformationForm = _modalManager.getModal().find('form[name=EmailInformationsForm]');
-        _$feeTypesInformationForm.validate();
+        _$SubjectInformationForm = _modalManager.getModal().find('form[name=QuotationInformationsForm]');
+        _$SubjectInformationForm.validate();
     };
 
+    
+
+ 
+
     this.save = function () {
-        if (!_$feeTypesInformationForm.valid()) {
+        if (!_$SubjectInformationForm.valid()) {
         return;
       }
 
-        var feeType = _$feeTypesInformationForm.serializeFormToObject();
+
+        var Subject = _$SubjectInformationForm.serializeFormToObject();
 
       _modalManager.setBusy(true);
-        _feeTypesService
-            .createOrEdit(feeType)
+      _subjectsService
+          .createOrEdit(Subject)
         .done(function () {
           abp.notify.info(app.localize('SavedSuccessfully'));
           _modalManager.close();
-          abp.event.trigger('app.createOrEditFeeTypeModalSaved');
+          abp.event.trigger('app.createOrEditSubjectModalSaved');
         })
         .always(function () {
           _modalManager.setBusy(false);

@@ -1,11 +1,28 @@
 ﻿(function () {
     $(function () {
         debugger
-        $('#masterCategoryId').select2();
-        $('#partnerTypeId').select2();
-        $('#workflowId').select2();
-        $('#countryId').select2();
-        $('#currencyId').select2();
+        $("#kt_app_sidebar_toggle").trigger("click");
+        $('#masterCategoryId').select2({
+            width: '280px',
+      
+        });
+       
+        $('#partnerTypeId').select2({
+            width: '280px',
+
+        });
+        $('#workflowId').select2({
+            width: '280px',
+
+        });
+        $('#countryId').select2({
+            width: '400px',
+
+        });
+        $('#currencyId').select2({
+            width: '250px',
+
+        });
 
         var input = document.querySelector("#phone");
         const errorMsg = document.querySelector("#error-msg");

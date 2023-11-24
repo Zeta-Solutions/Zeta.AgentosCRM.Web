@@ -1,7 +1,8 @@
 ﻿(function () {
+    alert("ok");
     $(function () {
-        var _$SubjectTable = $('#NotesAndTermsTable');
-        var _subjectsService = abp.services.app.subjects;
+        var _$clientQuotationHeadsTable = $('#ClientsQuotationtable');
+        var _clientQuotationHeadsService = abp.services.app.clientQuotationHeads;
 
         var $selectedDate = {
             startDate: null,
@@ -46,22 +47,23 @@
                 getSubjects();
             });
 
-        //var _permissions = {
-        //    create: abp.auth.hasPermission('Pages.Subjects.Create'),
-        //    edit: abp.auth.hasPermission('Pages.Subjects.Edit'),
-        //    delete: abp.auth.hasPermission('Pages.Subjects.Delete'),
-        //};
+        var _permissions = {
+            create: abp.auth.hasPermission('Pages.Subjects.Create'),
+            edit: abp.auth.hasPermission('Pages.Subjects.Edit'),
+            delete: abp.auth.hasPermission('Pages.Subjects.Delete'),
+        };
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Agents/CreateOrEditNotesAndTermsModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditNotesAndTermsModal',
+            viewUrl: abp.appPath + 'AppAreaName/Client/CreateOrEditClientQuotationModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ClientQuotation/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditClientQuotationModal',
         });
-      
-        //var _viewSubjectModal = new app.ModalManager({
-        //    viewUrl: abp.appPath + 'AppAreaName/ApplicationClient/ViewApplicationModal',
-        //    modalClass: 'ViewApplicationModal',
-        //});
+        var _createOrEditModalEmail = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
+            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
+            modalClass: 'ClientEmailCompose',
+        });
+     
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -77,62 +79,70 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        //var dataTable = _$SubjectTable.DataTable({
-        //    paging: true,
-        //    serverSide: true,
-        //    processing: true,
-        //    listAction: {
-        //        ajaxFunction: _subjectsService.getAll,
-        //        inputFilter: function () {
-        //            return {
-        //                filter: $('#SubjectsTableFilter').val(),
-        //                abbrivationFilter: $('#AbbrivationFilterId').val(),
-        //                nameFilter: $('#NameFilterId').val(),
-        //                subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-        //            };
-        //        },
-        //    },
-        //    columnDefs: [
-        //        {
-        //            className: ' responsive',
-        //            orderable: false,
-        //            render: function () {
-        //                return '';
-        //            },
-        //            targets: 0,
-        //        },
-        //        //{
-        //        //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-        //        //    data: 'subject.abbrivation',
-        //        //    name: 'abbrivation',
-        //        //    render: function (data, type, row) {
-        //        //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-        //        //    }
-        //        //},
-        //        {
-        //            targets: 1,
-        //            data: 'subject.abbrivation',
-        //            name: 'abbrivation',
-        //        },
-        //        {
-        //            targets: 2,
-        //            data: 'subject.name',
-        //            name: 'name',
-        //        },
-        //        {
-        //            targets: 3,
-        //            data: 'subjectAreaName',
-        //            name: 'subjectAreaFk.name',
-        //        },
-        //        {
-        //            targets: 4,
-        //            data: 'subjectAreaName',
-        //            name: 'subjectAreaFk.name',
-        //        },
-              
-              
-        //    ],
-        //});
+        var dataTable = _$clientQuotationHeadsTable.DataTable({
+            paging: true,
+            serverSide: true,
+            processing: true,
+            listAction: {
+                ajaxFunction: _clientQuotationHeadsService.getAll,
+                inputFilter: function () {
+                    return {
+                        filter: $('#SubjectsTableFilter').val(),
+                        abbrivationFilter: $('#AbbrivationFilterId').val(),
+                        nameFilter: $('#NameFilterId').val(),
+                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    };
+                },
+            },
+            columnDefs: [
+                {
+                    className: ' responsive',
+                    orderable: false,
+                    render: function () {
+                        return '';
+                    },
+                    targets: 0,
+                },
+                //{
+                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
+                //    data: 'subject.abbrivation',
+                //    name: 'abbrivation',
+                //    render: function (data, type, row) {
+                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
+                //    }
+                //},
+                {
+                    targets: 1,
+                    data: 'subject.abbrivation',
+                    name: 'abbrivation',
+                },
+                {
+                    targets: 2,
+                    data: 'subject.name',
+                    name: 'name',
+                },
+                {
+                    targets: 3,
+                    data: 'subjectAreaName',
+                    name: 'subjectAreaFk.name',
+                },
+                {
+                    targets: 4,
+                    data: 'subjectAreaName',
+                    name: 'subjectAreaFk.name',
+                },
+                {
+                    targets: 5,
+                    data: 'subjectAreaName',
+                    name: 'subjectAreaFk.name',
+                },
+                {
+                    targets: 6,
+                    data: 'subjectAreaName',
+                    name: 'subjectAreaFk.name',
+                },
+            ],
+        });
 
         function getSubjects() {
             dataTable.ajax.reload();
@@ -165,10 +175,24 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewNotesButton').click(function () {
-            _createOrEditModal.open();
+        $('#CreateNewQuotation').click(function () {
+           // _createOrEditModal.open();
         });
+       
+        $('#CreateNewQuotation').click(function () {
+            debugger
+            var hiddenfield = $("#ID").val();
 
+            // Construct the URL with the data as a query parameter
+            //window.location.href = "/AppAreaName/Clients/ClientQuotationDetailIndex/" + encodeURIComponent(0);
+            window.location.href = "/AppAreaName/Clients/CreateOrEditClientQuotationModal";
+
+            // Redirect to the constructed URL
+            //window.location.href = url;
+            // _createOrEditModal.open();
+          
+
+        });
         $('#ExportToExcelButton').click(function () {
             _subjectsService
                 .getPartnerTypesToExcel({
