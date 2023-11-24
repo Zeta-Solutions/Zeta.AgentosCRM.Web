@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMAgent.Contacts;
+﻿using Zeta.AgentosCRM.CRMSetup.Account;
+using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation;
 using Zeta.AgentosCRM.CRMClient.CheckIn;
@@ -39,6 +40,9 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ManualPaymentDetail),
+            typeof(InvoiceAddress),
+            typeof(BusinessRegNummber),
             typeof(AgentContact),
             typeof(ClientQuotationDetail),
             typeof(ClientQuotationHead),

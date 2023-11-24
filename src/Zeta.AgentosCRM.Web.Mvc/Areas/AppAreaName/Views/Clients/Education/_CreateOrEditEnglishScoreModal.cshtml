@@ -1,13 +1,22 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
+@model CreateOrEditEnglishScoreViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("EditEnglishTestScore")))
 
 <div class="modal-body">
     <div id="InformationsForm">
-        <form name="EducationInformationsForm" role="form" novalidate class="form-validation">
-
-            <input type="hidden" name="id" value="1" />
+        <form name="EnglishTestScoreInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" id="Id" value="@Model.EnglishTestScore.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
+            <div class="my-3" >
+                <label class="form-label" for="Name">@L("Name")</label>
+                <input class="form-control form-control-sm" id="Name" value="@Model.EnglishTestScore.Name" type="text" name="Name" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MinNameLength" />
+            </div>
             <div class="row col-12">
                   <div class="my-3 col-2">
                    
@@ -36,19 +45,19 @@
                     <label class="form-label" for="Application_Name">@L("TOEFl")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required />
                 </div>
            
             </div>
@@ -59,19 +68,19 @@
                     <label class="form-label" for="Application_Name">@L("IELTS")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required  />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required  />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required  />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required  />
                 </div>
            
             </div>
@@ -82,19 +91,19 @@
                     <label class="form-label" for="Application_Name">@L("PTE")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="tEST" type="number" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required />
                 </div>
            
             </div>

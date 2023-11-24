@@ -6,6 +6,36 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TaxSettings = "Pages.TaxSettings";
+        public const string Pages_TaxSettings_Create = "Pages.TaxSettings.Create";
+        public const string Pages_TaxSettings_Edit = "Pages.TaxSettings.Edit";
+        public const string Pages_TaxSettings_Delete = "Pages.TaxSettings.Delete";
+
+        public const string Pages_PaymentInvoiceTypes = "Pages.PaymentInvoiceTypes";
+        public const string Pages_PaymentInvoiceTypes_Create = "Pages.PaymentInvoiceTypes.Create";
+        public const string Pages_PaymentInvoiceTypes_Edit = "Pages.PaymentInvoiceTypes.Edit";
+        public const string Pages_PaymentInvoiceTypes_Delete = "Pages.PaymentInvoiceTypes.Delete";
+
+        public const string Pages_InvoiceTypes = "Pages.InvoiceTypes";
+        public const string Pages_InvoiceTypes_Create = "Pages.InvoiceTypes.Create";
+        public const string Pages_InvoiceTypes_Edit = "Pages.InvoiceTypes.Edit";
+        public const string Pages_InvoiceTypes_Delete = "Pages.InvoiceTypes.Delete";
+
+        public const string Pages_ManualPaymentDetails = "Pages.ManualPaymentDetails";
+        public const string Pages_ManualPaymentDetails_Create = "Pages.ManualPaymentDetails.Create";
+        public const string Pages_ManualPaymentDetails_Edit = "Pages.ManualPaymentDetails.Edit";
+        public const string Pages_ManualPaymentDetails_Delete = "Pages.ManualPaymentDetails.Delete";
+
+        public const string Pages_InvoiceAddresses = "Pages.InvoiceAddresses";
+        public const string Pages_InvoiceAddresses_Create = "Pages.InvoiceAddresses.Create";
+        public const string Pages_InvoiceAddresses_Edit = "Pages.InvoiceAddresses.Edit";
+        public const string Pages_InvoiceAddresses_Delete = "Pages.InvoiceAddresses.Delete";
+
+        public const string Pages_BusinessRegNummbers = "Pages.BusinessRegNummbers";
+        public const string Pages_BusinessRegNummbers_Create = "Pages.BusinessRegNummbers.Create";
+        public const string Pages_BusinessRegNummbers_Edit = "Pages.BusinessRegNummbers.Edit";
+        public const string Pages_BusinessRegNummbers_Delete = "Pages.BusinessRegNummbers.Delete";
+
         public const string Pages_AgentContacts = "Pages.AgentContacts";
         public const string Pages_AgentContacts_Create = "Pages.AgentContacts.Create";
         public const string Pages_AgentContacts_Edit = "Pages.AgentContacts.Edit";

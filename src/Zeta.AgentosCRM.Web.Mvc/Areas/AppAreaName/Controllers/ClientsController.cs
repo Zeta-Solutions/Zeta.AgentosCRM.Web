@@ -7,13 +7,7 @@ using Zeta.AgentosCRM.Web.Controllers;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMClient.Dtos;
-using Abp.Application.Services.Dto;
-using Abp.Extensions;
-using Zeta.AgentosCRM.CRMClient.Appointment;
-using Zeta.AgentosCRM.CRMClient.Appointment.Dtos;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientsAppointments;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tag;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerTypes;
+using Abp.Application.Services.Dto; 
 using Zeta.AgentosCRM.CRMAppointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications;
@@ -36,6 +30,11 @@ using Zeta.AgentosCRM.TaskManagement.Dtos;
 using Zeta.AgentosCRM.CRMClient.CheckIn;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.CheckInLogs;
 using Zeta.AgentosCRM.CRMClient.CheckIn.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
+using Zeta.AgentosCRM.CRMClient.Qoutation;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -53,14 +52,21 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly INotesAppService _notesAppService;
         private readonly ICRMTasksAppService _cRMTasksAppService;
         private readonly ICheckInLogsAppService _checkInLogsAppService;
-        
+        private readonly IEnglisTestScoresAppService _englisTestScoresAppService;
+        private readonly IOtherTestScoresAppService _otherTestScoresAppService;
+        private readonly IClientQuotationHeadsAppService _clientQuotationHeadsAppService;
+        private readonly IClientQuotationDetailsAppService _clientQuotationDetailsAppService;
+
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
             IApplicationsAppService applicationsAppService ,
             IClientInterstedServicesAppService clientInterstedServicesAppService,
             IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, 
-            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService)
+            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService, 
+            IEnglisTestScoresAppService englisTestScoresAppService,
+            IOtherTestScoresAppService otherTestScoresAppService ,
+            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -72,6 +78,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _notesAppService = notesAppService;
             _cRMTasksAppService = cRMTasksAppService;
             _checkInLogsAppService = checkInLogsAppService;
+            _englisTestScoresAppService = englisTestScoresAppService;
+            _otherTestScoresAppService = otherTestScoresAppService;
+            _clientQuotationHeadsAppService = clientQuotationHeadsAppService;
+            _clientQuotationDetailsAppService = clientQuotationDetailsAppService;
         }
 
         #region "Clents"
@@ -473,19 +483,53 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
            
 
             return PartialView("Education/_CreateOrEditModal", ViewModel);
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
         }
         public async Task<PartialViewResult> CreateOrEditEnglishScoreModal(int? id)
         {
+            GetEnglisTestScoreForEditOutput getEnglisTestScoreForEditOutput;
+            if (id.HasValue)
+            {
+                getEnglisTestScoreForEditOutput = await _englisTestScoresAppService.GetEnglisTestScoreForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getEnglisTestScoreForEditOutput = new GetEnglisTestScoreForEditOutput
+                {
+                    EnglisTestScore = new CreateOrEditEnglisTestScoreDto()
+                };
+            }
+            var ViewModel = new CreateOrEditEnglishScoreViewModel()
+            {
+                EnglishTestScore = getEnglisTestScoreForEditOutput.EnglisTestScore,
+                EnglishTestScoreList = await _englisTestScoresAppService.GetAllClientForTableDropdown(),
 
-            return PartialView("Education/_CreateOrEditEnglishScoreModal", "");
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+            };
+
+            return PartialView("Education/_CreateOrEditEnglishScoreModal", ViewModel);
         }
         public async Task<PartialViewResult> CreateOrEditOtherScoreModal(int? id)
         {
 
-            return PartialView("Education/_CreateOrEditOtherScoreModal", "");
-            //return PartialView("Client/ApplicationClient/_CreateOrEditModal", "");
+            GetOtherTestScoreForEditOutput getOtherTestScoreForEditOutput;
+            if (id.HasValue)
+            {
+                getOtherTestScoreForEditOutput = await _otherTestScoresAppService.GetOtherTestScoreForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getOtherTestScoreForEditOutput = new GetOtherTestScoreForEditOutput
+                {
+                    OtherTestScore = new CreateOrEditOtherTestScoreDto()
+                };
+            }
+            var ViewModel = new CreateOrEditOtherTestScoresViewModel()
+            {
+                OtherTestScore = getOtherTestScoreForEditOutput.OtherTestScore,
+                OtherTestScoreList = await _otherTestScoresAppService.GetAllClientForTableDropdown(),
+
+            };
+
+            return PartialView("Education/_CreateOrEditOtherScoreModal", ViewModel);
         }
         #endregion
 
@@ -612,6 +656,85 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
 
             return PartialView("ClientCheckInLogs/_CreateOrEditModal", viewModel);
+        }
+        #endregion
+        #region "Client Quotation"
+        public async Task<ActionResult> ClientQuotationIndex(long? id)
+        {
+
+            long applicationId = id.GetValueOrDefault();
+            var getClientQuotationHeadForViewDto = await _clientQuotationHeadsAppService.GetClientQuotationHeadForView(applicationId);
+            var model = new ClientQuotationViewModel()
+            {
+                ClientQuotationHead = getClientQuotationHeadForViewDto.ClientQuotationHead
+
+            };
+
+            return View("~/ClientsQuotation/ClientQuotationIndex.cshtml", model);
+        }
+        //public async Task<ActionResult> ClientQuotationDetailIndex(int id)
+        //{
+
+        //    var getClientQuotationDetailForViewDto = await _clientQuotationDetailsAppService.GetClientQuotationDetailForView(id);
+        //    // long applicationId = id.GetValueOrDefault();
+        //  //  var getClientQuotationDetailForViewDto = await _clientQuotationDetailsAppService.GetClientQuotationDetailForView(new EntityDto<long> { Id = (long)id });
+
+        //    var model = new ClientQuotationDetailViewModel()
+        //    {
+        //        ClientQuotationDetail = getClientQuotationDetailForViewDto.ClientQuotationDetail
+
+        //    };
+
+        //    return View("~/ClientsQuotation/ClientQuotationsDetail.cshtml", model);
+
+
+        //}
+      
+        //public ActionResult ClientQuotationDetailIndex()
+        //{
+
+        //    var model = new ClientQuotationsDetailsViewModel
+        //    {
+        //        FilterText = ""
+        //    };
+
+        //    return View("ClientsQuotation/ClientQuotationsDetail",model);
+        //    //long applicationId = id.GetValueOrDefault();
+        //    //var getClientQuotationDetailForViewDto = await _clientQuotationDetailsAppService.GetClientQuotationDetailForView(applicationId);
+        //    //var model = new ClientQuotationDetailViewModel()
+        //    //{
+        //    //    ClientQuotationDetail = getClientQuotationDetailForViewDto.ClientQuotationDetail
+
+
+        //    //};
+
+
+        //    //return View("ClientsQuotation/ClientQuotationsDetail", model);
+        //}
+   
+        public async Task<ActionResult> CreateOrEditClientQuotationModal(long? id)
+        {
+            GetClientQuotationHeadForEditOutput getClientQuotationHeadForEditOutput; 
+            if (id.HasValue)
+            {
+                getClientQuotationHeadForEditOutput = await _clientQuotationHeadsAppService.GetClientQuotationHeadForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientQuotationHeadForEditOutput = new GetClientQuotationHeadForEditOutput
+                {
+                    ClientQuotationHead = new CreateOrEditClientQuotationHeadDto()
+                };
+            }
+            var viewModel = new CreateOrEditClientQuotationsViewModel()
+            {
+                ClientQuotationHead = getClientQuotationHeadForEditOutput.ClientQuotationHead,
+                QuotationHeadClientList = await _clientQuotationHeadsAppService.GetAllClientForTableDropdown(),
+                QuotationHeadCRMCurrencyList = await _clientQuotationHeadsAppService.GetAllCRMCurrencyForTableDropdown(),
+
+            };
+          
+            return View("ClientsQuotation/ClientQuotationsDetail", viewModel);
         }
         #endregion
     }
