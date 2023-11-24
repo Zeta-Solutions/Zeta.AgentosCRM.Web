@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Agents;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@model CreateOrEditAgentContactsViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateContact")))
+
+<div class="modal-body">
+    <div id="ContactsInformationsTab">
+        <form name="ContactsInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.AgentContact.Id" />
+            }
+
+            <input type="hidden" name="agentId" id="agentId" value="" />
+            <div class="row col-12">
+                <div class="col-md-6 mb-3">
+                    <label for="Title" class="form-label">Title</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.AgentContact.Name">
+                </div>
+                <div class="col-6" style="display: flex; flex-direction: column;">
+                    <label for="Phone" class="form-label">@L("Phone")</label>
+                    <input type="hidden" value="@Model.AgentContact.PhoneCode" id="PhoneCode" name="PhoneCode" />
+                    <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.AgentContact.PhoneNo">
+                    <span id="valid-msg" class="hide">✓ Valid</span>
+                    <span id="error-msg" class="hide"></span>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="col-6">
+                    <label for="messageTextarea" class="form-label">Email</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Email" name="Email" value="@Model.AgentContact.Email">
+
+                </div>
+                <div class="checkbox-list col-6 mt-8">
+                    <label class="form-check form-check-custom form-check-solid">
+                        <input id="EditRole_IsDefault" type="checkbox" name="IsPrimary" class="form-check-input" value="true" @Html.Raw(Model.AgentContact.IsPrimary ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("PrimaryContact")
+                        </span>
+                    </label>
+
+                </div>
+                </div>
+          
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
