@@ -8,5 +8,7 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos
 
         public long AppointmentId { get; set; }
 
+        public long UserId { get; set; }
+
     }
 }

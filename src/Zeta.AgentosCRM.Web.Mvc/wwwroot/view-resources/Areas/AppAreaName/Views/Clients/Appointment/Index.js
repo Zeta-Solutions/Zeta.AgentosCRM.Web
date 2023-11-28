@@ -134,12 +134,12 @@
 
 
                     render: function (data, type, full, meta) {
-                        console.log(data);
+                        //console.log(data);
                         var rowId = data.appointment.id;
-                        console.log(rowId);
+                        //console.log(rowId);
                         var rowData = data.appointment;
                         var RowDatajsonString = JSON.stringify(rowData);
-                        console.log(RowDatajsonString);
+                        //console.log(RowDatajsonString);
                         var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -189,7 +189,7 @@
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
             } else if (action === 'delete') {
-                console.log(rowId);
+               // console.log(rowId);
                 deleteAppointments(rowId);
             }
         });
@@ -270,4 +270,4 @@
         });
       
     });
-})();
+})(jQuery);

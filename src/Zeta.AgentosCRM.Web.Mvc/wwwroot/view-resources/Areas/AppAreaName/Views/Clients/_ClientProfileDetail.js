@@ -157,7 +157,7 @@
             var tagId = 2;// $(this).val(); // Retrieve the value of the clicked button
 
             // Use the retrieved tagId value as needed
-            console.log("Tag ID:", tagId); // For example, log the tagId to the console
+            //console.log("Tag ID:", tagId); // For example, log the tagId to the console
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientsTagsService
@@ -234,7 +234,7 @@
             var UserId =  $(this).val(); // Retrieve the value of the clicked button
 
             // Use the retrieved tagId value as needed
-            console.log("User ID:", UserId); // For example, log the tagId to the console
+            //console.log("User ID:", UserId); // For example, log the tagId to the console
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientsFollowersService

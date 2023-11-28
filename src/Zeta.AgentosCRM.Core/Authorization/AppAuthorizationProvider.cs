@@ -30,6 +30,51 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var productOtherTestRequirements = pages.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements, L("ProductOtherTestRequirements"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherTestRequirements.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements_Create, L("CreateNewProductOtherTestRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherTestRequirements.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements_Edit, L("EditProductOtherTestRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherTestRequirements.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements_Delete, L("DeleteProductOtherTestRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var productEnglishRequirements = pages.CreateChildPermission(AppPermissions.Pages_ProductEnglishRequirements, L("ProductEnglishRequirements"), multiTenancySides: MultiTenancySides.Tenant);
+            productEnglishRequirements.CreateChildPermission(AppPermissions.Pages_ProductEnglishRequirements_Create, L("CreateNewProductEnglishRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productEnglishRequirements.CreateChildPermission(AppPermissions.Pages_ProductEnglishRequirements_Edit, L("EditProductEnglishRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productEnglishRequirements.CreateChildPermission(AppPermissions.Pages_ProductEnglishRequirements_Delete, L("DeleteProductEnglishRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var productAcadamicRequirements = pages.CreateChildPermission(AppPermissions.Pages_ProductAcadamicRequirements, L("ProductAcadamicRequirements"), multiTenancySides: MultiTenancySides.Tenant);
+            productAcadamicRequirements.CreateChildPermission(AppPermissions.Pages_ProductAcadamicRequirements_Create, L("CreateNewProductAcadamicRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productAcadamicRequirements.CreateChildPermission(AppPermissions.Pages_ProductAcadamicRequirements_Edit, L("EditProductAcadamicRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+            productAcadamicRequirements.CreateChildPermission(AppPermissions.Pages_ProductAcadamicRequirements_Delete, L("DeleteProductAcadamicRequirement"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var productOtherInformations = pages.CreateChildPermission(AppPermissions.Pages_ProductOtherInformations, L("ProductOtherInformations"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherInformations.CreateChildPermission(AppPermissions.Pages_ProductOtherInformations_Create, L("CreateNewProductOtherInformation"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherInformations.CreateChildPermission(AppPermissions.Pages_ProductOtherInformations_Edit, L("EditProductOtherInformation"), multiTenancySides: MultiTenancySides.Tenant);
+            productOtherInformations.CreateChildPermission(AppPermissions.Pages_ProductOtherInformations_Delete, L("DeleteProductOtherInformation"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var productFees = pages.CreateChildPermission(AppPermissions.Pages_ProductFees, L("ProductFees"));
+            productFees.CreateChildPermission(AppPermissions.Pages_ProductFees_Create, L("CreateNewProductFee"));
+            productFees.CreateChildPermission(AppPermissions.Pages_ProductFees_Edit, L("EditProductFee"));
+            productFees.CreateChildPermission(AppPermissions.Pages_ProductFees_Delete, L("DeleteProductFee"));
+
+            var documentCheckListPartners = pages.CreateChildPermission(AppPermissions.Pages_DocumentCheckListPartners, L("DocumentCheckListPartners"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListPartners.CreateChildPermission(AppPermissions.Pages_DocumentCheckListPartners_Create, L("CreateNewDocumentCheckListPartner"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListPartners.CreateChildPermission(AppPermissions.Pages_DocumentCheckListPartners_Edit, L("EditDocumentCheckListPartner"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListPartners.CreateChildPermission(AppPermissions.Pages_DocumentCheckListPartners_Delete, L("DeleteDocumentCheckListPartner"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var documentCheckListProducts = pages.CreateChildPermission(AppPermissions.Pages_DocumentCheckListProducts, L("DocumentCheckListProducts"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListProducts.CreateChildPermission(AppPermissions.Pages_DocumentCheckListProducts_Create, L("CreateNewDocumentCheckListProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListProducts.CreateChildPermission(AppPermissions.Pages_DocumentCheckListProducts_Edit, L("EditDocumentCheckListProduct"), multiTenancySides: MultiTenancySides.Tenant);
+            documentCheckListProducts.CreateChildPermission(AppPermissions.Pages_DocumentCheckListProducts_Delete, L("DeleteDocumentCheckListProduct"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var workflowStepDocumentCheckLists = pages.CreateChildPermission(AppPermissions.Pages_WorkflowStepDocumentCheckLists, L("WorkflowStepDocumentCheckLists"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowStepDocumentCheckLists.CreateChildPermission(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Create, L("CreateNewWorkflowStepDocumentCheckList"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowStepDocumentCheckLists.CreateChildPermission(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Edit, L("EditWorkflowStepDocumentCheckList"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowStepDocumentCheckLists.CreateChildPermission(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Delete, L("DeleteWorkflowStepDocumentCheckList"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var workflowDocuments = pages.CreateChildPermission(AppPermissions.Pages_WorkflowDocuments, L("WorkflowDocuments"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowDocuments.CreateChildPermission(AppPermissions.Pages_WorkflowDocuments_Create, L("CreateNewWorkflowDocument"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowDocuments.CreateChildPermission(AppPermissions.Pages_WorkflowDocuments_Edit, L("EditWorkflowDocument"), multiTenancySides: MultiTenancySides.Tenant);
+            workflowDocuments.CreateChildPermission(AppPermissions.Pages_WorkflowDocuments_Delete, L("DeleteWorkflowDocument"), multiTenancySides: MultiTenancySides.Tenant);
+
             var taxSettings = pages.CreateChildPermission(AppPermissions.Pages_TaxSettings, L("TaxSettings"), multiTenancySides: MultiTenancySides.Tenant);
             taxSettings.CreateChildPermission(AppPermissions.Pages_TaxSettings_Create, L("CreateNewTaxSetting"), multiTenancySides: MultiTenancySides.Tenant);
             taxSettings.CreateChildPermission(AppPermissions.Pages_TaxSettings_Edit, L("EditTaxSetting"), multiTenancySides: MultiTenancySides.Tenant);

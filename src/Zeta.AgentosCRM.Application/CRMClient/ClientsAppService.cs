@@ -17,7 +17,8 @@ using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using Zeta.AgentosCRM.CRMAgent;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -28,12 +29,13 @@ namespace Zeta.AgentosCRM.CRMClient
         private readonly IClientsExcelExporter _clientsExcelExporter;
         private readonly IRepository<Country, int> _lookup_countryRepository;
         private readonly IRepository<User, long> _lookup_userRepository;
+        private readonly IRepository<Agent, long> _lookup_agentRepository;
         private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
         private readonly IRepository<DegreeLevel, int> _lookup_degreeLevelRepository;
         private readonly IRepository<SubjectArea, int> _lookup_subjectAreaRepository;
         private readonly IRepository<LeadSource, int> _lookup_leadSourceRepository;
 
-        public ClientsAppService(IRepository<Client, long> clientRepository, IClientsExcelExporter clientsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<User, long> lookup_userRepository, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<LeadSource, int> lookup_leadSourceRepository)
+        public ClientsAppService(IRepository<Client, long> clientRepository, IClientsExcelExporter clientsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<User, long> lookup_userRepository, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<LeadSource, int> lookup_leadSourceRepository, IRepository<Agent, long> lookup_agentRepository)
         {
             _clientRepository = clientRepository;
             _clientsExcelExporter = clientsExcelExporter;
@@ -43,7 +45,7 @@ namespace Zeta.AgentosCRM.CRMClient
             _lookup_degreeLevelRepository = lookup_degreeLevelRepository;
             _lookup_subjectAreaRepository = lookup_subjectAreaRepository;
             _lookup_leadSourceRepository = lookup_leadSourceRepository;
-
+            _lookup_agentRepository = lookup_agentRepository;
         }
 
         public async Task<PagedResultDto<GetClientForViewDto>> GetAll(GetAllClientsInput input)
@@ -498,6 +500,17 @@ namespace Zeta.AgentosCRM.CRMClient
                 {
                     Id = leadSource.Id,
                     DisplayName = leadSource == null || leadSource.Name == null ? "" : leadSource.Name.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_Clients)]
+        public async Task<List<ClientAgentLookupTableDto>> GetAllAgentForTableDropdown()
+        {
+            return await _lookup_agentRepository.GetAll()
+                .Select(agent => new ClientAgentLookupTableDto
+                {
+                    Id = agent.Id,
+                    DisplayName = agent == null || agent.Name == null ? "" : agent.Name.ToString()
                 }).ToListAsync();
         }
 

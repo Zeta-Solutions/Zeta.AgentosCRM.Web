@@ -9,5 +9,7 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos
 
         public string AppointmentTitleFilter { get; set; }
 
+        public string UserNameFilter { get; set; }
+
     }
 }

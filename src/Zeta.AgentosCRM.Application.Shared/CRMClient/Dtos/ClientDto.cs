@@ -57,5 +57,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public int? PassportCountryId { get; set; }
 
+        public long? AgentId { get; set; }
+
     }
 }

@@ -16,6 +16,7 @@
   @section Scripts
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Application/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ApplicationDetail/_ApplicationDetail.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
@@ -304,6 +305,11 @@
                             @L("ChecksinLogs")
                         </a>
                     </li>
+                    <li class="nav-item" hidden>
+                            <a href="#ApplicationDetailTabDiv" id="ApplicationDetailTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            @L("ApplicationDetail")
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -313,7 +319,7 @@
 <div>
     <div class="tab-content ">
             <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
-            <div class="list-group">
+            <div class="list-group" id="ApplicationDetail">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Application/ApplicationsIndex.cshtml")
             </div>
         </div>
@@ -379,6 +385,11 @@
         <div class="tab-pane pt-5 mb-7" id="EducationTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/Education/EducationIndex.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="ApplicationDetailTabDiv" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ApplicationDetail/ApplicationDetailIndex.cshtml")
             </div>
         </div>
     </div>

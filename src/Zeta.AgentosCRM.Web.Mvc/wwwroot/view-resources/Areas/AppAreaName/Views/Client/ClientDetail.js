@@ -85,8 +85,7 @@
                     clearForm();
                 }
             });
-        });
-        console.log(_clientService);
+        }); 
     var $selectedDate = {
       startDate: null,
       endDate: null,

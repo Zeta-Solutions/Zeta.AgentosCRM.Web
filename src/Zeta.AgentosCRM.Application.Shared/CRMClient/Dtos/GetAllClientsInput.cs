@@ -39,5 +39,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public string PassportCountryFilter { get; set; }
 
+        public string AgentFilter { get; set; }
+
     }
 }

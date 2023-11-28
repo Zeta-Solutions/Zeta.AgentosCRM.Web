@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.CRMAgent;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -107,6 +108,11 @@ namespace Zeta.AgentosCRM.CRMClient
 
         [ForeignKey("PassportCountryId")]
         public Country PassportCountryFk { get; set; }
+
+        public virtual long AgentId { get; set; }
+
+        [ForeignKey("AgentId")]
+        public Agent AgentFk { get; set; }
 
     }
 }

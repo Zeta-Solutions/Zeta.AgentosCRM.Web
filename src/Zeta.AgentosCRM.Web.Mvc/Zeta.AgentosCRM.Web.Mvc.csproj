@@ -22,12 +22,16 @@
 
   <ItemGroup>
     <Compile Remove="App_Data\**" />
+    <Compile Remove="wwwroot\Plugins\keenicons\**" />
     <Compile Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Contacts\**" />
     <Content Remove="App_Data\**" />
+    <Content Remove="wwwroot\Plugins\keenicons\**" />
     <Content Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Contacts\**" />
     <EmbeddedResource Remove="App_Data\**" />
+    <EmbeddedResource Remove="wwwroot\Plugins\keenicons\**" />
     <EmbeddedResource Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Contacts\**" />
     <None Remove="App_Data\**" />
+    <None Remove="wwwroot\Plugins\keenicons\**" />
     <None Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Contacts\**" />
   </ItemGroup>
 
