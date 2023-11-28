@@ -1,0 +1,70 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model CreateOrEditClientQuotationsViewModel
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
+  }
+@section Scripts
+    {
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotation.js" asp-append-version="true"></script>
+
+}
+
+ <div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <form name="ClientTagsInformationsForm" role="form" novalidate class="form-validation">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="row">
+                    <div class="col-md-4 mb-3 pull-right">
+                        <label class="form-label fw-bold text-dark " for="DueDate">@L("DueDate")</label>
+                        <input class="form-control  rounded-0 custom-small-input date-picker" id="DueDate" type="text" name="DueDate" value="@Model.ClientQuotationHead.DueDate" />
+                    </div>
+                    <div class="my-3 col-4 pull-right">
+                        <label class="form-label fw-bold text-dark" for="CurrencyId">@L("QuotationCurrency")</label>
+                        @Html.DropDownList("CurrencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" })
+                    </div>
+                </div>
+            </div>
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                    <div class="row align-items-center">
+                        <table id="ClientsQuotationDetailtable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                            <thead>
+                                <tr>
+                                    <th></th>
+
+                                    <th>@L("Product")</th>
+                                    <th>@L("Description")</th>
+                                    <th>@L("ServiceFee")</th>
+                                    <th>@L("Discount")</th>
+                                    <th>@L("NetFee")</th>
+                                    <th>@L("ExgRate")</th>
+                                    <th>@L("TotalAmt")</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn btn-success save-button float-right"><i class="fa fa-save"></i> @L("Save")</button>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+            </form>
+       
+    </div>
+</div>
+
+
+
+

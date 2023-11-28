@@ -1,16 +1,47 @@
 ﻿(function () {
+    
     $(function () {
+        debugger
         var _$EducationEnglishTestScoreTable = $('#EnglishTestScoretable');
+        var _englisTestScoresService = abp.services.app.englisTestScores;
+
         var _$EducationOtherTestScoreTable = $('#OtherTestScoretable');
-        var _clientEducationsService = abp.services.app.clientEducations;
+        var _otherTestScoresService = abp.services.app.otherTestScores;
 
         var hiddenfield = $("#clientId").val();
         var dynamicValue = hiddenfield;
         //CArd start
+        var receivedId = 0;
         getnotesreload(dynamicValue);
-        var globalData; // Declare the data variable in a broader scope
-         
+        //var globalData; // Declare the data variable in a broader scope
 
+        ////For Id
+        function getnotesreload(dynamicValue) {
+            debugger
+
+
+            var branchesAjax = $.ajax({
+                url: abp.appPath + 'api/services/app/EnglisTestScores/GetAll',
+                data: {
+                    PartnerIdFilter: dynamicValue,
+                },
+                method: 'GET',
+                dataType: 'json',
+            })
+                .done(function (data) {
+                    debugger
+                    receivedId =data.result.items[0].englisTestScore.id
+                    console.log('Response from server:', data);
+                    globalData = data; // Assign data to the global variable
+                    processssssssssData(data); // Call processData function after data is available
+                })
+                .fail(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    
+
+        //
 
 
         function getnotesreload(dynamicValue) {
@@ -198,23 +229,15 @@
         });
         var _createOrEditEnglishScoreModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditEnglishScoreModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Education/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditEnglishScoreModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Education/_CreateOrEditEnglishModal.js',
+            modalClass: 'CreateOrEditEnglishTestScoreModal',
         });
         var _createOrEditOtherScoreModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditOtherScoreModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Education/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditOtherScoreModal',
         });
-        var _createOrEditModalEmail = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Client/ClientEmailCompose',
-            //scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Client/ApplicationClient/_CreateOrEditModal.js',
-            modalClass: 'ClientEmailCompose',
-        });
-        var _viewSubjectModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/ApplicationClient/ViewApplicationModal',
-            modalClass: 'ViewApplicationModal',
-        });
+     
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -229,84 +252,105 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-        //DataTable For English Score
+
+        //testing
+
+
         var dataTable = _$EducationEnglishTestScoreTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _clientEducationsService.getAll,
+                ajaxFunction: _englisTestScoresService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#SubjectsTableFilter').val(),
+                        filter: $('#PartnersTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
-                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
                     };
                 },
             },
             columnDefs: [
                 {
-                    className: ' responsive',
+                    className: 'control responsive',
                     orderable: false,
                     render: function () {
                         return '';
                     },
                     targets: 0,
                 },
-                //{
-                //    targets: 1, // The column index (zero-based) where you want to add the "View" button
-                //    data: 'subject.abbrivation',
-                //    name: 'abbrivation',
-                //    render: function (data, type, row) {
-                //        return '<a href="' + abp.appPath + 'AppAreaName/Client/ClientDetail/' + row.subject.id + '" class="btn btn-primary">View</a>';
-                //    }
-                //},
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
+                    render: function (data, type, row, meta) {
+                        if (meta.row === 0) {
+                            return '<p style="font-weight:bold;font-size:12px">toefl</p>';
+                        } else if (meta.row === 1) {
+                            return '<p style="font-weight:bold;font-size:12px">ielts</p>';
+                        } else if (meta.row === 2) {
+                            return '<p style="font-weight:bold;font-size:12px">pte</p>';
+                        }
+                    }
                 },
                 {
                     targets: 2,
-                    data: 'subject.name',
-                    name: 'name',
+                    data: 'englisTestScore.listenting',
+                    name: 'listenting',
                 },
                 {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'englisTestScore.reading',
+                    name: 'reading',
                 },
                 {
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'englisTestScore.writing',
+                    name: 'writing',
                 },
                 {
                     targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'englisTestScore.speaking',
+                    name: 'speaking',
                 },
+
                 {
+                    width: 100,
                     targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: null,
+                    orderable: false,
+                    autowidth: false,
+                    defaultcontent: '',
+                    // assuming 'row' contains the client data with properties 'firstname', 'lastname', and 'email'
+                    render: function (data, type, row) {
+
+                        console.log(data.englisTestScore.totalScore);
+                        return `
+        <div class="d-flex align-items-center">
+            <svg height="60" width="60"> <!-- increase height and width of svg -->
+                <circle cx="30" cy="30" r="20" stroke="#009ef7" stroke-width="2" fill="#009ef7" /> <!-- increase the value of 'r' -->
+                <text x="30" y="35" text-anchor="middle" fill="white">${data.englisTestScore.totalScore}</text>
+            </svg>
+        </div>
+    `;
+                    },
+
+
+                    name: 'totalscore',
+
                 },
-                {
-                    targets: 7,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
+
             ],
         });
 
-        //DataTable For Other Score
+
+        //
+      
+       
         var dataTable = _$EducationOtherTestScoreTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _clientEducationsService.getAll,
+                ajaxFunction: _otherTestScoresService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#SubjectsTableFilter').val(),
@@ -328,38 +372,57 @@
             
                 {
                     targets: 1,
-                    data: 'subject.abbrivation',
-                    name: 'abbrivation',
+                    render: function (data, type, row, meta) {
+                        if (meta.row === 0) {
+                            return '<p style="font-weight:bold;font-size:12px">OverAllScore</p>';
+                        }
+                    }
                 },
                 {
                     targets: 2,
-                    data: 'subject.name',
-                    name: 'name',
+                    data: 'otherTestScore.listenting',
+                    name: 'listenting',
                 },
                 {
                     targets: 3,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'otherTestScore.reading',
+                    name: 'reading',
                 },
                 {
                     targets: 4,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'otherTestScore.writing',
+                    name: 'writing',
                 },
                 {
                     targets: 5,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: 'otherTestScore.speaking',
+                    name: 'speaking',
                 },
+
                 {
+                    width: 100,
                     targets: 6,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
-                },
-                {
-                    targets: 7,
-                    data: 'subjectAreaName',
-                    name: 'subjectAreaFk.name',
+                    data: null,
+                    orderable: false,
+                    autowidth: false,
+                    defaultcontent: '',
+                    // assuming 'row' contains the client data with properties 'firstname', 'lastname', and 'email'
+                    render: function (data, type, row) {
+
+                        console.log(data.englisTestScore.totalScore);
+                        return `
+        <div class="d-flex align-items-center">
+            <svg height="60" width="60"> <!-- increase height and width of svg -->
+                <circle cx="30" cy="30" r="20" stroke="#009ef7" stroke-width="2" fill="#009ef7" /> <!-- increase the value of 'r' -->
+                <text x="30" y="35" text-anchor="middle" fill="white">${data.englisTestScore.totalScore}</text>
+            </svg>
+        </div>
+    `;
+                    },
+
+
+                    name: 'totalscore',
+
                 },
             ],
         });
@@ -367,20 +430,6 @@
             dataTable.ajax.reload();
         }
 
-        function deletePartnerType(subject) {
-            abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
-                if (isConfirmed) {
-                    _subjectsService
-                        .delete({
-                            id: subject.id,
-                        })
-                        .done(function () {
-                            getSubjects(true);
-                            abp.notify.success(app.localize('SuccessfullyDeleted'));
-                        });
-                }
-            });
-        }
 
         $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
@@ -398,8 +447,23 @@
             _createOrEditModal.open();
         });
         $('#AddEnglishTestScoreButton').click(function () {
-            _createOrEditEnglishScoreModal.open();
+            debugger;
+
+            // Assuming receivedId is a globally declared variable
+            if (receivedId && parseInt(receivedId) > 0) {
+                _createOrEditEnglishScoreModal.open({ id: receivedId });
+
+            } else {
+                // Prompt the user to provide an ID or handle it according to your application logic.
+                _createOrEditEnglishScoreModal.open();
+
+            }
+            getagreementsreload(dynamicValue);
         });
+        //$('#AddEnglishTestScoreButton').click(function () {
+        //   debugger
+        //    _createOrEditEnglishScoreModal.open([id]);
+        //});
         $('#AddOtherTestScoreButton').click(function () {
             _createOrEditOtherScoreModal.open();
         });
