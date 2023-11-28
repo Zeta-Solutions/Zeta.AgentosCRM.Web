@@ -1,9 +1,7 @@
 ﻿(function () {
     $(function () {
         var _$applicationsTable = $('#Applicationstable');
-        var _applicationsService = abp.services.app.applications;
-        debugger
-        console.log(_applicationsService)
+        var _applicationsService = abp.services.app.applications; 
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -102,23 +100,42 @@
                 },
                 {
                     targets: 1,
-                    data: 'workflowName',
-                    name: 'workflowNameFk.name',
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        let workflowName = data.workflowName; 
+                        // Generate the URLs using JavaScript variables
+                        //let applicationStepUrl = "/AppAreaName/Client/ClientDetail?id=" + data.application.workflowId +"";
+                        debugger
+                        var contaxtMenu = `
+                                <div class="d-flex align-items-center">
+             
+                                    <div class="d-flex flex-column">
+                                    <div id="search" style="cursor: pointer; color:blue; ">${workflowName}</div>
+
+                                    </div>
+                                </div>
+                            `;
+
+
+                        return contaxtMenu;
+                    }
+                  
+
                 },
                 {
                     targets: 2,
 
                     data: 'partnerPartnerName',
-                    name: 'partnerPartnerNameFk.name',
-                    //data: 'application.work',
-                    //name: 'partnerPartnerName',
+                    name: 'partnerPartnerNameFk.name', 
                  
                 },
                 {
-                    targets: 3,
-                    //data: 'application.productName',
-                    //name: 'productName',
-
+                    targets: 3, 
                     data: 'productName',
                     name: 'productNameFk.name',
                 },
@@ -130,13 +147,10 @@
                     searchable: false,
 
 
-                    render: function (data, type, full, meta) {
-                        console.log(data);
-                        var rowId = data.application.id;
-                        console.log(rowId);
+                    render: function (data, type, full, meta) { 
+                        var rowId = data.application.id; 
                         var rowData = data.application;
-                        var RowDatajsonString = JSON.stringify(rowData);
-                        console.log(RowDatajsonString);
+                        var RowDatajsonString = JSON.stringify(rowData); 
                         var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
                             '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -157,7 +171,14 @@
               
             ],
         });
+         
         // Add a click event handler for the ellipsis icons
+        $(document).on('click', '#search', function (e) {
+            
+            // Show the selected tab
+            var selectedTab = document.getElementById("ApplicationDetailTab");
+            selectedTab.click(); 
+        });
         $(document).on('click', '.Applicationellipsis', function (e) {
             e.preventDefault();
             debugger
@@ -186,8 +207,7 @@
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
-            } else if (action === 'delete') {
-                console.log(rowId);
+            } else if (action === 'delete') { 
                 deleteApplications(rowId);
             }
         });
@@ -267,4 +287,4 @@
             getApplications();
         });
     });
-})();
+})(jQuery);

@@ -19,6 +19,10 @@
             width: '400px',
 
         });
+        $('#organizationUnitId').select2({
+            width: '400px',
+
+        });
         //$('#currencyId').select2({
         //    width: '250px',
 

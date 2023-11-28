@@ -1,4 +1,8 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Account;
+﻿using Zeta.AgentosCRM.CRMProducts.Requirements;
+using Zeta.AgentosCRM.CRMProducts.OtherInfo;
+using Zeta.AgentosCRM.CRMProducts.Fee;
+using Zeta.AgentosCRM.CRMSetup.Document;
+using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMSetup.Email;
 using Zeta.AgentosCRM.CRMSetup.Documents;
@@ -52,6 +56,24 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ProductOtherTestRequirement> ProductOtherTestRequirements { get; set; }
+
+        public virtual DbSet<ProductEnglishRequirement> ProductEnglishRequirements { get; set; }
+
+        public virtual DbSet<ProductAcadamicRequirement> ProductAcadamicRequirements { get; set; }
+
+        public virtual DbSet<ProductOtherInformation> ProductOtherInformations { get; set; }
+
+        public virtual DbSet<ProductFee> ProductFees { get; set; }
+
+        public virtual DbSet<DocumentCheckListPartner> DocumentCheckListPartners { get; set; }
+
+        public virtual DbSet<DocumentCheckListProduct> DocumentCheckListProducts { get; set; }
+
+        public virtual DbSet<WorkflowStepDocumentCheckList> WorkflowStepDocumentCheckLists { get; set; }
+
+        public virtual DbSet<WorkflowDocument> WorkflowDocuments { get; set; }
+
         public virtual DbSet<TaxSetting> TaxSettings { get; set; }
 
         public virtual DbSet<PaymentInvoiceType> PaymentInvoiceTypes { get; set; }
@@ -192,10 +214,46 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaxSetting>(t =>
+            modelBuilder.Entity<ProductOtherTestRequirement>(p =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ProductEnglishRequirement>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductAcadamicRequirement>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductOtherInformation>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductFee>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<DocumentCheckListPartner>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<DocumentCheckListProduct>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<WorkflowStepDocumentCheckList>(w =>
+                       {
+                           w.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<WorkflowDocument>(w =>
+                       {
+                           w.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<TaxSetting>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<PaymentInvoiceType>(p =>
                        {
                            p.HasIndex(e => new { e.TenantId });

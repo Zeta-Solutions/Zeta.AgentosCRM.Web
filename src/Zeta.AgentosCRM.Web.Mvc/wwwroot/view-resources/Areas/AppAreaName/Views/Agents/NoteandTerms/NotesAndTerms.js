@@ -74,9 +74,9 @@
 
             var branchesAjax = $.ajax({
                 url: abp.appPath + 'api/services/app/notes/GetAll',
-                //data: {
-                //    AgentIdFilter: dynamicValue,
-                //},
+                data: {
+                    AgentIdFilter: dynamicValue,
+                },
                 method: 'GET',
                 dataType: 'json',
             })
@@ -195,7 +195,7 @@
         //};
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Partners/CreateOrEditNotesModal',
+            viewUrl: abp.appPath + 'AppAreaName/Agents/CreateOrEditNotesModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditNotesAndTermsModal',
         });

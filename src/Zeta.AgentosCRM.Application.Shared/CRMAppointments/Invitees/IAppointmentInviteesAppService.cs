@@ -22,5 +22,7 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees
 
         Task<List<AppointmentInviteeAppointmentLookupTableDto>> GetAllAppointmentForTableDropdown();
 
+        Task<List<AppointmentInviteeUserLookupTableDto>> GetAllUserForTableDropdown();
+
     }
 }

@@ -8,7 +8,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Agents
         public CreateOrEditAgentDto Agent { get; set; }
 
         public List <AgentCountryLookupTableDto> AgentCountryList { get; set; }
+        public List <AgentOrganizationUnitLookupTableDto> AgentOrganizationUnitList { get; set; }
         public string CountryName { get; set; }
+        public string OrganizationUnitName { get; set; }
         public bool IsEditMode => Agent.Id.HasValue;
     }
 }

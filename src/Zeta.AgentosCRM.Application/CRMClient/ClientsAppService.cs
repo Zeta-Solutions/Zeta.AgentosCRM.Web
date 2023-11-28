@@ -17,7 +17,8 @@ using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using Zeta.AgentosCRM.CRMAgent;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -28,12 +29,13 @@ namespace Zeta.AgentosCRM.CRMClient
         private readonly IClientsExcelExporter _clientsExcelExporter;
         private readonly IRepository<Country, int> _lookup_countryRepository;
         private readonly IRepository<User, long> _lookup_userRepository;
+        private readonly IRepository<Agent, long> _lookup_agentRepository;
         private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
         private readonly IRepository<DegreeLevel, int> _lookup_degreeLevelRepository;
         private readonly IRepository<SubjectArea, int> _lookup_subjectAreaRepository;
         private readonly IRepository<LeadSource, int> _lookup_leadSourceRepository;
 
-        public ClientsAppService(IRepository<Client, long> clientRepository, IClientsExcelExporter clientsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<User, long> lookup_userRepository, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<LeadSource, int> lookup_leadSourceRepository)
+        public ClientsAppService(IRepository<Client, long> clientRepository, IClientsExcelExporter clientsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<User, long> lookup_userRepository, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<LeadSource, int> lookup_leadSourceRepository, IRepository<Agent, long> lookup_agentRepository)
         {
             _clientRepository = clientRepository;
             _clientsExcelExporter = clientsExcelExporter;
@@ -43,7 +45,7 @@ namespace Zeta.AgentosCRM.CRMClient
             _lookup_degreeLevelRepository = lookup_degreeLevelRepository;
             _lookup_subjectAreaRepository = lookup_subjectAreaRepository;
             _lookup_leadSourceRepository = lookup_leadSourceRepository;
-
+            _lookup_agentRepository = lookup_agentRepository;
         }
 
         public async Task<PagedResultDto<GetClientForViewDto>> GetAll(GetAllClientsInput input)
@@ -57,6 +59,7 @@ namespace Zeta.AgentosCRM.CRMClient
                         .Include(e => e.StudyAreaFk)
                         .Include(e => e.LeadSourceFk)
                         .Include(e => e.PassportCountryFk)
+                        .Include(e => e.AgentFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
@@ -102,6 +105,9 @@ namespace Zeta.AgentosCRM.CRMClient
                           join o7 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o7.Id into j7
                           from s7 in j7.DefaultIfEmpty()
 
+                          join o8 in _lookup_agentRepository.GetAll() on o.AgentId equals o8.Id into j8
+                          from s8 in j8.DefaultIfEmpty()
+
                           select new
                           {
 
@@ -130,7 +136,8 @@ namespace Zeta.AgentosCRM.CRMClient
                               DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                               SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
                               LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
-                              PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString()
+                              PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
+                              AgentName = s8 == null || s8.Name == null ? "" : s8.Name.ToString()
                           };
 
             var totalCount = await filteredClients.CountAsync();
@@ -171,7 +178,8 @@ namespace Zeta.AgentosCRM.CRMClient
                     DegreeLevelName = o.DegreeLevelName,
                     SubjectAreaName = o.SubjectAreaName,
                     LeadSourceName = o.LeadSourceName,
-                    PassportCountry = o.PassportCountry
+                    PassportCountry = o.PassportCountry,
+                    AgentName = o.AgentName
                 };
 
                 results.Add(res);
@@ -232,6 +240,12 @@ namespace Zeta.AgentosCRM.CRMClient
                 output.PassportCountry = _lookupCountry?.Name?.ToString();
             }
 
+            if (output.Client.AgentId != null)
+            {
+                var _lookupAgent = await _lookup_agentRepository.FirstOrDefaultAsync((int)output.Client.AgentId);
+                output.PassportCountry = _lookupAgent?.Name?.ToString();
+            }
+
             return output;
         }
 
@@ -282,6 +296,12 @@ namespace Zeta.AgentosCRM.CRMClient
             {
                 var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.PassportCountryId);
                 output.PassportCountry = _lookupCountry?.Name?.ToString();
+            }
+
+            if (output.Client.AgentId != null)
+            {
+                var _lookupAgent = await _lookup_agentRepository.FirstOrDefaultAsync((int)output.Client.AgentId);
+                output.PassportCountry = _lookupAgent?.Name?.ToString();
             }
 
             return output;
@@ -498,6 +518,17 @@ namespace Zeta.AgentosCRM.CRMClient
                 {
                     Id = leadSource.Id,
                     DisplayName = leadSource == null || leadSource.Name == null ? "" : leadSource.Name.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_Clients)]
+        public async Task<List<ClientAgentLookupTableDto>> GetAllAgentForTableDropdown()
+        {
+            return await _lookup_agentRepository.GetAll()
+                .Select(agent => new ClientAgentLookupTableDto
+                {
+                    Id = agent.Id,
+                    DisplayName = agent == null || agent.Name == null ? "" : agent.Name.ToString()
                 }).ToListAsync();
         }
 

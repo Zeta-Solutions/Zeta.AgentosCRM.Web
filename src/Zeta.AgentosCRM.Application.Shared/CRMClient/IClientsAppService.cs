@@ -39,5 +39,7 @@ namespace Zeta.AgentosCRM.CRMClient
 
         Task<List<ClientLeadSourceLookupTableDto>> GetAllLeadSourceForTableDropdown();
 
+        Task<List<ClientAgentLookupTableDto>> GetAllAgentForTableDropdown();
+
     }
 }
