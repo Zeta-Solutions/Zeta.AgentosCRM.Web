@@ -80,7 +80,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    console.log('Response from server:', data);
+                   // console.log('Response from server:', data);
                     globalData = data; // Assign data to the global variable
                     processData(); // Call processData function after data is available
                 })
@@ -441,4 +441,4 @@
             }
         });
     });
-})();
+})(jQuery);

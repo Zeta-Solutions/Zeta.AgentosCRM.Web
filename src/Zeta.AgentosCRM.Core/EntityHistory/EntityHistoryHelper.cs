@@ -1,4 +1,7 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Account;
+﻿using Zeta.AgentosCRM.CRMProducts.Requirements;
+using Zeta.AgentosCRM.CRMProducts.OtherInfo;
+using Zeta.AgentosCRM.CRMProducts.Fee;
+using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation;
@@ -35,11 +38,17 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] HostSideTrackedTypes =
         {
+            typeof(ProductFee),
             typeof(OrganizationUnit), typeof(Role), typeof(Tenant)
         };
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ProductOtherTestRequirement),
+            typeof(ProductEnglishRequirement),
+            typeof(ProductAcadamicRequirement),
+            typeof(ProductOtherInformation),
+            typeof(ProductFee),
             typeof(ManualPaymentDetail),
             typeof(InvoiceAddress),
             typeof(BusinessRegNummber),

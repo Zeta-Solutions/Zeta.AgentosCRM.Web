@@ -16,6 +16,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.Authorization.Users;
 
 namespace Zeta.AgentosCRM.CRMAppointments.Invitees
 {
@@ -24,12 +25,13 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees
     {
         private readonly IRepository<AppointmentInvitee, long> _appointmentInviteeRepository;
         private readonly IRepository<Appointment, long> _lookup_appointmentRepository;
+        private readonly IRepository<User, long> _lookup_userRepository;
 
-        public AppointmentInviteesAppService(IRepository<AppointmentInvitee, long> appointmentInviteeRepository, IRepository<Appointment, long> lookup_appointmentRepository)
+        public AppointmentInviteesAppService(IRepository<AppointmentInvitee, long> appointmentInviteeRepository, IRepository<Appointment, long> lookup_appointmentRepository, IRepository<User, long> lookup_userRepository)
         {
             _appointmentInviteeRepository = appointmentInviteeRepository;
             _lookup_appointmentRepository = lookup_appointmentRepository;
-
+            _lookup_userRepository = lookup_userRepository;
         }
 
         public async Task<PagedResultDto<GetAppointmentInviteeForViewDto>> GetAll(GetAllAppointmentInviteesInput input)
@@ -152,6 +154,7 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees
         {
             await _appointmentInviteeRepository.DeleteAsync(input.Id);
         }
+
         [AbpAuthorize(AppPermissions.Pages_AppointmentInvitees)]
         public async Task<List<AppointmentInviteeAppointmentLookupTableDto>> GetAllAppointmentForTableDropdown()
         {
@@ -160,6 +163,17 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees
                 {
                     Id = appointment.Id,
                     DisplayName = appointment == null || appointment.Title == null ? "" : appointment.Title.ToString()
+                }).ToListAsync();
+        }
+
+        [AbpAuthorize(AppPermissions.Pages_AppointmentInvitees)]
+        public async Task<List<AppointmentInviteeUserLookupTableDto>> GetAllUserForTableDropdown()
+        {
+            return await _lookup_userRepository.GetAll()
+                .Select(user => new AppointmentInviteeUserLookupTableDto
+                {
+                    Id = user.Id,
+                    DisplayName = user == null || user.Name == null ? "" : user.Name.ToString()
                 }).ToListAsync();
         }
 
