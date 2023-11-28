@@ -201,6 +201,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 ,
                 PassportCountry = getClientForViewDto.PassportCountry
 
+                ,
+                AgentName = getClientForViewDto.AgentName
+
             };
 
             return View(model);
