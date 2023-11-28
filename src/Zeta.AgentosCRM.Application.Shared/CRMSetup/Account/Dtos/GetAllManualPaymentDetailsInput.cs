@@ -13,5 +13,6 @@ namespace Zeta.AgentosCRM.CRMSetup.Account.Dtos
 
         public string OrganizationUnitDisplayNameFilter { get; set; }
 
+        public int? OrganizationUnitIdFilter { get; set; }
     }
 }

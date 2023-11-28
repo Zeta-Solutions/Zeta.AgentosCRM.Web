@@ -1,5 +1,5 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes; *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Accounts.ManualPaymentDetail;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 @* @model DocumentTypesViewModel
  @{
@@ -14,67 +14,86 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
 <abp-page-subheader title='@L("Accounts")' >
-    
+   
     
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">
+    
     <div class="card"> 
         <div class="card-body">
             <div class="row">
+                <div class="row form-group">           
+                    <label class="col-sm-1 col-form-label" for="Workflow_Name">@L("Office")</label>
+                    <div class="col-sm-4">
+                        <select id="WorkFlowOfficeId" class="form-control"></select> <br />
+                    </div>
+                     @* <div class="col-lg-6" id="showhide">
+                     <label class="form-label" for="Workflow_Name">@L("Office")</label>
+                     <select id="WorkFlowOfficeId" class="form-control"></select>
+                     @* @Html.DropDownList("WorkFlowOfficeId", new SelectList(Model.AgentOrganizationUnitList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.OrganizationUnitId.ToString() : "")),@L("SelectAOrganizationUnitId"), new { @class = "form-control" , @required="required" })  
+
+                     </div> *@ 
+                </div>
                 <div class="row-lg-12">
                     <h3>@L("BusinessRegistrationNumber")</h3>  
                 </div>
+                 
                 <div class="col-lg-6">
-                    <label class="form-label" for="Workflow_Name">@L("Enteryourbusinessregistrationnumber")</label>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" />
-                        <button type="button" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0"><i class="fa fa-save text-white"></i> <span>Save</span></button>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <label class="form-label" for="Workflow_Name">@L("Enteryourbusinessregistrationnumber")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" />
+                    <label class="form-label" for="businessregistrationnumber">@L("Enteryourbusinessregistrationnumber")</label>
+                    <input class="form-control" id="businessregistrationID" hidden autocomplete="off" value="" type="text"   />
+                    <input class="form-control" id="businessregistrationnumber" autocomplete="off"  type="text" name="name" />
                  </div>
-                <div class="col-lg-6"> 
-                    <br /> 
-                     <button type="button" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0"><i class="fa fa-save text-white"></i> <span>Save</span></button>
-
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn btn-sm btn-outline text-white rounded-0 btnbusinessRegNummbers"><i class="fa fa-save"></i> @L("Save")</button>
+                           
+                        </div>
+                    </div>
                 </div>
 
             </div>
             <div class="row">
                 <div class="row-lg-12">
                     <h3>@L("BusinessInvoiceAddress")</h3> 
+                    <input class="form-control" id="businessInvoicenumber" hidden  value="" type="text"  />
+
                 </div>
                 <div class="col-lg-4">
-                    <label class="form-label" for="Workflow_Name">@L("Street")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                    <label class="form-label" for="B_I_Address">@L("Street")</label>
+                    <input class="form-control" id="B_I_Address"   type="text" name="name"   />
                 </div>
                 <div class="col-lg-4">
-                    <label class="form-label" for="Workflow_Name">@L("City")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                    <label class="form-label" for="B_I_City">@L("City")</label>
+                    <input class="form-control" id="B_I_City"   type="text"   />
                 </div>
                 <div class="col-lg-4">
-                    <label class="form-label" for="Workflow_Name">@L("State")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                    <label class="form-label" for="B_I_State">@L("State")</label>
+                    <input class="form-control" id="B_I_State"   type="text"   />
                 </div>
                 <div class="col-lg-4">
-                    <label class="form-label" for="Workflow_Name">@L("ZipCode")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                    <label class="form-label" for="B_I_ZipCode">@L("ZipCode")</label>
+                    <input class="form-control" id="B_I_ZipCode"    type="text"   />
                 </div>
                 <div class="col-lg-4">
-                    <label class="form-label" for="Workflow_Name">@L("Country")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowConsts.MinNameLength" />
+                    <label class="form-label" for="B_I_Country">@L("Country")</label>
+                    @* <input class="form-control" id="B_I_Country" type="text"   /> *@
+
+                    <select id="B_I_Country" class="form-control"></select>
                 </div> 
                 <div class="col-lg-4">
                     
-                </div> 
-                
-                <div class="col-lg-6"><br />
-                    <button type="button" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0"><i class="fa fa-save text-white"></i> <span>Save</span></button>
-                 </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn   btn-sm btn-outline text-white  rounded-0 btnbusinessAddress"><i class="fa fa-save"></i> @L("Save")</button>
+
+                        </div>
+                    </div>
+                </div>
             </div> 
         </div> 
     </div> 
@@ -84,13 +103,21 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
                 <div class="row  "> 
                      <div class="row">
                          <div class="col-lg-10">
-                             <h3>@L("Maunal Payment Details")</h3> 
-                             <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<label>@("choose invoice types where you want to use this payment detail by default.You can Choose different in the invoice as well.")</label><br /><br />
+                             <h3>@L("MaunalPaymentDetails")</h3> 
+                             <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<label>@L("chooseinvoicetypeswhereyouwanttousethispaymentdetailbydefault.You can Choose different in the invoice as well.")</label><br /><br />
                          </div>
-                         <div class="col-lg-2">  
-                              <button type="button" class="btn btnclose btn-sm btn-outline text-white rounded-0 addMaunalTax"><i class="fa fa-save text-white"></i> <span>Add New</span></button>
-                         </div>
+                        @* <div class="card-footer">
+                        <div class="row align-items-center">*@
+                                <div class="col-lg-2">
+                                    <button type="button" id="saveBtn" class="btn btn-primary float-right addMaunalTax "> @L("AddNew")</button>
+
+                                </div>
+                        @* </div>
+                        </div> <div class="col-lg-2">
+                        <button type="button" class="btn  btn-sm btn-outline text-white rounded-0 addMaunalTax"><i class="fa fa-save text-white"></i> <span>Add New</span></button>
+                         </div> *@
                      </div>
+                     <div class="ManualDetail"></div>
                 </div>
             </div>
             
@@ -101,12 +128,12 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
         <div class="card-body">
             <div class="form">
                 <div class="row align-items-center mb-4">
-                    <div class="row">
+                    <div class="row TaxRow">
                         <div class="col-lg-12">
                             <h3>@L("TaxSettings")</h3>
                             <br />
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<label>@("This Will be displayed while creating the invoice and account will be calculated accordingly.")</label><br /><br />
-                        
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;<label>@L("ThisWillbedisplayedwhilecreatingtheinvoiceandaccountwillbecalculatedaccordingly.")</label><br /><br />
+                        <input class="form-control" hidden id="TaxID" autocomplete="off" type="text" name="name"   />
                         </div>
                         <div class="col-lg-3"> 
                            <label class="form-label" for="Workflow_Name">@L("TaxCode")</label>
@@ -121,18 +148,18 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
                            <label class="form-label" for="Workflow_Name">@L("Action")</label>
                         </div> 
                     </div>
-                    <div class="row">
+                   @*  <div class="row">
                         <div class="col-lg-3">
                         <br />
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value="GST" type="text" name="name"   />
+                        <input class="form-control" id="TaxCode" autocomplete="off" value="GST" type="text" name="name"   />
                         </div>
                         <div class="col-lg-3">
                             <br /> 
-                            <input class="form-control" id="Workflow_Name" autocomplete="off" value="10" type="text" name="name" />
+                            <input class="form-control" id="TaxRate" autocomplete="off" value="10" type="text" name="name" />
                         </div>
                         <div class="col-lg-3">
                             <br />
-                            <button type="button" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0"> <span>Defualt Tax</span></button>
+                            <button type="button" value="1" class="btn  btn-sm btn-outline text-white   rounded-0"> <span>Defualt Tax</span></button>
                         </div>
                         <div class="col-lg-3">
                             <br />
@@ -150,25 +177,39 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
                         </div>
                         <div class="col-lg-3">
                             <br />
-                            <button type="button" class="btn btnclose btn-sm btn-outline text-white  rounded-0"> <span>Set As Defualt</span></button>
+                            <button type="button" class="btn   btn-sm btn-outline text-white  rounded-0"> <span>Set As Defualt</span></button>
                         </div>
                         <div class="col-lg-3">
                             <br /> 
                             <span><i class="fa fa-trash" style="font-size: 20px;"></i></span> 
                         </div>
-                    </div>
+                    </div> *@
                      <div class="row">
-                         <div class="col-lg-12">
-                            <div class="AddTaxDiv"></div>
-                                 <div class="col-lg-6">
-                                     <br />
-                                     <button type="button" class="btn btnclose btn-sm btn-outline text-white rounded-0 addTax"><i class="fa fa-save text-white"></i> <span>Add New Tax</span></button>
-                                 </div>
-                         </div>
+                        
+                        <div class="AddTaxDiv"></div>
+                        <div class="card-footer">
+                            <div class="row align-items-center">
+
+                                <div class="col-lg-12">
+                                    <button type="button" id="saveBtn" class="btn btn-primary float-right addTax"> @L("AddTax")</button>
+
+                                </div>
+                            </div>
+                        </div>
                      </div>
                 </div>
             </div>
-            
+            <div class="row">
+               
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn btn-sm btn-outline text-white  rounded-0 TaxSettingSave"><i class="fa fa-save"></i> @L("Save")</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

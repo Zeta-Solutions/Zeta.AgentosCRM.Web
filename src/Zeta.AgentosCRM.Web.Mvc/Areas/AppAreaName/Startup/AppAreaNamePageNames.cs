@@ -66,6 +66,7 @@
             public const string Subject = "CRMSetup.Subject";
             public const string Agent = "CRMSetup.Agent";
             public const string Accounts = "CRMSetup.Accounts";
+            public const string InvoiceType = "CRMSetup.InvoiceType";
             public const string Partners = "Dashboard.Partners";
         }
     }

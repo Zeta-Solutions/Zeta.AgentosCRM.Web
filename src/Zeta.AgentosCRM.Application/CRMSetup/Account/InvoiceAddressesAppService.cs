@@ -47,7 +47,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                         .WhereIf(!string.IsNullOrWhiteSpace(input.StateFilter), e => e.State.Contains(input.StateFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ZipCodeFilter), e => e.ZipCode.Contains(input.ZipCodeFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter)
+                         .WhereIf(input.OrganizationUnitIdFilter.HasValue, e => false || e.OrganizationUnitId == input.OrganizationUnitIdFilter.Value);
 
             var pagedAndFilteredInvoiceAddresses = filteredInvoiceAddresses
                 .OrderBy(input.Sorting ?? "id asc")
@@ -68,6 +69,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                                        o.State,
                                        o.ZipCode,
                                        Id = o.Id,
+                                       o.CountryId,
                                        CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                        OrganizationUnitDisplayName = s2 == null || s2.DisplayName == null ? "" : s2.DisplayName.ToString()
                                    };
@@ -89,6 +91,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                         State = o.State,
                         ZipCode = o.ZipCode,
                         Id = o.Id,
+                        CountryId = o.CountryId,
                     },
                     CountryName = o.CountryName,
                     OrganizationUnitDisplayName = o.OrganizationUnitDisplayName

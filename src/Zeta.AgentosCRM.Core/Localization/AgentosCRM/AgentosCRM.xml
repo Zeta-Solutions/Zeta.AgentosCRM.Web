@@ -1769,5 +1769,20 @@
 		<text name="ExpirayDate">Expiray Date</text>
 		<text name="PromotionTitle">Promotion Title</text>
 		<text name="StartDate">Start Date</text>
+		<text name="Accounts">Accounts</text>
+		<text name="Office">Office</text>
+		<text name="Enteryourbusinessregistrationnumber">Enter your business registration number</text>
+		<text name="BusinessInvoiceAddress">Business Invoice Address</text>
+		<text name="MaunalPaymentDetails">Maunal Payment Details</text>
+		<text name="AddNew">Add New</text>
+		<text name="TaxSettings">Tax Settings</text>
+		<text name="chooseinvoicetypeswhereyouwanttousethispaymentdetailbydefault">choose invoice types where you want to use this payment detail by default.</text>
+		<text name="ThisWillbedisplayedwhilecreatingtheinvoiceandaccountwillbecalculatedaccordingly">This Will be displayed while creating the invoice and account will be calculated accordingly.</text>
+		<text name="TaxCode">Tax Code</text>
+		<text name="TaxRate">Tax Rate</text>
+		<text name="SetAsDefualt">Set As Defualt</text>
+		<text name="DefualtTax">Defualt Tax</text>
+		<text name="Action">Action</text>
+		<text name="AddTax">Add Tax</text>
 	</texts> 
 </localizationDictionary>

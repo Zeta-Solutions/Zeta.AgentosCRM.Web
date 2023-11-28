@@ -1,33 +1,36 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes *@
-@* @model CreateOrEditDocumentTypeModalViewModel *@
-@* @using Abp.Extensions *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Accounts.ManualPaymentDetail
+@model CreateOrEditManualPaymentTypeModalViewModel 
+@using Abp.Extensions
 
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewMaunalTaxDetail")))
-@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditMaunalTaxDetail")) : L("CreateNewMaunalTaxDetail"))) *@
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewMaunalTaxDetail"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditMaunalTaxDetail")) : L("CreateNewMaunalTaxDetail")))
 
 <div class="modal-body">
     <div id="DocumentTypeInformationsTab">
         <form name="DocumentTypeInformationsForm" role="form" novalidate class="form-validation">
-@* 
+
             @if (Model.IsEditMode)
-            { *@
-                <input type="hidden" name="id" value=" " />
-            @* } *@
+            {
+                <input type="hidden" id="ManualPaymentDetailId" name="id" value="@Model.ManualPaymentDetail.Id " />
+                <input type="hidden" id="Id" value="0" />
+            }
             <div class="my-3">
-                <label class="form-label" for="DocumentType">@L("PaymentOptionName")</label>
-                <input class="form-control" id="DocumentType" name="abbrivation" value="Name"    />
+                <label class="form-label" for="ManualPaymentDetail_Name">@L("PaymentOptionName")</label>
+                <input class="form-control" id="ManualPaymentDetail_Name" name="Name" value="@Model.ManualPaymentDetail.Name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MinNameLength" />
+                <input type="hidden" class="form-control" id="OrganizationUnitId" name="OrganizationUnitId" value="" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="FeeType_Name">@L("PaymentDetailContent")</label>
-                <textarea class="form-control"></textarea>
+                <label class="form-label" for="ManualPaymentDetail_PaymentDetail">@L("PaymentDetailContent")</label>
+                <textarea class="form-control" for="ManualPaymentDetail_PaymentDetail" name="PaymentDetail">@Model.ManualPaymentDetail.PaymentDetail</textarea>
             </div>
             <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("DefaultforInvoiceType")</label>
-                <input class="form-control" />
+                <select id="InvoiceTypeId" class="form-select select2" data-id="" data-control="select2"></select>
+                @* <input class="form-control" /> *@
             </div>
 
         </form>

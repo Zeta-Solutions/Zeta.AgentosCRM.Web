@@ -176,20 +176,7 @@ namespace Zeta.AgentosCRM.CRMSetup
                  
             }
             var WorkFlowOfficeid = await _workflowOfficeRepository.GetAllListAsync(p => p.WorkflowId == input.Id);
-            //foreach (var WorkFlowOffice in input.OfficeSteps)
-            //{
-            //    if (WorkFlowOffice.Id == 0)
-            //    {
-            //        var stepEntity = ObjectMapper.Map<WorkflowOffice>(WorkFlowOffice);
-            //        await _workflowOfficeRepository.InsertAsync(stepEntity);
-            //    }
-            //    else
-            //    {
-            //        var workflowStep = await _workflowOfficeRepository.FirstOrDefaultAsync((int)WorkFlowOffice.Id);
-            //        ObjectMapper.Map(WorkFlowOffice, workflowStep);
-            //    }
-
-            //}
+           
             foreach (var item in WorkFlowOfficeid)
             {
                 await _workflowOfficeRepository.DeleteAsync(item.Id);

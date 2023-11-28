@@ -1,6 +1,8 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMSetup.Dtos;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account.Dtos
 {
@@ -15,6 +17,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account.Dtos
         public string PaymentDetail { get; set; }
 
         public long OrganizationUnitId { get; set; }
+        public List<CreateOrEditPaymentInvoiceTypeDto> PaymentInvoiceTypeRecord { get; set; }
 
     }
 }

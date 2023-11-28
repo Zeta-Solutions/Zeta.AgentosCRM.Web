@@ -39,8 +39,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                         .Include(e => e.OrganizationUnitFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.RegistrationNo.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.RegistrationNoFilter), e => e.RegistrationNo.Contains(input.RegistrationNoFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter)
+                         .WhereIf(input.OrganizationUnitIdFilter.HasValue, e => false || e.OrganizationUnitId == input.OrganizationUnitIdFilter.Value);
             var pagedAndFilteredBusinessRegNummbers = filteredBusinessRegNummbers
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
