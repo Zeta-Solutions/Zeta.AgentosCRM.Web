@@ -17,6 +17,10 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMAppointments;
+using Zeta.AgentosCRM.CRMClient.Qoutation;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Zeta.AgentosCRM.CRMClient.Quotation
 {
@@ -26,13 +30,13 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
         private readonly IRepository<ClientQuotationHead, long> _clientQuotationHeadRepository;
         private readonly IRepository<Client, long> _lookup_clientRepository;
         private readonly IRepository<CRMCurrency, int> _lookup_crmCurrencyRepository;
-
-        public ClientQuotationHeadsAppService(IRepository<ClientQuotationHead, long> clientQuotationHeadRepository, IRepository<Client, long> lookup_clientRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository)
+        private readonly IRepository<ClientQuotationDetail, long> _clientQuotationDetailRepository;
+        public ClientQuotationHeadsAppService(IRepository<ClientQuotationHead, long> clientQuotationHeadRepository, IRepository<Client, long> lookup_clientRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository, IRepository<ClientQuotationDetail, long> clientQuotationDetailRepository)
         {
             _clientQuotationHeadRepository = clientQuotationHeadRepository;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_crmCurrencyRepository = lookup_crmCurrencyRepository;
-
+            _clientQuotationDetailRepository = clientQuotationDetailRepository;
         }
 
         public async Task<PagedResultDto<GetClientQuotationHeadForViewDto>> GetAll(GetAllClientQuotationHeadsInput input)
@@ -158,7 +162,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
         }
 
         [AbpAuthorize(AppPermissions.Pages_ClientQuotationHeads_Create)]
-        protected virtual async Task Create(CreateOrEditClientQuotationHeadDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditClientQuotationHeadDto input)
         {
             var clientQuotationHead = ObjectMapper.Map<ClientQuotationHead>(input);
 
@@ -166,8 +170,15 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
             {
                 clientQuotationHead.TenantId = (int)AbpSession.TenantId;
             }
-
-            await _clientQuotationHeadRepository.InsertAsync(clientQuotationHead);
+            var quotationheadId = _clientQuotationHeadRepository.InsertAndGetIdAsync(clientQuotationHead).Result;
+            foreach (var step in input.Steps)
+            {
+                step.QuotationHeadId = quotationheadId;
+                var stepEntity = ObjectMapper.Map<ClientQuotationDetail>(step);
+                await _clientQuotationDetailRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+           // await _clientQuotationHeadRepository.InsertAsync(clientQuotationHead);
 
         }
 

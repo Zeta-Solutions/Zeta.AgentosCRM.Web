@@ -1,6 +1,92 @@
 ﻿(function ($) {
     app.modals.CreateOrEditClientsAppoinmentModal = function () {
         debugger;
+        $('#inviteesId').select2({
+            multiple: true,
+            width: '720px',
+            // Adjust the width as needed
+        });
+        $.ajax({
+            url: abp.appPath + 'api/services/app/AppointmentInvitees/GetAllAppointmentForTableDropdown',
+            method: 'GET',
+            dataType: 'json',
+            //data: {
+            //    PartnerIdFilter: dynamicValue,
+            //},
+            success: function (data) {
+                
+                // Populate the dropdown with the fetched data
+                populateDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+        function populateDropdown(data) {
+            debugger
+            var dropdown = $('#inviteesId');
+
+            dropdown.empty();
+
+            $.each(data.result, function (index, item) {
+                if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+                    dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+                } else {
+                    console.warn('Invalid item:', item);
+                }
+            });
+        }
+        var idValue = 0;
+        var idElements = document.getElementsByName("id");
+
+        if (idElements.length > 0) {
+            // Check if at least one element with the name "id" is found
+            var idElement = idElements[0];
+
+            if (idElement.value !== undefined) {
+                // Check if the value property is defined
+                idValue = idElement.value;
+            } else {
+                console.error("Element with name 'id' does not have a value attribute.");
+            }
+        } else {
+            console.error("Element with name 'id' not found.");
+        }
+        if (idValue > 0) {
+
+
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Appointments/GetAppointmentForEdit?id=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data
+                    updateProductDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+        function updateProductDropdown(data) {
+            debugger;
+            var ms_val = 0;
+
+            // Assuming data.result.promotionproduct is an array of objects with OwnerID property
+            $.each(data.result.promotionProduct, function (index, obj) {
+                ms_val += "," + obj.productId;
+
+            });
+
+            //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
+            var ms_array = ms_val.split(',');
+            var $productId = $("#inviteesId");
+
+          
+            $productId.val(ms_array).trigger('change');
+           
+        }
         var _clientAppointmentsService = abp.services.app.appointments;
       //var hiddenfield = $("#clientId").val();
       var hiddenfield = $("#clientAppID").val();
@@ -13,6 +99,7 @@
         var _$clientTagsInformationForm = null;
 
         $('input[name*="clientId"]').val(hiddenfield)
+        $('input[name*="AddedById"]').val(2);
     var _modalManager;
       var _$clientAppointmentsInformationForm = null;
 
@@ -45,9 +132,24 @@
         if (!_$clientAppointmentsInformationForm.valid()) {
         return;
         }
+        var datarows = [];
+        var datarowsList = $("#inviteesId :selected").map(function (i, el) {
+            debugger
+            return $(el).val();
+        }).get();
+        $.each(datarowsList, function (index, value) {
+            var datarowsItem = {
+                InviteesId: datarowsList[index]
+            }
+            datarows.push(datarowsItem);
+        });
+        var Steps = JSON.stringify(datarows);
+
+        Steps = JSON.parse(Steps);
         debugger
         var ClientAppointment = _$clientAppointmentsInformationForm.serializeFormToObject();
-        console.log(ClientAppointment);
+        ClientAppointment.Steps = Steps;
+       
       _modalManager.setBusy(true);
         _clientAppointmentsService
             .createOrEdit(ClientAppointment)

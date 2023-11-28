@@ -13,6 +13,7 @@
                 <input type="hidden" name="id" value="@Model.Appointment.Id" />
             }
             <input type="hidden" name="clientId" id="ClientId" />
+            <input type="hidden" name="AddedById" id="AddedById" />
 @* 
             <input type="hidden" name="clientId" id="clientAppID" /> *@
     <div class="row">
@@ -80,7 +81,8 @@
                 
                 <div class="my-3">
                     <label class="form-label" for="applointment_Invitees">@L("Invitees")</label>
-                    @Html.DropDownList("applointment_Invitees", new SelectList(Model.AppointmentInviteesList,"Id","DisplayName", (Model.IsEditMode ? Model.Appointment.Id.ToString() : "")),@L("SelectAInvitees"), new { @class = "form-control select2" , @required="required" })
+                    <select id="inviteesId" class="form-select select2" data-id="" data-control="select2"></select>
+                   
             </div>
                 <div class="my-3" hidden>
                     <label class="form-label" for="applointment_AddedBy">@L("AddedBy")</label>

@@ -1,0 +1,48 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@model CreateOrEditQuotationDetailViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("AddProduct")))
+
+<div class="modal-body">
+    <div id="QuotationDetailInformationsForm">
+        <form name="QuotationDetailInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ClientQuotationDetail.Id" />
+            }
+          @*   <input type="hidden" name="clientId" id="ClientId" />
+            <input type="hidden" name="AddedById" id="AddedById" /> *@
+            @*
+            <input type="hidden" name="clientId" id="clientAppID" /> *@
+            <div class="my-3">
+                <label class="form-label" for="countryId">@L("Workflow")</label>
+                @Html.DropDownList("workflowId", new SelectList(Model.ClientQuotationDetailWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientQuotationDetail.WorkflowId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control custom-small-input rounded-0"  , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="countryId">@L("Partner")</label>
+                @Html.DropDownList("partnerId", new SelectList(Model.ClientQuotationDetailPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientQuotationDetail.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control custom-small-input rounded-0"  , @required="required" })
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="productId">@L("Product")</label>
+                @Html.DropDownList("productId", new SelectList(Model.ClientQuotationDetailProducList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientQuotationDetail.ProductId.ToString() : "")),@L("SelectAProduct"), new { @class = "form-control custom-small-input rounded-0"  , @required="required" })
+            </div>
+          
+            
+            <div class="my-3">
+                <label class="form-label" for="countryId">@L("Branch")</label>
+                @Html.DropDownList("branchId", new SelectList(Model.ClientQuotationDetailBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientQuotationDetail.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control custom-small-input rounded-0"  , @required="required" })
+            </div>
+
+            <div class="col-lg-12">
+                <button type="button" id="updatequotationBtn" class="btn btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Update")</button>
+
+            </div>
+           
+  
+        </form>
+    </div>
+</div>
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
