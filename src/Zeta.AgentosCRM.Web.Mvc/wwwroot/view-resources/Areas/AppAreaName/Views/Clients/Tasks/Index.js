@@ -128,7 +128,7 @@
             // Additional logic or actions can be added here
 
             // For testing, you can log the current state to the console
-            console.log(replaceElement.text());
+           // console.log(replaceElement.text());
         });
 
 
@@ -150,7 +150,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    console.log('Response from server:', data);
+                   // console.log('Response from server:', data);
                     globalData = data; // Assign data to the global variable
                     processData(data); // Call processData function after data is available
                 })
@@ -513,4 +513,4 @@
             }
         });
     });
-})();
+})(jQuery);

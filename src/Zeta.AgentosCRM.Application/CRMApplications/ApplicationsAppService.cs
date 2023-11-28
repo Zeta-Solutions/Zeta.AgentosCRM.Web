@@ -77,8 +77,8 @@ namespace Zeta.AgentosCRM.CRMApplications
 
                                select new
                                {
-
-                                   Id = o.Id,
+                                   o.WorkflowId,
+                                   o.Id,
                                    ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                    WorkflowName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                    PartnerPartnerName = s3 == null || s3.PartnerName == null ? "" : s3.PartnerName.ToString(),
@@ -96,7 +96,7 @@ namespace Zeta.AgentosCRM.CRMApplications
                 {
                     Application = new ApplicationDto
                     {
-
+                        WorkflowId= o.WorkflowId,
                         Id = o.Id,
                     },
                     ClientFirstName = o.ClientFirstName,

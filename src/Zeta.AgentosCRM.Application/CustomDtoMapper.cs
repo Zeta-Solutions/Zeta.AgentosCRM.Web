@@ -1,4 +1,12 @@
-﻿using Zeta.AgentosCRM.CRMSetup.Account.Dtos;
+﻿using Zeta.AgentosCRM.CRMProducts.Requirements.Dtos;
+using Zeta.AgentosCRM.CRMProducts.Requirements;
+using Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos;
+using Zeta.AgentosCRM.CRMProducts.OtherInfo;
+using Zeta.AgentosCRM.CRMProducts.Fee.Dtos;
+using Zeta.AgentosCRM.CRMProducts.Fee;
+using Zeta.AgentosCRM.CRMSetup.Document.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Document;
+using Zeta.AgentosCRM.CRMSetup.Account.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMAgent.Contacts.Dtos;
 using Zeta.AgentosCRM.CRMAgent.Contacts;
@@ -122,6 +130,24 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditProductOtherTestRequirementDto, ProductOtherTestRequirement>().ReverseMap();
+            configuration.CreateMap<ProductOtherTestRequirementDto, ProductOtherTestRequirement>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductEnglishRequirementDto, ProductEnglishRequirement>().ReverseMap();
+            configuration.CreateMap<ProductEnglishRequirementDto, ProductEnglishRequirement>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductAcadamicRequirementDto, ProductAcadamicRequirement>().ReverseMap();
+            configuration.CreateMap<ProductAcadamicRequirementDto, ProductAcadamicRequirement>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductOtherInformationDto, ProductOtherInformation>().ReverseMap();
+            configuration.CreateMap<ProductOtherInformationDto, ProductOtherInformation>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductFeeDto, ProductFee>().ReverseMap();
+            configuration.CreateMap<ProductFeeDto, ProductFee>().ReverseMap();
+            configuration.CreateMap<CreateOrEditDocumentCheckListPartnerDto, DocumentCheckListPartner>().ReverseMap();
+            configuration.CreateMap<DocumentCheckListPartnerDto, DocumentCheckListPartner>().ReverseMap();
+            configuration.CreateMap<CreateOrEditDocumentCheckListProductDto, DocumentCheckListProduct>().ReverseMap();
+            configuration.CreateMap<DocumentCheckListProductDto, DocumentCheckListProduct>().ReverseMap();
+            configuration.CreateMap<CreateOrEditWorkflowStepDocumentCheckListDto, WorkflowStepDocumentCheckList>().ReverseMap();
+            configuration.CreateMap<WorkflowStepDocumentCheckListDto, WorkflowStepDocumentCheckList>().ReverseMap();
+            configuration.CreateMap<CreateOrEditWorkflowDocumentDto, WorkflowDocument>().ReverseMap();
+            configuration.CreateMap<WorkflowDocumentDto, WorkflowDocument>().ReverseMap();
             configuration.CreateMap<CreateOrEditTaxSettingDto, TaxSetting>().ReverseMap();
             configuration.CreateMap<TaxSettingDto, TaxSetting>().ReverseMap();
             configuration.CreateMap<CreateOrEditPaymentInvoiceTypeDto, PaymentInvoiceType>().ReverseMap();

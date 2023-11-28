@@ -61,8 +61,8 @@
                         const formattedEndDateEnglish = `${Endmonth} ${Endyear}`;
 
                         // Now you can use formattedDateEnglish where needed
-                        console.log('Formatted Date:', formattedStartDateEnglish); // Example output: "December 2009"
-                        console.log('Formatted Date:', formattedEndDateEnglish); // Example output: "December 2009"
+                        //console.log('Formatted Date:', formattedStartDateEnglish); // Example output: "December 2009"
+                        //console.log('Formatted Date:', formattedEndDateEnglish); // Example output: "December 2009"
 
 
 // Adjust this according to the format you desire
@@ -447,4 +447,4 @@
             getSubjects();
         });
     });
-})();
+})(jQuery);

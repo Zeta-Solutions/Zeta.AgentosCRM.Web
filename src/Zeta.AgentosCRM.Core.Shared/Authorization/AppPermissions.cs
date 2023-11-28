@@ -6,6 +6,51 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ProductOtherTestRequirements = "Pages.ProductOtherTestRequirements";
+        public const string Pages_ProductOtherTestRequirements_Create = "Pages.ProductOtherTestRequirements.Create";
+        public const string Pages_ProductOtherTestRequirements_Edit = "Pages.ProductOtherTestRequirements.Edit";
+        public const string Pages_ProductOtherTestRequirements_Delete = "Pages.ProductOtherTestRequirements.Delete";
+
+        public const string Pages_ProductEnglishRequirements = "Pages.ProductEnglishRequirements";
+        public const string Pages_ProductEnglishRequirements_Create = "Pages.ProductEnglishRequirements.Create";
+        public const string Pages_ProductEnglishRequirements_Edit = "Pages.ProductEnglishRequirements.Edit";
+        public const string Pages_ProductEnglishRequirements_Delete = "Pages.ProductEnglishRequirements.Delete";
+
+        public const string Pages_ProductAcadamicRequirements = "Pages.ProductAcadamicRequirements";
+        public const string Pages_ProductAcadamicRequirements_Create = "Pages.ProductAcadamicRequirements.Create";
+        public const string Pages_ProductAcadamicRequirements_Edit = "Pages.ProductAcadamicRequirements.Edit";
+        public const string Pages_ProductAcadamicRequirements_Delete = "Pages.ProductAcadamicRequirements.Delete";
+
+        public const string Pages_ProductOtherInformations = "Pages.ProductOtherInformations";
+        public const string Pages_ProductOtherInformations_Create = "Pages.ProductOtherInformations.Create";
+        public const string Pages_ProductOtherInformations_Edit = "Pages.ProductOtherInformations.Edit";
+        public const string Pages_ProductOtherInformations_Delete = "Pages.ProductOtherInformations.Delete";
+
+        public const string Pages_ProductFees = "Pages.ProductFees";
+        public const string Pages_ProductFees_Create = "Pages.ProductFees.Create";
+        public const string Pages_ProductFees_Edit = "Pages.ProductFees.Edit";
+        public const string Pages_ProductFees_Delete = "Pages.ProductFees.Delete";
+
+        public const string Pages_DocumentCheckListPartners = "Pages.DocumentCheckListPartners";
+        public const string Pages_DocumentCheckListPartners_Create = "Pages.DocumentCheckListPartners.Create";
+        public const string Pages_DocumentCheckListPartners_Edit = "Pages.DocumentCheckListPartners.Edit";
+        public const string Pages_DocumentCheckListPartners_Delete = "Pages.DocumentCheckListPartners.Delete";
+
+        public const string Pages_DocumentCheckListProducts = "Pages.DocumentCheckListProducts";
+        public const string Pages_DocumentCheckListProducts_Create = "Pages.DocumentCheckListProducts.Create";
+        public const string Pages_DocumentCheckListProducts_Edit = "Pages.DocumentCheckListProducts.Edit";
+        public const string Pages_DocumentCheckListProducts_Delete = "Pages.DocumentCheckListProducts.Delete";
+
+        public const string Pages_WorkflowStepDocumentCheckLists = "Pages.WorkflowStepDocumentCheckLists";
+        public const string Pages_WorkflowStepDocumentCheckLists_Create = "Pages.WorkflowStepDocumentCheckLists.Create";
+        public const string Pages_WorkflowStepDocumentCheckLists_Edit = "Pages.WorkflowStepDocumentCheckLists.Edit";
+        public const string Pages_WorkflowStepDocumentCheckLists_Delete = "Pages.WorkflowStepDocumentCheckLists.Delete";
+
+        public const string Pages_WorkflowDocuments = "Pages.WorkflowDocuments";
+        public const string Pages_WorkflowDocuments_Create = "Pages.WorkflowDocuments.Create";
+        public const string Pages_WorkflowDocuments_Edit = "Pages.WorkflowDocuments.Edit";
+        public const string Pages_WorkflowDocuments_Delete = "Pages.WorkflowDocuments.Delete";
+
         public const string Pages_TaxSettings = "Pages.TaxSettings";
         public const string Pages_TaxSettings_Create = "Pages.TaxSettings.Create";
         public const string Pages_TaxSettings_Edit = "Pages.TaxSettings.Edit";

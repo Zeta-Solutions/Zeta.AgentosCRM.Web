@@ -334,8 +334,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("_CreateOrEditClientFllowers", ViewModel);
         }
         #endregion
-        #region "Application"
 
+        #region "Application"
+ 
         [AbpMvcAuthorize(AppPermissions.Pages_Applications_Create, AppPermissions.Pages_Applications_Edit)]
         public async Task<ActionResult> ApplicationsIndex(long? id)
         {
@@ -348,8 +349,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             };
 
-            return View("Application/ApplicationsIndex", model);
-            //return View("~/Application/ApplicationsIndex.cshtml");
+            return View("Application/ApplicationsIndex", model); 
         }
         public async Task<PartialViewResult> CreateOrEditApplicationModal(long? id)
         {
@@ -382,10 +382,28 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
         #endregion
 
+        #region "ApplicationDetail"
+
+        public async Task<ActionResult> ApplicationDetailIndex(long? id)
+        {
+            long applicationId = id.GetValueOrDefault();
+            var getApplicationForViewDto = await _applicationsAppService.GetApplicationForView(applicationId);
+            var model = new ApplicationViewModel()
+            {
+                Application = getApplicationForViewDto.Application
+
+
+            };
+
+            return View("Application/ApplicationDetailIndex", "");
+        }
+
+        #endregion
+
         #region  "Interested Service"
 
 
-         public async Task<ActionResult> InterestedServicesIndex(long? id)
+        public async Task<ActionResult> InterestedServicesIndex(long? id)
         {
             long applicationId = id.GetValueOrDefault();
             var getInterestedServicesForViewDto = await _clientInterstedServicesAppService.GetClientInterstedServiceForView(applicationId);
@@ -434,6 +452,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
 
         #endregion
+
         #region "Education"
         public async Task<ActionResult> EducationIndex(long? id)
         {

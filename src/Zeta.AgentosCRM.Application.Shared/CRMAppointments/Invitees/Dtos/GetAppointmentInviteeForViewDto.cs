@@ -6,5 +6,7 @@
 
         public string AppointmentTitle { get; set; }
 
+        public string UserName { get; set; }
+
     }
 }

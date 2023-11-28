@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.Authorization.Users;
 
 namespace Zeta.AgentosCRM.CRMAppointments.Invitees
 {
@@ -18,6 +19,11 @@ namespace Zeta.AgentosCRM.CRMAppointments.Invitees
 
         [ForeignKey("AppointmentId")]
         public Appointment AppointmentFk { get; set; }
+
+        public virtual long UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User UserFk { get; set; }
 
     }
 }
