@@ -1,9 +1,12 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.CRMAgent.Contacts;
+using Zeta.AgentosCRM.CRMAgent.Contacts.Dtos;
 using Zeta.AgentosCRM.CRMAgent.Dtos;
 using Zeta.AgentosCRM.CRMApplications;
 using Zeta.AgentosCRM.CRMApplications.Dtos;
@@ -30,11 +33,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IAgentsAppService _agentsAppService;
         private readonly INotesAppService _notesAppService;
         private readonly IApplicationsAppService _applicationsAppService;
-        public AgentsController(IAgentsAppService agentsAppService, INotesAppService notesAppService, IApplicationsAppService applicationsAppService)
+        private readonly IAgentContactsAppService _agentContactsAppService;
+        public AgentsController(IAgentsAppService agentsAppService, INotesAppService notesAppService, IApplicationsAppService applicationsAppService, IAgentContactsAppService agentContactsAppService)
         {
             _agentsAppService = agentsAppService;
             _notesAppService = notesAppService;
             _applicationsAppService = applicationsAppService;
+            _agentContactsAppService = agentContactsAppService;
         }
         public IActionResult Index()
         {
@@ -93,7 +98,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     Agent = new CreateOrEditAgentDto()
                 };
-                //getClientForEditOutput.Client.DateofBirth = DateTime.Now;
+                getAgentForEditOutput.Agent.ContractExpiryDate = DateTime.Now;
                 //getClientForEditOutput.Client.PreferedIntake = DateTime.Now;
                 //getClientForEditOutput.Client.VisaExpiryDate = DateTime.Now;
             }
@@ -103,7 +108,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 Agent = getAgentForEditOutput.Agent,
               
                 CountryName = getAgentForEditOutput.CountryName,
+                OrganizationUnitName = getAgentForEditOutput.OrganizationUnitDisplayName,
                 AgentCountryList = await _agentsAppService.GetAllCountryForTableDropdown(),
+                AgentOrganizationUnitList = await _agentsAppService.GetAllOrganizationUnitForTableDropdown(),
                
             };
 
@@ -210,6 +217,43 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
         }
 
+        #endregion
+        #region Contact
+        public async Task<ActionResult> Contact(int id)
+        {
+            var getAgentContactsForViewDto = await _agentContactsAppService.GetAgentContactForView(id);
+            var model = new AgentContactViewModel()
+            {
+                AgentContact = getAgentContactsForViewDto.AgentContact
+
+
+            };
+
+            return View("AgentContact/Contact", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditContactModal(long? id)
+        {
+            GetAgentContactForEditOutput getAgentContactForEditOutput;
+            if (id.HasValue)
+            {
+                getAgentContactForEditOutput = await _agentContactsAppService.GetAgentContactForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getAgentContactForEditOutput = new GetAgentContactForEditOutput
+                {
+                    AgentContact = new CreateOrEditAgentContactDto()
+                };
+            }
+            var viewModel = new CreateOrEditAgentContactsViewModel()
+            {
+                AgentContact = getAgentContactForEditOutput.AgentContact,
+
+
+            };
+
+            return PartialView("AgentContact/_CreateOrEditModal", viewModel);
+        }
         #endregion
     }
 }

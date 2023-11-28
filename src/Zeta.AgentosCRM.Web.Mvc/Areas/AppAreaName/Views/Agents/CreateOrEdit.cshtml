@@ -75,7 +75,7 @@
                                                                         </span>
                                                                     </label>
                                                                     <label class="form-check  form-check-inline ml-3 mt-3">
-                                                                        <input id="IsSubAgent" type="checkbox" name="IsSubAgent" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsSuperAgent ? "checked=\"checked\"" : "")>
+                                                                        <input id="IsSubAgent" type="checkbox" name="IsSubAgent" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsSubAgent ? "checked=\"checked\"" : "")>
                                                                         <span class="form-check-label">
                                                                             @L("SubAgent")
                                                                         </span>
@@ -237,10 +237,10 @@
                                                                     <label for="State" class="form-label"> @L("State")</label>
                                                                     <input type="text" class="form-control custom-small-input rounded-0" id="State" name="State" value="@Model.Agent.State">
                                                                 </div>
-                                                               @*  <div class="my-3 col-4">
+                                                               <div class="my-3 col-4">
                                                                     <label for="Zip" class="form-label">@L("ZipCode")</label>
                                                                     <input type="text" class="form-control custom-small-input rounded-0" id="ZipCode" name="ZipCode" value="@Model.Agent.ZipCode">
-                                                                </div> *@
+                                                                </div> 
                                                                 <div class="my-3 col-4">
                                                                     <label for="Country" class="form-label">@L("Country")</label>
                                                                     @Html.DropDownList("countryId", new SelectList(Model.AgentCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
@@ -345,10 +345,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="partnerType" class="form-label">@L("RelatedOffice")</label>
-                                                                    <select id="Partnerddl" class="form-select select2   rounded-0" data-control="select2">
-                                                                        <option value="Category">Lahore office </option>
-                                                                        <option value="Category">india office</option>
-                                                                    </select>
+                                                                    @Html.DropDownList("organizationUnitId", new SelectList(Model.AgentOrganizationUnitList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.OrganizationUnitId.ToString() : "")),@L("SelectAOrganizationUnitId"), new { @class = "form-control" , @required="required" })
                                                                 </div>
                                                                 <div class="col-md-4 mb-3" id="field9" style="display:none">
                                                                     <label for="partnerType" class="form-label">@L("IncomeSharingPercentage")</label>

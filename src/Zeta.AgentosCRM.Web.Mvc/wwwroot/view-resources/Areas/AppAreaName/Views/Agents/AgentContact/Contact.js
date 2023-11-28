@@ -1,15 +1,14 @@
 ﻿(function () {
     $(function () {
-        $("#kt_app_sidebar_toggle").trigger("click");
         var hiddenfield = $("#AgentId").val();
         var dynamicValue = hiddenfield;
 
-        getnotesreload(dynamicValue);
+        getcontactsreload(dynamicValue);
         var globalData; // Declare the data variable in a broader scope
 
         function createCard(item) {
             debugger
-            var note = item.note;
+            var agentContact = item.agentContact;
 
             // Create a single row for all cards
             var mainDiv = $('<div>').addClass('maincard maindivcard').css({
@@ -31,14 +30,14 @@
             //var rowId = data.partner.id;
             //var rowData = data.partner;
             //var RowDatajsonString = JSON.stringify(rowData);
-            cardTitle.html(note.title +
+            cardTitle.html(agentContact.name + '&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ' + (agentContact.isPrimary === true ? '<span class="" style="background-color: #A0A0A0;font-size: 12px;color:white">Primary</span>' : '') +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
-                '<div class="ellipsis123"><a href="#" data-id="' + note.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                '<div class="ellipsis1"><a href="#" data-id="' + agentContact.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
                 /*   '<a href="#" style="color: black;" data-action="view" data-id="' + branch.id + '"><li>View</li></a>' +*/
-                '<a href="#" style="color: black;" data-action123="edit" data-id="' + note.id + '"><li>Edit</li></a>' +
-                "<a href='#' style='color: black;' data-action123='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
+                '<a href="#" style="color: black;" data-action1="edit" data-id="' + agentContact.id + '"><li>Edit</li></a>' +
+                "<a href='#' style='color: black;' data-action1='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
                 '</ul>' +
                 '</div>' +
                 '</div>');
@@ -50,7 +49,9 @@
             // Create a column for the card information
             var infoColDiv = $('<div>').addClass('col-md-6'); // Adjust the column size as needed
             var infoParagraph = $('<p>').addClass('card-text');
-            infoParagraph.html('<br><hr>' + note.description);
+            infoParagraph.html('<span class="phone-icon me-2 text-muted rounded-circle">&#x260E;</span>' +'-'+ agentContact.phoneNo + '<br>' +
+                '<span class="email-icon me-2 text-muted rounded-circle">&#x2709;</span>' +'-'+ agentContact.email);
+           
 
             cardBodyDiv.append(titleRowDiv, infoParagraph);
             cardDiv.append(cardBodyDiv);
@@ -68,29 +69,30 @@
 
 
 
-        function getnotesreload(dynamicValue) {
+        function getcontactsreload(dynamicValue) {
             debugger
 
 
             var branchesAjax = $.ajax({
-                url: abp.appPath + 'api/services/app/notes/GetAll',
-                data: {
-                    AgentIdFilter: dynamicValue,
-                },
+                url: abp.appPath + 'api/services/app/agentContacts/GetAll',
+                //data: {
+                //    AgentIdFilter: dynamicValue,
+                //},
                 method: 'GET',
                 dataType: 'json',
             })
                 .done(function (data) {
                     console.log('Response from server:', data);
                     globalData = data; // Assign data to the global variable
-                    processData(); // Call processData function after data is available
+                    processData(data); // Call processData function after data is available
                 })
                 .fail(function (error) {
                     console.error('Error fetching data:', error);
                 });
         }
-        function processData() {
-            var cardContainer = $('#cardContainernotes'); // or replace '#container' with your actual container selector
+        function processData(data) {
+            debugger
+            var cardContainer = $('#cardContainerContact'); // or replace '#container' with your actual container selector
 
             // Check if globalData.result.items is an array before attempting to iterate
             if (Array.isArray(globalData.result.items)) {
@@ -137,7 +139,7 @@
 
 
         var _$NotesTable = $('#BranchTable');
-        var _notesService = abp.services.app.notes;
+        var _agentContactsService = abp.services.app.agentContacts;
 
         var $selectedDate = {
             startDate: null,
@@ -163,12 +165,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getNotes();
+                getContacts();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getNotes();
+                getContacts();
             });
 
         $('.endDate')
@@ -180,12 +182,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getNotes();
+                getContacts();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getNotes();
+                getContacts();
             });
 
         //var _permissions = {
@@ -195,9 +197,9 @@
         //};
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Agents/CreateOrEditNotesModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditNotesAndTermsModal',
+            viewUrl: abp.appPath + 'AppAreaName/Agents/CreateOrEditContactModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/AgentContact/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditContactsModal',
         });
         var _viewLeadSourceModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Partners/PartnersDetails',
@@ -223,7 +225,7 @@
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _notesService.getAll,
+                ajaxFunction: _agentContactsService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#PartnersTableFilter').val(),
@@ -301,23 +303,23 @@
             ],
         });
 
-        function getNotes() {
+        function getContacts() {
             //branchesAjax.reload();
             clearMainDiv();
-            getnotesreload(dynamicValue);
+            getcontactsreload(dynamicValue);
         }
 
-        function deletenotes(note) {
+        function deletecontacts(note) {
             debugger
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _notesService
+                    _agentContactsService
                         .delete({
                             id: note.note.id,
                         })
                         .done(function () {
-                            getNotes(true);
+                            getContacts(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -336,7 +338,7 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewNotesButton').click(function () {
+        $('#CreateNewContactsButton').click(function () {
             debugger
             _createOrEditModal.open();
 
@@ -349,21 +351,10 @@
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
-        $('#BranchesButton').click(function () {
-            debugger
-            var cardContainer = $('#cardContainer');
-            cardContainer.empty(); // Clear existing cards
 
-            //data.forEach(function (item) {
-            //    var card = createCard(item);
-            //    cardContainer.append(card);
-            //});
-
-            // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
-        });
 
         $('#ExportToExcelButton').click(function () {
-            _notesService
+            _agentContactsService
                 .getMasterCategoriesToExcel({
                     filter: $('#LeadSourcesTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -374,35 +365,35 @@
                 });
         });
 
-        abp.event.on('app.createOrEditNoteModalSaved', function () {
-            getNotes();
+        abp.event.on('app.createOrEditContactModalSaved', function () {
+            getContacts();
         });
 
         $('#GetLeadSourcesButton').click(function (e) {
             e.preventDefault();
-            getNotes();
+            getContacts();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getNotes();
+                getContacts();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getNotes();
+            getContacts();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getNotes();
+            getContacts();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getNotes();
+            getContacts();
         });
         // Add a click event handler for the ellipsis icons
-        $(document).on('click', '.ellipsis123', function (e) {
+        $(document).on('click', '.ellipsis1', function (e) {
             e.preventDefault();
 
             var options = $(this).closest('.context-menu').find('.options');
@@ -423,11 +414,11 @@
         });
 
         // Handle menu item clicks
-        $(document).on('click', 'a[data-action123]', function (e) {
+        $(document).on('click', 'a[data-action1]', function (e) {
             e.preventDefault();
 
             var rowId = $(this).data('id');
-            var action = $(this).data('action123');
+            var action = $(this).data('action1');
             debugger
             // Handle the selected action based on the rowId
             if (action === 'view') {
@@ -438,7 +429,7 @@
                 _createOrEditModal.open({ id: rowId });
             } else if (action === 'delete') {
 
-                deletenotes(rowId);
+                deletecontacts(rowId);
             }
         });
     });
