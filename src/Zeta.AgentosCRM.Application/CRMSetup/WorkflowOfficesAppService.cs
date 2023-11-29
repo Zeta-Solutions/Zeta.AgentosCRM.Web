@@ -55,6 +55,9 @@ namespace Zeta.AgentosCRM.CRMSetup
 
                                       o.Name,
                                       Id = o.Id,
+                                      o.WorkflowId,
+                                      o.OrganizationUnitId,
+
                                       OrganizationUnitDisplayName = s1 == null || s1.DisplayName == null ? "" : s1.DisplayName.ToString(),
                                       WorkflowName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                                   };
@@ -73,6 +76,8 @@ namespace Zeta.AgentosCRM.CRMSetup
 
                         Name = o.Name,
                         Id = o.Id,
+                        WorkflowId = o.WorkflowId,
+                        OrganizationUnitId = o.OrganizationUnitId,
                     },
                     OrganizationUnitDisplayName = o.OrganizationUnitDisplayName,
                     WorkflowName = o.WorkflowName

@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Identity;
 using Zeta.AgentosCRM.Authorization.Users.Dto;
 using Castle.Windsor.Diagnostics.Extensions;
 using System.Collections;
+using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
@@ -26,11 +28,13 @@ namespace Zeta.AgentosCRM.CRMSetup
     {
         private readonly IRepository<Workflow> _workflowRepository;
         private readonly IRepository<WorkflowStep> _workflowStepRepository;
+        private readonly IRepository<WorkflowOffice> _workflowOfficeRepository;
 
-        public WorkflowsAppService(IRepository<Workflow> workflowRepository, IRepository<WorkflowStep> workflowStepRepository)
+        public WorkflowsAppService(IRepository<Workflow> workflowRepository, IRepository<WorkflowStep> workflowStepRepository, IRepository<WorkflowOffice> workflowOfficeRepository)
         {
             _workflowRepository = workflowRepository;
             _workflowStepRepository = workflowStepRepository;
+            _workflowOfficeRepository = workflowOfficeRepository;
         }
 
         public async Task<PagedResultDto<GetWorkflowForViewDto>> GetAll(GetAllWorkflowsInput input)
@@ -92,7 +96,7 @@ namespace Zeta.AgentosCRM.CRMSetup
         public async Task<GetWorkflowForEditOutput> GetWorkflowForEdit(EntityDto input)
         {
             var workflow = await _workflowRepository.FirstOrDefaultAsync(input.Id);
-
+            var workflowOffice = await _workflowOfficeRepository.GetAllListAsync(p => p.WorkflowId == input.Id);
 
             var allWorkflowSteps = await _workflowStepRepository.GetAllListAsync();
 
@@ -101,7 +105,9 @@ namespace Zeta.AgentosCRM.CRMSetup
             var output = new GetWorkflowForEditOutput 
             { 
                 Workflow = ObjectMapper.Map<CreateOrEditWorkflowDto>(workflow),
-                WorkflowStep = ObjectMapper.Map<List<CreateOrEditWorkflowStepDto>>(sortedListDescending)
+                WorkflowStep = ObjectMapper.Map<List<CreateOrEditWorkflowStepDto>>(sortedListDescending),
+               WorkflowOffice = ObjectMapper.Map<List<CreateOrEditWorkflowOfficeDto>>(workflowOffice)
+
             };
              
             return output;
@@ -137,6 +143,13 @@ namespace Zeta.AgentosCRM.CRMSetup
                 var stepEntity = ObjectMapper.Map<WorkflowStep>(step);
                 await _workflowStepRepository.InsertAsync(stepEntity);
             }
+
+            foreach (var Officestep in input.OfficeSteps)
+            {
+                Officestep.WorkflowId = workflowId;
+                var stepEntityoffice = ObjectMapper.Map<WorkflowOffice>(Officestep);
+                await _workflowOfficeRepository.InsertAsync(stepEntityoffice);
+            }
             CurrentUnitOfWork.SaveChanges();
             //await _workflowRepository.InsertAsync(workflow); 
         }
@@ -162,7 +175,18 @@ namespace Zeta.AgentosCRM.CRMSetup
                 }
                  
             }
-
+            var WorkFlowOfficeid = await _workflowOfficeRepository.GetAllListAsync(p => p.WorkflowId == input.Id);
+           
+            foreach (var item in WorkFlowOfficeid)
+            {
+                await _workflowOfficeRepository.DeleteAsync(item.Id);
+            }
+            foreach (var WorkFlowOffice in input.OfficeSteps)
+            {
+                WorkFlowOffice.WorkflowId = workflow.Id;
+                var stepEntity = ObjectMapper.Map<WorkflowOffice>(WorkFlowOffice);
+                await _workflowOfficeRepository.InsertAsync(stepEntity);
+            }
         }
 
         [AbpAuthorize(AppPermissions.Pages_Workflows_Delete)]

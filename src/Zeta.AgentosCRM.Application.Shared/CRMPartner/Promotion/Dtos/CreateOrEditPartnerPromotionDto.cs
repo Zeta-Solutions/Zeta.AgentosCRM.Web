@@ -28,7 +28,6 @@ namespace Zeta.AgentosCRM.CRMPartner.Promotion.Dtos
         public bool ApplyTo { get; set; }
 
         public long PartnerId { get; set; }
-     
 
         public List<CreateOrEditPromotionProductDto> Steps { get; set; }
 

@@ -1,22 +1,20 @@
 ﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes
-@model FeeTypeViewModel
- *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes
+@model DocumentTypeViewModel
+
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
 
 <div class="modal-body">
-    <div id="FeeTypeInformationsTab">
+    <div id="DocumentTypeInformationsTab">
 
         <div class="row">
             <div class="col-6 mb-3">
-                <h6>@L("Abbrivation") :</h6>
-                Abbrivation
-                @* @Model.FeeType.Abbrivation *@
+                <h6>@L("Abbrivation") :</h6> 
+                @Model.DocumentType.Abbrivation
             </div>
             <div class="col-6 mb-3">
                 <h6>@L("Name") :</h6>
-                @* @Model.FeeType.Name *@
-                Namee
+                @Model.DocumentType.Name 
             </div>
 
         </div>

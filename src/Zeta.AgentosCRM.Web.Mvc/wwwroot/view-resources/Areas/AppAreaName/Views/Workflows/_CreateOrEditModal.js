@@ -2,8 +2,53 @@
 (function ($) {
     app.modals.CreateOrEditWorkflowModal = function () {
         var _workflowsService = abp.services.app.workflows;
+        if ($("#allOffice").attr("checked")) {
+            debugger
+            document.getElementById("showhide").style.display = 'none';
+        }
+        else {
+            debugger
+            document.getElementById("showhide").style.display = 'block';
+        }
+        $('#WorkFlowOfficeId').select2({
+            multiple: true,
+            width: '650px',
+            // Adjust the width as needed
+        });
+
+        $.ajax({
+            url: abp.appPath + 'api/services/app/Agents/GetAllOrganizationUnitForTableDropdown',
+            method: 'GET',
+            dataType: 'json',
+ 
+            success: function (data) {
+                debugger
+                populateDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+
+        var dataRows = [];  
+        function populateDropdown(data) {
+            var dropdown = $('#WorkFlowOfficeId');
 
 
+
+            dropdown.empty();
+
+            $.each(data.result, function (index, item) {
+                if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+                    dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+                } else {
+                    console.warn('Invalid item:', item);
+                }
+            });
+        }
+
+
+        debugger
         var Workflowsetuptable = $('#Workflowsetuptable').DataTable();
         var _workflowStepsService = abp.services.app.workflowSteps;
 
@@ -34,6 +79,43 @@
         var _modalManager;
         var _$workflowInformationForm = null;
         var workflowId = $("#WorkflowId").val();
+        debugger
+        //Fill Drop Down
+
+        if (workflowId > 0) {
+
+
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Workflows/GetWorkflowForEdit?id=' + workflowId,
+                method: 'GET',
+                dataType: 'json',
+              
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data
+                    updateProductDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+ 
+        function updateProductDropdown(data) {
+            debugger;
+            var ms_val = 0;
+            
+            // Assuming data.result.promotionproduct is an array of objects with OwnerID property
+            $.each(data.result.workflowOffice, function (index, obj) {
+                ms_val += "," + obj.organizationUnitId;
+
+            });
+             
+            //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
+            var ms_array = ms_val.split(',');
+            var $productId = $("#WorkFlowOfficeId");
+            $productId.val(ms_array).trigger('change');
+        }
         if (workflowId > 0) {
             $.ajax({
                 url: abp.appPath + 'api/services/app/WorkflowSteps/GetAll',
@@ -44,14 +126,11 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger;
-
 
                     var TotalRecord = data.result.items;
 
                     $.each(TotalRecord, function (index, item) {
-                        debugger;
-                          
+                        debugger
                         var newTimelineItem = `
     <div class="col-12 timeline-item  timeline-itemRowDelete ">
         <div class="timeline-item col-11">
@@ -60,22 +139,60 @@
                 <span style="display :none;" class="SrlNo-input" placeholder="Your stage Srno here">${item.workflowStep.srlNo}</span>
                 <input type="text" hidden class="abbreviation-input" placeholder="Your stage Abbrivation here" value="${item.workflowStep.abbrivation}">
                 <input type="text" class="name-input" placeholder="Your stage name here" value="${item.workflowStep.name}">
-                <input type="text" hidden value="0" class="HashTag-inputValue">
-                <span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i></span>
-                <input type="text" hidden value="0" class="calendar-inputValue">
-                <span class="calendar"><i class="fa fa-calendar" style="font-size: 20px" title="Add Start and End Date"></i></span>
-                <input type="text" hidden value="0" class="file-inputValue">
-                <span class="file"><i class="fa fa-file-text-o" style="font-size: 20px "title="Add Note"></i></span>
-                <input type="text" hidden value="0" class="Application-inputValue">
-                <span class="Application"><i class="fa fa-calendar-check-o" style="font-size: 20px" title="Add Application intake field"></i></span>
+                <input type="text" hidden value="`+ item.workflowStep.isPartnerClientIdRequired + `" class="HashTag-inputValue">`
+
+                        if (item.workflowStep.isPartnerClientIdRequired == true) {
+                            newTimelineItem += `<span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px; color:Blue;" title="Remove Partner Client ID"></i></span>`
+                        } else {
+                            newTimelineItem += `<span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i></span>`
+                        }
+                        newTimelineItem += `<input type="text" hidden value="` + item.workflowStep.isStartEndDateRequired + `" class="calendar-inputValue">`
+
+                        if (item.workflowStep.isStartEndDateRequired == true) {
+                            newTimelineItem += `<span class="calendar" ><i class="fa fa-calendar" style="font-size: 20px; color:Blue;" title="Remove Start and End Date"></i></span>`
+                        } else {
+                            newTimelineItem += `<span class="calendar"><i class="fa fa-calendar" style="font-size: 20px" title="Add Start and End Date"></i></span>`
+                        }
+                        newTimelineItem += `
+                
+                <input type="text" hidden value="`+ item.workflowStep.isNoteRequired + `" class="file-inputValue">`
+
+                        if (item.workflowStep.isNoteRequired == true) {
+                            newTimelineItem += `<span class="file" ><i class="fa fa-file-text-o" style="font-size: 20px; color:Blue;" title="Remove Note"></i></span>`
+                        } else {
+                            newTimelineItem += `
+                <span class="file"><i class="fa fa-file-text-o" style="font-size: 20px "title="Add Note"></i></span>`
+                        }
+                        newTimelineItem += `
+                <input type="text" hidden value="`+ item.workflowStep.isApplicationIntakeRequired + `" class="Application-inputValue">`
+
+                        if (item.workflowStep.isApplicationIntakeRequired == true) {
+                            newTimelineItem += `<span class="Application"><i class="fa fa-calendar-check-o" style="font-size: 20px; color:Blue;" title="Remove Application intake field"></i></span>`
+                        } else {
+                            newTimelineItem += ` 
+                <span class="Application"><i class="fa fa-calendar-check-o" style="font-size: 20px" title="Add Application intake field"></i></span>`
+                        }
+                        newTimelineItem += `
                 <span class="delete"><i class="fa fa-trash-o" style="font-size: 20px"></i></span>
-                <span class="form-check form-switch activeValue"><input class="form-check-input switchValue" type="checkbox" value="0" role="switch" id="flexSwitchCheckDefault"></span>
+
+                 <span class="form-check form-switch activeValue">
+                    <input class="form-check-input switchValue" type="checkbox" value="${item.workflowStep.isActive}" role="switch" id="flexSwitchCheckDefault" ${item.workflowStep.isActive ==true ? 'checked' : ''}>
+                </span>
                 <input type="text" hidden class="WorkfrlowStepId-input" placeholder="Your stage workflowStepId here" value="${item.workflowStep.id}">
                 <input type="text" hidden class="WorkflowId-input" placeholder="Your stage workflowId here" value="${workflowId}">
+                <input type="text" hidden value="`+ item.workflowStep.isWinStage + `" class="Stage-inputValue"> 
             </div>
         </div>
-        <div class="col-1">
-            <button type="button" class="btn btn-sm Stage" value="0" data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i></button>
+        <div class="col-1">`
+                        debugger
+                        if (item.workflowStep.isWinStage == true) {
+                            newTimelineItem += `<span  class="btn btn-sm Stage"  data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px; color:Blue;" title="Remove to win Satge"></i></span>`
+                        } else {
+                            newTimelineItem += ` 
+                <span  class="btn btn-sm Stage" data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i></span>`
+                        }
+                        newTimelineItem += `
+            
         </div>
     </div>`;
 
@@ -91,7 +208,7 @@
                     console.error('Error fetching data:', error);
                 });
         }
-
+        
         var _$WorkflowSetupInformationSetupsForm = "";
 
         this.init = function (modalManager) {
@@ -129,22 +246,28 @@
                 <span class="SrlNo-input" style="display :none;" id="SrnoID">${newIndex}</span> 
                 <input type="text" hidden placeholder="Your stage Abbreviation here" class="abbreviation-input">
                  <input type="text" placeholder="Your stage name here" class="name-input">
-                 <input type="text" hidden value="0" class="HashTag-inputValue">
+                 <input type="text" hidden value="false" class="HashTag-inputValue">
                 <span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i></span>
-                <input type="text" hidden value="0" class="calendar-inputValue">
+                <input type="text" hidden value="false" class="calendar-inputValue">
                 <span class="calendar"><i class="fa fa-calendar" style="font-size: 20px" title="Add Start and End Date"></i></span>
-                <input type="text" hidden value="0" class="file-inputValue">
+                <input type="text" hidden value="false" class="file-inputValue">
                 <span class="file"><i class="fa fa-file-text-o" style="font-size: 20px "title="Add Note"></i></span>
-                <input type="text" hidden value="0" class="Application-inputValue">
+                <input type="text" hidden value="false" class="Application-inputValue">
                 <span class="Application"><i class="fa fa-calendar-check-o" style="font-size: 20px" title="Add Application intake field"></i></span>
                 <span class="delete"><i class="fa fa-trash-o" style="font-size: 20px"></i></span>
-                <span class="form-check form-switch activeValue"><input class="form-check-input switchValue" type="checkbox" value="0" role="switch" id="flexSwitchCheckDefault"></span>
-                <input type="text" hidden placeholder="Your stage work flow step id here" value="0" class="WorkfrlowStepId-input">
-                <input type="text" hidden placeholder="Your stage work flow step id here" value='`+ workflowId + `'class="WorkflowId-input">
+                <span class="form-check form-switch activeValue"><input class="form-check-input switchValue" type="checkbox" value="false" role="switch" id="flexSwitchCheckDefault"></span>
+                <input type="text" hidden placeholder="Your stage work flow step id here" value="0" class="WorkfrlowStepId-input">`
+            if (workflowId > 0) {
+                newTimelineItem += `<input type="text" hidden placeholder="Your stage work flow step id here" value='` + workflowId + `'class="WorkflowId-input">
+`
+            } else {
+                newTimelineItem += `<input type="text" hidden placeholder="Your stage work flow step id here" value="0" class="WorkflowId-input">`
+            }
+            newTimelineItem += `<input type="text" hidden value="false" class="Stage-inputValue"> 
             </div>
         </div>
         <div class="col-1">
-           <button type="button" class="btn btn-sm Stage" value="0" data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i></button>
+           <span  class="btn btn-sm Stage" value="false" data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i></span>
         </div>
     </div>`;
 
@@ -162,7 +285,7 @@
         });
 
         $(document).on('click', '.delete', function () {
-            debugger
+
             var Row = $(this).closest('.timeline-itemRowDelete');
             var workflowstepId = Row.find('.WorkfrlowStepId-input').val();
 
@@ -173,7 +296,7 @@
                             id: workflowstepId,
                         })
                         .done(function () {
-                            debugger
+
                             Row.remove();
 
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
@@ -182,219 +305,148 @@
             });
         });
         $(document).on('click', '.close-button,.btn-close', function () {
-            /* debugger */
+
             location.reload();
         });
 
 
+         
+        $('#selectedOffice').change(function () {
 
-        $(document).on('click', '#allOffice', function () {
-            $("#showhide").hide();
-        });
+            document.getElementById("showhide").style.display = 'block';
 
-        $(document).on('click', '#selectedOffice', function () {
-            $("#showhide").show()
         });
+        $('#allOffice').change(function () {
+
+            document.getElementById("showhide").style.display = 'none';
+
+        }); 
 
         $(document).on('click', '.hashtag', function () {
             debugger;
 
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.HashTag-inputValue').val();
+            console.log(hashtagID);
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.HashTag-inputValue').val('false');
+                $(this).html('<i class="fa fa-hashtag" style="font-size: 20px;  title="Required Partner Client ID"></i>');
 
-            if ($(this).hasClass('clicked')) {
-
-                //$(this).text('1');
-                $('.HashTag-inputValue').val('1');
-
-                $(this).html('<i class="fa fa-hashtag" style="font-size: 20px; color:Blue;" title="Remove Partner Client ID"></i>');
             } else {
-                //$(this).text('0');
-                $('.HashTag-inputValue').val('0');
+                debugger
 
-
-                $(this).html('<i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i>');
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.HashTag-inputValue').val('true');
+                $(this).html('<i class="fa fa-hashtag" style="font-size: 20px; color:Blue;" title="Remove Partner Client ID"></i>');
             }
+            
         });
 
 
         $(document).on('click', '.calendar', function () {
-            debugger;
+            
 
-            // Toggle the class 'clicked' to change color
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.calendar-inputValue').val();
 
-            // Update the value (you can customize this part)
-            if ($(this).hasClass('clicked')) {
-                // Value when clicked
-
-                //$(this).text('1');
-
-                $('.calendar-inputValue').val('1');
-
-                $(this).html('<i class="fa fa-calendar" style="font-size: 20px; color:Blue;" title="Remove Start and End Date"></i>');
-            } else {
-                //// Default value
-                //$(this).text('0');
-
-                $('.calendar-inputValue').val('0');
-
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.calendar-inputValue').val('false');
                 $(this).html('<i class="fa fa-calendar" style="font-size: 20px" title="Add Start and End Date"></i>');
+
+            } else {
+                debugger
+
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.calendar-inputValue').val('true');
+                $(this).html('<i class="fa fa-calendar" style="font-size: 20px; color:Blue;" title="Remove Start and End Date"></i>');
             }
+            
         });
 
         $(document).on('click', '.file', function () {
-            debugger;
+            /*  debugger;*/
 
-            // Toggle the class 'clicked' to change color
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.file-inputValue').val();
 
-            // Update the value (you can customize this part)
-            if ($(this).hasClass('clicked')) {
-
-                $('.file-inputValue').val('1');
-                $(this).html('<i class="fa fa-file-text-o" style="font-size: 20px; color:Blue;" title="Remove Note"></i>');
-            } else {
-
-                $('.file-inputValue').val('0');
-
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.file-inputValue').val('false');
                 $(this).html('<i class="fa fa-file-text-o" style="font-size: 20px "title="Add Note"></i>');
+
+            } else {
+                debugger
+
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.file-inputValue').val('true');
+                $(this).html('<i class="fa fa-file-text-o" style="font-size: 20px; color:Blue;" title="Remove Note"></i>');
             }
+            
         });
 
         $(document).on('click', '.Application', function () {
-            debugger;
+            /*debugger;*/
 
-            // Toggle the class 'clicked' to change color
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.Application-inputValue').val();
 
-            // Update the value (you can customize this part)
-            if ($(this).hasClass('clicked')) {
-
-                $('.Application-inputValue').val('1');
-
-                $(this).html('<i class="fa fa-calendar-check-o" style="font-size: 20px; color:Blue;" title="Remove Application intake field"></i>');
-            } else {
-
-                $('.Application-inputValue').val('0');
-
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.Application-inputValue').val('false');
                 $(this).html('<i class="fa fa-calendar-check-o" style="font-size: 20px" title="Add Application intake field"></i>');
+
+            } else {
+                debugger
+
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.Application-inputValue').val('true');
+                $(this).html('<i class="fa fa-calendar-check-o" style="font-size: 20px; color:Blue;" title="Remove Application intake field"></i>');
             }
+             
         });
 
         $(document).on('click', '.Stage', function () {
-            debugger;
 
-            // Toggle the class 'clicked' to change color
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.Stage-inputValue').val();
 
-            // Update the value (you can customize this part)
-            if ($(this).hasClass('clicked')) {
-
-                $('.Stage-inputValue').val('1');
-
-                $(this).html('<i class="fa fa-trophy" style="font-size: 20px; color:Blue;" title="Remove to win Satge"></i>');
-            } else {
-
-                $('.Stage-inputValue').val('1');
-
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.Stage-inputValue').val('false');
                 $(this).html('<i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i>');
+
+            } else {
+                debugger
+
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.Stage-inputValue').val('true');
+                $(this).html('<i class="fa fa-trophy" style="font-size: 20px; color:Blue;" title="Remove to win Satge"></i>');
             }
+             
         });
 
         $(document).on('click', '.activeValue', function () {
-            debugger;
+            
 
-            // Toggle the class 'clicked' to change color
-            $(this).toggleClass('clicked');
+            var hashtagID11 = $(this).closest('.timeline-item').find('.switchValue').val();
 
-            // Update the value (you can customize this part)
-            if ($(this).hasClass('clicked')) {
-
-                $('.switchValue').val('1');
-
+            if (hashtagID11 == "true") {
+                debugger
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.switchValue').val('false');
+              
             } else {
+                debugger
 
-                $('.switchValue').val('0');
-
-            }
+                var hashtagID = $(this).closest('.timeline-item');
+                hashtagID.find('.switchValue').val('true');
+             }
+              
         });
 
-
-
-        //$(document).find('.add-button').on('click', (e) => {
-
-        //    //if (!_$WorkflowSetupInformationSetupsForm.valid()) {
-        //    //    return;
-        //    //}
-        //    //debugger
-        //    //// Check if the table has existing rows
-        //    //if (Workflowsetuptable.rows().count() > 0) {
-        //    //    debugger
-        //    //    // If there are existing rows, append the new row
-        //    //    Workflowsetuptable.row.add([ 
-        //    //        SrlNo.value,
-        //    //        Abbrivation.value,
-        //    //        Name.value,
-        //    //        '<button type="button" class="btn btn-sm delete" data-workflow-id="0"><i class="fa fa-trash" style="font-size: 30px"></i></button>'
-        //    //    ]).draw(false);
-        //    //} else {
-        //    //    debugger
-        //    //    // If the table is empty, add the new row
-        //    //    Workflowsetuptable.clear().draw();
-        //    //    Workflowsetuptable.row.add([
-        //    //        SrlNo.value,
-        //    //        Abbrivation.value,
-        //    //        Name.value,
-        //    //        '<button type="button" class="btn btn-sm delete" data-workflow-id="0"><i class="fa fa-trash" style="font-size: 30px"></i></button>'
-        //    //    ]).draw();
-        //    //}
-
-        //    //WorkflowsetupFeildClear();
-        //});
-
-        //var Workflowsetuptable = $('#Workflowsetuptable').DataTable();
-        //$(document).find('.add-button').on('click', (e) => {
-
-        //    if (!_$WorkflowSetupInformationSetupsForm.valid()) {
-        //        return;
-        //    }
-        //    // Srl = $("#Srno").val();
-        //    //Abbr = $("#abbrivation").val();
-        //    //nam = $("#name").val();
-
-        //    //if (Srl == "") {
-        //    //    return;
-        //    //}
-        //    //if (Abbr == "") {
-        //    //    return;
-        //    //} 
-        //    //if (nam.length < 5 || nam == "") {
-        //    //    return;
-        //    //}
-        //    Workflowsetuptable.row
-        //        .add([
-        //            SrlNo.value,
-        //            Abbrivation.value,
-        //            Name.value,
-        //            '<button type="button" class="btn btn-sm delete" data-workflow-id="0"><i class="fa fa-trash" style="font-size: 30px"></i></button>'
-        //        ])
-        //        .draw(false);
-        //    WorkflowsetupFeildClear();
-        //});
-
-        //$(document).on('click', '.delete', function () {
-        //    debugger
-        //    //var Workflowsetuptablerow = $(this).closest("tr");
-        //    //Workflowsetuptablerow.find(".data-workflow-id").text();
-        //    //$(this).closest('tr').delete();
-        //    //Workflowsetuptable.row(this).delete();
-        //    Workflowsetuptable
-        //        .row($(this).parents('tr'))
-        //        .remove()
-        //        .draw();
-        //});
-
-
+         
         function WorkflowsetupFeildClear() {
             SrlNo.value = '';
             Abbrivation.value = '';
@@ -402,23 +454,11 @@
         }
 
         this.save = function () {
-
+            
             if (!_$workflowInformationForm.valid()) {
                 return;
             }
-
-            //var data = Workflowsetuptable
-            //    .rows().data().toArray();
-            //var dataRows = "";
-            //for (var i = 0; i < data.length; i++) {
-            //    debugger
-            //    var SrlnoGrid = data[i][0];
-            //    var AbbrivationGrid = data[i][1];
-            //    var NameGrid = data[i][2];
-
-            //    dataRows += '{"SrlNo":"' + SrlnoGrid + '","Abbrivation":"' + AbbrivationGrid + '","Name":"' + NameGrid + '"},';
-            //}
-            //dataRows = dataRows.substring(0, dataRows.length - 1);
+             
             var dataRows = [];
 
             $(".timeline-item").each(function () {
@@ -427,13 +467,26 @@
                 var name = $(this).find('.name-input').val();
                 var WorkfrlowStepId = $(this).find('.WorkfrlowStepId-input').val();
                 var WorkflowId = $(this).find('.WorkflowId-input').val();
-
+                var HashTagValue = $(this).find('.HashTag-inputValue').val();
+                var calendarinputValue = $(this).find('.calendar-inputValue').val();
+                var fileinputValue = $(this).find('.file-inputValue').val();
+                var ApplicationinputValue = $(this).find('.Application-inputValue').val();
+                var switchValue = $(this).find('.switchValue').val();
+                var Stage = $(this).find('.Stage-inputValue').val();
+                debugger
+                 
                 dataRows.push({
                     srlNo: SrlNo,
                     abbrivation: abbrivation,
                     name: name,
                     id: WorkfrlowStepId,
-                    workflowId: WorkflowId
+                    workflowId: WorkflowId,
+                    IsPartnerClientIdRequired: HashTagValue,
+                    IsStartEndDateRequired: calendarinputValue,
+                    IsNoteRequired: fileinputValue,
+                    IsApplicationIntakeRequired: ApplicationinputValue,
+                    IsActive: switchValue,
+                    IsWinStage: Stage,
                 });
             });
 
@@ -455,14 +508,35 @@
             Steps = JSON.parse(Steps);
 
 
+            var officerows = [];
+            var datarowsList = $("#WorkFlowOfficeId :selected").map(function (i, el) {
+                
+                return $(el).val();
+            }).get();
+            console.log(datarowsList);
+            $.each(datarowsList, function (index, value) {
+                var datarowsItem = {
+                    OrganizationUnitId: datarowsList[index]
+                }
+                officerows.push(datarowsItem);
+            });
+            var officeSteps = JSON.stringify(officerows);
+            debugger
+            officeSteps = JSON.parse(officeSteps);
+
             var workflow = _$workflowInformationForm.serializeFormToObject();
+            
             workflow.steps = Steps;
+            workflow.officeSteps = officeSteps;
+            debugger
             _modalManager.setBusy(true);
             _workflowsService
                 .createOrEdit(workflow)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
+
+                    location.reload();
                     abp.event.trigger('app.createOrEditWorkflowModalSaved');
                 })
                 .always(function () {

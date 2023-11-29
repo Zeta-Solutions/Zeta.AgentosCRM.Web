@@ -1,10 +1,10 @@
 ﻿@using Zeta.AgentosCRM.Authorization
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
-@*@model  FeeTypesViewModel
+@model DocumentTypesViewModel
  @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
-} *@
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentType;
+}
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/DocumentType/Index.js" asp-append-version="true"></script>
@@ -14,12 +14,12 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
 <abp-page-subheader title='@L("DocumentType")' description='@L("DocumentTypeHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
-    { *@
+    @if (IsGranted(AppPermissions.Pages_DocumentTypes_Create))
+    {
     <button id="CreateNewDocumentType" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewDocumentType")</button>
-    @*  } *@
+     }
 </abp-page-subheader>
 
 <div class="@(await GetContainerClass())">
@@ -31,8 +31,8 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
 
                         <div class="my-3">
                             <div class="input-group">
-                                <input type="text" id="MasterCategoriesTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")'>
-                                @* value="@Model.FilterText" *@
+                                <input type="text" id="MasterCategoriesTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText">
+                                
                                 <button id="GetMasterCategoriesButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
@@ -68,20 +68,22 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
                 </div>
             </div>
             <div class="row align-items-center">
-                <table id="LeadFormTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                <table id="DocumentTypeTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead>
                         <tr>
                             <th></th>
-
-                            <th>@L("DocumentType")</th>
+                            <th>@L("Abbrivation")</th>
+                            <th>@L("Name")</th>
+                            <th></th>
+                            @* <th>@L("DocumentType")</th>
                             <th>@L("AddedDate")</th>
                             <th>@L("totalusage")</th>
                             <th>@L("Status")</th>
                             <th>@L("AddedBy")</th>
-                            <th>@L("Action")</th>
+                            <th>@L("Action")</th> *@
                         </tr>
                     </thead>
-                    <tbody>
+                   @*  <tbody>
                         <tr>
                             <td></td>
                             <td>OffshoreOneezaUNSW</td>
@@ -100,7 +102,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
                             <td>Other Online Source</td>
                             <td>3 Dot</td>
                         </tr>
-                    </tbody>
+                    </tbody> *@
                 </table>
             </div>
         </div>

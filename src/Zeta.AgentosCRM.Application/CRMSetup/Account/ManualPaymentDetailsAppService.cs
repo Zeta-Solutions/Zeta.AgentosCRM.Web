@@ -13,9 +13,7 @@ using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
+using Microsoft.EntityFrameworkCore; 
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
@@ -24,12 +22,14 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
     {
         private readonly IRepository<ManualPaymentDetail> _manualPaymentDetailRepository;
         private readonly IRepository<OrganizationUnit, long> _lookup_organizationUnitRepository;
+        private readonly IRepository<PaymentInvoiceType> _PaymentInvoiceTypeRepository;
 
-        public ManualPaymentDetailsAppService(IRepository<ManualPaymentDetail> manualPaymentDetailRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository)
+        public ManualPaymentDetailsAppService(IRepository<ManualPaymentDetail> manualPaymentDetailRepository,IRepository<OrganizationUnit, long> lookup_organizationUnitRepository,IRepository<PaymentInvoiceType> paymentInvoiceTypeRepository)
         {
             _manualPaymentDetailRepository = manualPaymentDetailRepository;
             _lookup_organizationUnitRepository = lookup_organizationUnitRepository;
-
+            _PaymentInvoiceTypeRepository = paymentInvoiceTypeRepository;
+            _manualPaymentDetailRepository = manualPaymentDetailRepository;
         }
 
         public async Task<PagedResultDto<GetManualPaymentDetailForViewDto>> GetAll(GetAllManualPaymentDetailsInput input)
@@ -40,7 +40,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter) || e.PaymentDetail.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PaymentDetailFilter), e => e.PaymentDetail.Contains(input.PaymentDetailFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter)
+                         .WhereIf(input.OrganizationUnitIdFilter.HasValue, e => false || e.OrganizationUnitId == input.OrganizationUnitIdFilter.Value);
 
             var pagedAndFilteredManualPaymentDetails = filteredManualPaymentDetails
                 .OrderBy(input.Sorting ?? "id asc")
@@ -107,8 +108,13 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
         public async Task<GetManualPaymentDetailForEditOutput> GetManualPaymentDetailForEdit(EntityDto input)
         {
             var manualPaymentDetail = await _manualPaymentDetailRepository.FirstOrDefaultAsync(input.Id);
+            var ManualPaymentDetailId = await _PaymentInvoiceTypeRepository.GetAllListAsync(p => p.ManualPaymentDetailId == input.Id);
 
-            var output = new GetManualPaymentDetailForEditOutput { ManualPaymentDetail = ObjectMapper.Map<CreateOrEditManualPaymentDetailDto>(manualPaymentDetail) };
+            var output = new GetManualPaymentDetailForEditOutput
+            {
+                ManualPaymentDetail = ObjectMapper.Map<CreateOrEditManualPaymentDetailDto>(manualPaymentDetail),
+                PaymentInvoiceType = ObjectMapper.Map<List<CreateOrEditPaymentInvoiceTypeDto>>(ManualPaymentDetailId)
+            };
 
             if (output.ManualPaymentDetail.OrganizationUnitId != null)
             {
@@ -141,7 +147,17 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                 manualPaymentDetail.TenantId = (int)AbpSession.TenantId;
             }
 
-            await _manualPaymentDetailRepository.InsertAsync(manualPaymentDetail);
+            var manualPaymentDetailId = _manualPaymentDetailRepository.InsertAndGetIdAsync(manualPaymentDetail).Result;
+            foreach (var item in input.PaymentInvoiceTypeRecord)
+            {
+                item.InvoiceTypeId=item.InvoiceTypeId;
+                item.ManualPaymentDetailId = manualPaymentDetailId;
+                var stepEntity = ObjectMapper.Map<PaymentInvoiceType>(item);
+                await _PaymentInvoiceTypeRepository.InsertAsync(stepEntity);
+
+            }
+            CurrentUnitOfWork.SaveChanges();
+           // await _manualPaymentDetailRepository.InsertAsync(manualPaymentDetail);
 
         }
 
@@ -150,7 +166,19 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
         {
             var manualPaymentDetail = await _manualPaymentDetailRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, manualPaymentDetail);
+            var ManualPaymentid = await _PaymentInvoiceTypeRepository.GetAllListAsync(p => p.ManualPaymentDetailId == input.Id);
 
+            foreach (var item in ManualPaymentid)
+            {
+                await _PaymentInvoiceTypeRepository.DeleteAsync(item.Id);
+            }
+            foreach (var PaymentInvoice in input.PaymentInvoiceTypeRecord)
+            {
+                PaymentInvoice.InvoiceTypeId = PaymentInvoice.InvoiceTypeId;
+                PaymentInvoice.ManualPaymentDetailId = manualPaymentDetail.Id; 
+                var stepEntity = ObjectMapper.Map<PaymentInvoiceType>(PaymentInvoice);
+                await _PaymentInvoiceTypeRepository.InsertAsync(stepEntity);
+            }
         }
 
         [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails_Delete)]
