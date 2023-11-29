@@ -25,6 +25,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
         public string SubjectAreaName { get; set; }
 
         public string LeadSourceName { get; set; }
+        public string AgentName { get; set; }
 
         public string PassportCountry { get; set; }
 
@@ -37,6 +38,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients
         public List<ClientSubjectAreaLookupTableDto> ClientSubjectAreaList { get; set; }
 
         public List<ClientLeadSourceLookupTableDto> ClientLeadSourceList { get; set; }
+        public List<ClientAgentLookupTableDto> ClientAgentList { get; set; }
 
         public bool IsEditMode => Client.Id.HasValue;
     }

@@ -1,0 +1,229 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+@model ProductViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Products;
+}
+@section Scripts
+    {
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script> *@
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/NotesAndTerms.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Applications/Applications.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/AgentContact/Contact.js" asp-append-version="true"></script>
+    @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.js" asp-append-version="true"></script> *@
+}
+
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/Application/Application.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Client/_ClientOtherInformation.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+  }
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+}
+<div class="cards">
+    <div class="mt-3  maincard">
+        <div class="row DetailformAgent">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-3 text-start">
+                                        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative ">
+                                            <img src="/Common/Images/Agent.jpg" alt="Metronic" class="rounded-circle" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-1"></div>
+                                    
+                                    <div class="col-1">
+                                        <a class="text-muted rounded-circle" data-toggle="tooltip" title="Edit">
+                                            <span class="fa fa-pencil"></span>
+                                        </a>
+                                    </div>
+
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-11">
+                                        <div class="d-flex align-items-center">
+                                            <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer custominput">
+                                                @Model.Product.Name
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            @* Second Part Of Card *@
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12 text-start">
+                                        <input type="hidden" value="@Model.Product.Id" id="AgentId" name="AgentId" />
+                                        <input type="hidden" value="@Model.Product.Name" id="AgentName" name="AgentName" />
+                                    </div>
+                                    <div class="col-lg-12   text-start">
+
+                                        <label for="AddedFrom " class="custominput">Partner:</label>
+                                        <p class="text-muted">  @Model.PartnerPartnerName</p>
+                                    </div>
+                                    <div class="col-lg-12  text-start">
+                                        <label for="ClientId" class="form-label form-label-sm"> Branches:</label>
+                                        <p class="text-muted">@Model.BranchName</p>
+                                    </div>
+
+                                    <div class="col-lg-12 text-start">
+                                        <label for="ClientId" class="form-label form-label-sm">Services:</label>
+                                         <p class="text-muted">@Model.PartnerTypeName</p>
+                                    </div>
+                                    <div class="col-lg-12 text-start">
+                                        <label for="ClientId" class="form-label form-label-sm">Duration:</label>
+                                         <p class="text-muted">@Model.Product.Duration</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @* Third Part of Card *@
+
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12 text-start">
+                                        <label for="Phone" class="form-label form-label-sm">
+                                            Default Fee:
+                                        </label><br />
+                                        <p class="text-muted">AUD 25000</p>
+                                    </div>
+                                    <div class="col-lg-12 text-start">
+                                        <label for="ClientId" class="form-label form-label-sm">Revenue Type:</label>
+                                       
+                                            @if (Model.Product.RevenueType)
+                                            {
+                                                <p class="text-muted">RevenueFromClient</p>
+                                                
+                                            }
+                                            else
+                                            {
+                                                <p class="text-muted">CommissionFromPartner</p>
+                                           
+                                            }
+                                        
+                                    </div>
+                                    <div class="col-lg-12  text-start">
+                                        <label for="Phone" class="form-label form-label-sm">
+                                            Note:
+                                        </label>
+                                        <p class="text-muted">@Model.Product.Note</p>
+                                    </div>
+                                    <div class="col-lg-12 text-start">
+                                        <label for="Phone" class="form-label form-label-sm">
+                                            Description:
+                                        </label>
+                                        <p class="text-muted">@Model.Product.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="container mt-2">*@
+    <div class="mt-2 navbar-link-card">
+
+        <div class="card navbar-link-card-height">
+            <div class="card-Head">
+                <div class="d-flex overflow-auto h-55px navbar-link-card-Allign">
+                    <ul class="
+          nav nav-stretch nav-line-tabs nav-line-tabs-2x
+          border-transparent
+
+          fw-bolder
+          flex-nowrap
+
+        ">
+                        <li class="nav-item">
+                            <a href="#NoteTerm" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                                @L("NotesAndTerms")
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#ReferredClientTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("ReferredClients")
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#AgentContactsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Agent Contacts")
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Application")
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#AccountsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Account")
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="tab-content ">
+            <div class="tab-pane pt-5 active" id="NoteTerm" role="tabpanel">
+                <div class="list-group">
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/NotesAndTerms.cshtml")
+                </div>
+            </div>
+
+            <div class="tab-pane pt-5 mb-7" id="ReferredClientTab" role="tabpanel">
+                <div class="list-group">
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/Index.cshtml")
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
+                </div>
+            </div>
+            <div class="tab-pane pt-5 mb-7" id="AgentContactsTab" role="tabpanel">
+                <div class="list-group">
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/AgentContact/Contact.cshtml")
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
+                </div>
+            </div>
+            <div class="tab-pane pt-5 mb-7" id="ApplicationTab" role="tabpanel">
+                <div class="list-group">
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/Applications/Index.cshtml")
+                </div>
+            </div>
+            <div class="tab-pane pt-5 mb-7" id="AccountsTab" role="tabpanel">
+                <div class="list-group">
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/MainForm/_InterestedService.cshtml") *@
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+

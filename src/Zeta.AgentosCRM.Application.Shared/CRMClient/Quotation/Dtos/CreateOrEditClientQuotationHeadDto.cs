@@ -20,7 +20,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 
         public int CurrencyId { get; set; }
 
-        public List<CreateOrEditClientQuotationDetailDto> Steps { get; set; }
+        public List<CreateOrEditClientQuotationDetailDto> QuotationDetails { get; set; }
 
     }
 }

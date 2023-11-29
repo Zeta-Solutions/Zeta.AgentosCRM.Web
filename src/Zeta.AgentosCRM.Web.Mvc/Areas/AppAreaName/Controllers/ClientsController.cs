@@ -124,11 +124,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 SubjectAreaName = getClientForEditOutput.SubjectAreaName,
                 LeadSourceName = getClientForEditOutput.LeadSourceName,
                 PassportCountry = getClientForEditOutput.PassportCountry,
+                AgentName = getClientForEditOutput.AgentName,
                 ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
                 ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
                 ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
                 ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+                ClientAgentList = await _clientsAppService.GetAllAgentForTableDropdown(),
             };
 
 
@@ -169,6 +171,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
                 ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
                 ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+				ClientAgentList = await _clientsAppService.GetAllAgentForTableDropdown(),
             };
 
             return View(viewModel);

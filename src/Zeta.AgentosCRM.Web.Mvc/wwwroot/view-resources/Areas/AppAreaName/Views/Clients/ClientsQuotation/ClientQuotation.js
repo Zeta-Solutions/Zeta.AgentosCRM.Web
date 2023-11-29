@@ -1,7 +1,10 @@
 ﻿
 (function () {
     $(function () {
-       
+        var _$clientQuotationHeadsTable = $('#ClientsQuotationtable');
+
+        var _clientQuotationHeadsService = abp.services.app.clientQuotationHeads;
+        var _clientQuotationDetailService = abp.services.app.clientQuotationDetails;
         //$('#branchId').select2({
         //    width: '450px',
         //    // Adjust the width as needed
@@ -251,7 +254,9 @@
                 TrData += '<span><input id="partnersId" class="partnersId" type="hidden" value="' + formData.partnerId + '"/></span>';
                 TrData += '<span class="partnerName">' + formData.partnerName + '</span><br>';
                 TrData += '<span><input id="branchsId"  class="branchsId" type="hidden" value="' + formData.branchId + '"/></span>';
-                TrData += '<span><input id="rowCount" type="hidden" value="'+rowCount+'"/></span>';
+                TrData += '<span><input id="Id"  class="Id" type="hidden" value="0"/></span>';
+                TrData += '<span><input id="rowCount" type="hidden" value="' + rowCount + '"/></span>';
+               
                 TrData += '</div></div>';
 
 
@@ -265,7 +270,7 @@
 
                 // Return the created card
                 var cardHtml = mainDiv.html();
-                resetFormFields();
+                //resetFormFields();
                 //$("workflowId").val("selectedIndex", 0);
                 var adddatatotable =
                     "<tr class='trq_" + srCount + "'>" +
@@ -276,10 +281,13 @@
                     "<td><input id='NetFee_" + srCount + "' type='text' placeholder='' value='" + '' + "' class='form-control border-0 input-sm NetFee'readonly /></td>" +
                     "<td><input id='Rate_" + srCount + "' type='text' placeholder='' value='" + '' + "' class='form-control border-0 input-sm Rate' /></td>" +
                     "<td><input id='total_" + srCount + "' type='text' placeholder='' value='" + '' + "' class='form-control border-0 input-sm total'readonly /></td>" +
+                    "<td><span class='Delete-icon delete' style='cursor: pointer; margin-left: 5px;'><i class='fa fa-trash' style='font-size: 10px;'></i></span></td>" +
                     "</tr>";
 
                 $("#ClientsQuotationDetailtable").append(adddatatotable);
             }
+            closestTr.length = 0;
+            closestTr = 0;
             $('#QuotationDetailModal').modal('hide');
         });
         });
@@ -306,7 +314,26 @@
             $('#partnerId').val(partner);
             $('#QuotationDetailModal').modal('show');
         });
+        $(document).on('click', '.delete', function () {
+            debugger
+            closestTr = $(this).closest('tr') 
+            var quotationdetailsid = closestTr.find('.Id').val();
 
+            abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
+                if (isConfirmed) {
+                    _clientQuotationDetailService
+                        .delete({
+                            id: quotationdetailsid,
+                        })
+                        .done(function () {
+                            debugger
+                            closestTr.remove();
+
+                            abp.notify.success(app.localize('SuccessfullyDeleted'));
+                        });
+                }
+            });
+        });
 
 
 
@@ -358,156 +385,84 @@
 
 
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const partnerIdValue = urlParams.get('clientId');
-        getclientsreload(partnerIdValue);
-        var globalData; // Declare the data variable in a broader scope
+  
 
-        function createCard(item) {
-            // Create the main container for the card
-            var mainDiv = $('<div>').addClass('maincard maindivcard');
-
-            // Create the card
-            var cardDiv = $('<div>').addClass('card').css('background-color', '#f0f0f0'); // Set your desired background color
-
-            // Create the card body
-            var cardBodyDiv = $('<div>').addClass('card-body');
-
-            // Create the card title
-            var cardTitle = $('<h5>').addClass('card-title').html("Client Details <hr>");
-
-            // Create the paragraph for card information
-            var infoParagraph = $('<p>').addClass('card-text').html(item.firstName +'  '+ item.lastName +'<br>' +
-               item.email);
-
-            // Append card title and info paragraph to the card body
-            cardBodyDiv.append(cardTitle, infoParagraph);
-
-            // Append card body to the card
-            cardDiv.append(cardBodyDiv);
-
-            // Append card to the mainDiv
-            mainDiv.append(cardDiv);
-
-            // Return the created card
-            return mainDiv;
-        }
-
-
-
-
-
-
-
-
-        function getclientsreload(partnerIdValue) {
-            debugger
-
-            var branchesAjax = $.ajax({
-                url: abp.appPath + 'api/services/app/Clients/GetClientForView',
-                data: {
-                    id: partnerIdValue,
+        var dataTable = _$clientQuotationHeadsTable.DataTable({
+            paging: true,
+            serverSide: true,
+            processing: true,
+            listAction: {
+                ajaxFunction: _clientQuotationHeadsService.getAll,
+                inputFilter: function () {
+                    return {
+                        filter: $('#NameFilterId').val(),
+                        TimeZoneFilter: $('#TimeZoneFilterId').val(),
+                        nameFilter: $('#NameFilterId').val(),
+                    };
                 },
-                method: 'GET',
-                dataType: 'json',
-            })
-                .done(function (data) {
-                    console.log('Response from server:', data);
-                    globalData = data; // Assign data to the global variable
-                    processData(data); // Call processData function after data is available
-                })
-                .fail(function (error) {
-                    console.error('Error fetching data:', error);
-                });
-        }
-        function processData(data) {
-            debugger
-            var cardContainer = $('#cardContainerContact'); // or replace '#container' with your actual container selector
-            var item = globalData.result.client;
-            var card = createCard(item);
-            cardContainer.append(card);
-            // Check if globalData.result.items is an array before attempting to iterate
-            //if (Array.isArray(globalData.result.items)) {
-            //    // Iterate through items and create cards
-            //    for (var i = 0; i < globalData.result.client.length; i += 3) {
-            //        var rowDiv = $('<div>').addClass('row mt-3');
+            },
+            columnDefs: [
+                {
+                    className: ' responsive',
+                    orderable: false,
+                    render: function () {
+                        return '';
+                    },
+                    targets: 0,
+                },
 
-            //        for (var j = 0; j < 3 && (i + j) < globalData.result.client.length; j++) {
-            //            var item = globalData.result.items[i + j];
-            //            var card = createCard(item);
+                {
+                    targets: 1,
+                    data: 'clientQuotationHead.dueDate',
+                    name: 'dueDate',
+                },
+                {
+                    targets: 2,
+                    data: 'clientQuotationHead.dueDate',
+                    name: 'dueDate',
+                },
+                {
+                    targets: 3,
+                    data: 'clientFirstName',
+                    name: 'ClientFirstName',
+                },
+                
+                {
+                    width: 30,
+                    targets: 4,
+                    data: null,
+                    orderable: false,
+                    searchable: false,
 
-            //            var colDiv = $('<div>').addClass('col-md-4'); // Set the column size to 4 for three columns in a row
-            //            colDiv.append(card);
-            //            rowDiv.append(colDiv);
-            //        }
 
-            //        cardContainer.append(rowDiv);
-            //    }
-            //} 
-        }
-        var _$clientQuotationHeadsTable = $('#ClientsQuotationDetailtable');
-        var _$clientQuotationHeadsTable = $('#ClientsQuotationDetailtable');
-        //var dataTable = _$clientQuotationHeadsTable.DataTable({
-        //    paging: true,
-        //    serverSide: true,
-        //    processing: true,
-        //    //listAction: {
-        //    //    ajaxFunction: _clientQuotationDetailService.getAll,
-        //    //    inputFilter: function () {
-        //    //        return {
-        //    //            filter: $('#SubjectsTableFilter').val(),
-        //    //            abbrivationFilter: $('#AbbrivationFilterId').val(),
-        //    //            nameFilter: $('#NameFilterId').val(),
-        //    //            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-        //    //        };
-        //    //    },
-        //    //},
-        //    data: [formData],
-        //    columnDefs: [
-        //        {
-        //            className: ' responsive',
-        //            orderable: false,
-        //            render: function () {
-        //                return '';
-        //            },
-        //            targets: 0,
-        //        },
+                    render: function (data, type, full, meta) {
+                        //console.log(data);
+                        var rowId = data.clientQuotationHead.id;
+                        //console.log(rowId);
+                        var rowData = data.clientQuotationHead;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        //console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis60"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
 
-        //        {
-        //            targets: 1,
-        //            data: 'productName',
-        //            name: 'productName',
-        //        },
-        //        {
-        //            targets: 2,
-        //            data: 'productName',
-        //            name: 'productNameFk.name',
-        //        },
-        //        {
-        //            targets: 3,
-        //            data: 'clientQuotationDetail.description',
-        //            name: 'description',
-        //        },
-        //        {
-        //            targets: 4,
-        //            data: 'clientQuotationDetail.description',
-        //            name: 'description',
-        //        },
-        //        {
-        //            targets: 5,
-        //            data: 'clientQuotationDetail.description',
-        //            name: 'description',
-        //        }, {
-        //            targets: 6,
-        //            data: 'clientQuotationDetail.description',
-        //            name: 'description',
-        //        },
 
-        //    ],
-        //});
-        var _clientQuotationHeadsService = abp.services.app.clientQuotationHeads;
-        var _clientQuotationDetailService = abp.services.app.clientQuotationDetails;
+                        return contaxtMenu;
+                    }
 
+
+                },
+
+            ],
+        });
+       
+        
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -527,12 +482,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getSubjects();
+                getquotations();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getSubjects();
+                getquotations();
             });
 
         $('.endDate')
@@ -544,12 +499,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getSubjects();
+                getquotations();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getSubjects();
+                getquotations();
             });
 
         var _permissions = {
@@ -591,19 +546,20 @@
 
  
 
-        function getSubjects() {
+        function getquotations() {
             dataTable.ajax.reload();
         }
 
-        function deletePartnerType(subject) {
+        function deleteQuotationDetails(clientQuotationHead) {
+            debugger
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _subjectsService
+                    _clientQuotationHeadsService
                         .delete({
-                            id: subject.id,
+                            id: clientQuotationHead.id,
                         })
                         .done(function () {
-                            getSubjects(true);
+                            getquotations(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -630,9 +586,7 @@
             debugger
             var hiddenfield = $("#ID").val();
 
-            // Construct the URL with the data as a query parameter
-            //window.location.href = "/AppAreaName/Clients/ClientQuotationDetailIndex/" + encodeURIComponent(0);
-        /*    window.location.href = "/AppAreaName/Clients/CreateOrEditClientQuotationModal";*/
+    
             var baseUrl = "/AppAreaName/Clients/CreateOrEditClientQuotationModal/";
             var url = baseUrl + "?clientId=" + hiddenfield;
 
@@ -686,32 +640,32 @@
                 });
         });
 
-        abp.event.on('app.createOrEditPartnerTypeModalSaved', function () {
-            getSubjects();
+        abp.event.on('app.createOrEditClientQuotationModalSaved', function () {
+            getquotations();
         });
 
         $('#GetSubjectAreaButton').click(function (e) {
             e.preventDefault();
-            getSubjects();
+            getquotations();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getSubjects();
+                getquotations();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getSubjects();
+            getquotations();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getSubjects();
+            getquotations();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getSubjects();
+            getquotations();
         });
         $("#ClientsQuotationDetailtable").on('change', '.fee', function () {
             debugger;
@@ -839,5 +793,47 @@
         //    // Set the calculated total to the #Total input
         //    $("#Total").val(total.toFixed(2));
         //}
+        $(document).on('click', '.ellipsis60', function (e) {
+            e.preventDefault();
+            debugger
+            var options = $(this).closest('.context-menu').find('.Appointmentoptions');
+            var allOptions = $('.Appointmentoptions');  // Select all options
+
+            // Close all other open options
+            allOptions.not(options).hide();
+
+            // Toggle the visibility of the options
+            options.toggle();
+        });
+
+        // Close the context menu when clicking outside of it
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.context-menu').length) {
+                $('.Appointmentoptions').hide();
+            }
+        });
+        $(document).on('click', 'a[data-action60]', function (e) {
+            e.preventDefault();
+            debugger
+            var rowId = $(this).data('id');
+            var action = $(this).data('action60');
+            debugger
+            // Handle the selected action based on the rowId
+            if (action === 'edit') {
+
+                var hiddenfield = $("#ID").val();
+
+
+                var baseUrl = "/AppAreaName/Clients/CreateOrEditClientQuotationModal/";
+                var url = baseUrl + "?clientId=" + hiddenfield + "&id=" + rowId;
+
+                // Redirect to the constructed URL
+                window.location.href = url;
+               
+            } else if (action === 'delete') {
+                // console.log(rowId);
+                deleteQuotationDetails(rowId);
+            }
+        });
     });
 })();

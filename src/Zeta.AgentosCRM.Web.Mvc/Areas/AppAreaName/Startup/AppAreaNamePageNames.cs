@@ -67,6 +67,7 @@
             public const string Agent = "CRMSetup.Agent";
             //public const string Clients = "CRMSetup.Clients";
             public const string Partners = "Dashboard.Partners";
+            public const string Products = "Dashboard.Products";
         }
     }
 }

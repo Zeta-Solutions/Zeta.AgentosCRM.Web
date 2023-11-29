@@ -7,7 +7,7 @@
             // Adjust the width as needed
         });
         $.ajax({
-            url: abp.appPath + 'api/services/app/AppointmentInvitees/GetAllAppointmentForTableDropdown',
+            url: abp.appPath + 'api/services/app/AppointmentInvitees/GetAllUserForTableDropdown',
             method: 'GET',
             dataType: 'json',
             //data: {
@@ -74,8 +74,8 @@
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
-            $.each(data.result.promotionProduct, function (index, obj) {
-                ms_val += "," + obj.productId;
+            $.each(data.result.appointmentinvitees, function (index, obj) {
+                ms_val += "," + obj.userId;
 
             });
 
@@ -139,7 +139,7 @@
         }).get();
         $.each(datarowsList, function (index, value) {
             var datarowsItem = {
-                InviteesId: datarowsList[index]
+                UserId: datarowsList[index]
             }
             datarows.push(datarowsItem);
         });
