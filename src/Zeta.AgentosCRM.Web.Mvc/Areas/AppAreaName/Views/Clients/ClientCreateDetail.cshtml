@@ -87,7 +87,8 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_FirstName">@L("FirstName")</label>
-                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_FirstName" value="@Model.Client.FirstName" type="text" name="firstName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxFirstNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinFirstNameLength" />
+                                                                           <input id="FirstName" name="FirstName" value="@Model.Client.FirstName" type="text" placeholder="Total" class="form-control  custom-small-input rounded-0 input-sm">
+                        
                                                                     </div>
                                                                     @*   <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
@@ -457,7 +458,10 @@
                                                                     <label class="form-label fw-bold text-dark" for="assigneeId">@L("User")</label>
                                                                     @Html.DropDownList("assigneeId", new SelectList(Model.ClientUserList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AssigneeId.ToString() : "")),@L("SelectAUser"), new { @class = "form-control"  , @required="required" })
                                                                 </div>
-
+                                                                <div class="my-3">
+							<label class="form-label" for="Client_InternalId">@L("Agent")</label>
+							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control"  , @required="required" })
+						</div>
                                                                 <div class="col-md-12 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
                                                                     <div class="input-group">

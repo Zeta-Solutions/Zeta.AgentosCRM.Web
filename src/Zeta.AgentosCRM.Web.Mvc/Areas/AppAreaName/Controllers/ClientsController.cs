@@ -35,6 +35,7 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
+using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -123,11 +124,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 SubjectAreaName = getClientForEditOutput.SubjectAreaName,
                 LeadSourceName = getClientForEditOutput.LeadSourceName,
                 PassportCountry = getClientForEditOutput.PassportCountry,
+                AgentName = getClientForEditOutput.AgentName,
                 ClientCountryList = await _clientsAppService.GetAllCountryForTableDropdown(),
                 ClientUserList = await _clientsAppService.GetAllUserForTableDropdown(),
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
                 ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
                 ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+                ClientAgentList = await _clientsAppService.GetAllAgentForTableDropdown(),
             };
 
 
@@ -168,6 +171,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 ClientDegreeLevelList = await _clientsAppService.GetAllDegreeLevelForTableDropdown(),
                 ClientSubjectAreaList = await _clientsAppService.GetAllSubjectAreaForTableDropdown(),
                 ClientLeadSourceList = await _clientsAppService.GetAllLeadSourceForTableDropdown(),
+				ClientAgentList = await _clientsAppService.GetAllAgentForTableDropdown(),
             };
 
             return View(viewModel);
@@ -747,6 +751,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     ClientQuotationHead = new CreateOrEditClientQuotationHeadDto()
                 };
+                getClientQuotationHeadForEditOutput.ClientQuotationHead.DueDate = DateTime.Now;
             }
             var viewModel = new CreateOrEditClientQuotationsViewModel()
             {
@@ -757,6 +762,40 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
           
             return View("ClientsQuotation/ClientQuotationsDetail", viewModel);
+        }
+        public async Task<PartialViewResult> CreateOrEditQuotationDetailModal(long? id)
+        {
+            GetClientQuotationDetailForEditOutput getClientQuotationDetailForEditOutput;
+            if (id.HasValue)
+            {
+                getClientQuotationDetailForEditOutput = await _clientQuotationDetailsAppService.GetClientQuotationDetailForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientQuotationDetailForEditOutput = new GetClientQuotationDetailForEditOutput
+                {
+                    ClientQuotationDetail = new CreateOrEditClientQuotationDetailDto()
+                };
+                //getCRMTaskForEditOutput.CRMTask.DueDate = DateTime.Now;
+                //getCRMTaskForEditOutput.CRMTask.DueTime = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditQuotationDetailViewModel()
+            {
+                ClientQuotationDetail = getClientQuotationDetailForEditOutput.ClientQuotationDetail,
+                ProductName = getClientQuotationDetailForEditOutput.ProductName,
+                BranchName = getClientQuotationDetailForEditOutput.BranchName,
+                PartnerName = getClientQuotationDetailForEditOutput.PartnerPartnerName,
+                WorkflowName = getClientQuotationDetailForEditOutput.WorkflowName,
+                ClientQuotationDetailWorkflowList = await _clientQuotationDetailsAppService.GetAllWorkflowForTableDropdown(),
+                ClientQuotationDetailPartnerList = await _clientQuotationDetailsAppService.GetAllPartnerForTableDropdown(),
+                ClientQuotationDetailBranchList = await _clientQuotationDetailsAppService.GetAllBranchForTableDropdown(),
+                ClientQuotationDetailProducList = await _clientQuotationDetailsAppService.GetAllProductForTableDropdown(),
+
+
+            };
+            return PartialView("ClientsQuotation/_CreateOrEditQuotationDetailModal", viewModel);
+
         }
         #endregion
     }

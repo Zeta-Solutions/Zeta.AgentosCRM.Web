@@ -431,7 +431,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         icon: "flaticon-users-1"
                     //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
                     )
-                );
+                ).AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.Products,
+                        L("Products"),
+                        url: "AppAreaName/Products",
+                        icon: "flaticon-users-1"
+                    //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
+                    )
+                ); 
         }
 
         private static ILocalizableString L(string name)

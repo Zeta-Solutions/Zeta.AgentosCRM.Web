@@ -1,87 +1,189 @@
 ﻿(function () {
     $(function () {
-        var _clientsService = abp.services.app.clientQuotationHeads;
-        $("#kt_app_sidebar_toggle").trigger("click");
-        $('#passportCountryId').select2();
-        $('#countryId').select2();
-        $('#highestQualificationId').select2();
-        $('#studyAreaId').select2();
-        $('#leadSourceId').select2();
-        $('#assigneeId').select2();
-        var _$clientInformationForm = $('form[name=ClientInformationsForm]');
-        _$clientInformationForm.validate();
+        const urlParams = new URLSearchParams(window.location.search);
+        const partnerIdValue = urlParams.get('clientId');
+        var idValue = 0;
+        var idElements = document.getElementsByName("id");
 
-        //
-        var input = document.querySelector("#phone");
-        const errorMsg = document.querySelector("#error-msg");
-        const validMsg = document.querySelector("#valid-msg");
+        if (idElements.length > 0) {
+            // Check if at least one element with the name "id" is found
+            var idElement = idElements[0];
 
-        const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-
-
-        var iti = intlTelInput(input, {
-            initialCountry: "auto",
-            geoIpLookup: function (success, failure) {
-                // Simulate a successful IP lookup to set the initial country
-                var countryCode = "PK"; // Replace with the appropriate country code
-                //$.get("https://ipinfo.io/", function () { }, "jsonp").always(function (resp) {
-                //    var countryCode = (resp && resp.country) ? resp.country : "";
-                //    success(countryCode);
-                //});
-                success(countryCode);
-            },
-            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
-        });
-
-        // Manually set the phone number and selected country code (e.g., "US")
-        //var savedPhoneNumber = "123-456-7890"; // Replace with your saved phone number
-        var settittle = $("#PhoneCode").val();
-        var selectedCountry = settittle; // Replace with the appropriate country code
-
-        // Set the phone number value and selected country
-        //input.value = savedPhoneNumber;
-        iti.setCountry(selectedCountry);
-
-        // Change the flag and title based on a condition
-        var condition = true; // Change this to your condition
-
-        // Get the element by its class name
-        var flagElement = document.querySelector(".iti__selected-flag");
-
-        if (condition) {
-            // Change the title attribute
-            //flagElement.setAttribute("title", "India (भारत): +91"); // Replace "New Title" and "+XX" with your desired values
-
-            // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
-            // flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
-        }
-        const reset = () => {
-            input.classList.remove("error");
-            errorMsg.innerHTML = "";
-            errorMsg.classList.add("hide");
-            validMsg.classList.add("hide");
-        };
-
-        input.addEventListener('blur', () => {
-            reset();
-            if (input.value.trim()) {
-                if (iti.isValidNumber()) {
-                    validMsg.classList.remove("hide");
-                } else {
-                    input.classList.add("error");
-                    const errorCode = iti.getValidationError();
-                    errorMsg.innerHTML = errorMap[errorCode];
-                    errorMsg.classList.remove("hide");
-                }
+            if (idElement.value !== undefined) {
+                // Check if the value property is defined
+                idValue = idElement.value;
+            } else {
+                console.error("Element with name 'id' does not have a value attribute.");
             }
+        } else {
+            console.error("Element with name 'id' not found.");
+        }
+        if (idValue > 0) {
+
+            debugger
+            $.ajax({
+                url: abp.appPath + 'api/services/app/ClientQuotationHeads/GetClientQuotationHeadForEdit?id=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data
+                    updatetable(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+        function updatetable(data) {
+            debugger;
+            var clientQuotationDetails = data.result.clientQuotationDetail;
+            for (var i = 0; i < data.result.clientQuotationDetail.length; i++) {
+                var clientQuotationDetail = clientQuotationDetails[i];
+              
+                var rowCount = $("#ClientsQuotationDetailtable tbody tr").length;
+                //var rowCount = 0;//parseInt($('#rowCount').val())+0;
+                var srlno = $('#rowCount').val();
+              
+                var TrData = '<div class="Card" style="background-color: #f0f0f0;">';
+                TrData += '<div class="Card-head">';
+                TrData += '<span><input id="workflowsId"class="workflowsId" type="hidden" value="' + clientQuotationDetail.workflowId + '"/></span>';
+                TrData += '<span class="workflowsName">' + clientQuotationDetail.workflowName + '</span>' + '<span class="Edit-icon" style="float: right; cursor: pointer;"><i class="fa fa-edit" style="font-size: 10px;"></i></span><br>';
+                TrData += '<span><input id="productsId"class="productsId" type="hidden" value="' + clientQuotationDetail.productId + '"/></span>';
+                TrData += '<span class="productsName">' + clientQuotationDetail.productName + '</span><br>';
+                TrData += '<span><input id="partnersId" class="partnersId" type="hidden" value="' + clientQuotationDetail.partnerId + '"/></span>';
+                TrData += '<span class="partnerName">' + clientQuotationDetail.partnerName + '</span><br>';
+                TrData += '<span><input id="branchsId"  class="branchsId" type="hidden" value="' + clientQuotationDetail.branchId + '"/></span>';
+                TrData += '<span><input id="Id"  class="Id" type="hidden" value="' + clientQuotationDetail.id + '"/></span>';
+                TrData += '<span><input id="rowCount" type="hidden" value="' + rowCount + '"/></span>';
+                TrData += '</div></div>';
+
+
+                var srCount = rowCount + 2;
+
+                debugger
+                var mainDiv = $('<div>').addClass('maincard maindivcard');
+
+
+                mainDiv.append(TrData);
+
+                // Return the created card
+                var cardHtml = mainDiv.html();
+               
+                //$("workflowId").val("selectedIndex", 0);
+                var adddatatotable =
+                    "<tr class='trq_" + srCount + "'>" +
+                    "<td>" + cardHtml + "</td>" +
+                    "<td><textarea type='text' placeholder='Description' class='form-control border-0 input-sm Description'>" + clientQuotationDetail.description + "</textarea></td>" +
+                    "<td><input id='fee_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.serviceFee + "' class='form-control border-0 input-sm fee' /></td>" +
+                    "<td><input id='discount_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.discount + "' class='form-control border-0 input-sm discount' /></td>" +
+                    "<td><input id='NetFee_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.netFee + "' class='form-control border-0 input-sm NetFee'readonly /></td>" +
+                    "<td><input id='Rate_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.exchangeRate + "' class='form-control border-0 input-sm Rate' /></td>" +
+                    "<td><input id='total_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.totalAmount + "' class='form-control border-0 input-sm total'readonly /></td>" +
+                    "<td><span class='Delete-icon delete' style='cursor: pointer; margin-left: 5px;'><i class='fa fa-trash' style='font-size: 10px;'></i></span></td>" +
+                    "</tr>";
+
+                $("#ClientsQuotationDetailtable").append(adddatatotable);
+
+            }
+        }
+        getclientsreload(partnerIdValue);
+        var globalData; // Declare the data variable in a broader scope
+
+        function createCard(item) {
+            // Create the main container for the card
+            var mainDiv = $('<div>').addClass('maincard maindivcard');
+
+            // Create the card
+            var cardDiv = $('<div>').addClass('card').css('background-color', '#f0f0f0'); // Set your desired background color
+
+            // Create the card body
+            var cardBodyDiv = $('<div>').addClass('card-body');
+
+            // Create the card title
+            var cardTitle = $('<h5>').addClass('card-title').html("Client Details <hr>");
+
+            // Create the paragraph for card information
+            var infoParagraph = $('<p>').addClass('card-text').html(item.firstName + '  ' + item.lastName + '<br>' +
+                item.email);
+
+            // Append card title and info paragraph to the card body
+            cardBodyDiv.append(cardTitle, infoParagraph);
+
+            // Append card body to the card
+            cardDiv.append(cardBodyDiv);
+
+            // Append card to the mainDiv
+            mainDiv.append(cardDiv);
+
+            // Return the created card
+            return mainDiv;
+        }
+
+
+
+
+
+
+
+
+        function getclientsreload(partnerIdValue) {
+            debugger
+
+            var branchesAjax = $.ajax({
+                url: abp.appPath + 'api/services/app/Clients/GetClientForView',
+                data: {
+                    id: partnerIdValue,
+                },
+                method: 'GET',
+                dataType: 'json',
+            })
+                .done(function (data) {
+                    console.log('Response from server:', data);
+                    globalData = data; // Assign data to the global variable
+                    processData(data); // Call processData function after data is available
+                })
+                .fail(function (error) {
+                    console.error('Error fetching data:', error);
+                });
+        }
+        function processData(data) {
+            debugger
+            var cardContainer = $('#cardContainerContact'); // or replace '#container' with your actual container selector
+            var item = globalData.result.client;
+            var card = createCard(item);
+            cardContainer.append(card);
+            // Check if globalData.result.items is an array before attempting to iterate
+            //if (Array.isArray(globalData.result.items)) {
+            //    // Iterate through items and create cards
+            //    for (var i = 0; i < globalData.result.client.length; i += 3) {
+            //        var rowDiv = $('<div>').addClass('row mt-3');
+
+            //        for (var j = 0; j < 3 && (i + j) < globalData.result.client.length; j++) {
+            //            var item = globalData.result.items[i + j];
+            //            var card = createCard(item);
+
+            //            var colDiv = $('<div>').addClass('col-md-4'); // Set the column size to 4 for three columns in a row
+            //            colDiv.append(card);
+            //            rowDiv.append(colDiv);
+            //        }
+
+            //        cardContainer.append(rowDiv);
+            //    }
+            //} 
+        }
+        var _clientsQuotationService = abp.services.app.clientQuotationHeads;
+        $("#kt_app_sidebar_toggle").trigger("click");
+        $('#currencyId').select2({
+            width: '420px',
+            // Adjust the width as needed
         });
-        // on keyup / change flag: reset
-        input.addEventListener('change', reset);
-        input.addEventListener('keyup', reset);
-
-
-
-        //
+        //const urlParams = new URLSearchParams(window.location.search);
+        //const clientIdValue = urlParams.get('clientId');
+        $("#ClientId").val(partnerIdValue);
+        var _$clientQuotationInformationForm = $('form[name=QuotationInformationsForm]');
+        _$clientQuotationInformationForm.validate();
 
         var _ClientcountryLookupTableModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CountryLookupTableModal',
@@ -119,113 +221,114 @@
 
         $('#OpenCountryLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientcountryLookupTableModal.open({ id: client.countryId, displayName: client.countryName }, function (data) {
-                _$clientInformationForm.find('input[name=countryName]').val(data.displayName);
-                _$clientInformationForm.find('input[name=countryId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=countryName]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=countryId]').val(data.id);
             });
         });
 
         $('#ClearCountryNameButton').click(function () {
-            _$clientInformationForm.find('input[name=countryName]').val('');
-            _$clientInformationForm.find('input[name=countryId]').val('');
+            _$clientQuotationInformationForm.find('input[name=countryName]').val('');
+            _$clientQuotationInformationForm.find('input[name=countryId]').val('');
         });
 
         $('#OpenUserLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientuserLookupTableModal.open({ id: client.assigneeId, displayName: client.userName }, function (data) {
-                _$clientInformationForm.find('input[name=userName]').val(data.displayName);
-                _$clientInformationForm.find('input[name=assigneeId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=userName]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=assigneeId]').val(data.id);
             });
         });
 
         $('#ClearUserNameButton').click(function () {
-            _$clientInformationForm.find('input[name=userName]').val('');
-            _$clientInformationForm.find('input[name=assigneeId]').val('');
+            _$clientQuotationInformationForm.find('input[name=userName]').val('');
+            _$clientQuotationInformationForm.find('input[name=assigneeId]').val('');
         });
 
         $('#OpenBinaryObjectLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientbinaryObjectLookupTableModal.open({ id: client.profilePictureId, displayName: client.binaryObjectDescription }, function (data) {
-                _$clientInformationForm.find('input[name=binaryObjectDescription]').val(data.displayName);
-                _$clientInformationForm.find('input[name=profilePictureId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=binaryObjectDescription]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=profilePictureId]').val(data.id);
             });
         });
 
         $('#ClearBinaryObjectDescriptionButton').click(function () {
-            _$clientInformationForm.find('input[name=binaryObjectDescription]').val('');
-            _$clientInformationForm.find('input[name=profilePictureId]').val('');
+            _$clientQuotationInformationForm.find('input[name=binaryObjectDescription]').val('');
+            _$clientQuotationInformationForm.find('input[name=profilePictureId]').val('');
         });
 
         $('#OpenDegreeLevelLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientdegreeLevelLookupTableModal.open({ id: client.highestQualificationId, displayName: client.degreeLevelName }, function (data) {
-                _$clientInformationForm.find('input[name=degreeLevelName]').val(data.displayName);
-                _$clientInformationForm.find('input[name=highestQualificationId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=degreeLevelName]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=highestQualificationId]').val(data.id);
             });
         });
 
         $('#ClearDegreeLevelNameButton').click(function () {
-            _$clientInformationForm.find('input[name=degreeLevelName]').val('');
-            _$clientInformationForm.find('input[name=highestQualificationId]').val('');
+            _$clientQuotationInformationForm.find('input[name=degreeLevelName]').val('');
+            _$clientQuotationInformationForm.find('input[name=highestQualificationId]').val('');
         });
 
         $('#OpenSubjectAreaLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientsubjectAreaLookupTableModal.open({ id: client.studyAreaId, displayName: client.subjectAreaName }, function (data) {
-                _$clientInformationForm.find('input[name=subjectAreaName]').val(data.displayName);
-                _$clientInformationForm.find('input[name=studyAreaId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=subjectAreaName]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=studyAreaId]').val(data.id);
             });
         });
 
         $('#ClearSubjectAreaNameButton').click(function () {
-            _$clientInformationForm.find('input[name=subjectAreaName]').val('');
-            _$clientInformationForm.find('input[name=studyAreaId]').val('');
+            _$clientQuotationInformationForm.find('input[name=subjectAreaName]').val('');
+            _$clientQuotationInformationForm.find('input[name=studyAreaId]').val('');
         });
 
         $('#OpenLeadSourceLookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientleadSourceLookupTableModal.open({ id: client.leadSourceId, displayName: client.leadSourceName }, function (data) {
-                _$clientInformationForm.find('input[name=leadSourceName]').val(data.displayName);
-                _$clientInformationForm.find('input[name=leadSourceId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=leadSourceName]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=leadSourceId]').val(data.id);
             });
         });
 
         $('#ClearLeadSourceNameButton').click(function () {
-            _$clientInformationForm.find('input[name=leadSourceName]').val('');
-            _$clientInformationForm.find('input[name=leadSourceId]').val('');
+            _$clientQuotationInformationForm.find('input[name=leadSourceName]').val('');
+            _$clientQuotationInformationForm.find('input[name=leadSourceId]').val('');
         });
 
         $('#OpenCountry2LookupTableButton').click(function () {
 
-            var client = _$clientInformationForm.serializeFormToObject();
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
 
             _ClientcountryLookupTableModal.open({ id: client.passportCountryId, displayName: client.countryName2 }, function (data) {
-                _$clientInformationForm.find('input[name=countryName2]').val(data.displayName);
-                _$clientInformationForm.find('input[name=passportCountryId]').val(data.id);
+                _$clientQuotationInformationForm.find('input[name=countryName2]').val(data.displayName);
+                _$clientQuotationInformationForm.find('input[name=passportCountryId]').val(data.id);
             });
         });
 
         $('#ClearCountryName2Button').click(function () {
-            _$clientInformationForm.find('input[name=countryName2]').val('');
-            _$clientInformationForm.find('input[name=passportCountryId]').val('');
+            _$clientQuotationInformationForm.find('input[name=countryName2]').val('');
+            _$clientQuotationInformationForm.find('input[name=passportCountryId]').val('');
         });
 
-
+ 
+  
 
         function save(successCallback) {
-            if (!_$clientInformationForm.valid()) {
+            if (!_$clientQuotationInformationForm.valid()) {
                 return;
             }
             //if ($('#Client_CountryId').prop('required') && $('#Client_CountryId').val() == '') {
@@ -257,19 +360,57 @@
             //    return;
             //}
 
+            debugger; 
+            var datarows = [];
+
+            // Assuming you have some way of determining the number of rows you want to save, let's say 'rowCount'.
+            var rowCount = $(".workflowsId").length;
+
+            for (var i = 0; i < rowCount; i++) {
+                var WorkflowId = parseInt($(".workflowsId").eq(i).val(), 10);
+                var ProductId = parseInt($(".productsId").eq(i).val(), 10);
+                var BranchId = parseInt($(".branchsId").eq(i).val(), 10);
+                var PartnerId = parseInt($(".partnersId").eq(i).val(), 10);
+                var Description = $(".Description").eq(i).val();
+                var ServiceFee = parseFloat($(".fee").eq(i).val());
+                var Discount = parseFloat($(".discount").eq(i).val());
+                var NetFee = parseFloat($(".NetFee").eq(i).val());
+                var ExchangeRate = parseFloat($(".Rate").eq(i).val());
+                var TotalAmount = parseFloat($(".total").eq(i).val());
+                var Id = parseFloat($(".Id").eq(i).val());
+
+                var dataRowItem = {
+                    WorkflowId: WorkflowId,
+                    ProductId: ProductId,
+                    BranchId: BranchId,
+                    PartnerId: PartnerId,
+                    Description: Description,
+                    ServiceFee: ServiceFee,
+                    Discount: Discount,
+                    NetFee: NetFee,
+                    ExchangeRate: ExchangeRate,
+                    TotalAmount: TotalAmount,
+                    Id: Id
+                };
+
+                datarows.push(dataRowItem);
+            }
 
 
-            var client = _$clientInformationForm.serializeFormToObject();
-
+            // Convert the array to a JSON string
+            var QuotationDetails = JSON.stringify(datarows);
+            QuotationDetails = JSON.parse(QuotationDetails);
+            var client = _$clientQuotationInformationForm.serializeFormToObject();
+            client.QuotationDetails = QuotationDetails;
 
 
             abp.ui.setBusy();
             console.log(client);
-            _clientsService.createOrEdit(
+            _clientsQuotationService.createOrEdit(
                 client
             ).done(function () {
                 abp.notify.info(app.localize('SavedSuccessfully'));
-                abp.event.trigger('app.createOrEditClientModalSaved');
+                abp.event.trigger('app.createOrEditClientQuotationModalSaved');
 
                 if (typeof (successCallback) === 'function') {
                     successCallback();
@@ -280,7 +421,7 @@
         };
 
         function clearForm() {
-            _$clientInformationForm[0].reset();
+            _$clientQuotationInformationForm[0].reset();
         }
 
         $('#saveBtn').click(function () {

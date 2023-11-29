@@ -19,6 +19,11 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Microsoft.AspNetCore.Mvc;
+using Zeta.AgentosCRM.CRMPartner.Promotion.Dtos;
+using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 
 namespace Zeta.AgentosCRM.CRMAppointments
 {
@@ -30,14 +35,16 @@ namespace Zeta.AgentosCRM.CRMAppointments
         private readonly IRepository<Client, long> _lookup_clientRepository;
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
         private readonly IRepository<User, long> _lookup_userRepository;
+        private readonly IRepository<AppointmentInvitee, long> _appointmentInviteeRepository;
 
-        public AppointmentsAppService(IRepository<Appointment, long> appointmentRepository, IAppointmentsExcelExporter appointmentsExcelExporter, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<User, long> lookup_userRepository)
+        public AppointmentsAppService(IRepository<Appointment, long> appointmentRepository, IAppointmentsExcelExporter appointmentsExcelExporter, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<User, long> lookup_userRepository, IRepository<AppointmentInvitee, long> appointmentInviteeRepository)
         {
             _appointmentRepository = appointmentRepository;
             _appointmentsExcelExporter = appointmentsExcelExporter;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_partnerRepository = lookup_partnerRepository;
             _lookup_userRepository = lookup_userRepository;
+            _appointmentInviteeRepository = appointmentInviteeRepository;
 
         }
 
@@ -159,8 +166,12 @@ namespace Zeta.AgentosCRM.CRMAppointments
         public async Task<GetAppointmentForEditOutput> GetAppointmentForEdit(EntityDto<long> input)
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync(input.Id);
-
-            var output = new GetAppointmentForEditOutput { Appointment = ObjectMapper.Map<CreateOrEditAppointmentDto>(appointment) };
+            var appointmentinvitees = await _appointmentInviteeRepository.GetAllListAsync(p => p.AppointmentId == input.Id);
+            var output = new GetAppointmentForEditOutput
+            {
+                Appointment = ObjectMapper.Map<CreateOrEditAppointmentDto>(appointment),
+               Appointmentinvitees = ObjectMapper.Map<List<CreateOrEditAppointmentInviteeDto>>(appointmentinvitees)
+            };
 
             if (output.Appointment.ClientId != null)
             {
@@ -196,7 +207,7 @@ namespace Zeta.AgentosCRM.CRMAppointments
         }
 
         [AbpAuthorize(AppPermissions.Pages_Appointments_Create)]
-        protected virtual async Task Create(CreateOrEditAppointmentDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditAppointmentDto input)
         {
             var appointment = ObjectMapper.Map<Appointment>(input);
 
@@ -204,8 +215,15 @@ namespace Zeta.AgentosCRM.CRMAppointments
             {
                 appointment.TenantId = (int)AbpSession.TenantId;
             }
-
-            await _appointmentRepository.InsertAsync(appointment);
+            var appointmentId = _appointmentRepository.InsertAndGetIdAsync(appointment).Result;
+            foreach (var step in input.Steps)
+            {
+                step.AppointmentId = appointmentId;
+                var stepEntity = ObjectMapper.Map<AppointmentInvitee>(step);
+                await _appointmentInviteeRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            // await _appointmentRepository.InsertAsync(appointment);
 
         }
 
@@ -214,7 +232,18 @@ namespace Zeta.AgentosCRM.CRMAppointments
         {
             var appointment = await _appointmentRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, appointment);
-
+            var appointmentinvitees = await _appointmentInviteeRepository.GetAllListAsync(p => p.AppointmentId == input.Id);
+            foreach (var item in appointmentinvitees)
+            {
+                await _appointmentInviteeRepository.DeleteAsync(item.Id);
+            }
+            foreach (var step in input.Steps)
+            {
+                step.AppointmentId = appointment.Id;
+                var stepEntity = ObjectMapper.Map<AppointmentInvitee>(step);
+                await _appointmentInviteeRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_Appointments_Delete)]
