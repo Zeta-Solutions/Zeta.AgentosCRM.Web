@@ -85,7 +85,7 @@
                 ajaxFunction: _QuotationCurrenciesService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#TagTableFilter').val(),
+                        filter: $('#QuotationCurrencyTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                     };

@@ -1,6 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMSetup;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
@@ -16,8 +14,9 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup.Document;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document
+namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
     [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments)]
     public class WorkflowDocumentsAppService : AgentosCRMAppServiceBase, IWorkflowDocumentsAppService
@@ -39,7 +38,9 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
                         .Include(e => e.WorkflowFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
+                        .WhereIf(input.WorkflowIdFilter.HasValue, e => false || e.WorkflowId == input.WorkflowIdFilter.Value)
+                        .WhereIf(input.ID.HasValue, e => false || e.Id == input.ID.Value);
 
             var pagedAndFilteredWorkflowDocuments = filteredWorkflowDocuments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -53,7 +54,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
                                     {
 
                                         o.Name,
-                                        Id = o.Id,
+                                        o.Id,
+                                        o.WorkflowId,
                                         WorkflowName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                                     };
 
@@ -71,6 +73,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
 
                         Name = o.Name,
                         Id = o.Id,
+                        WorkflowId = o.WorkflowId,
                     },
                     WorkflowName = o.WorkflowName
                 };
@@ -93,7 +96,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
 
             if (output.WorkflowDocument.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.WorkflowDocument.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.WorkflowDocument.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 
@@ -109,7 +112,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
 
             if (output.WorkflowDocument.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.WorkflowDocument.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.WorkflowDocument.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 

@@ -1,0 +1,98 @@
+﻿
+@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocumentCheckList
+@model CreateOrEditWorkflowDocumentCheckListModalViewModel 
+
+@using Abp.Extensions
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDocumentCheckList"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocumentCheckList")) : L("CreateNewDocumentCheckList")))
+
+<div class="modal-body">
+    <div id="FeeTypeInformationsTab">
+        <form name="FeeTypeInformationsForm" role="form" novalidate class="form-validation">
+
+            @* @if (Model.IsEditMode)
+            { *@
+                <input type="text" hidden id="workflowDocumentCheckListId" name="id" value="@Model.WorkflowDocumentCheckList.Id" />
+           @*  } *@
+
+            <div class="my-3">
+                <label class="form-label" for="AddNewCheckListDocumentType">@L("DocumentType")</label>
+                @Html.DropDownList("DocumentTypeId", new SelectList(Model.WorkFlowDocumentCheckListDoucType,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocumentCheckList.DocumentTypeId.ToString() : "")),@L("SelectADocumentType"), new { @class = "form-control" , @required="required" })
+                @* <select class="form-control" value="@Model.WorkflowDocumentCheckList.DocumentTypeId" name="documentTypeId" id="AddNewCheckListDocumentType"></select> *@
+            </div>
+
+            <div class="my-3">
+                <input class="form-control" hidden id="workFlowStepModelId" name="WorkflowStepId" value="@Model.WorkflowDocumentCheckList.WorkflowStepId" type="text" />
+            </div>
+
+            <div class="my-3" hidden>
+                <label class="form-label" for="Name">@L("name")</label>
+                <input class="form-control" id="Name" value="@Model.WorkflowDocumentCheckList.Name" type="text" name="name" required />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Description">@L("Description")</label>
+                <input class="form-control" id="Description" value="@Model.WorkflowDocumentCheckList.Description" type="text" name="Description" required />
+            </div>
+            <div class="my-3">
+                <label class="form-label">@L("applyto")</label>
+                <div class="col-12">
+                    <div class="col-6">
+
+                        <input type="radio" id="AllPartner" value="false" name="IsForAllPartners" @Html.Raw(!Model.WorkflowDocumentCheckList.IsForAllPartners ? "checked=\"checked\"" : "") />
+                        <label class="form-label" for="AllPartner">@L("AllPartners")</label>
+
+                        <input type="radio" id="selectedPartner" value="true" name="IsForAllPartners" @(Model.WorkflowDocumentCheckList.IsForAllPartners ? "checked=\"checked\"" : "") />
+                        <label class="form-label" for="selectedPartner">@L("selectedPartners")</label>
+                    </div>
+                </div>
+
+            </div>
+            
+              
+            <div class="my-3" id="DDlPartners">
+                @* <label class="form-label" for="PartnerID">@L("Partner")</label> *@
+                @* <select id="PartnerID" class="form-control"></select> *@
+                <select id="PartnerID" class="form-select select2" data-id="" data-control="select2"></select>
+                @* <input class="form-control" id="PartnerID" autocomplete="off" value="" type="text" /> *@
+                </div>
+             
+
+            <div class="my-3" id="RadioProducts">
+                <div class="col-12">
+                    <div class="col-6">
+                        <input type="radio" id="AllProduct" value="false" name="IsForAllProducts" @Html.Raw(!Model.WorkflowDocumentCheckList.IsForAllProducts ? "checked=\"checked\"" : "") />
+                        <label class="form-label" for="AllProduct">@L("AllProducts")</label>
+
+                        <input type="radio" id="selectedProduct" value="true" name="IsForAllProducts" @Html.Raw(Model.WorkflowDocumentCheckList.IsForAllProducts ? "checked=\"checked\"" : "") />
+                        <label class="form-label" for="selectedProduct">@L("selectedProducts")</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="my-3" id="DDlProduct">
+                <select id="ProductID" class="form-select select2" data-id="" data-control="select2"></select>
+                @* <input class="form-control" id="Workflow_Name" autocomplete="off" value=" " type="text" name="name" required /> *@
+            </div>
+            <div class="my-3">
+                <div class="col-12">
+                    <input type="checkbox" value="true" name="AllowOnClientPortal" id="clientportal" @Html.Raw(Model.WorkflowDocumentCheckList.AllowOnClientPortal ? "checked=\"checked\"" : "") />
+                    <label class="form-label" for="clientportal">@L("Uploaddocumentsfromclientportal")</label> <br />
+
+                    @* <input type="checkbox" value="false" name="AllowOnClientPortal" id="clientportal" @Html.Raw(Model.WorkflowDocumentCheckList.AllowOnClientPortal ? "checked=\"checked\"" : "") />
+                    <label class="form-label" for="clientportal">@L("Uploaddocumentsfromclientportal")</label> <br /> *@
+                    <input type="checkbox" value="false" name="nextstage" id="nextstage" />
+                    <label class="form-label" for="nextstage">@L("indoortoproceednextstage")</label>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

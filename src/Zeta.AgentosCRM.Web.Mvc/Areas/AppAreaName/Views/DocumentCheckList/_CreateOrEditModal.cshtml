@@ -1,32 +1,41 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes
-@model CreateOrEditFeeTypeModalViewModel *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocument
+@model CreateOrEditWorkflowDocumentModalViewModel
 @using Abp.Extensions
 
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDocumentCheckList")))
-@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocumentCheckList")) : L("CreateNewLeadform"))) *@
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewDocumentCheckList"))) *@
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocument")) : L("CreateNewDocument")))
 
 <div class="modal-body">
     <div id="FeeTypeInformationsTab">
         <form name="FeeTypeInformationsForm" role="form" novalidate class="form-validation">
 
-            @* @if (Model.IsEditMode)
-            { *@
-                <input type="hidden" name="id"  />
-            @*  } value="@Model.FeeType.Id"*@
-
+            @if (Model.IsEditMode)
+            {
+                <input type="text" name="id" value="@Model.WorkflowDocument.Id" />
+            }
             <div class="my-3">
-                <label class="form-label" for="FeeType_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="FeeType_Abbrivation" value="Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinAbbrivationLength" />
+                <label class="form-label" for="SubjectAreaId">@L("SelectWorkFlow")</label>
+                @* @Html.DropDownList("SubjectAreaId", new SelectList(Model.SubjectAreaName,"Id","DisplayName", (Model.IsEditMode ? Model.Subject.SubjectAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control" , @required="required" }) *@
+                @Html.DropDownList("WorkflowId", new SelectList(Model.WorkFlowList,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocument.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
             </div>
+            @* <div class="my-3">
+                <label class="col-sm-1 col-form-label" for="WorkFlowId">@L("Office")</label>
+                <div class="col-sm-4"> *@
+                    @* @Html.DropDownList("WorkflowId", new SelectList(Model.WorkFlowList,"Id","DisplayName", (Model.IsEditMode ? Model.DocumentCheckListHead.WorkflowId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control" , @required="required" }) *@
+                    @* <select id="WorkFlowId" class="form-control" name="workflowId" value="@Model.DocumentCheckListHead.WorkflowId"></select> <br /> *@
+                @* </div> *@
+                @* <label class="form-label" for="FeeType_Abbrivation">@L("Abbrivation")</label>
+                <input class="form-control" id="FeeType_Abbrivation" value="Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinAbbrivationLength" /> *@
+            @* </div> *@
 
-            <div class="my-3">
-                <label class="form-label" for="FeeType_Name">@L("Name")</label>
-                <input class="form-control" id="FeeType_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" />
+            <div class="my-3" hidden>
+                <label class="form-label" for="WorkFlow_Name">@L("Name")</label>
+                <input class="form-control" id="WorkFlow_Name" value="@Model.WorkflowDocument.Name" type="text" name="name"   />
             </div>
-
+            <div class="WorkFlowStepDetail"></div>
         </form>
     </div>
 </div>

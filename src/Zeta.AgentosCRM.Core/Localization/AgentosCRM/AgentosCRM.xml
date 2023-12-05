@@ -1821,8 +1821,15 @@
 		<text name="TaxCode">Tax Code</text>
 		<text name="TaxRate">Tax Rate</text>
 		<text name="SetAsDefualt">Set As Defualt</text>
-		<text name="DefualtTax">Defualt Tax</text>
-		<text name="Action">Action</text>
+		<text name="DefualtTax">Defualt Tax</text> 
 		<text name="AddTax">Add Tax</text>
+		<text name="DocumentCheckListHeading">Create Your Document checklist Based on your selected workflow Stage</text>
+		<text name="applyto">Apply To</text>
+		<text name="AllPartners">All Partners</text>
+		<text name="selectedPartners">selected Partners</text>
+		<text name="AllProducts">All Products</text>
+		<text name="selectedProducts">selected Products</text>
+		<text name="Uploaddocumentsfromclientportal">Upload documents from client portal</text>
+		<text name="indoortoproceednextstage">indoor to proceed next stage</text>
 	</texts> 
 </localizationDictionary>

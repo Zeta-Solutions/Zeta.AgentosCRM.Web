@@ -40,7 +40,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
             var filteredPartnerTypes = _partnerTypeRepository.GetAll()
                         .Include(e => e.MasterCategoryFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivation.Contains(input.Filter) || e.Name.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivation.Contains(input.Filter) || e.Name.Contains(input.Filter)|| e.MasterCategoryFk.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AbbrivationFilter), e => e.Abbrivation.Contains(input.AbbrivationFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MasterCategoryNameFilter), e => e.MasterCategoryFk != null && e.MasterCategoryFk.Name == input.MasterCategoryNameFilter);

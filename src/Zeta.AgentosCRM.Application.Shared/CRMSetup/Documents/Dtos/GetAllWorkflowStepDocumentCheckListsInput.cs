@@ -21,5 +21,6 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 
         public string DocumentTypeNameFilter { get; set; }
 
+        public int? WorkflowIdFilter { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿
 @using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
-@* @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; *@
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocument;
 @using Abp.Extensions
-@*@model  FeeTypesViewModel
- @{
-ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
+@* @model  CreateOrEditDocumentCheckListHeadModalViewModel *@
+ @* @{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentCheckListHead;
 } *@
 @section Scripts
     {
@@ -30,55 +30,61 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
             <input type="hidden" name="id" />
 
             <div class="my-3">
-                <label class="form-label" for="FeeType_DocumentType">@L("DocumentType")</label>
-                <input class="form-control" id="FeeType_DocumentType" value="DocumentType" type="text" name="DocumentType" required />
+                <label class="form-label" for="AddNewCheckListDocumentType">@L("DocumentType")</label>
+                <select  class="form-control" id="AddNewCheckListDocumentType" ></select> 
+            </div>
+            
+            <div class="my-3"> 
+                <input class="form-control" id="workFlowStepModelId" value="" type="text" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="FeeType_Description">@L("Description")</label>
-                <input class="form-control" id="FeeType_Description" value="Description" type="text" name="Description" required />
+                <label class="form-label" for="Description">@L("Description")</label>
+                <input class="form-control" id="Description" value="Description" type="text" name="Description" required />
             </div>
             <div class="my-3">
-                <label class="form-label" for="Workflow_Name">@L("applyto")</label>
+                <label class="form-label">@L("applyto")</label>
                 <div class="col-12">
                     <div class="col-6">
-                        <input type="radio" id="AllPartner" name="PartnerType" checked  />
-                        <label class="form-label" for="AllPartner">@L("AllPartner")</label>
+                        <input type="radio" id="AllPartner" value="false" name="PartnerType" checked  />
+                        <label class="form-label" for="AllPartner">@L("AllPartners")</label>
 
-                        <input type="radio" id="selectedPartner" name="PartnerType"  />
-                        <label class="form-label" for="selectedPartner">@L("selectedPartner")</label>
+                        <input type="radio" id="selectedPartner" value="true" name="PartnerType"  />
+                        <label class="form-label" for="selectedPartner">@L("selectedPartners")</label>
                     </div>
                 </div>
 
             </div>
              <div class="my-3" id="DDlPartners">
-                        <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
-                        <input class="form-control" id="ProductID" autocomplete="off" value=" " type="text" name="name" required />
+                @* <label class="form-label" for="PartnerID">@L("Partner")</label> *@
+                @* <select id="PartnerID" class="form-control"></select> *@
+                <select id="PartnerID" class="form-select select2" data-id="" data-control="select2"></select>
+                @* <input class="form-control" id="PartnerID" autocomplete="off" value="" type="text" /> *@
                     </div>
             <div class="my-3" id="RadioProducts">
                 <div class="col-12">
                     <div class="col-6">
-                        <input type="radio" id="AllProduct" name="ProductType" checked/>
-                        <label class="form-label" for="AllProduct">@L("AllProduct")</label>
+                        <input type="radio" id="AllProduct" value="false" name="ProductType" checked/>
+                        <label class="form-label" for="AllProduct">@L("AllProducts")</label>
 
-                        <input type="radio" id="selectedProduct" name="ProductType"  />
-                        <label class="form-label" for="selectedProduct">@L("selectedProduct")</label>
+                        <input type="radio" id="selectedProduct" value="true" name="ProductType"  />
+                        <label class="form-label" for="selectedProduct">@L("selectedProducts")</label>
                     </div>
                 </div>
 
             </div>
             
-             <div class="my-3" id="DDlProduct">
-                        <label class="form-label" for="Workflow_Name">@L("Accessibleoffice")</label>
-                        <input class="form-control" id="Workflow_Name" autocomplete="off" value=" " type="text" name="name" required />
+             <div class="my-3" id="DDlProduct"> 
+                <select id="ProductID" class="form-select select2" data-id="" data-control="select2"></select>
+                @* <input class="form-control" id="Workflow_Name" autocomplete="off" value=" " type="text" name="name" required /> *@
                     </div>
             <div class="my-3">
                 <div class="col-12">
 
-                    <input type="checkbox" id="allOffice"/>
-                    <label class="form-label" for="allOffice">@L("Uploaddocumentsfromclientportal")</label> <br />
-                    <input type="checkbox" id="selectedOffice"/>
-                    <label class="form-label" for="selectedOffice">@L("indoortoproceednextstage")</label>
+                    <input type="checkbox" value="false" name="clientportal" id="clientportal" />
+                    <label class="form-label" for="clientportal">@L("Uploaddocumentsfromclientportal")</label> <br />
+                    <input type="checkbox" value="false" name="nextstage" id="nextstage" />
+                    <label class="form-label" for="nextstage">@L("indoortoproceednextstage")</label>
 
                 </div>
 
