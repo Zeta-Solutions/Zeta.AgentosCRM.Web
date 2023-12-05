@@ -6,8 +6,6 @@ using Zeta.AgentosCRM.CRMProducts.Fee.Dtos;
 using Zeta.AgentosCRM.Dto;
 using System.Collections.Generic;
 using System.Collections.Generic;
-using System.Collections.Generic;
-using Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts.Fee
 {
@@ -26,10 +24,6 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
         Task<List<ProductFeeCountryLookupTableDto>> GetAllCountryForTableDropdown();
 
         Task<List<ProductFeeInstallmentTypeLookupTableDto>> GetAllInstallmentTypeForTableDropdown();
-
-        Task<List<ProductFeeFeeTypeLookupTableDto>> GetAllFeeTypeForTableDropdown();
-
-        Task<List<ProductFeeProductLookupTableDto>> GetAllProductForTableDropdown();
 
     }
 }

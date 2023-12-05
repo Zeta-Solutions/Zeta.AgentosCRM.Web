@@ -102,20 +102,20 @@
                     targets: 1,
                     data: null,
                     orderable: false,
-                    searchable: false,
-
-
+                    searchable: false, 
                     render: function (data, type, full, meta) {
                         console.log(data);
                         let workflowName = data.workflowName; 
+                        let workflowId = data.application.workflowId; 
+                        console.log("WorkflowID : " + data.application.workflowId)
                         // Generate the URLs using JavaScript variables
                         //let applicationStepUrl = "/AppAreaName/Client/ClientDetail?id=" + data.application.workflowId +"";
-                        debugger
+                        //
                         var contaxtMenu = `
                                 <div class="d-flex align-items-center">
              
                                     <div class="d-flex flex-column">
-                                    <div id="search" style="cursor: pointer; color:blue; ">${workflowName}</div>
+                                    <div id="search" style="cursor: pointer; color:blue;" data-id="${workflowId}">${workflowName}</div>
 
                                     </div>
                                 </div>
@@ -123,9 +123,7 @@
 
 
                         return contaxtMenu;
-                    }
-                  
-
+                    } 
                 },
                 {
                     targets: 2,
@@ -174,14 +172,16 @@
          
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '#search', function (e) {
-            
+            //
+            var appId = $(this).data('id');
+            $("#ApplicationWorkflowId").val(appId)
             // Show the selected tab
             var selectedTab = document.getElementById("ApplicationDetailTab");
-            selectedTab.click(); 
+            selectedTab.click();  
         });
         $(document).on('click', '.Applicationellipsis', function (e) {
             e.preventDefault();
-            debugger
+            //
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -200,10 +200,10 @@
         });
         $(document).on('click', 'a[data-action1]', function (e) {
             e.preventDefault();
-            debugger
+            //
             var rowId = $(this).data('id');
             var action = $(this).data('action1');
-            debugger
+            //
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });

@@ -32,16 +32,17 @@
 
         public static class Tenant
         {
+            public const string ProductFeeDetails = "Fee.ProductFeeDetails";
             public const string Clients = "CRMClient.Clients";
             public const string Workflows = "CRMSetup.Workflows";
             public const string WorkflowSteps = "CRMSetup.WorkflowSteps";
             public const string PartnerTypes = "CRMSetup.PartnerTypes";
             public const string CRMSetup = "CRMSetup";
             public const string MasterCategories = "CRMSetup.MasterCategories";
-            public const string LeadSource = "CRMSetup.LeadSource"; 
-            public const string LeadForm = "CRMSetup.LeadForm"; 
-            public const string DocumentChecklist = "CRMSetup.DocumentChecklist"; 
-            public const string DocumentType= "CRMSetup.DocumentType"; 
+            public const string LeadSource = "CRMSetup.LeadSource";
+            public const string LeadForm = "CRMSetup.LeadForm";
+            public const string DocumentChecklist = "CRMSetup.DocumentChecklist";
+            public const string DocumentType = "CRMSetup.DocumentType";
             public const string Tag = "CRMSetup.Tag";
             public const string Country = "CRMSetup.Country";
             public const string QuotationCurrency = "CRMSetup.QuotationCurrency";

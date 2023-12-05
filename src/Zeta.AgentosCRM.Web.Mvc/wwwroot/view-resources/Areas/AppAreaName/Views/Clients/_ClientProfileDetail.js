@@ -147,13 +147,13 @@
                 })
          
                 .fail(function (error) {
-                    debugger
+                    //
                     console.error('Error fetching data:', error);
                 });
         }
         $(document).on('click', '.deleteTag', function () {
 
-            debugger
+            //
             var tagId = 2;// $(this).val(); // Retrieve the value of the clicked button
 
             // Use the retrieved tagId value as needed
@@ -166,7 +166,7 @@
                         })
                         .done(function () {
                             //getClientss(true);
-                            debugger
+                            //
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -224,13 +224,13 @@
                 })
 
                 .fail(function (error) {
-                    debugger
+                    //
                     console.error('Error fetching data:', error);
                 });
         }
         $(document).on('click', '.deleteUser', function () {
 
-            debugger
+            //
             var UserId =  $(this).val(); // Retrieve the value of the clicked button
 
             // Use the retrieved tagId value as needed
@@ -243,7 +243,7 @@
                         })
                         .done(function () {
                             //getClientss(true);
-                            debugger
+                            //
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
