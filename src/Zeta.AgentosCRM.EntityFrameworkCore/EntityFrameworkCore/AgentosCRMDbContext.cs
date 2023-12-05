@@ -56,6 +56,10 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ProductBranch> ProductBranches { get; set; }
+
+        public virtual DbSet<ProductFeeDetail> ProductFeeDetails { get; set; }
+
         public virtual DbSet<ProductOtherTestRequirement> ProductOtherTestRequirements { get; set; }
 
         public virtual DbSet<ProductEnglishRequirement> ProductEnglishRequirements { get; set; }
@@ -214,10 +218,22 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductOtherTestRequirement>(p =>
+            modelBuilder.Entity<ProductBranch>(p =>
             {
                 p.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ProductFeeDetail>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductFee>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ProductOtherTestRequirement>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ProductEnglishRequirement>(p =>
                        {
                            p.HasIndex(e => new { e.TenantId });

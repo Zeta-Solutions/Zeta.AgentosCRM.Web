@@ -2,13 +2,10 @@
 using Abp.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Zeta.AgentosCRM.Authorization;
-using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup.Dtos;
+using Zeta.AgentosCRM.Authorization; 
 using Zeta.AgentosCRM.CRMSetup.FeeType;
 using Zeta.AgentosCRM.CRMSetup.FeeType.Dtos;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes;
-using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.MasterCategories;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.FeeTypes; 
 using Zeta.AgentosCRM.Web.Controllers;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers

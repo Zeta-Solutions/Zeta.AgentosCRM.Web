@@ -1,6 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="ProductOtherTestRequirement">Product other test requirement</text>
+	<texts>    <text name="ProductBranch">Product branch</text>
+    <text name="CreateNewProductBranch">Create new product branch</text>
+    <text name="EditProductBranch">Edit product branch</text>
+    <text name="DeleteProductBranch">Delete product branch</text>
+    <text name="ProductFeeDetail">Product fee detail</text>
+    <text name="Zeta.AgentosCRM.Fee.ProductFeeDetail">ProductFeeDetail</text>
+    <text name="InstallmentAmount">Installment amount</text>
+    <text name="Installments">Installments</text>
+    <text name="ClaimTerms">Claim terms</text>
+    <text name="CommissionPer">Commission per</text>
+    <text name="IsPayable">Is payable</text>
+    <text name="NotIsPayable">Not is payable</text>
+    <text name="AddInQuotation">Add in quotation</text>
+    <text name="NotAddInQuotation">Not add in quotation</text>
+    <text name="ProductFeeDetailsHeaderInfo">Product fee details header info</text>
+    <text name="CreateNewProductFeeDetail">Create new product fee detail</text>
+    <text name="EditProductFeeDetail">Edit product fee detail</text>
+    <text name="DeleteProductFeeDetail">Delete product fee detail</text>
+    <text name="ProductFeeDetails">Product fee details</text>
+    <text name="FeeTypeName">Fee type name</text>
+    <text name="PickFeeType">Pick fee type</text>
+    <text name="SelectAFeeType">Select a fee type</text>
+    <text name="ProductFeeName">Product fee name</text>
+    <text name="PickProductFee">Pick product fee</text>
+    <text name="SelectAProductFee">Select a product fee</text>
+
+    <text name="ProductOtherTestRequirement">Product other test requirement</text>
     <text name="CreateNewProductOtherTestRequirement">Create new product other test requirement</text>
     <text name="EditProductOtherTestRequirement">Edit product other test requirement</text>
     <text name="DeleteProductOtherTestRequirement">Delete product other test requirement</text>
@@ -1790,6 +1816,38 @@
 		<text name="Body">Body</text>
 		<text name="CreateNewEmailTemplate">Create New Email Template</text>
 		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
-		<!--<text name="EmailTemplate">Email Template</text>-->
+		<text name="SelectAPartnerType">Select a PartnerType</text>
+		<text name="SelectAWorkFlow">Select a WorkFlow</text>
+		<text name="Fax">Fax</text>
+		<text name="AssociatedPartner">Associated Partner</text>
+		<text name="SelectABranch">Select a Branch</text>
+		<text name="SelectAProductType">Select a ProductType</text>
+		<text name="IntakeMonth">Intake Month</text>
+		<text name="Products">Products</text>
+		<text name="ContractExpiryDate">Contract Expiry Date</text>
+		<text name="Department">Department</text>
+		<text name="Position">Position</text>
+		<text name="SelectAInvitees">Select a Invitees</text>
+		<text name="SelectAFollower">Select a Follower</text>
+		<text name="SelectACategory">Select a Category</text>
+		<text name="SelectAAssignee">Select a Assignee</text>
+		<text name="SelectAPriority">Select a Priority</text>
+		<text name="ExpirayDate">Expiray Date</text>
+		<text name="PromotionTitle">Promotion Title</text>
+		<text name="StartDate">Start Date</text>
+		<text name="Accounts">Accounts</text>
+		<text name="Office">Office</text>
+		<text name="Enteryourbusinessregistrationnumber">Enter your business registration number</text>
+		<text name="BusinessInvoiceAddress">Business Invoice Address</text>
+		<text name="MaunalPaymentDetails">Maunal Payment Details</text>
+		<text name="AddNew">Add New</text>
+		<text name="TaxSettings">Tax Settings</text>
+		<text name="chooseinvoicetypeswhereyouwanttousethispaymentdetailbydefault">choose invoice types where you want to use this payment detail by default.</text>
+		<text name="ThisWillbedisplayedwhilecreatingtheinvoiceandaccountwillbecalculatedaccordingly">This Will be displayed while creating the invoice and account will be calculated accordingly.</text>
+		<text name="TaxCode">Tax Code</text>
+		<text name="TaxRate">Tax Rate</text>
+		<text name="SetAsDefualt">Set As Defualt</text>
+		<text name="DefualtTax">Defualt Tax</text> 
+		<text name="AddTax">Add Tax</text>
 	</texts> 
 </localizationDictionary>

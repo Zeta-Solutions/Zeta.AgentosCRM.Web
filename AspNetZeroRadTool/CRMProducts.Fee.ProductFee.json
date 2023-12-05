@@ -1,6 +1,6 @@
 {
-  "IsRegenerate": false,
-  "MenuPosition": null,
+  "IsRegenerate": true,
+  "MenuPosition": "",
   "RelativeNamespace": "CRMProducts.Fee",
   "EntityName": "ProductFee",
   "EntityNamePlural": "ProductFees",
@@ -42,69 +42,6 @@
       "AdditionalData": {}
     },
     {
-      "Name": "Installments",
-      "Type": "int",
-      "MaxLength": 0,
-      "MinLength": 0,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null,
-      "AdditionalData": {}
-    },
-    {
-      "Name": "InstallmentAmount",
-      "Type": "decimal",
-      "MaxLength": 0,
-      "MinLength": 0,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null,
-      "AdditionalData": {}
-    },
-    {
-      "Name": "TotalFee",
-      "Type": "decimal",
-      "MaxLength": 0,
-      "MinLength": 0,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null,
-      "AdditionalData": {}
-    },
-    {
       "Name": "ClaimTerms",
       "Type": "string",
       "MaxLength": -1,
@@ -128,29 +65,8 @@
     {
       "Name": "CommissionPer",
       "Type": "decimal",
-      "MaxLength": 0,
-      "MinLength": 0,
-      "Range": {
-        "IsRangeSet": false,
-        "MinimumValue": 0.0,
-        "MaximumValue": 0.0
-      },
-      "Required": false,
-      "Nullable": false,
-      "Regex": "",
-      "UserInterface": {
-        "AdvancedFilter": true,
-        "List": true,
-        "CreateOrUpdate": true
-      },
-      "ViewType": null,
-      "AdditionalData": {}
-    },
-    {
-      "Name": "AddInQuotation",
-      "Type": "bool",
-      "MaxLength": 0,
-      "MinLength": 0,
+      "MaxLength": -1,
+      "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0.0,
@@ -170,8 +86,8 @@
     {
       "Name": "NetTotal",
       "Type": "decimal",
-      "MaxLength": 0,
-      "MinLength": 0,
+      "MaxLength": -1,
+      "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0.0,
@@ -212,22 +128,6 @@
       "IdType": "int",
       "IsNullable": true,
       "PropertyName": "InstallmentTypeId",
-      "DuplicationNumber": 0,
-      "RelationType": "single",
-      "ViewType": "Dropdown",
-      "DisplayPropertyNameInfos": {
-        "MergeFormat": "{0}",
-        "DisplayPropertyNames": [
-          "Name"
-        ]
-      }
-    },
-    {
-      "Namespace": "Zeta.AgentosCRM.CRMSetup.FeeType",
-      "ForeignEntityName": "FeeType",
-      "IdType": "int",
-      "IsNullable": true,
-      "PropertyName": "FeeTypeId",
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown",

@@ -1,6 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMSetup;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
@@ -16,8 +14,9 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup.Document;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document
+namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
     [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments)]
     public class WorkflowDocumentsAppService : AgentosCRMAppServiceBase, IWorkflowDocumentsAppService
@@ -53,7 +52,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
                                     {
 
                                         o.Name,
-                                        Id = o.Id,
+                                        o.Id,
                                         WorkflowName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                                     };
 
@@ -93,7 +92,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
 
             if (output.WorkflowDocument.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.WorkflowDocument.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.WorkflowDocument.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 
@@ -109,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Document
 
             if (output.WorkflowDocument.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.WorkflowDocument.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.WorkflowDocument.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 

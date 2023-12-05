@@ -9,6 +9,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Dtos
     {
         public CreateOrEditWorkflowDto Workflow { get; set; } 
         public List<CreateOrEditWorkflowStepDto> WorkflowStep { get; set; }
+        public List<CreateOrEditWorkflowOfficeDto> WorkflowOffice { get; set; }
 
     }
 }

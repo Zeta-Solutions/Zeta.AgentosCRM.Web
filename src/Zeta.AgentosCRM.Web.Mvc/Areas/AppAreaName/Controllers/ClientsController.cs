@@ -417,7 +417,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             };
 
-            return View("Application/ApplicationDetailIndex", "");
+            return View("Application/ApplicationDetailIndex", model);
         }
 
         #endregion

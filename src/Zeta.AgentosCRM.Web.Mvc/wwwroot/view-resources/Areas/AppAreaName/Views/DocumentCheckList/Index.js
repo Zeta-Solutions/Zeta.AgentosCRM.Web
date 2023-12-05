@@ -58,7 +58,11 @@
         scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumentCheckList/_CreateOrEditModal.js',
         modalClass: 'CreateOrEditModal',
     });
-
+      var _createOrEditModal222 = new app.ModalManager({
+          viewUrl: abp.appPath + 'AppAreaName/DocumentCheckList/AddCheckList',
+          scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/DocumentCheckList/AddDocumentCheckList/AddNewCheckList.js',
+          modalClass: 'AddCheckList',
+      });
     //var _viewFeeTypeModal = new app.ModalManager({
     //    viewUrl: abp.appPath + 'AppAreaName/DocumentCheckList/ViewLeadFormModal',
     //    modalClass: 'ViewLeadFormModal',
@@ -141,6 +145,7 @@
       //});
       function getDocumentCheckList() {
       dataTable.ajax.reload();
+
     }
 
 
@@ -215,7 +220,12 @@
           debugger
       _createOrEditModal.open();
     });
+      $('#NewCheckList').click(function () {
+          debugger
+          _createOrEditModal222.open();
+          $("#DDlPartners").hide();
 
+      });
     //$('#ExportToExcelButton').click(function () {
     //    _feeTypesService
     //    .getMasterCategoriesToExcel({
@@ -227,6 +237,27 @@
     //      app.downloadTempFile(result);
     //    });
     //});
+
+
+      //$(document).on('click', '#ProductID', function () {
+      //    $("#RadioProducts").show();
+      //});
+      //$(document).on('click', '#AllProduct', function () {
+      //    $("#DDlProduct").hide();
+      //});
+
+      //$(document).on('click', '#selectedProduct', function () {
+      //    $("#DDlProduct").show()
+      //});
+      //$(document).on('click', '#AllPartner', function () {
+      //    $("#DDlPartners").hide();
+      //    debugger
+      //});
+
+      //$(document).on('click', '#selectedPartner', function () {
+      //    $("#DDlPartners").show();
+      //    debugger
+      //});
 
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
           debugger

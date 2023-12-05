@@ -48,6 +48,7 @@ var KTCreateAccount = function () {
 					console.log('validated!');
 
 					if (status == 'Valid') {
+						debugger
 						stepper.goNext();
 
 						KTUtil.scrollTop();
@@ -66,6 +67,8 @@ var KTCreateAccount = function () {
 					}
 				});
 			} else {
+				debugger
+
 				stepper.goNext();
 
 				KTUtil.scrollTop();
@@ -75,6 +78,7 @@ var KTCreateAccount = function () {
 		// Prev event
 		stepperObj.on('kt.stepper.previous', function (stepper) {
 			console.log('stepper.previous');
+			debugger
 
 			stepper.goPrevious();
 			KTUtil.scrollTop();
@@ -85,10 +89,10 @@ var KTCreateAccount = function () {
 		formSubmitButton.addEventListener('click', function (e) {
 			// Validate form before change stepper step
 			var validator = validations[3]; // get validator for last form
-
-			validator.validate().then(function (status) {
+			debugger
+			//validator.validate().then(function (status) {
 				console.log('validated!');
-
+			var status = 'Valid';
 				if (status == 'Valid') {
 					// Prevent default button action
 					e.preventDefault();
@@ -122,7 +126,8 @@ var KTCreateAccount = function () {
 						KTUtil.scrollTop();
 					});
 				}
-			});
+			//});
+			//////////////////////////////////
 		});
 
 		// Expiry month. For more info, plase visit the official plugin site: https://select2.org/
@@ -143,7 +148,8 @@ var KTCreateAccount = function () {
 			validations[2].revalidateField('business_type');
 		});
 	}
-
+	 
+	/* 
 	var initValidation = function () {
 		// Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
 		// Step 1
@@ -323,7 +329,7 @@ var KTCreateAccount = function () {
 			}
 		));
 	}
-
+*/
 	return {
 		// Public Functions
 		init: function () {
@@ -345,13 +351,15 @@ var KTCreateAccount = function () {
 			formContinueButton = stepper.querySelector('[data-kt-stepper-action="next"]');
 
 			initStepper();
-			initValidation();
-			handleForm();
+			//initValidation();
+			handleForm(); 
 		}
 	};
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-	KTCreateAccount.init();
+	KTCreateAccount.init(); 
+
 });
+

@@ -60,6 +60,12 @@ namespace Zeta.AgentosCRM.CRMSetup
                                     o.Abbrivation,
                                     o.Name,
                                     Id = o.Id,
+                                    o.IsPartnerClientIdRequired,
+                                    o.IsActive,
+                                    o.IsApplicationIntakeRequired,
+                                    o.IsStartEndDateRequired,
+                                    o.IsNoteRequired,
+                                    o.IsWinStage,
                                     WorkflowName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                                 };
 
@@ -79,6 +85,12 @@ namespace Zeta.AgentosCRM.CRMSetup
                         Abbrivation = o.Abbrivation,
                         Name = o.Name,
                         Id = o.Id,
+                        IsPartnerClientIdRequired = o.IsPartnerClientIdRequired,
+                        IsActive=o.IsActive,
+                        IsApplicationIntakeRequired = o.IsApplicationIntakeRequired,
+                        IsStartEndDateRequired = o.IsStartEndDateRequired,
+                        IsNoteRequired = o.IsNoteRequired,
+                        IsWinStage = o.IsWinStage,
                     },
                     WorkflowName = o.WorkflowName
                 };

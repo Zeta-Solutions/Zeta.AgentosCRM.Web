@@ -42,7 +42,9 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                         .WhereIf(input.MinTaxRateFilter != null, e => e.TaxRate >= input.MinTaxRateFilter)
                         .WhereIf(input.MaxTaxRateFilter != null, e => e.TaxRate <= input.MaxTaxRateFilter)
                         .WhereIf(input.IsDefaultFilter.HasValue && input.IsDefaultFilter > -1, e => (input.IsDefaultFilter == 1 && e.IsDefault) || (input.IsDefaultFilter == 0 && !e.IsDefault))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter)
+                         .WhereIf(input.OrganizationUnitIdFilter.HasValue, e => false || e.OrganizationUnitId == input.OrganizationUnitIdFilter.Value);
+
 
             var pagedAndFilteredTaxSettings = filteredTaxSettings
                 .OrderBy(input.Sorting ?? "id asc")
@@ -125,7 +127,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         public async Task CreateOrEdit(CreateOrEditTaxSettingDto input)
         {
-            if (input.Id == null)
+            if (input.Id == null || input.Id==0)
             {
                 await Create(input);
             }
