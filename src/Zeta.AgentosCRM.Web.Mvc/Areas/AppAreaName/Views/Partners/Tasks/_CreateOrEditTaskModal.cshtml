@@ -58,7 +58,7 @@
             </div>
             <div class="col-12 my-3">
                 <label class="form-label" for="Application_Name">@L("Followers")</label>
-                @Html.DropDownList("followerId", new SelectList(Model.CRMTaskUserList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.AssigneeId.ToString() : "")),@L("SelectAFollower"), new { @class = "form-control" , @required="required" })
+                <select id="followerId" class="form-select select2" data-id="" data-control="select2"></select>
             </div>
             <span class="btn btn-primary btn-sm fileinput-button">
                 <i class="glyphicon glyphicon-plus"></i>

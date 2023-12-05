@@ -1,6 +1,7 @@
 ﻿@using Zeta.AgentosCRM.Authorization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@using Zeta.AgentosCRM.Web.TagHelpers;
 @model CreateOrEditClientQuotationsViewModel
 @section Styles
     {
@@ -10,50 +11,101 @@
 @section Scripts
     {
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotation.js" asp-append-version="true"></script>
-
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/CreateOrEditModal.js" asp-append-version="true"></script>
+        <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
 }
+    <div class="row ">
+   <div class="col ">
+ @{
+                      var breadcrumbs = new List<BreadcrumbItem>()
+                      {
+        new BreadcrumbItem(/* "/AppAreaName/Clients/CreateOrEditClientQuotationModal" ,*/ L("CreateQuotation")),
+                          new BreadcrumbItem(L("Details")),
+                      };
+                   }
+                  <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">                     
+                  </abp-page-subheader>
+    </div>
+    <div class="col text-end mr-4">
 
+    </div>
+</div>
  <div class="@(await GetContainerClass())">
-    <div class="card card-custom gutter-b">
-        <form name="ClientTagsInformationsForm" role="form" novalidate class="form-validation">
-
+     <div class="card maincard mt-4">
+   @*  <div class="card card-custom gutter-b"> *@
+        <form name="QuotationInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ClientQuotationHead.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
         <div class="card-body">
             <div class="form">
-                <div class="row">
-                    <div class="col-md-4 mb-3 pull-right">
-                        <label class="form-label fw-bold text-dark " for="DueDate">@L("DueDate")</label>
-                        <input class="form-control  rounded-0 custom-small-input date-picker" id="DueDate" type="text" name="DueDate" value="@Model.ClientQuotationHead.DueDate" />
-                    </div>
-                    <div class="my-3 col-4 pull-right">
+                       <div class="row col-12">
+                        <div class="col-md-4 my-3 ">
+                            <div id="cardContainerContact" class="container"></div>
+                        </div>
+
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-bold text-dark" for="DueDate">@L("DueDate")</label>
+                            <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueDate" type="text" name="DueDate" value="@Model.ClientQuotationHead.DueDate" />
+                        </div>
+                        <div class="my-3 col-md-12 mb-3">
                         <label class="form-label fw-bold text-dark" for="CurrencyId">@L("QuotationCurrency")</label>
-                        @Html.DropDownList("CurrencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" })
+                        @Html.DropDownList("currencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" })
                     </div>
-                </div>
+                    </div>
+                    </div>
+
+
+
             </div>
-                <div class="fixed-width-div">
+                <div class="fixed-width-div mt-5">
                     <div style="overflow-x: auto;">
                     </div>
                     <div class="row align-items-center">
-                        <table id="ClientsQuotationDetailtable" class="table align-middle fs-6 gy-2 dataTable no-footer">
+                        <table id="ClientsQuotationDetailtable" class="table  align-middle fs-6 gy-2 dataTable no-footer">
                             <thead>
                                 <tr>
-                                    <th></th>
-
-                                    <th>@L("Product")</th>
+                                    
+                                    <th >@L("Product")</th>
                                     <th>@L("Description")</th>
                                     <th>@L("ServiceFee")</th>
                                     <th>@L("Discount")</th>
                                     <th>@L("NetFee")</th>
                                     <th>@L("ExgRate")</th>
                                     <th>@L("TotalAmt")</th>
+                                    <th>@L("Delete")</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
+             
+
+
                 <div class="card-footer">
-                    <div class="row align-items-center">
-                        <div class="col-lg-12">
+                       <div class=" row col-lg-12">
+                     <div class="col-lg-7">
+                            <button type="button" id="addquotationBtn" class="btn btn-sm btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Addnewline")</button>
+
+                        </div>
+                        <div class="col-lg-5">
+                         <p class="text-muted fs-6">"(Service Fee - Discount = NetFee) x Exg. Rate = Total Amount"</p>
+                           </div>
+                           @*  <div class="col-lg-4  pb-0 text-start">
+                                <label for="TotalsId" class="form-label form-label-sm">@L("Total"):</label><br />
+                               <input class="form-control  custom-small-input rounded-0" id="Total" value="" type="text" name="Total" readonly/>
+                            </div> *@
+                           </div>
+                 @*    <a href="@Url.Action("CreateOrEditQuotationDetailModal", "Clients", new { area = "AppAreaName" })" class="text-truncate" title="HASSAN KAMAL">
+    Add New Line
+</a> *@
+                    <div class="row pull-right">
+                        <div class="col-lg-12 mt-5">
                             <button type="button" id="saveBtn" class="btn btn-success save-button float-right"><i class="fa fa-save"></i> @L("Save")</button>
 
                         </div>
@@ -62,6 +114,53 @@
         </div>
             </form>
        
+    </div>
+</div>
+<div id="QuotationDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="QuotationDetailInformationsForm">
+                    <form name="QuotationDetailInformationsForm" role="form" novalidate class="form-validation">
+
+                        @*   <input type="hidden" name="clientId" id="ClientId" />
+                        <input type="hidden" name="AddedById" id="AddedById" /> *@
+                        @*
+                        <input type="hidden" name="clientId" id="clientAppID" /> *@
+                        <div class="my-3">
+                            <label class="form-label" for="countryId">@L("Workflow")</label>
+                            <select id="workflowId" class="form-select form-control-sm  rounded-0" data-id="" pa >
+                                
+                            </select>
+                             
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="countryId">@L("Partner")</label>
+                            <select id="partnerId" class="form-select form-control-sm rounded-0" data-id="" ></select>
+
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="productId">@L("Product")</label>
+                            <select id="productId" class="form-select form-control-sm rounded-0" data-id=""></select>
+                        </div>
+
+
+                        <div class="my-3">
+                            <label class="form-label" for="countryId">@L("Branch")</label>
+                            <select id="branchId" class="form-select form-control-sm rounded-0" data-id="" ></select>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <button type="button" id="updatequotationBtn" class="btn btn-sm btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Add")</button>
+                             <button type="button" id="closedquotationBtn" class="btn btn-sm btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Close")</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+            <!-- Your modal content goes here -->
+        </div>
     </div>
 </div>
 

@@ -22,6 +22,12 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.TaskManagement.Followers;
+using Zeta.AgentosCRM.CRMAppointments;
+using Microsoft.AspNetCore.Mvc;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
+using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
 
 namespace Zeta.AgentosCRM.TaskManagement
 {
@@ -37,11 +43,11 @@ namespace Zeta.AgentosCRM.TaskManagement
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
         private readonly IRepository<Application, long> _lookup_applicationRepository;
         private readonly IRepository<ApplicationStage, long> _lookup_applicationStageRepository;
-
+     
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
-
-        public CRMTasksAppService(IRepository<CRMTask, long> crmTaskRepository, ICRMTasksExcelExporter crmTasksExcelExporter, IRepository<TaskCategory, int> lookup_taskCategoryRepository, IRepository<User, long> lookup_userRepository, IRepository<TaskPriority, int> lookup_taskPriorityRepository, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<Application, long> lookup_applicationRepository, IRepository<ApplicationStage, long> lookup_applicationStageRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        private readonly IRepository<TaskFollower, long> _taskFollowerRepository;
+        public CRMTasksAppService(IRepository<CRMTask, long> crmTaskRepository, ICRMTasksExcelExporter crmTasksExcelExporter, IRepository<TaskCategory, int> lookup_taskCategoryRepository, IRepository<User, long> lookup_userRepository, IRepository<TaskPriority, int> lookup_taskPriorityRepository, IRepository<Client, long> lookup_clientRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<Application, long> lookup_applicationRepository, IRepository<ApplicationStage, long> lookup_applicationStageRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<TaskFollower, long> taskFollowerRepository)
         {
             _crmTaskRepository = crmTaskRepository;
             _crmTasksExcelExporter = crmTasksExcelExporter;
@@ -55,7 +61,7 @@ namespace Zeta.AgentosCRM.TaskManagement
 
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
-
+            _taskFollowerRepository = taskFollowerRepository;
         }
 
         public async Task<PagedResultDto<GetCRMTaskForViewDto>> GetAll(GetAllCRMTasksInput input)
@@ -234,8 +240,13 @@ namespace Zeta.AgentosCRM.TaskManagement
         public async Task<GetCRMTaskForEditOutput> GetCRMTaskForEdit(EntityDto<long> input)
         {
             var crmTask = await _crmTaskRepository.FirstOrDefaultAsync(input.Id);
+            var taskFollower = await _taskFollowerRepository.GetAllListAsync(p => p.CRMTaskId == input.Id);
 
-            var output = new GetCRMTaskForEditOutput { CRMTask = ObjectMapper.Map<CreateOrEditCRMTaskDto>(crmTask) };
+            var output = new GetCRMTaskForEditOutput 
+            { 
+                CRMTask = ObjectMapper.Map<CreateOrEditCRMTaskDto>(crmTask),
+                TaskFollower = ObjectMapper.Map<List<CreateOrEditTaskFollowerDto>>(taskFollower)
+            };
 
             if (output.CRMTask.TaskCategoryId != null)
             {
@@ -297,7 +308,7 @@ namespace Zeta.AgentosCRM.TaskManagement
         }
 
         [AbpAuthorize(AppPermissions.Pages_CRMTasks_Create)]
-        protected virtual async Task Create(CreateOrEditCRMTaskDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditCRMTaskDto input)
         {
             var crmTask = ObjectMapper.Map<CRMTask>(input);
 
@@ -305,8 +316,15 @@ namespace Zeta.AgentosCRM.TaskManagement
             {
                 crmTask.TenantId = (int)AbpSession.TenantId;
             }
-
-            await _crmTaskRepository.InsertAsync(crmTask);
+            var taskId = _crmTaskRepository.InsertAndGetIdAsync(crmTask).Result;
+            foreach (var step in input.Steps)
+            {
+                step.CRMTaskId = taskId;
+                var stepEntity = ObjectMapper.Map<TaskFollower>(step);
+                await _taskFollowerRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            //await _crmTaskRepository.InsertAsync(crmTask);
             crmTask.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
 
         }
@@ -317,7 +335,18 @@ namespace Zeta.AgentosCRM.TaskManagement
             var crmTask = await _crmTaskRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, crmTask);
             crmTask.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
-
+            var taskFollower = await _taskFollowerRepository.GetAllListAsync(p => p.CRMTaskId == input.Id);
+            foreach (var item in taskFollower)
+            {
+                await _taskFollowerRepository.DeleteAsync(item.Id);
+            }
+            foreach (var step in input.Steps)
+            {
+                step.CRMTaskId = crmTask.Id;
+                var stepEntity = ObjectMapper.Map<TaskFollower>(step);
+                await _taskFollowerRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_CRMTasks_Delete)]

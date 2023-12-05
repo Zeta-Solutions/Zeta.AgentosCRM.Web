@@ -63,7 +63,8 @@
                 
                 <div class="my-3">
                 <label class="form-label" for="Application_Name">@L("Invitees")</label>
-                    <input class="form-control form-control-sm" id="Application_Name" value="Accounts Dept" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                 @*    <input class="form-control form-control-sm" id="Application_Name" value="Accounts Dept" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" /> *@
+                    <select id="inviteesId" class="form-select select2" data-id="" data-control="select2"></select>
             </div>
             </div>
         </form>

@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Zeta.AgentosCRM.EntityFrameworkCore\Zeta.AgentosCRM.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CRMSetup\Document\" />
+  </ItemGroup>
+
 </Project>

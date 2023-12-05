@@ -1,6 +1,7 @@
 ﻿(function ($) {
     app.modals.CreateOrEditTaskModal = function () {
         $('#taskCategoryId').select2({
+           
             width: '350px',
             // Adjust the width as needed
         });
@@ -13,9 +14,91 @@
             // Adjust the width as needed
         });
         $('#followerId').select2({
+            multiple: true,
             width: '750px',
             // Adjust the width as needed
         });
+        $.ajax({
+            url: abp.appPath + 'api/services/app/TaskFollowers/GetAllUserForTableDropdown',
+            method: 'GET',
+            dataType: 'json',
+            //data: {
+            //    PartnerIdFilter: dynamicValue,
+            //},
+            success: function (data) {
+
+                // Populate the dropdown with the fetched data
+                populateDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+        function populateDropdown(data) {
+            debugger
+            var dropdown = $('#followerId');
+
+            dropdown.empty();
+
+            $.each(data.result, function (index, item) {
+                if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+                    dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+                } else {
+                    console.warn('Invalid item:', item);
+                }
+            });
+        }
+        var idValue = 0;
+        var idElements = document.getElementsByName("id");
+
+        if (idElements.length > 0) {
+            // Check if at least one element with the name "id" is found
+            var idElement = idElements[0];
+
+            if (idElement.value !== undefined) {
+                // Check if the value property is defined
+                idValue = idElement.value;
+            } else {
+                console.error("Element with name 'id' does not have a value attribute.");
+            }
+        } else {
+            console.error("Element with name 'id' not found.");
+        }
+        if (idValue > 0) {
+
+
+            $.ajax({
+                url: abp.appPath + 'api/services/app/CRMTasks/GetCRMTaskForEdit?id=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data
+                    updateProductDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+        function updateProductDropdown(data) {
+            debugger;
+            var ms_val = 0;
+
+            // Assuming data.result.promotionproduct is an array of objects with OwnerID property
+            $.each(data.result.taskFollower, function (index, obj) {
+                ms_val += "," + obj.userId;
+
+            });
+
+            //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
+            var ms_array = ms_val.split(',');
+            var $productId = $("#followerId");
+
+
+            $productId.val(ms_array).trigger('change');
+
+        }
         var hiddenfield = $("#ClientId").val();
 
         $("#ClientId").val(hiddenfield);
@@ -48,10 +131,23 @@
         if (!_$tasksInformationForm.valid()) {
         return;
       }
+        var datarows = [];
+        var datarowsList = $("#followerId :selected").map(function (i, el) {
+            debugger
+            return $(el).val();
+        }).get();
+        $.each(datarowsList, function (index, value) {
+            var datarowsItem = {
+                UserId: datarowsList[index]
+            }
+            datarows.push(datarowsItem);
+        });
+        var Steps = JSON.stringify(datarows);
 
+        Steps = JSON.parse(Steps);
 
         var Subject = _$tasksInformationForm.serializeFormToObject();
-
+        Subject.Steps = Steps;
       _modalManager.setBusy(true);
       _cRMTasksService
           .createOrEdit(Subject)
