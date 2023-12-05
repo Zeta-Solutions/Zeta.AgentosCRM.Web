@@ -17,5 +17,7 @@ namespace Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos
 
         public string ProductNameFilter { get; set; }
 
+        public int? ProductIdFilter { get; set; }
+
     }
 }

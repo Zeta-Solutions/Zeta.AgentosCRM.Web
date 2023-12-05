@@ -1,0 +1,52 @@
+﻿@using System.Globalization
+@model CreateOrEditProductRequirementModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Requirements;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewProductRequirement")))
+
+<div class="modal-body">
+    <div id="ProductRequirementForm">
+        <form name="ProductRequirementForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ProductAcadamicRequirement.Id" />
+            }
+            <input type="hidden" name="productId" id="productId" value="" />
+            <div class="row col-12">
+                <div class="my-3 col-12">
+                    <label class="form-label" for="Application_Abbrivation">@L("DegreeLevel")</label>
+                    @Html.DropDownList("degreeLevelId", new SelectList(Model.ProductAcadamicRequirementDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductAcadamicRequirement.DegreeLevelId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control" , @required="required" })
+                </div>
+
+                
+            </div>
+            <div class="row col-12">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label" for="Application_Abbrivation">@L("Academic Score")</label>
+                    <label class="form-check  form-check-inline">
+                        <input type="radio" class="form-check-input" id="IsGPA" name="IsGPA" value="false" @(!Model.ProductAcadamicRequirement.IsGPA ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("Percentage")
+                        </span>
+                    </label>
+                    <label class="form-check  form-check-inline ml-3 mt-3">
+                        <input id="IsGPA" type="radio" name="IsGPA" class="form-check-input" value="true" @Html.Raw(Model.ProductAcadamicRequirement.IsGPA ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("GPA")
+                        </span>
+                    </label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="AcadamicScore" name="AcadamicScore" value="@Model.ProductAcadamicRequirement.AcadamicScore">
+                </div>
+                <div class="col-md-4 mb-3">
+                  
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

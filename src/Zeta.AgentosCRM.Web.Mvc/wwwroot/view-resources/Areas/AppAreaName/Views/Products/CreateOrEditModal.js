@@ -1,8 +1,8 @@
 ﻿(function () {
     $(function () {
         debugger
-        const urlParams = new URLSearchParams(window.location.search);
-        const partnerIdValue = urlParams.get('partnerId');
+        //const urlParams = new URLSearchParams(window.location.search);
+        //const partnerIdValue = urlParams.get('partnerId');
 
         // For example, if you want to set it in an input field with the id 'productId'
         //$("#productId").val(partnerIdValue);
@@ -10,10 +10,10 @@
             width: '350px',
             // Adjust the width as needed
         });
-        if (partnerIdValue != null) {
-            $('#partnerId').val(partnerIdValue).trigger('change');
-        }
-        $('#partnerId').prop('disabled', true);
+        //if (partnerIdValue != null) {
+        //    $('#partnerId').val(partnerIdValue).trigger('change');
+        //}
+        //$('#partnerId').prop('disabled', true);
         $('#branchId').select2({
             width: '350px',
             // Adjust the width as needed

@@ -1,0 +1,98 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Requirements;
+@model CreateOrEditProductenglishscoreModalViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("EditEnglishTestScore")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="EnglishTestScoreInformationsForm" role="form" novalidate class="form-validation">
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" id="Id" value="@Model.ProductEnglishRequirement.Id" />
+            }
+            <input type="hidden" name="productId" id="productId" value="" />
+            <input type="hidden" class="Name" name="name" id="name" value="" />
+           @*  <div class="my-3">
+                <label class="form-label" for="Name">@L("Name")</label>
+                <input class="form-control form-control-sm" id="Name" value="@Model.ProductEnglishRequirement.Name" type="text" name="Name" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MinNameLength" />
+            </div> *@
+        
+            <div class="row col-12">
+
+
+                <div class="my-3 col-2">
+                    <label class="form-label name1" for="Application_Name">@L("TOEFl")</label>
+                </div>
+                <div class="my-3 col-2">
+                    @* <input class="form-control Listening1" type="number" name="Listening" /> *@
+
+                    <input class="form-control Listening1" value="@Model.ProductEnglishRequirement.Listening" type="number" name="Listening"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Reading1"  value="@Model.ProductEnglishRequirement.Reading" type="number" name="Reading"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Writing1"  value="@Model.ProductEnglishRequirement.Writing" type="number" name="Writing"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Speaking1"  value="@Model.ProductEnglishRequirement.Speaking" type="number" name="Speaking"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control TotalScore1"  value="@Model.ProductEnglishRequirement.TotalScore" type="number" name="TotalScore"  />
+                </div>
+
+            </div>
+            <div class="row col-12">
+
+
+                <div class="my-3 col-2">
+                    <label class="form-label name2" for="Application_Name">@L("IELTS")</label>
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Listening2" id="Listening" value="@Model.ProductEnglishRequirement.Listening" type="number" name="Listening"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Reading2" id="Reading" value="@Model.ProductEnglishRequirement.Reading" type="number" name="Reading"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Writing2" id="Writing" value="@Model.ProductEnglishRequirement.Writing" type="number" name="Writing"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Speaking2" id="Speaking" value="@Model.ProductEnglishRequirement.Speaking" type="number" name="Speaking"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control TotalScore2" id="TotalScore" value="@Model.ProductEnglishRequirement.TotalScore" type="number" name="TotalScore"  />
+                </div>
+
+            </div>
+            <div class="row col-12">
+
+
+                <div class="my-3 col-2">
+                    <label class="form-label name3" for="Application_Name">@L("PTE")</label>
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Listening3" id="Listening" value="@Model.ProductEnglishRequirement.Listening" type="number" name="Listening"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Reading3" id="Reading" value="@Model.ProductEnglishRequirement.Reading" type="number" name="Reading"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Writing3" id="Writing" value="@Model.ProductEnglishRequirement.Writing" type="number" name="Writing"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control Speaking3" id="Speaking" value="@Model.ProductEnglishRequirement.Speaking" type="number" name="Speaking"  />
+                </div>
+                <div class="my-3 col-2">
+                    <input class="form-control TotalScore3" id="TotalScore" value="@Model.ProductEnglishRequirement.TotalScore" type="number" name="TotalScore"  />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

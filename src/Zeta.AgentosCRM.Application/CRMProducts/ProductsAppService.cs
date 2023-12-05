@@ -88,6 +88,7 @@ namespace Zeta.AgentosCRM.CRMProducts
                                o.RevenueType,
                                o.IntakeMonth,
                                Id = o.Id,
+                               PartnerId = o.PartnerId,
                                PartnerPartnerName = s1 == null || s1.PartnerName == null ? "" : s1.PartnerName.ToString(),
                                PartnerTypeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                BranchName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
@@ -112,6 +113,7 @@ namespace Zeta.AgentosCRM.CRMProducts
                         RevenueType = o.RevenueType,
                         IntakeMonth = o.IntakeMonth,
                         Id = o.Id,
+                        PartnerId = o.PartnerId,
                     },
                     PartnerPartnerName = o.PartnerPartnerName,
                     PartnerTypeName = o.PartnerTypeName,

@@ -36,6 +36,7 @@ using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
 using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+using Zeta.AgentosCRM.CRMPartner.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -362,7 +363,11 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var model = new ApplicationViewModel()
             {
                 Application = getApplicationForViewDto.Application
-
+                 ,
+                ClientFirstName = getApplicationForViewDto.ClientFirstName,
+                WorkflowName = getApplicationForViewDto.WorkflowName,
+                PartnerPartnerName = getApplicationForViewDto.PartnerPartnerName,
+                ProductName = getApplicationForViewDto.ProductName
 
             };
 
