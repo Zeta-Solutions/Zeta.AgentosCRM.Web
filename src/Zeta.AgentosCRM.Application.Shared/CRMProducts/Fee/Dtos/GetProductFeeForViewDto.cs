@@ -8,9 +8,5 @@
 
         public string InstallmentTypeName { get; set; }
 
-        public string FeeTypeName { get; set; }
-
-        public string ProductName { get; set; }
-
     }
 }

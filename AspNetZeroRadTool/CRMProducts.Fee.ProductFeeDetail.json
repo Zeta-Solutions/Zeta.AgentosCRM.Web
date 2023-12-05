@@ -1,36 +1,78 @@
 {
-  "IsRegenerate": true,
-  "MenuPosition": "",
+  "IsRegenerate": false,
+  "MenuPosition": "main",
   "RelativeNamespace": "CRMProducts.Fee",
-  "EntityName": "ProductFee",
-  "EntityNamePlural": "ProductFees",
-  "TableName": "ProductFees",
-  "PrimaryKeyType": "int",
+  "EntityName": "ProductFeeDetail",
+  "EntityNamePlural": "ProductFeeDetails",
+  "TableName": "ProductFeeDetails",
+  "PrimaryKeyType": "long",
   "BaseClass": "FullAuditedEntity",
   "EntityHistory": true,
   "AutoMigration": true,
   "UpdateDatabase": true,
-  "CreateUserInterface": false,
+  "CreateUserInterface": true,
   "CreateViewOnly": true,
-  "CreateExcelExport": false,
+  "CreateExcelExport": true,
   "IsNonModalCRUDPage": false,
   "IsMasterDetailPage": false,
   "PagePermission": {
-    "Host": true,
+    "Host": false,
     "Tenant": true
   },
   "Properties": [
     {
-      "Name": "Name",
-      "Type": "string",
-      "MaxLength": 40,
-      "MinLength": 1,
+      "Name": "InstallmentAmount",
+      "Type": "decimal",
+      "MaxLength": 0,
+      "MinLength": 0,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0.0,
         "MaximumValue": 0.0
       },
-      "Required": true,
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "Installments",
+      "Type": "int",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "TotalFee",
+      "Type": "decimal",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
       "Nullable": false,
       "Regex": "",
       "UserInterface": {
@@ -64,9 +106,9 @@
     },
     {
       "Name": "CommissionPer",
-      "Type": "decimal",
-      "MaxLength": -1,
-      "MinLength": -1,
+      "Type": "double",
+      "MaxLength": 0,
+      "MinLength": 0,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0.0,
@@ -84,10 +126,31 @@
       "AdditionalData": {}
     },
     {
-      "Name": "NetTotal",
-      "Type": "decimal",
-      "MaxLength": -1,
-      "MinLength": -1,
+      "Name": "IsPayable",
+      "Type": "bool",
+      "MaxLength": 0,
+      "MinLength": 0,
+      "Range": {
+        "IsRangeSet": false,
+        "MinimumValue": 0.0,
+        "MaximumValue": 0.0
+      },
+      "Required": false,
+      "Nullable": false,
+      "Regex": "",
+      "UserInterface": {
+        "AdvancedFilter": true,
+        "List": true,
+        "CreateOrUpdate": true
+      },
+      "ViewType": null,
+      "AdditionalData": {}
+    },
+    {
+      "Name": "AddInQuotation",
+      "Type": "bool",
+      "MaxLength": 0,
+      "MinLength": 0,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0.0,
@@ -107,11 +170,11 @@
   ],
   "NavigationProperties": [
     {
-      "Namespace": "Zeta.AgentosCRM.CRMSetup.Countries",
-      "ForeignEntityName": "Country",
+      "Namespace": "Zeta.AgentosCRM.CRMSetup.FeeType",
+      "ForeignEntityName": "FeeType",
       "IdType": "int",
       "IsNullable": false,
-      "PropertyName": "CountryId",
+      "PropertyName": "FeeTypeId",
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown",
@@ -123,11 +186,11 @@
       }
     },
     {
-      "Namespace": "Zeta.AgentosCRM.CRMSetup.InstallmentType",
-      "ForeignEntityName": "InstallmentType",
+      "Namespace": "Zeta.AgentosCRM.CRMProducts.Fee",
+      "ForeignEntityName": "ProductFee",
       "IdType": "int",
-      "IsNullable": true,
-      "PropertyName": "InstallmentTypeId",
+      "IsNullable": false,
+      "PropertyName": "ProductFeeId",
       "DuplicationNumber": 0,
       "RelationType": "single",
       "ViewType": "Dropdown",

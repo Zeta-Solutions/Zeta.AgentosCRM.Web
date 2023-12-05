@@ -6,28 +6,33 @@
 @{
     ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Clients;
 }
-
+ 
 @section Styles
-    {
+  {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.steps@1.1.1/dist/jquery-steps.min.css"  type="text/css" />
   }
-   <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
-  @section Scripts
+@section Scripts
 {
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Application/Index.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.steps@1.1.1/dist/jquery-steps.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Application/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ApplicationDetail/_ApplicationDetail.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/Index.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ApplicationDetail/_ApplicationDetailSteps.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/IntrestedService/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Appointment/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_CreateOrEditClientFollowers.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Tasks/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CheckInLogs/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotation.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Education/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/NotesAndTerms/NotesAndTerms.js" asp-append-version="true"></script>
-<script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
-  <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
     
 }
@@ -87,7 +92,8 @@
 
                             <div class="col-lg-12">
                                 <input type="hidden" value="@Model.Client.FirstName @Model.Client.LastName " id="clientAppID" />
-                                <input type="hidden" value="@Model.Client.Id " id="ID" />
+                                <input type="hidden" value="@Model.Client.Id" id="ID" />
+                                <input type="hidden" value="" id="ApplicationWorkflowId" />
                             </div>
                             <div class="col-lg-12"><input type="hidden" /></div>
                             <div class="col-lg-12"><input type="hidden" /></div>
