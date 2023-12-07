@@ -23,6 +23,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.ProductFeeDetails,
+                        L("ProductFeeDetails"),
+                        url: "AppAreaName/ProductFeeDetails",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_ProductFeeDetails)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.TestAattachments,
                         L("TestAattachments"),
                         url: "AppAreaName/TestAattachments",
@@ -241,7 +249,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Subjects)
                         )
-                    ) 
+                    )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.LeadSource,
                             L("LeadSource"),
@@ -249,42 +257,36 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_LeadSources)
                         )
-                    )
-                     
+                    ) 
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.DocumentChecklist,
                             L("DocumentCheckList"),
                             url: "AppAreaName/DocumentCheckList",
-                            icon: "flaticon-more"
-                           
+                            icon: "flaticon-more" 
                             )
                     )
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.DocumentType,
                             L("DocumentType"),
                             url: "AppAreaName/DocumentType",
-                            icon: "flaticon-more"
+                            icon: "flaticon-more" 
                              ,
-                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DocumentTypes)
-                          
+                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DocumentTypes) 
                             )
                     )
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Accounts,
                             L("Accounts"),
-                            url: "AppAreaName/Accounts",
+                            url: "AppAreaName/Accounts", 
                             icon: "flaticon-more" 
-                          
                             )
                     )
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.InvoiceType,
                             L("InvoiceType"),
                             url: "AppAreaName/InvoiceType",
-                            icon: "flaticon-more"
-                            ,
-                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_InvoiceTypes)
-                          
+                            icon: "flaticon-more" ,
+                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_InvoiceTypes) 
                             )
                     )
                      .AddItem(new MenuItemDefinition(
@@ -351,7 +353,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.EmailTemplate,
                             L("EmailTemplate"),
-                            url: "AppAreaName/EmailTemplate",
+                            url: "AppAreaName/EmailTemplate", 
                             icon: "flaticon-more" 
                         )
                     )
@@ -406,7 +408,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         icon: "flaticon-users-1"
                     //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
                     )
-                ); 
+                );
         }
 
         private static ILocalizableString L(string name)

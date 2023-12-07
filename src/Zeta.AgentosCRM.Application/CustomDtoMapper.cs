@@ -130,6 +130,10 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditProductBranchDto, ProductBranch>().ReverseMap();
+            configuration.CreateMap<ProductBranchDto, ProductBranch>().ReverseMap();
+            configuration.CreateMap<CreateOrEditProductFeeDetailDto, ProductFeeDetail>().ReverseMap();
+            configuration.CreateMap<ProductFeeDetailDto, ProductFeeDetail>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductOtherTestRequirementDto, ProductOtherTestRequirement>().ReverseMap();
             configuration.CreateMap<ProductOtherTestRequirementDto, ProductOtherTestRequirement>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductEnglishRequirementDto, ProductEnglishRequirement>().ReverseMap();
