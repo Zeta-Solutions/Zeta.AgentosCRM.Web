@@ -17,6 +17,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Requirements.Dtos
         public string DegreeLevelNameFilter { get; set; }
 
         public string ProductNameFilter { get; set; }
+        public int? ProductIdFilter { get; set; }
 
     }
 }

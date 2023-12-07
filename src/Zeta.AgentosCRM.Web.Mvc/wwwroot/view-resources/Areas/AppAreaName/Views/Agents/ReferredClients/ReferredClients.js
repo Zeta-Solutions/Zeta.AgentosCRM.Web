@@ -1,7 +1,7 @@
 ﻿(function () {
     $(function () {
-        var _$SubjectTable = $('#NotesAndTermsTable');
-        var _feeTypesService = abp.services.app.feeTypes;
+        var _$ClientTable = $('#ClientReferedtable');
+        var _clientsService = abp.services.app.clients;
 
         var $selectedDate = {
             startDate: null,
@@ -76,25 +76,24 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-
-        var dataTable = _$FeeTypeTable.DataTable({
-
+        var hiddenfield = $("#AgentId").val();
+        var dynamicValue = hiddenfield;
+        var dataTable = _$ClientTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _feeTypesService.getAll,
+                ajaxFunction: _clientsService.getAll,
                 inputFilter: function () {
                     return {
-                        filter: $('#MasterCategoriesTableFilter').val(),
-                        abbrivationFilter: $('#AbbrivationFilterId').val(),
-                        nameFilter: $('#NameFilterId').val(),
+                        agentIdFilter: dynamicValue,
                     };
                 },
             },
             columnDefs: [
                 {
-                    className: 'control responsive',
+                    className: ' responsive',
+                    /* className: 'control responsive',*/
                     orderable: false,
                     render: function () {
                         return '';
@@ -102,54 +101,98 @@
                     targets: 0,
                 },
                 {
-                    width: 120,
+                    width: 100,
                     targets: 1,
                     data: null,
                     orderable: false,
                     autoWidth: false,
                     defaultContent: '',
-                    rowAction: {
-                        cssClass: 'btn btn-brand dropdown-toggle',
-                        text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                        items: [
-                            {
-                                text: app.localize('View'),
-                                action: function (data) {
-                                    //_viewSourceModal.open();
-                                    _viewFeeTypeModal.open({ id: data.record.feeType.id });
-                                },
-                            },
-                            {
-                                text: app.localize('Edit'),
-                                visible: function () {
-                                    return _permissions.edit;
-                                },
-                                action: function (data) {
-                                    _createOrEditModal.open({ id: data.record.feeType.id });
-                                },
-                            },
-                            {
-                                text: app.localize('Delete'),
-                                visible: function () {
-                                    return _permissions.delete;
-                                },
-                                action: function (data) {
-                                    deleteFeeType(data.record.feeType);
-                                },
-                            },
-                        ],
+                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+                    render: function (data, type, row) {
+                        let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                        let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}${lastNameInitial}`;
+                        let fullName = `${row.client.firstName} ${row.client.lastName}`;
+                        /*      console.log(row);*/
+                        debugger
+                        // Generate the URLs using JavaScript variables
+                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
+                        let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                        /*             console.log(clientEmailComposeUrl);*/
+
+                        return `
+        <div class="d-flex align-items-center">
+            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
+                <b>${initials}</b>
+            </span>
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}
+                </a> 
+                 <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+            </div>
+        </div>
+    `;
                     },
+
+                    name: 'concatenatedData',
+
                 },
+
                 {
                     targets: 2,
-                    data: 'feeType.abbrivation',
-                    name: 'abbrivation',
+                    data: function (row) {
+                        return row.client.city + '/' +row.passportCountry;
+                    },
+                    name: 'passportCountryFk.name'
                 },
+                //{
+                //    targets: 3,
+                //    data: 'workflowName',
+                //    name: 'workflowNameFk.name',
+                //},
+                //{
+                //    targets: 3,
+                //    //data: 'application.productName',
+                //    //name: 'productName',
+
+                //    data: 'productName',
+                //    name: 'productNameFk.name',
+                //},
                 {
+                    width: 30,
                     targets: 3,
-                    data: 'feeType.name',
-                    name: 'name',
+                    data: null,
+                    orderable: false,
+                    searchable: false,
+
+
+                    render: function (data, type, full, meta) {
+                        console.log(data);
+                        var rowId = data.client.id;
+                        console.log(rowId);
+                        var rowData = data.client;
+                        var RowDatajsonString = JSON.stringify(rowData);
+                        console.log(RowDatajsonString);
+                        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
+                            '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<ul style="list-style: none; padding: 0;color:black">' +
+                            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>';
+
+
+                        return contaxtMenu;
+                    }
+
+
                 },
+
+
             ],
         });
 
@@ -184,9 +227,6 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewNotesButton').click(function () {
-            _createOrEditModal.open();
-        });
 
         $('#ExportToExcelButton').click(function () {
             _subjectsService

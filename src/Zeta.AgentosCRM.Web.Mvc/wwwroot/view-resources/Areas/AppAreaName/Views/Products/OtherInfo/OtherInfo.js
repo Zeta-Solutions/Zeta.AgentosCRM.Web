@@ -1,77 +1,108 @@
 ﻿(function () {
     $(function () {
-        var hiddenfield = $("#PartnerId").val();
+        var hiddenfield = $("#ProductId").val();
         var dynamicValue = hiddenfield;
 
-        getnotesreload(dynamicValue);
+        getotherinfosreload(dynamicValue);
         var globalData; // Declare the data variable in a broader scope
 
-        function createCard(item) {
-            debugger
-            var note = item.note;
-
+        function createCardTask(item) {
+            var productOtherInformation = item.productOtherInformation;
+            var cardId = 'card_' + productOtherInformation.id;
             // Create a single row for all cards
-            var mainDiv = $('<div>').addClass('maincard maindivcard').css({
-                'margin-left': '0.2px',
-            });
-            var cardContainer = $('<div>').addClass('row'); // New container for cards in a row
+            var mainDiv = $('<div>').addClass('maincard maindivcard')
+                .css({
+                    'margin-left': '0.2px',
+                    'margin-bottom': '20px' // Add margin between cards
+                });
 
             // Create a column for each card
-            var colDiv = $('<div>').addClass('col-md-12');
-            var cardDiv = $('<div>').addClass('card');
-            var cardBodyDiv = $('<div>').addClass('card-body');
-
-            // Create a row for the card title and dots
+            //var colDiv = $('<div>').addClass('col-md-12');
+            var cardDiv = $('<div>').addClass('card').css({
+                'padding': '5px '
+            });
+            var cardBodyDiv = $('<div>').addClass('card-body').css({
+                'padding': '5px '
+            });
             var titleRowDiv = $('<div>').addClass('row');
             var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
             var cardTitle = $('<h5>').addClass('card-title');
-
+            cardTitle.html("Subject Area & Level<hr/>");
+            var infoColDiv = $('<div>').addClass('row'); // Adjust the column size as needed
+            var infoParagraph1 = $('<p>').addClass('card-text col-md-4');
+            var infoParagraph2 = $('<p>').addClass('card-text col-md-4');
+            var infoParagraph3 = $('<p>').addClass('card-text col-md-3');
+            
+            var infoParagraph7 = $('<p>').addClass('card-text col-md-1');
+            infoParagraph1.html('<strong>SubjectArea:</strong>' + '&nbsp;&nbsp;' + item.subjectAreaName);
+            infoParagraph2.html('<strong>Subject:</strong>' + '&nbsp;&nbsp;' + item.subjectName );
+            infoParagraph3.html('<strong>DegreeLevel:</strong>' + '&nbsp;&nbsp;' + item.degreeLevelName);
            
-            cardTitle.html(note.title +
-                '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
-                '<div class="ellipsis123"><a href="#" data-id="' + note.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+           
+            infoParagraph7.html('<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
+                '<div class="ellipsisT"><a href="#" data-id="' + productOtherInformation.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
-                /*   '<a href="#" style="color: black;" data-action="view" data-id="' + branch.id + '"><li>View</li></a>' +*/
-                '<a href="#" style="color: black;" data-action123="edit" data-id="' + note.id + '"><li>Edit</li></a>' +
-                "<a href='#' style='color: black;' data-action123='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
+                '<a href="#" style="color: black;" data-action15="edit" data-id="' + productOtherInformation.id + '"><li>Edit</li></a>' +
+                "<a href='#' style='color: black;' data-action15='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
                 '</ul>' +
                 '</div>' +
                 '</div>');
-
-            // Append title and dots to the title column
             titleColDiv.append(cardTitle);
             titleRowDiv.append(titleColDiv);
+            // infoParagraph.html(branch.name + '<br>' + item.countryName + '<br><hr>' + branch.email);
+            infoColDiv.append(infoParagraph1, infoParagraph2, infoParagraph3,  infoParagraph7);
+            cardBodyDiv.append(titleRowDiv,infoColDiv);
 
-            // Create a column for the card information
-            var infoColDiv = $('<div>').addClass('col-md-6'); // Adjust the column size as needed
-            var infoParagraph = $('<p>').addClass('card-text');
-            infoParagraph.html('<br><hr>' + note.description);
-
-            cardBodyDiv.append(titleRowDiv, infoParagraph);
             cardDiv.append(cardBodyDiv);
-            colDiv.append(cardDiv);
-            cardContainer.append(colDiv);
-
+            //colDiv.append(cardDiv);
+            mainDiv.addClass(cardId);
             // Append the card container to the mainDiv
-            mainDiv.append(cardContainer);
+            mainDiv.append(cardDiv);
 
             return mainDiv; // Return the created card
         }
 
 
+        $(document).on('change', '#reminderCheckbox', function () {
+            var card = $(this).closest('.maincard'); // Assuming the unique class is 'maincard'
+            var replaceElement = card.find('.replace');
+            var replaceElementdate = card.find('.replacedate');
+
+            // Check if the checkbox is checked
+            if ($(this).prop('checked')) {
+                replaceElement.text('Completed').css({
+                    'color': 'green',
+                    'font-weight': 'bold'
+                });
+                replaceElementdate.removeClass('badge-danger').addClass('badge-success').css('color', 'white');
+            } else {
+                replaceElement.text('Todo').css({
+                    'color': 'red',
+                    'font-weight': 'bold'
+                });
+                replaceElementdate.removeClass('badge-success').addClass('badge-danger').css('color', 'white');
+            }
+            // Additional logic or actions can be added here
+
+            // For testing, you can log the current state to the console
+            console.log(replaceElement.text());
+        });
 
 
 
 
-        function getnotesreload(dynamicValue) {
+
+
+
+        function getotherinfosreload(dynamicValue) {
             debugger
 
 
             var branchesAjax = $.ajax({
-                url: abp.appPath + 'api/services/app/notes/GetAll',
+                url: abp.appPath + 'api/services/app/ProductOtherInformations/GetAll',
                 data: {
-                    PartnerIdFilter: dynamicValue,
+                    ProductIdFilter: dynamicValue,
                 },
                 method: 'GET',
                 dataType: 'json',
@@ -79,14 +110,15 @@
                 .done(function (data) {
                     console.log('Response from server:', data);
                     globalData = data; // Assign data to the global variable
-                    processData(); // Call processData function after data is available
+                    processData(data); // Call processData function after data is available
                 })
                 .fail(function (error) {
                     console.error('Error fetching data:', error);
                 });
         }
-        function processData() {
-            var cardContainer = $('#cardContainernotes'); // or replace '#container' with your actual container selector
+        function processData(data) {
+            debugger
+            var cardContainer = $('#cardOtherInfoContainer'); // or replace '#container' with your actual container selector
 
             // Check if globalData.result.items is an array before attempting to iterate
             if (Array.isArray(globalData.result.items)) {
@@ -96,9 +128,9 @@
 
                     for (var j = 0; j < 3 && (i + j) < globalData.result.items.length; j++) {
                         var item = globalData.result.items[i + j];
-                        var card = createCard(item);
+                        var card = createCardTask(item);
 
-                        var colDiv = $('<div>').addClass('col-md-4'); // Set the column size to 4 for three columns in a row
+                        var colDiv = $('<div>').addClass('col-md-12'); // Set the column size to 4 for three columns in a row
                         colDiv.append(card);
                         rowDiv.append(colDiv);
                     }
@@ -132,14 +164,14 @@
         });
 
 
-        var _$NotesTable = $('#BranchTable');
-        var _notesService = abp.services.app.notes;
+        var _$LeadSourceTable = $('#BranchTable');
+        var _productOtherInformationsService = abp.services.app.productOtherInformations;
 
         var $selectedDate = {
             startDate: null,
             endDate: null,
         };
-        //_branchesService.getAll().done(function (data) {
+        //_productOtherInformationsService.getAll().done(function (data) {
         //    debugger;
         //    processData(data);
         //}).fail(function (error) {
@@ -159,12 +191,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.startDate = picker.startDate;
-                getNotes();
+                getotherinfo();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.startDate = null;
-                getNotes();
+                getotherinfo();
             });
 
         $('.endDate')
@@ -176,12 +208,12 @@
             })
             .on('apply.daterangepicker', (ev, picker) => {
                 $selectedDate.endDate = picker.startDate;
-                getNotes();
+                getotherinfo();
             })
             .on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 $selectedDate.endDate = null;
-                getNotes();
+                getotherinfo();
             });
 
         //var _permissions = {
@@ -191,10 +223,11 @@
         //};
 
         var _createOrEditModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Partners/CreateOrEditNotesModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Partners/NotesAndTerms/_CreateOrEditModal.js',
-            modalClass: 'CreateOrEditNotesAndTermsModal',
+            viewUrl: abp.appPath + 'AppAreaName/Products/CreateOrEditOtherinfoModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Products/OtherInfo/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditotherinfoModal',
         });
+
         var _viewLeadSourceModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Partners/PartnersDetails',
             //modalClass: 'ViewPartnersDetails',
@@ -214,12 +247,12 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
 
-        var dataTable = _$NotesTable.DataTable({
+        var dataTable = _$LeadSourceTable.DataTable({
             paging: true,
             serverSide: true,
             processing: true,
             listAction: {
-                ajaxFunction: _notesService.getAll,
+                ajaxFunction: _productOtherInformationsService.getAll,
                 inputFilter: function () {
                     return {
                         filter: $('#PartnersTableFilter').val(),
@@ -297,23 +330,23 @@
             ],
         });
 
-        function getNotes() {
+        function getotherinfo() {
             //branchesAjax.reload();
             clearMainDiv();
-            getnotesreload(dynamicValue);
+            getotherinfosreload(dynamicValue);
         }
 
-        function deletenotes(note) {
+        function deleteotherinfo(productOtherInformation) {
             debugger
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    _notesService
+                    _productOtherInformationsService
                         .delete({
-                            id: note.note.id,
+                            id: productOtherInformation.productOtherInformation.id,
                         })
                         .done(function () {
-                            getNotes(true);
+                            getotherinfo(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
@@ -332,11 +365,11 @@
             $('#AdvacedAuditFiltersArea').slideUp();
         });
 
-        $('#CreateNewNotesButton').click(function () {
+        $('#CreateNewOtherInfoButton').click(function () {
             debugger
             _createOrEditModal.open();
 
-            // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
+           
         });
         //$('#showCardsButton').click(function () {
         //    debugger
@@ -359,7 +392,7 @@
         });
 
         $('#ExportToExcelButton').click(function () {
-            _notesService
+            _productOtherInformationsService
                 .getMasterCategoriesToExcel({
                     filter: $('#LeadSourcesTableFilter').val(),
                     abbrivationFilter: $('#AbbrivationFilterId').val(),
@@ -370,35 +403,35 @@
                 });
         });
 
-        abp.event.on('app.createOrEditNoteModalSaved', function () {
-            getNotes();
+        abp.event.on('app.createOrEditOtherInfoModalSaved', function () {
+            getotherinfo();
         });
 
         $('#GetLeadSourcesButton').click(function (e) {
             e.preventDefault();
-            getNotes();
+            getotherinfo();
         });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {
-                getNotes();
+                getotherinfo();
             }
         });
 
         $('.reload-on-change').change(function (e) {
-            getNotes();
+            getotherinfo();
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getNotes();
+            getotherinfo();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
-            getNotes();
+            getotherinfo();
         });
-        // Add a click event handler for the ellipsis icons
-        $(document).on('click', '.ellipsis123', function (e) {
+        //Add a click event handler for the ellipsis icons
+        $(document).on('click', '.ellipsisT', function (e) {
             e.preventDefault();
 
             var options = $(this).closest('.context-menu').find('.options');
@@ -419,11 +452,11 @@
         });
 
         // Handle menu item clicks
-        $(document).on('click', 'a[data-action123]', function (e) {
+        $(document).on('click', 'a[data-action15]', function (e) {
             e.preventDefault();
 
             var rowId = $(this).data('id');
-            var action = $(this).data('action123');
+            var action = $(this).data('action15');
             debugger
             // Handle the selected action based on the rowId
             if (action === 'view') {
@@ -434,7 +467,7 @@
                 _createOrEditModal.open({ id: rowId });
             } else if (action === 'delete') {
 
-                deletenotes(rowId);
+                deleteotherinfo(rowId);
             }
         });
     });

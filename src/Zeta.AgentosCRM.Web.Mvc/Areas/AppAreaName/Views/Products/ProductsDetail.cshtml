@@ -8,9 +8,10 @@
 @section Scripts
     {
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script> *@
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/NoteandTerms/NotesAndTerms.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Applications/Applications.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/AgentContact/Contact.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/Application/Application.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/OtherInfo/OtherInfo.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/Promotions/Promotions.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/ProductRequirment/ProductRequirment.js" asp-append-version="true"></script>
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.js" asp-append-version="true"></script> *@
 }
 
@@ -28,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
   }
 @{
-    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Agent;
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Products;
 }
 <div class="cards">
     <div class="mt-3  maincard">
@@ -72,8 +73,8 @@
                             <div class="col-lg-4">
                                 <div class="row">
                                     <div class="col-lg-12 text-start">
-                                        <input type="hidden" value="@Model.Product.Id" id="AgentId" name="AgentId" />
-                                        <input type="hidden" value="@Model.Product.Name" id="AgentName" name="AgentName" />
+                                        <input type="hidden" value="@Model.Product.Id" id="ProductId" name="ProductId" />
+                                        <input type="hidden" value="@Model.Product.Name" id="ProductName" name="ProductName" />
                                     </div>
                                     <div class="col-lg-12   text-start">
 
@@ -158,32 +159,37 @@
 
         ">
                         <li class="nav-item">
-                            <a href="#NoteTerm" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
-                                @L("NotesAndTerms")
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#ReferredClientTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
-                                @L("ReferredClients")
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#AgentContactsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
-                                @L("Agent Contacts")
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
                                 @L("Application")
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a href="#AccountsTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
-                                @L("Account")
+                            <a href="#Documents" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                                @L("Documents")
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#Fees" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Fees")
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#Requirements" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Requirements")
+                            </a>
+                        </li>
+                        
 
+                        <li class="nav-item">
+                            <a href="#OtherInformation" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("OtherInformation")
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#Promotions" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                                @L("Promotions")
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -192,37 +198,37 @@
 
     <div>
         <div class="tab-content ">
-            <div class="tab-pane pt-5 active" id="NoteTerm" role="tabpanel">
+            <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/NotesAndTerms.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Products/Application/Index.cshtml")
                 </div>
             </div>
 
-            <div class="tab-pane pt-5 mb-7" id="ReferredClientTab" role="tabpanel">
+            <div class="tab-pane pt-5 mb-7" id="Requirements" role="tabpanel">
                 <div class="list-group">
                     @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/Index.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Products/ProductRequirement/ProductRequirement.cshtml")
                     @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
                 </div>
             </div>
-            <div class="tab-pane pt-5 mb-7" id="AgentContactsTab" role="tabpanel">
-                <div class="list-group">
-                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/AgentContact/Contact.cshtml")
-                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
-                </div>
-            </div>
+            
             <div class="tab-pane pt-5 mb-7" id="ApplicationTab" role="tabpanel">
                 <div class="list-group">
                     @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/Applications/Index.cshtml")
                 </div>
             </div>
-            <div class="tab-pane pt-5 mb-7" id="AccountsTab" role="tabpanel">
+            <div class="tab-pane pt-5 mb-7" id="Promotions" role="tabpanel">
                 <div class="list-group">
-                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/MainForm/_InterestedService.cshtml") *@
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Products/Promotions/Promotions.cshtml")
                 </div>
             </div>
-
+            <div class="tab-pane pt-5 mb-7" id="OtherInformation" role="tabpanel">
+                <div class="list-group">
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/NoteandTerm/_NotesAndTerms.cshtml") *@
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Products/OtherInfo/OtherInfo.cshtml")
+                    @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.cshtml") *@
+                </div>
+            </div>
 
         </div>
     </div>

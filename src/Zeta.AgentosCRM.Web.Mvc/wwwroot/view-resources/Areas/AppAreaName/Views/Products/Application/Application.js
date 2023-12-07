@@ -74,8 +74,8 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-        var hiddenfield = $("#AgentId").val();
-        var dynamicValue = hiddenfield;
+        var hiddenfield = $("#ProductId").val();
+        var ContactPartnerValue = hiddenfield;
 
         var dataTable = _$applicationsTable.DataTable({
             paging: true,
@@ -85,7 +85,7 @@
                 ajaxFunction: _applicationsService.getAll,
                 inputFilter: function () {
                     return {
-                        agentIdFilter: dynamicValue,
+                        productIdFilter: ContactPartnerValue,
                     };
                 },
             },
@@ -117,7 +117,7 @@
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
-                        // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                       // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
                         /*             console.log(clientEmailComposeUrl);*/
 
                         return `
@@ -138,57 +138,21 @@
                     name: 'concatenatedData',
 
                 },
-
-                //{
-                //    targets: 2,
-
-                //    data: 'application.name',
-                //    name: 'application',
-                //    //data: 'application.work',
-                //    //name: 'partnerPartnerName',
-
-                //},
+                
                 {
-                    width: 100,
                     targets: 2,
-                    data: null,
-                    orderable: false,
-                    autoWidth: false,
-                    defaultContent: '',
-                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
-                    render: function (data, type, row) {
-                        let firstNameInitial = row.workflowName.charAt(0).toUpperCase();
-                        //let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
-                        let initials = `${firstNameInitial}`;
-                        let fullName = `${row.workflowName}`;
-                        /*      console.log(row);*/
-                        debugger
-                        // Generate the URLs using JavaScript variables
-                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
-                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
-                        // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
-                        /*             console.log(clientEmailComposeUrl);*/
 
-                        return `
-        <div class="d-flex align-items-center">
-            <div class="d-flex flex-column">
-                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
-                    ${fullName}
-                </a> 
-              
-            </div>
-        </div>
-    `;
-                    },
-
-                    name: 'concatenatedData',
+                    data: 'partnerPartnerName',
+                    name: 'partnerPartnerNameFk.name',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
 
                 },
-                //{
-                //    targets: 2,
-                //    data: 'workflowName',
-                //    name: 'workflowNameFk.name',
-                //},
+                {
+                    targets: 3,
+                    data: 'workflowName',
+                    name: 'workflowNameFk.name',
+                },
                 //{
                 //    targets: 3,
                 //    //data: 'application.productName',
@@ -199,7 +163,7 @@
                 //},
                 {
                     width: 30,
-                    targets: 3,
+                    targets: 4,
                     data: null,
                     orderable: false,
                     searchable: false,
