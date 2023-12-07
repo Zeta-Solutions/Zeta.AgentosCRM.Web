@@ -4,6 +4,7 @@
         var _workflowsService = abp.services.app.workflows;
         if ($("#allOffice").attr("checked")) {
             debugger
+            
             document.getElementById("showhide").style.display = 'none';
         }
         else {
@@ -317,7 +318,7 @@
 
         });
         $('#allOffice').change(function () {
-
+            $("#WorkFlowOfficeId").val(null).trigger('change');
             document.getElementById("showhide").style.display = 'none';
 
         }); 
@@ -473,7 +474,7 @@
                 var ApplicationinputValue = $(this).find('.Application-inputValue').val();
                 var switchValue = $(this).find('.switchValue').val();
                 var Stage = $(this).find('.Stage-inputValue').val();
-                debugger
+                
                  
                 dataRows.push({
                     srlNo: SrlNo,
@@ -513,6 +514,16 @@
                 
                 return $(el).val();
             }).get();
+            debugger
+            var test = $("input[name='IsForAllOffices']:checked").val();
+            if (test == "false") {
+                if (datarowsList == '') {
+                    debugger
+
+                    abp.notify.warn(app.localize('Please Select Office'));
+                    return true
+                }  
+            }
             console.log(datarowsList);
             $.each(datarowsList, function (index, value) {
                 var datarowsItem = {
