@@ -1,6 +1,13 @@
-﻿(function ($) {
-	 
-	$(document).on('click', '#ApplicationDetailTab', function (e) {
+﻿(function ($) { 
+	//$(document).on('click', '.sw-btn-next', function () {
+	//	var stepId = $(this)
+	//	debugger
+	//	alert("Next button click?!?")
+
+	//});
+	//window.onload = codeAddress;
+	//$(document).on('loaded', '#ApplicationDetailTab',
+	function LoadSteps() {
 		// SmartWizard initialize
 		
 	var _workflowStepsService = abp.services.app.workflowSteps;
@@ -65,5 +72,5 @@
 		});
 	
 
-	});
+	};
 })(jQuery)

@@ -407,12 +407,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var getApplicationForViewDto = await _applicationsAppService.GetApplicationForView(applicationId);
             var model = new ApplicationViewModel()
             {
-                Application = getApplicationForViewDto.Application
+                Application = getApplicationForViewDto.Application,
+				ClientFirstName=getApplicationForViewDto.ClientFirstName,
+				WorkflowName= getApplicationForViewDto.WorkflowName,
+				PartnerPartnerName= getApplicationForViewDto.PartnerPartnerName,
+				ProductName = getApplicationForViewDto.ProductName
+			};
 
-
-            };
-
-            return View("Application/ApplicationDetailIndex", model);
+            return PartialView("ApplicationDetail/ApplicationDetailIndex", model);
         }
 
         #endregion

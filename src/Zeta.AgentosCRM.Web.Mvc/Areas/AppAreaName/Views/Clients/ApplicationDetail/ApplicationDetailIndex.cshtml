@@ -5,30 +5,159 @@
 @using Zeta.AgentosCRM.Web.TagHelpers
 @{
 }
+<form id="applicationDetailForm" onload="codeAddress()">
 
-<div class="mx-5 my-5">
-<div class="card mb-3">
-    <div class="card-body mb-4">
-        <h1>heading </h1>
-    </div>
-</div>
-<!-- SmartWizard html -->
-<div class="card">
-    <div class="card-body">
-        <div id="smartwizard">
-            <ul class="nav nav-progress"  id="progressHead">
-            </ul>
-
-            <div class="tab-content" id="contentId">
-
-                @*
-                <!-- Include optional progressbar HTML -->
-                <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="mx-5 my-5"> 
+        <div class="card mb-3">
+            <div class="card-body mb-4">
+                <div class="row">
+                <div class="col-lg-4">
+                    <label for="Phone" class="form-label form-label-sm">@L("ClientName"):</label>
+                    <p class="text-muted fs-6"> @Model.Application.Name</p>
                 </div>
-                *@
+                <div class="col-lg-4">
+                    <label for="Phone" class="form-label form-label-sm text-bold">@L("WorkflowName"):</label>
+                    <p class="text-muted fs-6"> @Model.WorkflowName</p>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Phone" class="form-label form-label-sm">@L("PartnerName"):</label>
+                    <p class="text-muted fs-6"> @Model.PartnerPartnerName</p>
+                </div>
+                <div class="col-lg-4">
+                    <label for="Phone" class="form-label form-label-sm">@L("ProductName"):</label>
+                    <p class="text-muted fs-6"> @Model.ProductName</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- SmartWizard html -->
+        <div class="card">
+            <div class="card-body">
+                <div id="smartwizard">
+                    <ul class="nav nav-progress" id="progressHead">
+                    </ul>
+
+                    <div class="tab-content" id="contentId">
+
+                        @*
+                        <!-- Include optional progressbar HTML -->
+                        <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        *@
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div> 
-</div> 
+</form>
+<script>
+    LoadSteps()
+    function LoadSteps() {
+        // SmartWizard initialize
+
+        var _workflowStepsService = abp.services.app.workflowSteps;
+        var workflowsId = $("#ApplicationWorkflowId").val()
+
+        $.ajax({
+            url: abp.appPath + 'api/services/app/WorkflowSteps/GetAll',
+            data: {
+                WorkflowIdFilter: workflowsId,
+            },
+            method: 'GET',
+            dataType: 'json',
+        })
+            .done(function (data) {
+                //Row.remove();
+                var TotalRecord = data.result.items;
+
+                $.each(TotalRecord, function (index, item) {
+                    var step = `<li class="nav-item">
+                        <a class="nav-link" href="#step-${index + 1}">
+                            <div class="num">${index + 1}</div>
+                            ${item.workflowStep.name}
+                        </a>
+                    </li>`
+                    var stepForm = `<div id="step-${index + 1}" class="tab-pane" role="tabpanel" aria-labelledby="step-${index + 1}">
+                        Step content
+                            <input type="text" id="stepId-${index + 1}" value="${item.workflowStep.id}"></input>
+                    </div>`
+
+                    $("#progressHead").append(step);
+                    $("#contentId").append(stepForm);
+                    if (!TotalRecord[index + 1]) {
+                        console.log('End')
+                    }
+                })
+
+                //abp.notify.success(app.localize('SuccessfullyLoaded'));
+                $('#smartwizard').smartWizard({
+                    selected: -1, // Initial selected step, 0 = first step
+                    theme: 'round', // theme for the wizard, related css need to include for other than default theme 
+                    enableUrlHash: false, // Enable selection of the step based on url hash 
+                    toolbar: {
+                        position: 'top', // none|top|bottom|both
+                        showNextButton: true, // show/hide a Next button
+                        showPreviousButton: true, // show/hide a Previous button
+                        extraHtml:[
+                            '<button class="btn btn-success sw-btn-finish btn-sm round-0" id="finish-btn"><i class="fa fa-check mr-15"></i> Submit</button>',
+                            '<button class="btn btn-danger sw-btn-discontinue btn-sm round-0" id="discontinue-btn"><i class="fa fa-close mr-15"></i> Discontinue</button>'
+                        ]
+                    },
+                    anchor: {
+                          enableNavigation: true, // Enable/Disable anchor navigation 
+                          enableNavigationAlways: false, // Activates all anchors clickable always
+                          enableDoneState: true, // Add done state on visited steps
+                          markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                          unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
+                          enableDoneStateNavigation: true // Enable/Disable the done state navigation
+                      },
+                    style: { // CSS Class settings
+                        btnCss: 'sw-btn btn-sm',
+                        btnNextCss: 'sw-btn-next btn-sm',
+                        btnPrevCss: 'sw-btn-prev btn-sm',
+                    },
+                    warningSteps: [TotalRecord.length - 1],// Highlight step with warnings
+                    keyboard: {
+                        keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                        keyLeft: [37], // Left key code
+                        keyRight: [39] // Right key code
+                    }
+                })
+                .on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+                    debugger
+                    if(stepPosition === 'first'){
+                        $(".sw-btn-prev").addClass('disabled');
+                        $("#finish-btn").hide();
+                    }else if(stepPosition === 'last'){
+                        $(".sw-btn-next").hide();
+                        $("#finish-btn").show();
+                    }else{
+                        $("#finish-btn").hide();
+                        $(".sw-btn-next").show();
+                        $(".sw-btn-prev").removeClass('disabled');
+                    }
+                    if($('button.sw-btn-next').hasClass('disabled')){
+				        $('.sw-btn-group-extra').show(); // show the button extra only in the last page
+			        }else{
+				        $('.sw-btn-group-extra').hide();				
+			        }
+                })
+
+            })
+            .fail(function (error) {
+                //
+                console.error('Error fetching data:', error);
+            });
+
+
+    };
+   
+    $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
+            if(anchorObject.prevObject.length - 1 == nextStepIndex){
+               // alert('this is the last step'); 
+            }else{
+               // alert('this is not the last step');                
+            }
+        });
+</script>
