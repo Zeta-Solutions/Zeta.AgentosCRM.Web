@@ -7,7 +7,7 @@
             startDate: null,
             endDate: null,
         };
-
+        //...
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -76,7 +76,7 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-
+        debugger
         var dataTable = _$partnerTypesTable.DataTable({
             paging: true,
             serverSide: true,
@@ -100,45 +100,7 @@
                         return '';
                     },
                     targets: 0,
-                },
-                //{
-                //  width: 120,
-                //  targets: 1,
-                //  data: null,
-                //  orderable: false,
-                //  autoWidth: false,
-                //  defaultContent: '',
-                //  rowAction: {
-                //    cssClass: 'btn btn-brand dropdown-toggle',
-                //    text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                //    items: [
-                //      {
-                //        text: app.localize('View'),
-                //        action: function (data) {
-                //          _viewPartnerTypeModal.open({ id: data.record.partnerType.id });
-                //        },
-                //      },
-                //      {
-                //        text: app.localize('Edit'),
-                //        //visible: function () {
-                //        //  return _permissions.edit;
-                //        //},
-                //        action: function (data) {
-                //          _createOrEditModal.open({ id: data.record.partnerType.id });
-                //        },
-                //      },
-                //      {
-                //        text: app.localize('Delete'),
-                //        //visible: function () {
-                //        //  return _permissions.delete;
-                //        //},
-                //        action: function (data) {
-                //          deletePartnerType(data.record.partnerType);
-                //        },
-                //      },
-                //    ],
-                //  },
-                //},
+                }, 
                 {
                     targets: 1,
                     data: 'partnerType.abbrivation',
@@ -161,7 +123,7 @@
                     orderable: false,
                     searchable: false,
                     render: function (data, type, full, meta) {
-                        //console.log(data);
+
                         var rowId = data.partnerType.id;
                         var rowData = data.partnerType;
                         var RowDatajsonString = JSON.stringify(rowData);
@@ -178,48 +140,39 @@
                             '</div>';
 
                         return contextMenu;
-                    }
-
-
+                    } 
                 },
             ],
         });
 
         function getPartnerTypes() {
+            debugger
             dataTable.ajax.reload();
         }
-
-
-
-        // Add a click event handler for the ellipsis icons
+         
         $(document).on('click', '.ellipsis', function (e) {
             e.preventDefault();
 
             var options = $(this).closest('.context-menu').find('.options');
-            var allOptions = $('.options');  // Select all options
+            var allOptions = $('.options');   
 
-            // Close all other open options
-            allOptions.not(options).hide();
+            allOptions.not(options).hide(); 
 
-            // Toggle the visibility of the options
             options.toggle();
         });
-
-        // Close the context menu when clicking outside of it
+         
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
                 $('.options').hide();
             }
         });
-
-        // Handle menu item clicks
+         
         $(document).on('click', 'a[data-action]', function (e) {
             e.preventDefault();
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
-            // Handle the selected action based on the rowId
+            debugger 
             if (action === 'view') {
                 _viewPartnerTypeModal.open({ id: rowId });
             } else if (action === 'edit') {
@@ -279,6 +232,7 @@
         });
 
         $('#GetPartnerTypesButton').click(function (e) {
+            debugger
             e.preventDefault();
             getPartnerTypes();
         });

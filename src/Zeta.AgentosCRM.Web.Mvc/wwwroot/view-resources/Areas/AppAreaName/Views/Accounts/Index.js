@@ -11,12 +11,7 @@
             endDate: null,
         };
         $(".btnbusinessRegNummbers,.btnbusinessAddress,.addMaunalTax ,.addTax,.TaxSettingSave").prop("disabled", true);
-
-        //$('#WorkFlowOfficeId').select2({
-        //    multiple: true,
-        //    width: '650px',
-        //    // Adjust the width as needed
-        //});
+         
 
         $.ajax({
             url: abp.appPath + 'api/services/app/Agents/GetAllOrganizationUnitForTableDropdown',
@@ -44,20 +39,7 @@
                 console.error('Error fetching data:', error);
             }
         });
-
-        //function populateDropdown(data) {
-        //    var dropdown = $('#WorkFlowOfficeId');
-             
-        //    dropdown.empty();
-
-        //    $.each(data.result, function (index, item) {
-        //        if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
-        //            dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
-        //        } else {
-        //            console.warn('Invalid item:', item);
-        //        }
-        //    });
-        //}
+ 
         
         $.ajax({
             url: abp.appPath + 'api/services/app/Countries/GetAll',

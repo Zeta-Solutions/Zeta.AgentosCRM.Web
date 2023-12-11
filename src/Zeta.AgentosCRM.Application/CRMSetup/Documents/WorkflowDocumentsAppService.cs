@@ -38,7 +38,9 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                         .Include(e => e.WorkflowFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
+                        .WhereIf(input.WorkflowIdFilter.HasValue, e => false || e.WorkflowId == input.WorkflowIdFilter.Value)
+                        .WhereIf(input.ID.HasValue, e => false || e.Id == input.ID.Value);
 
             var pagedAndFilteredWorkflowDocuments = filteredWorkflowDocuments
                 .OrderBy(input.Sorting ?? "id asc")
@@ -53,6 +55,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
                                         o.Name,
                                         o.Id,
+                                        o.WorkflowId,
                                         WorkflowName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                                     };
 
@@ -70,6 +73,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
                         Name = o.Name,
                         Id = o.Id,
+                        WorkflowId = o.WorkflowId,
                     },
                     WorkflowName = o.WorkflowName
                 };

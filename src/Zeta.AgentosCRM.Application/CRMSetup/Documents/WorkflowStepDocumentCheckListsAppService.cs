@@ -17,6 +17,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMPartner.Promotion;
+using Zeta.AgentosCRM.CRMSetup.Document;
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
@@ -25,14 +27,16 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
     {
         private readonly IRepository<WorkflowStepDocumentCheckList> _workflowStepDocumentCheckListRepository;
         private readonly IRepository<WorkflowStep, int> _lookup_workflowStepRepository;
-        private readonly IRepository<DocumentType, int> _lookup_documentTypeRepository;
-
-        public WorkflowStepDocumentCheckListsAppService(IRepository<WorkflowStepDocumentCheckList> workflowStepDocumentCheckListRepository, IRepository<WorkflowStep, int> lookup_workflowStepRepository, IRepository<DocumentType, int> lookup_documentTypeRepository)
+        private readonly IRepository<DocumentType, int> _lookup_documentTypeRepository; 
+        private readonly IRepository<DocumentCheckListPartner> _DocumentCheckListPartnerRepository;
+        private readonly IRepository<DocumentCheckListProduct> _DocumentCheckListProductRepository;
+        public WorkflowStepDocumentCheckListsAppService(IRepository<WorkflowStepDocumentCheckList> workflowStepDocumentCheckListRepository, IRepository<WorkflowStep, int> lookup_workflowStepRepository, IRepository<DocumentType, int> lookup_documentTypeRepository, IRepository<DocumentCheckListPartner> documentCheckListPartnerRepository, IRepository<DocumentCheckListProduct> documentCheckListProductRepository, IRepository<DocumentCheckListPartner, int> lookup_DocumentCheckListPartnerRepository)
         {
             _workflowStepDocumentCheckListRepository = workflowStepDocumentCheckListRepository;
             _lookup_workflowStepRepository = lookup_workflowStepRepository;
             _lookup_documentTypeRepository = lookup_documentTypeRepository;
-
+            _DocumentCheckListPartnerRepository = documentCheckListPartnerRepository;
+            _DocumentCheckListProductRepository = documentCheckListProductRepository; 
         }
 
         public async Task<PagedResultDto<GetWorkflowStepDocumentCheckListForViewDto>> GetAll(GetAllWorkflowStepDocumentCheckListsInput input)
@@ -48,11 +52,17 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                         .WhereIf(input.IsForAllProductsFilter.HasValue && input.IsForAllProductsFilter > -1, e => (input.IsForAllProductsFilter == 1 && e.IsForAllProducts) || (input.IsForAllProductsFilter == 0 && !e.IsForAllProducts))
                         .WhereIf(input.AllowOnClientPortalFilter.HasValue && input.AllowOnClientPortalFilter > -1, e => (input.AllowOnClientPortalFilter == 1 && e.AllowOnClientPortal) || (input.AllowOnClientPortalFilter == 0 && !e.AllowOnClientPortal))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowStepNameFilter), e => e.WorkflowStepFk != null && e.WorkflowStepFk.Name == input.WorkflowStepNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.DocumentTypeNameFilter), e => e.DocumentTypeFk != null && e.DocumentTypeFk.Name == input.DocumentTypeNameFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DocumentTypeNameFilter), e => e.DocumentTypeFk != null && e.DocumentTypeFk.Name == input.DocumentTypeNameFilter)
+                        .WhereIf(input.WorkflowIdFilter.HasValue, e => false || e.WorkflowStepId == input.WorkflowIdFilter.Value);
 
             var pagedAndFilteredWorkflowStepDocumentCheckLists = filteredWorkflowStepDocumentCheckLists
-                .OrderBy(input.Sorting ?? "id asc")
+                //.OrderBy(input.Sorting ?? "workflowStepId asc")
+                //.OrderBy(e => input.Sorting ?? "workflowStepId asc")
+                //.OrderBy(e => EF.Property<WorkflowStepDocumentCheckList>(e, input.Sorting ?? "workflowStepId asc"))
+                .OrderBy(a => a.WorkflowStepId)
+                .ThenBy(input.Sorting ?? "id asc")
                 .PageBy(input);
+                
 
             var workflowStepDocumentCheckLists = from o in pagedAndFilteredWorkflowStepDocumentCheckLists
                                                  join o1 in _lookup_workflowStepRepository.GetAll() on o.WorkflowStepId equals o1.Id into j1
@@ -60,7 +70,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
                                                  join o2 in _lookup_documentTypeRepository.GetAll() on o.DocumentTypeId equals o2.Id into j2
                                                  from s2 in j2.DefaultIfEmpty()
-
+                                                 
+                                                  
                                                  select new
                                                  {
 
@@ -70,6 +81,9 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                                                      o.IsForAllProducts,
                                                      o.AllowOnClientPortal,
                                                      Id = o.Id,
+                                                     o.WorkflowStepId,
+                                                     o.DocumentTypeId,
+                                                  
                                                      WorkflowStepName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                                      DocumentTypeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                                                  };
@@ -91,6 +105,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                         IsForAllPartners = o.IsForAllPartners,
                         IsForAllProducts = o.IsForAllProducts,
                         AllowOnClientPortal = o.AllowOnClientPortal,
+                        DocumentTypeId = o.DocumentTypeId,
+                        WorkflowStepId = o.WorkflowStepId,
                         Id = o.Id,
                     },
                     WorkflowStepName = o.WorkflowStepName,
@@ -133,7 +149,15 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
         {
             var workflowStepDocumentCheckList = await _workflowStepDocumentCheckListRepository.FirstOrDefaultAsync(input.Id);
 
-            var output = new GetWorkflowStepDocumentCheckListForEditOutput { WorkflowStepDocumentCheckList = ObjectMapper.Map<CreateOrEditWorkflowStepDocumentCheckListDto>(workflowStepDocumentCheckList) };
+            var documentPartner = await _DocumentCheckListPartnerRepository.GetAllListAsync(p => p.WorkflowStepDocumentCheckListId == input.Id);
+            var documentProduct = await _DocumentCheckListProductRepository.GetAllListAsync(p => p.WorkflowStepDocumentCheckListId == input.Id);
+
+            var output = new GetWorkflowStepDocumentCheckListForEditOutput
+            {
+                WorkflowStepDocumentCheckList = ObjectMapper.Map<CreateOrEditWorkflowStepDocumentCheckListDto>(workflowStepDocumentCheckList),
+                DocumentCheckListPartner = ObjectMapper.Map<List<CreateOrEditDocumentCheckListPartnerDto>>(documentPartner),
+                DocumentCheckListProduct = ObjectMapper.Map<List<CreateOrEditDocumentCheckListProductDto>>(documentProduct)
+            };
 
             if (output.WorkflowStepDocumentCheckList.WorkflowStepId != null)
             {
@@ -146,6 +170,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                 var _lookupDocumentType = await _lookup_documentTypeRepository.FirstOrDefaultAsync((int)output.WorkflowStepDocumentCheckList.DocumentTypeId);
                 output.DocumentTypeName = _lookupDocumentType?.Name?.ToString();
             }
+             
 
             return output;
         }
@@ -171,8 +196,27 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             {
                 workflowStepDocumentCheckList.TenantId = (int)AbpSession.TenantId;
             }
+            //Partner & Products dropdown List Save
+             
+            var workflowStepDocumentCheckListId = _workflowStepDocumentCheckListRepository.InsertAndGetIdAsync(workflowStepDocumentCheckList).Result;
 
-            await _workflowStepDocumentCheckListRepository.InsertAsync(workflowStepDocumentCheckList);
+            foreach (var PartnerRecord in input.DocumentCheckListPartner)
+            {
+                PartnerRecord.PartnerId= PartnerRecord.PartnerId;
+                PartnerRecord.WorkflowStepDocumentCheckListId = workflowStepDocumentCheckListId;
+                var stepEntity = ObjectMapper.Map<DocumentCheckListPartner>(PartnerRecord);
+                await _DocumentCheckListPartnerRepository.InsertAsync(stepEntity);
+            }
+
+            foreach (var ProductRecord in input.DocumentCheckListProduct)
+            {
+                ProductRecord.ProductId= ProductRecord.ProductId;
+                ProductRecord.WorkflowStepDocumentCheckListId = workflowStepDocumentCheckListId;
+                var stepEntityoffice = ObjectMapper.Map<DocumentCheckListProduct>(ProductRecord);
+                await _DocumentCheckListProductRepository.InsertAsync(stepEntityoffice);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            //await _workflowStepDocumentCheckListRepository.InsertAsync(workflowStepDocumentCheckList);
 
         }
 
@@ -182,6 +226,29 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             var workflowStepDocumentCheckList = await _workflowStepDocumentCheckListRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, workflowStepDocumentCheckList);
 
+            var DocumentPartnerID = await _DocumentCheckListPartnerRepository.GetAllListAsync(p => p.WorkflowStepDocumentCheckListId== input.Id);
+            foreach (var item in DocumentPartnerID)
+            {
+                await _DocumentCheckListPartnerRepository.DeleteAsync(item.Id);
+            }
+             foreach (var step in input.DocumentCheckListPartner)
+            {
+                step.WorkflowStepDocumentCheckListId = workflowStepDocumentCheckList.Id;
+                var stepEntity = ObjectMapper.Map<DocumentCheckListPartner>(step);
+                await _DocumentCheckListPartnerRepository.InsertAsync(stepEntity);
+            }
+            var DocumentProductID = await _DocumentCheckListProductRepository.GetAllListAsync(p => p.WorkflowStepDocumentCheckListId == input.Id);
+            foreach (var item in DocumentProductID)
+            {
+                await _DocumentCheckListProductRepository.DeleteAsync(item.Id);
+            }
+             foreach (var step in input.DocumentCheckListProduct)
+            {
+                step.WorkflowStepDocumentCheckListId = workflowStepDocumentCheckList.Id;
+                var stepEntity = ObjectMapper.Map<DocumentCheckListProduct>(step);
+                await _DocumentCheckListProductRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Delete)]

@@ -40,7 +40,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
             var filteredSubjects = _subjectRepository.GetAll()
                         .Include(e => e.SubjectAreaFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivation.Contains(input.Filter) || e.Name.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Abbrivation.Contains(input.Filter) || e.Name.Contains(input.Filter) || e.SubjectAreaFk.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AbbrivationFilter), e => e.Abbrivation.Contains(input.AbbrivationFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectNameFilter), e => e.SubjectAreaFk != null && e.SubjectAreaFk.Name == input.SubjectNameFilter);
