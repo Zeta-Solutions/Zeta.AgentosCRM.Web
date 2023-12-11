@@ -87,7 +87,7 @@
         
         var productEnglishRequirements = item || [{ productEnglishRequirement: { id: 0 } }];
 
-// Now you have an array with a default object if item is falsy or undefined
+// Now you have an array with a default object if item is falsy or undefined..
 
 
             var mainDiv = $('<div>').addClass('maincard maindivcard').css({
@@ -390,6 +390,7 @@
             debugger
             // Check if globalData.result.items is defined and is an array with elements
             if (Array.isArray(globalotherData.result.items) && globalotherData.result.items.length > 0) {
+                debugger
                 // Call createEnglishCardTask once with the entire array
                 var cards = createProductothercard(globalotherData.result.items);
 

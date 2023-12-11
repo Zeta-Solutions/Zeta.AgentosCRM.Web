@@ -4,7 +4,7 @@
         var _modalManager;
         var $cropperJsApi = null;
 
-        var _profileService = abp.services.app.profile;
+        var _profileService = abp.services.app.clientProfile;
 
         this.init = function (modalManager) {
             _modalManager = modalManager;
@@ -64,35 +64,85 @@
                 input = {
                     fileToken: fileToken
                 };
-
-                var userIdInput = _modalManager.getModal().find("#userId");
-                if (userIdInput.length === 1) {
-                    input.userId = userIdInput.val();
+                debugger
+               // var userIdInput = _modalManager.getModal().find("#clientId");
+                var userIdInput = $('input[name="id"]').val();
+                if (userIdInput > 0) {
+                    input.ClientId = userIdInput;
                 }
 
                 saveInternal(input);
             });
         };
-
+        //.....
         function saveInternal(input) {
-                debugger
-            _profileService.updateProfilePicture(input).done(function () {
-                if ($cropperJsApi) {
-                    $cropperJsApi = null;
-                }
-                var userId = input.userId;
-                var profilePictureId = input.fileToken;
+            debugger
+            if (input.ClientId > 0) {
+                _profileService.updateProfilePicture(input).done(function () {
+                    if ($cropperJsApi) {
+                        $cropperJsApi = null;
+                    }
+                    var clientId = input.ClientId ?? 0; 
+                    var profilePictureId = input.fileToken;
+                    $('input[name="ProfilePictureId"]').val(input.fileToken)
+                    
+                    
+                        var imageUrl = $.ajax({
+                            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByClient',
+                            data: {
+                                clientId: clientId,
+                            },
+                            method: 'GET',
+                            dataType: 'json',
+                        })
+                            .done(function (data) {
+                                debugger
+                                console.log('Response from server:', data);
+                                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                            })
+                            .fail(function (error) {
+                                console.error('Error fetching data:', error);
+                            });
+                
+               
+                    _modalManager.close();
+                });
+            }
+            else {
+                _profileService.insertProfilePictureForClient(input).done(function (data) {
+                    if ($cropperJsApi) {
+                        $cropperJsApi = null;
+                    }
+                    var clientId = input.ClientId ?? 0; 
+                    var profilePictureId = data;
+                    $('input[name="ProfilePictureId"]').val(data)
+                    // Construct the URL
+                    // var imageUrl = '/ClientProfile/GetProfilePictureByClient?clientId=' + userId + '&profilePictureId=' + profilePictureId;
+                    //var imageUrl = _profileService.GetProfilePictureByClient(clientId);
+                    var imageUrl = $.ajax({
+                        url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByPictireId',
+                        data: {
+                            fileTokkenId: profilePictureId,
+                        },
+                        method: 'GET',
+                        dataType: 'json',
+                    })
+                        .done(function (data) {
+                            debugger
+                            console.log('Response from server:', data);
+                            $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                        })
+                        .fail(function (error) {
+                            console.error('Error fetching data:', error);
+                        });
+                    
+                    _modalManager.close();
+                });
+            }
 
-                // Construct the URL
-                var imageUrl = '/Profile/GetProfilePictureByUser?userId=' + userId + '&profilePictureId=' + profilePictureId;
-
-                // Set the image source dynamically
-                $('#profileImage').attr('src', imageUrl);
-                $('.header-profile-picture').attr('src', app.getUserProfilePicturePath());
-                _modalManager.close();
-            });
         }
 
+        //..
         $('#ProfilePicture').change(function () {
             var fileName = app.localize('ChooseAFile');
             if (this.files && this.files[0]) {
@@ -118,12 +168,12 @@
         function saveCroppedImage(onSuccess) {
             $cropperJsApi.cropper('getCroppedCanvas').toBlob(function (blob) {
                 var token = app.guid();
-                
+
                 var formData = new FormData();
                 formData.append('ProfilePicture', blob);
                 formData.append('FileToken', token);
                 formData.append('FileName', "ProfilePicture");
-                
+
                 $.ajax('/Profile/UploadProfilePicture', {
                     method: "POST",
                     data: formData,

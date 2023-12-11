@@ -9,11 +9,47 @@
         $('#leadSourceId').select2();
         $('#assigneeId').select2();
         $('#agentId').select2();
+        debugger
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
         _$clientInformationForm.validate();
+        var clientId = $('input[name="id"]').val();
+        var imageUrl = $.ajax({
+            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByClient',
+            data: {
+                clientId: clientId,
+            },
+            method: 'GET',
+            dataType: 'json',
+        })
+            .done(function (data) {
+                debugger
+                console.log('Response from server:', data);
+                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+            })
+            .fail(function (error) {
+                console.error('Error fetching data:', error);
+            });
+        
+        //var clientId = 27;
+        ////var profilePictureId = $('input[name="profilePictureId"]').val();
+        //var profilePictureId = "2A3BCB7E-96B0-74D4-F4A3-3A0F5C6DF187";
 
-        //
-        //var input = document.querySelector("#phone");
+        //// Construct the URL
+        //var _$clientInformationForm = $('form[name=ClientInformationsForm]');
+        //_$clientInformationForm.validate();
+        ////var userId = $('input[name="Id"]').val();
+        //var clientId = 27;
+        ////var profilePictureId = $('input[name="profilePictureId"]').val();
+        //var profilePictureId = "2A3BCB7E-96B0-74D4-F4A3-3A0F5C6DF187";
+
+        //// Construct the URL
+        //var imageUrl = '/ClientProfile/GetProfilePictureByClient?clientId=' + clientId + '&profilePictureId=' + profilePictureId;
+
+        //// Set the image source dynamically
+        //$('#profileImage').attr('src', imageUrl);   
+
+        // Set the image source dynamically
+        //document.querySelector("#phone");
         //const errorMsg = document.querySelector("#error-msg");
         //const validMsg = document.querySelector("#valid-msg");
 
@@ -82,7 +118,7 @@
 
 
 
-        //
+    
 
 		        var _ClientcountryLookupTableModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CountryLookupTableModal',
@@ -109,7 +145,30 @@
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/_ClientLeadSourceLookupTableModal.js',
             modalClass: 'LeadSourceLookupTableModal'
         });
-   		
+        var changeProfilePictureModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/_ChangePictureModal.js',
+            modalClass: 'ChangeProfilePictureModal',
+        });
+        $('#changeProfilePicture').click(function () {
+            changeProfilePictureModal.open({ userId: $('input[name=Id]').val() });
+        });
+
+        changeProfilePictureModal.onClose(function () {
+            $('.user-edit-dialog-profile-image').attr('src', abp.appPath + "Profile/GetProfilePictureByUser?userId=" + $('input[name=Id]').val());
+        });
+
+        //_modalManager
+        //    .getModal()
+        //    .find('#changeProfilePicture')
+        //    .click(function () {
+        //        changeProfilePictureModal.open({ userId: _modalManager.getModal().find('input[name=Id]').val() });
+        //    });
+
+        //changeProfilePictureModal.onClose(function () {
+        //    _modalManager.getModal().find('.user-edit-dialog-profile-image').attr('src', abp.appPath + "Profile/GetProfilePictureByUser?userId=" + _modalManager.getModal().find('input[name=Id]').val())
+        //});
+    
         
 
         $('.date-picker').daterangepicker({
@@ -257,9 +316,12 @@
                 abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
                 return;
             }
-
             
 
+            
+           
+            ProfilePictureId = $('input[name="ProfilePictureId"]').val()
+            
             var client = _$clientInformationForm.serializeFormToObject();
             
 			

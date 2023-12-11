@@ -1,7 +1,6 @@
 ﻿using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.CRMSetup.InstallmentType;
 
-using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
@@ -17,6 +16,10 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Microsoft.AspNetCore.Mvc;
+using Zeta.AgentosCRM.CRMClient.Qoutation;
+using Zeta.AgentosCRM.CRMClient.Quotation;
+using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts.Fee
 {
@@ -26,13 +29,13 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
         private readonly IRepository<ProductFee> _productFeeRepository;
         private readonly IRepository<Country, int> _lookup_countryRepository;
         private readonly IRepository<InstallmentType, int> _lookup_installmentTypeRepository;
-
-        public ProductFeesAppService(IRepository<ProductFee> productFeeRepository, IRepository<Country, int> lookup_countryRepository, IRepository<InstallmentType, int> lookup_installmentTypeRepository)
+        private readonly IRepository<ProductFeeDetail, long> _productFeeDetailRepository;
+        public ProductFeesAppService(IRepository<ProductFee> productFeeRepository, IRepository<Country, int> lookup_countryRepository, IRepository<InstallmentType, int> lookup_installmentTypeRepository, IRepository<ProductFeeDetail, long> productFeeDetailRepository)
         {
             _productFeeRepository = productFeeRepository;
             _lookup_countryRepository = lookup_countryRepository;
             _lookup_installmentTypeRepository = lookup_installmentTypeRepository;
-
+            _productFeeDetailRepository = productFeeDetailRepository;
         }
 
         public async Task<PagedResultDto<GetProductFeeForViewDto>> GetAll(GetAllProductFeesInput input)
@@ -50,7 +53,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
                         .WhereIf(input.MaxNetTotalFilter != null, e => e.NetTotal <= input.MaxNetTotalFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.InstallmentTypeNameFilter), e => e.InstallmentTypeFk != null && e.InstallmentTypeFk.Name == input.InstallmentTypeNameFilter);
-
+                        //.WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
             var pagedAndFilteredProductFees = filteredProductFees
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -131,8 +134,11 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
         public async Task<GetProductFeeForEditOutput> GetProductFeeForEdit(EntityDto input)
         {
             var productFee = await _productFeeRepository.FirstOrDefaultAsync(input.Id);
-
-            var output = new GetProductFeeForEditOutput { ProductFee = ObjectMapper.Map<CreateOrEditProductFeeDto>(productFee) };
+            var FeeDeatils = await _productFeeDetailRepository.GetAllListAsync(p => p.ProductFeeId == input.Id);
+            var output = new GetProductFeeForEditOutput { 
+                ProductFee = ObjectMapper.Map<CreateOrEditProductFeeDto>(productFee),
+                 FeeDetail = ObjectMapper.Map<List<CreateOrEditProductFeeDetailDto>>(FeeDeatils)
+            };
 
             if (output.ProductFee.CountryId != null)
             {
@@ -162,7 +168,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
         }
 
         [AbpAuthorize(AppPermissions.Pages_ProductFees_Create)]
-        protected virtual async Task Create(CreateOrEditProductFeeDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditProductFeeDto input)
         {
             var productFee = ObjectMapper.Map<ProductFee>(input);
 
@@ -170,8 +176,15 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
             {
                 productFee.TenantId = (int?)AbpSession.TenantId;
             }
-
-            await _productFeeRepository.InsertAsync(productFee);
+            var FeeheadId = _productFeeRepository.InsertAndGetIdAsync(productFee).Result;
+            foreach (var step in input.FeeDetails)
+            {
+                step.ProductFeeId = FeeheadId;
+                var stepEntity = ObjectMapper.Map<ProductFeeDetail>(step);
+                await _productFeeDetailRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+            //await _productFeeRepository.InsertAsync(productFee);
 
         }
 
@@ -181,6 +194,22 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
             var productFee = await _productFeeRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, productFee);
 
+            foreach (var Fee in input.FeeDetails)
+            {
+
+                if (Fee.Id == 0)
+                {
+                    Fee.ProductFeeId = (int)input.Id;
+                    var FeeDetail = ObjectMapper.Map<ProductFeeDetail>(Fee);
+                    await _productFeeDetailRepository.InsertAsync(FeeDetail);
+                }
+                else
+                {
+                    Fee.ProductFeeId = (int)input.Id;
+                    var FeeStep = await _productFeeDetailRepository.FirstOrDefaultAsync((int)Fee.Id);
+                    ObjectMapper.Map(Fee, FeeStep);
+                }
+            }
         }
 
         [AbpAuthorize(AppPermissions.Pages_ProductFees_Delete)]

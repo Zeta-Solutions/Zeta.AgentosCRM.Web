@@ -43,13 +43,15 @@
                 @if (Model.IsEditMode)
                 {
                     <input type="hidden" name="Id" value="@Model.User.Id"/>
+                    <input type="hidden" name="profilePictureId" value="@Model.ProfilePictureId" />
                 }
 
                 <div class="row">
                     <div class="col-sm-3 text-center margin-top-15 margin-bottom-15">
                         @if (Model.User.Id > 0)
                         {
-                            <img src="@Url.Action("GetProfiluePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
+                            @* <img src="@Url.Action("GetProfiluePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/> *@
+                            <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
                         }
                         else
                         {

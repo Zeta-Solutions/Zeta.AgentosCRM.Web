@@ -13,17 +13,13 @@
                 <input type="hidden" name="id" id="Id" value="@Model.EnglishTestScore.Id" />
             }
             <input type="hidden" name="clientId" id="ClientId" />
-            <div class="my-3" >
-                <label class="form-label" for="Name">@L("Name")</label>
-                <input class="form-control form-control-sm" id="Name" value="@Model.EnglishTestScore.Name" type="text" name="Name" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MinNameLength" />
-            </div>
+            <input type="hidden" class="Name" name="name" id="name" value="" />
             <div class="row col-12">
-                  <div class="my-3 col-2">
-                   
+                <div class="my-3 col-2">
                 </div>
                 <div class="my-3 col-2">
                     <label class="form-label" for="Application_Name">@L("Listening")</label>
-                 
+
                 </div>
                 <div class="my-3 col-2">
                     <label class="form-label" for="Application_Name">@L("Reading")</label>
@@ -38,74 +34,81 @@
                     <label class="form-label" for="Application_Name">@L("OverAll")</label>
                 </div>
             </div>
+            @*  <div class="my-3">
+            <label class="form-label" for="Name">@L("Name")</label>
+            <input class="form-control form-control-sm" id="Name" value="@Model.ProductEnglishRequirement.Name" type="text" name="Name" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.EnglisTestScoreConsts.MinNameLength" />
+            </div> *@
+
             <div class="row col-12">
 
 
                 <div class="my-3 col-2">
-                    <label class="form-label" for="Application_Name">@L("TOEFl")</label>
+                    <label class="form-label name1" for="Application_Name">@L("TOEFl")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required />
+                    @* <input class="form-control Listening1" type="number" name="Listening" /> *@
+
+                    <input class="form-control listenting1" value="@Model.EnglishTestScore.Listenting" type="number" name="listenting" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required />
+                    <input class="form-control Reading1" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
+                    <input class="form-control Writing1" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required />
+                    <input class="form-control Speaking1" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required />
+                    <input class="form-control TotalScore1" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" />
                 </div>
-           
+
             </div>
-             <div class="row col-12">
+            <div class="row col-12">
 
 
                 <div class="my-3 col-2">
-                    <label class="form-label" for="Application_Name">@L("IELTS")</label>
+                    <label class="form-label name2" for="Application_Name">@L("IELTS")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required  />
+                    <input class="form-control listenting2" id="Listening" value="@Model.EnglishTestScore.Listenting" type="number" name="listenting" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required  />
+                    <input class="form-control Reading2" id="Reading" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
+                    <input class="form-control Writing2" id="Writing" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required  />
+                    <input class="form-control Speaking2" id="Speaking" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required  />
+                    <input class="form-control TotalScore2" id="TotalScore" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" />
                 </div>
-           
+
             </div>
-             <div class="row col-12">
+            <div class="row col-12">
 
 
                 <div class="my-3 col-2">
-                    <label class="form-label" for="Application_Name">@L("PTE")</label>
+                    <label class="form-label name3" for="Application_Name">@L("PTE")</label>
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Listenting" type="number" name="Listenting" required />
+                    <input class="form-control listenting3" id="Listening" value="@Model.EnglishTestScore.Listenting" type="number" name="listenting" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" required />
+                    <input class="form-control Reading3" id="Reading" value="@Model.EnglishTestScore.Reading" type="number" name="Reading" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" required />
+                    <input class="form-control Writing3" id="Writing" value="@Model.EnglishTestScore.Writing" type="number" name="Writing" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" required />
+                    <input class="form-control Speaking3" id="Speaking" value="@Model.EnglishTestScore.Speaking" type="number" name="Speaking" />
                 </div>
                 <div class="my-3 col-2">
-                    <input class="form-control" id="Application_Name" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" required />
+                    <input class="form-control TotalScore3" id="TotalScore" value="@Model.EnglishTestScore.TotalScore" type="number" name="TotalScore" />
                 </div>
-           
+
             </div>
         </form>
     </div>

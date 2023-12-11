@@ -803,5 +803,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
         }
         #endregion
+        public PartialViewResult ChangePictureModal(long? clientId)
+        {
+            ViewBag.ClientId = clientId;
+            return PartialView("_ChangePictureModal");
+        }
     }
 }

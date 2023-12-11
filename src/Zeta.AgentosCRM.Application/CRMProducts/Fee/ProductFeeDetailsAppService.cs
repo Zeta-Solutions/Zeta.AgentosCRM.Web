@@ -1,7 +1,4 @@
 ﻿using Zeta.AgentosCRM.CRMSetup.FeeType;
-using Zeta.AgentosCRM.CRMProducts.Fee;
-
-using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Linq.Extensions;
@@ -18,6 +15,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup.InstallmentType;
 
 namespace Zeta.AgentosCRM.CRMProducts.Fee
 {
@@ -28,14 +27,17 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
         private readonly IProductFeeDetailsExcelExporter _productFeeDetailsExcelExporter;
         private readonly IRepository<FeeType, int> _lookup_feeTypeRepository;
         private readonly IRepository<ProductFee, int> _lookup_productFeeRepository;
+        private readonly IRepository<Country, int> _lookup_countryRepository;
+        private readonly IRepository<InstallmentType, int> _lookup_installmentTypeRepository;
 
-        public ProductFeeDetailsAppService(IRepository<ProductFeeDetail, long> productFeeDetailRepository, IProductFeeDetailsExcelExporter productFeeDetailsExcelExporter, IRepository<FeeType, int> lookup_feeTypeRepository, IRepository<ProductFee, int> lookup_productFeeRepository)
+        public ProductFeeDetailsAppService(IRepository<ProductFeeDetail, long> productFeeDetailRepository, IProductFeeDetailsExcelExporter productFeeDetailsExcelExporter, IRepository<FeeType, int> lookup_feeTypeRepository, IRepository<ProductFee, int> lookup_productFeeRepository, IRepository<Country, int> lookup_countryRepository, IRepository<InstallmentType, int> lookup_installmentTypeRepository)
         {
             _productFeeDetailRepository = productFeeDetailRepository;
             _productFeeDetailsExcelExporter = productFeeDetailsExcelExporter;
             _lookup_feeTypeRepository = lookup_feeTypeRepository;
             _lookup_productFeeRepository = lookup_productFeeRepository;
-
+            _lookup_countryRepository = lookup_countryRepository;
+            _lookup_installmentTypeRepository = lookup_installmentTypeRepository;
         }
 
         public async Task<PagedResultDto<GetProductFeeDetailForViewDto>> GetAll(GetAllProductFeeDetailsInput input)
@@ -57,8 +59,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
                         .WhereIf(input.IsPayableFilter.HasValue && input.IsPayableFilter > -1, e => (input.IsPayableFilter == 1 && e.IsPayable) || (input.IsPayableFilter == 0 && !e.IsPayable))
                         .WhereIf(input.AddInQuotationFilter.HasValue && input.AddInQuotationFilter > -1, e => (input.AddInQuotationFilter == 1 && e.AddInQuotation) || (input.AddInQuotationFilter == 0 && !e.AddInQuotation))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FeeTypeNameFilter), e => e.FeeTypeFk != null && e.FeeTypeFk.Name == input.FeeTypeNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ProductFeeNameFilter), e => e.ProductFeeFk != null && e.ProductFeeFk.Name == input.ProductFeeNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ProductFeeNameFilter), e => e.ProductFeeFk != null && e.ProductFeeFk.Name == input.ProductFeeNameFilter)
+                        .WhereIf(input.ProductHeadIdFilter.HasValue, e => false || e.ProductFeeId == input.ProductHeadIdFilter.Value);
             var pagedAndFilteredProductFeeDetails = filteredProductFeeDetails
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -70,6 +72,11 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
                                     join o2 in _lookup_productFeeRepository.GetAll() on o.ProductFeeId equals o2.Id into j2
                                     from s2 in j2.DefaultIfEmpty()
 
+                                    join o3 in _lookup_countryRepository.GetAll() on s2.CountryId equals o3.Id into j3
+                                    from s3 in j3.DefaultIfEmpty()
+
+                                    join o4 in _lookup_installmentTypeRepository.GetAll() on s2.InstallmentTypeId equals o4.Id into j4
+                                    from s4 in j4.DefaultIfEmpty()
                                     select new
                                     {
 
@@ -80,9 +87,12 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
                                         o.CommissionPer,
                                         o.IsPayable,
                                         o.AddInQuotation,
+                                        o.ProductFeeId,
                                         Id = o.Id,
                                         FeeTypeName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
-                                        ProductFeeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
+                                        ProductFeeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                                        CountryName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
+                                        InstallmentTypeName = s4 == null || s4.Name == null ? "" : s4.Name.ToString()
                                     };
 
             var totalCount = await filteredProductFeeDetails.CountAsync();
@@ -104,10 +114,13 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee
                         CommissionPer = o.CommissionPer,
                         IsPayable = o.IsPayable,
                         AddInQuotation = o.AddInQuotation,
+                        ProductFeeId = o.ProductFeeId,
                         Id = o.Id,
                     },
                     FeeTypeName = o.FeeTypeName,
-                    ProductFeeName = o.ProductFeeName
+                    ProductFeeName = o.ProductFeeName,
+                    CountryName = o.CountryName,
+                    InstallmentTypeName = o.InstallmentTypeName
                 };
 
                 results.Add(res);

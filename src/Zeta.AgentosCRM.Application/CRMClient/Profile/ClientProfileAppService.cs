@@ -25,40 +25,34 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly ProfileImageServiceFactory _profileImageServiceFactory; 
         private readonly ITempFileCacheManager _tempFileCacheManager;
+        private readonly LocalProfileImageService _localProfileImageService;
 
         public ClientProfileAppService(IBinaryObjectManager binaryObjectManager,
                                        ProfileImageServiceFactory profileImageServiceFactory,
                                        ITempFileCacheManager tempFileCacheManager,
-                                       IRepository<Client, long> clientRepository)
+                                       IRepository<Client, long> clientRepository,
+                                       LocalProfileImageService localProfileImageService)
         {
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
             _tempFileCacheManager = tempFileCacheManager;
             _clientRepository = clientRepository;
-        }
-
-        [DisableAuditing]
-        public async Task<GetProfilePictureOutput> GetProfilePicture()
-        {
-            using (var profileImageService = await _profileImageServiceFactory.Get(AbpSession.ToUserIdentifier()))
-            {
-                var profilePictureContent = await profileImageService.Object.GetProfilePictureContentForUser(
-                    AbpSession.ToUserIdentifier()
-                );
-
-                return new GetProfilePictureOutput(profilePictureContent);
-            }
+            _localProfileImageService = localProfileImageService;
         }
 
         [AbpAllowAnonymous]
         public async Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId)
+        { 
+            var profileImage = await _localProfileImageService.GetProfilePictureContentForClient(clientId);
+            return new GetProfilePictureOutput(profileImage); 
+        }
+        
+        [AbpAllowAnonymous]
+        public async Task<GetProfilePictureOutput> GetProfilePictureByPictireId(string fileTokkenId)
         {
-            var userIdentifier = new UserIdentifier(AbpSession.TenantId, clientId);
-            using (var profileImageService = await _profileImageServiceFactory.Get(userIdentifier))
-            {
-                var profileImage = await profileImageService.Object.GetProfilePictureContentForUser(userIdentifier);
-                return new GetProfilePictureOutput(profileImage);
-            }
+            Guid guid = Guid.Parse(fileTokkenId);
+            var profileImage = await _localProfileImageService.GetProfilePictureContent(guid);
+            return new GetProfilePictureOutput(profileImage); 
         }
 
         [AbpAllowAnonymous]
@@ -79,15 +73,16 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
         }
 
         public async Task UpdateProfilePicture(UpdateClientProfilePictureInput input)
-        {
-            var userId = AbpSession.GetUserId();
-            if (input.ClientId.HasValue && input.ClientId.Value != userId)
+        { 
+            if (input.ClientId.HasValue)
             {
-                await CheckUpdateClientsProfilePicturePermission();
-                userId = input.ClientId.Value;
+                //await CheckUpdateClientsProfilePicturePermission(); 
+                await UpdateProfilePictureForClient(input.ClientId.Value, input);
             }
-
-            await UpdateProfilePictureForClient(userId, input);
+            //else
+            //{
+            //    await InsertProfilePictureForClient(input);
+            //}
         }
 
         private async Task CheckUpdateClientsProfilePicturePermission()
@@ -169,6 +164,32 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
             await _binaryObjectManager.SaveAsync(storedFile);
 
             clientProfile.ProfilePictureId = storedFile.Id;
+        }
+        
+        public async Task<Guid> InsertProfilePictureForClient(UpdateClientProfilePictureInput input)
+        { 
+            byte[] byteArray;
+
+            var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
+
+            if (imageBytes == null)
+            {
+                throw new UserFriendlyException("There is no such image file with the token: " + input.FileToken);
+            }
+
+            byteArray = imageBytes;
+
+            if (byteArray.Length > MaxProfilePictureBytes)
+            {
+                throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
+                    AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
+            }
+             
+            var storedFile = new BinaryObject(AbpSession.TenantId, byteArray,
+                $"Profile picture of Client {DateTime.UtcNow}");
+            await _binaryObjectManager.SaveAsync(storedFile);
+
+            return storedFile.Id;
         }
 
     }
