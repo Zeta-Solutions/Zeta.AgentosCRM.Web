@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.Dto;
 using System.Collections.Generic;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation
+namespace Zeta.AgentosCRM.CRMClient.Quotation
 {
     public interface IClientQuotationDetailsAppService : IApplicationService
     {

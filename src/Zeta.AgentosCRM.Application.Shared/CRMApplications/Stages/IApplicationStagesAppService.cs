@@ -22,5 +22,7 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
 
         Task<List<ApplicationStageApplicationLookupTableDto>> GetAllApplicationForTableDropdown();
 
+        Task<List<ApplicationStageWorkflowStepLookupTableDto>> GetAllWorkflowStepForTableDropdown();
+
     }
 }

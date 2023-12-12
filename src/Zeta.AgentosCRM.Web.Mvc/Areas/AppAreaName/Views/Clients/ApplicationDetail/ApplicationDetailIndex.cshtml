@@ -99,10 +99,8 @@
                         position: 'top', // none|top|bottom|both
                         showNextButton: true, // show/hide a Next button
                         showPreviousButton: true, // show/hide a Previous button
-                        extraHtml:[
-                            '<button class="btn btn-success sw-btn-finish btn-sm round-0" id="finish-btn"><i class="fa fa-check mr-15"></i> Submit</button>',
-                            '<button class="btn btn-danger sw-btn-discontinue btn-sm round-0" id="discontinue-btn"><i class="fa fa-close mr-15"></i> Discontinue</button>'
-                        ]
+                        extraHtml:`<button class="btn btn-primary btn-sm" id="finish-btn" onclick="onFinish()">Submitss</button>
+                <button class="btn btn-danger btn-sm" id="discontinue-btn" onclick="onCancel()">Discontinue</button>` 
                     },
                     anchor: {
                           enableNavigation: true, // Enable/Disable anchor navigation 
@@ -143,7 +141,12 @@
 				        $('.sw-btn-group-extra').hide();				
 			        }
                 })
-
+                .on("loaded", function(e) {
+                    $(".sw-btn-prev").addClass('disabled');
+                    $("#finish-btn").hide();
+                    $('.sw-btn-group-extra').hide();	
+                })
+                 
             })
             .fail(function (error) {
                 //
@@ -153,11 +156,6 @@
 
     };
    
-    $("#smartwizard").on("leaveStep", function(e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) {
-            if(anchorObject.prevObject.length - 1 == nextStepIndex){
-               // alert('this is the last step'); 
-            }else{
-               // alert('this is not the last step');                
-            }
-        });
+function onFinish(){ alert('Finish Clicked'); }
+function onCancel(){ $('#smartwizard').smartWizard("reset"); }
 </script>

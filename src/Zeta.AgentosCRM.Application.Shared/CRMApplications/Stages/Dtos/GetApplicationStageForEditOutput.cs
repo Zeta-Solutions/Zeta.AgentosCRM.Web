@@ -10,5 +10,7 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages.Dtos
 
         public string ApplicationName { get; set; }
 
+        public string WorkflowStepName { get; set; }
+
     }
 }

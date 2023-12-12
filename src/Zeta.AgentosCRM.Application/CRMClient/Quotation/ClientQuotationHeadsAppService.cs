@@ -18,11 +18,10 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.CRMAppointments;
-using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Microsoft.AspNetCore.Mvc;
 using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMSetup;
 
 namespace Zeta.AgentosCRM.CRMClient.Quotation

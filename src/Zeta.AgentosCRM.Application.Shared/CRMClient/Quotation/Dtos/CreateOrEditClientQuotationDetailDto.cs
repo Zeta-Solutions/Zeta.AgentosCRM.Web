@@ -1,10 +1,13 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
+using System.ComponentModel.DataAnnotations;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation.Dtos
+namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 {
-    public class ClientQuotationDetailDto : EntityDto<long>
+    public class CreateOrEditClientQuotationDetailDto : EntityDto<long?>
     {
+
+        [Required]
         public string Description { get; set; }
 
         public decimal ServiceFee { get; set; }
@@ -17,12 +20,16 @@ namespace Zeta.AgentosCRM.CRMClient.Qoutation.Dtos
 
         public decimal TotalAmount { get; set; }
 
+        public string WorkflowName { get; set; }
         public int WorkflowId { get; set; }
 
+        public string PartnerName { get; set; }
         public long PartnerId { get; set; }
 
+        public string BranchName { get; set; }
         public long BranchId { get; set; }
 
+        public string ProductName { get; set; }
         public long ProductId { get; set; }
 
         public long QuotationHeadId { get; set; }
