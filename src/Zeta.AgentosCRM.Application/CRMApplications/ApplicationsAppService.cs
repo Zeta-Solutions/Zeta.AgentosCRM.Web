@@ -57,7 +57,9 @@ namespace Zeta.AgentosCRM.CRMApplications
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter)
-            .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value);
+            .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value)
+            .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
+           //.WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value);
             var pagedAndFilteredApplications = filteredApplications
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -79,6 +81,7 @@ namespace Zeta.AgentosCRM.CRMApplications
                                {
                                    o.WorkflowId,
                                    o.Id,
+                                   o.ClientId,
                                    ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                    WorkflowName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                    PartnerPartnerName = s3 == null || s3.PartnerName == null ? "" : s3.PartnerName.ToString(),
@@ -97,6 +100,8 @@ namespace Zeta.AgentosCRM.CRMApplications
                     Application = new ApplicationDto
                     {
                         WorkflowId= o.WorkflowId,
+                        ClientId = o.ClientId,
+
                         Id = o.Id,
                     },
                     ClientFirstName = o.ClientFirstName,

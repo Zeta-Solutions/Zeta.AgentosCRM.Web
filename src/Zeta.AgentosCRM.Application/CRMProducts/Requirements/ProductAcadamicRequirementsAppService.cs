@@ -43,8 +43,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Requirements
                         .WhereIf(input.MinAcadamicScoreFilter != null, e => e.AcadamicScore >= input.MinAcadamicScoreFilter)
                         .WhereIf(input.MaxAcadamicScoreFilter != null, e => e.AcadamicScore <= input.MaxAcadamicScoreFilter)
                         .WhereIf(input.IsGPAFilter.HasValue && input.IsGPAFilter > -1, e => (input.IsGPAFilter == 1 && e.IsGPA) || (input.IsGPAFilter == 0 && !e.IsGPA))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter)
+                        .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
             var pagedAndFilteredProductAcadamicRequirements = filteredProductAcadamicRequirements
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

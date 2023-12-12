@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@model CreateOrEditProductOtherInfoModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Otherinfo;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewOtherinformation")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="OtherInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ProductOtherInformation.Id" />
+            }
+            <input type="hidden" name="productId" id="productId" value="" />
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Abbrivation">@L("DegreeLevel")</label>
+                    @Html.DropDownList("degreeLevelId", new SelectList(Model.ProductOtherInformationDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductOtherInformation.DegreeLevelId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control" , @required="required" })
+                </div>
+
+                <div class="my-3 col-6">
+
+
+                    <label for="UNIVERSITY" class="form-label">@L("subject")</label>
+                    @Html.DropDownList("subjectId", new SelectList(Model.ProductOtherInformationSubjectList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductOtherInformation.SubjectId.ToString() : "")),@L("SelectASubject"), new { @class = "form-control" , @required="required" })
+
+
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("SubjectArea")</label>
+                    @Html.DropDownList("subjectAreaId", new SelectList(Model.ProductOtherInformationSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductOtherInformation.SubjectAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control" , @required="required" })
+                </div>
+                
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

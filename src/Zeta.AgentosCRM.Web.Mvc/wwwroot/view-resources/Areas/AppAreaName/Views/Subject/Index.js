@@ -88,8 +88,9 @@
                         filter: $('#SubjectsTableFilter').val(),
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
-                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        subjectNameFilter: $('#SubjectAreaNameFilterId').val(),
                     };
+                    debugger
                 },
             },
             columnDefs: [
@@ -185,6 +186,7 @@
         });
 
         function getSubjects() {
+            debugger
             dataTable.ajax.reload();
         }
 

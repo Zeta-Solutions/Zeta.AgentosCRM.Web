@@ -361,7 +361,11 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var model = new ApplicationViewModel()
             {
                 Application = getApplicationForViewDto.Application
-
+                 ,
+                ClientFirstName = getApplicationForViewDto.ClientFirstName,
+                WorkflowName = getApplicationForViewDto.WorkflowName,
+                PartnerPartnerName = getApplicationForViewDto.PartnerPartnerName,
+                ProductName = getApplicationForViewDto.ProductName
 
             };
 

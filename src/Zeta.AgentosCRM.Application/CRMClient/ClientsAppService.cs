@@ -77,7 +77,8 @@ namespace Zeta.AgentosCRM.CRMClient
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.HighestQualificationFk != null && e.HighestQualificationFk.Name == input.DegreeLevelNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter)
+                         .WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value);
 
             var pagedAndFilteredClients = filteredClients
                 .OrderBy(input.Sorting ?? "id asc")

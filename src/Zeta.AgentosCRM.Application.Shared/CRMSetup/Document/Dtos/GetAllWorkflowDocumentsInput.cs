@@ -10,6 +10,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Document.Dtos
         public string NameFilter { get; set; }
 
         public string WorkflowNameFilter { get; set; }
+        public int? WorkflowIdFilter { get; set; }
+        public int? ID { get; set; }
 
     }
 }

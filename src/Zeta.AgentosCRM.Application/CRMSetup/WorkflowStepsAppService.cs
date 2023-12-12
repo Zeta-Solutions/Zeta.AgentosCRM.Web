@@ -47,7 +47,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
             var pagedAndFilteredWorkflowSteps = filteredWorkflowSteps
                 .OrderBy(input.Sorting ?? "srlNo asc")
-                .ThenBy(input.Sorting ?? "id asc")
+                //.ThenBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
             var workflowSteps = from o in pagedAndFilteredWorkflowSteps

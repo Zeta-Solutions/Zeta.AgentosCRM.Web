@@ -23,7 +23,7 @@ namespace Zeta.AgentosCRM.CRMProducts.OtherInfo
 
         Task<List<ProductOtherInformationSubjectLookupTableDto>> GetAllSubjectForTableDropdown();
 
-        Task<PagedResultDto<ProductOtherInformationDegreeLevelLookupTableDto>> GetAllDegreeLevelForLookupTable(GetAllForLookupTableInput input);
+        Task<List<ProductOtherInformationDegreeLevelLookupTableDto>> GetAllDegreeLevelForLookupTable(GetAllForLookupTableInput input);
 
         Task<List<ProductOtherInformationProductLookupTableDto>> GetAllProductForTableDropdown();
 
