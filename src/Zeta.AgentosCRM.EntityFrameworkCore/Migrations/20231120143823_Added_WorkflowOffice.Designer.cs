@@ -2674,7 +2674,7 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("ClientInterstedServices");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Qoutation.ClientQuotationDetail", b =>
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Quotation.ClientQuotationDetail", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -5503,7 +5503,7 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("WorkflowFk");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Qoutation.ClientQuotationDetail", b =>
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Quotation.ClientQuotationDetail", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", "BranchFk")
                         .WithMany()

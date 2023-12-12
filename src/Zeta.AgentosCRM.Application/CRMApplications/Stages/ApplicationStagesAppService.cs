@@ -16,6 +16,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMSetup;
 
 namespace Zeta.AgentosCRM.CRMApplications.Stages
 {
@@ -24,12 +25,13 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
     {
         private readonly IRepository<ApplicationStage, long> _applicationStageRepository;
         private readonly IRepository<Application, long> _lookup_applicationRepository;
+        private readonly IRepository<WorkflowStep, int> _lookup_workflowStepRepository;
 
-        public ApplicationStagesAppService(IRepository<ApplicationStage, long> applicationStageRepository, IRepository<Application, long> lookup_applicationRepository)
+        public ApplicationStagesAppService(IRepository<ApplicationStage, long> applicationStageRepository, IRepository<Application, long> lookup_applicationRepository, IRepository<WorkflowStep, int> lookup_workflowStepRepository)
         {
             _applicationStageRepository = applicationStageRepository;
             _lookup_applicationRepository = lookup_applicationRepository;
-
+            _lookup_workflowStepRepository = lookup_workflowStepRepository;
         }
 
         public async Task<PagedResultDto<GetApplicationStageForViewDto>> GetAll(GetAllApplicationStagesInput input)
@@ -155,6 +157,7 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
         {
             await _applicationStageRepository.DeleteAsync(input.Id);
         }
+
         [AbpAuthorize(AppPermissions.Pages_ApplicationStages)]
         public async Task<List<ApplicationStageApplicationLookupTableDto>> GetAllApplicationForTableDropdown()
         {
@@ -163,6 +166,17 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
                 {
                     Id = application.Id,
                     DisplayName = application == null || application.Name == null ? "" : application.Name.ToString()
+                }).ToListAsync();
+        }
+        
+        [AbpAuthorize(AppPermissions.Pages_ApplicationStages)]
+        public async Task<List<ApplicationStageWorkflowStepLookupTableDto>> GetAllWorkflowStepForTableDropdown()
+        {
+            return await _lookup_workflowStepRepository.GetAll()
+                .Select(workflowStep => new ApplicationStageWorkflowStepLookupTableDto
+                {
+                    Id = workflowStep.Id,
+                    DisplayName = workflowStep == null || workflowStep.Name == null ? "" : workflowStep.Name.ToString()
                 }).ToListAsync();
         }
 

@@ -1,12 +1,10 @@
 ﻿using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee;
-using Zeta.AgentosCRM.CRMSetup.Document;
 using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMAgent.Contacts;
 using Zeta.AgentosCRM.CRMSetup.Email;
 using Zeta.AgentosCRM.CRMSetup.Documents;
-using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.CRMClient.Quotation;
 using Zeta.AgentosCRM.CRMClient.CheckIn;
 using Zeta.AgentosCRM.TaskManagement.Followers;

@@ -7,7 +7,7 @@ using Zeta.AgentosCRM.Web.Controllers;
 using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMClient.Dtos;
-using Abp.Application.Services.Dto; 
+using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMAppointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications;
@@ -33,10 +33,8 @@ using Zeta.AgentosCRM.CRMClient.CheckIn.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
-using Zeta.AgentosCRM.CRMClient.Qoutation;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
-using Zeta.AgentosCRM.CRMPartner.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -412,12 +410,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             var getApplicationForViewDto = await _applicationsAppService.GetApplicationForView(applicationId);
             var model = new ApplicationViewModel()
             {
-                Application = getApplicationForViewDto.Application
+                Application = getApplicationForViewDto.Application,
+				ClientFirstName=getApplicationForViewDto.ClientFirstName,
+				WorkflowName= getApplicationForViewDto.WorkflowName,
+				PartnerPartnerName= getApplicationForViewDto.PartnerPartnerName,
+				ProductName = getApplicationForViewDto.ProductName
+			};
 
-
-            };
-
-            return View("Application/ApplicationDetailIndex", model);
+            return PartialView("ApplicationDetail/ApplicationDetailIndex", model);
         }
 
         #endregion

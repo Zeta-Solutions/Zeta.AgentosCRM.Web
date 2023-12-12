@@ -101,13 +101,12 @@
     <text name="EditWorkflowOffice">Edit workflow office</text>
     <text name="DeleteWorkflowOffice">Delete workflow office</text>
     <text name="DeleteDocumentType">Delete document type</text>
-    <text name="Qoutation">Qoutation</text>
+    <text name="Quotation">Quotation</text>
     <text name="ClientQuotationDetail">Client quotation detail</text>
     <text name="CreateNewClientQuotationDetail">Create new client quotation detail</text>
     <text name="EditClientQuotationDetail">Edit client quotation detail</text>
-    <text name="DeleteClientQuotationDetail">Delete client quotation detail</text>
-
-    <text name="Quotation">Quotation</text>
+    <text name="DeleteClientQuotationDetail">Delete client quotation detail</text> 
+		
     <text name="ClientQuotationHead">Client quotation head</text>
     <text name="CreateNewClientQuotationHead">Create new client quotation head</text>
     <text name="EditClientQuotationHead">Edit client quotation head</text>
@@ -380,8 +379,7 @@
 		<text name="SessionTime">Session Time</text>
 		<text name="VisitPurpose">Visit Purpose</text>
 		<text name="End">End</text>
-
-
+ 
 		<text name="QuotationCurrencyHeaderInfo">Currency Header Info</text>
 		<text name="CreateNewQuotationCurrency">Create New Currency</text>
 		<text name="EditCountries">Edit Countries</text>

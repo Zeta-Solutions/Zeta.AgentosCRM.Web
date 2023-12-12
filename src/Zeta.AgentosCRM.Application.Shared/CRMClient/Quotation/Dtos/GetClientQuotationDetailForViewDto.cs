@@ -1,4 +1,4 @@
-﻿namespace Zeta.AgentosCRM.CRMClient.Qoutation.Dtos
+﻿namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 {
     public class GetClientQuotationDetailForViewDto
     {

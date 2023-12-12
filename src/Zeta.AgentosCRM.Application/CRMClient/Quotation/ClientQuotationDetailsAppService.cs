@@ -2,7 +2,6 @@
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMProducts;
-using Zeta.AgentosCRM.CRMClient.Quotation;
 
 using System;
 using System.Linq;
@@ -11,7 +10,7 @@ using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.Dto;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
@@ -21,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation
+namespace Zeta.AgentosCRM.CRMClient.Quotation
 {
     [AbpAuthorize(AppPermissions.Pages_ClientQuotationDetails)]
     public class ClientQuotationDetailsAppService : AgentosCRMAppServiceBase, IClientQuotationDetailsAppService
@@ -100,7 +99,7 @@ namespace Zeta.AgentosCRM.CRMClient.Qoutation
                                              o.NetFee,
                                              o.ExchangeRate,
                                              o.TotalAmount,
-                                             Id = o.Id,
+                                             o.Id,
                                              WorkflowName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                              PartnerPartnerName = s2 == null || s2.PartnerName == null ? "" : s2.PartnerName.ToString(),
                                              BranchName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
@@ -153,31 +152,31 @@ namespace Zeta.AgentosCRM.CRMClient.Qoutation
 
             if (output.ClientQuotationDetail.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.ClientQuotationDetail.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.PartnerId != null)
             {
-                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.PartnerId);
+                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.PartnerId);
                 output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
             }
 
             if (output.ClientQuotationDetail.BranchId != null)
             {
-                var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.BranchId);
+                var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.BranchId);
                 output.BranchName = _lookupBranch?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.ProductId != null)
             {
-                var _lookupProduct = await _lookup_productRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.ProductId);
+                var _lookupProduct = await _lookup_productRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.ProductId);
                 output.ProductName = _lookupProduct?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.QuotationHeadId != null)
             {
-                var _lookupClientQuotationHead = await _lookup_clientQuotationHeadRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.QuotationHeadId);
+                var _lookupClientQuotationHead = await _lookup_clientQuotationHeadRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.QuotationHeadId);
                 output.ClientQuotationHeadClientName = _lookupClientQuotationHead?.ClientName?.ToString();
             }
 
@@ -193,31 +192,31 @@ namespace Zeta.AgentosCRM.CRMClient.Qoutation
 
             if (output.ClientQuotationDetail.WorkflowId != null)
             {
-                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync((int)output.ClientQuotationDetail.WorkflowId);
+                var _lookupWorkflow = await _lookup_workflowRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.WorkflowId);
                 output.WorkflowName = _lookupWorkflow?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.PartnerId != null)
             {
-                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.PartnerId);
+                var _lookupPartner = await _lookup_partnerRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.PartnerId);
                 output.PartnerPartnerName = _lookupPartner?.PartnerName?.ToString();
             }
 
             if (output.ClientQuotationDetail.BranchId != null)
             {
-                var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.BranchId);
+                var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.BranchId);
                 output.BranchName = _lookupBranch?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.ProductId != null)
             {
-                var _lookupProduct = await _lookup_productRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.ProductId);
+                var _lookupProduct = await _lookup_productRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.ProductId);
                 output.ProductName = _lookupProduct?.Name?.ToString();
             }
 
             if (output.ClientQuotationDetail.QuotationHeadId != null)
             {
-                var _lookupClientQuotationHead = await _lookup_clientQuotationHeadRepository.FirstOrDefaultAsync((long)output.ClientQuotationDetail.QuotationHeadId);
+                var _lookupClientQuotationHead = await _lookup_clientQuotationHeadRepository.FirstOrDefaultAsync(output.ClientQuotationDetail.QuotationHeadId);
                 output.ClientQuotationHeadClientName = _lookupClientQuotationHead?.ClientName?.ToString();
             }
 

@@ -1970,11 +1970,16 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WorkflowStepId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
 
                     b.HasIndex("TenantId");
+
+                    b.HasIndex("WorkflowStepId");
 
                     b.ToTable("ApplicationStages");
                 });
@@ -2750,7 +2755,7 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("ClientInterstedServices");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Qoutation.ClientQuotationDetail", b =>
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Quotation.ClientQuotationDetail", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -2760,6 +2765,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.Property<long>("BranchId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("BranchName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -2798,8 +2806,14 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<long>("PartnerId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("PartnerName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("QuotationHeadId")
                         .HasColumnType("bigint");
@@ -2815,6 +2829,9 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.Property<int>("WorkflowId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WorkflowNae")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -4362,53 +4379,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("DegreeLevels");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Document.WorkflowDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkflowId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.HasIndex("WorkflowId");
-
-                    b.ToTable("WorkflowDocuments");
-                });
-
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.DocumentCheckListPartner", b =>
                 {
                     b.Property<int>("Id")
@@ -4559,6 +4529,53 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasIndex("TenantId");
 
                     b.ToTable("DocumentTypes");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.WorkflowDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkflowId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.HasIndex("WorkflowId");
+
+                    b.ToTable("WorkflowDocuments");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.WorkflowStepDocumentCheckList", b =>
@@ -6342,7 +6359,15 @@ namespace Zeta.AgentosCRM.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.WorkflowStep", "WorkflowStepFk")
+                        .WithMany()
+                        .HasForeignKey("WorkflowStepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ApplicationFk");
+
+                    b.Navigation("WorkflowStepFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMAppointments.Appointment", b =>
@@ -6604,7 +6629,7 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("WorkflowFk");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Qoutation.ClientQuotationDetail", b =>
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMClient.Quotation.ClientQuotationDetail", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.CRMPartner.PartnerBranch.Branch", "BranchFk")
                         .WithMany()
@@ -7063,17 +7088,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("RegionFk");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Document.WorkflowDocument", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Workflow", "WorkflowFk")
-                        .WithMany()
-                        .HasForeignKey("WorkflowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WorkflowFk");
-                });
-
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.DocumentCheckListPartner", b =>
                 {
                     b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
@@ -7110,6 +7124,17 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("ProductFk");
 
                     b.Navigation("WorkflowStepDocumentCheckListFk");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.WorkflowDocument", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Workflow", "WorkflowFk")
+                        .WithMany()
+                        .HasForeignKey("WorkflowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkflowFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMSetup.Documents.WorkflowStepDocumentCheckList", b =>

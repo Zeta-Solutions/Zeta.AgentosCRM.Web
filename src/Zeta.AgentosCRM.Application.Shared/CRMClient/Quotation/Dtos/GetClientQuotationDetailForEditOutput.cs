@@ -2,7 +2,7 @@
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation.Dtos
+namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 {
     public class GetClientQuotationDetailForEditOutput
     {
