@@ -1,7 +1,7 @@
 ﻿@model Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Layout.LanguageSwitchViewModel
 @if (Model.Languages.Count > 1)
 {
-    <div class="d-flex align-items-center ms-1 ms-lg-3 dropdown-language" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
+    <div id="FlageID" class="d-flex align-items-center ms-1 ms-lg-3 dropdown-language" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start">
         <div class="@Model.CssClass">
             <i class="@Model.CurrentLanguage.Icon" aria-label="@Model.CurrentLanguage.Icon"></i>
         </div>

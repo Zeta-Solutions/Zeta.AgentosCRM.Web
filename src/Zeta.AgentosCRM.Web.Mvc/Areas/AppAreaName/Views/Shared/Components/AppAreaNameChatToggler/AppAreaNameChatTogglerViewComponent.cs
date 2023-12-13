@@ -15,5 +15,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaN
                 IconClass = iconClass
             }));
         }
+        public Task<IViewComponentResult> InvokeAsyncCopy(string cssClass, string iconClass = "flaticon-edit-2 fs-2")
+        {
+            return Task.FromResult<IViewComponentResult>(View(new ChatTogglerViewModel
+            {
+                CssClass = cssClass,
+                IconClass = iconClass
+            }));
+        }
     }
 }
