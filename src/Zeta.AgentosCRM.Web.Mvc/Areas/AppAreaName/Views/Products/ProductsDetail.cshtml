@@ -12,6 +12,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/OtherInfo/OtherInfo.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/Promotions/Promotions.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/ProductRequirment/ProductRequirment.js" asp-append-version="true"></script>
+      <script abp-src="/view-resources/Areas/AppAreaName/Views/Products/Fee/Fee.js" asp-append-version="true"></script>
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/ReferredClients/_ReferredClients.js" asp-append-version="true"></script> *@
 }
 
@@ -212,9 +213,9 @@
                 </div>
             </div>
             
-            <div class="tab-pane pt-5 mb-7" id="ApplicationTab" role="tabpanel">
+            <div class="tab-pane pt-5 mb-7" id="Fees" role="tabpanel">
                 <div class="list-group">
-                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Agents/Applications/Index.cshtml")
+                    @await Html.PartialAsync("~/Areas/AppAreaName/Views/Products/Fee/Fee.cshtml")
                 </div>
             </div>
             <div class="tab-pane pt-5 mb-7" id="Promotions" role="tabpanel">

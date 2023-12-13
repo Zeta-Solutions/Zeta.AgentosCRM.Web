@@ -29,5 +29,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee.Dtos
 
         public string ProductFeeNameFilter { get; set; }
 
+        public int? ProductHeadIdFilter { get; set; }
+
     }
 }

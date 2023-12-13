@@ -1,7 +1,5 @@
 ﻿using Abp.Application.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Zeta.AgentosCRM.Authorization.Users.Profile.Dto;
 using Zeta.AgentosCRM.CRMClient.Profile.Dto;
@@ -12,11 +10,11 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
     {
         Task UpdateProfilePicture(UpdateClientProfilePictureInput input);
 
-        Task<GetProfilePictureOutput> GetProfilePicture();
+        Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId);
 
-        Task<GetProfilePictureOutput> GetProfilePictureByClient(long userId);
-
-        Task<GetProfilePictureOutput> GetProfilePictureByClientName(string username);
+        Task<GetProfilePictureOutput> GetProfilePictureByClientName(string clientname);
+        
+        Task<Guid> InsertProfilePictureForClient(UpdateClientProfilePictureInput input);
 
     }
 }

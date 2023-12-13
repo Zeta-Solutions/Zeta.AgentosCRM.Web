@@ -1,0 +1,86 @@
+﻿@using System.Globalization
+@model CreateOrEditProductFeeModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Fee;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewFee")))
+
+<div class="modal-body">
+    <div id="FeeInformationsForm">
+        <form name="FeeInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.ProductFee.Id" />
+            }
+            <input type="hidden" name="productId" id="productId" value="" />
+            <div class="row col-12">
+                <div class="my-3 col-4">
+                    <label class="form-label" for="Application_Abbrivation">@L("FeeOptionName")</label>
+                    <input type="text" class="form-control custom-small-input  rounded-0" id="Name" name="Name" value="@Model.ProductFee.Name">
+                </div>
+
+                <div class="my-3 col-4">
+
+
+                    <label for="UNIVERSITY" class="form-label">@L("CountryOfResidency")</label>
+                    @Html.DropDownList("countryId", new SelectList(Model.ProductFeeCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductFee.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
+
+
+                </div>
+                <div class="my-3 col-4">
+                    <label class="form-label" for="Application_Name">@L("InstallmentType")</label>
+                    @Html.DropDownList("installmentTypeId", new SelectList(Model.ProductFeeInstallmentTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductFee.InstallmentTypeId.ToString() : "")),@L("SelectAInstallmentType"), new { @class = "form-control" , @required="required" })
+                </div>
+
+            </div>
+
+
+        </form>
+
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-3">
+                    <label>Fee Type</label> 
+                </div>
+                <div class="col-lg-2">
+                    <label>@L("Amount")</label>
+
+                </div>
+                <div class="col-lg-2">
+                    <label>@L("Installment")</label>
+
+                </div>
+                <div class="col-lg-2">
+                    <label>@L("total Fee")</label>
+
+                </div>
+                <div class="col-lg-1">
+                    <label>@L("Income/ Payable")</label>
+
+                </div>
+                <div class="col-lg-1">
+                    <label>@L("Add In Quotation")</label>
+
+                </div> 
+                <div class="col-lg-1">
+                    <label>@L("Action")</label>
+
+                </div> 
+
+            </div>
+            <div class="AddTaxDiv"></div>
+            <div class="card-footer">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-12">
+                        <button type="button" id="saveBtn" class="btn btnclose btn-sm btn-outline text-white  rounded-0  float-right addTax"> @L("AddFee")</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

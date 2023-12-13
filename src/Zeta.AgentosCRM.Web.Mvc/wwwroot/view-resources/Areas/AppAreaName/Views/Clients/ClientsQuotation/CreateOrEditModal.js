@@ -4,6 +4,8 @@
         const partnerIdValue = urlParams.get('clientId');
         var idValue = 0;
         var idElements = document.getElementsByName("id");
+        debugger
+      
 
         if (idElements.length > 0) {
             // Check if at least one element with the name "id" is found
@@ -105,20 +107,26 @@
             var cardTitle = $('<h5>').addClass('card-title').html("Client Details <hr>");
 
             // Create the paragraph for card information
-            var infoParagraph = $('<p>').addClass('card-text').html(item.firstName + '  ' + item.lastName + '<br>' +
-                item.email);
+            var infoParagraph = $('<p>').addClass('card-text clientName').html(item.firstName + '  ' + item.lastName + '<br>');
+            var infoParagraph1 = $('<p>').addClass('card-text clientEmail').html(item.email);
+               
 
             // Append card title and info paragraph to the card body
-            cardBodyDiv.append(cardTitle, infoParagraph);
+            cardBodyDiv.append(cardTitle, infoParagraph, infoParagraph1);
 
             // Append card body to the card
             cardDiv.append(cardBodyDiv);
 
             // Append card to the mainDiv
             mainDiv.append(cardDiv);
-
+            debugger
+            var clientname = item.firstName + item.lastName;
+            var clientEmail = item.email;
+            $("input[name='ClientEmail']").val(clientEmail);
+            $("#ClientName").val(clientname);
             // Return the created card
             return mainDiv;
+            
         }
 
 
@@ -173,6 +181,7 @@
             //    }
             //} 
         }
+
         var _clientsQuotationService = abp.services.app.clientQuotationHeads;
         $("#kt_app_sidebar_toggle").trigger("click");
         $('#currencyId').select2({
@@ -182,6 +191,7 @@
         //const urlParams = new URLSearchParams(window.location.search);
         //const clientIdValue = urlParams.get('clientId');
         $("#ClientId").val(partnerIdValue);
+       
         var _$clientQuotationInformationForm = $('form[name=QuotationInformationsForm]');
         _$clientQuotationInformationForm.validate();
 

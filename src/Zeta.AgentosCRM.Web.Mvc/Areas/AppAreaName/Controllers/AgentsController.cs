@@ -52,7 +52,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
         public IActionResult AddAgentdetail()
         {
-            return View("~/Areas/AppAreaName/Views/Agents/AddAgents/CreateOrEdit.cshtml");
+            return View("~/Areas/AppAreaName/Views/Agents/AddAgents/CreateOrEdit.cshtml");
+
         }
         public ActionResult CreateOrEditModal(int? id)
         {

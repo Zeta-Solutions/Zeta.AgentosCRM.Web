@@ -1,6 +1,8 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts.Fee.Dtos
 {
@@ -20,6 +22,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee.Dtos
         public int CountryId { get; set; }
 
         public int? InstallmentTypeId { get; set; }
+
+        public List<CreateOrEditProductFeeDetailDto> FeeDetails { get; set; }
 
     }
 }

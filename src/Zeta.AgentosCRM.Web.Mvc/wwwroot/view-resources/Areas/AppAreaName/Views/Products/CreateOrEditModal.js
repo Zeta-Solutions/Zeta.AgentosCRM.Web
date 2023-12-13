@@ -15,6 +15,7 @@
         //}
         //$('#partnerId').prop('disabled', true);
         $('#branchId').select2({
+            multiple: true,
             width: '350px',
             // Adjust the width as needed
         });
@@ -26,95 +27,90 @@
             width: '550px',
             // Adjust the width as needed
         });
-        // For example, if you want to set it in an input field with the id 'productId'
+        var hiddenfield = 38;
 
-        //// Use URLSearchParams to handle query parameters
-        ////var params = new URLSearchParams(url);
-        //var vid = url.substring(url.lastIndexOf('/') + 1);
-        //var id = idValue.split("?");
-        //var pid = id[1];
-        //var pidd = pid.split("=");
-        //var vid = pidd[1]
-        //// Get the value of the 'id' parameter
-        ////var idValue = params.get('id');
-        //console.log('idValue:', idValue);
+        $("#BranchId").val(hiddenfield);
 
-        //if (vid !== null) {
-        //    // Now you can use the idValue as needed (e.g., save it to a field)
-        //    // For example:
-        //    $("#partnerId").val(vid);
-        //}
-        //var input = document.querySelector("#phone");
-        //const errorMsg = document.querySelector("#error-msg");
-        //const validMsg = document.querySelector("#valid-msg");
+        $.ajax({
+            url: abp.appPath + 'api/services/app/Products/GetAllBranchForTableDropdown',
+            method: 'GET',
+            dataType: 'json',
+            //data: {
+            //    PartnerIdFilter: dynamicValue,
+            //},
+            success: function (data) {
 
-        //const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+                // Populate the dropdown with the fetched data
+                populateDropdown(data);
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+        function populateDropdown(data) {
+            var dropdown = $('#branchId');
 
+            dropdown.empty();
 
-        //var iti = intlTelInput(input, {
-        //    initialCountry: "auto",
-        //    geoIpLookup: function (success, failure) {
-        //        // Simulate a successful IP lookup to set the initial country
-        //        var countryCode = "PK"; // Replace with the appropriate country code
-        //        //$.get("https://ipinfo.io/", function () { }, "jsonp").always(function (resp) {
-        //        //    var countryCode = (resp && resp.country) ? resp.country : "";
-        //        //    success(countryCode);
-        //        //});
-        //        success(countryCode);
-        //    },
-        //    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
-        //});
+            $.each(data.result, function (index, item) {
+                if (item && item.id !== null && item.id !== undefined && item.displayName !== null && item.displayName !== undefined) {
+                    dropdown.append($('<option></option>').attr('value', item.id).attr('data-id', item.id).text(item.displayName));
+                } else {
+                    console.warn('Invalid item:', item);
+                }
+            });
+        }
+        var idValue = 0;
+        var idElements = document.getElementsByName("id");
 
-        //// Manually set the phone number and selected country code (e.g., "US")
-        ////var savedPhoneNumber = "123-456-7890"; // Replace with your saved phone number
-        //var settittle = $("#PhoneCode").val();
-        //var selectedCountry = settittle; // Replace with the appropriate country code
+        if (idElements.length > 0) {
+            // Check if at least one element with the name "id" is found
+            var idElement = idElements[0];
 
-        //// Set the phone number value and selected country
-        ////input.value = savedPhoneNumber;
-        //iti.setCountry(selectedCountry);
-
-        //// Change the flag and title based on a condition
-        //var condition = true; // Change this to your condition
-
-        //// Get the element by its class name
-        //var flagElement = document.querySelector(".iti__selected-flag");
-
-        //if (condition) {
-        //    // Change the title attribute
-        //    //flagElement.setAttribute("title", "India (भारत): +91"); // Replace "New Title" and "+XX" with your desired values
-
-        //    // Change the flag by adding a new class (replace iti__us with iti__pk for Pakistan)
-        //    // flagElement.querySelector(".iti__flag").className = "iti__flag iti__pk";
-        //}
-        //const reset = () => {
-        //    input.classList.remove("error");
-        //    errorMsg.innerHTML = "";
-        //    errorMsg.classList.add("hide");
-        //    validMsg.classList.add("hide");
-        //};
-
-        //input.addEventListener('blur', () => {
-        //    reset();
-        //    if (input.value.trim()) {
-        //        if (iti.isValidNumber()) {
-        //            validMsg.classList.remove("hide");
-        //        } else {
-        //            input.classList.add("error");
-        //            const errorCode = iti.getValidationError();
-        //            errorMsg.innerHTML = errorMap[errorCode];
-        //            errorMsg.classList.remove("hide");
-        //        }
-        //    }
-        //});
-        //// on keyup / change flag: reset
-        //input.addEventListener('change', reset);
-        //input.addEventListener('keyup', reset);
+            if (idElement.value !== undefined) {
+                // Check if the value property is defined
+                idValue = idElement.value;
+            } else {
+                console.error("Element with name 'id' does not have a value attribute.");
+            }
+        } else {
+            console.error("Element with name 'id' not found.");
+        }
+        if (idValue > 0) {
 
 
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Products/GetProductForEdit?id=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Populate the dropdown with the fetched data
+                    updateProductDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+
+        function updateProductDropdown(data) {
+            debugger;
+            var ms_val = 0;
+
+            // Assuming data.result.promotionproduct is an array of objects with OwnerID property..
+            $.each(data.result.branches, function (index, obj) {
+                ms_val += "," + obj.branchId;
+
+            });
+
+            //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
+            var ms_array = ms_val.split(',');
+            var $productId = $("#branchId");
 
 
+            $productId.val(ms_array).trigger('change');
 
+        }
 
 
 
@@ -317,11 +313,24 @@
             //    abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
             //    return;
             //}
+            var datarows = [];
+            var datarowsList = $("#branchId :selected").map(function (i, el) {
+                debugger
+                return $(el).val();
+            }).get();
+            $.each(datarowsList, function (index, value) {
+                var datarowsItem = {
+                    BranchId: datarowsList[index]
+                }
+                datarows.push(datarowsItem);
+            });
+            var Branches = JSON.stringify(datarows);
 
+            Branches = JSON.parse(Branches);
 
 
             var partner = _$productInformationForm.serializeFormToObject();
-
+            partner.Branches = Branches;
 
 
             abp.ui.setBusy();

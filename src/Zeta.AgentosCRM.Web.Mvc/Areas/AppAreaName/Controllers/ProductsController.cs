@@ -4,11 +4,14 @@ using System.Threading.Tasks;
 using Zeta.AgentosCRM.CRMPartner.Dtos;
 using Zeta.AgentosCRM.CRMProducts;
 using Zeta.AgentosCRM.CRMProducts.Dtos;
+using Zeta.AgentosCRM.CRMProducts.Fee;
+using Zeta.AgentosCRM.CRMProducts.Fee.Dtos;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.Requirements.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Fee;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Otherinfo;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Requirements;
 using Zeta.AgentosCRM.Web.Controllers;
@@ -23,13 +26,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IProductAcadamicRequirementsAppService _productAcadamicRequirementsAppService;
         private readonly IProductEnglishRequirementsAppService _productEnglishRequirementsAppService;
         private readonly IProductOtherTestRequirementsAppService _ProductOtherTestRequirementsAppService;
-        public ProductsController(IProductsAppService productsAppService, IProductOtherInformationsAppService productOtherInformationsAppService, IProductAcadamicRequirementsAppService productAcadamicRequirementsAppService, IProductEnglishRequirementsAppService productEnglishRequirementsAppService, IProductOtherTestRequirementsAppService productOtherTestRequirementsAppService)
+        private readonly IProductFeesAppService _productFeesAppService;
+        public ProductsController(IProductsAppService productsAppService, IProductOtherInformationsAppService productOtherInformationsAppService, IProductAcadamicRequirementsAppService productAcadamicRequirementsAppService, IProductEnglishRequirementsAppService productEnglishRequirementsAppService, IProductOtherTestRequirementsAppService productOtherTestRequirementsAppService,IProductFeesAppService productFeesAppService)
         {
             _productsAppService = productsAppService;
             _productOtherInformationsAppService = productOtherInformationsAppService;
             _productAcadamicRequirementsAppService = productAcadamicRequirementsAppService;
             _productEnglishRequirementsAppService = productEnglishRequirementsAppService;
             _ProductOtherTestRequirementsAppService = productOtherTestRequirementsAppService;
+            _productFeesAppService = productFeesAppService;
 
         }
         #region Products
@@ -244,6 +249,53 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             };
             return PartialView("ProductOtherscore/_CreateOrEditproductotherscoreModal", viewModel);
+
+        }
+        #endregion
+
+        #region product Fee
+        public async Task<ActionResult> Fee(int id)
+        {
+            var getFeeForViewDto = await _productFeesAppService.GetProductFeeForView(id);
+            var model = new FeeViewModel()
+            {
+                ProductFee = getFeeForViewDto.ProductFee
+
+
+            };
+
+            return View("Fee/Fee", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditFeeModal(int? id)
+        {
+            GetProductFeeForEditOutput getFeeForEditOutput;
+
+            if (id.HasValue)
+            {
+                getFeeForEditOutput = await _productFeesAppService.GetProductFeeForEdit(new EntityDto { Id = (int)id });
+            }
+            else
+            {
+                getFeeForEditOutput = new GetProductFeeForEditOutput
+                {
+                    ProductFee = new CreateOrEditProductFeeDto()
+                };
+
+            }
+
+            var viewModel = new CreateOrEditProductFeeModalViewModel()
+            {
+
+                ProductFee = getFeeForEditOutput.ProductFee,
+                CountryName = getFeeForEditOutput.CountryName,
+                InstallmentTypeName = getFeeForEditOutput.InstallmentTypeName,
+                ProductFeeInstallmentTypeList = await _productFeesAppService.GetAllInstallmentTypeForTableDropdown(),
+                ProductFeeCountryList = await _productFeesAppService.GetAllCountryForTableDropdown(),
+
+
+
+            };
+            return PartialView("Fee/_CreateOrEditFeeModal", viewModel);
 
         }
         #endregion

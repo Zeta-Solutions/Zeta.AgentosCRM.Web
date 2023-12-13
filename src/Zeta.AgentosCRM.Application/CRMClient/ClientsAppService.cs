@@ -336,8 +336,9 @@ namespace Zeta.AgentosCRM.CRMClient
 
         [AbpAuthorize(AppPermissions.Pages_Clients_Edit)]
         protected virtual async Task Update(CreateOrEditClientDto input)
-        {
+        { 
             var client = await _clientRepository.FirstOrDefaultAsync((long)input.Id);
+            input.ProfilePictureId = client.ProfilePictureId;
             ObjectMapper.Map(input, client);
 
         }

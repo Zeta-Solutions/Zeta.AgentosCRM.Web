@@ -32,7 +32,7 @@
 
         public static class Tenant
         {
-            public const string ProductFeeDetails = "Fee.ProductFeeDetails";
+            //public const string ProductFeeDetails = "Fee.ProductFeeDetails";
             public const string Clients = "CRMClient.Clients";
             public const string Workflows = "CRMSetup.Workflows"; 
             public const string PartnerTypes = "CRMSetup.PartnerTypes";

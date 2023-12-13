@@ -45,6 +45,7 @@
                                 <input type="hidden" name="id" value="@Model.Product.Id" />
                             }
                              <input type="hidden" name="partnerId" id="productId" value="" />
+                                <input type="hidden" name="BranchId" id="BranchId" value="" />
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header ">
@@ -79,8 +80,9 @@
 
 
                                         <div class="col-md-4 mb-3">
-                                            <label for="Country" class="form-label">@L("Branches") </label>
-                                               @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" })
+                                                        <label for="Country" class="form-label" id="hoverText">@L("Branches") </label>
+                                               @* @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" }) *@
+                                                        <select id="branchId" class="form-select select2" data-id="" data-control="select2"></select>
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="Country" class="form-label">@L("ProductType")</label>
