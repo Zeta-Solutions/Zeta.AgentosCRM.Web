@@ -44,8 +44,8 @@ namespace Zeta.AgentosCRM.CRMProducts.OtherInfo
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.SubjectAreaFk != null && e.SubjectAreaFk.Name == input.SubjectAreaNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectNameFilter), e => e.SubjectFk != null && e.SubjectFk.Name == input.SubjectNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter)
+             .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
             var pagedAndFilteredProductOtherInformations = filteredProductOtherInformations
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -217,7 +217,8 @@ namespace Zeta.AgentosCRM.CRMProducts.OtherInfo
         }
 
         [AbpAuthorize(AppPermissions.Pages_ProductOtherInformations)]
-        public async Task<PagedResultDto<ProductOtherInformationDegreeLevelLookupTableDto>> GetAllDegreeLevelForLookupTable(GetAllForLookupTableInput input)
+        //public async Task<PagedResultDto<ProductOtherInformationDegreeLevelLookupTableDto>> GetAllDegreeLevelForLookupTable(GetAllForLookupTableInput input)
+        public async Task<List<ProductOtherInformationDegreeLevelLookupTableDto>> GetAllDegreeLevelForLookupTable(GetAllForLookupTableInput input)
         {
             var query = _lookup_degreeLevelRepository.GetAll().WhereIf(
                    !string.IsNullOrWhiteSpace(input.Filter),
@@ -240,10 +241,11 @@ namespace Zeta.AgentosCRM.CRMProducts.OtherInfo
                 });
             }
 
-            return new PagedResultDto<ProductOtherInformationDegreeLevelLookupTableDto>(
-                totalCount,
-                lookupTableDtoList
-            );
+            return lookupTableDtoList;
+            //return new List<ProductOtherInformationDegreeLevelLookupTableDto>(
+            //    totalCount,
+            //    lookupTableDtoList
+            //);
         }
 
         [AbpAuthorize(AppPermissions.Pages_ProductOtherInformations)]

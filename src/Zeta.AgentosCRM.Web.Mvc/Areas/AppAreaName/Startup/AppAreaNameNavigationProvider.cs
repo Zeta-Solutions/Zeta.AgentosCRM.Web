@@ -24,6 +24,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.ProductFeeDetails,
+                        L("ProductFeeDetails"),
+                        url: "AppAreaName/ProductFeeDetails",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_ProductFeeDetails)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.TestAattachments,
                         L("TestAattachments"),
                         url: "AppAreaName/TestAattachments",
@@ -242,7 +250,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Subjects)
                         )
-                    ) 
+                    )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.LeadSource,
                             L("LeadSource"),
@@ -250,8 +258,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_LeadSources)
                         )
-                    )
-                     
+                    ) 
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.DocumentChecklist,
                             L("DocumentCheckList"),

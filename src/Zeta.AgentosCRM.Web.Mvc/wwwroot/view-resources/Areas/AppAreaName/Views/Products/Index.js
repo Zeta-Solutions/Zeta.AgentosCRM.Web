@@ -145,10 +145,46 @@
                 //    name: 'Name',
                 //},
                 {
+                    width: 100,
                     targets: 2,
-                    data: 'partnerPartnerName',
-                    name: 'PartnerPartnerName',
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+                    render: function (data, type, row) {
+                        let firstNameInitial = row.partnerPartnerName.charAt(0).toUpperCase();
+                        //let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}`;
+                        let fullName = `${row.partnerPartnerName}`;
+                        /*      console.log(row);*/
+                        debugger
+                        // Generate the URLs using JavaScript variables
+                        let clientDetailUrl = `/AppAreaName/partners/DetailsForm?id=${row.product.partnerId}`;
+                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
+                        // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                        /*             console.log(clientEmailComposeUrl);*/
+
+                        return `
+        <div class="d-flex align-items-center">
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}
+                </a> 
+              
+            </div>
+        </div>
+    `;
+                    },
+
+                    name: 'concatenatedData',
+
                 },
+                //{
+                //    targets: 2,
+                //    data: 'partnerPartnerName',
+                //    name: 'PartnerPartnerName',
+                //},
                 {
                     targets: 3,
                     data: 'partnerTypeName',

@@ -30,6 +30,16 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var productBranches = pages.CreateChildPermission(AppPermissions.Pages_ProductBranches, L("ProductBranches"), multiTenancySides: MultiTenancySides.Tenant);
+            productBranches.CreateChildPermission(AppPermissions.Pages_ProductBranches_Create, L("CreateNewProductBranch"), multiTenancySides: MultiTenancySides.Tenant);
+            productBranches.CreateChildPermission(AppPermissions.Pages_ProductBranches_Edit, L("EditProductBranch"), multiTenancySides: MultiTenancySides.Tenant);
+            productBranches.CreateChildPermission(AppPermissions.Pages_ProductBranches_Delete, L("DeleteProductBranch"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var productFeeDetails = pages.CreateChildPermission(AppPermissions.Pages_ProductFeeDetails, L("ProductFeeDetails"), multiTenancySides: MultiTenancySides.Tenant);
+            productFeeDetails.CreateChildPermission(AppPermissions.Pages_ProductFeeDetails_Create, L("CreateNewProductFeeDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            productFeeDetails.CreateChildPermission(AppPermissions.Pages_ProductFeeDetails_Edit, L("EditProductFeeDetail"), multiTenancySides: MultiTenancySides.Tenant);
+            productFeeDetails.CreateChildPermission(AppPermissions.Pages_ProductFeeDetails_Delete, L("DeleteProductFeeDetail"), multiTenancySides: MultiTenancySides.Tenant);
+
             var productOtherTestRequirements = pages.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements, L("ProductOtherTestRequirements"), multiTenancySides: MultiTenancySides.Tenant);
             productOtherTestRequirements.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements_Create, L("CreateNewProductOtherTestRequirement"), multiTenancySides: MultiTenancySides.Tenant);
             productOtherTestRequirements.CreateChildPermission(AppPermissions.Pages_ProductOtherTestRequirements_Edit, L("EditProductOtherTestRequirement"), multiTenancySides: MultiTenancySides.Tenant);

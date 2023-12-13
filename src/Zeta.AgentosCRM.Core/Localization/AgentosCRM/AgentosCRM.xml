@@ -1,6 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="ProductOtherTestRequirement">Product other test requirement</text>
+	<texts>    <text name="ProductBranch">Product branch</text>
+    <text name="CreateNewProductBranch">Create new product branch</text>
+    <text name="EditProductBranch">Edit product branch</text>
+    <text name="DeleteProductBranch">Delete product branch</text>
+    <text name="ProductFeeDetail">Product fee detail</text>
+    <text name="Zeta.AgentosCRM.Fee.ProductFeeDetail">ProductFeeDetail</text>
+    <text name="InstallmentAmount">Installment amount</text>
+    <text name="Installments">Installments</text>
+    <text name="ClaimTerms">Claim terms</text>
+    <text name="CommissionPer">Commission per</text>
+    <text name="IsPayable">Is payable</text>
+    <text name="NotIsPayable">Not is payable</text>
+    <text name="AddInQuotation">Add in quotation</text>
+    <text name="NotAddInQuotation">Not add in quotation</text>
+    <text name="ProductFeeDetailsHeaderInfo">Product fee details header info</text>
+    <text name="CreateNewProductFeeDetail">Create new product fee detail</text>
+    <text name="EditProductFeeDetail">Edit product fee detail</text>
+    <text name="DeleteProductFeeDetail">Delete product fee detail</text>
+    <text name="ProductFeeDetails">Product fee details</text>
+    <text name="FeeTypeName">Fee type name</text>
+    <text name="PickFeeType">Pick fee type</text>
+    <text name="SelectAFeeType">Select a fee type</text>
+    <text name="ProductFeeName">Product fee name</text>
+    <text name="PickProductFee">Pick product fee</text>
+    <text name="SelectAProductFee">Select a product fee</text>
+
+    <text name="ProductOtherTestRequirement">Product other test requirement</text>
     <text name="CreateNewProductOtherTestRequirement">Create new product other test requirement</text>
     <text name="EditProductOtherTestRequirement">Edit product other test requirement</text>
     <text name="DeleteProductOtherTestRequirement">Delete product other test requirement</text>

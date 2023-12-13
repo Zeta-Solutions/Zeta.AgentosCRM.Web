@@ -212,9 +212,13 @@
 					data: 'agent.city',
 					name: 'City',
 				},
-				
 				{
 					targets: 7,
+					data: 'organizationUnitDisplayName',
+					name: 'OrganizationUnitDisplayName',
+				},
+				{
+					targets: 8,
 					width: 30,
 					data: null,
 					orderable: false,

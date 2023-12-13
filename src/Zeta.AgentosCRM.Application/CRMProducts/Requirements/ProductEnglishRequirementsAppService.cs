@@ -16,6 +16,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
 
 namespace Zeta.AgentosCRM.CRMProducts.Requirements
 {
@@ -49,8 +50,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Requirements
                         .WhereIf(input.MaxSpeakingFilter != null, e => e.Speaking <= input.MaxSpeakingFilter)
                         .WhereIf(input.MinTotalScoreFilter != null, e => e.TotalScore >= input.MinTotalScoreFilter)
                         .WhereIf(input.MaxTotalScoreFilter != null, e => e.TotalScore <= input.MaxTotalScoreFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter)
+              .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
             var pagedAndFilteredProductEnglishRequirements = filteredProductEnglishRequirements
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -167,6 +168,14 @@ namespace Zeta.AgentosCRM.CRMProducts.Requirements
         {
             var productEnglishRequirement = await _productEnglishRequirementRepository.FirstOrDefaultAsync((int)input.Id);
             ObjectMapper.Map(input, productEnglishRequirement);
+            //var productEnglishRequirement = await _productEnglishRequirementRepository.GetAllListAsync(p => p.ProductId == input.Id);
+            //foreach (var item in productEnglishRequirement)
+            //{
+            //    await _productEnglishRequirementRepository.DeleteAsync(item.Id);
+            //} 
+
+            //var productEnglishRequirementEntity = ObjectMapper.Map<ProductEnglishRequirement>(input);
+            //await _productEnglishRequirementRepository.InsertAsync(productEnglishRequirementEntity);
 
         }
 

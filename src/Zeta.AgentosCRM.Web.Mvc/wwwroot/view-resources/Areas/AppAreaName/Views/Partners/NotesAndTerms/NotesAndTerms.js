@@ -26,10 +26,7 @@
             var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
             var cardTitle = $('<h5>').addClass('card-title');
 
-            // Include context menu HTML within the title
-            //var rowId = data.partner.id;
-            //var rowData = data.partner;
-            //var RowDatajsonString = JSON.stringify(rowData);
+           
             cardTitle.html(note.title +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis123"><a href="#" data-id="' + note.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +

@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ProductBranches = "Pages.ProductBranches";
+        public const string Pages_ProductBranches_Create = "Pages.ProductBranches.Create";
+        public const string Pages_ProductBranches_Edit = "Pages.ProductBranches.Edit";
+        public const string Pages_ProductBranches_Delete = "Pages.ProductBranches.Delete";
+
+        public const string Pages_ProductFeeDetails = "Pages.ProductFeeDetails";
+        public const string Pages_ProductFeeDetails_Create = "Pages.ProductFeeDetails.Create";
+        public const string Pages_ProductFeeDetails_Edit = "Pages.ProductFeeDetails.Edit";
+        public const string Pages_ProductFeeDetails_Delete = "Pages.ProductFeeDetails.Delete";
+
         public const string Pages_ProductOtherTestRequirements = "Pages.ProductOtherTestRequirements";
         public const string Pages_ProductOtherTestRequirements_Create = "Pages.ProductOtherTestRequirements.Create";
         public const string Pages_ProductOtherTestRequirements_Edit = "Pages.ProductOtherTestRequirements.Edit";

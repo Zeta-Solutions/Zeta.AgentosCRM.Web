@@ -44,6 +44,8 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ProductBranch),
+            typeof(ProductFeeDetail),
             typeof(ProductOtherTestRequirement),
             typeof(ProductEnglishRequirement),
             typeof(ProductAcadamicRequirement),

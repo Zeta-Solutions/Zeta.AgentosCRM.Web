@@ -1,0 +1,37 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+
+
+<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Products/Promotions/Promotions.js" asp-append-version="true"></script>
+<div class="maincard">
+    <div class="card">
+
+        <div class="card-body">
+            <div class="form">
+                <div class="fixed-width-div">
+                    <div style="overflow-x: auto;">
+                    </div>
+                    <div class="row align-items-center">
+                        <table id="Promotionstable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                            <thead>
+                                <tr>
+                                    <th></th>
+
+                                    <th>@L("PromotionTitle")</th>
+                                    <th>@L("Description")</th>
+                                    <th>@L("StartDate")</th>
+                                    <th>@L("ExpirayDate")</th>
+                                   
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@
