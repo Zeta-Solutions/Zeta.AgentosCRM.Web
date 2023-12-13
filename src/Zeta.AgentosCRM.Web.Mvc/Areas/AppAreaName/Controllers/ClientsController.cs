@@ -96,6 +96,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
+        public ActionResult ClientsQuotationPreview()
+        {
+            return View("ClientsQuotation/QuotationPreview");
+        }
         public async Task<ActionResult> ClientCreateDetail(long? id)
         {
             GetClientForEditOutput getClientForEditOutput;

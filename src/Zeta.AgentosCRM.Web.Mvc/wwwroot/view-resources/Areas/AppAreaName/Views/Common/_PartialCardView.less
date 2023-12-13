@@ -225,3 +225,19 @@ table.dataTable thead tr {
     border: 0.2px solid #ccc; /* Use a lighter grey color */
     padding: 8px; /* Adjust padding as needed */
 }
+
+@media print {
+    .hide-on-print {
+        display: none !important;
+    }
+}
+@media print {
+    @page {
+        size: auto; /* auto is the initial value */
+        margin: 0mm; /* this affects the margin in the printer settings */
+    }
+
+    body {
+        margin: 0; /* this affects the margin on the content before sending to printer */
+    }
+}

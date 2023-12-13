@@ -354,7 +354,7 @@
         
         $('#saveAndNewBtn').click(function(){
             save(function(){
-                if (!$('input[name=id]').val()) {//if it is create page
+                if (!$('input[name=id]').val()) {//if it is create page...
                    clearForm();
                 }
             });
