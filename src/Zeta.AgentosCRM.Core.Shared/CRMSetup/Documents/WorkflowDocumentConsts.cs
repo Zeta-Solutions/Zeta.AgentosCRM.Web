@@ -1,4 +1,4 @@
-﻿namespace Zeta.AgentosCRM.CRMSetup.Document
+﻿namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
     public class WorkflowDocumentConsts
     {

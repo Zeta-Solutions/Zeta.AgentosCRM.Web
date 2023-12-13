@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
+using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations

@@ -1,11 +1,10 @@
-﻿using Zeta.AgentosCRM.CRMSetup;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document
+namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
     [Table("WorkflowDocuments")]
     public class WorkflowDocument : FullAuditedEntity, IMustHaveTenant

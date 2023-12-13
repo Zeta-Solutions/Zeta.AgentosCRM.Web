@@ -2,7 +2,6 @@
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 using Zeta.AgentosCRM.CRMProducts;
-using Zeta.AgentosCRM.CRMClient.Quotation;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +9,7 @@ using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation
+namespace Zeta.AgentosCRM.CRMClient.Quotation
 {
     [Table("ClientQuotationDetails")]
     [Audited]
@@ -31,21 +30,25 @@ namespace Zeta.AgentosCRM.CRMClient.Qoutation
 
         public virtual decimal TotalAmount { get; set; }
 
+        public virtual string WorkflowNae { get; set; }
         public virtual int WorkflowId { get; set; }
 
         [ForeignKey("WorkflowId")]
         public Workflow WorkflowFk { get; set; }
 
+        public virtual string PartnerName { get; set; }
         public virtual long PartnerId { get; set; }
 
         [ForeignKey("PartnerId")]
         public Partner PartnerFk { get; set; }
 
+        public virtual string BranchName { get; set; }
         public virtual long BranchId { get; set; }
 
         [ForeignKey("BranchId")]
         public Branch BranchFk { get; set; }
 
+        public virtual string ProductName { get; set; }
         public virtual long ProductId { get; set; }
 
         [ForeignKey("ProductId")]

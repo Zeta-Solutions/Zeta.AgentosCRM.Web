@@ -6,5 +6,7 @@
 
         public string ApplicationName { get; set; }
 
+        public string WorkflowStepName { get; set; }
+
     }
 }

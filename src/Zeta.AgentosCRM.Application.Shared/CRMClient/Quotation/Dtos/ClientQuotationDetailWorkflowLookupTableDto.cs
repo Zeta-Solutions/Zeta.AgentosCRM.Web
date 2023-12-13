@@ -1,6 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 
-namespace Zeta.AgentosCRM.CRMClient.Qoutation.Dtos
+namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 {
     public class ClientQuotationDetailWorkflowLookupTableDto
     {

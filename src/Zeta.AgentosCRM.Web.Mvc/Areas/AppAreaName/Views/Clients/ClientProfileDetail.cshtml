@@ -314,7 +314,7 @@
                         </a>
                     </li>
                     <li class="nav-item" hidden>
-                            <a href="#ApplicationDetailTabDiv" id="ApplicationDetailTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                            <a href="#ApplicationDetailTabDiv" id="ApplicationDetailTab" data-url="@Url.Action("ApplicationDetailIndex","Clients")" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
                             @L("ApplicationDetail")
                         </a>
                     </li>
@@ -397,7 +397,7 @@
         </div>
         <div class="tab-pane pt-5 mb-7" id="ApplicationDetailTabDiv" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ApplicationDetail/ApplicationDetailIndex.cshtml")
+                @* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/ApplicationDetail/ApplicationDetailIndex.cshtml") *@
             </div>
         </div>
     </div>

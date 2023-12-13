@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.CRMSetup;
 
 namespace Zeta.AgentosCRM.CRMApplications.Stages
 {
@@ -22,6 +23,11 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
 
         [ForeignKey("ApplicationId")]
         public Application ApplicationFk { get; set; }
+
+        public virtual int WorkflowStepId { get; set; }
+
+        [ForeignKey("WorkflowStepId")]
+        public WorkflowStep WorkflowStepFk { get; set; }
 
     }
 }

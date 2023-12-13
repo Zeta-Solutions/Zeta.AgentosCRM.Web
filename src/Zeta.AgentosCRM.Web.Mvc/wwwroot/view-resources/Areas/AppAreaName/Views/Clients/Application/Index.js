@@ -107,6 +107,7 @@
                         console.log(data);
                         let workflowName = data.workflowName; 
                         let workflowId = data.application.workflowId; 
+                        let appId = data.application.id; 
                         console.log("WorkflowID : " + data.application.workflowId)
                         // Generate the URLs using JavaScript variables
                         //let applicationStepUrl = "/AppAreaName/Client/ClientDetail?id=" + data.application.workflowId +"";
@@ -115,7 +116,7 @@
                                 <div class="d-flex align-items-center">
              
                                     <div class="d-flex flex-column">
-                                    <div id="search" style="cursor: pointer; color:blue;" data-id="${workflowId}">${workflowName}</div>
+                                    <div id="search" style="cursor: pointer; color:blue;" data-id="${workflowId}" data-action="${appId}">${workflowName}</div>
 
                                     </div>
                                 </div>
@@ -157,27 +158,30 @@
                             "<a href='#' style='color: black;' data-action1='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
-                            '</div>';
-
-
+                            '</div>'; 
                         return contaxtMenu;
-                    }
-
-
-                },
-              
-              
+                    } 
+                }, 
             ],
         });
          
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '#search', function (e) {
             //
-            var appId = $(this).data('id');
-            $("#ApplicationWorkflowId").val(appId)
+            var workflowId = $(this).data('id');
+            var appId = $(this).data('action');
+            $("#ApplicationWorkflowId").val(workflowId)
             // Show the selected tab
-            var selectedTab = document.getElementById("ApplicationDetailTab");
-            selectedTab.click();  
+            var selectedTab = document.getElementById("ApplicationDetailTab"); 
+            debugger
+            var pane = selectedTab.attributes[0];
+            var src = selectedTab.dataset.url;
+            abp.ui.setBusy();
+            $("#ApplicationDetailTabDiv").load(src + "/" + appId);
+
+            selectedTab.click(); 
+
+            abp.ui.clearBusy();
         });
         $(document).on('click', '.Applicationellipsis', function (e) {
             e.preventDefault();
