@@ -29,7 +29,7 @@ namespace Zeta.AgentosCRM.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "WorkflowNae",
+                name: "WorkflowName",
                 table: "ClientQuotationDetails",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -79,7 +79,7 @@ namespace Zeta.AgentosCRM.Migrations
                 table: "ClientQuotationDetails");
 
             migrationBuilder.DropColumn(
-                name: "WorkflowNae",
+                name: "WorkflowName",
                 table: "ClientQuotationDetails");
 
             migrationBuilder.DropColumn(
