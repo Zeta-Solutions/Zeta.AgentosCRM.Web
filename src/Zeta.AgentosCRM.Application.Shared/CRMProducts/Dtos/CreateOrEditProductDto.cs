@@ -3,6 +3,8 @@
 using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts.Dtos
 {
@@ -31,6 +33,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
         public int PartnerTypeId { get; set; }
 
         public long BranchId { get; set; }
+
+        public List<CreateOrEditProductBranchDto> Branches { get; set; }
 
     }
 }

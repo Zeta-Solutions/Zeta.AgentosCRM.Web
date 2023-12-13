@@ -12,6 +12,23 @@
         } 
         getClientsTags();
         getClientsFollowers();
+        var clientId = $('input[name="Clientid"]').val();
+        var imageUrl = $.ajax({
+            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByClient',
+            data: {
+                clientId: clientId,
+            },
+            method: 'GET',
+            dataType: 'json',
+        })
+            .done(function (data) {
+                debugger
+                console.log('Response from server:', data);
+                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+            })
+            .fail(function (error) {
+                console.error('Error fetching data:', error);
+            });
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });

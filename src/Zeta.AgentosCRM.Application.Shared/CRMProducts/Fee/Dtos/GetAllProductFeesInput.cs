@@ -21,5 +21,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Fee.Dtos
 
         public string InstallmentTypeNameFilter { get; set; }
 
+        public int? ProductIdFilter { get; set; }
+
     }
 }

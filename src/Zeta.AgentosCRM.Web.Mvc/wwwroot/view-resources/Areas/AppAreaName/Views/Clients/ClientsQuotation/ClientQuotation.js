@@ -337,7 +337,6 @@
 
 
 
-
         // Function to handle the button click event for closing
         //$('#closedquotationBtn').click(function () {
         //    debugger

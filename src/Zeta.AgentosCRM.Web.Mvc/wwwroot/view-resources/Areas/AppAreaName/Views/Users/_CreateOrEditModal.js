@@ -5,7 +5,36 @@
     var _modalManager;
     var _$userInformationForm = null;
     var _passwordComplexityHelper = new app.PasswordComplexityHelper();
-    var _organizationTree;
+      var _organizationTree;
+      //var userId = 2;
+
+      //// Make an AJAX request to the server to get the image URL
+      //$.ajax({
+      //    url: abp.appPath + 'api/services/app/Profile/GetProfilePictureByUser',
+      //    type: 'GET',
+      //    data: { userId: userId },
+      //    success: function (data) {
+      //        debugger
+      //        // Assuming data.profilePicture contains the base64-encoded image string
+      //        var base64Image = data.result.profilePicture;
+
+      //        // Set the image source directly
+      //        $('#profileImage').attr('src', 'Profile/GetProfilePictureByUser?userId=2&amp;profilePictureId=fb30221e-2981-745e-8875-3a0e4fe0ca77');
+      //    },
+      //    error: function (error) {
+      //        // Handle the error if needed
+      //        console.error('Error fetching image URL:', error);
+      //    }
+      //}); 
+      
+      var userId = $('input[name="Id"]').val();
+      var profilePictureId = $('input[name="profilePictureId"]').val();
+
+      // Construct the URL
+      var imageUrl = '/Profile/GetProfilePictureByUser?userId=' + userId + '&profilePictureId=' + profilePictureId;
+
+      // Set the image source dynamically
+      $('#profileImage').attr('src', imageUrl);
 
     var changeProfilePictureModal = new app.ModalManager({
       viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',

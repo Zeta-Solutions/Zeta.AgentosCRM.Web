@@ -49,8 +49,8 @@ namespace Zeta.AgentosCRM.CRMClient.Education
                         .WhereIf(input.MaxSpeakingFilter != null, e => e.Speaking <= input.MaxSpeakingFilter)
                         .WhereIf(input.MinTotalScoreFilter != null, e => e.TotalScore >= input.MinTotalScoreFilter)
                         .WhereIf(input.MaxTotalScoreFilter != null, e => e.TotalScore <= input.MaxTotalScoreFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)
+                          .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredEnglisTestScores = filteredEnglisTestScores
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

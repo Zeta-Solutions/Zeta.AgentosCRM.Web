@@ -52,6 +52,7 @@
                         {
                             <input type="hidden" name="id" value="@Model.Client.Id" />
                         }
+                        <input type="hidden" name="ProfilePictureId" id="ProfilePictureId" value="" />
                         @* //////Accordion start////// *@
 
                         <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -68,15 +69,30 @@
                                                 <div class="form-group">
                                                     <div class="row ">
 
-                                                        <div class="col-md-3 d-flex flex-column align-items-center">
+                                                        @* <div class="col-md-3 d-flex flex-column align-items-center">
                                                             <div class="rounded-circle border border-secondary position-relative overflow-hidden" style="width: 150px; height: 150px;">
                                                                 <input type="file" class="form-control position-absolute top-0 start-0 translate-middle" value="@Model.Client.ProfilePictureId" id="imageField" name="imageField" accept="image/*" style="opacity: 0;">
                                                                 <label for="imageField" class="d-block position-absolute top-50 start-50 translate-middle text-center" style="transform: translate(-50%, -50%);">Upload Your Profile Image</label>
                                                             </div>
 
 
+                                                        </div> *@
+                         <div class="col-sm-2 text-center margin-top-15 margin-bottom-15">
+                        @if (Model.Client.Id > 0)
+                        {
+                         @* <img src="@Url.Action("GetProfilePictureByClient", "ClientProfile", new {area = string.Empty})?clientId=@(Model.Client.Id)" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" /> *@
+                         <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
+                        else
+                        {
+                           <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
+                        
+                                                            @* @if (Model.Client.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Clients_ChangeProfilePicture)) *@
+                                                           @*  { *@
+                                                                <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button>
+                                                            @* } *@
                                                         </div>
-
                                                         <div class="col-md-9">
                                                             <div class="form-group">
                                                                 <div class="row">
@@ -462,7 +478,7 @@
 							<label class="form-label" for="Client_InternalId">@L("Agent")</label>
 							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control"  , @required="required" })
 						</div>
-                                                                <div class="col-md-12 mb-3">
+                                                                @* <div class="col-md-12 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
                                                                     <div class="input-group">
                                                                         <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
@@ -478,7 +494,7 @@
                                                                 else
                                                                 {
                                                                     <input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId" hidden />
-                                                                }
+                                                                } *@
 
                                                             </div>
                                                         </div>

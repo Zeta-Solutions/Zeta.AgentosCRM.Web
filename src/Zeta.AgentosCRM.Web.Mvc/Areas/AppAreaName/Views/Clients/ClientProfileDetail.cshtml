@@ -32,6 +32,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script> *@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
+
     
 }
 
@@ -51,7 +52,8 @@
                         <div class="card-body ">
                             <div class="col-lg-12 mb-3 d-flex justify-content-center align-items-center">
                                 <div class="symbol symbol-160px rounded-circle symbol-lg-160px symbol-fixed position-relative p-3">
-                                    <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" />
+                                    @* <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" /> *@
+                                     <img id="profileImage" src=""  class="rounded-circle" />
                                 </div>
                             </div>
 
@@ -90,7 +92,7 @@
 
                             <div class="col-lg-12">
                                 <input type="hidden" value="@Model.Client.FirstName @Model.Client.LastName " id="clientAppID" />
-                                <input type="hidden" value="@Model.Client.Id" id="ID" />
+                                <input type="hidden" name="Clientid" value="@Model.Client.Id" id="ID" />
                                 <input type="hidden" value="" id="ApplicationWorkflowId" />
                             </div>
                             <div class="col-lg-12"><input type="hidden" /></div>

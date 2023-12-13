@@ -1,31 +1,35 @@
 ﻿@using System.Globalization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
+@model CreateOrEditOtherTestScoresViewModel
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("EditOtherTestScore")))
 
 <div class="modal-body">
-    <div id="InformationsForm">
-        <form name="EducationInformationsForm" role="form" novalidate class="form-validation">
+    <div id="OtherscoreInformationsForm">
+        <form name="OtherscoreInformationsForm" role="form" novalidate class="form-validation">
 
-            <input type="hidden" name="id" value="1" />
-
-
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" id="Id" value="@Model.OtherTestScore.Id" />
+            }
+            <input type="hidden" name="clientId" id="ClientId" />
             <div class="my-3">
-                <label class="form-label" for="Application_Abbrivation">@L("SATI")</label>
-                <input class="form-control" id="Application_Abbrivation" value="APPLICATION" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinAbbrivationLength" />
+                <label class="form-label name1" for="Application_Abbrivation">@L("SATI")</label>
+                <input class="form-control Totalscore1" id="TotalScore" value="@Model.OtherTestScore.TotalScore" type="number" name="TotalScore" />
             </div>
 
             <div class="my-3">
-                <label class="form-label" for="Application_Name">@L("SATII")</label>
-                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                <label class="form-label name2" for="Application_Name">@L("SATII")</label>
+                <input class="form-control Totalscore2" id="TotalScore" value="@Model.OtherTestScore.TotalScore" type="number" name="name" />
             </div>
             <div class="my-3">
-                <label class="form-label" for="Application_Name">@L("GRE")</label>
-                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+                <label class="form-label name3" for="Application_Name">@L("GRE")</label>
+                <input class="form-control Totalscore3" id="TotalScore" value="@Model.OtherTestScore.TotalScore" type="number" name="name" />
             </div>
-              <div class="my-3">
-                <label class="form-label" for="Application_Name">@L("GMAT")</label>
-                <input class="form-control" id="Application_Name" value="tEST" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.DegreeLevelConsts.MinNameLength" />
+            <div class="my-3">
+                <label class="form-label name4" for="Application_Name">@L("GMAT")</label>
+                <input class="form-control Totalscore4" id="TotalScore" value="@Model.OtherTestScore.TotalScore" type="number" name="name" />
             </div>
         </form>
     </div>

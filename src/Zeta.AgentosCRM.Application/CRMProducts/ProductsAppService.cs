@@ -21,6 +21,10 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMAppointments.Invitees;
+using Zeta.AgentosCRM.CRMAppointments;
+using Microsoft.AspNetCore.Mvc;
+using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -32,15 +36,15 @@ namespace Zeta.AgentosCRM.CRMProducts
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
         private readonly IRepository<PartnerType, int> _lookup_partnerTypeRepository;
         private readonly IRepository<Branch, long> _lookup_branchRepository;
-
-        public ProductsAppService(IRepository<Product, long> productRepository, IProductsExcelExporter productsExcelExporter, IRepository<Partner, long> lookup_partnerRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Branch, long> lookup_branchRepository)
+        private readonly IRepository<ProductBranch> _productBranchRepository;
+        public ProductsAppService(IRepository<Product, long> productRepository, IProductsExcelExporter productsExcelExporter, IRepository<Partner, long> lookup_partnerRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Branch, long> lookup_branchRepository, IRepository<ProductBranch> productBranchRepository)
         {
             _productRepository = productRepository;
             _productsExcelExporter = productsExcelExporter;
             _lookup_partnerRepository = lookup_partnerRepository;
             _lookup_partnerTypeRepository = lookup_partnerTypeRepository;
             _lookup_branchRepository = lookup_branchRepository;
-
+            _productBranchRepository = productBranchRepository;
         }
 
         public async Task<PagedResultDto<GetProductForViewDto>> GetAll(GetAllProductsInput input)
@@ -161,8 +165,12 @@ namespace Zeta.AgentosCRM.CRMProducts
         public async Task<GetProductForEditOutput> GetProductForEdit(EntityDto<long> input)
         {
             var product = await _productRepository.FirstOrDefaultAsync(input.Id);
-
-            var output = new GetProductForEditOutput { Product = ObjectMapper.Map<CreateOrEditProductDto>(product) };
+            var productbranch = await _productBranchRepository.GetAllListAsync(p => p.ProductId == input.Id);
+            var output = new GetProductForEditOutput 
+            {
+                Product = ObjectMapper.Map<CreateOrEditProductDto>(product),
+                Branches = ObjectMapper.Map<List<CreateOrEditProductBranchDto>>(productbranch)
+            };
 
             if (output.Product.PartnerId != null)
             {
@@ -198,7 +206,7 @@ namespace Zeta.AgentosCRM.CRMProducts
         }
 
         [AbpAuthorize(AppPermissions.Pages_Products_Create)]
-        protected virtual async Task Create(CreateOrEditProductDto input)
+        protected virtual async Task Create([FromBody] CreateOrEditProductDto input)
         {
             var product = ObjectMapper.Map<Product>(input);
 
@@ -206,8 +214,15 @@ namespace Zeta.AgentosCRM.CRMProducts
             {
                 product.TenantId = (int)AbpSession.TenantId;
             }
-
-            await _productRepository.InsertAsync(product);
+            var branchId = _productRepository.InsertAndGetIdAsync(product).Result;
+            foreach (var step in input.Branches)
+            {
+                step.ProductId = branchId;
+                var stepEntity = ObjectMapper.Map<ProductBranch>(step);
+                await _productBranchRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
+           // await _productRepository.InsertAsync(product);
 
         }
 
@@ -216,7 +231,18 @@ namespace Zeta.AgentosCRM.CRMProducts
         {
             var product = await _productRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, product);
-
+            var productbranch = await _productBranchRepository.GetAllListAsync(p => p.ProductId == input.Id);
+            foreach (var item in productbranch)
+            {
+                await _productBranchRepository.DeleteAsync(item.Id);
+            }
+            foreach (var step in input.Branches)
+            {
+                step.ProductId = product.Id;
+                var stepEntity = ObjectMapper.Map<ProductBranch>(step);
+                await _productBranchRepository.InsertAsync(stepEntity);
+            }
+            CurrentUnitOfWork.SaveChanges();
         }
 
         [AbpAuthorize(AppPermissions.Pages_Products_Delete)]

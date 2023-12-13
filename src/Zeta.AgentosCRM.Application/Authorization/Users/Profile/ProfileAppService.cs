@@ -473,7 +473,16 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
                 return new GetProfilePictureOutput(profileImage);
             }
         }
-
+        //[AbpAllowAnonymous]
+        //public async Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId)
+        //{
+        //    var userIdentifier = new UserIdentifier(AbpSession.TenantId, clientId);
+        //    using (var profileImageService = await _profileImageServiceFactory.Get(userIdentifier))
+        //    {
+        //        var profileImage = await profileImageService.Object.GetProfilePictureContentForUser(userIdentifier);
+        //        return new GetProfilePictureOutput(profileImage);
+        //    }
+        //}
         public async Task ChangeLanguage(ChangeUserLanguageDto input)
         {
             var languageSetting = await _settingStore.GetSettingOrNullAsync(

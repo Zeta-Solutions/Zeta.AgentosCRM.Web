@@ -16,6 +16,8 @@ using Zeta.AgentosCRM.CRMSetup.Documents;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation;
+using Zeta.AgentosCRM.CRMClient.Profile.Dto;
+using Zeta.AgentosCRM.CRMClient.Profile;
 using Zeta.AgentosCRM.CRMClient.CheckIn.Dtos;
 using Zeta.AgentosCRM.CRMClient.CheckIn;
 using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
@@ -184,6 +186,7 @@ namespace Zeta.AgentosCRM
             configuration.CreateMap<PromotionProductDto, PromotionProduct>().ReverseMap();
             configuration.CreateMap<CreateOrEditTaskFollowerDto, TaskFollower>().ReverseMap();
             configuration.CreateMap<TaskFollowerDto, TaskFollower>().ReverseMap();
+            configuration.CreateMap<UpdateClientProfilePictureInput, Client>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
             configuration.CreateMap<ClientInterstedServiceDto, ClientInterstedService>().ReverseMap();
             configuration.CreateMap<CreateOrEditAppointmentInviteeDto, AppointmentInvitee>().ReverseMap();

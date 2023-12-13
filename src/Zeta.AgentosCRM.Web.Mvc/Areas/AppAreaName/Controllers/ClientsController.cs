@@ -94,6 +94,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
+        public ActionResult ClientsQuotationPreview()
+        {
+            return View("ClientsQuotation/QuotationPreview");
+        }
         public async Task<ActionResult> ClientCreateDetail(long? id)
         {
             GetClientForEditOutput getClientForEditOutput;
@@ -803,5 +807,10 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
         }
         #endregion
+        public PartialViewResult ChangePictureModal(long? clientId)
+        {
+            ViewBag.ClientId = clientId;
+            return PartialView("_ChangePictureModal");
+        }
     }
 }
