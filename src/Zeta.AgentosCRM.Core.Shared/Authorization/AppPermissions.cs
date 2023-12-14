@@ -180,6 +180,7 @@
         public const string Pages_Products_Create = "Pages.Products.Create";
         public const string Pages_Products_Edit = "Pages.Products.Edit";
         public const string Pages_Products_Delete = "Pages.Products.Delete";
+        public const string Pages_Products_ChangeProfilePicture = "Pages.Products.ChangeProfilePicture";
 
         public const string Pages_ClientEducations = "Pages.ClientEducations";
         public const string Pages_ClientEducations_Create = "Pages.ClientEducations.Create";
@@ -200,6 +201,7 @@
         public const string Pages_Agents_Create = "Pages.Agents.Create";
         public const string Pages_Agents_Edit = "Pages.Agents.Edit";
         public const string Pages_Agents_Delete = "Pages.Agents.Delete";
+        public const string Pages_Agents_ChangeProfilePicture = "Pages.Agents.ChangeProfilePicture";
 
         public const string Pages_TestAattachments = "Pages.TestAattachments";
         public const string Pages_TestAattachments_Create = "Pages.TestAattachments.Create";
@@ -235,6 +237,7 @@
         public const string Pages_Partners_Create = "Pages.Partners.Create";
         public const string Pages_Partners_Edit = "Pages.Partners.Edit";
         public const string Pages_Partners_Delete = "Pages.Partners.Delete";
+        public const string Pages_Partners_ChangeProfilePicture = "Pages.Partners.ChangeProfilePicture";
 
         public const string Pages_ClientTags = "Pages.ClientTags";
         public const string Pages_ClientTags_Create = "Pages.ClientTags.Create";

@@ -37,9 +37,9 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
 
         public decimal Tax { get; set; }
 
-        public Guid? ProfileImageId { get; set; }
+        public Guid? ProfilePictureId { get; set; }
 
-        public string ProfileImageIdToken { get; set; }
+        public string ProfilePictureIdToken { get; set; }
 
         public string PrimaryContactName { get; set; }
 

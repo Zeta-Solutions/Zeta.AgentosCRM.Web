@@ -10,9 +10,7 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
     {
         Task UpdateProfilePicture(UpdateClientProfilePictureInput input);
 
-        Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId);
-
-        Task<GetProfilePictureOutput> GetProfilePictureByClientName(string clientname);
+        Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId); 
         
         Task<Guid> InsertProfilePictureForClient(UpdateClientProfilePictureInput input);
 

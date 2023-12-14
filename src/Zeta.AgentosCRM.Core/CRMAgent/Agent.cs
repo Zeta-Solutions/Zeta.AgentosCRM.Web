@@ -46,7 +46,7 @@ namespace Zeta.AgentosCRM.CRMAgent
         public virtual decimal Tax { get; set; }
         //File
 
-        public virtual Guid? ProfileImageId { get; set; } //File, (BinaryObjectId)
+        public virtual Guid? ProfilePictureId { get; set; } //File, (BinaryObjectId)
 
         public virtual string PrimaryContactName { get; set; }
 

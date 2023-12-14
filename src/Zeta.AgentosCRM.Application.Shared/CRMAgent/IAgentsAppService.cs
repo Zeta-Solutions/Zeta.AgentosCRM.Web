@@ -27,7 +27,7 @@ namespace Zeta.AgentosCRM.CRMAgent
 
         Task<List<AgentOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown();
 
-        Task RemoveProfileImageIdFile(EntityDto<long> input);
+        Task RemoveProfilePictureIdFile(EntityDto<long> input);
 
     }
 }

@@ -25,5 +25,6 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
 
         public string BranchNameFilter { get; set; }
 
+        public string BinaryObjectDescriptionFilter { get; set; }
     }
 }
