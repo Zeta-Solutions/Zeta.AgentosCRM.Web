@@ -22,5 +22,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 
         public List<CreateOrEditClientQuotationDetailDto> QuotationDetails { get; set; }
 
-    }
+		//public List<CreateOrEditClientQuotationDetailDto> QuotationDetails { get; set; } = new List<CreateOrEditClientQuotationDetailDto>();
+
+	}
 }

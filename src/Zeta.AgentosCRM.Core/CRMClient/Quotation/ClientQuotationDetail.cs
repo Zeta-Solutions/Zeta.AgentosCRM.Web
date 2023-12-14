@@ -30,7 +30,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
 
         public virtual decimal TotalAmount { get; set; }
 
-        public virtual string WorkflowNae { get; set; }
+        public virtual string WorkflowName { get; set; }
         public virtual int WorkflowId { get; set; }
 
         [ForeignKey("WorkflowId")]

@@ -1,5 +1,7 @@
 ﻿(function () {
     $(function () {
+        var logoImg = document.querySelector('meta[name="TenatLogo"]').content
+        $("#logoImg").attr("src",logoImg)
         function printInvoiceAndRedirect() {
             // Create a hidden iframe
             var printFrame = document.createElement('iframe');
@@ -43,7 +45,6 @@
             $('.app-header').addClass('hide-on-print');
             $('.app-footer').addClass('hide-on-print');
             $('.svg-icon').addClass('hide-on-print');
-
             // Trigger window print
             window.print();
 
@@ -51,8 +52,17 @@
             $('.app-header').removeClass('hide-on-print');
             $('.app-footer').removeClass('hide-on-print');
             $('.svg-icon').removeClass('hide-on-print');
+           
         });
+        $('#Createbutton').click(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const partnerIdValue = urlParams.get('clientId');
+            var baseUrl = "/AppAreaName/Clients/CreateOrEditClientQuotationModal/";
+            var url = baseUrl + "?clientId=" + partnerIdValue;
 
+            // Redirect to the constructed URL
+            window.location.href = url;
+        });
         
     });
 })(jQuery);

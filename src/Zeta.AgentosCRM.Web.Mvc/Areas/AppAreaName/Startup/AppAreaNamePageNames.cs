@@ -63,6 +63,7 @@
             public const string InvoiceType = "CRMSetup.InvoiceType";
             public const string Partners = "Dashboard.Partners";
             public const string Products = "Dashboard.Products";
+            public const string Tasks = "Dashboard.Tasks";
         }
     }
 }

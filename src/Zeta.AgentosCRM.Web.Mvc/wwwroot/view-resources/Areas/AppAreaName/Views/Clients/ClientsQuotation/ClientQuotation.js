@@ -214,7 +214,7 @@
             // Get form data
             var formData = getFormData();
             var rowCount = $("#ClientsQuotationDetailtable tbody tr").length;
-            //var rowCount = 0;//parseInt($('#rowCount').val())+0;
+            //var rowCount = 0;//parseInt($('#rowCount').val())+0;..
             var srlno = $('#rowCount').val();
             console.log(closestTr)
             if (closestTr && closestTr.length > 0) {
@@ -228,6 +228,7 @@
                     closestTr.find('.workflowsName').text(formData.workflowName);
                     closestTr.find('.productsName').text(formData.productName);
                     closestTr.find('.partnerName').text(formData.partnerName);
+                    closestTr.find('.branchName').text(formData.brnachName);
 
                     closestTr.find('.workflowsId').val(formData.workflowId);
                     closestTr.find('.productsId').val(formData.productId);
@@ -254,6 +255,7 @@
                 TrData += '<span><input id="partnersId" class="partnersId" type="hidden" value="' + formData.partnerId + '"/></span>';
                 TrData += '<span class="partnerName">' + formData.partnerName + '</span><br>';
                 TrData += '<span><input id="branchsId"  class="branchsId" type="hidden" value="' + formData.branchId + '"/></span>';
+                TrData += '<span><input id="branchName"  class="branchName" type="hidden" value="' + formData.branchName + '"/></span>';
                 TrData += '<span><input id="Id"  class="Id" type="hidden" value="0"/></span>';
                 TrData += '<span><input id="rowCount" type="hidden" value="' + rowCount + '"/></span>';
                
@@ -446,6 +448,7 @@
                             '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
                             '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<li ><a href="#" style="color: black;" data-action60="Preview" data-id="' + rowId + '">Preview</a></li>' +
                             "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
@@ -817,7 +820,7 @@
             var rowId = $(this).data('id');
             var action = $(this).data('action60');
             debugger
-            // Handle the selected action based on the rowId
+            // Handle the selected action based on the rowId..
             if (action === 'edit') {
 
                 var hiddenfield = $("#ID").val();
@@ -829,7 +832,20 @@
                 // Redirect to the constructed URL
                 window.location.href = url;
                
-            } else if (action === 'delete') {
+            }
+            if (action === 'Preview') {
+
+                var hiddenfield = $("#ID").val();
+
+
+                var baseUrl = "/AppAreaName/Clients/ClientsQuotationPreview/";
+                var url = baseUrl + "?clientId=" + hiddenfield + "&id=" + rowId;
+
+                // Redirect to the constructed URL....
+                window.location.href = url;
+               
+            }
+            else if (action === 'delete') {
                 // console.log(rowId);
                 deleteQuotationDetails(rowId);
             }
