@@ -10,5 +10,7 @@
 
         public string BranchName { get; set; }
 
+        public string BinaryObjectDescription { get; set; }
+
     }
 }

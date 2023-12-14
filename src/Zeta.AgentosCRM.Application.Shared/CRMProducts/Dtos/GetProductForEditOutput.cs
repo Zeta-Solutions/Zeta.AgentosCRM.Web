@@ -18,5 +18,6 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
 
         public List<CreateOrEditProductBranchDto> Branches { get; set; }
 
+        public string BinaryObjectDescription { get; set; }
     }
 }

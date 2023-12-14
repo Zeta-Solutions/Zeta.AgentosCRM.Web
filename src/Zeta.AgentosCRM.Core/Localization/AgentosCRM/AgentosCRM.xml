@@ -1840,7 +1840,7 @@
 		<text name="MaunalPaymentDetails">Maunal Payment Details</text>
 		<text name="AddNew">Add New</text>
 		<text name="TaxSettings">Tax Settings</text>
-		<text name="chooseinvoicetypeswhereyouwanttousethispaymentdetailbydefault">choose invoice types where you want to use this payment detail by default.</text>
+		<text name="chooseinvoicetypeswhereyouwanttousethispaymentdetailbydefault">choose invoice types where you want to use this payment detail by default.You can Choose different in the invoice as well.</text>
 		<text name="ThisWillbedisplayedwhilecreatingtheinvoiceandaccountwillbecalculatedaccordingly">This Will be displayed while creating the invoice and account will be calculated accordingly.</text>
 		<text name="TaxCode">Tax Code</text>
 		<text name="TaxRate">Tax Rate</text>
@@ -1855,5 +1855,8 @@
 		<text name="selectedProducts">selected Products</text>
 		<text name="Uploaddocumentsfromclientportal">Upload documents from client portal</text>
 		<text name="indoortoproceednextstage">indoor to proceed next stage</text>
+		<text name="PaymentOptionName">Payment Option Name</text>
+		<text name="PaymentDetailContent">Payment Option Name</text>
+		<text name="DefaultforInvoiceType">Default for Invoice Type</text>
 	</texts> 
 </localizationDictionary>

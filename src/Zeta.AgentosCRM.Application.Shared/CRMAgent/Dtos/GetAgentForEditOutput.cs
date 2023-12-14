@@ -12,7 +12,7 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
 
         public string OrganizationUnitDisplayName { get; set; }
 
-        public string ProfileImageIdFileName { get; set; }
+        public string ProfilePictureIdFileName { get; set; }
 
     }
 }

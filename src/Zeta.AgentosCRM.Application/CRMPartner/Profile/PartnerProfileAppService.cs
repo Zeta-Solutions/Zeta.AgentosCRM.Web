@@ -1,79 +1,78 @@
-﻿using Abp; 
-using Abp.Authorization;
+﻿using Abp.Authorization;
 using Abp.Configuration;
-using Abp.Domain.Repositories; 
+using Abp.Domain.Repositories;
 using Abp.UI;
+using Abp;
 using System; 
 using System.Threading.Tasks;
-using Zeta.AgentosCRM.Authorization;
-using Zeta.AgentosCRM.Authorization.Users.Profile;
 using Zeta.AgentosCRM.Authorization.Users.Profile.Dto;
-using Zeta.AgentosCRM.Configuration;
-using Zeta.AgentosCRM.CRMClient.Profile.Dto;
+using Zeta.AgentosCRM.Authorization.Users.Profile;
+using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.Configuration; 
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMPartner.Profile.Dtos;
 
-namespace Zeta.AgentosCRM.CRMClient.Profile
+namespace Zeta.AgentosCRM.CRMPartner.Profile
 {
-    [AbpAuthorize]
-    public class ClientProfileAppService : AgentosCRMAppServiceBase, IClientProfileAppService
+    public class PartnerProfileAppService : AgentosCRMAppServiceBase, IPartnerProfileAppService
     {
-        private readonly IRepository<Client, long> _clientRepository;
+        private readonly IRepository<Partner, long> _partnerRepository;
         private const int MaxProfilePictureBytes = 5242880; //5MB
         private readonly IBinaryObjectManager _binaryObjectManager;
-        private readonly ProfileImageServiceFactory _profileImageServiceFactory; 
+        private readonly ProfileImageServiceFactory _profileImageServiceFactory;
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly LocalProfileImageService _localProfileImageService;
 
-        public ClientProfileAppService(IBinaryObjectManager binaryObjectManager,
+        public PartnerProfileAppService(IBinaryObjectManager binaryObjectManager,
                                        ProfileImageServiceFactory profileImageServiceFactory,
                                        ITempFileCacheManager tempFileCacheManager,
-                                       IRepository<Client, long> clientRepository,
+                                       IRepository<Partner, long> partnerRepository,
                                        LocalProfileImageService localProfileImageService)
         {
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
             _tempFileCacheManager = tempFileCacheManager;
-            _clientRepository = clientRepository;
+            _partnerRepository = partnerRepository;
             _localProfileImageService = localProfileImageService;
         }
 
         [AbpAllowAnonymous]
-        public async Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId)
-        { 
-            var profileImage = await _localProfileImageService.GetProfilePictureContentForClient(clientId);
-            return new GetProfilePictureOutput(profileImage); 
+        public async Task<GetProfilePictureOutput> GetProfilePictureByPartner(long partnerId)
+        {
+            var profileImage = await _localProfileImageService.GetProfilePictureContentForPartner(partnerId);
+            return new GetProfilePictureOutput(profileImage);
         }
-        
+
         [AbpAllowAnonymous]
         public async Task<GetProfilePictureOutput> GetProfilePictureByPictireId(string fileTokkenId)
         {
             Guid guid = Guid.Parse(fileTokkenId);
             var profileImage = await _localProfileImageService.GetProfilePictureContent(guid);
-            return new GetProfilePictureOutput(profileImage); 
-        } 
+            return new GetProfilePictureOutput(profileImage);
+        }
 
-        public async Task UpdateProfilePicture(UpdateClientProfilePictureInput input)
-        { 
-            if (input.ClientId.HasValue)
+        public async Task UpdateProfilePicture(UpdatePartnerProfilePictureInput input)
+        {
+            if (input.PartnerId.HasValue)
             {
-                //await CheckUpdateClientsProfilePicturePermission(); 
-                await UpdateProfilePictureForClient(input.ClientId.Value, input);
+                //await CheckUpdatePartnersProfilePicturePermission(); 
+                await UpdateProfilePictureForPartner(input.PartnerId.Value, input);
             }
             //else
             //{
-            //    await InsertProfilePictureForClient(input);
+            //    await InsertProfilePictureForPartner(input);
             //}
         }
 
-        private async Task CheckUpdateClientsProfilePicturePermission()
+        private async Task CheckUpdatePartnersProfilePicturePermission()
         {
             var permissionToChangeAnotherUsersProfilePicture = await PermissionChecker.IsGrantedAsync(
-                AppPermissions.Pages_Clients_ChangeProfilePicture
+                AppPermissions.Pages_Partners_ChangeProfilePicture
             );
 
             if (!permissionToChangeAnotherUsersProfilePicture)
             {
-                var localizedPermissionName = L("UpdateClientsProfilePicture");
+                var localizedPermissionName = L("UpdatePartnersProfilePicture");
                 throw new AbpAuthorizationException(
                     string.Format(
                         L("AllOfThesePermissionsMustBeGranted"),
@@ -84,15 +83,15 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
         }
 
 
-        private async Task UpdateProfilePictureForClient(long clientId, UpdateClientProfilePictureInput input)
+        private async Task UpdateProfilePictureForPartner(long partnerId, UpdatePartnerProfilePictureInput input)
         {
-            var clientProfile = await _clientRepository.FirstOrDefaultAsync(p => p.Id == clientId);
-            if (clientProfile == null)
+            var partnerProfile = await _partnerRepository.FirstOrDefaultAsync(p => p.Id == partnerId);
+            if (partnerProfile == null)
             {
-                // Create a new client profile if it doesn't exist
-               // clientProfile = new ClientProfile { ClientId = clientId };
+                // Create a new Partner profile if it doesn't exist
+                // partnerProfile = new PartnerProfile { PartnerId = partnerId };
             }
-            var userId= (long)AbpSession.UserId;
+            var userId = (long)AbpSession.UserId;
             var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
             var allowToUseGravatar = await SettingManager.GetSettingValueForUserAsync<bool>(
                 AppSettings.UserManagement.AllowUsingGravatarProfilePicture,
@@ -132,22 +131,22 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
                     AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
             }
 
-           // var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
+            // var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
 
-            if (clientProfile.ProfilePictureId.HasValue)
+            if (partnerProfile.ProfilePictureId.HasValue)
             {
-                await _binaryObjectManager.DeleteAsync(clientProfile.ProfilePictureId.Value);
+                await _binaryObjectManager.DeleteAsync(partnerProfile.ProfilePictureId.Value);
             }
 
-            var storedFile = new BinaryObject(clientProfile.TenantId, byteArray,
-                $"Profile picture of Client {clientProfile.Id}. {DateTime.UtcNow}");
+            var storedFile = new BinaryObject(partnerProfile.TenantId, byteArray,
+                $"Profile picture of Partner {partnerProfile.Id}. {DateTime.UtcNow}");
             await _binaryObjectManager.SaveAsync(storedFile);
 
-            clientProfile.ProfilePictureId = storedFile.Id;
+            partnerProfile.ProfilePictureId = storedFile.Id;
         }
-        
-        public async Task<Guid> InsertProfilePictureForClient(UpdateClientProfilePictureInput input)
-        { 
+
+        public async Task<Guid> InsertProfilePictureForPartner(UpdatePartnerProfilePictureInput input)
+        {
             byte[] byteArray;
 
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
@@ -164,9 +163,9 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
                 throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
                     AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
             }
-             
+
             var storedFile = new BinaryObject(AbpSession.TenantId, byteArray,
-                $"Profile picture of Client {DateTime.UtcNow}");
+                $"Profile picture of Partner {DateTime.UtcNow}");
             await _binaryObjectManager.SaveAsync(storedFile);
 
             return storedFile.Id;

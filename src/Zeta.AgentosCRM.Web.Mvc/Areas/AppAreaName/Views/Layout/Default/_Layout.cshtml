@@ -2,6 +2,7 @@
 @using Zeta.AgentosCRM.Localization
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameActiveUserDelegationsCombobox
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameChatToggler
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameSetupForms
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameLanguageSwitch
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameLogo
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Views.Shared.Components.AppAreaNameMenu
@@ -78,10 +79,15 @@
                         @await Component.InvokeAsync(typeof(AppAreaNameQuickThemeSelectViewComponent), new
                         {
                             cssClass = "btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
-                        })
+                        }) 
                         @await Component.InvokeAsync(typeof(AppAreaNameLanguageSwitchViewComponent), new
                         {
                             cssClass = "btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+                        })
+                        @await Component.InvokeAsync(typeof(AppAreaNameSetupFormsViewComponent), new
+                        {
+                        // cssClass = "fa-sharp fa-solid fa-gear btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+                            cssClass = "btn btn-icon btn-active-light-primary position-relative w-30px h-30px w-md-40px h-md-40px"
                         })
                         @await Component.InvokeAsync(typeof(AppAreaNameRecentNotificationsViewComponent), new
                         {
@@ -103,6 +109,7 @@
                             symbolCssClass = "symbol symbol-30px",
                             symbolTextCssClas = "symbol-label fs-2 fw-bold bg-success text-inverse-success"
                         })
+
                     </div>
                     <!--end::Navbar-->
                 </div>
@@ -181,3 +188,66 @@
     </div>
     <!--end::Page-->
 </div>
+
+
+
+<script>
+        document.getElementById('header_notification_bar').addEventListener('click', function (event) {
+    
+        debugger
+        
+  if ($(".Divtoggel").is(":visible")) {
+            $(".Divtoggel").hide();  
+        }  
+      });
+      document.getElementById('FlageID').addEventListener('click', function (event) {
+    
+        debugger
+        
+  if ($(".Divtoggel").is(":visible")) {
+            $(".Divtoggel").hide();  
+        }  
+      });
+        document.getElementById('kt_drawer_chat_toggle').addEventListener('click', function (event) {
+    
+        debugger
+        
+  if ($(".Divtoggel").is(":visible")) {
+            $(".Divtoggel").hide();  
+        }  
+      });
+          document.getElementById('DarkID').addEventListener('click', function (event) {
+    
+        debugger
+        
+  if ($(".Divtoggel").is(":visible")) {
+            $(".Divtoggel").hide();  
+        }  
+      });
+      document.getElementById('kt_app_root').addEventListener('click', function (event) {
+         debugger
+         if($(".Divtoggel").is(":visible")){ 
+            var GetSetformValue=$("#DivTogglevalue").val();
+             if(GetSetformValue==1){
+                 $(".Divtoggel").show();
+            $("#DivTogglevalue").val(0);
+             }
+             else
+             if(GetSetformValue==0){
+             $(".Divtoggel").hide();
+             
+             }
+         }
+         else{
+               $(".Divtoggel").hide();
+         }
+        @*  if ($(".Divtoggel").is(":visible")) { 
+             debugger
+            $(".Divtoggel").hide(); 
+
+        } else {
+            debugger
+            $(".Divtoggel").show();//.animate({ top: position.top + height + 150 - divtoggel.outerHeight() }, 200);
+        } *@
+    });
+</script>

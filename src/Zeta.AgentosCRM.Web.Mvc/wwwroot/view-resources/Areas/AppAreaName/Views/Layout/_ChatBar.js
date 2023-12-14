@@ -446,7 +446,7 @@ var chat = {
                 || $('.popover.show').length !== 0
                 || $(e.target).attr('data-bs-toggle') === 'tooltip'
                 || chat.isModalOpen) {
-                // don't hide chat panel when mouse is on popover notification
+                // don't hide chat panel when mouse is on popover notification...
                 return;
             }
 
