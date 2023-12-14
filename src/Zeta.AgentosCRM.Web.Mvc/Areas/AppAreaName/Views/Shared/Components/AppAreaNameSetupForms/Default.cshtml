@@ -1,0 +1,113 @@
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Layout;
+@using Zeta.AgentosCRM.Web.Navigation;
+@model MenuViewModel
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Layout/_Header.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+}
+@{
+
+    var orderedMenuItems = Model.Menu.Items.OrderByCustom().ToList();
+}
+<div class="d-flex align-items-center ms-1 ms-lg-3">
+    <div id="SetFormDisplay" class="@Model.TopMenuClass">
+        <input type="text" hidden id="DivTogglevalue" value="0"/>
+        <i class="@Model.IconMenu"></i>
+    </div>
+</div>
+
+<style>
+    .Divtoggel {
+        position: absolute;
+        display: none;
+        padding-left: 10px;
+        top: 10px;
+        max-height: 350px; 
+        overflow-y: auto;
+    }
+
+</style>
+<script>
+
+    document.getElementById('kt_app_root').addEventListener('click', function (event) {
+        // $(".Divtoggel").hide();
+
+        // debugger
+
+    });
+
+    document.getElementById('SetFormDisplay').addEventListener('click', function (event) {
+        var position = $(this).offset();
+        var height = $(this).outerHeight();
+        var width = $(this).outerWidth();
+        var divtoggel = $(".Divtoggel");
+        $(".Divtoggel").css({
+            position: 'absolute',
+            top: position.top + height + 25,
+            left: position.left - 260 + width
+        });
+
+        // if ($(".Divtoggel").is(":visible")) {
+        //     $(".Divtoggel").hide();
+        // } else {
+
+        //     $(".Divtoggel").fadeIn();
+        //     $(".Divtoggel").show();
+        // }
+        if (divtoggel.is(":visible")) {
+            debugger
+            var ValueofToggleSetupForm = 0;
+            $("#DivTogglevalue").val(ValueofToggleSetupForm)
+            // Slide up to hide
+            // divtoggel.animate({ top: position.top + height + 15 }, 500, function () {
+            divtoggel.hide();
+            // });
+        } else {
+            debugger
+            var ValueofToggleSetupForm = 1;
+            $("#DivTogglevalue").val(ValueofToggleSetupForm)
+            // Slide down to show
+            divtoggel.show();//.animate({ top: position.top + height + 150 - divtoggel.outerHeight() }, 200);
+        }
+
+    });
+
+</script>
+
+
+<div class="Divtoggel menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4" style="display: none;">
+    @if (Model.Menu == null)
+    {
+        <a class="menu-link py-3" href="#">
+            <span class="menu-text">0 Setup Form get</span><br />
+        </a>
+    }
+    else
+    {
+        @for (var i = 0; i < Model.Menu.Items.Count; i++)
+        {
+
+            var menuItem = orderedMenuItems[i];
+            @if (menuItem.DisplayName == "CRM Setup")
+            {
+                var Setuprecord = menuItem.Items;
+                @for (var j = 0; j < Setuprecord.Count; j++)
+                {
+                    var displayName = Setuprecord[j].DisplayName;
+                    var Url = Setuprecord[j].Url;
+                    @*var Icon = Setuprecord[j].Icon;<i class="@Icon"></i> *@
+                    var pathAfterSlash = Url.Substring(Url.IndexOf('/') + 1);
+                    <div class="menu-item px-3">
+
+                        <a class="menu-link py-3" href=@pathAfterSlash>
+                            <span class="menu-text">@displayName</span><br />
+                        </a>
+
+                    </div>
+                }
+            }
+        }
+    }
+</div> 
+
