@@ -27,7 +27,23 @@
         //    width: '250px',
 
         //});
-
+        var agentId = $('input[name="id"]').val();
+        var imageUrl = $.ajax({
+            url: abp.appPath + 'api/services/app/AgentProfile/GetProfilePictureByAgent',
+            data: {
+                agentId: agentId,
+            },
+            method: 'GET',
+            dataType: 'json',
+        })
+            .done(function (data) {
+                debugger
+                console.log('Response from server:', data);
+                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+            })
+            .fail(function (error) {
+                console.error('Error fetching data:', error);
+            });
             var isSuperAgent = $('#IsSuperAgent').is(":checked");
             var isSubAgent = $('#IsSubAgent').is(":checked");
 
@@ -202,7 +218,19 @@
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/_ClientLeadSourceLookupTableModal.js',
             modalClass: 'LeadSourceLookupTableModal'
         });
+        var changeProfilePictureModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Agents/_ChangePictureModal.js',
+            modalClass: 'ChangeProfilePictureModal',
+        });
 
+        $('#changeProfilePicture').click(function () {
+            changeProfilePictureModal.open({ userId: $('input[name=Id]').val() });
+        });
+
+        changeProfilePictureModal.onClose(function () {
+            $('.user-edit-dialog-profile-image').attr('src', abp.appPath + "Profile/GetProfilePictureByUser?userId=" + $('input[name=Id]').val());
+        });
 
 
         $('.date-picker').daterangepicker({

@@ -39,6 +39,7 @@
     <Content Remove="Areas\AppAreaName\Views\Client\ClientTask\_CreateOrEditEnglishScoreModal.cshtml" />
     <Content Remove="wwwroot\swagger\ui\index.html" />
     <Content Remove="wwwroot\view-resources\areas\appareaname\views\partners\application\Application.less" />
+    <Content Remove="wwwroot\view-resources\Areas\AppAreaName\Views\Partners\ProfileDetails.min.js" />
     <Content Remove="wwwroot\view-resources\areas\appareaname\views\partners\_AgreementViewCard.less" />
   </ItemGroup>
 
