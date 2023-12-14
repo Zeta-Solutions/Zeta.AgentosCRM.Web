@@ -25,5 +25,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
 
         public long BranchId { get; set; }
 
+        public Guid? ProfilePictureId { get; set; }
+
     }
 }

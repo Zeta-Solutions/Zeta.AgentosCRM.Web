@@ -49,7 +49,7 @@ namespace Zeta.AgentosCRM.CRMPartner
 
         public virtual string PhoneCode { get; set; }
 
-        public virtual Guid ProfilePictureId { get; set; }
+        public virtual Guid? ProfilePictureId { get; set; }
 
         [ForeignKey("ProfilePictureId")]
         public BinaryObject ProfilePictureFk { get; set; }

@@ -36,5 +36,7 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
 
         public List<CreateOrEditProductBranchDto> Branches { get; set; }
 
+        public Guid? ProfilePictureId { get; set; }
+
     }
 }

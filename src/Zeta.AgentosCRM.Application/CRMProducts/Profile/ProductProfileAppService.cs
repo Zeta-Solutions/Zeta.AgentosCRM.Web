@@ -1,79 +1,83 @@
-﻿using Abp; 
-using Abp.Authorization;
+﻿using Abp.Authorization;
 using Abp.Configuration;
-using Abp.Domain.Repositories; 
+using Abp.Domain.Repositories;
+using Abp.Runtime.Session;
 using Abp.UI;
-using System; 
+using Abp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Zeta.AgentosCRM.Authorization;
-using Zeta.AgentosCRM.Authorization.Users.Profile;
 using Zeta.AgentosCRM.Authorization.Users.Profile.Dto;
-using Zeta.AgentosCRM.Configuration;
-using Zeta.AgentosCRM.CRMClient.Profile.Dto;
+using Zeta.AgentosCRM.Authorization.Users.Profile;
+using Zeta.AgentosCRM.Authorization;
+using Zeta.AgentosCRM.Configuration; 
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMProducts.Profile.Dtos;
 
-namespace Zeta.AgentosCRM.CRMClient.Profile
+namespace Zeta.AgentosCRM.CRMProducts.Profile
 {
-    [AbpAuthorize]
-    public class ClientProfileAppService : AgentosCRMAppServiceBase, IClientProfileAppService
+    public class ProductProfileAppService : AgentosCRMAppServiceBase, IProductProfileAppService
     {
-        private readonly IRepository<Client, long> _clientRepository;
+        private readonly IRepository<Product, long> _productRepository;
         private const int MaxProfilePictureBytes = 5242880; //5MB
         private readonly IBinaryObjectManager _binaryObjectManager;
-        private readonly ProfileImageServiceFactory _profileImageServiceFactory; 
+        private readonly ProfileImageServiceFactory _profileImageServiceFactory;
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly LocalProfileImageService _localProfileImageService;
 
-        public ClientProfileAppService(IBinaryObjectManager binaryObjectManager,
+        public ProductProfileAppService(IBinaryObjectManager binaryObjectManager,
                                        ProfileImageServiceFactory profileImageServiceFactory,
                                        ITempFileCacheManager tempFileCacheManager,
-                                       IRepository<Client, long> clientRepository,
+                                       IRepository<Product, long> productRepository,
                                        LocalProfileImageService localProfileImageService)
         {
             _binaryObjectManager = binaryObjectManager;
             _profileImageServiceFactory = profileImageServiceFactory;
             _tempFileCacheManager = tempFileCacheManager;
-            _clientRepository = clientRepository;
+            _productRepository = productRepository;
             _localProfileImageService = localProfileImageService;
         }
 
         [AbpAllowAnonymous]
-        public async Task<GetProfilePictureOutput> GetProfilePictureByClient(long clientId)
-        { 
-            var profileImage = await _localProfileImageService.GetProfilePictureContentForClient(clientId);
-            return new GetProfilePictureOutput(profileImage); 
+        public async Task<GetProfilePictureOutput> GetProfilePictureByProduct(long productId)
+        {
+            var profileImage = await _localProfileImageService.GetProfilePictureContentForProduct(productId);
+            return new GetProfilePictureOutput(profileImage);
         }
-        
+
         [AbpAllowAnonymous]
         public async Task<GetProfilePictureOutput> GetProfilePictureByPictireId(string fileTokkenId)
         {
             Guid guid = Guid.Parse(fileTokkenId);
             var profileImage = await _localProfileImageService.GetProfilePictureContent(guid);
-            return new GetProfilePictureOutput(profileImage); 
-        } 
+            return new GetProfilePictureOutput(profileImage);
+        }
 
-        public async Task UpdateProfilePicture(UpdateClientProfilePictureInput input)
-        { 
-            if (input.ClientId.HasValue)
+
+        public async Task UpdateProfilePicture(UpdateProductProfilePictureInput input)
+        {
+            if (input.ProductId.HasValue)
             {
-                //await CheckUpdateClientsProfilePicturePermission(); 
-                await UpdateProfilePictureForClient(input.ClientId.Value, input);
+                //await CheckUpdateProductsProfilePicturePermission(); 
+                await UpdateProfilePictureForProduct(input.ProductId.Value, input);
             }
             //else
             //{
-            //    await InsertProfilePictureForClient(input);
+            //    await InsertProfilePictureForProduct(input);
             //}
         }
 
-        private async Task CheckUpdateClientsProfilePicturePermission()
+        private async Task CheckUpdateProductsProfilePicturePermission()
         {
             var permissionToChangeAnotherUsersProfilePicture = await PermissionChecker.IsGrantedAsync(
-                AppPermissions.Pages_Clients_ChangeProfilePicture
+                AppPermissions.Pages_Products_ChangeProfilePicture
             );
 
             if (!permissionToChangeAnotherUsersProfilePicture)
             {
-                var localizedPermissionName = L("UpdateClientsProfilePicture");
+                var localizedPermissionName = L("UpdateProductsProfilePicture");
                 throw new AbpAuthorizationException(
                     string.Format(
                         L("AllOfThesePermissionsMustBeGranted"),
@@ -84,15 +88,15 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
         }
 
 
-        private async Task UpdateProfilePictureForClient(long clientId, UpdateClientProfilePictureInput input)
+        private async Task UpdateProfilePictureForProduct(long clientId, UpdateProductProfilePictureInput input)
         {
-            var clientProfile = await _clientRepository.FirstOrDefaultAsync(p => p.Id == clientId);
+            var clientProfile = await _productRepository.FirstOrDefaultAsync(p => p.Id == clientId);
             if (clientProfile == null)
             {
                 // Create a new client profile if it doesn't exist
-               // clientProfile = new ClientProfile { ClientId = clientId };
+                // clientProfile = new ClientProfile { ClientId = productId };
             }
-            var userId= (long)AbpSession.UserId;
+            var userId = (long)AbpSession.UserId;
             var userIdentifier = new UserIdentifier(AbpSession.TenantId, userId);
             var allowToUseGravatar = await SettingManager.GetSettingValueForUserAsync<bool>(
                 AppSettings.UserManagement.AllowUsingGravatarProfilePicture,
@@ -132,7 +136,7 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
                     AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
             }
 
-           // var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
+            // var user = await UserManager.GetUserByIdAsync(userIdentifier.UserId);
 
             if (clientProfile.ProfilePictureId.HasValue)
             {
@@ -145,9 +149,9 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
 
             clientProfile.ProfilePictureId = storedFile.Id;
         }
-        
-        public async Task<Guid> InsertProfilePictureForClient(UpdateClientProfilePictureInput input)
-        { 
+
+        public async Task<Guid> InsertProfilePictureForProduct(UpdateProductProfilePictureInput input)
+        {
             byte[] byteArray;
 
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);
@@ -164,9 +168,9 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
                 throw new UserFriendlyException(L("ResizedProfilePicture_Warn_SizeLimit",
                     AppConsts.ResizedMaxProfilePictureBytesUserFriendlyValue));
             }
-             
+
             var storedFile = new BinaryObject(AbpSession.TenantId, byteArray,
-                $"Profile picture of Client {DateTime.UtcNow}");
+                $"Profile picture of Product {DateTime.UtcNow}");
             await _binaryObjectManager.SaveAsync(storedFile);
 
             return storedFile.Id;

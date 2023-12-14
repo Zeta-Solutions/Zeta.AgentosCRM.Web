@@ -97,7 +97,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                              o.State,
                              o.IncomeSharingPer,
                              o.Tax,
-                             o.ProfileImageId,
+                             o.ProfilePictureId,
                              o.PrimaryContactName,
                              o.TaxNo,
                              o.ContractExpiryDate,
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                         State = o.State,
                         IncomeSharingPer = o.IncomeSharingPer,
                         Tax = o.Tax,
-                        ProfileImageId = o.ProfileImageId,
+                        ProfilePictureId = o.ProfilePictureId,
                         PrimaryContactName = o.PrimaryContactName,
                         TaxNo = o.TaxNo,
                         ContractExpiryDate = o.ContractExpiryDate,
@@ -140,7 +140,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                     CountryName = o.CountryName,
                     OrganizationUnitDisplayName = o.OrganizationUnitDisplayName
                 };
-                res.Agent.ProfileImageIdFileName = await GetBinaryFileName(o.ProfileImageId);
+                res.Agent.ProfilePictureIdFileName = await GetBinaryFileName(o.ProfilePictureId);
 
                 results.Add(res);
             }
@@ -170,7 +170,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                 output.OrganizationUnitDisplayName = _lookupOrganizationUnit?.DisplayName?.ToString();
             }
 
-            output.Agent.ProfileImageIdFileName = await GetBinaryFileName(agent.ProfileImageId);
+            output.Agent.ProfilePictureIdFileName = await GetBinaryFileName(agent.ProfilePictureId);
 
             return output;
         }
@@ -194,7 +194,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                 output.OrganizationUnitDisplayName = _lookupOrganizationUnit?.DisplayName?.ToString();
             }
 
-            output.ProfileImageIdFileName = await GetBinaryFileName(agent.ProfileImageId);
+            output.ProfilePictureIdFileName = await GetBinaryFileName(agent.ProfilePictureId);
 
             return output;
         }
@@ -222,7 +222,7 @@ namespace Zeta.AgentosCRM.CRMAgent
             }
 
             await _agentRepository.InsertAsync(agent);
-            agent.ProfileImageId = await GetBinaryObjectFromCache(input.ProfileImageIdToken);
+            agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
 
         }
 
@@ -231,7 +231,7 @@ namespace Zeta.AgentosCRM.CRMAgent
         {
             var agent = await _agentRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, agent);
-            agent.ProfileImageId = await GetBinaryObjectFromCache(input.ProfileImageIdToken);
+            agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
 
         }
 
@@ -291,7 +291,7 @@ namespace Zeta.AgentosCRM.CRMAgent
                                  State = o.State,
                                  IncomeSharingPer = o.IncomeSharingPer,
                                  Tax = o.Tax,
-                                 ProfileImageId = o.ProfileImageId,
+                                 ProfilePictureId = o.ProfilePictureId,
                                  PrimaryContactName = o.PrimaryContactName,
                                  TaxNo = o.TaxNo,
                                  ContractExpiryDate = o.ContractExpiryDate,
@@ -361,7 +361,7 @@ namespace Zeta.AgentosCRM.CRMAgent
         }
 
         [AbpAuthorize(AppPermissions.Pages_Agents_Edit)]
-        public async Task RemoveProfileImageIdFile(EntityDto<long> input)
+        public async Task RemoveProfilePictureIdFile(EntityDto<long> input)
         {
             var agent = await _agentRepository.FirstOrDefaultAsync(input.Id);
             if (agent == null)
@@ -369,13 +369,13 @@ namespace Zeta.AgentosCRM.CRMAgent
                 throw new UserFriendlyException(L("EntityNotFound"));
             }
 
-            if (!agent.ProfileImageId.HasValue)
+            if (!agent.ProfilePictureId.HasValue)
             {
                 throw new UserFriendlyException(L("FileNotFound"));
             }
 
-            await _binaryObjectManager.DeleteAsync(agent.ProfileImageId.Value);
-            agent.ProfileImageId = null;
+            await _binaryObjectManager.DeleteAsync(agent.ProfilePictureId.Value);
+            agent.ProfilePictureId = null;
         }
 
     }

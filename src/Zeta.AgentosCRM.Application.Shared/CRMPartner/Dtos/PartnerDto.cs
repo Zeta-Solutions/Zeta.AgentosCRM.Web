@@ -31,7 +31,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
 
         public string PhoneCode { get; set; }
 
-        public Guid ProfilePictureId { get; set; }
+        public Guid? ProfilePictureId { get; set; }
 
         public int MasterCategoryId { get; set; }
 

@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -48,6 +49,11 @@ namespace Zeta.AgentosCRM.CRMProducts
 
         [ForeignKey("BranchId")]
         public Branch BranchFk { get; set; }
+         
+        public virtual Guid? ProfilePictureId { get; set; }
+
+        [ForeignKey("ProfilePictureId")]
+        public BinaryObject ProfilePictureFk { get; set; }
 
     }
 }
