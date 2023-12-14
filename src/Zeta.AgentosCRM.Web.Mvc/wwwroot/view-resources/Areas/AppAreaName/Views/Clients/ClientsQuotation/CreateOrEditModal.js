@@ -57,6 +57,7 @@
                 TrData += '<span><input id="partnersId" class="partnersId" type="hidden" value="' + clientQuotationDetail.partnerId + '"/></span>';
                 TrData += '<span class="partnerName">' + clientQuotationDetail.partnerName + '</span><br>';
                 TrData += '<span><input id="branchsId"  class="branchsId" type="hidden" value="' + clientQuotationDetail.branchId + '"/></span>';
+                TrData += '<span><input id="branchName"  class="branchName" type="hidden" value="' + clientQuotationDetail.branchName + '"/></span>';
                 TrData += '<span><input id="Id"  class="Id" type="hidden" value="' + clientQuotationDetail.id + '"/></span>';
                 TrData += '<span><input id="rowCount" type="hidden" value="' + rowCount + '"/></span>';
                 TrData += '</div></div>';
@@ -375,12 +376,17 @@
 
             // Assuming you have some way of determining the number of rows you want to save, let's say 'rowCount'.
             var rowCount = $(".workflowsId").length;
-
+            debugger
             for (var i = 0; i < rowCount; i++) {
                 var WorkflowId = parseInt($(".workflowsId").eq(i).val(), 10);
+              
+                var WorkflowName = $(".workflowsName").eq(i).text();
                 var ProductId = parseInt($(".productsId").eq(i).val(), 10);
+                var ProductName = $(".productsName").eq(i).text();
                 var BranchId = parseInt($(".branchsId").eq(i).val(), 10);
+                var BranchName = $(".branchName").eq(i).text();
                 var PartnerId = parseInt($(".partnersId").eq(i).val(), 10);
+                var PartnerName = $(".partnerName").eq(i).text();
                 var Description = $(".Description").eq(i).val();
                 var ServiceFee = parseFloat($(".fee").eq(i).val());
                 var Discount = parseFloat($(".discount").eq(i).val());
@@ -400,7 +406,11 @@
                     NetFee: NetFee,
                     ExchangeRate: ExchangeRate,
                     TotalAmount: TotalAmount,
-                    Id: Id
+                    Id: Id,
+                    WorkflowName: WorkflowName,
+                    ProductName: ProductName,
+                    BranchName: BranchName,
+                    PartnerName: PartnerName
                 };
 
                 datarows.push(dataRowItem);
@@ -414,7 +424,7 @@
             client.QuotationDetails = QuotationDetails;
 
 
-            abp.ui.setBusy();
+            abp.ui.setBusy();   
             console.log(client);
             _clientsQuotationService.createOrEdit(
                 client

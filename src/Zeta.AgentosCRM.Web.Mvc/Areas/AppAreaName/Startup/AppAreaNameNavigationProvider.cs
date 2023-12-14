@@ -408,8 +408,18 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         icon: "flaticon-users-1"
                     //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
                     )
-                );
-        }
+
+                )
+            .AddItem(new MenuItemDefinition(
+						AppAreaNamePageNames.Tenant.Tasks,
+						L("Tasks"),
+						url: "AppAreaName/Tasks",
+						icon: "flaticon-users-1"
+					//,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
+					)
+
+				);
+		}
 
         private static ILocalizableString L(string name)
         {

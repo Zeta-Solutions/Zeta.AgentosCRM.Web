@@ -17,9 +17,6 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 using Microsoft.AspNetCore.Mvc;
-using Zeta.AgentosCRM.CRMClient.Qoutation;
-using Zeta.AgentosCRM.CRMClient.Quotation;
-using Zeta.AgentosCRM.CRMClient.Qoutation.Dtos;
 
 namespace Zeta.AgentosCRM.CRMProducts.Fee
 {
