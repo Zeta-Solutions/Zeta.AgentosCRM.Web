@@ -29,5 +29,12 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
         [ForeignKey("WorkflowStepId")]
         public WorkflowStep WorkflowStepFk { get; set; }
 
+        public virtual bool IsCurrent {  get; set; }
+
+        public virtual bool IsCompleted { get; set; }
+
+        public virtual bool IsActive { get; set; }
+
+
     }
 }

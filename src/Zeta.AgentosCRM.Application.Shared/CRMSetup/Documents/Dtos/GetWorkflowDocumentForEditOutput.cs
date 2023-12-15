@@ -2,7 +2,7 @@
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document.Dtos
+namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 {
     public class GetWorkflowDocumentForEditOutput
     {

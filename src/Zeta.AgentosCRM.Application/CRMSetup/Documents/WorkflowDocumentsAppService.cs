@@ -5,7 +5,6 @@ using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMSetup.Document.Dtos;
 using Zeta.AgentosCRM.Dto;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization;
@@ -14,7 +13,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMSetup.Document;
+using Zeta.AgentosCRM.CRMSetup.Documents.Dtos; 
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {

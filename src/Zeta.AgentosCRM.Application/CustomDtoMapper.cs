@@ -4,7 +4,6 @@ using Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee.Dtos;
 using Zeta.AgentosCRM.CRMProducts.Fee;
-using Zeta.AgentosCRM.CRMSetup.Document.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Account.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMAgent.Contacts.Dtos;

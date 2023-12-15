@@ -25,6 +25,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         public virtual bool AllowOnClientPortal { get; set; }
 
+        public virtual bool IsMandatory { get; set; }
+
         public virtual int WorkflowStepId { get; set; }
 
         [ForeignKey("WorkflowStepId")]

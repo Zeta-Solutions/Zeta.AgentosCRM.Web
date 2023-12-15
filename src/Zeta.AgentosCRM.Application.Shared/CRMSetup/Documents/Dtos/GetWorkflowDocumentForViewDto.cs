@@ -1,4 +1,4 @@
-﻿namespace Zeta.AgentosCRM.CRMSetup.Document.Dtos
+﻿namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 {
     public class GetWorkflowDocumentForViewDto
     {
