@@ -44,6 +44,7 @@
                     {
                         <input type="hidden" name="id" value="@Model.Product.Id" />
                     }
+                    <input type="hidden" name="ProfilePictureId" id="ProfilePictureId" value="" />
                     <input type="hidden" name="partnerId" id="productId" value="" />
                     <input type="hidden" name="BranchId" id="BranchId" value="" />
                     <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -55,55 +56,69 @@
                             </h2>
                             <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                     <div class="row">    
+          <div class="col-md-2 text-center margin-top-15">
+                       
+                        
+                            @if (Model.Product.Id > 0)
+                        {
+                         @* <img src="@Url.Action("GetProfilePictureByClient", "ClientProfile", new {area = string.Empty})?clientId=@(Model.Client.Id)" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" /> *@
+                         <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
+                        else
+                        {
+                           <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
+                        
+                        @* @if (Model.Client.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Clients_ChangeProfilePicture)) *@
+                         @*  { *@
+                          <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button>
+                         @* } *@
+                        
+                    </div>
+
+                                        <div class="col-md-9">
                                             <div class="form-group">
-                                                <div class="row mb-3">
-                                                    <div class="col-md-12 mb-3">
-                                                        <label for="Name" class="form-label">@L("Name") </label>
-                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.Product.Name">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                    <label for="Name" class="form-label">@L("Name") </label>
+                                              <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.Product.Name">
+                                                            
                                                     </div>
-
-
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="Name" class="form-label">@L("Partner") </label>
-                                                        @Html.DropDownList("partnerId", new SelectList(Model.ProductPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control" , @required="required" })
+                                                    <div class="col-md-6 mb-3">
+                                                     <label for="Name" class="form-label">@L("Partner") </label>
+                                                    @Html.DropDownList("partnerId", new SelectList(Model.ProductPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control" , @required="required" })
                                                     </div>
-                                                    @* <div class="col-md-4 mb-3">
-                                                    <label for="Country" class="form-label">Branches</label>
-                                                    <select id="Countryddl" class="form-select select2" data-control="select2">
-                                                    <option value="Category">Country 1</option>
-                                                    <option value="Category">Country 2</option>
-                                                    </select>
-                                                    </div> *@
-
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="Country" class="form-label">@L("Branches") </label>
-                                                        @* @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" }) *@
-                                                        <select id="branchId" class="form-select select2" data-id="" data-control="select2"></select>
-                                                    </div>
-                                                    <div class="col-md-4 mb-3">
+                                                   
+                                            </div>
+                                            <div class="row">
+                                             <div class="col-md-6 mb-3">
                                                         <label for="Country" class="form-label">@L("ProductType")</label>
-                                                        @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAProductType"), new { @class = "form-control" , @required="required" })
-                                                    </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="Name" class="form-label">@L("RevenueType") </label>
-                                                        <div class="form-check">
-                                                            @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
-                                                            <input id="EditUser_IsActive" type="radio" name="RevenueType" class="form-check-input" value="true" @Html.Raw(Model.Product.RevenueType ? "checked=\"checked\"" : "")>
-                                                            <label class="form-check-label" for="AllProducts">@L("RevenueFromClient")</label>
-                                                        </div>
-                                                        <div class="form-check mt-3">
-                                                            <input type="radio" class="form-check-input" id="option2" name="RevenueType" value="false" @(!Model.Product.RevenueType ? "checked=\"checked\"" : "")>
-                                                            <label class="form-check-label" for="SelectProducts">@L("CommissionFromPartner") </label>
-                                                        </div>
-                                                    </div>
+                                @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAProductType"), new { @class = "form-control" , @required="required" })
+                                                    
+                                                   
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                <label for="Country" class="form-label">@L("Branches") </label>
+                                @* @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" }) *@
+                                <select id="branchId" class="form-select select2" data-id="" data-control="select2"></select>
+                            </div>
+                            </div>
 
+                                        </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="Name" class="form-label">@L("RevenueType") </label>
+                                                <div class="form-check">
+                                                    @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
+                                                    <input id="EditUser_IsActive" type="radio" name="RevenueType" class="form-check-input" value="true" @Html.Raw(Model.Product.RevenueType ? "checked=\"checked\"" : "")>
+                                                    <label class="form-check-label" for="AllProducts">@L("RevenueFromClient")</label>
+                                                </div>
+                                                <div class="form-check mt-3">
+                                                    <input type="radio" class="form-check-input" id="option2" name="RevenueType" value="false" @(!Model.Product.RevenueType ? "checked=\"checked\"" : "")>
+                                                    <label class="form-check-label" for="SelectProducts">@L("CommissionFromPartner") </label>
                                                 </div>
                                             </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

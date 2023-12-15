@@ -250,6 +250,7 @@ namespace Zeta.AgentosCRM.CRMProducts
         protected virtual async Task Update(CreateOrEditProductDto input)
         {
             var product = await _productRepository.FirstOrDefaultAsync((long)input.Id);
+            input.ProfilePictureId = product.ProfilePictureId;
             ObjectMapper.Map(input, product);
             var productbranch = await _productBranchRepository.GetAllListAsync(p => p.ProductId == input.Id);
             foreach (var item in productbranch)
