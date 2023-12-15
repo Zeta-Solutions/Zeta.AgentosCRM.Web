@@ -4,9 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMProducts.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -14,7 +12,9 @@ namespace Zeta.AgentosCRM.CRMProducts
     {
         Task<PagedResultDto<GetProductForViewDto>> GetAll(GetAllProductsInput input);
 
-        Task<GetProductForViewDto> GetProductForView(long id);
+        Task<List<GetProductForViewDto>> GetProductsByPartnerId(List<long> partnerIds); 
+
+        Task<GetProductForViewDto> GetProductForView(long id); 
 
         Task<GetProductForEditOutput> GetProductForEdit(EntityDto<long> input);
 

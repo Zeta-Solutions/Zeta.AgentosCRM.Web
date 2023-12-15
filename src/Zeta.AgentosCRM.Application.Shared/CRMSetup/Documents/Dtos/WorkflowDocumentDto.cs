@@ -1,7 +1,7 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document.Dtos
+namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 {
     public class WorkflowDocumentDto : EntityDto
     {

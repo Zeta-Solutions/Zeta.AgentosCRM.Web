@@ -9,5 +9,11 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages.Dtos
 
         public long ApplicationId { get; set; }
 
+        public bool IsCurrent { get; set; }
+
+        public bool IsCompleted { get; set; }
+
+        public bool IsActive { get; set; }
+
     }
 }

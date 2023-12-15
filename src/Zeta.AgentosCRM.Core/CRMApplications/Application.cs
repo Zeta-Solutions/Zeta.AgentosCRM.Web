@@ -40,5 +40,7 @@ namespace Zeta.AgentosCRM.CRMApplications
         [ForeignKey("ProductId")]
         public Product ProductFk { get; set; }
 
+        public virtual bool IsDiscontinue { get; set;}
+
     }
 }
