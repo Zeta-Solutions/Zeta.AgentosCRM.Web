@@ -1,7 +1,7 @@
 ﻿(function ($) {
   $(function () {
     // Back to my account
-
+    debugger
     $('#UserProfileBackToMyAccountButton').click(function (e) {
       e.preventDefault();
       abp.ajax({
@@ -23,7 +23,8 @@
     });
 
     $('#UserProfileMySettingsLink').click(function (e) {
-      e.preventDefault();
+        e.preventDefault();
+        debugger
       mySettingsModal.open();
     });
 
@@ -43,7 +44,8 @@
     });
 
     $('#UserProfileChangePasswordLink').click(function (e) {
-      e.preventDefault();
+        e.preventDefault();
+        debugger
       changePasswordModal.open();
     });
 
@@ -160,8 +162,8 @@
     // Notifications
     var _appUserNotificationHelper = new app.UserNotificationHelper();
     var _cacheService = abp.services.app.caching;
-    var _notificationService = abp.services.app.notification;
-    
+      var _notificationService = abp.services.app.notification;
+      debugger
     function shouldUserUpdateApp(){
       _notificationService
           .shouldUserUpdateApp().done(result => {
@@ -228,7 +230,8 @@
         .getUserNotifications({
           maxResultCount: 3,
         })
-        .done(function (result) {
+          .done(function (result) {
+              debugger
           result.notifications = [];
           result.unreadMessageExists = result.unreadCount > 0;
           $.each(result.items, function (index, item) {
@@ -315,10 +318,11 @@
       );
     });
 
-    // Init
-
+      // Init
+     
     function init() {
-      loadNotifications();
+        loadNotifications();
+        debugger
       getRecentlyLinkedUsers();
     }
 
