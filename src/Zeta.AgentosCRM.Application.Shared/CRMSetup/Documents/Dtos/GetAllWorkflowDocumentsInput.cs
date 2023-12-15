@@ -1,7 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using System;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document.Dtos
+namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 {
     public class GetAllWorkflowDocumentsInput : PagedAndSortedResultRequestDto
     {

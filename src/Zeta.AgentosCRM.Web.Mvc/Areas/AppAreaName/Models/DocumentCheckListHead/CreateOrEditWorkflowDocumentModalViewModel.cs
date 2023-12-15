@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic; 
-using Zeta.AgentosCRM.CRMSetup.Document.Dtos; 
+﻿using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocument
 {

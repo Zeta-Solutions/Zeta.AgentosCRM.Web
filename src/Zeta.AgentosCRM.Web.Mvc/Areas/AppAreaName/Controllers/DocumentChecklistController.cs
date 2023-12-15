@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using Zeta.AgentosCRM.CRMSetup.Document;
 using Zeta.AgentosCRM.Web.Controllers;
 using Abp.Application.Services.Dto;
 using Abp.AspNetCore.Mvc.Authorization;
@@ -11,7 +10,6 @@ using Zeta.AgentosCRM.CRMSetup.Documents;
 using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocument;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes;
-using Zeta.AgentosCRM.CRMSetup.Document.Dtos; 
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.WorkflowDocumentCheckList;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
