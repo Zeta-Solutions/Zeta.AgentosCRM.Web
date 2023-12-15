@@ -1,7 +1,12 @@
 ﻿(function ($) {
   app.modals.CreateOrEditCountriesModal = function () {
       var _countriesService = abp.services.app.countries;
-
+      $('#regionId').select2({
+          width: '750px',
+          placeholder: 'Select Office',
+          allowClear: true,
+          minimumResultsForSearch: 10,
+      });
     var _modalManager;
       var _$countriesInformationForm = null;
 

@@ -10,6 +10,12 @@
             width: '650px',
             // Adjust the width as needed...
         });
+        $('#DocumentTypeId').select2({
+            width: '750px',
+            placeholder: 'Select Office',
+            allowClear: true,
+            minimumResultsForSearch: 10,
+        });
         var _workflowsService = abp.services.app.workflows;
         var _workflowDocumentsService = abp.services.app.workflowDocuments;
         var _workflowStepsService = abp.services.app.workflowSteps;

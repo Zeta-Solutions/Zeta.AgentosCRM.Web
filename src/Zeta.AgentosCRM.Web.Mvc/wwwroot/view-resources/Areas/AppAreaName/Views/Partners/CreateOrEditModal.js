@@ -2,9 +2,10 @@
     $(function () {
         debugger
         $("#kt_app_sidebar_toggle").trigger("click");
+        debugger
         $('#masterCategoryId').select2({
-            width: '280px',
-      
+            
+            width: '280px', 
         });
        
         $('#partnerTypeId').select2({

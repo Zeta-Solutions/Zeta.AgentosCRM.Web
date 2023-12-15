@@ -10,6 +10,18 @@
             startDate: null,
             endDate: null,
         };
+        $('#WorkFlowOfficeId').select2({
+            width: '350px',
+            placeholder: 'Select Office',
+            allowClear: true,
+            minimumResultsForSearch: 10,
+        });
+        $('#B_I_Country').select2({
+            width: '380px',
+            placeholder: 'Select Office',
+            allowClear: true,
+            minimumResultsForSearch: 10,
+        });
         $(".btnbusinessRegNummbers,.btnbusinessAddress,.addMaunalTax ,.addTax,.TaxSettingSave").prop("disabled", true);
          
 
@@ -24,7 +36,7 @@
                 if (data == null) {
                 //alert("Record Not Found.");
             }
-            var optionhtml = '<option value="0"> select Office</option>';
+            var optionhtml = '<option value="0"> Select Office</option>';
                 $("#WorkFlowOfficeId").append(optionhtml);
 
             $.each(data, function (i) {
@@ -51,7 +63,8 @@
 
                 var ManualPayment = data.result.items;
 
-                var optionhtml = '<option value="0">---Select Country---</option>';
+                var optionhtml = '<option value="0">Select Country</option>';
+                    $("#B_I_Country").append(optionhtml);
                 $.each(ManualPayment, function (index, item) {
                     debugger
                     optionhtml = '<option value="' +
@@ -263,7 +276,7 @@
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
 
-                    location.reload();
+                    //location.reload();
                     abp.event.trigger('app.createOrEditWorkflowModalSaved');
                 })
 
@@ -288,7 +301,7 @@
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
 
-                    location.reload();
+                    //location.reload();
                     abp.event.trigger('app.createOrEditWorkflowModalSaved');
                 })
              
@@ -384,13 +397,13 @@
     <div class="row TaxRow">
         <div class="col-lg-3">
             <br />
-            <input class="form-control TaxSettingID" hidden id="TaxID" value="0" type="text" name="name"   />
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxSettingID" hidden id="TaxID" value="0" type="text" name="name"   />
 
-            <input class="form-control TaxCode"  type="text"/>
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxCode"  type="text"/>
         </div>
         <div class="col-lg-3">
             <br />
-            <input class="form-control TaxRate" type="text"/>
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxRate" type="text"/>
         </div>
         <div class="col-lg-3">
             <br />
@@ -446,6 +459,7 @@
 
         $(document).on("change", "#WorkFlowOfficeId", function () {
             filterRcordwithOfficeId();
+            //$("#B_I_Country").val().trigger('change');
  
         });
         function filterRcordwithOfficeId() {
@@ -495,7 +509,7 @@
                         $("#B_I_City").val(ManualPayment[0].invoiceAddress.city);
                         $("#B_I_State").val(ManualPayment[0].invoiceAddress.state);
                         $("#B_I_ZipCode").val(ManualPayment[0].invoiceAddress.zipCode);
-                        $("#B_I_Country").val(ManualPayment[0].invoiceAddress.countryId);
+                        $("#B_I_Country").val(ManualPayment[0].invoiceAddress.countryId).trigger('change');
 
                     },
                     error: function (error) {
@@ -550,12 +564,12 @@
     <div class="row TaxRow">
         <div class="col-lg-3">
             <br />
-            <input class="form-control TaxSettingID" hidden id="TaxID" value="`+ item.taxSetting.id + `" type="text" name="name"   />
-            <input class="form-control TaxCode" value="`+ item.taxSetting.taxCode + `" type="text"/>
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxSettingID" hidden id="TaxID" value="`+ item.taxSetting.id + `" type="text" name="name"   />
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxCode" value="`+ item.taxSetting.taxCode + `" type="text"/>
         </div>
         <div class="col-lg-3">
             <br />
-            <input class="form-control TaxRate" value="`+ item.taxSetting.taxRate + `" type="text"/>
+            <input class="form-control  custom-small-input rounded-0 input-sm TaxRate" value="`+ item.taxSetting.taxRate + `" type="text"/>
         </div>
         <div class="col-lg-3">
             <br />`
@@ -589,7 +603,7 @@
         }
          
         abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-            debugger
+            location.reload();
             getDocumentType();
         });
 

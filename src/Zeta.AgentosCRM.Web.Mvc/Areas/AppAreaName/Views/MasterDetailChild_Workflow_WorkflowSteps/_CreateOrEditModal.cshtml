@@ -17,17 +17,17 @@
 
             <div class="my-3">
                 <label class="form-label" for="WorkflowStep_SrlNo">@L("SrlNo")</label>
-                <input class="form-control m-input" id="WorkflowStep_SrlNo" value="@Model.WorkflowStep.SrlNo.ToString(CultureInfo.InvariantCulture)" type="number" name="srlNo" min="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" max="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" />
+                <input class="form-control  custom-small-input rounded-0 input-sm m-input" id="WorkflowStep_SrlNo" value="@Model.WorkflowStep.SrlNo.ToString(CultureInfo.InvariantCulture)" type="number" name="srlNo" min="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinSrlNoValue" max="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxSrlNoValue" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="WorkflowStep_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="WorkflowStep_Abbrivation" value="@Model.WorkflowStep.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="WorkflowStep_Abbrivation" value="@Model.WorkflowStep.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="WorkflowStep_Name">@L("Name")</label>
-                <input class="form-control" id="WorkflowStep_Name" value="@Model.WorkflowStep.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="WorkflowStep_Name" value="@Model.WorkflowStep.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.WorkflowStepConsts.MinNameLength" />
             </div>
 
         </form>

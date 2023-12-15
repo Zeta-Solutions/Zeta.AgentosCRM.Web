@@ -64,6 +64,7 @@
             public const string Partners = "Dashboard.Partners";
             public const string Products = "Dashboard.Products";
             public const string Tasks = "Dashboard.Tasks";
+            public const string Quotation = "Dashboard.Quotation";
         }
     }
 }

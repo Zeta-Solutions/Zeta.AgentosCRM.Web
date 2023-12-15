@@ -6,6 +6,23 @@
 @using Abp.Extensions
 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditPartnerType")) : L("CreateNewPartnerType")))
 
+ 
+  @section Scripts
+{
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    
+}
+
+@section Styles
+    {
+    <!-- Add these to your HTML head section -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+ }
+  
+
 <div class="modal-body">
     <div id="PartnerTypeInformationsTab">
         <form name="PartnerTypeInformationsForm" role="form" novalidate class="form-validation">
@@ -17,17 +34,24 @@
 
             <div class="my-3">
                 <label class="form-label" for="masterCategoryId">@L("MasterCategory")</label>
-                @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control select2" , @required="required" })
+                @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
             </div>
-
+          @*  <div class="col-md-4 mb-3">
+                <label for="masterCategory" class="form-label">@L("MasterCategory")<span class="text-danger">*</span></label>
+                @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
+           </div> *@
+         @*   <div class="col-md-4 mb-3">
+    <label for="masterCategory" class="form-label">@L("MasterCategory")<span class="text-danger">*</span></label>
+    @Html.DropDownList("masterCategoryId", new SelectList(Model.PartnerTypeMasterCategoryList, "Id", "DisplayName", (Model.IsEditMode ? Model.PartnerType.MasterCategoryId.ToString() : "")), @L("SelectAMasterCategory"), new { @class = "form-control", @required = "required" })
+</div> *@
             <div class="my-3">
                 <label class="form-label" for="PartnerType_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="PartnerType_Abbrivation" value="@Model.PartnerType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MinAbbrivationLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="PartnerType_Abbrivation" value="@Model.PartnerType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="PartnerType_Name">@L("Name")</label>
-                <input class="form-control" id="PartnerType_Name" value="@Model.PartnerType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MinNameLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="PartnerType_Name" value="@Model.PartnerType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.PartnerTypeConsts.MinNameLength" />
             </div>
 
         </form>

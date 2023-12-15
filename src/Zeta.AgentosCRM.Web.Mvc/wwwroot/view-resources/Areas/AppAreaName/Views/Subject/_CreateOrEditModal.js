@@ -1,7 +1,12 @@
 ﻿(function ($) {
   app.modals.CreateOrEditSubjectModal = function () {
     var _subjectsService = abp.services.app.subjects;
-
+      $('#SubjectAreaId').select2({
+          width: '755px',
+          placeholder: 'Select A Subject Area',
+          allowClear: true,
+          minimumResultsForSearch: 10,
+      });
     var _modalManager;
       var _$SubjectInformationForm = null;
 

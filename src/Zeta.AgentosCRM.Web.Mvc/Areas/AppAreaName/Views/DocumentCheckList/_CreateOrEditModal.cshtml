@@ -19,7 +19,8 @@
             <div class="my-3">
                 <label class="form-label" for="SubjectAreaId">@L("SelectWorkFlow")</label>
                 @* @Html.DropDownList("SubjectAreaId", new SelectList(Model.SubjectAreaName,"Id","DisplayName", (Model.IsEditMode ? Model.Subject.SubjectAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control" , @required="required" }) *@
-                @Html.DropDownList("WorkflowId", new SelectList(Model.WorkFlowList,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocument.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
+                @Html.DropDownList("WorkflowId", new SelectList(Model.WorkFlowList,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocument.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control custom-small-input rounded-0 input-sm" , @required="required" })
+                 
             </div>
             @* <div class="my-3">
                 <label class="col-sm-1 col-form-label" for="WorkFlowId">@L("Office")</label>
@@ -28,12 +29,12 @@
                     @* <select id="WorkFlowId" class="form-control" name="workflowId" value="@Model.DocumentCheckListHead.WorkflowId"></select> <br /> *@
                 @* </div> *@
                 @* <label class="form-label" for="FeeType_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="FeeType_Abbrivation" value="Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinAbbrivationLength" /> *@
+            <input class="form-control  custom-small-input rounded-0 input-sm" id="FeeType_Abbrivation" value="Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinAbbrivationLength" /> *@
             @* </div> *@
 
             <div class="my-3" hidden>
                 <label class="form-label" for="WorkFlow_Name">@L("Name")</label>
-                <input class="form-control" id="WorkFlow_Name" value="@Model.WorkflowDocument.Name" type="text" name="name"   />
+                <input class="form-control custom-small-input rounded-0 input-sm" id="WorkFlow_Name" value="@Model.WorkflowDocument.Name" type="text" name="name" />
             </div>
             <div class="WorkFlowStepDetail"></div>
         </form>
