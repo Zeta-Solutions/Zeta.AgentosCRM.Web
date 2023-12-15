@@ -293,6 +293,7 @@ namespace Zeta.AgentosCRM.CRMPartner
         protected virtual async Task Update(CreateOrEditPartnerDto input)
         {
             var partner = await _partnerRepository.FirstOrDefaultAsync((long)input.Id);
+            input.ProfilePictureId = partner.ProfilePictureId;
             ObjectMapper.Map(input, partner);
 
         }

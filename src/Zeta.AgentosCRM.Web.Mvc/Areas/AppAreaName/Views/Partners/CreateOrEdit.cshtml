@@ -55,7 +55,7 @@
                             {
                                 <input type="hidden" name="id" value="@Model.Partner.Id" />
                             }
-        
+         <input type="hidden" name="ProfilePictureId" id="ProfilePictureId" value="" />
          <span class="text-muted me-4"><span class="text-danger">*</span> Fields are Mandatory</span>
 
 
@@ -73,29 +73,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group ">
-                                    <div class="row">
-@* <div class="col-md-2" >
-    <div class="rounded-circle border border-dotted border-secondary position-relative overflow-hidden" style="margin-top: 20px;"> <!-- Adjust the margin-top value -->
-        <img src="~/Common/Images/upload-image.png" width="160" height="150" class="img-thumbnail img-rounded user-edit-dialog-profile-image" />
-    </div>
-</div> *@
-@* <div  class="col-md-4 d-flex flex-column align-items-center">
-<img src="~/Common/Images/default-profile-picture.png" alt="Avatar"style="height: 120px;">
-     </div>     *@        
-          <div class="col-md-3 text-center margin-top-15">
+                                    <div class="row">    
+          <div class="col-md-2 text-center margin-top-15">
                        
                         
-                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image"/>
+                            @if (Model.Partner.Id > 0)
+                        {
+                         @* <img src="@Url.Action("GetProfilePictureByClient", "ClientProfile", new {area = string.Empty})?clientId=@(Model.Client.Id)" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" /> *@
+                         <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
+                        else
+                        {
+                           <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                        }
                         
-                         
-                        
-                            @* <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button> *@
-                          <br />   <span class="btn btn-white btn-outline btn-sm  me-1 rounded-0 fileinput-button">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span>Add upload Picture ...</span>
-            <!-- The file input field used as target for the file upload widget -->
-            <input id="fileupload" type="file" name="files">
-        </span>
+                        @* @if (Model.Client.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Clients_ChangeProfilePicture)) *@
+                         @*  { *@
+                          <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button>
+                         @* } *@
                         
                     </div>
 
@@ -305,7 +300,7 @@
                     </div>
                 </div>
             </div>
-                                  <div class="my-3">
+                                 @* <div class="my-3">
                           <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
                           <div class="input-group">
                               <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
@@ -321,7 +316,7 @@
                       else
                       {
                           <input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId" hidden />
-                      }
+                      } *@
             <div class="card-footer">
                 <div class="row align-items-center">
                     <div class="col-lg-12">

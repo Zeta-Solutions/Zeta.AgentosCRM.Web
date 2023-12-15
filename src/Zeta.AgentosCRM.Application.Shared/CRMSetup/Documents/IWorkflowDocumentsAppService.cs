@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.CRMSetup.Document.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
 using Zeta.AgentosCRM.Dto;
 using System.Collections.Generic;
 
-namespace Zeta.AgentosCRM.CRMSetup.Document
+namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
     public interface IWorkflowDocumentsAppService : IApplicationService
     {

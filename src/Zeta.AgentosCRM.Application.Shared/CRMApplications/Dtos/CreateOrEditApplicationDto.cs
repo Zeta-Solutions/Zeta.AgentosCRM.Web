@@ -17,5 +17,7 @@ namespace Zeta.AgentosCRM.CRMApplications.Dtos
 
         public long ProductId { get; set; }
 
+        public bool IsDiscontinue { get; set; }
+
     }
 }

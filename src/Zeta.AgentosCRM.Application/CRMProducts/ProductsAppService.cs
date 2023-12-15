@@ -1,9 +1,6 @@
 ﻿using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
-
-using Zeta.AgentosCRM.CRMProducts;
-
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch; 
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -15,16 +12,10 @@ using Zeta.AgentosCRM.CRMProducts.Exporting;
 using Zeta.AgentosCRM.CRMProducts.Dtos;
 using Zeta.AgentosCRM.Dto;
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.Authorization;
-using Abp.Extensions;
+using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMAppointments.Invitees;
-using Zeta.AgentosCRM.CRMAppointments;
-using Microsoft.AspNetCore.Mvc;
-using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
+using Microsoft.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Mvc; 
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -83,8 +74,7 @@ namespace Zeta.AgentosCRM.CRMProducts
                            from s3 in j3.DefaultIfEmpty()
 
                            select new
-                           {
-
+                           { 
                                o.Name,
                                o.Duration,
                                o.Description,
@@ -133,6 +123,36 @@ namespace Zeta.AgentosCRM.CRMProducts
             );
 
         }
+
+        public async Task<List<GetProductForViewDto>> GetProductsByPartnerId(List<long> partnerIds)
+        {
+            var products =  _productRepository.GetAll().Where(t => partnerIds.Contains(t.PartnerId));
+            var dbList = await products.ToListAsync();
+            var results = new List<GetProductForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetProductForViewDto()
+                {
+                    Product = new ProductDto
+                    { 
+                        Name = o.Name,
+                        Duration = o.Duration,
+                        Description = o.Description,
+                        Note = o.Note,
+                        RevenueType = o.RevenueType,
+                        IntakeMonth = o.IntakeMonth,
+                        Id = o.Id,
+                        PartnerId = o.PartnerId,
+                    } 
+                };
+
+                results.Add(res);
+            }
+
+            return results;
+        }
+        
 
         public async Task<GetProductForViewDto> GetProductForView(long id)
         {
@@ -230,6 +250,7 @@ namespace Zeta.AgentosCRM.CRMProducts
         protected virtual async Task Update(CreateOrEditProductDto input)
         {
             var product = await _productRepository.FirstOrDefaultAsync((long)input.Id);
+            input.ProfilePictureId = product.ProfilePictureId;
             ObjectMapper.Map(input, product);
             var productbranch = await _productBranchRepository.GetAllListAsync(p => p.ProductId == input.Id);
             foreach (var item in productbranch)

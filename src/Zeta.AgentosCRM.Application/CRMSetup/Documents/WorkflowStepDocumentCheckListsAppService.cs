@@ -8,17 +8,11 @@ using Abp.Linq.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
-using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
-using Zeta.AgentosCRM.Dto;
+using Zeta.AgentosCRM.CRMSetup.Documents.Dtos; 
 using Abp.Application.Services.Dto;
-using Zeta.AgentosCRM.Authorization;
-using Abp.Extensions;
+using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Abp.UI;
-using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMPartner.Promotion;
-using Zeta.AgentosCRM.CRMSetup.Document;
+using Microsoft.EntityFrameworkCore; 
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
@@ -83,6 +77,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                                                      Id = o.Id,
                                                      o.WorkflowStepId,
                                                      o.DocumentTypeId,
+                                                     o.IsMandatory,
                                                   
                                                      WorkflowStepName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                                      DocumentTypeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
@@ -108,6 +103,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                         DocumentTypeId = o.DocumentTypeId,
                         WorkflowStepId = o.WorkflowStepId,
                         Id = o.Id,
+                        IsMandatory = o.IsMandatory,
                     },
                     WorkflowStepName = o.WorkflowStepName,
                     DocumentTypeName = o.DocumentTypeName

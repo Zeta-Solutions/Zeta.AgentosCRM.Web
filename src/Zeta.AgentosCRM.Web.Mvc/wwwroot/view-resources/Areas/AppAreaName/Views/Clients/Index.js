@@ -148,7 +148,7 @@
                     }
                 },
                 {
-                    width: 100,
+                    width: 200,
                     targets: 2,
                     data: null,
                     orderable: false,
@@ -169,18 +169,18 @@
            /*             console.log(clientEmailComposeUrl);*/
 
                         return `
-        <div class="d-flex align-items-center">
-            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
-                <b>${initials}</b>
-            </span>
-            <div class="d-flex flex-column">
-                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
-                    ${fullName}
-                </a> 
-                 <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
-            </div>
+    <div class="d-flex align-items-center">
+        <span class="rounded-circle bg-dark text-white p-2 me-2" title="${fullName}">
+            <b>${initials}</b>
+        </span> 
+        <div class="d-flex flex-column">
+            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                ${fullName}
+            </a> 
+             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
         </div>
-    `;
+    </div>
+`;
                     },
 
                     name: 'concatenatedData',

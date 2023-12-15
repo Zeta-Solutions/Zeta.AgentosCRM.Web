@@ -15,6 +15,8 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents.Dtos
 
         public bool AllowOnClientPortal { get; set; }
 
+        public bool IsMandatory { get; set; }
+
         public int WorkflowStepId { get; set; }
 
         public int DocumentTypeId { get; set; }

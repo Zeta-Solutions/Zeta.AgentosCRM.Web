@@ -222,7 +222,7 @@ namespace Zeta.AgentosCRM.CRMAgent
             }
 
             await _agentRepository.InsertAsync(agent);
-            agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
+            //agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
 
         }
 
@@ -230,8 +230,9 @@ namespace Zeta.AgentosCRM.CRMAgent
         protected virtual async Task Update(CreateOrEditAgentDto input)
         {
             var agent = await _agentRepository.FirstOrDefaultAsync((long)input.Id);
+            input.ProfilePictureId = agent.ProfilePictureId;
             ObjectMapper.Map(input, agent);
-            agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
+            //agent.ProfilePictureId = await GetBinaryObjectFromCache(input.ProfilePictureIdToken);
 
         }
 
