@@ -24,7 +24,22 @@
             .done(function (data) {
                 debugger
                 console.log('Response from server:', data);
-                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                if (data.result.profilePicture == null || data.result.profilePicture=='') {
+                    var fullname = $("#clientAppID").val().split(" ");
+                    let firstNameInitial = fullname[0].charAt(0).toUpperCase();
+                    let lastNameInitial = fullname[1].charAt(0).toUpperCase();
+                    let initials = `${firstNameInitial}${lastNameInitial}`;
+                    $('#initals').text(initials);
+                    $('#initalsdiv').css({
+                        'height': '150px',
+                        'width': '150px'
+                    });
+                }
+                else {
+                    $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                   
+                }
+                
             })
             .fail(function (error) {
                 console.error('Error fetching data:', error);

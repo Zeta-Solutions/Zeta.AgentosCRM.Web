@@ -160,6 +160,7 @@
                         let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
                         let initials = `${firstNameInitial}${lastNameInitial}`;
                         let fullName = `${row.client.firstName} ${row.client.lastName}`;
+                       
                   /*      console.log(row);*/
                         debugger
                         // Generate the URLs using JavaScript variables
@@ -167,12 +168,12 @@
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
                         let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
            /*             console.log(clientEmailComposeUrl);*/
-
+                        let profilePicture = row.imageBytes
                         return `
     <div class="d-flex align-items-center">
-        <span class="rounded-circle bg-dark text-white p-2 me-2" title="${fullName}">
-            <b>${initials}</b>
-        </span> 
+         ${profilePicture
+                            ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                            : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
         <div class="d-flex flex-column">
             <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
                 ${fullName}

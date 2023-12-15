@@ -7,6 +7,7 @@
         public string CountryName { get; set; }
 
         public string OrganizationUnitDisplayName { get; set; }
+        public string ImageBytes { get; set; }
 
     }
 }
