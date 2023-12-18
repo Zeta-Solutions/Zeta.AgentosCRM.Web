@@ -22,7 +22,7 @@ using Abp.BackgroundJobs;
 using Abp.Localization;
 using Abp.Runtime.Session;
 using Abp.UI;
-using Zeta.AgentosCRM.MultiTenancy.Payments;
+using Zeta.AgentosCRM.MultiTenancy.Payments; 
 
 namespace Zeta.AgentosCRM.MultiTenancy
 {
@@ -42,7 +42,7 @@ namespace Zeta.AgentosCRM.MultiTenancy
         private readonly IAbpZeroDbMigrator _abpZeroDbMigrator;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IRepository<SubscribableEdition> _subscribableEditionRepository;
-        protected readonly IBackgroundJobManager _backgroundJobManager;
+        protected readonly IBackgroundJobManager _backgroundJobManager; 
 
         public TenantManager(
             IRepository<Tenant> tenantRepository,
