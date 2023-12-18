@@ -48,7 +48,7 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
             return file == null ? "" : Convert.ToBase64String(file.Bytes);
         }
         public async Task<string> GetProfilePictureContentForClient(long clientId)
-        {
+       {
             var client = await _clientRepository.GetAsync(clientId);
             if (client?.ProfilePictureId == null)
             {

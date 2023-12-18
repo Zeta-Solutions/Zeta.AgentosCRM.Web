@@ -117,8 +117,10 @@ namespace Zeta.AgentosCRM.CRMPartner
                                o.MarketingEmail,
                                o.BusinessRegNo,
                                o.PhoneCode,
+                               o.ProfilePictureId,
                                Id = o.Id,
                                BinaryObjectDescription = s1 == null || s1.Description == null ? "" : s1.Description.ToString(),
+                               ImageBytes = s3 == null || s1.Bytes == null ? "" : Convert.ToBase64String(s1.Bytes),
                                MasterCategoryName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                PartnerTypeName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
                                WorkflowName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
@@ -158,7 +160,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                     PartnerTypeName = o.PartnerTypeName,
                     WorkflowName = o.WorkflowName,
                     CountryName = o.CountryName,
-                    CRMCurrencyName = o.CRMCurrencyName
+                    CRMCurrencyName = o.CRMCurrencyName,
+                    ImageBytes = o.ImageBytes,
                 };
 
                 results.Add(res);

@@ -15,6 +15,7 @@
         public string CountryName { get; set; }
 
         public string CRMCurrencyName { get; set; }
+        public string ImageBytes { get; set; }
 
     }
 }

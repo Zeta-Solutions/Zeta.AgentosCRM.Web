@@ -31,8 +31,8 @@ namespace Zeta.AgentosCRM.CRMAgent
 
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
-
-        public AgentsAppService(IRepository<Agent, long> agentRepository, IAgentsExcelExporter agentsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
+        public AgentsAppService(IRepository<Agent, long> agentRepository, IAgentsExcelExporter agentsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository)
         {
             _agentRepository = agentRepository;
             _agentsExcelExporter = agentsExcelExporter;
@@ -41,7 +41,7 @@ namespace Zeta.AgentosCRM.CRMAgent
 
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
-
+            _lookup_binaryObjectRepository = lookup_binaryObjectRepository;
         }
 
         public async Task<PagedResultDto<GetAgentForViewDto>> GetAll(GetAllAgentsInput input)
@@ -82,7 +82,8 @@ namespace Zeta.AgentosCRM.CRMAgent
 
                          join o2 in _lookup_organizationUnitRepository.GetAll() on o.OrganizationUnitId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
-
+                         join o3 in _lookup_binaryObjectRepository.GetAll() on o.ProfilePictureId equals o3.Id into j3
+                         from s3 in j3.DefaultIfEmpty()
                          select new
                          {
 
@@ -104,7 +105,8 @@ namespace Zeta.AgentosCRM.CRMAgent
                              o.ClaimRevenuePer,
                              Id = o.Id,
                              CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
-                             OrganizationUnitDisplayName = s2 == null || s2.DisplayName == null ? "" : s2.DisplayName.ToString()
+                             OrganizationUnitDisplayName = s2 == null || s2.DisplayName == null ? "" : s2.DisplayName.ToString(),
+                             ImageBytes = s3 == null || s3.Bytes == null ? "" : Convert.ToBase64String(s3.Bytes),
                          };
 
             var totalCount = await filteredAgents.CountAsync();
@@ -138,7 +140,8 @@ namespace Zeta.AgentosCRM.CRMAgent
                         Id = o.Id,
                     },
                     CountryName = o.CountryName,
-                    OrganizationUnitDisplayName = o.OrganizationUnitDisplayName
+                    OrganizationUnitDisplayName = o.OrganizationUnitDisplayName,
+                    ImageBytes = o.ImageBytes,
                 };
                 res.Agent.ProfilePictureIdFileName = await GetBinaryFileName(o.ProfilePictureId);
 

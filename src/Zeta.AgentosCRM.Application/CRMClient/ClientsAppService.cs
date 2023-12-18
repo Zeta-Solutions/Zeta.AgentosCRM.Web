@@ -131,9 +131,11 @@ namespace Zeta.AgentosCRM.CRMClient
                               o.Rating,
                               o.ClientPortal,
                               Id = o.Id,
+                              o.ProfilePictureId,
                               CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                               UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                               BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
+                              ImageBytes = s3 == null || s3.Bytes == null ? "" : Convert.ToBase64String(s3.Bytes),
                               DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
                               SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
                               LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
@@ -172,6 +174,7 @@ namespace Zeta.AgentosCRM.CRMClient
                         Rating = o.Rating,
                         ClientPortal = o.ClientPortal,
                         Id = o.Id,
+                        ProfilePictureId=o.ProfilePictureId,
                     },
                     CountryName = o.CountryName,
                     UserName = o.UserName,
@@ -180,7 +183,8 @@ namespace Zeta.AgentosCRM.CRMClient
                     SubjectAreaName = o.SubjectAreaName,
                     LeadSourceName = o.LeadSourceName,
                     PassportCountry = o.PassportCountry,
-                    AgentName = o.AgentName
+                    AgentName = o.AgentName,
+                    ImageBytes=o.ImageBytes,
                 };
 
                 results.Add(res);
