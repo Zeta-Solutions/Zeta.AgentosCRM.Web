@@ -171,6 +171,8 @@
             var workflowId = $(this).data('id');
             var appId = $(this).data('action');
             $("#ApplicationWorkflowId").val(workflowId)
+            $("#ApplicationId").val(appId)
+            
             // Show the selected tab
             var selectedTab = document.getElementById("ApplicationDetailTab"); 
             debugger
