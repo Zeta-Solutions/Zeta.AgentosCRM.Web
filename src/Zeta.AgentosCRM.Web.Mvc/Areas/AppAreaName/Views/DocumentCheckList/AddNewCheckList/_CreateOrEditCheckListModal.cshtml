@@ -20,21 +20,21 @@
 
             <div class="my-3">
                 <label class="form-label" for="AddNewCheckListDocumentType">@L("DocumentType")</label>
-                @Html.DropDownList("DocumentTypeId", new SelectList(Model.WorkFlowDocumentCheckListDoucType,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocumentCheckList.DocumentTypeId.ToString() : "")),@L("SelectADocumentType"), new { @class = "form-control" , @required="required" })
+                @Html.DropDownList("DocumentTypeId", new SelectList(Model.WorkFlowDocumentCheckListDoucType,"Id","DisplayName", (Model.IsEditMode ? Model.WorkflowDocumentCheckList.DocumentTypeId.ToString() : "")),@L("SelectADocumentType"), new { @class = "form-control  custom-small-input rounded-0 input-sm" , @required="required" })
                 @* <select class="form-control" value="@Model.WorkflowDocumentCheckList.DocumentTypeId" name="documentTypeId" id="AddNewCheckListDocumentType"></select> *@
             </div>
 
             <div class="my-3">
-                <input class="form-control" hidden id="workFlowStepModelId" name="WorkflowStepId" value="@Model.WorkflowDocumentCheckList.WorkflowStepId" type="text" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" hidden id="workFlowStepModelId" name="WorkflowStepId" value="@Model.WorkflowDocumentCheckList.WorkflowStepId" type="text" />
             </div>
 
             <div class="my-3" hidden>
                 <label class="form-label" for="Name">@L("name")</label>
-                <input class="form-control" id="Name" value="@Model.WorkflowDocumentCheckList.Name" type="text" name="name" required />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Name" value="@Model.WorkflowDocumentCheckList.Name" type="text" name="name" required />
             </div>
             <div class="my-3">
                 <label class="form-label" for="Description">@L("Description")</label>
-                <input class="form-control" id="Description" value="@Model.WorkflowDocumentCheckList.Description" type="text" name="Description" required />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Description" value="@Model.WorkflowDocumentCheckList.Description" type="text" name="Description" required />
             </div>
             <div class="my-3">
                 <label class="form-label">@L("applyto")</label>

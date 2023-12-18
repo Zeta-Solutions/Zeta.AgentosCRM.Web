@@ -18,19 +18,19 @@
             }
             <div class="my-3">
                 <label class="form-label" for="EmailTemplate_Title">@L("Title")</label>
-                <input class="form-control" id="EmailTemplate_Title" value="@Model.EmailTemplate.Title" type="text" name="Title" required maxlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MaxTitleLength" minlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MinTitleLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_Title" value="@Model.EmailTemplate.Title" type="text" name="Title" required maxlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MaxTitleLength" minlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MinTitleLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="EmailTemplate_EmailSubject">@L("Subject")</label>
-                <input class="form-control" id="EmailTemplate_EmailSubject" value="@Model.EmailTemplate.EmailSubject" type="text" name="EmailSubject" required  />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_EmailSubject" value="@Model.EmailTemplate.EmailSubject" type="text" name="EmailSubject" required />
             </div>
             
             <div class="my-3">
                 <label class="form-label" for="EmailTemplate_EmailBody">@L("Body")</label>
                 @* <div id="kt_docs_quill_basic" name="kt_docs_quill_basic" class="min-h-200px">
                 </div> *@
-                <textarea rows="3" class="form-control" id="EmailTemplate_EmailBody"   type="text" name="EmailBody">@Model.EmailTemplate.EmailBody</textarea>
+                <textarea rows="3" class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_EmailBody" type="text" name="EmailBody">@Model.EmailTemplate.EmailBody</textarea>
                 @* <input class="form-control" id="FeeType_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" /> *@
             </div>
             <div class="my-3">

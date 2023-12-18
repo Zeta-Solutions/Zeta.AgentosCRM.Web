@@ -396,29 +396,40 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(
                             AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
-                    ).AddItem(new MenuItemDefinition(
+                    )
+                   .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.Agent,
                         L("Agent"),
                         url: "AppAreaName/Agents",
                         icon: "flaticon-users-1"
-                    //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
+                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Agents)
                     )
-                ).AddItem(new MenuItemDefinition(
+                )
+                    .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.Products,
                         L("Products"),
                         url: "AppAreaName/Products",
-                        icon: "flaticon-users-1"
-                    //,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
+                        icon: "flaticon-interface-3"
+                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Products)
                     )
 
                 )
-            .AddItem(new MenuItemDefinition(
+                    .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.Quotation,
+                        L("Quotation"),
+                        url: "AppAreaName/Clients",
+                        icon: "flaticon-file-1"
+                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
+                    )
+
+                )
+                    .AddItem(new MenuItemDefinition(
 						AppAreaNamePageNames.Tenant.Tasks,
 						L("Tasks"),
 						url: "AppAreaName/Tasks",
-						icon: "flaticon-users-1"
-					//,permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_DemoUiComponents)
-					)
+						icon: "flaticon-calendar"
+                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TaskPriorities)
+                    )
 
 				);
 		}

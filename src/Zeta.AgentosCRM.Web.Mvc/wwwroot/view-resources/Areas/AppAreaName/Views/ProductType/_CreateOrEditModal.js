@@ -4,7 +4,12 @@
 
     var _modalManager;
       var _$productTypeInformationForm = null;
-      
+      $('#masterCategoryId').select2({
+          width: '750px',
+          placeholder: 'Select Master Category',
+          allowClear: true,
+          minimumResultsForSearch: 10,
+      });
       this.init = function (modalManager) {
           console.log("Load init"); 
       _modalManager = modalManager;

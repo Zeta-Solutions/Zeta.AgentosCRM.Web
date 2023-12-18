@@ -1,7 +1,20 @@
 ﻿(function ($) {
   app.modals.CreateOrEditPartnerTypeModal = function () {
-    var _partnerTypesService = abp.services.app.partnerTypes;
-
+      var _partnerTypesService = abp.services.app.partnerTypes;
+      debugger 
+      //$('#masterCategoryId').select2({
+      //    width: '750px',
+      //    //placeholder: 'Select a Master Category',
+      //    //allowClear: true
+      //    // Adjust the width as needed
+      //});
+      $('#masterCategoryId').select2({
+          width: '755px', 
+          placeholder: 'Select a Master Category',
+          allowClear: true,
+          minimumResultsForSearch: 10,   
+      });
+     
     var _modalManager;
     var _$partnerTypeInformationForm = null;
 
