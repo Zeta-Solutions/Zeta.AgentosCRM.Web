@@ -80,7 +80,7 @@
 
             success: function (data) {
                 debugger
-                populateDropdown(data);
+                populatePartnerDropdown(data);
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
@@ -88,7 +88,7 @@
         });
 
         var dataRows = [];
-        function populateDropdown(data) {
+        function populatePartnerDropdown(data) {
 
             var dropdown = $('#PartnerID');
 
@@ -110,6 +110,7 @@
         //Fill Drop Down
         var workflowDocumentCheckListId = $("#workflowDocumentCheckListId").val();
         debugger
+
         if (workflowDocumentCheckListId > 0) {
             debugger
 
@@ -122,37 +123,43 @@
                 success: function (data) {
                     debugger
                     // Populate the dropdown with the fetched data
-                    updateProductDropdown(data);
+                    updatePartnerDropdown(data);
+                    
                 },
                 error: function (error) {
                     console.error('Error fetching data:', error);
                 }
             });
-        }
 
-        function updateProductDropdown(data) {
-            debugger;
-            var ms_val = 0;
-            var ms_valProduct = 0;
-            debugger
-            // Assuming data.result.promotionproduct is an array of objects with OwnerID property
-            $.each(data.result.documentCheckListPartner, function (index, obj) {
-                debugger
-                ms_val += "," + obj.partnerId; 
+            function updatePartnerDropdown(data) {
 
-            });
-            if (ms_val == 0) {
-                // When Ms_Va get 0 then Action Perform other wise else case run...
-            } else {
-                 
-                var ms_array = ms_val.split(','); 
+                var ms_val = 0;
                 debugger
-                var $PartnerId = $("#PartnerID"); 
-                $PartnerId.val(ms_array).trigger('change'); 
+                // Assuming data.result.promotionproduct is an array of objects with OwnerID property
+                $.each(data.result.documentCheckListPartner, function (index, obj) {
+                    debugger
+                    ms_val += "," + obj.partnerId;
+
+                });
+                if (ms_val == 0) {
+                    alert("There is no data")
+                    // When Ms_Va get 0 then Action Perform other wise else case run...
+                } else {
+
+                    var ms_array = ms_val.split(',');
+                    //alert("There is some data" + ms_array)
+                    debugger
+                    //$("#PartnerID").select2("val", ms_array);
+                    $("#PartnerID").empty()
+                    $("#PartnerID").val(ms_array) 
+                    $("#PartnerID").trigger('change');
+                    //$("#PartnerID").trigger('change.select2');
+
+                }
+
             }
-
-           
         }
+
     var _modalManager;
         var _$feeTypesInformationForm = null;
         var workflowId = $("#WorkflowId").val();
@@ -231,7 +238,7 @@
             }
             debugger
             $("#RadioProducts").show();
-
+            //setTimeout(myFunction, 2000); 
             if (PartnerId > 0) {
                 $.ajax({
                     url: abp.appPath + 'api/services/app/Products/GetAll',
@@ -243,7 +250,7 @@
 
                     success: function (data) {
                       
-                        populateDropdown(data);
+                        populateProductDropdown(data);
                     },
                     error: function (error) {
                         console.error('Error fetching data:', error);
@@ -251,7 +258,7 @@
                 });
 
                 var dataRows = [];
-                function populateDropdown(data) {
+                function populateProductDropdown(data) {
 
                     var dropdown = $('#ProductID');
 

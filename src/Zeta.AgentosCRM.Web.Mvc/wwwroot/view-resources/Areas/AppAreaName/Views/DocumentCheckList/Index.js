@@ -169,15 +169,14 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-             
-            debugger
+              
           // Handle the selected action based on the rowId
           //if (action === 'view') {
           //    debugger
           //    _viewFeeTypeModal.open({ id: rowId });
             // } else
             if (action === 'edit') { 
-                debugger
+              
                 //    viewUrl: abp.appPath + 'AppAreaName/Partners/CreateOrEditClientTags',
                 window.location = "/AppAreaName/DocumentCheckList/EditDocumentCheckList/" + "?id=" + rowId + "&WorkFlowid=" + GetWorkFlowId; 
                 //_createOrEditModal.open({ id: rowId });

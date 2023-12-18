@@ -3,7 +3,7 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Education;
 @model CreateOrEditEducationViewModel
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewEducationBackground")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditEducationBackground")) : L("CreateNewEducationBackground")))
 
 <div class="modal-body">
     <div id="InformationsForm">
@@ -17,7 +17,7 @@
 
             <div class="my-3">
                 <label class="form-label" for="DegreeTitle">@L("DegreeTitle")</label>
-                <input class="form-control" id="DegreeTitle" value="@Model.ClientEducation.DegreeTitle" type="text" name="DegreeTitle" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxDegreeTitleLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinDegreeTitleLength" />
+                <input class="form-control custom-small-input rounded-0 input-sm" id="DegreeTitle" value="@Model.ClientEducation.DegreeTitle" type="text" name="DegreeTitle" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxDegreeTitleLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinDegreeTitleLength" />
             </div>
 
             <div class="my-3">
@@ -26,15 +26,15 @@
             </div>
             <div class="my-3">
                 <label class="form-label" for="Institution">@L("Institution")</label>
-                <input class="form-control" id="Institution_Name" value="@Model.ClientEducation.Institution" type="text" name="Institution" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxInstitutionLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinInstitutionLength" />
+                <input class="form-control custom-small-input rounded-0 input-sm" id="Institution_Name" value="@Model.ClientEducation.Institution" type="text" name="Institution" required maxlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MaxInstitutionLength" minlength="@Zeta.AgentosCRM.CRMClient.Education.ClientEducationConsts.MinInstitutionLength" />
             </div>
             <div class="my-3 col-9">
                 <label class="form-label" for="CourseStart">@L("CourseStart")</label>
-                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseStartDate" type="datetime" name="CourseStartDate" required />
+                <input class="form-control custom-small-input rounded-0 input-sm custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseStartDate" type="datetime" name="CourseStartDate" required />
             </div>
             <div class="my-3 col-3">
                 <label class="form-label" for="CourseEnd">@L("CourseEnd")</label>
-                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseEndDate" type="datetime" name="CourseEndDate" required />
+                <input class="form-control custom-small-input rounded-0 input-sm custom-select-input date-picker" id="StartDate" value="@Model.ClientEducation.CourseEndDate" type="datetime" name="CourseEndDate" required />
             </div>
             <div class="my-3">
                 <label class="form-label" for="SubjectArea">@L("SubjectArea")</label>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <input type="number" value="@Model.ClientEducation.AcadmicScore"/>  
+                    <input type="number" name="acadmicScore" class="form-control  custom-small-input rounded-0 input-sm" value="@Model.ClientEducation.AcadmicScore" />
                 </div>
             </div>
          @*    <div class="row col-12">

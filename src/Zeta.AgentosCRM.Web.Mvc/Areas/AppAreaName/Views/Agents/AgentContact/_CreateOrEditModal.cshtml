@@ -3,7 +3,7 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
 @model CreateOrEditAgentContactsViewModel
 @using Abp.Extensions
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateContact")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditContact")) :L("CreateContact")))
 
 <div class="modal-body">
     <div id="ContactsInformationsTab">

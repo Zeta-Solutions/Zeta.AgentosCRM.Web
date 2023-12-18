@@ -11,7 +11,24 @@
       $('input[name*="clientId"]').val(hiddenfield)
     var _modalManager;
       var _$applicationsInformationForm = null;
-
+      $('#WorkflowId').select2({
+          width: '755px',
+          placeholder: 'Select Workflow',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
+      $('#PartnerId').select2({
+          width: '755px',
+          placeholder: 'Select Partner',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
+      $('#ProductId').select2({
+          width: '755px',
+          placeholder: 'Select Product',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
 
 
     this.init = function (modalManager) {

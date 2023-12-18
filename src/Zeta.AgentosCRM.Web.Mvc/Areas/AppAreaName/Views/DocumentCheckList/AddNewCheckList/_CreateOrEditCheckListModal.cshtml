@@ -84,7 +84,7 @@
 
                     @* <input type="checkbox" value="false" name="AllowOnClientPortal" id="clientportal" @Html.Raw(Model.WorkflowDocumentCheckList.AllowOnClientPortal ? "checked=\"checked\"" : "") />
                     <label class="form-label" for="clientportal">@L("Uploaddocumentsfromclientportal")</label> <br /> *@
-                    <input type="checkbox" value="false" name="nextstage" id="nextstage" />
+                    <input type="checkbox" value="true" name="IsMandatory" id="nextstage"  @Html.Raw(Model.WorkflowDocumentCheckList.IsMandatory ? "checked=\"checked\"" : "")/>
                     <label class="form-label" for="nextstage">@L("indoortoproceednextstage")</label>
 
                 </div>
