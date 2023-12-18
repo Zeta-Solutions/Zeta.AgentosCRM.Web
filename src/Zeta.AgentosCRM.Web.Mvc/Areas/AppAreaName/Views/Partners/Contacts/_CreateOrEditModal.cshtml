@@ -3,7 +3,7 @@
 @model CreateOrEditPartnerContactModalViewModel
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Partners;
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("AddContact")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditContact")) :L("AddContacts")))
 
 <div class="modal-body">
     <div id="ContactsInformationsTab">

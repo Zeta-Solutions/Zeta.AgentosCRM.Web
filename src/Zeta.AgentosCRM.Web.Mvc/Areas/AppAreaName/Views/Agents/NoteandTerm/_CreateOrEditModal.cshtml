@@ -3,7 +3,7 @@
 @model CreateOrEditNotesModalViewModel
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.NotesAndTerms;
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNoteAndTerm")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditNoteAndTerm")) :L("CreateNoteAndTerm")))
 
 <div class="modal-body">
     <div id="NotesAndTermsInformationsTab">

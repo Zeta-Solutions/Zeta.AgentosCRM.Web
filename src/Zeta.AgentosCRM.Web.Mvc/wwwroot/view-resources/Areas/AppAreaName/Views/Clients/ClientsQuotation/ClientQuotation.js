@@ -447,8 +447,8 @@
                             '<div class="ellipsis60"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
-                            '<li ><a href="#" style="color: black;" data-action60="Preview" data-id="' + rowId + '">Preview</a></li>' +
+                            '<a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                            '<a href="#" style="color: black;" data-action60="Preview" data-id="' + rowId + '"><li>Preview</li></a>' +
                             "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
