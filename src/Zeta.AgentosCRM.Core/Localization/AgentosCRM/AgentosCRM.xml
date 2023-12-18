@@ -1862,5 +1862,21 @@
 		<text name="CreateNewMaunalTaxDetail">Create New Maunal Tax Detail</text>
 		<text name="InvoiceTypeHeaderInfo">Invoice Type Header Info</text>
 		<text name="CreateNewDocument">Create New Document</text>
+		<text name="BackClientList">Back Client List</text>
+		<text name="ADDNEWCLIENTORPROSPECT">ADD NEW CLIENT OR PROSPECT</text>
+		<text name="PassportCountry">Passport Country</text>
+		<text name="HighestQualificationI">Highest Qualification</text>
+		<text name="Tags">Tags</text> 
+		<text name="CheckInPurpose">Check In Purpose</text> 
+		<text name="CheckInStatus">Check In Status</text> 
+		<text name="CheckInDate">Check In Date</text> 
+		<text name="AddNewPartner">Add New Partner</text> 
+		<text name="RevenueType">RevenueType</text> 
+		<text name="RevenueFromClient">RevenueFromClient</text> 
+		<text name="CommissionFromPartner">CommissionFromPartner</text> 
+		<text name="SelectAIntakeMonth">SelectAIntakeMonth</text> 
+		<text name="SaveAndNew">SaveAndNew</text> 
+		<text name="SelectAAgent">SelectAAgent</text> 
+		<text name="AddAgreements">AddAgreements</text> 
 	</texts> 
 </localizationDictionary>
