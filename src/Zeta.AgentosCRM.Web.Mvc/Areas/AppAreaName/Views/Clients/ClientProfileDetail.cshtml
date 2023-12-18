@@ -51,10 +51,20 @@
                     <div class="card shadow rounded-0">
                         <div class="card-body ">
                             <div class="col-lg-12 mb-3 d-flex justify-content-center align-items-center">
-                                <div class="symbol symbol-160px rounded-circle symbol-lg-160px symbol-fixed position-relative p-3">
-                                    @* <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" /> *@
-                                     <img id="profileImage" src=""  class="rounded-circle" />
-                                </div>
+                                <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative ">
+                            @* <img src="/Profile/GetProfilePicture" alt="Metronic" class="rounded-circle" /> *@
+                            @if (Model.Client.ProfilePictureId != null)
+                            {
+
+                                        <img id="profileImage" src="" class="rounded-circle border border-dark" />
+                            }
+                            else
+                            {
+                               <div id="initalsdiv" class="rounded-circle bg-dark  text-white text-center border border-dark fs-1">
+                                            <span id="initals" style="line-height: 150px; display: inline-block; font-size: 80px;"></span>
+                               </div>
+                            }
+                        </div>
                             </div>
 
                             @* /////Icons div///// *@
@@ -80,7 +90,7 @@
 
                             <div class="col-lg-12 mt-1 d-flex justify-content-center align-items-center">
                                 <div class="d-flex align-items-center  pb-4">
-                                    <span class="text-gray-800  fs-2 fw-bolder ">
+                                    <span class="text-gray-800  fs-2 fw-bolder text-uppercase">
                                        @Model.Client.FirstName @Model.Client.LastName 
                                     </span>
                                 </div>

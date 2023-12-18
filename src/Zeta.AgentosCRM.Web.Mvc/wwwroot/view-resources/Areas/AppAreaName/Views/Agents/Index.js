@@ -55,6 +55,10 @@
 			'delete': abp.auth.hasPermission('Pages.Clients.Delete')
 		};
 
+		var _createOrEditModalEmail = new app.ModalManager({
+			viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+			modalClass: 'ClientEmailCompose'
+		});
 
 
 		var _viewClientModal = new app.ModalManager({
@@ -145,7 +149,7 @@
 				//	name: 'Workflow',
 				//},
 				{
-					width: 100,
+					width: 200,
 					targets: 2,
 					data: null,
 					orderable: false,
@@ -161,19 +165,17 @@
 						// Generate the URLs using JavaScript variables
 						let clientDetailUrl = `/AppAreaName/Agents/DetailsForm?id=${row.agent.id}`;
 						let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.agent.id}`;
-
+						let profilePicture = row.imageBytes
 						return `
     <div class="d-flex align-items-center">
-        <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
-           <b>${initials}</b>
-        </span>
+         ${profilePicture
+								? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+								: `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
         <div class="d-flex flex-column">
-            <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
                 ${fullName}
-            </a>
-            <a href="${clientEmailComposeUrl}" class="text-decoration-none">
-                <span class="text-truncate" id="CreateNewClientEmailButton">${row.agent.email}</span>
-            </a>
+            </a> 
+             <a href="#" class="EmailForm" data-id="${row.agent.id}">${row.agent.email}</a>
         </div>
     </div>
 `;
@@ -247,256 +249,14 @@
 			],
 		});
 
+		$(document).on('click', '.EmailForm', function (e) {
+			e.preventDefault();
+			debugger
+			var rowId = $(this).data('id');
+			var action = $(this).data('action');
+			_createOrEditModalEmail.open(rowId);
 
-
-
-		//var dataTable = _$agentsTable.DataTable({
-		//	paging: true,
-		//	serverSide: true,
-		//	processing: true,
-		//	listAction: {
-		//		ajaxFunction: _agentsService.getAll,
-		//		inputFilter: function () {
-		//			return {
-		//				filter: $('#ClientsTableFilter').val(),
-		//				firstNameFilter: $('#FirstNameFilterId').val(),
-		//				lastNameFilter: $('#LastNameFilterId').val(),
-		//				emailFilter: $('#EmailFilterId').val(),
-		//				phoneNoFilter: $('#PhoneNoFilterId').val(),
-		//				minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
-		//				maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
-		//				universityFilter: $('#UniversityFilterId').val(),
-		//				minRatingFilter: $('#MinRatingFilterId').val(),
-		//				maxRatingFilter: $('#MaxRatingFilterId').val(),
-		//				countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
-		//				userNameFilter: $('#UserNameFilterId').val(),
-		//				binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-		//				degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-		//				subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-		//				leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-		//				countryName2Filter: $('#CountryName2FilterId').val(),
-		//				countryName3Filter: $('#CountryName3FilterId').val()
-		//			};
-		//		}
-		//	},
-		//	columnDefs: [
-		//		{
-		//			className: 'control responsive',
-		//			orderable: false,
-		//			render: function () {
-		//				return '';
-		//			},
-		//			targets: 0
-		//		},
-		//		{
-		//			width: 120,
-		//			targets: 1,
-		//			data: null,
-		//			orderable: false,
-		//			autoWidth: false,
-		//			defaultContent: '',
-		//			rowAction: {
-		//				cssClass: 'btn btn-brand dropdown-toggle',
-		//				text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-		//				items: [
-		//					{
-		//						text: app.localize('View'),
-		//						action: function (data) {
-		//							window.location = "/AppAreaName/Clients/ViewClient/" + data.record.client.id;
-		//						}
-		//					},
-		//					{
-		//						text: app.localize('Edit'),
-		//						visible: function () {
-		//							return _permissions.edit;
-		//						},
-		//						action: function (data) {
-		//							window.location = "/AppAreaName/Clients/CreateOrEdit/" + data.record.client.id;
-		//						}
-		//					},
-		//					{
-		//						text: app.localize('History'),
-		//						iconStyle: 'fas fa-history mr-2',
-		//						visible: function () {
-		//							return entityHistoryIsEnabled();
-		//						},
-		//						action: function (data) {
-		//							_entityTypeHistoryModal.open({
-		//								entityTypeFullName: _entityTypeFullName,
-		//								entityId: data.record.client.id
-		//							});
-		//						}
-		//					},
-		//					{
-		//						text: app.localize('Delete'),
-		//						visible: function () {
-		//							return _permissions.delete;
-		//						},
-		//						action: function (data) {
-		//							deleteClient(data.record.client);
-		//						}
-		//					}]
-		//			}
-		//		},
-		//		{
-		//			targets: 2,
-		//			data: "client.firstName",
-		//			name: "firstName"
-		//		},
-		//		{
-		//			targets: 3,
-		//			data: "client.lastName",
-		//			name: "lastName"
-		//		},
-		//		{
-		//			targets: 4,
-		//			data: "client.email",
-		//			name: "email"
-		//		},
-		//		{
-		//			targets: 5,
-		//			data: "client.phoneNo",
-		//			name: "phoneNo"
-		//		},
-		//		{
-		//			targets: 6,
-		//			data: "client.dateofBirth",
-		//			name: "dateofBirth",
-		//			render: function (dateofBirth) {
-		//				if (dateofBirth) {
-		//					return moment(dateofBirth).format('L');
-		//				}
-		//				return "";
-		//			}
-
-		//		},
-		//		{
-		//			targets: 7,
-		//			data: "client.contactPreferences",
-		//			name: "contactPreferences",
-		//			render: function (contactPreferences) {
-		//				return app.localize('Enum_ContactPrefernce_' + contactPreferences);
-		//			}
-
-		//		},
-		//		{
-		//			targets: 8,
-		//			data: "client.university",
-		//			name: "university"
-		//		},
-		//		{
-		//			targets: 9,
-		//			data: "client.street",
-		//			name: "street"
-		//		},
-		//		{
-		//			targets: 10,
-		//			data: "client.city",
-		//			name: "city"
-		//		},
-		//		{
-		//			targets: 11,
-		//			data: "client.state",
-		//			name: "state"
-		//		},
-		//		{
-		//			targets: 12,
-		//			data: "client.zipCode",
-		//			name: "zipCode"
-		//		},
-		//		{
-		//			targets: 13,
-		//			data: "client.preferedIntake",
-		//			name: "preferedIntake",
-		//			render: function (preferedIntake) {
-		//				if (preferedIntake) {
-		//					return moment(preferedIntake).format('L');
-		//				}
-		//				return "";
-		//			}
-
-		//		},
-		//		{
-		//			targets: 14,
-		//			data: "client.passportNo",
-		//			name: "passportNo"
-		//		},
-		//		{
-		//			targets: 15,
-		//			data: "client.visaType",
-		//			name: "visaType"
-		//		},
-		//		{
-		//			targets: 16,
-		//			data: "client.visaExpiryDate",
-		//			name: "visaExpiryDate",
-		//			render: function (visaExpiryDate) {
-		//				if (visaExpiryDate) {
-		//					return moment(visaExpiryDate).format('L');
-		//				}
-		//				return "";
-		//			}
-
-		//		},
-		//		{
-		//			targets: 17,
-		//			data: "client.rating",
-		//			name: "rating"
-		//		},
-		//		{
-		//			targets: 18,
-		//			data: "client.clientPortal",
-		//			name: "clientPortal",
-		//			render: function (clientPortal) {
-		//				if (clientPortal) {
-		//					return '<div class="text-center"><i class="fa fa-check text-success" title="True"></i></div>';
-		//				}
-		//				return '<div class="text-center"><i class="fa fa-times-circle" title="False"></i></div>';
-		//			}
-
-		//		},
-		//		{
-		//			targets: 19,
-		//			data: "countryDisplayProperty",
-		//			name: "countryCodeFk.displayProperty"
-		//		},
-		//		{
-		//			targets: 20,
-		//			data: "userName",
-		//			name: "assigneeFk.name"
-		//		},
-		//		{
-		//			targets: 21,
-		//			data: "binaryObjectDescription",
-		//			name: "profilePictureFk.description"
-		//		},
-		//		{
-		//			targets: 22,
-		//			data: "degreeLevelName",
-		//			name: "highestQualificationFk.name"
-		//		},
-		//		{
-		//			targets: 23,
-		//			data: "subjectAreaName",
-		//			name: "studyAreaFk.name"
-		//		},
-		//		{
-		//			targets: 24,
-		//			data: "leadSourceName",
-		//			name: "leadSourceFk.name"
-		//		},
-		//		{
-		//			targets: 25,
-		//			data: "countryName2",
-		//			name: "countryFk.name"
-		//		},
-		//		{
-		//			targets: 26,
-		//			data: "countryName3",
-		//			name: "passportCountryFk.name"
-		//		}
-		//	]
-		//});
+		});
 
 		function getAgents() {
 			dataTable.ajax.reload();

@@ -19,6 +19,7 @@
         public string PassportCountry { get; set; }
 
         public string AgentName { get; set; }
+        public string ImageBytes { get; set; }
 
     }
 }
