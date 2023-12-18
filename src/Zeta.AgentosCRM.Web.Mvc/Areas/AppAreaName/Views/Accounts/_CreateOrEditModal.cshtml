@@ -19,18 +19,18 @@
             }
             <div class="my-3">
                 <label class="form-label" for="ManualPaymentDetail_Name">@L("PaymentOptionName")</label>
-                <input class="form-control" id="ManualPaymentDetail_Name" name="Name" value="@Model.ManualPaymentDetail.Name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MinNameLength" />
-                <input type="hidden" class="form-control" id="OrganizationUnitId" name="OrganizationUnitId" value="" />
+                <input class="form-control  custom-small-input rounded-0 input-sm  custom-small-input rounded-0 input-sm" id="ManualPaymentDetail_Name" name="Name" value="@Model.ManualPaymentDetail.Name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetailConsts.MinNameLength" />
+                <input type="hidden" class="form-control  custom-small-input rounded-0 input-sm" id="OrganizationUnitId" name="OrganizationUnitId" value="" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="ManualPaymentDetail_PaymentDetail">@L("PaymentDetailContent")</label>
-                <textarea class="form-control" for="ManualPaymentDetail_PaymentDetail" name="PaymentDetail">@Model.ManualPaymentDetail.PaymentDetail</textarea>
+                <textarea class="form-control  custom-small-input rounded-0 input-sm" for="ManualPaymentDetail_PaymentDetail" name="PaymentDetail">@Model.ManualPaymentDetail.PaymentDetail</textarea>
             </div>
             <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("DefaultforInvoiceType")</label>
                 <select id="InvoiceTypeId" class="form-select select2" data-id="" data-control="select2"></select>
-                @* <input class="form-control" /> *@
+                @* <input class="form-control  custom-small-input rounded-0 input-sm" /> *@
             </div>
 
         </form>

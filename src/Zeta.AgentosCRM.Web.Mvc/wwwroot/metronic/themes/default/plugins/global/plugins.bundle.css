@@ -376,7 +376,8 @@
 }
 
 .select2-container--default .select2-results > .select2-results__options {
-  max-height: 200px;
+  max-height: 110px;
+  /*max-height: 200px;*/
   overflow-y: auto;
 }
 
@@ -426,8 +427,9 @@
 }
 
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-  background-color: #5897fb;
-  color: white;
+    background-color: #9bb0db;
+    /*background-color: #5897fb;*/
+    color: white;
 }
 
 .select2-container--default .select2-results__group {

@@ -59,8 +59,9 @@
         });
 
         var _viewFeeTypeModal = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/InvoiceType/ViewInvoiceTypeModal',
-            modalClass: 'ViewInvoiceTypeModal',
+            
+            viewUrl: abp.appPath + 'AppAreaName/InvoiceType/ViewDocumentTypeModal',
+            modalClass: 'ViewDocumentTypeModal',
         });
 
         var getDateFilter = function (element) {

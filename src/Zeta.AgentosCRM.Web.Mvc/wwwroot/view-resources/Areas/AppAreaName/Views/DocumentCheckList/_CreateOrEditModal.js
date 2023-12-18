@@ -4,7 +4,13 @@
         var _workflowsService = abp.services.app.workflows;
         var _workflowDocumentsService = abp.services.app.workflowDocuments;
         var _workflowStepsService = abp.services.app.workflowSteps;
-
+        alert("Hello");
+        $('#WorkflowId').select2({
+            width: '750px',
+            placeholder: 'Select Office',
+            allowClear: true,
+            minimumResultsForSearch: 10,
+        });
     var _modalManager;
         var _$feeTypesInformationForm = null;
         var workflowId = $("#WorkflowId").val();

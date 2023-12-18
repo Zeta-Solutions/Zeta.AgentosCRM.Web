@@ -19,26 +19,26 @@
             }
             <div class="my-3">
                 <label class="form-label" for="regionId">@L("Region")</label>
-                @Html.DropDownList("regionId", new SelectList(Model.CountryRegionList,"Id","DisplayName", (Model.IsEditMode ? Model.Country.RegionId.ToString() : "")),@L("SelectARegion"), new { @class = "form-control" , @required="required" })
+                @Html.DropDownList("regionId", new SelectList(Model.CountryRegionList,"Id","DisplayName", (Model.IsEditMode ? Model.Country.RegionId.ToString() : "")),@L("SelectARegion"), new { @class = "form-control  custom-small-input rounded-0 input-sm" , @required="required" })
             </div>
 
 
             <div class="my-3">
                 <label class="form-label" for="Country_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="Country_Abbrivation" value="@Model.Country.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinAbbrivationLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Country_Abbrivation" value="@Model.Country.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="Country_Name">@L("Name")</label>
-                <input class="form-control" id="Country_Name" value="@Model.Country.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinNameLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Country_Name" value="@Model.Country.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinNameLength" />
             </div>
             <div class="my-3">
                 <label class="form-label" for="Country_Name">@L("Code")</label>
-                <input class="form-control" id="Country_Name" value="@Model.Country.Code" type="text" name="code" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxCodeLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinCodeLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Country_Name" value="@Model.Country.Code" type="text" name="code" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxCodeLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinCodeLength" />
             </div>
             <div class="my-3">
                 <label class="form-label" for="Country_Name">@L("Icon")</label>
-                <input class="form-control" id="Country_Name" value="@Model.Country.Icon" type="text" name="icon" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxIconLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinIconLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Country_Name" value="@Model.Country.Icon" type="text" name="icon" required maxlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MaxIconLength" minlength="@Zeta.AgentosCRM.CRMSetup.Countries.CountryConsts.MinIconLength" />
             </div>
         </form>
     </div>

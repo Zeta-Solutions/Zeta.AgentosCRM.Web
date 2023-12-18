@@ -18,12 +18,12 @@
             }
             <div class="my-3">
                 <label class="form-label" for="DocumentType">@L("Abbrivation")</label>
-                <input class="form-control" id="DocumentType" name="abbrivation" value="@Model.InvoiceType.Abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinAbbrivationLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="DocumentType" name="abbrivation" value="@Model.InvoiceType.Abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("Name")</label>
-                <input class="form-control" id="FeeType_Name" value="@Model.InvoiceType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinNameLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="FeeType_Name" value="@Model.InvoiceType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.Documents.DocumentTypeConsts.MinNameLength" />
             </div>
 
         </form>

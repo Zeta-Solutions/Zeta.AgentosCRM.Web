@@ -17,16 +17,16 @@
             }
             <div class="my-3">
                 <label class="form-label" for="masterCategoryId">@L("MasterCategory")</label>
-                @Html.DropDownList("masterCategoryId", new SelectList(Model.ProductTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control" , @required="required" })
+                @Html.DropDownList("masterCategoryId", new SelectList(Model.ProductTypeMasterCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductType.MasterCategoryId.ToString() : "")),@L("SelectAMasterCategory"), new { @class = "form-control  custom-small-input rounded-0 input-sm" , @required="required" })
             </div>
             <div class="my-3">
                 <label class="form-label" for="ProductType_Abbrivation">@L("Abbrivation")</label>
-                <input class="form-control" id="ProductType_Abbrivation" value="@Model.ProductType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinAbbrivationLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="ProductType_Abbrivation" value="@Model.ProductType.Abbrivation" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxAbbrivationLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinAbbrivationLength" />
             </div>
 
             <div class="my-3">
                 <label class="form-label" for="ProductType_Name">@L("Name")</label>
-                <input class="form-control" id="ProductType_Name" value="@Model.ProductType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinNameLength" />
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="ProductType_Name" value="@Model.ProductType.Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.ProductType.ProductTypeConsts.MinNameLength" />
             </div>
 
         </form>

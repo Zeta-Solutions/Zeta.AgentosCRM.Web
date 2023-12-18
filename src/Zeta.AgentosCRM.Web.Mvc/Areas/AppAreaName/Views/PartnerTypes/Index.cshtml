@@ -12,7 +12,13 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.PartnerTypes;
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-   }
+   
+    @* <!-- Add these to your HTML head section -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+ *@
+    }
 <abp-page-subheader title='@L("PartnerTypes")' description='@L("PartnerTypesHeaderInfo")'>
     <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
@@ -47,20 +53,20 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.PartnerTypes;
                 <div class="col-md-3">
                     <div class="my-3">
                         <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="my-3">
                         <label class="form-label" for="NameFilterId">@L("Name")</label>
-                        <input type="text" class="form-control reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div class="my-3">
                         <label class="form-label" for="MasterCategoryNameFilterId">(@L("MasterCategory")) @L("Name")</label>
-                        <input type="text" class="form-control reload-on-keyup" name="masterCategoryNameFilter" id="MasterCategoryNameFilterId">
+                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="masterCategoryNameFilter" id="MasterCategoryNameFilterId">
                     </div>
                 </div>
                 <div class="col-md-12 mt-5">
