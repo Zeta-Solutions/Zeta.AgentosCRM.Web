@@ -41,8 +41,10 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
                         .Include(e => e.ApplicationFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.ApplicationNameFilter), e => e.ApplicationFk != null && e.ApplicationFk.Name == input.ApplicationNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ApplicationNameFilter), e => e.ApplicationFk != null && e.ApplicationFk.Name == input.ApplicationNameFilter)
+                         .WhereIf(input.ApplicationIdFilter.HasValue, e => false || e.ApplicationId == input.ApplicationIdFilter.Value)
+                         .WhereIf(input.IsCurrentIdFilter.HasValue, e => e.IsCurrent == input.IsCurrentIdFilter)
+                         .WhereIf(input.WorkflowStepIdFilter.HasValue, e => e.WorkflowStepId == input.WorkflowStepIdFilter);
             var pagedAndFilteredApplicationStages = filteredApplicationStages
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -56,6 +58,9 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
 
                                         o.Name,
                                         Id = o.Id,
+                                        o.ApplicationId,
+                                        o.WorkflowStepId,
+                                        o.IsCurrent,
                                         ApplicationName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                                     };
 
@@ -73,6 +78,9 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages
 
                         Name = o.Name,
                         Id = o.Id,
+                        ApplicationId = o.ApplicationId,
+                        WorkflowStepId = o.WorkflowStepId,
+                        IsCurrent=o.IsCurrent
                     },
                     ApplicationName = o.ApplicationName
                 };

@@ -11,11 +11,12 @@ namespace Zeta.AgentosCRM.CRMApplications.Stages.Dtos
 
         public string ApplicationNameFilter { get; set; }
 
-        public long ApplicationIdFilter { get; set; }
+        public long? ApplicationIdFilter { get; set; }
 
         public string WorkflowStepNameFilter { get; set; }
 
-        public int WorkflowStepIdFilter { get; set; }
+        public int? WorkflowStepIdFilter { get; set; }
 
+        public bool? IsCurrentIdFilter { get; set; }
     }
 }
