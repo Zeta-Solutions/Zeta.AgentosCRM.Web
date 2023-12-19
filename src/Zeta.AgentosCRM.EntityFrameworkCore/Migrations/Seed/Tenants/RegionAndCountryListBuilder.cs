@@ -26,7 +26,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
             CreateRegionsAndCountries();
         }
 
-        private void CreateRegionsAndCountries() 
+        private void CreateRegionsAndCountries()
         {
             var africa = _context.Regions.FirstOrDefault(p => p.Name == "Africa");
             if (africa == null)
@@ -39,6 +39,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "AF"
 
                     });
+                _context.SaveChanges();
             }
 
             var asia = _context.Regions.FirstOrDefault(p => p.Name == "Asia");
@@ -51,6 +52,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "Asia",
                         Abbrivation = "AS"
                     });
+                _context.SaveChanges();
             }
 
             var europe = _context.Regions.FirstOrDefault(p => p.Name == "Europe");
@@ -63,6 +65,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "Europe",
                         Abbrivation = "EU"
                     });
+                _context.SaveChanges();
             }
 
             var europe_asia = _context.Regions.FirstOrDefault(p => p.Name == "Europe/Asia");
@@ -75,6 +78,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "Europe/Asia",
                         Abbrivation = "EU/AS"
                     });
+                _context.SaveChanges();
             }
 
             var middleEast = _context.Regions.FirstOrDefault(p => p.Name == "Middle East");
@@ -87,6 +91,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "Middle East",
                         Abbrivation = "ME"
                     });
+                _context.SaveChanges();
             }
 
             var northAmerica = _context.Regions.FirstOrDefault(p => p.Name == "North America");
@@ -99,6 +104,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "North America",
                         Abbrivation = "NA"
                     });
+                _context.SaveChanges();
             }
 
             var oceania = _context.Regions.FirstOrDefault(p => p.Name == "Oceania");
@@ -111,6 +117,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "Oceania",
                         Abbrivation = "OC"
                     });
+                _context.SaveChanges();
             }
 
             var southAmerica = _context.Regions.FirstOrDefault(p => p.Name == "South America");
@@ -123,6 +130,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Name = "South America",
                         Abbrivation = "SA"
                     });
+                _context.SaveChanges();
             }
 
             #region "Africa"
@@ -138,6 +146,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                     Code = "27",
                     RegionId = africa.Id
                 });
+                _context.SaveChanges();
             }
 
             var egypt = _context.Countries.FirstOrDefault(p => p.Name == "Egypt");
@@ -152,6 +161,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "20",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
 
             var nigeria = _context.Countries.FirstOrDefault(p => p.Name == "Nigeria");
@@ -166,6 +176,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "234",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
 
             var kenya = _context.Countries.FirstOrDefault(p => p.Name == "Kenya");
@@ -180,6 +191,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "254",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
 
             var ghana = _context.Countries.FirstOrDefault(p => p.Name == "Ghana");
@@ -194,6 +206,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "233",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
 
             var morocco = _context.Countries.FirstOrDefault(p => p.Name == "Morocco");
@@ -208,6 +221,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "212",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
 
             var tunisia = _context.Countries.FirstOrDefault(p => p.Name == "Tunisia");
@@ -222,6 +236,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "216",
                         RegionId = africa.Id
                     });
+                _context.SaveChanges();
             }
             #endregion
 
@@ -241,6 +256,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "65",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var hongKong = _context.Countries.FirstOrDefault(p => p.Name == "Hong Kong");
@@ -255,6 +271,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "852",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var japan = _context.Countries.FirstOrDefault(p => p.Name == "Japan");
@@ -269,6 +286,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "81",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var china = _context.Countries.FirstOrDefault(p => p.Name == "China");
@@ -283,6 +301,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "86",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var southKorea = _context.Countries.FirstOrDefault(p => p.Name == "South Korea");
@@ -297,6 +316,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "82",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var taiwan = _context.Countries.FirstOrDefault(p => p.Name == "Taiwan");
@@ -311,6 +331,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "886",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var india = _context.Countries.FirstOrDefault(p => p.Name == "India");
@@ -325,6 +346,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "91",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var malaysia = _context.Countries.FirstOrDefault(p => p.Name == "Malaysia");
@@ -339,6 +361,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "60",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var thailand = _context.Countries.FirstOrDefault(p => p.Name == "Thailand");
@@ -353,6 +376,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "66",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var indonesia = _context.Countries.FirstOrDefault(p => p.Name == "Indonesia");
@@ -367,6 +391,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "62",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var philippines = _context.Countries.FirstOrDefault(p => p.Name == "Philippines");
@@ -381,6 +406,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "63",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var vietnam = _context.Countries.FirstOrDefault(p => p.Name == "Vietnam");
@@ -395,6 +421,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "84",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var bangladesh = _context.Countries.FirstOrDefault(p => p.Name == "Bangladesh");
@@ -409,6 +436,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "880",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
 
             var pakistan = _context.Countries.FirstOrDefault(p => p.Name == "Pakistan");
@@ -423,6 +451,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "92",
                         RegionId = asia.Id
                     });
+                _context.SaveChanges();
             }
             #endregion
 
@@ -442,6 +471,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "44",
                         RegionId = europe.Id
                     });
+                _context.SaveChanges();
             }
 
             var germany = _context.Countries.FirstOrDefault(p => p.Name == "Germany");
@@ -456,6 +486,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "49",
                         RegionId = europe.Id
                     });
+                _context.SaveChanges();
             }
 
             var switzerland = _context.Countries.FirstOrDefault(p => p.Name == "Switzerland");
@@ -470,6 +501,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "41",
                         RegionId = europe.Id
                     });
+                _context.SaveChanges();
             }
 
             var sweden = _context.Countries.FirstOrDefault(p => p.Name == "Sweden");
@@ -484,6 +516,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "46",
                         RegionId = europe.Id
                     });
+                _context.SaveChanges();
             }
 
             var france = _context.Countries.FirstOrDefault(p => p.Name == "France");
@@ -498,6 +531,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Code = "33",
                         RegionId = europe.Id
                     });
+                _context.SaveChanges();
             }
 
             var netherlands = _context.Countries.FirstOrDefault(p => p.Name == "Netherlands");
@@ -511,7 +545,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "NLD",
                         Code = "31",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var finland = _context.Countries.FirstOrDefault(p => p.Name == "Finland");
@@ -525,7 +559,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "FIN",
                         Code = "358",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var denmark = _context.Countries.FirstOrDefault(p => p.Name == "Denmark");
@@ -539,7 +573,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "DNK",
                         Code = "45",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var belgium = _context.Countries.FirstOrDefault(p => p.Name == "Belgium");
@@ -553,7 +587,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "BEL",
                         Code = "32",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var norway = _context.Countries.FirstOrDefault(p => p.Name == "Norway");
@@ -567,7 +601,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "NOR",
                         Code = "47",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var ireland = _context.Countries.FirstOrDefault(p => p.Name == "Ireland");
@@ -581,7 +615,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "IRL",
                         Code = "353",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var austria = _context.Countries.FirstOrDefault(p => p.Name == "Austria");
@@ -595,7 +629,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "AUT",
                         Code = "43",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var italy = _context.Countries.FirstOrDefault(p => p.Name == "Italy");
@@ -609,7 +643,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ITA",
                         Code = "39",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var spain = _context.Countries.FirstOrDefault(p => p.Name == "Spain");
@@ -623,7 +657,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ESP",
                         Code = "34",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var luxembourg = _context.Countries.FirstOrDefault(p => p.Name == "Luxembourg");
@@ -637,7 +671,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "LUX",
                         Code = "352",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var greece = _context.Countries.FirstOrDefault(p => p.Name == "Greece");
@@ -651,7 +685,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "GRC",
                         Code = "30",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var portugal = _context.Countries.FirstOrDefault(p => p.Name == "Portugal");
@@ -665,7 +699,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "PRT",
                         Code = "351",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var czechRepublic = _context.Countries.FirstOrDefault(p => p.Name == "Czech Republic");
@@ -679,7 +713,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "CZE",
                         Code = "420",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var poland = _context.Countries.FirstOrDefault(p => p.Name == "Poland");
@@ -693,7 +727,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "POL",
                         Code = "48",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var hungary = _context.Countries.FirstOrDefault(p => p.Name == "Hungary");
@@ -707,7 +741,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "HUN",
                         Code = "36",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var ukraine = _context.Countries.FirstOrDefault(p => p.Name == "Ukraine");
@@ -721,7 +755,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "UKR",
                         Code = "380",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var croatia = _context.Countries.FirstOrDefault(p => p.Name == "Croatia");
@@ -735,7 +769,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "HRV",
                         Code = "385",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var slovenia = _context.Countries.FirstOrDefault(p => p.Name == "Slovenia");
@@ -749,7 +783,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "SVN",
                         Code = "386",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var bulgaria = _context.Countries.FirstOrDefault(p => p.Name == "Bulgaria");
@@ -763,7 +797,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "BGR",
                         Code = "359",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var romania = _context.Countries.FirstOrDefault(p => p.Name == "Romania");
@@ -777,7 +811,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ROU",
                         Code = "40",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var slovakia = _context.Countries.FirstOrDefault(p => p.Name == "Slovakia");
@@ -791,7 +825,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "SVK",
                         Code = "421",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var serbia = _context.Countries.FirstOrDefault(p => p.Name == "Serbia");
@@ -805,7 +839,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "SRB",
                         Code = "381",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var bosniaAndHerzegovina = _context.Countries.FirstOrDefault(p => p.Name == "Bosnia and Herzegovina");
@@ -819,7 +853,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "BIH",
                         Code = "387",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var montenegro = _context.Countries.FirstOrDefault(p => p.Name == "Montenegro");
@@ -833,7 +867,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "MNE",
                         Code = "382",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var northMacedonia = _context.Countries.FirstOrDefault(p => p.Name == "North Macedonia");
@@ -847,7 +881,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "MKD",
                         Code = "389",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var albania = _context.Countries.FirstOrDefault(p => p.Name == "Albania");
@@ -861,7 +895,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ALB",
                         Code = "355",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var kosovo = _context.Countries.FirstOrDefault(p => p.Name == "Kosovo");
@@ -875,7 +909,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "XK",
                         Code = "383",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var moldova = _context.Countries.FirstOrDefault(p => p.Name == "Moldova");
@@ -889,7 +923,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "MDA",
                         Code = "373",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var belarus = _context.Countries.FirstOrDefault(p => p.Name == "Belarus");
@@ -903,7 +937,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "BLR",
                         Code = "375",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var latvia = _context.Countries.FirstOrDefault(p => p.Name == "Latvia");
@@ -917,7 +951,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "LVA",
                         Code = "371",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var lithuania = _context.Countries.FirstOrDefault(p => p.Name == "Lithuania");
@@ -931,7 +965,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "LTU",
                         Code = "370",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var estonia = _context.Countries.FirstOrDefault(p => p.Name == "Estonia");
@@ -945,7 +979,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "EST",
                         Code = "372",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var cyprus = _context.Countries.FirstOrDefault(p => p.Name == "Cyprus");
@@ -959,7 +993,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "CYP",
                         Code = "357",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var malta = _context.Countries.FirstOrDefault(p => p.Name == "Malta");
@@ -973,7 +1007,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "MLT",
                         Code = "356",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var iceland = _context.Countries.FirstOrDefault(p => p.Name == "Iceland");
@@ -987,7 +1021,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ISL",
                         Code = "354",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var faroeIslands = _context.Countries.FirstOrDefault(p => p.Name == "Faroe Islands");
@@ -1001,7 +1035,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "FRO",
                         Code = "298",
                         RegionId = europe.Id
-                    });
+                    }); _context.SaveChanges();
             }
             #endregion
 
@@ -1018,7 +1052,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "RUS",
                         Code = "7",
                         RegionId = europe_asia.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var turkey = _context.Countries.FirstOrDefault(p => p.Name == "Turkey");
@@ -1032,7 +1066,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "TUR",
                         Code = "90",
                         RegionId = europe_asia.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             #endregion
@@ -1050,7 +1084,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ISR",
                         Code = "972",
                         RegionId = middleEast.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var uae = _context.Countries.FirstOrDefault(p => p.Name == "United Arab Emirates");
@@ -1064,7 +1098,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "UAE",
                         Code = "971",
                         RegionId = middleEast.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var saudiArabia = _context.Countries.FirstOrDefault(p => p.Name == "Saudi Arabia");
@@ -1078,7 +1112,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "SAU",
                         Code = "966",
                         RegionId = middleEast.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var qatar = _context.Countries.FirstOrDefault(p => p.Name == "Qatar");
@@ -1092,7 +1126,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "QAT",
                         Code = "974",
                         RegionId = middleEast.Id
-                    });
+                    }); _context.SaveChanges();
             }
             #endregion
 
@@ -1109,7 +1143,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "USA",
                         Code = "1",
                         RegionId = northAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var canada = _context.Countries.FirstOrDefault(p => p.Name == "Canada");
@@ -1123,7 +1157,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "CAN",
                         Code = "1",
                         RegionId = northAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var mexico = _context.Countries.FirstOrDefault(p => p.Name == "Mexico");
@@ -1137,7 +1171,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "MEX",
                         Code = "52",
                         RegionId = northAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var costaRica = _context.Countries.FirstOrDefault(p => p.Name == "Costa Rica");
@@ -1151,7 +1185,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "CRI",
                         Code = "506",
                         RegionId = northAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var panama = _context.Countries.FirstOrDefault(p => p.Name == "Panama");
@@ -1165,7 +1199,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "PAN",
                         Code = "507",
                         RegionId = northAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             #endregion
@@ -1183,7 +1217,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "AUS",
                         Code = "61",
                         RegionId = oceania.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var newZealand = _context.Countries.FirstOrDefault(p => p.Name == "New Zealand");
@@ -1197,7 +1231,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "NZL",
                         Code = "64",
                         RegionId = oceania.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var fiji = _context.Countries.FirstOrDefault(p => p.Name == "Fiji");
@@ -1211,7 +1245,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "FJI",
                         Code = "679",
                         RegionId = oceania.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             #endregion
@@ -1229,7 +1263,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "BRA",
                         Code = "55",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var chile = _context.Countries.FirstOrDefault(p => p.Name == "Chile");
@@ -1243,7 +1277,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "CHL",
                         Code = "56",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var argentina = _context.Countries.FirstOrDefault(p => p.Name == "Argentina");
@@ -1257,7 +1291,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ARG",
                         Code = "54",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var colombia = _context.Countries.FirstOrDefault(p => p.Name == "Colombia");
@@ -1271,7 +1305,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "COL",
                         Code = "57",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
             }
 
             var peru = _context.Countries.FirstOrDefault(p => p.Name == "Peru");
@@ -1285,7 +1319,8 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "PER",
                         Code = "51",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
+                _context.SaveChanges();
             }
 
             var ecuador = _context.Countries.FirstOrDefault(p => p.Name == "Ecuador");
@@ -1299,7 +1334,7 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "ECU",
                         Code = "593",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
                 _context.SaveChanges();
             }
 
@@ -1314,7 +1349,8 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
                         Abbrivation = "VEN",
                         Code = "58",
                         RegionId = southAmerica.Id
-                    });
+                    }); _context.SaveChanges();
+                _context.SaveChanges();
             }
 
 
