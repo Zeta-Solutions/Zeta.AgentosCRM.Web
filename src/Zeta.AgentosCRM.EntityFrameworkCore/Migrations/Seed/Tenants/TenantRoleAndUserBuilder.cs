@@ -39,7 +39,10 @@ namespace Zeta.AgentosCRM.Migrations.Seed.Tenants
             var adminRole = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == _tenantId && r.Name == StaticRoleNames.Tenants.Admin);
             if (adminRole == null)
             {
-                adminRole = _context.Roles.Add(new Role(_tenantId, StaticRoleNames.Tenants.Admin, StaticRoleNames.Tenants.Admin) { IsStatic = true }).Entity;
+                adminRole = _context.Roles.Add(new Role(
+                    _tenantId,
+                    StaticRoleNames.Tenants.Admin,
+                    StaticRoleNames.Tenants.Admin) { IsStatic = true }).Entity;
                 _context.SaveChanges();
             }
 
