@@ -128,11 +128,23 @@
                     targets: 5,
                     data: 'clientInterstedService.startDate',
                     name: 'startDate',
+                    render: function (startDate) {
+                        if (startDate) {
+                            return moment(startDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 6,
                     data: 'clientInterstedService.endDate',
                     name: 'endDate',
+                    render: function (endDate) {
+                        if (endDate) {
+                            return moment(endDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     width: 30,
@@ -207,6 +219,7 @@
             }
         });
         function deleteclientInterstedService(clientInterstedService) {
+            debugger
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientInterstedServices

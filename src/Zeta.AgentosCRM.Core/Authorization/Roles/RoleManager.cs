@@ -21,7 +21,7 @@ namespace Zeta.AgentosCRM.Authorization.Roles
     /// Role manager.
     /// Used to implement domain logic for roles.
     /// </summary>
-    public class RoleManager : AbpRoleManager<Role, User>
+    public class RoleManager : AbpRoleManager<Role, User> 
     {
         private readonly ILocalizationManager _localizationManager;
 

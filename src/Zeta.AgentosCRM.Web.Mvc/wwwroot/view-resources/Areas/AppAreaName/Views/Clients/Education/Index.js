@@ -380,8 +380,9 @@
                             '<a href="#" style="color: black;" Education-data-action="delete" data-id="' + rowId  + '"><li>Delete</li></a>' +
                             '</ul>' +
                             '</div>' +
-                            '</div>' +'</div></div><br><br>';
+                            '</div>' +'</div></div><br><br>   <hr/>';
                         $("#cardContainerEducation").append(CardDiv);
+                      
                     });
                      
                 })
