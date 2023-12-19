@@ -1,7 +1,6 @@
 ﻿(function () {
     $(function () {
         debugger
-        alert("heelo")
         //const urlParams = new URLSearchParams(window.location.search);
         //const partnerIdValue = urlParams.get('partnerId');
 
