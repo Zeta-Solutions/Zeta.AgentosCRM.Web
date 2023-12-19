@@ -1,4 +1,11 @@
-﻿@section Styles
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup;
+@model ProductsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Products;
+}
+
+@section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }

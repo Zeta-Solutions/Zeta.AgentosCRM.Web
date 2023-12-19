@@ -33,8 +33,8 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label class="fw-bold text-dark" for="highestQualification">@L("HighestQualificationI")</label>
-                                            <p class="text-muted">
+                                            <label class="fw-bold text-dark" for="highestQualification">@L("HighestQualification")</label>
+                                            <p class="">
                                                 @Model.DegreeLevelName
                                              @*    @Html.DropDownList("HighestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectAHighestQualification"), new { @class = "form-control " , @required="required" })
                                             <input type="text" class="form-control" id="highestQualification"> *@
@@ -44,14 +44,14 @@
                                             <input type="text" class="form-control" id="ielts">
                                         </div> *@
                                         <div class="col-md-4">
-                                            <label for="preferredStudyArea">@L("SubjectArea")</label>
-                                            <p class="text-muted">
+                                            <label class="fw-bold text-dark" for="preferredStudyArea">@L("SubjectArea")</label>
+                                            <p class="">
                                                 @Model.SubjectAreaName
                                             @* @Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   }) *@
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="preferredUniversity">@L("PreferedUniversity")</label>
-                                            <p class="text-muted">
+                                            <label class="fw-bold text-dark" for="preferredUniversity">@L("PreferedUniversity")</label>
+                                            <p class="">
                                                 @Model.Client.University
                                             @* <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" /> *@
                                         </div>

@@ -416,11 +416,23 @@
                     targets: 1,
                     data: 'clientQuotationHead.dueDate',
                     name: 'dueDate',
+                    render: function (dueDate) {
+                        if (dueDate) {
+                            return moment(dueDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 2,
                     data: 'clientQuotationHead.dueDate',
                     name: 'dueDate',
+                    render: function (dueDate) {
+                        if (dueDate) {
+                            return moment(dueDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 3,
@@ -443,19 +455,19 @@
                         var rowData = data.clientQuotationHead;
                         var RowDatajsonString = JSON.stringify(rowData);
                         //console.log(RowDatajsonString);
-                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
-                            '<div class="ellipsis60"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                            '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                        var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis60"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            /* '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +*/
+                            '<a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             '<li ><a href="#" style="color: black;" data-action60="Preview" data-id="' + rowId + '">Preview</a></li>' +
                             "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
 
-
-                        return contaxtMenu;
+                        return contextMenu;
                     }
 
 
@@ -795,11 +807,66 @@
         //    // Set the calculated total to the #Total input
         //    $("#Total").val(total.toFixed(2));
         //}
+        //$(document).on('click', '.ellipsis60', function (e) {
+        //    e.preventDefault();
+        //    debugger
+        //    var options = $(this).closest('.context-menu').find('.Appointmentoptions');
+        //    var allOptions = $('.Appointmentoptions');  // Select all options
+
+        //    // Close all other open options
+        //    allOptions.not(options).hide();
+
+        //    // Toggle the visibility of the options
+        //    options.toggle();
+        //});
+
+        //// Close the context menu when clicking outside of it
+        //$(document).on('click', function (event) {
+        //    if (!$(event.target).closest('.context-menu').length) {
+        //        $('.Appointmentoptions').hide();
+        //    }
+        //});
+        //$(document).on('click', 'a[data-action60]', function (e) {
+        //    e.preventDefault();
+        //    debugger
+        //    var rowId = $(this).data('id');
+        //    var action = $(this).data('action60');
+        //    debugger
+        //    // Handle the selected action based on the rowId..
+        //    if (action === 'edit') {
+
+        //        var hiddenfield = $("#ID").val();
+
+
+        //        var baseUrl = "/AppAreaName/Clients/CreateOrEditClientQuotationModal/";
+        //        var url = baseUrl + "?clientId=" + hiddenfield + "&id=" + rowId;
+
+        //        // Redirect to the constructed URL
+        //        window.location.href = url;
+               
+        //    }
+        //    if (action === 'Preview') {
+
+        //        var hiddenfield = $("#ID").val();
+
+
+        //        var baseUrl = "/AppAreaName/Clients/ClientsQuotationPreview/";
+        //        var url = baseUrl + "?clientId=" + hiddenfield + "&id=" + rowId;
+
+        //        // Redirect to the constructed URL....
+        //        window.location.href = url;
+               
+        //    }
+        //    else if (action === 'delete') {
+        //        // console.log(rowId);
+        //        deleteQuotationDetails(rowId);
+        //    }
+        //});
         $(document).on('click', '.ellipsis60', function (e) {
             e.preventDefault();
-            debugger
-            var options = $(this).closest('.context-menu').find('.Appointmentoptions');
-            var allOptions = $('.Appointmentoptions');  // Select all options
+
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
 
             // Close all other open options
             allOptions.not(options).hide();
@@ -807,13 +874,13 @@
             // Toggle the visibility of the options
             options.toggle();
         });
-
-        // Close the context menu when clicking outside of it
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
-                $('.Appointmentoptions').hide();
+                $('.options').hide();
             }
         });
+
+        // Handle menu item clicks
         $(document).on('click', 'a[data-action60]', function (e) {
             e.preventDefault();
             debugger
@@ -831,7 +898,7 @@
 
                 // Redirect to the constructed URL
                 window.location.href = url;
-               
+
             }
             if (action === 'Preview') {
 
@@ -843,7 +910,7 @@
 
                 // Redirect to the constructed URL....
                 window.location.href = url;
-               
+
             }
             else if (action === 'delete') {
                 // console.log(rowId);

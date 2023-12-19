@@ -44,7 +44,17 @@
                                 <div class="row">
                                     <div class="col-lg-12 mb-3 text-start">
                                         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative ">
-                                               <img id="profileImage" src=""  class="rounded-circle" />
+                                             @if (Model.Product.ProfilePictureId != null)
+                                           {
+
+                                        <img id="profileImage" src="" class="rounded-circle border border-dark" />
+                                        }
+                                        else
+                                {
+                               <div id="initalsdiv" class="rounded-circle bg-dark  text-white text-center border border-dark fs-1">
+                                            <span id="initals" style="line-height: 150px; display: inline-block; font-size: 80px;"></span>
+                               </div>
+                                }
                                         </div>
                                     </div>
                                     <div class="col-lg-1"></div>
