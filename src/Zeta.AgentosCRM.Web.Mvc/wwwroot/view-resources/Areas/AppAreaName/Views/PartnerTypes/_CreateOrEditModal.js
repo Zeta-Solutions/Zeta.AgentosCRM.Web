@@ -9,7 +9,7 @@
       //    // Adjust the width as needed
       //});
       $('#masterCategoryId').select2({
-          width: '755px', 
+          width: '100%', 
           placeholder: 'Select a Master Category',
           allowClear: true,
           minimumResultsForSearch: 10,   

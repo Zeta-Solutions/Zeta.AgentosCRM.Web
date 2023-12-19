@@ -2,7 +2,7 @@
   app.modals.CreateOrEditCountriesModal = function () {
       var _countriesService = abp.services.app.countries;
       $('#regionId').select2({
-          width: '750px',
+          width: '100%',
           placeholder: 'Select Office',
           allowClear: true,
           minimumResultsForSearch: 10,

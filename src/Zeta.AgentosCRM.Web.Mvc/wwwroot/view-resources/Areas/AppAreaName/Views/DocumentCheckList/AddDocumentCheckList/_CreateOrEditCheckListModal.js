@@ -7,18 +7,18 @@
         //$("#DDlProduct").show();
         $('#PartnerID,#ProductID').select2({
             multiple: true,
-            width: '650px',
+            width: '100%',
             // Adjust the width as needed...
         });
         $('#DocumentTypeId').select2({
-            width: '750px',
+            width: '100%',
             placeholder: 'Select Office',
             allowClear: true,
             minimumResultsForSearch: 10,
         });
         var _workflowsService = abp.services.app.workflows;
         var _workflowDocumentsService = abp.services.app.workflowDocuments;
-        var _workflowStepsService = abp.services.app.workflowSteps;
+        var _productsService = abp.services.app.products; 
 
         var GetPartnerValue = $("input[name='IsForAllPartners']:checked").val();
         var GetProductValue = $("input[name='IsForAllProducts']:checked").val();
@@ -123,8 +123,10 @@
                 success: function (data) {
                     debugger
                     // Populate the dropdown with the fetched data
-                    updatePartnerDropdown(data);
-                    
+                    //updatePartnerDropdown(data);
+                    setTimeout(function () {
+                        updatePartnerDropdown(data);
+                    }, 200);
                 },
                 error: function (error) {
                     console.error('Error fetching data:', error);
@@ -150,10 +152,10 @@
                     //alert("There is some data" + ms_array)
                     debugger
                     //$("#PartnerID").select2("val", ms_array);
-                    $("#PartnerID").empty()
+                    //$("#PartnerID").empty()
                     $("#PartnerID").val(ms_array) 
+                    //$("#PartnerID").trigger('change');
                     $("#PartnerID").trigger('change');
-                    //$("#PartnerID").trigger('change.select2');
 
                 }
 
@@ -175,9 +177,7 @@
             })
                 .done(function (data) {
                
-                    var TotalRecord = data.result.items;
-                     
-
+                    var TotalRecord = data.result.items; 
                         $.each(TotalRecord, function (index, item) {
                     
                             var workFlowStep = `
@@ -230,34 +230,27 @@
             debugger
             if ($("#PartnerID").val() != "") {
                 var PartnerId = $('#PartnerID').val();
+                console.log(PartnerId);
+                PartnerId = JSON.stringify(PartnerId);
 
-                var partnerIdArray = $('#PartnerID').val();
+                PartnerId = JSON.parse(PartnerId); 
+                //var partnerIdArray = $('#PartnerID').val();
 
-                // Extract the string value and remove surrounding quotes
-                var PartnerId = partnerIdArray[0].replace(/^['"]|['"]$/g, '');
+                //// Extract the string value and remove surrounding quotes
+                //var PartnerId = partnerIdArray[0].replace(/^['"]|['"]$/g, '');
             }
             debugger
             $("#RadioProducts").show();
             //setTimeout(myFunction, 2000); 
-            if (PartnerId > 0) {
-                $.ajax({
-                    url: abp.appPath + 'api/services/app/Products/GetAll',
-                    data: {
-                        partnerIdFilter: PartnerId
-                    },
-                    method: 'GET',
-                    dataType: 'json',
+            /*if (PartnerId > 0) {*/
+                debugger
+                var partnerIds = PartnerId
+                    _productsService.getProductsByPartnerId(partnerIds)
+            .done(function (data) {
+                debugger
+                populateProductDropdown(data);
 
-                    success: function (data) {
-                      
-                        populateProductDropdown(data);
-                    },
-                    error: function (error) {
-                        console.error('Error fetching data:', error);
-                    }
-                });
-
-                var dataRows = [];
+            })
                 function populateProductDropdown(data) {
 
                     var dropdown = $('#ProductID');
@@ -265,8 +258,8 @@
 
                     dropdown.empty();
 
-                    $.each(data.result.items, function (index, item) {
-                       
+                    $.each(data, function (index, item) {
+                        debugger
                         if (item && item.id !== null && item.product.id !== undefined && item.product.name !== null && item.product.name !== undefined) {
                             dropdown.append($('<option></option>').attr('value', item.product.id).attr('data-id', item.product.id).text(item.product.name));
                         } else {
@@ -274,7 +267,42 @@
                         }
                     });
                 }
-            }
+                ////var partnerIds = 66;
+                //alert(PartnerId)
+                //$.ajax({
+                //    url: abp.appPath + 'api/services/app/Products/GetProductsByPartnerId?partnerIds=' + PartnerId,
+
+                //    method: 'GET',
+                //    dataType: 'json',
+
+                //    success: function (data) {
+                //        debugger
+                //        populateProductDropdown(data);
+                //    },
+                //    error: function (error) {
+                //        console.error('Error fetching data:', error);
+                //    }
+                //});
+
+                //var dataRows = [];
+                //function populateProductDropdown(data) {
+
+                //    var dropdown = $('#ProductID');
+
+
+                //    dropdown.empty();
+
+                //    $.each(data.result, function (index, item) {
+                //        debugger
+                //        if (item && item.id !== null && item.product.id !== undefined && item.product.name !== null && item.product.name !== undefined) {
+                //            dropdown.append($('<option></option>').attr('value', item.product.id).attr('data-id', item.product.id).text(item.product.name));
+                //        } else {
+                //            console.warn('Invalid item:', item);
+                //        }
+                //    });
+                //}
+            /*}*/
+
 
             var workflowDocumentCheckListId = $("#workflowDocumentCheckListId").val();
             debugger

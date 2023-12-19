@@ -3,11 +3,11 @@
         debugger
         const urlParams = new URLSearchParams(window.location.search);
         const partnerIdValue = urlParams.get('partnerId');
-
+         
         // For example, if you want to set it in an input field with the id 'productId'
         //$("#productId").val(partnerIdValue);
         $('#partnerId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         //for hover event
@@ -24,15 +24,15 @@
         $('#partnerId').prop('disabled', true);
         $('#branchId').select2({
             multiple: true,
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#partnerTypeId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#intakeMonth').select2({
-            width: '550px',
+            width: '100%',
             // Adjust the width as needed
         });
         var hiddenfield = 38;

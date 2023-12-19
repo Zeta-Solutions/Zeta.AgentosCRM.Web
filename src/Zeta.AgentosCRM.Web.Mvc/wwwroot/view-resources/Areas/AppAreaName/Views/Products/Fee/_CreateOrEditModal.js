@@ -2,11 +2,11 @@
     app.modals.CreateOrEditFeeModal = function () {
         $('#installmentTypeId').select2({
 
-            width: '240px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#countryId').select2({
-            width: '240px',
+            width: '100%',
             // Adjust the width as needed
         });
         var idValue = 0;
