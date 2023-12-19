@@ -3,7 +3,7 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Otherinfo;
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewOtherinformation")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditOtherinformation")) : L("CreateNewOtherinformation")))
 
 <div class="modal-body">
     <div id="InformationsForm">
@@ -23,7 +23,7 @@
                 <div class="my-3 col-6">
 
 
-                    <label for="UNIVERSITY" class="form-label">@L("subject")</label>
+                    <label for="UNIVERSITY" class="form-label">@L("Subject")</label>
                     @Html.DropDownList("subjectId", new SelectList(Model.ProductOtherInformationSubjectList,"Id","DisplayName", (Model.IsEditMode ? Model.ProductOtherInformation.SubjectId.ToString() : "")),@L("SelectASubject"), new { @class = "form-control" , @required="required" })
 
 

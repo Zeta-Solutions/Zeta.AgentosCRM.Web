@@ -2,20 +2,20 @@
     app.modals.CreateOrEditTaskModal = function () {
         $('#taskCategoryId').select2({
 
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#assigneeId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#taskPriorityId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#followerId').select2({
             multiple: true,
-            width: '750px',
+            width: '100%',
             // Adjust the width as needed
         });
         $.ajax({

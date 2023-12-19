@@ -9,152 +9,98 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
     }
-      @section Scripts
-{
+@section Scripts
+    {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/Products/CreateOrEditModal.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
-    
+
 }
-   <div class="row ">
-   <div class="col ">
- @{
-                      var breadcrumbs = new List<BreadcrumbItem>()
-                      {
-                          new BreadcrumbItem("/AppAreaName/Partners/", L("Products")),
-                          new BreadcrumbItem(L("Details")),
-                      };
-                   }
+<div class="row ">
+    <div class="col ">
+        @{
+            var breadcrumbs = new List<BreadcrumbItem>()
+        {
+        new BreadcrumbItem("/AppAreaName/Partners/", L("Products")),
+        new BreadcrumbItem(L("Details")),
+        };
+        }
         <abp-page-subheader title='@L("Products")' breadcrumbs="breadcrumbs">
         </abp-page-subheader>
     </div>
     <div class="col text-end mr-4">
-@*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
-@* <a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>     *@                       
-@* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
+        @*       <button id="CreateNewProductTypeButton" class="btn btn-white btn-outline btn-sm"><i class="fas fa-arrow-left"></i> @L("PartnerList")</button> *@
+        @* <a href="\AppAreaName\Partners\Index" class="btn btn-primary blue"><i class="fa fa-arrow-left"></i> @L("PartnerList")</a>     *@
+        @* <a href="@Url.Action("Index", "Partners", new { area = "AppAreaName" })" class="btn btn-Primary btn-outline">  <i class="fas fa-arrow-left"></i>PartnerList</a> *@
     </div>
 </div>
 
 <div class="@(await GetContainerClass())">
-<div class="card maincard mt-4">
-      <form name="ProductInformationsForm" role="form" novalidate class="form-validation">
- <div class="card-body ">
-       <div id="ProductInformationsTab"> 
-              @if (Model.IsEditMode)
-                            {
-                                <input type="hidden" name="id" value="@Model.Product.Id" />
-                            }
-                             <input type="hidden" name="partnerId" id="productId" value="" />
-                                <input type="hidden" name="BranchId" id="BranchId" value="" />
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header ">
-                    <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                       Product Details
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row mb-3">
-                                        <div class="col-md-12 mb-3">
-                                            <label for="Name" class="form-label">@L("Name") </label>
-                                           <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.Product.Name">
-                                        </div>
-                                   
-
-                                       
-                                        <div class="col-md-4 mb-3">
-                                                        <label for="Name" class="form-label">@L("Partner") </label>
-                                        @Html.DropDownList("partnerId", new SelectList(Model.ProductPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control" , @required="required" })
-                                        </div>
-                                        @* <div class="col-md-4 mb-3">
-                                            <label for="Country" class="form-label">Branches</label>
-                                            <select id="Countryddl" class="form-select select2" data-control="select2">
-                                                <option value="Category">Country 1</option>
-                                                <option value="Category">Country 2</option>
-                                            </select>
-                                        </div> *@
-
-
-                                        <div class="col-md-4 mb-3">
-                                                        <label for="Country" class="form-label" id="hoverText">@L("Branches") </label>
-                                               @* @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" }) *@
-                                                        <select id="branchId" class="form-select select2" data-id="" data-control="select2"></select>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="Country" class="form-label">@L("ProductType")</label>
-                                                        @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAProductType"), new { @class = "form-control" , @required="required" })
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="Name" class="form-label">@L("RevenueType") </label>
-                                            <div class="form-check">
-                                @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
-                                    <input id="EditUser_IsActive" type="radio" name="RevenueType" class="form-check-input" value="true" @Html.Raw(Model.Product.RevenueType ? "checked=\"checked\"" : "")>
-                                    <label class="form-check-label" for="AllProducts">@L("RevenueFromClient")</label>
-                                </div>
-                                <div class="form-check mt-3">
-                                    <input type="radio" class="form-check-input" id="option2" name="RevenueType" value="false" @(!Model.Product.RevenueType ? "checked=\"checked\"" : "")>
-                                    <label class="form-check-label" for="SelectProducts">@L("CommissionFromPartner") </label>
-                                </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        PRODUCT INFORMATION
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
-                    <div class="accordion-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row mb-3">
+    <div class="card maincard mt-4">
+        <form name="ProductInformationsForm" role="form" novalidate class="form-validation">
+            <div class="card-body ">
+                <div id="ProductInformationsTab">
+                    @if (Model.IsEditMode)
+                    {
+                        <input type="hidden" name="id" value="@Model.Product.Id" />
+                    }
+                    <input type="hidden" name="partnerId" id="productId" value="" />
+                    <input type="hidden" name="BranchId" id="BranchId" value="" />
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header ">
+                                <button class="accordion-button toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Product Details
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="Street" class="form-label">@L("Duration")</label>
-                                                       <input type="text" class="form-control custom-small-input rounded-0" id="Duration" name="Duration" value="@Model.Product.Duration">
-                                                                    <p class="text-muted">e.g: 1 year 2 months 6 weeks
-                                                    </div>
-                                                   
-                                                    <div class="col-md-6 mb-3">
-                                                          <label for="Country" class="form-label">@L("IntakeMonth")</label>
-                                                           @Html.DropDownList("intakeMonth", Enum.GetValues(typeof(Months))
-    .Cast<Months>()
-    .Select(m => new SelectListItem
-    {
-        Value = ((int)m).ToString(),
-        Text = m.ToString(),
-        Selected = Model.IsEditMode && Model.Product.IntakeMonth == m
-    }), @L("SelectAIntakeMonth"), new { @class = "form-control", @required = "required" })
-     @*  @Html.DropDownList("intakeMonthId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.IntakeMonth.ToString() : "")),@L("SelectABranch") *@
-
-
-                                                    </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="City" class="form-label">@L("Description")</label>
-                                                        <textarea class="form-control custom-small-input rounded-0" id="messageTextarea" rows="6" name="Description" maxlength="255">@Model.Product.Description</textarea>
-                                                        
-                                                    </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="City" class="form-label">@L("Note")</label>
-                                                                    <textarea class="form-control custom-small-input rounded-0" id="Note" rows="6" name="Note" maxlength="255">@Model.Product.Note</textarea>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-12 mb-3">
+                                                        <label for="Name" class="form-label">@L("Name") </label>
+                                                        <input type="text" class="form-control custom-small-input rounded-0" id="Name" name="Name" value="@Model.Product.Name">
                                                     </div>
 
-                                                 
+
+
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="Name" class="form-label">@L("Partner") </label>
+                                                        @Html.DropDownList("partnerId", new SelectList(Model.ProductPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control" , @required="required" })
+                                                    </div>
+                                                    @* <div class="col-md-4 mb-3">
+                                                    <label for="Country" class="form-label">Branches</label>
+                                                    <select id="Countryddl" class="form-select select2" data-control="select2">
+                                                    <option value="Category">Country 1</option>
+                                                    <option value="Category">Country 2</option>
+                                                    </select>
+                                                    </div> *@
+
+
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="Country" class="form-label" id="hoverText">@L("Branches") </label>
+                                                        @* @Html.DropDownList("branchId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.BranchId.ToString() : "")),@L("SelectABranch"), new { @class = "form-control" , @required="required" }) *@
+                                                        <select id="branchId" class="form-select select2" data-id="" data-control="select2"></select>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="Country" class="form-label">@L("ProductType")</label>
+                                                        @Html.DropDownList("partnerTypeId", new SelectList(Model.ProductPartnerTypeList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.PartnerTypeId.ToString() : "")),@L("SelectAProductType"), new { @class = "form-control" , @required="required" })
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="Name" class="form-label">@L("RevenueType") </label>
+                                                        <div class="form-check">
+                                                            @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
+                                                            <input id="EditUser_IsActive" type="radio" name="RevenueType" class="form-check-input" value="true" @Html.Raw(Model.Product.RevenueType ? "checked=\"checked\"" : "")>
+                                                            <label class="form-check-label" for="AllProducts">@L("RevenueFromClient")</label>
+                                                        </div>
+                                                        <div class="form-check mt-3">
+                                                            <input type="radio" class="form-check-input" id="option2" name="RevenueType" value="false" @(!Model.Product.RevenueType ? "checked=\"checked\"" : "")>
+                                                            <label class="form-check-label" for="SelectProducts">@L("CommissionFromPartner") </label>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -162,23 +108,77 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    PRODUCT INFORMATION
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse " @* data-bs-parent="#accordionFlushExample" *@>
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="Street" class="form-label">@L("Duration")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="Duration" name="Duration" value="@Model.Product.Duration">
+                                                                    <p class="text-muted">e.g: 1 year 2 months 6 weeks
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="Country" class="form-label">@L("IntakeMonth")</label>
+                                                                    @Html.DropDownList("intakeMonth", Enum.GetValues(typeof(Months))
+                                                                    .Cast<Months>()
+                                                                    .Select(m => new SelectListItem
+                                                                    {
+                                                                    Value = ((int)m).ToString(),
+                                                                    Text = m.ToString(),
+                                                                    Selected = Model.IsEditMode && Model.Product.IntakeMonth == m
+                                                                    }), @L("SelectAIntakeMonth"), new { @class = "form-control", @required = "required" })
+                                                                    @*  @Html.DropDownList("intakeMonthId", new SelectList(Model.ProductBranchList,"Id","DisplayName", (Model.IsEditMode ? Model.Product.IntakeMonth.ToString() : "")),@L("SelectABranch") *@
+
+
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="City" class="form-label">@L("Description")</label>
+                                                                    <textarea class="form-control custom-small-input rounded-0" id="messageTextarea" rows="6" name="Description" maxlength="255">@Model.Product.Description</textarea>
+
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="City" class="form-label">@L("Note")</label>
+                                                                    <textarea class="form-control custom-small-input rounded-0" id="Note" rows="6" name="Note" maxlength="255">@Model.Product.Note</textarea>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row align-items-center">
+                                <div class="col-lg-12">
+                                    <button type="button" id="saveBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                                    @if (!Model.IsEditMode)
+                                    {
+                                        <button type="button" id="saveAndNewBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-             <div class="card-footer">
-                <div class="row align-items-center">
-                    <div class="col-lg-12">
-                        <button type="button" id="saveBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("Save")</button>
-                                                                @if (!Model.IsEditMode)
-                                                                {
-                            <button type="button" id="saveAndNewBtn" class="btn btn-primary float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
-                                                                }
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
         </form>
     </div>
 </div>

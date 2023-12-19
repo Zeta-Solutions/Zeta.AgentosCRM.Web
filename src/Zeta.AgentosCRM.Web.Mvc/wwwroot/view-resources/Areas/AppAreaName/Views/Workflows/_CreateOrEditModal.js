@@ -13,7 +13,7 @@
         }
         $('#WorkFlowOfficeId').select2({
             multiple: true,
-            width: '650px',
+            width: '100%',
             // Adjust the width as needed
         });
 

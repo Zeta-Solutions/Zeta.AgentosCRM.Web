@@ -4,12 +4,12 @@
         var _workflowsService = abp.services.app.workflows;
         var _workflowDocumentsService = abp.services.app.workflowDocuments;
         var _workflowStepsService = abp.services.app.workflowSteps;
-        alert("Hello");
+        
         $('#WorkflowId').select2({
-            width: '750px',
-            placeholder: 'Select Office',
+            width: '100%',
+            placeholder: 'Select Workflow',
             allowClear: true,
-            minimumResultsForSearch: 10,
+            minimumResultsForSearch: Infinity,
         });
     var _modalManager;
         var _$feeTypesInformationForm = null;
