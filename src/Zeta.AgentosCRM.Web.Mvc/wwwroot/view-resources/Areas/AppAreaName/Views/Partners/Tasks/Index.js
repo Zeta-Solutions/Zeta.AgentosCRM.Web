@@ -73,14 +73,20 @@
             //    '<text x="30" y="35" text-anchor="middle" fill="white">' + item.userName + '</text>' +
             //    '</svg>' + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             //    + item.taskPriorityName + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + '<span class="replacedate label badge badge-success">' + cRMTasks.dueDate+'</span>'
-                
+
             //    + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                
+
                // );
+            function render(endTime) {
+                if (endTime) {
+                    return moment(endTime).format('L LT');
+                }
+                return "";
+            }
             infoParagraph1.html('<input type="checkbox" id="reminderCheckbox" />');
             infoParagraph2.html('<strong>Reminder:</strong>' + '&nbsp;&nbsp;' + cRMTasks.title);
             infoParagraph3.html('<span class="replacename label badge badge-primary">' + item.userName + '</span>');
-            infoParagraph4.html('<span class="replacedate label badge badge-danger">' + cRMTasks.dueDate + '</span>');
+            infoParagraph4.html('<span class="replacedate label badge badge-danger">' + render(cRMTasks.dueDate) + '</span>');
             infoParagraph5.html(  item.taskPriorityName );
             infoParagraph6.html('<span style="color: red; font-weight: bold;" class="replace"> Todo</span>' );
             infoParagraph7.html( '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +

@@ -159,30 +159,27 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <div class="row">
-                                                                    @*  <div class="col-md-4">
-                                                                    <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
-                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
-                                                                    </div> *@
+                                                                 
                                                                     <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
                                                                         <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
                                                                     </div>
-                                                                    @*   <div class="col-md-4">
-                                                                    <label class="form-label fw-bold text-dark" for="Client_PhoneNumber">@L("PhoneNumber")</label>
-                                                                    <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNumber" value="@Model.Client.PhoneNo" type="number" name="abbrivation" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
-                                                                    </div> *@
-                                                                  @*   <div class="col-md-4">
-                                                                        <label class="form-label fw-bold text-dark" for="Client_PhoneNo">@L("PhoneNo")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PhoneNo" value="@Model.Client.PhoneNo" type="text" name="phoneNo" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxPhoneNoLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinPhoneNoLength" />
-                                                                    </div> *@
+                                                                      
+                                                                    <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
+                                                                        <input type="hidden" value="@Model.Client.PhoneCode" id="PhoneCode" name="PhoneCode" />
+                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
+                                                        <span id="valid-msg" class="hide">✓ Valid</span>
+                                                        <span id="error-msg" class="hide"></span>
+                                            </div>
                                                                                 
-                                            <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
+                                           @*  <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
                                                                     <label for="Phone" class="form-label">@L("Phone")</label>
                                                                     <input type="hidden" value="@@Model.Client.PhoneNo" id="PhoneCode" name="PhoneCode" />
                                                  <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
                                                         <span id="valid-msg" class="hide">✓ Valid</span>
                                                         <span id="error-msg" class="hide"></span>
-                                            </div>
+                                            </div> *@
                                                                     @*    @{
                                                                     var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
                                                                     foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
@@ -398,7 +395,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Application">@L("Application")</label></br>
-                                                                        <select id="select2SingleSelect" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
+                                                                        <select id="applicationId" class="form-select form-select-sm custom-select-input select2 rounded-0" data-control="select2"></select>
                                                                         <p id="p">*Email Adress must be entered to select Application</p>
                                                                     </div>
                                                                 </div>
@@ -428,74 +425,16 @@
                                                                 <div class="row">
 
 
-                                                                    <div class="col-md-12 mb-3">
+                                                                    <div class="col-md-6 ">
                                                                         <label class="form-label fw-bold text-dark" for="leadSourceId">@L("LeadSource")</label>
                                                                         @Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
                                                                     </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-                        @* /////accordion end/////// *@
-
-                        <div class="accordion-item">
-                           @*  <h2 class="accordion-header">
-                                <button class="accordion-button custom-accordion-Button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                    <span class="toggle-text fw-bold fs-4">USER</span>
-                                </button>
-                            </h2> *@
-                            <div id="flush-collapseFour" class="accordion-collapse " data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <div class="row">
-
-
-
-                                                                <div class="col-md-12 mb-3">
-                                                                    <label class="form-label fw-bold text-dark" for="assigneeId">@L("User")</label>
-                                                                    @Html.DropDownList("assigneeId", new SelectList(Model.ClientUserList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AssigneeId.ToString() : "")),@L("SelectAUser"), new { @class = "form-control"  , @required="required" })
-                                                                </div>
-                                                                <div class="my-3">
+                                                                     <div class=" col-md-6" >
 							<label class="form-label" for="Client_InternalId">@L("Agent")</label>
 							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control"  , @required="required" })
 						</div>
-                                                                @* <div class="col-md-12 mb-3">
-                                                                    <label class="form-label fw-bold text-dark" for="BinaryObjectDescription">@L("BinaryObject")</label>
-                                                                    <div class="input-group">
-                                                                        <input class="form-control" id="BinaryObjectDescription" name="binaryObjectDescription" value="@Model.BinaryObjectDescription" type="text" disabled>
-                                                                        <button class="btn btn-primary blue" id="OpenBinaryObjectLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
-                                                                        <button class="btn btn-danger btn-icon" type="button" id="ClearBinaryObjectDescriptionButton"><i class="fa fa-times"></i></button>
-                                                                    </div>
+                          <input type="hidden" name="assigneeId" id="assigneeId" value="@AbpSession.UserId" />
                                                                 </div>
-
-                                                                @if (Model.IsEditMode)
-                                                                {
-                                                                    <input class="form-control" id="Client_ProfilePictureId" value="@Model.Client.ProfilePictureId" type="text" name="profilePictureId" hidden />
-                                                                }
-                                                                else
-                                                                {
-                                                                    <input class="form-control" id="Client_ProfilePictureId" value="" type="text" name="profilePictureId" hidden />
-                                                                } *@
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -506,14 +445,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
 
                     </div>
                 </div>

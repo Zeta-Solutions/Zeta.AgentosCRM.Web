@@ -113,11 +113,23 @@
                     targets: 3,
                     data: 'appointment.appointmentDate',
                     name: 'appointmentDate',
+                    render: function (appointmentDate) {
+                        if (appointmentDate) {
+                            return moment(appointmentDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 4,
                     data: 'appointment.appointmentTime',
                     name: 'appointmentTime',
+                    render: function (appointmentTime) {
+                        if (appointmentTime) {
+                            return moment(appointmentTime).format('LT');
+                        }
+                        return "";
+                    }
                 },
               
                 {
@@ -140,18 +152,19 @@
                         var rowData = data.appointment;
                         var RowDatajsonString = JSON.stringify(rowData);
                         //console.log(RowDatajsonString);
-                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
-                            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
-                            '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                        
+                        var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<div class="ellipsis20"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
-                            "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            /* '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +*/
+                            '<a href="#" style="color: black;" data-action20="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                            "<a href='#' style='color: black;' data-action20='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
 
-
-                        return contaxtMenu;
+                        return contextMenu;
                     }
 
 
@@ -159,12 +172,11 @@
                
             ],
         });
-        // Add a click event handler for the ellipsis icons
-        $(document).on('click', '.ellipsis', function (e) {
+        $(document).on('click', '.ellipsis20', function (e) {
             e.preventDefault();
-            debugger
-            var options = $(this).closest('.context-menu').find('.Appointmentoptions');
-            var allOptions = $('.Appointmentoptions');  // Select all options
+
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
 
             // Close all other open options
             allOptions.not(options).hide();
@@ -172,24 +184,25 @@
             // Toggle the visibility of the options
             options.toggle();
         });
-
-        // Close the context menu when clicking outside of it
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
-                $('.Appointmentoptions').hide();
+                $('.options').hide();
             }
         });
-        $(document).on('click', 'a[data-action]', function (e) {
+
+        // Handle menu item clicks
+        $(document).on('click', 'a[data-action20]', function (e) {
             e.preventDefault();
-            debugger
+
             var rowId = $(this).data('id');
-            var action = $(this).data('action');
+            var action = $(this).data('action20');
             debugger
+            // Handle the selected action based on the rowId
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
             } else if (action === 'delete') {
-               // console.log(rowId);
+                // console.log(rowId);
                 deleteAppointments(rowId);
             }
         });

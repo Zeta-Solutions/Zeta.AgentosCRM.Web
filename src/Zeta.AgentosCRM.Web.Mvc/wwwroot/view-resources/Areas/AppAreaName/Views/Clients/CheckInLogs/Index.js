@@ -127,16 +127,34 @@
                     targets: 4,
                     data: 'checkInLog.checkInDate',
                     name: 'checkInDate',
+                    render: function (checkInDate) {
+                        if (checkInDate) {
+                            return moment(checkInDate).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 5,
                     data: 'checkInLog.startTime',
                     name: 'startTime',
+                    render: function (startTime) {
+                        if (startTime) {
+                            return moment(startTime).format('LT');
+                        }
+                        return "";
+                    }
                 },
                 {
                     targets: 6,
                     data: 'checkInLog.endTime',
                     name: 'endTime',
+                    render: function (endTime) {
+                        if (endTime) {
+                            return moment(endTime).format('LT');
+                        }
+                        return "";
+                    }
                 },
                 {
                     width: 30,

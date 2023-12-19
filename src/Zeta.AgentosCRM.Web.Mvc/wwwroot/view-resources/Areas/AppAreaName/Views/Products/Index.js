@@ -109,7 +109,7 @@
                     targets: 0,
                 },
                 {
-                width: 100,
+                width: 300,
                 targets: 1,
                 data: null,
                 orderable: false,
@@ -145,7 +145,7 @@
                 //    name: 'Name',
                 //},
                 {
-                    width: 100,
+                    width: 300,
                     targets: 2,
                     data: null,
                     orderable: false,
