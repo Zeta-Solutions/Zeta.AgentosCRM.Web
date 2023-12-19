@@ -1,12 +1,11 @@
-﻿(function () {
-    alert("okay")
+﻿(function () { 
     debugger
     $("#DDlPartners").hide();
     $("#RadioProducts").hide();
     $("#DDlProduct").hide();
     $('#PartnerID,#ProductID').select2({
         multiple: true,
-        width: '650px',
+        width: '100%',
         // Adjust the width as needed
     });
     $(function () {

@@ -52,7 +52,7 @@
             var infoParagraph3 = $('<p>').addClass('card-text col-md-2');
             var infoParagraph4 = $('<p>').addClass('card-text col-md-2');
             var infoParagraph5 = $('<p>').addClass('card-text col-md-2');
-            var infoParagraph6 = $('<p>').addClass('card-text col-md-2');
+            var infoParagraph6 = $('<p>').addClass('card-text col-md-2 ');
             var infoParagraph7 = $('<p>').addClass('card-text col-md-1');
             
             infoParagraph1.html('<input type="checkbox" id="reminderCheckbox" />');

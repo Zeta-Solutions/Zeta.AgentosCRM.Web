@@ -186,7 +186,7 @@
         var _clientsQuotationService = abp.services.app.clientQuotationHeads;
         $("#kt_app_sidebar_toggle").trigger("click");
         $('#currencyId').select2({
-            width: '420px',
+            width: '100%',
             // Adjust the width as needed
         });
         //const urlParams = new URLSearchParams(window.location.search);

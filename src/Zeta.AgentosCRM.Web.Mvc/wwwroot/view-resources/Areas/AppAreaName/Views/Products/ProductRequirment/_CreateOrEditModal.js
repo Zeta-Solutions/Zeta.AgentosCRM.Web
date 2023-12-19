@@ -3,7 +3,7 @@
        
         $('#degreeLevelId').select2({
 
-            width: '650px',
+            width: '100%',
             // Adjust the width as needed
         });
        

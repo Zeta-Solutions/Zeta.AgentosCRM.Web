@@ -29,7 +29,7 @@
         @{
             var breadcrumbs = new List<BreadcrumbItem>()
         {
-        new BreadcrumbItem("/AppAreaName/Agents", L("Agents")),
+        new BreadcrumbItem("/AppAreaName/Agents", L("Agent")),
         new BreadcrumbItem(L("Details")),
         };
         }
@@ -118,7 +118,7 @@
                                                                         @*     <input type="radio" class="form-check-input " id="option1" name="applyTo" value="option1" checked> *@
                                                                         <input type="radio" class="form-check-input" id="option2" name="IsBusiness" value="false" @(!Model.Agent.IsBusiness ? "checked=\"checked\"" : "")>
                                                                         
-                                                                        <label class="form-check-label" for="AllProducts">@L("Individual 1")</label>
+                                                                        <label class="form-check-label" for="AllProducts">@L("Individual1")</label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline ml-3 mt-3 ">
                                                                         <input id="EditUser_IsActive" type="radio" name="IsBusiness" class="form-check-input" value="true" @Html.Raw(Model.Agent.IsBusiness ? "checked=\"checked\"" : "")>
@@ -338,7 +338,7 @@
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-md-4 mb-3">
-                                                                    <label for="partnerType" class="form-label">@L("RelatedOffice")</label>
+                                                                    <label for="partnerType" class="form-label">@L("Relatedoffice")</label>
                                                                     @Html.DropDownList("organizationUnitId", new SelectList(Model.AgentOrganizationUnitList,"Id","DisplayName", (Model.IsEditMode ? Model.Agent.OrganizationUnitId.ToString() : "")),@L("SelectAOrganizationUnitId"), new { @class = "form-control" , @required="required" })
                                                                 </div>
                                                                 <div class="col-md-4 mb-3" id="field9" style="display:none">

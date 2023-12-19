@@ -16,11 +16,11 @@
 
         //});
         $('#countryId').select2({
-            width: '400px',
+            width: '100%',
 
         });
         $('#organizationUnitId').select2({
-            width: '400px',
+            width: '100%',
 
         });
         //$('#currencyId').select2({

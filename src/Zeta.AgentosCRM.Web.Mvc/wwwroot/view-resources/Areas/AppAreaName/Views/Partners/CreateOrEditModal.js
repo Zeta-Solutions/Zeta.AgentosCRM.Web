@@ -5,23 +5,23 @@
         debugger
         $('#masterCategoryId').select2({
             
-            width: '280px', 
+            width: '100%', 
         });
        
         $('#partnerTypeId').select2({
-            width: '280px',
+            width: '100%',
 
         });
         $('#workflowId').select2({
-            width: '280px',
+            width: '100%',
 
         });
         $('#countryId').select2({
-            width: '400px',
+            width: '100%',
 
         });
         $('#currencyId').select2({
-            width: '250px',
+            width: '100%',
 
         });
         var partnerId = $('input[name="id"]').val();
