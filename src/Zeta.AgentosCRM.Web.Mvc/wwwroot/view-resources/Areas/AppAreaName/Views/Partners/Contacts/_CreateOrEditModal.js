@@ -1,7 +1,7 @@
 ﻿(function ($) {
     app.modals.CreateOrEditContactsModal = function () {
         $('#branchId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         var hiddenfield = $("#PartnerId").val();

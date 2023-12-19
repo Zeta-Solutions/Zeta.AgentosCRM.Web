@@ -12,19 +12,19 @@
     var _modalManager;
       var _$applicationsInformationForm = null;
       $('#WorkflowId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Workflow',
           allowClear: true,
           minimumResultsForSearch: Infinity,
       });
       $('#PartnerId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Partner',
           allowClear: true,
           minimumResultsForSearch: Infinity,
       });
       $('#ProductId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Product',
           allowClear: true,
           minimumResultsForSearch: Infinity,

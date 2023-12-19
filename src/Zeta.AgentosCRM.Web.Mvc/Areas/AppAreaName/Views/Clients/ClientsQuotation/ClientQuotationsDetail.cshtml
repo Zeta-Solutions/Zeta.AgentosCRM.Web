@@ -57,7 +57,7 @@
                         </div>
                         <div class="my-3 col-md-12 mb-3">
                         <label class="form-label fw-bold text-dark" for="CurrencyId">@L("QuotationCurrency")</label>
-                        @Html.DropDownList("currencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" })
+                                @Html.DropDownList("currencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACurrency"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" })
                     </div>
                     </div>
                     </div>

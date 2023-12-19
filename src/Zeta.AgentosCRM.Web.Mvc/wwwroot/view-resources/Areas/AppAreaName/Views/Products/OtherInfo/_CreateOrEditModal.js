@@ -2,15 +2,15 @@
     app.modals.CreateOrEditotherinfoModal = function () {
         $('#degreeLevelId').select2({
 
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#subjectId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#subjectAreaId').select2({
-            width: '720px',
+            width: '100%',
             // Adjust the width as needed
         });
 

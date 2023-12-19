@@ -5,7 +5,7 @@
     var _modalManager;
       var _$productTypeInformationForm = null;
       $('#masterCategoryId').select2({
-          width: '750px',
+          width: '100%',
           placeholder: 'Select Master Category',
           allowClear: true,
           minimumResultsForSearch: 10,

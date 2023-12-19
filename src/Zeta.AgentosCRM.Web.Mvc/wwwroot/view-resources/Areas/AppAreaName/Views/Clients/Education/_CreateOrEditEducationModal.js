@@ -2,19 +2,19 @@
     app.modals.CreateOrEditEducationModal = function () {
         var _clientEducationsService = abp.services.app.clientEducations;
        $('#DegreeLevelId').select2({
-            width: '755px',
+           width: '100%',
             placeholder: 'Select Degree Level',
             allowClear: true,
             minimumResultsForSearch: Infinity,
         });
         $('#SubjectAreaId').select2({
-            width: '755px',
+            width: '100%',
             placeholder: 'Select Subject Area',
             allowClear: true,
             minimumResultsForSearch: Infinity,
         });
         $('#SubjectId').select2({
-            width: '755px',
+            width: '100%',
             placeholder: 'Select Subject',
             allowClear: true,
             minimumResultsForSearch: Infinity,

@@ -3,7 +3,7 @@
         debugger;
         $('#inviteesId').select2({
             multiple: true,
-            width: '720px',
+            width: '100%',
             // Adjust the width as needed
         });
         $.ajax({

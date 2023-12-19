@@ -2,11 +2,11 @@
     app.modals.CreateOrEditAgreementsModal = function () {
         debugger
         $('#regionId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
         $('#agentId').select2({
-            width: '350px',
+            width: '100%',
             // Adjust the width as needed
         });
 

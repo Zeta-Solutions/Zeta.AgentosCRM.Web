@@ -50,7 +50,7 @@
                                             @* @Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   }) *@
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="preferredUniversity">@L("PreferedUniversity")</label>
+                                            <label for="preferredUniversity">@L("PreferredUniversity")</label>
                                             <p class="text-muted">
                                                 @Model.Client.University
                                             @* <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" /> *@

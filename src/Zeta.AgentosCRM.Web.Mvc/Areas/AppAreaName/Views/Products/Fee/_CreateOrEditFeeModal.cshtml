@@ -3,7 +3,7 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product.Fee;
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewFee")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditFee")) : L("CreateNewFee")))
 
 <div class="modal-body">
     <div id="FeeInformationsForm">
@@ -48,19 +48,19 @@
 
                 </div>
                 <div class="col-lg-2">
-                    <label>@L("Installment")</label>
+                    <label>@L("Installments")</label>
 
                 </div>
                 <div class="col-lg-2">
-                    <label>@L("total Fee")</label>
+                    <label>@L("TotalFee")</label>
 
                 </div>
                 <div class="col-lg-1">
-                    <label>@L("Income/ Payable")</label>
+                    <label>@L("IncomePayable")</label>
 
                 </div>
                 <div class="col-lg-1">
-                    <label>@L("Add In Quotation")</label>
+                    <label>@L("AddInQuotation")</label>
 
                 </div> 
                 <div class="col-lg-1">
@@ -74,7 +74,7 @@
                 <div class="row align-items-center">
 
                     <div class="col-lg-12">
-                        <button type="button" id="saveBtn" class="btn btnclose btn-sm btn-outline text-white  rounded-0  float-right addTax"> @L("AddFee")</button>
+                        <button type="button" id="saveBtn" class="btn btnclose btn-sm btn-outline text-white  rounded-0  float-right addTax"> @L("AddFees")</button>
 
                     </div>
                 </div>

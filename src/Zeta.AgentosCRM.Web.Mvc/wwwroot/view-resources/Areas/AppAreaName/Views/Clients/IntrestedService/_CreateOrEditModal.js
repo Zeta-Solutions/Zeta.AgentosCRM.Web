@@ -8,25 +8,25 @@
       var _modalManager;
       var _$clientTagsInformationForm = null;
       $('#WorkflowId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Workflow',
           allowClear: true,
           minimumResultsForSearch: Infinity,
       });
       $('#PartnerId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Partner',
           allowClear: true,
           minimumResultsForSearch: 10,
       });
       $('#ProductId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Product',
           allowClear: true,
           minimumResultsForSearch: Infinity,
       });
       $('#BranchId').select2({
-          width: '755px',
+          width: '100%',
           placeholder: 'Select Branch',
           allowClear: true,
           minimumResultsForSearch: Infinity,
