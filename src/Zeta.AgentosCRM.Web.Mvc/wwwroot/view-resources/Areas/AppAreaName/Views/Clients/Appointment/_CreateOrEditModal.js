@@ -92,14 +92,14 @@
       var hiddenfield = $("#clientAppID").val();
       //$("#clientId").val(hiddenfield);
       $("#Applointment_ClietName").val(hiddenfield);
-      //$("#applointment_Invitees").select2();
+      //$("#applointment_Invitees").select2()...;
         var hiddenfield = $("#ID").val();
         $("#ClientId").val(hiddenfield);
         var _modalManager;
         var _$clientTagsInformationForm = null;
 
         $('input[name*="clientId"]').val(hiddenfield)
-        $('input[name*="AddedById"]').val(2);
+        $('input[name*="AddedById"]').val(1);
     var _modalManager;
       var _$clientAppointmentsInformationForm = null;
 

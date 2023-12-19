@@ -151,6 +151,7 @@
                             'EditWorkflowStep'
                         )}</button>`;
                     },
+                    visible: false,
                 },
                 {
                     targets: 2,

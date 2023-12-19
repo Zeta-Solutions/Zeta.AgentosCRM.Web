@@ -145,7 +145,9 @@
             var Steps = JSON.stringify(datarows);
 
             Steps = JSON.parse(Steps);
+            var hiddenfield = $("#PartnerId").val();
 
+            $("#partnerId").val(hiddenfield);
             var Subject = _$tasksInformationForm.serializeFormToObject();
             Subject.Steps = Steps;
             _modalManager.setBusy(true);
