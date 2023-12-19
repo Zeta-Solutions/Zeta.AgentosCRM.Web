@@ -5,7 +5,7 @@
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.CheckInLogs;
 @model CreateOrEditCheckInLogsViewModel
 
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateOrEditChekInLogs")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditChekInLogs")) :L("CreateChekInLogs")))
 
 <div class="modal-body">
     <div id="ContractsInformationsTab">

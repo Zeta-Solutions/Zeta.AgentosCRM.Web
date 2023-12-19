@@ -7,7 +7,30 @@
       $("#ClientId").val(hiddenfield);
       var _modalManager;
       var _$clientTagsInformationForm = null;
-
+      $('#WorkflowId').select2({
+          width: '755px',
+          placeholder: 'Select Workflow',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
+      $('#PartnerId').select2({
+          width: '755px',
+          placeholder: 'Select Partner',
+          allowClear: true,
+          minimumResultsForSearch: 10,
+      });
+      $('#ProductId').select2({
+          width: '755px',
+          placeholder: 'Select Product',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
+      $('#BranchId').select2({
+          width: '755px',
+          placeholder: 'Select Branch',
+          allowClear: true,
+          minimumResultsForSearch: Infinity,
+      });
       $('input[name*="clientId"]').val(hiddenfield)
     var _modalManager;
       var _$_clientInterstedInformationForm = null;

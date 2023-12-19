@@ -495,7 +495,7 @@
 
         var _createOrEditModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientEducationModal',
-            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Education/_CreateOrEditModal.js',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Education/_CreateOrEditEducationModal.js',
             modalClass: 'CreateOrEditEducationModal',
         });
         var _createOrEditenglishscoreModal = new app.ModalManager({

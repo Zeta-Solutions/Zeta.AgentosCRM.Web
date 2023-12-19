@@ -3,7 +3,7 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications
 @model CreateOrEditApplicationsViewModel
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewApplication")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditApplication")) : L("CreateNewApplication")))
  
 <div class="modal-body">
     <div id="InformationsForm">
@@ -20,11 +20,11 @@
             </div>
             <div class="my-3">
                 <label class="form-label" for="Application_SelectWorkFlow">@L("SelectWorkFlow")</label>
-                @Html.DropDownList("WorkflowId", new SelectList(Model.ApplicationWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.WorkflowId.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control select2" , @required="required" })
+                @Html.DropDownList("WorkflowId", new SelectList(Model.ApplicationWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.WorkflowId.ToString() : "")),@L("SelectAWorkflow"), new { @class = "form-control" , @required="required" })
             </div>
             <div class="my-3">
                 <label class="form-label" for="Application_PartnerandBranch">@L("SelectPartnerandBranch")</label>
-                @Html.DropDownList("PartnerId", new SelectList(Model.ApplicationPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control select2" , @required="required" })
+                @Html.DropDownList("PartnerId", new SelectList(Model.ApplicationPartnerList,"Id","DisplayName", (Model.IsEditMode ? Model.Application.PartnerId.ToString() : "")),@L("SelectAPartner"), new { @class = "form-control" , @required="required" })
             </div>
             <div class="my-3">
                 <label class="form-label" for="Application_Product">@L("SelectProduct")</label>

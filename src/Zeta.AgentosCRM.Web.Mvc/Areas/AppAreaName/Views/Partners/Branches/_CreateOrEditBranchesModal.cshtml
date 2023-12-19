@@ -3,7 +3,7 @@
 @using Abp.Extensions
 @using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.PartnerBranch;
 @model CreateOrEditBranchModalViewModel
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel( L("CreateNewBranch")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditBranch")) :  L("CreateNewBranch")))
 
 <div class="modal-body">
     <div id="InformationsForm">

@@ -8,7 +8,7 @@
         $("#WorkFlowDocumentID").val(WorkFlowidIdValue);
         var DocumentCheckListID = $("#DocumentCheckListID").val();
         var workflowId = $("#WorkFlowDocumentID").val();
-        debugger
+         
         var _$FeeTypeTable = $('#LeadFormTable');
         var _workflowDocumentsService = abp.services.app.workflowDocuments;
         var _workflowStepDocumentCheckListsService = abp.services.app.workflowStepDocumentCheckLists;
@@ -73,7 +73,7 @@
                                 })
                                     .done(function (data) {
                                         var CheckListRecord = data.result.items;
-                                       debugger
+                                        
                                         var ListOfCheckList = "";
                                         var DocumentWorkflowStepID = 0;
                                         
@@ -85,7 +85,7 @@
                                         $.each(CheckListRecord, function (index, item) {
                                             DocumentWorkflowStepID = item.workflowStepDocumentCheckList.workflowStepId; 
 
-                                            var CheckPartner = item.workflowStepDocumentCheckList.isForAllPartners; debugger
+                                            var CheckPartner = item.workflowStepDocumentCheckList.isForAllPartners;  
                                             if (WorkflowStepID == DocumentWorkflowStepID) {
                                                 var NewCheckListRecord = ` 
                                         <span class="DocumentCheckList" style=""><input type="text" hidden id="WorkFlowRowId" value="`+ item.workflowStepDocumentCheckList.id+`"/></span>
@@ -106,7 +106,7 @@
                                         <span class="AddNewCheckList"><a href="#">Add New CheckList</a></span>
                                         <hr> </div>`;
                                         ListOfCheckList += NewCheckListRecord;
-                                        debugger
+                                         
                                         $(".WorkFlowStepDetail").append(ListOfCheckList);
                                     });
                             }
@@ -175,7 +175,7 @@
         //                        </div>`;
         //                            ListOfCheckList += NewCheckListRecord
         //                            $.each(CheckListRecord, function (index, item) {
-        //                                debugger
+        //                                 
         //                                DocumentWorkflowStepID = item.workflowStepDocumentCheckList.workflowStepId;
         //                                var NewCheckListRecord = `
         //                        <div class="col-12 ">
@@ -186,10 +186,10 @@
         //                            </div>
         //                        </div>`;
         //                                ListOfCheckList += (NewCheckListRecord);
-        //                                debugger
+        //                                 
         //                            });
         //                            if (WorkflowStepID == DocumentWorkflowStepID) {
-        //                                debugger
+        //                                 
         //                                var NewCheckListRecord = `
         //                        <div class="col-12 ">
         //                            <div class="col-11">   
@@ -355,27 +355,26 @@
 
 
         $('#CreateNewDocumentCheckList').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
         $(document).on('click', 'a[data-action]', function () {
-            debugger
+             
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
             if (action === 'edit') {
-                debugger
+                 
                 _createOrEditAddNewCheckListModal.open({ id: rowId });
             }
             else if (action === 'Delete') {
-                debugger
-                console.log(rowId);
+                
                 deleteWorkFlowDocumentCheckList(rowId);
             }
         });
         
         $(document).on('click', '.AddNewCheckList', function () {
-            debugger
+             
             var $timelineItem = $(this).closest('.timeline-item');
 
             var workFlowStepId = $timelineItem.find('.WorkFlowStepId').text();
@@ -387,7 +386,7 @@
 
         });
         function deleteWorkFlowDocumentCheckList(rowId) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _workflowStepDocumentCheckListsService
@@ -395,7 +394,7 @@
                             id: rowId,
                         })
                         .done(function () {
-                            debugger 
+                              
 
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                             location.reload();
@@ -404,7 +403,7 @@
             });
         }
         abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-            debugger
+             
             location.reload();
         });
 

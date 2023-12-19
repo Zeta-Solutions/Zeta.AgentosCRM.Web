@@ -6,6 +6,7 @@
         $('input[name*="clientId"]').val(hiddenfield)
         getRecordsById(hiddenfield);
         debugger
+        
         function getRecordsById(hiddenfield) {
             debugger
             $.ajax({
