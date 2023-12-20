@@ -91,7 +91,7 @@
             },
             columnDefs: [
                 {
-                    className: ' responsive',
+                    className: 'responsive',
                     orderable: false,
                     render: function () {
                         return '';
