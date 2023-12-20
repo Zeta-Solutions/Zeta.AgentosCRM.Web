@@ -93,7 +93,7 @@
                         if (data == null) {
                             //alert("Record Not Found.");
                         }
-                        var optionhtml = '<option value="0"> select Office</option>';
+                        var optionhtml = '<option value="0"> select Fee Type</option>';
                         $currentDropdown.append(optionhtml);
 
                         $.each(data, function (i) {

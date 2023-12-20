@@ -11,13 +11,13 @@
             endDate: null,
         };
         $('#WorkFlowOfficeId').select2({
-            width: '350px',
+            width: '100%',
             placeholder: 'Select Office',
             allowClear: true,
             minimumResultsForSearch: 10,
         });
         $('#B_I_Country').select2({
-            width: '380px',
+            width: '100%',
             placeholder: 'Select Office',
             allowClear: true,
             minimumResultsForSearch: 10,

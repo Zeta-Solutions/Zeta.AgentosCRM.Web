@@ -138,8 +138,8 @@
             <div class="timeline-circle"></div>
             <div class="timeline-content">
                 <span style="display :none;" class="SrlNo-input" placeholder="Your stage Srno here">${item.workflowStep.srlNo}</span>
-                <input type="text" hidden class="abbreviation-input" placeholder="Your stage Abbrivation here" value="${item.workflowStep.abbrivation}">
-                <input type="text" class="name-input" placeholder="Your stage name here" value="${item.workflowStep.name}">
+                <input type="text" hidden class="form-control custom-small-input  rounded-0 abbreviation-input" placeholder="Your stage Abbrivation here" value="${item.workflowStep.abbrivation}">
+                <input type="text" class="form-control custom-small-input  rounded-0 name-input" placeholder="Your stage name here" value="${item.workflowStep.name}">
                 <input type="text" hidden value="`+ item.workflowStep.isPartnerClientIdRequired + `" class="HashTag-inputValue">`
 
                         if (item.workflowStep.isPartnerClientIdRequired == true) {
@@ -246,7 +246,7 @@
 
                 <span class="SrlNo-input" style="display :none;" id="SrnoID">${newIndex}</span> 
                 <input type="text" hidden placeholder="Your stage Abbreviation here" class="abbreviation-input">
-                 <input type="text" placeholder="Your stage name here" class="name-input">
+                 <input type="text" placeholder="Your stage name here" class="form-control custom-small-input  rounded-0 name-input">
                  <input type="text" hidden value="false" class="HashTag-inputValue">
                 <span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i></span>
                 <input type="text" hidden value="false" class="calendar-inputValue">

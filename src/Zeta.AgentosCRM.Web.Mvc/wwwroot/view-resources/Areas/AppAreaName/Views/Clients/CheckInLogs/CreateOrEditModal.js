@@ -45,7 +45,7 @@
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
-                    abp.event.trigger('app._createOrEditModal');
+                    abp.event.trigger('app.createOrEditCheckInInformationFormModalSaved');
                 })
                 .always(function () {
                     _modalManager.setBusy(false);

@@ -35,7 +35,7 @@
             width: '100%',
             // Adjust the width as needed
         });
-        var hiddenfield = 38;
+        var hiddenfield = 1;
 
         $("#BranchId").val(hiddenfield);
         $.ajax({
