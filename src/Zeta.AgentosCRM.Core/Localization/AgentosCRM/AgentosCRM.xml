@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="ProductBranch">Product branch</text>
+	<texts>    <text name="Discontinue">Discontinue</text>
+    <text name="Complete">Complete</text>
+    <text name="NextStep">Next Step</text>
+    <text name="PreviousStep">Previous Step</text>
+    <text name="ProductBranch">Product branch</text>
     <text name="CreateNewProductBranch">Create new product branch</text>
     <text name="EditProductBranch">Edit product branch</text>
     <text name="DeleteProductBranch">Delete product branch</text>
@@ -1900,7 +1904,7 @@
 		<text name="FeeOptionName">Fee Option Name</text> 
 		<text name="CountryOfResidency">Country Of Residency</text> 
 		<text name="SelectAInstallmentType">Select Installment Type</text> 
-		<text name="IncomePayable">Income/Payable</text> 
+		<text name="IncomePayable">Payable</text> 
 		<text name="AddOtherInfo">Add Other Info</text> 
 		<text name="SelectASubject">Select Subject</text> 
 		<text name="CreateNewOtherinformation">Create New Other Information</text> 
@@ -1908,5 +1912,11 @@
 		<text name="PrimaryContact">Primary Contact</text> 
 		<text name="CreateNewFee">Create New Fee</text> 
 		<text name="EditFee">Edit Fee</text> 
+		<text name="AddNewAgent">Add New Agent</text> 
+		<text name="SuperAgent">Super Agent</text> 
+		<text name="SubAgent">Sub Agent</text> 
+		<text name="Individual1">Individual1</text> 
+		<text name="Bussiness">Bussiness</text> 
+		<text name="SelectAOrganizationUnitId">Select A Organization Unit</text> 
 	</texts> 
 </localizationDictionary>

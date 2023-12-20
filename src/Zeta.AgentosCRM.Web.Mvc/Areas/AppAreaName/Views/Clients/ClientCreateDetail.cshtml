@@ -14,8 +14,9 @@
     {
 
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+ 
 
 }
 @section Scripts
@@ -24,6 +25,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CreateOrEdit.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
 
 }
 
@@ -103,7 +105,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_FirstName">@L("FirstName")</label>
-                                                                           <input id="FirstName" name="FirstName" value="@Model.Client.FirstName" type="text" placeholder="Total" class="form-control  custom-small-input rounded-0 input-sm">
+                                                                           <input id="FirstName" name="FirstName" value="@Model.Client.FirstName" type="text" placeholder="First Name" class="form-control  custom-small-input rounded-0 input-sm">
                         
                                                                     </div>
                                                                     @*   <div class="col-md-4 mb-3">
@@ -112,7 +114,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
-                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_LastName" placeholder="Last Name" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
                                                                     </div>
                                                                     @*                 <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
@@ -173,13 +175,7 @@
                                                         <span id="error-msg" class="hide"></span>
                                             </div>
                                                                                 
-                                           @*  <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
-                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
-                                                                    <input type="hidden" value="@@Model.Client.PhoneNo" id="PhoneCode" name="PhoneCode" />
-                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
-                                                        <span id="valid-msg" class="hide">✓ Valid</span>
-                                                        <span id="error-msg" class="hide"></span>
-                                            </div> *@
+                                          
                                                                     @*    @{
                                                                     var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
                                                                     foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
@@ -257,7 +253,7 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label" for="Client_State">@L("State")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_State" value="@Model.Client.State" type="text" name="state" />
+                                                                        <input class="form-control custom-small-input rounded-0 " id="Client_State" value="@Model.Client.State" type="text" name="state" />
                                                                     </div>
 
                                                                     <div class="my-3 col-4">
@@ -267,7 +263,9 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="countryId">@L("Country")</label>
-                                                                        @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0"  , @required="required" })
+                                                                        @* @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" }) *@
+                                                        @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
+                                                                    
                                                                     </div>
 
                                                                 </div>
@@ -292,7 +290,7 @@
 
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label fw-bold text-dark" for="Client_PreferedIntake">@L("PreferedIntake")</label>
-                                                <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_PreferedIntake" type="text" name="preferedIntake" value="@Model.Client.PreferedIntake" />
+                                                <input class="form-control custom-small-input rounded-0 date-picker" id="Client_PreferedIntake" type="text" name="preferedIntake" value="@Model.Client.PreferedIntake" />
                                             </div>
 
                                            @*  <div class="col-md-4 mb-3">
@@ -319,17 +317,17 @@
 
                                                                    <div class="col-md-4 mb-3">
                                             <label class="form-label fw-bold text-dark" for="Client_PassportNo">@L("PassportNo")</label>
-                                            <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_PassportNo" value="@Model.Client.PassportNo" type="number" name="passportNo" />
+                                            <input class="form-control  custom-small-input rounded-0" id="Client_PassportNo" value="@Model.Client.PassportNo" type="text" name="passportNo" />
                                         </div>
 
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label fw-bold text-dark" for="Client_VisaType">@L("VisaType")</label>
-                                            <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_VisaType" value="@Model.Client.VisaType" type="text" name="visaType" />
+                                            <input class="form-control  custom-small-input rounded-0" id="Client_VisaType" value="@Model.Client.VisaType" type="text" name="visaType" />
                                         </div>
 
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label fw-bold text-dark" for="Client_VisaExpiryDate">@L("VisaExpiryDate")</label>
-                                            <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="Client_VisaExpiryDate" type="text" name="visaExpiryDate" value="@Model.Client.VisaExpiryDate" />
+                                            <input class="form-control custom-small-input rounded-0 date-picker" id="Client_VisaExpiryDate" type="text" name="visaExpiryDate" value="@Model.Client.VisaExpiryDate" />
                                         </div>
                                         </div>
 
@@ -364,7 +362,7 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_University">@L("University")</label>
-                                                                        <input class="form-control form-control-sm custom-select-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" />
+                                                                        <input class="form-control custom-small-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" />
                                                                     </div>
 
 

@@ -1,7 +1,6 @@
 ﻿(function () {
     $(function () {
         debugger
-        alert("heelo")
         //const urlParams = new URLSearchParams(window.location.search);
         //const partnerIdValue = urlParams.get('partnerId');
 
@@ -45,9 +44,7 @@
             .fail(function (error) {
                 console.error('Error fetching data:', error);
             });
-        var hiddenfield = 38;
-
-        $("#BranchId").val(hiddenfield);
+     
 
         $.ajax({
             url: abp.appPath + 'api/services/app/Products/GetAllBranchForTableDropdown',
@@ -358,7 +355,9 @@
 
             Branches = JSON.parse(Branches);
 
+            //var hiddenfield = 1;
 
+            //$("#BranchId").val(hiddenfield);
             var partner = _$productInformationForm.serializeFormToObject();
             partner.Branches = Branches;
 
