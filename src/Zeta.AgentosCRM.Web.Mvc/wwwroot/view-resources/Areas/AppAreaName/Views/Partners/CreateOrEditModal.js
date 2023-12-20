@@ -3,27 +3,10 @@
         debugger
         $("#kt_app_sidebar_toggle").trigger("click");
         debugger
-        $('#masterCategoryId').select2({
-            
+        $('#masterCategoryId, #partnerTypeId, #workflowId, #countryId, #currencyId').select2({ 
             width: '100%', 
         });
-       
-        $('#partnerTypeId').select2({
-            width: '100%',
-
-        });
-        $('#workflowId').select2({
-            width: '100%',
-
-        });
-        $('#countryId').select2({
-            width: '100%',
-
-        });
-        $('#currencyId').select2({
-            width: '100%',
-
-        });
+        
         var partnerId = $('input[name="id"]').val();
         var imageUrl = $.ajax({
             url: abp.appPath + 'api/services/app/PartnerProfile/GetProfilePictureByPartner',

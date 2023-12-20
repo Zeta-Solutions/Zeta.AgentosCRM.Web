@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="ProductBranch">Product branch</text>
+	<texts>    <text name="Discontinue">Discontinue</text>
+    <text name="Complete">Complete</text>
+    <text name="NextStep">Next Step</text>
+    <text name="PreviousStep">Previous Step</text>
+    <text name="ProductBranch">Product branch</text>
     <text name="CreateNewProductBranch">Create new product branch</text>
     <text name="EditProductBranch">Edit product branch</text>
     <text name="DeleteProductBranch">Delete product branch</text>

@@ -4,7 +4,7 @@
         var _workflowsService = abp.services.app.workflows;
         if ($("#allOffice").attr("checked")) {
             debugger
-            
+
             document.getElementById("showhide").style.display = 'none';
         }
         else {
@@ -21,7 +21,7 @@
             url: abp.appPath + 'api/services/app/Agents/GetAllOrganizationUnitForTableDropdown',
             method: 'GET',
             dataType: 'json',
- 
+
             success: function (data) {
                 debugger
                 populateDropdown(data);
@@ -31,7 +31,7 @@
             }
         });
 
-        var dataRows = [];  
+        var dataRows = [];
         function populateDropdown(data) {
             var dropdown = $('#WorkFlowOfficeId');
 
@@ -90,7 +90,7 @@
                 url: abp.appPath + 'api/services/app/Workflows/GetWorkflowForEdit?id=' + workflowId,
                 method: 'GET',
                 dataType: 'json',
-              
+
                 success: function (data) {
                     debugger
                     // Populate the dropdown with the fetched data
@@ -101,17 +101,17 @@
                 }
             });
         }
- 
+
         function updateProductDropdown(data) {
             debugger;
             var ms_val = 0;
-            
+
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
             $.each(data.result.workflowOffice, function (index, obj) {
                 ms_val += "," + obj.organizationUnitId;
 
             });
-             
+
             //var ms_array = ms_val.length > 0 ? ms_val.substring(1).split(',') : [];
             var ms_array = ms_val.split(',');
             var $productId = $("#WorkFlowOfficeId");
@@ -139,7 +139,7 @@
             <div class="timeline-content">
                 <span style="display :none;" class="SrlNo-input" placeholder="Your stage Srno here">${item.workflowStep.srlNo}</span>
                 <input type="text" hidden class="abbreviation-input" placeholder="Your stage Abbrivation here" value="${item.workflowStep.abbrivation}">
-                <input type="text" class="name-input" placeholder="Your stage name here" value="${item.workflowStep.name}">
+                <input type="text" class="form-control custom-small-input  rounded-0 name-input" placeholder="Your stage name here" value="${item.workflowStep.name}">
                 <input type="text" hidden value="`+ item.workflowStep.isPartnerClientIdRequired + `" class="HashTag-inputValue">`
 
                         if (item.workflowStep.isPartnerClientIdRequired == true) {
@@ -177,7 +177,7 @@
                 <span class="delete"><i class="fa fa-trash-o" style="font-size: 20px"></i></span>
 
                  <span class="form-check form-switch activeValue">
-                    <input class="form-check-input switchValue" type="checkbox" value="${item.workflowStep.isActive}" role="switch" id="flexSwitchCheckDefault" ${item.workflowStep.isActive ==true ? 'checked' : ''}>
+                    <input class="form-check-input switchValue" type="checkbox" value="${item.workflowStep.isActive}" role="switch" id="flexSwitchCheckDefault" ${item.workflowStep.isActive == true ? 'checked' : ''}>
                 </span>
                 <input type="text" hidden class="WorkfrlowStepId-input" placeholder="Your stage workflowStepId here" value="${item.workflowStep.id}">
                 <input type="text" hidden class="WorkflowId-input" placeholder="Your stage workflowId here" value="${workflowId}">
@@ -209,7 +209,7 @@
                     console.error('Error fetching data:', error);
                 });
         }
-        
+
         var _$WorkflowSetupInformationSetupsForm = "";
 
         this.init = function (modalManager) {
@@ -246,7 +246,7 @@
 
                 <span class="SrlNo-input" style="display :none;" id="SrnoID">${newIndex}</span> 
                 <input type="text" hidden placeholder="Your stage Abbreviation here" class="abbreviation-input">
-                 <input type="text" placeholder="Your stage name here" class="name-input">
+                 <input type="text" placeholder="Your stage name here" class="form-control custom-small-input  rounded-0 name-input">
                  <input type="text" hidden value="false" class="HashTag-inputValue">
                 <span class="hashtag" ><i class="fa fa-hashtag" style="font-size: 20px" title="Required Partner Client ID"></i></span>
                 <input type="text" hidden value="false" class="calendar-inputValue">
@@ -311,7 +311,7 @@
         });
 
 
-         
+
         $('#selectedOffice').change(function () {
 
             document.getElementById("showhide").style.display = 'block';
@@ -321,7 +321,7 @@
             $("#WorkFlowOfficeId").val(null).trigger('change');
             document.getElementById("showhide").style.display = 'none';
 
-        }); 
+        });
 
         $(document).on('click', '.hashtag', function () {
             debugger;
@@ -341,12 +341,12 @@
                 hashtagID.find('.HashTag-inputValue').val('true');
                 $(this).html('<i class="fa fa-hashtag" style="font-size: 20px; color:Blue;" title="Remove Partner Client ID"></i>');
             }
-            
+
         });
 
 
         $(document).on('click', '.calendar', function () {
-            
+
 
             var hashtagID11 = $(this).closest('.timeline-item').find('.calendar-inputValue').val();
 
@@ -363,7 +363,7 @@
                 hashtagID.find('.calendar-inputValue').val('true');
                 $(this).html('<i class="fa fa-calendar" style="font-size: 20px; color:Blue;" title="Remove Start and End Date"></i>');
             }
-            
+
         });
 
         $(document).on('click', '.file', function () {
@@ -384,7 +384,7 @@
                 hashtagID.find('.file-inputValue').val('true');
                 $(this).html('<i class="fa fa-file-text-o" style="font-size: 20px; color:Blue;" title="Remove Note"></i>');
             }
-            
+
         });
 
         $(document).on('click', '.Application', function () {
@@ -405,7 +405,7 @@
                 hashtagID.find('.Application-inputValue').val('true');
                 $(this).html('<i class="fa fa-calendar-check-o" style="font-size: 20px; color:Blue;" title="Remove Application intake field"></i>');
             }
-             
+
         });
 
         $(document).on('click', '.Stage', function () {
@@ -425,11 +425,11 @@
                 hashtagID.find('.Stage-inputValue').val('true');
                 $(this).html('<i class="fa fa-trophy" style="font-size: 20px; color:Blue;" title="Remove to win Satge"></i>');
             }
-             
+
         });
 
         $(document).on('click', '.activeValue', function () {
-            
+
 
             var hashtagID11 = $(this).closest('.timeline-item').find('.switchValue').val();
 
@@ -437,17 +437,17 @@
                 debugger
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.switchValue').val('false');
-              
+
             } else {
                 debugger
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.switchValue').val('true');
-             }
-              
+            }
+
         });
 
-         
+
         function WorkflowsetupFeildClear() {
             SrlNo.value = '';
             Abbrivation.value = '';
@@ -455,11 +455,11 @@
         }
 
         this.save = function () {
-            
+
             if (!_$workflowInformationForm.valid()) {
                 return;
             }
-             
+
             var dataRows = [];
 
             $(".timeline-item").each(function () {
@@ -474,8 +474,8 @@
                 var ApplicationinputValue = $(this).find('.Application-inputValue').val();
                 var switchValue = $(this).find('.switchValue').val();
                 var Stage = $(this).find('.Stage-inputValue').val();
-                
-                 
+
+
                 dataRows.push({
                     srlNo: SrlNo,
                     abbrivation: abbrivation,
@@ -511,7 +511,7 @@
 
             var officerows = [];
             var datarowsList = $("#WorkFlowOfficeId :selected").map(function (i, el) {
-                
+
                 return $(el).val();
             }).get();
             debugger
@@ -522,7 +522,7 @@
 
                     abp.notify.warn(app.localize('Please Select Office'));
                     return true
-                }  
+                }
             }
             console.log(datarowsList);
             $.each(datarowsList, function (index, value) {
@@ -536,7 +536,7 @@
             officeSteps = JSON.parse(officeSteps);
 
             var workflow = _$workflowInformationForm.serializeFormToObject();
-            
+
             workflow.steps = Steps;
             workflow.officeSteps = officeSteps;
             debugger
