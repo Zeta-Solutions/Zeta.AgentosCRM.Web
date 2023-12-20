@@ -106,7 +106,7 @@
             },
             columnDefs: [
                 {
-                    className: 'control responsive',
+                    className: ' responsive',
                     orderable: false,
                     render: function () {
                         return '';

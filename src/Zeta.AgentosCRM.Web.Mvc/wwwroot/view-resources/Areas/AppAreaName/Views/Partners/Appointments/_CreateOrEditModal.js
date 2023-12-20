@@ -99,7 +99,7 @@
         var _$clientTagsInformationForm = null;
 
         $('input[name*="clientId"]').val(hiddenfield)
-        $('input[name*="AddedById"]').val(2);
+        $('input[name*="AddedById"]').val(1);
         var _modalManager;
         var _$clientAppointmentsInformationForm = null;
 
