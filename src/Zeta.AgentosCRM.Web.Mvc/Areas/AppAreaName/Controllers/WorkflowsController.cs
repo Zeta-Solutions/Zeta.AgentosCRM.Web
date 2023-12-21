@@ -13,7 +13,7 @@ using Abp.Extensions;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_Workflows)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Workflows)]
     public class WorkflowsController : AgentosCRMControllerBase
     {
         private readonly IWorkflowsAppService _workflowsAppService;
@@ -35,7 +35,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
         //public override async CRMTask<>
 
-        [AbpMvcAuthorize(AppPermissions.Pages_Workflows_Create, AppPermissions.Pages_Workflows_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Workflows_Create, AppPermissions.Pages_CRMSetup_Workflows_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetWorkflowForEditOutput getWorkflowForEditOutput;

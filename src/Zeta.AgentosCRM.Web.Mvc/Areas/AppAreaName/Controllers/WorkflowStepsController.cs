@@ -13,7 +13,7 @@ using Abp.Extensions;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_WorkflowSteps)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps)]
     public class WorkflowStepsController : AgentosCRMControllerBase
     {
         private readonly IWorkflowStepsAppService _workflowStepsAppService;
@@ -34,7 +34,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_WorkflowSteps_Create, AppPermissions.Pages_WorkflowSteps_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Create, AppPermissions.Pages_CRMSetup_WorkflowSteps_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetWorkflowStepForEditOutput getWorkflowStepForEditOutput;
@@ -76,7 +76,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("_ViewWorkflowStepModal", model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_WorkflowSteps_Create, AppPermissions.Pages_WorkflowSteps_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Create, AppPermissions.Pages_CRMSetup_WorkflowSteps_Edit)]
         public PartialViewResult WorkflowLookupTableModal(int? id, string displayName)
         {
             var viewModel = new WorkflowStepWorkflowLookupTableViewModel()

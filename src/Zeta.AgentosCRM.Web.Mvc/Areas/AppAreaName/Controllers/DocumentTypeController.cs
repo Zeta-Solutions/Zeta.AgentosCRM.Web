@@ -28,7 +28,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_DocumentTypes_Create, AppPermissions.Pages_DocumentTypes_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes_Create, AppPermissions.Pages_CRMSetup_DocumentTypes_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int ?id )
         {

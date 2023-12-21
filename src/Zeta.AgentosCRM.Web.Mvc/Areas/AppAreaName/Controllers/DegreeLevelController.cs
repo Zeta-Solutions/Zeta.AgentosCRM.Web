@@ -12,7 +12,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
 
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_DegreeLevels)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels)]
     public class DegreeLevelController : AgentosCRMControllerBase
     
     {
@@ -32,7 +32,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         }
 
 
-        [AbpMvcAuthorize(AppPermissions.Pages_DegreeLevels_Create, AppPermissions.Pages_DegreeLevels_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels_Create, AppPermissions.Pages_CRMSetup_DegreeLevels_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetDegreeLevelForEditOutput getDegreeLevelForEditOutput;

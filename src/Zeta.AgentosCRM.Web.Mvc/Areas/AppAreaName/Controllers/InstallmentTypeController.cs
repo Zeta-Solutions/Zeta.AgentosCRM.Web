@@ -11,7 +11,7 @@ using Zeta.AgentosCRM.CRMSetup.InstallmentType.Dtos;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_InstallmentTypes)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes)]
 
     public class InstallmentTypeController : AgentosCRMControllerBase
     {
@@ -30,7 +30,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(Model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_InstallmentTypes_Create, AppPermissions.Pages_InstallmentTypes_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes_Create, AppPermissions.Pages_CRMSetup_InstallmentTypes_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

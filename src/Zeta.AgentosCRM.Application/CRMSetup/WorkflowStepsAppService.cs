@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_WorkflowSteps)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps)]
     public class WorkflowStepsAppService : AgentosCRMAppServiceBase, IWorkflowStepsAppService
     {
         private readonly IRepository<WorkflowStep> _workflowStepRepository;
@@ -120,7 +120,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowSteps_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Edit)]
         public async Task<GetWorkflowStepForEditOutput> GetWorkflowStepForEdit(EntityDto input)
         {
             var workflowStep = await _workflowStepRepository.FirstOrDefaultAsync(input.Id);
@@ -148,7 +148,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowSteps_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowStepDto input)
         {
             var workflowStep = ObjectMapper.Map<WorkflowStep>(input);
@@ -162,7 +162,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowSteps_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Edit)]
         protected virtual async Task Update(CreateOrEditWorkflowStepDto input)
         {
             var workflowStep = await _workflowStepRepository.FirstOrDefaultAsync((int)input.Id);
@@ -170,13 +170,13 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowSteps_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _workflowStepRepository.DeleteAsync(input.Id);
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowSteps)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowSteps)]
         public async Task<PagedResultDto<WorkflowStepWorkflowLookupTableDto>> GetAllWorkflowForLookupTable(GetAllForLookupTableInput input)
         {
             var query = _lookup_workflowRepository.GetAll().WhereIf(

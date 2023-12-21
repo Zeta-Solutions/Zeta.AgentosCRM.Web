@@ -12,7 +12,7 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.priority;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_TaskPriorities)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities)]
     public class TaskpriorityController : AgentosCRMControllerBase
     {
         private readonly ITaskPrioritiesAppService _taskPriorityAppService;
@@ -31,7 +31,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_TaskPriorities_Create, AppPermissions.Pages_TaskPriorities_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities_Create, AppPermissions.Pages_CRMSetup_TaskPriorities_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetTaskPriorityForEditOutput getTaskPriorityForEditOutput;

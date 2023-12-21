@@ -16,7 +16,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentChecklist;
 <abp-page-subheader title='@L("DocumentCheckList")' description='@L("DocumentCheckListHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_WorkflowDocuments_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Create))
     {
     <button id="CreateNewDocumentCheckList" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewDocument")</button>
      }

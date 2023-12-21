@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_WorkflowOffices)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices)]
     public class WorkflowOfficesAppService : AgentosCRMAppServiceBase, IWorkflowOfficesAppService
     {
         private readonly IRepository<WorkflowOffice> _workflowOfficeRepository;
@@ -114,7 +114,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices_Edit)]
         public async Task<GetWorkflowOfficeForEditOutput> GetWorkflowOfficeForEdit(EntityDto input)
         {
             var workflowOffice = await _workflowOfficeRepository.FirstOrDefaultAsync(input.Id);
@@ -148,7 +148,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowOfficeDto input)
         {
             var workflowOffice = ObjectMapper.Map<WorkflowOffice>(input);
@@ -162,7 +162,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices_Edit)]
         protected virtual async Task Update(CreateOrEditWorkflowOfficeDto input)
         {
             var workflowOffice = await _workflowOfficeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -170,12 +170,12 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _workflowOfficeRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices)]
         public async Task<List<WorkflowOfficeOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown()
         {
             return await _lookup_organizationUnitRepository.GetAll()
@@ -186,7 +186,7 @@ namespace Zeta.AgentosCRM.CRMSetup
                 }).ToListAsync();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowOffices)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowOffices)]
         public async Task<List<WorkflowOfficeWorkflowLookupTableDto>> GetAllWorkflowForTableDropdown()
         {
             return await _lookup_workflowRepository.GetAll()

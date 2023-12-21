@@ -12,7 +12,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
 
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_ServiceCategories)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories)]
     public class ServiceCategoryController : AgentosCRMControllerBase
     {
         private readonly IServiceCategoriesAppService _serviceCategoriesAppService;
@@ -32,7 +32,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_ServiceCategories_Create, AppPermissions.Pages_ServiceCategories_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories_Create, AppPermissions.Pages_CRMSetup_ServiceCategories_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetServiceCategoryForEditOutput getServiceCategoryForEditOutput;

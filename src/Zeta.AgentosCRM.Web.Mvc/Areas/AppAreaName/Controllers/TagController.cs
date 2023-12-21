@@ -12,7 +12,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 { 
     [Area("AppAreaName")]
 
-    [AbpMvcAuthorize(AppPermissions.Pages_Tags)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Tags)]
     public class TagController : AgentosCRMControllerBase
     {
         private readonly ITagsAppService _tagsAppService;
@@ -30,7 +30,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_Tags_Create , AppPermissions.Pages_Tags_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Tags_Create , AppPermissions.Pages_CRMSetup_Tags_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetTagForEditOutput getTagForEditOutput;

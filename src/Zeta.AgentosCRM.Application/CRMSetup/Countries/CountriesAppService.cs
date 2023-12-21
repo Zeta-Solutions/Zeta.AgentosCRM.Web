@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Countries
 {
-    [AbpAuthorize(AppPermissions.Pages_Countries)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries)]
     public class CountriesAppService : AgentosCRMAppServiceBase, ICountriesAppService
     {
         private readonly IRepository<Country> _countryRepository;
@@ -109,7 +109,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Countries
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Countries_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries_Edit)]
         public async Task<GetCountryForEditOutput> GetCountryForEdit(EntityDto input)
         {
             var country = await _countryRepository.FirstOrDefaultAsync(input.Id);
@@ -137,7 +137,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Countries
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Countries_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries_Create)]
         protected virtual async Task Create(CreateOrEditCountryDto input)
         {
             var country = ObjectMapper.Map<Country>(input);
@@ -151,7 +151,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Countries
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Countries_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries_Edit)]
         protected virtual async Task Update(CreateOrEditCountryDto input)
         {
             var country = await _countryRepository.FirstOrDefaultAsync((int)input.Id);
@@ -159,12 +159,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Countries
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Countries_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _countryRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_Countries)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Countries)]
         public async Task<List<CountryRegionLookupTableDto>> GetAllRegionForTableDropdown()
         {
             return await _lookup_regionRepository.GetAll()

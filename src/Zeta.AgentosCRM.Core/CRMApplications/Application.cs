@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
 
 namespace Zeta.AgentosCRM.CRMApplications
 {
@@ -30,10 +31,15 @@ namespace Zeta.AgentosCRM.CRMApplications
         [ForeignKey("WorkflowId")]
         public Workflow WorkflowFk { get; set; }
 
-        public virtual long PartnerId { get; set; }
+        public virtual long? PartnerId { get; set; }
 
         [ForeignKey("PartnerId")]
         public Partner PartnerFk { get; set; }
+
+        public virtual long? BranchId { get; set; }
+
+        [ForeignKey("BranchId")]
+        public Branch BranchFk { get; set; }
 
         public virtual long ProductId { get; set; }
 

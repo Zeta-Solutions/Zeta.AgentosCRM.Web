@@ -301,7 +301,7 @@ namespace Zeta.AgentosCRM.CRMClient
             {
                 var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.PassportCountryId);
                 output.PassportCountry = _lookupCountry?.Name?.ToString();
-            }
+            } 
 
             if (output.Client.AgentId != null)
             {

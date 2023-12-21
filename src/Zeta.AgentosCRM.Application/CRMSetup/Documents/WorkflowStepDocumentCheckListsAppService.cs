@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
-    [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists)]
     public class WorkflowStepDocumentCheckListsAppService : AgentosCRMAppServiceBase, IWorkflowStepDocumentCheckListsAppService
     {
         private readonly IRepository<WorkflowStepDocumentCheckList> _workflowStepDocumentCheckListRepository;
@@ -140,7 +140,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Edit)]
         public async Task<GetWorkflowStepDocumentCheckListForEditOutput> GetWorkflowStepDocumentCheckListForEdit(EntityDto input)
         {
             var workflowStepDocumentCheckList = await _workflowStepDocumentCheckListRepository.FirstOrDefaultAsync(input.Id);
@@ -183,7 +183,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowStepDocumentCheckListDto input)
         {
             var workflowStepDocumentCheckList = ObjectMapper.Map<WorkflowStepDocumentCheckList>(input);
@@ -216,7 +216,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Edit)]
         protected virtual async Task Update(CreateOrEditWorkflowStepDocumentCheckListDto input)
         {
             var workflowStepDocumentCheckList = await _workflowStepDocumentCheckListRepository.FirstOrDefaultAsync((int)input.Id);
@@ -247,12 +247,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             CurrentUnitOfWork.SaveChanges();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _workflowStepDocumentCheckListRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists)]
         public async Task<List<WorkflowStepDocumentCheckListWorkflowStepLookupTableDto>> GetAllWorkflowStepForTableDropdown()
         {
             return await _lookup_workflowStepRepository.GetAll()
@@ -263,7 +263,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                 }).ToListAsync();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists)]
         public async Task<List<WorkflowStepDocumentCheckListDocumentTypeLookupTableDto>> GetAllDocumentTypeForTableDropdown()
         {
             return await _lookup_documentTypeRepository.GetAll()
