@@ -29,7 +29,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_EmailTemplates_Create, AppPermissions.Pages_EmailTemplates_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates_Create, AppPermissions.Pages_CRMSetup_EmailTemplates_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.TaskCategory
 {
-    [AbpAuthorize(AppPermissions.Pages_TaskCategories)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories)]
     public class TaskCategoriesAppService : AgentosCRMAppServiceBase, ITaskCategoriesAppService
     {
         private readonly IRepository<TaskCategory> _taskCategoryRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.TaskCategory
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskCategories_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories_Edit)]
         public async Task<GetTaskCategoryForEditOutput> GetTaskCategoryForEdit(EntityDto input)
         {
             var taskCategory = await _taskCategoryRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.TaskCategory
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskCategories_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories_Create)]
         protected virtual async Task Create(CreateOrEditTaskCategoryDto input)
         {
             var taskCategory = ObjectMapper.Map<TaskCategory>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.TaskCategory
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskCategories_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories_Edit)]
         protected virtual async Task Update(CreateOrEditTaskCategoryDto input)
         {
             var taskCategory = await _taskCategoryRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.TaskCategory
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskCategories_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _taskCategoryRepository.DeleteAsync(input.Id);

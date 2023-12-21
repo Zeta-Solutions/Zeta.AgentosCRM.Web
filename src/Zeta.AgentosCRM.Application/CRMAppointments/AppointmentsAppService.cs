@@ -64,11 +64,12 @@ namespace Zeta.AgentosCRM.CRMAppointments
                         .WhereIf(input.MaxAppointmentTimeFilter != null, e => e.AppointmentTime <= input.MaxAppointmentTimeFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TimeZoneFilter), e => e.TimeZone.Contains(input.TimeZoneFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString()
-, e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()
-) == input.ClientDisplayPropertyFilter)
+                            , e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()
+                            ) == input.ClientDisplayPropertyFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AddedByFk != null && e.AddedByFk.Name == input.UserNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AddedByFk != null && e.AddedByFk.Name == input.UserNameFilter)
+                        .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value)
+                        .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.ClientIdFilter.Value);
             var pagedAndFilteredAppointments = filteredAppointments
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

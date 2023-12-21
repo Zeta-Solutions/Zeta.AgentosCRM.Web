@@ -11,7 +11,7 @@
     $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
       $(this).val(picker.startDate.format('MM/DD/YYYY'));
     });
-
+     
     $('.startDate')
       .daterangepicker({
         autoUpdateInput: false,

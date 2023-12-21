@@ -14,7 +14,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
     [Area("AppAreaName")]
 
-    [AbpMvcAuthorize(AppPermissions.Pages_Countries)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Countries)]
     public class CountryController : AgentosCRMControllerBase
     {
         private readonly ICountriesAppService _countriesAppService;
@@ -34,7 +34,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_Countries_Create, AppPermissions.Pages_Countries_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Countries_Create, AppPermissions.Pages_CRMSetup_Countries_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetCountryForEditOutput getCountryForEditOutput;

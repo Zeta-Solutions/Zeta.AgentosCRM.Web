@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers)]
     public class BusinessRegNummbersAppService : AgentosCRMAppServiceBase, IBusinessRegNummbersAppService
     {
         private readonly IRepository<BusinessRegNummber> _businessRegNummberRepository;
@@ -100,7 +100,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers_Edit)]
         public async Task<GetBusinessRegNummberForEditOutput> GetBusinessRegNummberForEdit(EntityDto input)
         {
             var businessRegNummber = await _businessRegNummberRepository.FirstOrDefaultAsync(input.Id);
@@ -128,7 +128,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers_Create)]
         protected virtual async Task Create(CreateOrEditBusinessRegNummberDto input)
         {
             var businessRegNummber = ObjectMapper.Map<BusinessRegNummber>(input);
@@ -142,7 +142,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers_Edit)]
         protected virtual async Task Update(CreateOrEditBusinessRegNummberDto input)
         {
             var businessRegNummber = await _businessRegNummberRepository.FirstOrDefaultAsync((int)input.Id);
@@ -150,12 +150,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _businessRegNummberRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_BusinessRegNummbers)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_BusinessRegNummbers)]
         public async Task<List<BusinessRegNummberOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown()
         {
             return await _lookup_organizationUnitRepository.GetAll()

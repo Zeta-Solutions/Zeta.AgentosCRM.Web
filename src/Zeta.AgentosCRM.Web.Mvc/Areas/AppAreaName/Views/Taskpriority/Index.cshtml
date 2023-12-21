@@ -18,7 +18,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Taskpriority;
 <abp-page-subheader title='@L("Priority")' description='@L("PriorityHeaderInfo")'>
     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_TaskPriorities_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_TaskPriorities_Create))
     {
     <button id="CreateNewButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewPriority")</button>
     }

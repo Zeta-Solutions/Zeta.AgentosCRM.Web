@@ -7,7 +7,7 @@
         });
 
         var _notesService = abp.services.app.notes;
-        var hiddenfield = $("#ClientId").val();
+        var hiddenfield = $('input[name="Clientid"]').val();
 
         $("#clientId").val(hiddenfield);
 

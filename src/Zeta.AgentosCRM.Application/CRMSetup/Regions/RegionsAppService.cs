@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Regions
 {
-    [AbpAuthorize(AppPermissions.Pages_Regions)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_Regions)]
     public class RegionsAppService : AgentosCRMAppServiceBase, IRegionsAppService
     {
         private readonly IRepository<Region> _regionRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Regions
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Regions_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Regions_Edit)]
         public async Task<GetRegionForEditOutput> GetRegionForEdit(EntityDto input)
         {
             var region = await _regionRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Regions
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Regions_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Regions_Create)]
         protected virtual async Task Create(CreateOrEditRegionDto input)
         {
             var region = ObjectMapper.Map<Region>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Regions
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Regions_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Regions_Edit)]
         protected virtual async Task Update(CreateOrEditRegionDto input)
         {
             var region = await _regionRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Regions
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Regions_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Regions_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _regionRepository.DeleteAsync(input.Id);

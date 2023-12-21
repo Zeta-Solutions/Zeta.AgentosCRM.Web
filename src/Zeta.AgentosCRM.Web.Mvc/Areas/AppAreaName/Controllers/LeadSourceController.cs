@@ -13,7 +13,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
 
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_LeadSources)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_LeadSources)]
 
     public class LeadSourceController : AgentosCRMControllerBase
     {
@@ -32,7 +32,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_LeadSources_Create, AppPermissions.Pages_LeadSources_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_LeadSources_Create, AppPermissions.Pages_CRMSetup_LeadSources_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int ? id)
         {
             GetLeadSourceForEditOutput getLeadSourceForEditOutput;

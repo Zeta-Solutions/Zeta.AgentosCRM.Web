@@ -20,7 +20,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_SubjectAreas)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas)]
     public class SubjectsAppService : AgentosCRMAppServiceBase, ISubjectsAppService
     {
         private readonly IRepository<Subject> _subjectRepository;
@@ -106,7 +106,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_SubjectAreas_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas_Edit)]
         public async Task<GetSubjectForEditOutput> GetSubjectForEdit(EntityDto input)
         {
             var subjectArea = await _subjectRepository.FirstOrDefaultAsync(input.Id);
@@ -134,7 +134,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_SubjectAreas_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas_Create)]
         protected virtual async Task Create(CreateOrEditSubjectDto input)
         {
             var subjectArea = ObjectMapper.Map<Subject>(input);
@@ -148,7 +148,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_SubjectAreas_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas_Edit)]
         protected virtual async Task Update(CreateOrEditSubjectDto input)
         {
             var subjectArea = await _subjectRepository.FirstOrDefaultAsync((int)input.Id);
@@ -156,7 +156,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_SubjectAreas_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _subjectRepository.DeleteAsync(input.Id);
@@ -192,7 +192,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return _subjectsExcelExporter.ExportToFile(subjectAreaListDtos);
         }
 
-        [AbpAuthorize(AppPermissions.Pages_SubjectAreas)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_SubjectAreas)]
         public async Task<List<SubjectSubjectAreaLookupTableDto>> GetAllSubjectAreaForTableDropdown()
         {
             return await _lookup_subjectAreaRepository.GetAll()

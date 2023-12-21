@@ -74,7 +74,7 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-
+        var hiddenfield = $('input[name="Clientid"]').val();
         var dataTable = _$Appointmentstable.DataTable({
             paging: true,
             serverSide: true,
@@ -86,12 +86,13 @@
                         filter: $('#NameFilterId').val(),
                         TimeZoneFilter: $('#TimeZoneFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
+                        clientIdFilter: hiddenfield,
                     };
                 },
             },
             columnDefs: [
                 {
-                    className: ' responsive',
+                    className: 'responsive',
                     orderable: false,
                     render: function () {
                         return '';

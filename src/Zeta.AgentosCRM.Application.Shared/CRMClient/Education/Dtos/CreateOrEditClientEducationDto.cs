@@ -27,5 +27,9 @@ namespace Zeta.AgentosCRM.CRMClient.Education.Dtos
 
         public int SubjectAreaId { get; set; }
 
+        public long ClientId { get; set; }
+
+        public bool IsGpa { get; set; }
+
     }
 }

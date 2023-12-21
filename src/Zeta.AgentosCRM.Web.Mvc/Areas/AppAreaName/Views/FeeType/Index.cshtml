@@ -16,7 +16,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.FeeType;
 <abp-page-subheader title='@L("FeeType")' description='@L("FeeTypeHeaderInfo")'>
     <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_FeeTypes_Create))
     {
     <button id="CreateNewFeeButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewFeeType")</button>
     }

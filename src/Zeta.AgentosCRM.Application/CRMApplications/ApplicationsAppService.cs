@@ -58,8 +58,9 @@ namespace Zeta.AgentosCRM.CRMApplications
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter)
             .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value)
-            .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
+            .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value)
            //.WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value);
+           .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredApplications = filteredApplications
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

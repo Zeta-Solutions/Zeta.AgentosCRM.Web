@@ -17,7 +17,7 @@ Layout = null;
         </h3>
         <div class="card-toolbar">
 
-            @if (IsGranted(AppPermissions.Pages_WorkflowSteps_Create))
+            @if (IsGranted(AppPermissions.Pages_CRMSetup_WorkflowSteps_Create))
             {
             <button id="CreateNewWorkflowStepButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
             }

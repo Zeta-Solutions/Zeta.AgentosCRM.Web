@@ -15,7 +15,7 @@ using Zeta.AgentosCRM.Web.Controllers;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_ProductTypes)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes)]
 
     public class ProductTypeController : AgentosCRMControllerBase
     {
@@ -32,7 +32,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_ProductTypes_Create, AppPermissions.Pages_ProductTypes_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes_Create, AppPermissions.Pages_CRMSetup_ProductTypes_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

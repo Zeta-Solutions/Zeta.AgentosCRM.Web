@@ -4,13 +4,16 @@
     //window.onload = codeAddress;
 	//$(document).on('loaded', '#ApplicationDetailTab',
 	$('#tabs').on('click', 'a', function (e) {
-		e.preventDefault();
-
+        e.preventDefault();
+        $("#ApplicationDetailTabDiv").empty();
 		var tabId = $(this)
 		var tabHref= tabId.attr('href')
 		if (tabHref == "#ApplicationDetailTabDiv") {
-            debugger
+            //debugger
+
+            $("#ApplicationDetailTabDiv").empty();
             setTimeout(function () {
+                $('#smartwizard').smartWizard("reset"); 
                 // Show the modal (adjust as needed) 
                 LoadSteps();
             }, 500);
@@ -36,7 +39,8 @@
             .done(function (data) {
                 //Row.remove()..;
                 var TotalRecord = data.result.items;
-                debugger
+                //debugger
+                stepsArr = [];
                 $.each(TotalRecord, function (index, item) {
                     var step = `<li class="nav-item">
                         <a class="nav-link" href="#step-${index + 1}">
@@ -63,7 +67,7 @@
                     //_ApplicationStagesService
                     //    .getAll(Getdata)
                     //    .done(function (data) {
-                    //        debugger
+                    //        //debugger
                     //        if (data && data.items && data.items.length > 0) {
                     //            //stepForm += `<input type="hidden" id="StageID-${index + 1}" value="${data.items[0].applicationStage.id}"></input> </div>`;
                     //            $("#StageID-" + index + 1).val(data.items[0].applicationStage.id);
@@ -99,16 +103,16 @@
                         markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
                         unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
                         enableDoneStateNavigation: true // Enable/Disable the done state navigation
-                    }, 
-                    warningSteps: [TotalRecord.length - 1],// Highlight step with warnings
-                    keyboard: {
-                        keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
-                        keyLeft: [37], // Left key code
-                        keyRight: [39] // Right key code
                     } 
+                    //warningSteps: [TotalRecord.length - 1],// Highlight step with warnings
+                    //keyboard: {
+                    //    keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    //    keyLeft: [37], // Left key code
+                    //    keyRight: [39] // Right key code
+                    //} 
                 })
                     .on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
-                        debugger
+                        //debugger
                         if (stepPosition === 'first') {
                             $("#AppPreviousBtn").addClass('disabled');
                             $("#AppSubmitBtn").hide();
@@ -125,8 +129,7 @@
                     .on("loaded", function (e) {
                         $("#AppPreviousBtn").addClass('disabled');
                         $("#finish-btn").hide();
-                        $('#AppSubmitBtn').hide();
-                         
+                        $('#AppSubmitBtn').hide(); 
 
                         getStageData(stepsArr)
                     })
@@ -147,14 +150,15 @@
             _ApplicationStagesService
                 .getAll(Getdata)
                 .done(function (data) {
-                    debugger
+                    //debugger
                     if (data && data.items && data.items.length > 0) {
                         //stepForm += `<input type="hidden" id="StageID-${index + 1}" value="${data.items[0].applicationStage.id}"></input> </div>`;
                         $("#StageID-" + parseInt(index + 1)).val(data.items[0].applicationStage.id);
 
                         if (data.items[0].applicationStage.isCurrent == true) {
                             currentstage = index;
-                            $('#smartwizard').smartWizard("goToStep", currentstage, true);
+                            debugger
+                            $('#smartwizard').smartWizard("goToStep", index, true);
                         }
                     }
                 })
@@ -167,15 +171,15 @@
         
     }
     $(document).on('click', '#AppNextBtn', function () {
-        debugger
+        //debugger
         var stepId = $(this)
         $('#smartwizard').smartWizard("next");
-        debugger
+        //debugger
         var ApplicationIdFilter = parseInt($("#ApplicationId").val());
         var applicationId = $("#ApplicationId").val();
         var IsCurrentIdFilter = true;
         var srno = $('.nav-link.default.active .num').text().trim();
-        debugger
+        //debugger
         if (srno > 1) {
             var inputGetData = {
                 applicationIdFilter: ApplicationIdFilter,
@@ -186,7 +190,7 @@
             _ApplicationStagesService
                 .getAll(Getdata)
                 .done(function (data) {
-                    debugger
+                    //debugger
                    
                     var inputData = {
                         name: data.items[0].applicationStage.name,
@@ -203,7 +207,7 @@
                         .createOrEdit(Steps)
                 })
                 //...done(function (data) {
-                //    debugger
+                //    //debugger
 
                 //    })
         }
@@ -236,7 +240,7 @@
         _ApplicationStagesService
             .createOrEdit(Steps)
             .done(function () {
-                debugger
+                //debugger
                 abp.notify.info(app.localize('SavedSuccessfully'));
                 abp.event.trigger('app.createOrEditApplicationStagesSaved');
             })
@@ -246,7 +250,7 @@
 
     });
     $(document).on('click', '#AppPreviousBtn', function () {
-        debugger
+        //debugger
         var stepId = $(this)
         var srno = $('.nav-link.default.active .num').text().trim();
         var stageid = $("#StageID-" + srno).val();
@@ -287,7 +291,7 @@
         _ApplicationStagesService
             .createOrEdit(Steps)
             .done(function () {
-                debugger
+                //debugger
                 abp.notify.info(app.localize('SavedSuccessfully'));
                 abp.event.trigger('app.createOrEditApplicationStagesSaved');
             })

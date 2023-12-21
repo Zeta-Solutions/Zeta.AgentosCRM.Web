@@ -33,7 +33,7 @@ namespace Zeta.AgentosCRM.CRMClient.Education
         }
 
         public async Task<PagedResultDto<GetOtherTestScoreForViewDto>> GetAll(GetAllOtherTestScoresInput input)
-        {
+       {
 
             var filteredOtherTestScores = _otherTestScoreRepository.GetAll()
                         .Include(e => e.ClientFk)

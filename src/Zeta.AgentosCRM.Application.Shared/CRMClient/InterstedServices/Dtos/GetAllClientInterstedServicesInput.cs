@@ -24,6 +24,7 @@ namespace Zeta.AgentosCRM.CRMClient.InterstedServices.Dtos
         public string BranchNameFilter { get; set; }
 
         public string WorkflowNameFilter { get; set; }
+        public long? ClientIdFilter { get; set; }
 
     }
 }

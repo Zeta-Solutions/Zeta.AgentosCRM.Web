@@ -99,47 +99,8 @@
                         return '';
                     },
                     targets: 0,
-                },
-                //{
-                //  width: 120,
-                //    targets: 1,
-                //    data: 'workflow.name',
-                //    name: 'name',
-                //  //data: null,
-                //  //orderable: false,
-                //  //autoWidth: false,
-                //  //defaultContent: '',
-                //  //rowAction: {
-                //  //  cssClass: 'btn btn-brand dropdown-toggle',
-                //  //  text: '<i class="fa fa-cog"></i> ' + app.localize('Actions') + ' <span class="caret"></span>',
-                //  //  items: [
-                //  //    {
-                //  //      text: app.localize('View'),
-                //  //      action: function (data) {
-                //  //        _viewWorkflowModal.open({ id: data.record.workflow.id });
-                //  //      },
-                //  //    },
-                //  //    {
-                //  //      text: app.localize('Edit'),
-                //  //      visible: function () {
-                //  //        return _permissions.edit;
-                //  //      },
-                //  //      action: function (data) {
-                //  //        _createOrEditModal.open({ id: data.record.workflow.id });
-                //  //      },
-                //  //    },
-                //  //    {
-                //  //      text: app.localize('Delete'),
-                //  //      visible: function () {
-                //  //        return _permissions.delete;
-                //  //      },
-                //  //      action: function (data) {
-                //  //        deleteWorkflow(data.record.workflow);
-                //  //      },
-                //  //    },
-                //  //  ],
-                //  //},
-                //},
+                }, 
+                 
                 {
                     className: 'details-control',
                     targets: 1,

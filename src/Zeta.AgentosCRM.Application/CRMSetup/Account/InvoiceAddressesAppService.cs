@@ -20,7 +20,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses)]
     public class InvoiceAddressesAppService : AgentosCRMAppServiceBase, IInvoiceAddressesAppService
     {
         private readonly IRepository<InvoiceAddress> _invoiceAddressRepository;
@@ -128,7 +128,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses_Edit)]
         public async Task<GetInvoiceAddressForEditOutput> GetInvoiceAddressForEdit(EntityDto input)
         {
             var invoiceAddress = await _invoiceAddressRepository.FirstOrDefaultAsync(input.Id);
@@ -162,7 +162,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses_Create)]
         protected virtual async Task Create(CreateOrEditInvoiceAddressDto input)
         {
             var invoiceAddress = ObjectMapper.Map<InvoiceAddress>(input);
@@ -176,7 +176,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses_Edit)]
         protected virtual async Task Update(CreateOrEditInvoiceAddressDto input)
         {
             var invoiceAddress = await _invoiceAddressRepository.FirstOrDefaultAsync((int)input.Id);
@@ -184,12 +184,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _invoiceAddressRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses)]
         public async Task<List<InvoiceAddressCountryLookupTableDto>> GetAllCountryForTableDropdown()
         {
             return await _lookup_countryRepository.GetAll()
@@ -200,7 +200,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                 }).ToListAsync();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceAddresses)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceAddresses)]
         public async Task<List<InvoiceAddressOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown()
         {
             return await _lookup_organizationUnitRepository.GetAll()

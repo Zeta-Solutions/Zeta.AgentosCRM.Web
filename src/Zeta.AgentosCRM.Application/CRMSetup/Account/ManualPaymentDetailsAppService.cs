@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails)]
     public class ManualPaymentDetailsAppService : AgentosCRMAppServiceBase, IManualPaymentDetailsAppService
     {
         private readonly IRepository<ManualPaymentDetail> _manualPaymentDetailRepository;
@@ -104,7 +104,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Edit)]
         public async Task<GetManualPaymentDetailForEditOutput> GetManualPaymentDetailForEdit(EntityDto input)
         {
             var manualPaymentDetail = await _manualPaymentDetailRepository.FirstOrDefaultAsync(input.Id);
@@ -137,7 +137,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Create)]
         protected virtual async Task Create(CreateOrEditManualPaymentDetailDto input)
         {
             var manualPaymentDetail = ObjectMapper.Map<ManualPaymentDetail>(input);
@@ -161,7 +161,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Edit)]
         protected virtual async Task Update(CreateOrEditManualPaymentDetailDto input)
         {
             var manualPaymentDetail = await _manualPaymentDetailRepository.FirstOrDefaultAsync((int)input.Id);
@@ -181,12 +181,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _manualPaymentDetailRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_ManualPaymentDetails)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails)]
         public async Task<List<ManualPaymentDetailOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown()
         {
             return await _lookup_organizationUnitRepository.GetAll()

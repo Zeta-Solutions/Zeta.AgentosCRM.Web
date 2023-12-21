@@ -14,8 +14,9 @@
     {
 
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+ 
 
 }
 @section Scripts
@@ -24,6 +25,7 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/CreateOrEdit.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Index.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
 
 }
 
@@ -85,7 +87,8 @@
                         }
                         else
                         {
-                           <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                           @* <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" /> *@
+                           <img class="img-circle" src="/Profile/GetProfilePictureByUser?userId=5&amp;profilePictureId=null">
                         }
                         
                                                             @* @if (Model.Client.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Clients_ChangeProfilePicture)) *@
@@ -103,7 +106,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_FirstName">@L("FirstName")</label>
-                                                                           <input id="FirstName" name="FirstName" value="@Model.Client.FirstName" type="text" placeholder="Total" class="form-control  custom-small-input rounded-0 input-sm">
+                                                                           <input id="FirstName" name="FirstName" value="@Model.Client.FirstName" type="text" placeholder="First Name" class="form-control  custom-small-input rounded-0 input-sm">
                         
                                                                     </div>
                                                                     @*   <div class="col-md-4 mb-3">
@@ -112,7 +115,7 @@
                                                                     </div> *@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_LastName">@L("LastName")</label>
-                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_LastName" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
+                                                                        <input class="form-control  custom-small-input rounded-0" id="Client_LastName" placeholder="Last Name" value="@Model.Client.LastName" type="text" name="lastName" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxLastNameLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinLastNameLength" />
                                                                     </div>
                                                                     @*                 <div class="col-md-4 mb-3">
                                                                     <label class="form-label fw-bold text-dark" for="Client_DateofBirth">@L("DateofBirth")</label>
@@ -162,24 +165,18 @@
                                                                  
                                                                     <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
-                                                                        <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                                                                        <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="email" name="email" required  />
                                                                     </div>
                                                                       
                                                                     <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
                                                                     <label for="Phone" class="form-label">@L("Phone")</label>
                                                                         <input type="hidden" value="@Model.Client.PhoneCode" id="PhoneCode" name="PhoneCode" />
-                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
+                                                           <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
                                                         <span id="valid-msg" class="hide">✓ Valid</span>
                                                         <span id="error-msg" class="hide"></span>
                                             </div>
                                                                                 
-                                           @*  <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
-                                                                    <label for="Phone" class="form-label">@L("Phone")</label>
-                                                                    <input type="hidden" value="@@Model.Client.PhoneNo" id="PhoneCode" name="PhoneCode" />
-                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
-                                                        <span id="valid-msg" class="hide">✓ Valid</span>
-                                                        <span id="error-msg" class="hide"></span>
-                                            </div> *@
+                                          
                                                                     @*    @{
                                                                     var selectListContactPreferences = Html.GetEnumSelectList(typeof(ContactPrefernce));
                                                                     foreach (var selectOption in selectListContactPreferences) { selectOption.Text = L("Enum_ContactPrefernce_" + selectOption.Value); }
@@ -267,7 +264,9 @@
 
                                                                     <div class="my-3 col-4">
                                                                         <label class="form-label fw-bold text-dark" for="countryId">@L("Country")</label>
-                                                                        @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control form-control-sm custom-select-input rounded-0"  , @required="required" })
+                                                                        @* @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control"  , @required="required" }) *@
+                                                        @Html.DropDownList("countryId", new SelectList(Model.ClientCountryList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.CountryId.ToString() : "")),@L("SelectACountry"), new { @class = "form-control" , @required="required" })
+                                                                    
                                                                     </div>
 
                                                                 </div>
@@ -429,9 +428,9 @@
                                                                         <label class="form-label fw-bold text-dark" for="leadSourceId">@L("LeadSource")</label>
                                                                         @Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
                                                                     </div>
-                                                                     <div class=" col-md-6" >
+                                                                    <div class=" col-md-6" id="field1" style="display:none">
 							<label class="form-label" for="Client_InternalId">@L("Agent")</label>
-							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control"  , @required="required" })
+							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control" })
 						</div>
                           <input type="hidden" name="assigneeId" id="assigneeId" value="@AbpSession.UserId" />
                                                                 </div>

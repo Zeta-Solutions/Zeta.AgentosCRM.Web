@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_TaxSettings)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings)]
     public class TaxSettingsAppService : AgentosCRMAppServiceBase, ITaxSettingsAppService
     {
         private readonly IRepository<TaxSetting> _taxSettingRepository;
@@ -109,7 +109,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaxSettings_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings_Edit)]
         public async Task<GetTaxSettingForEditOutput> GetTaxSettingForEdit(EntityDto input)
         {
             var taxSetting = await _taxSettingRepository.FirstOrDefaultAsync(input.Id);
@@ -137,7 +137,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaxSettings_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings_Create)]
         protected virtual async Task Create(CreateOrEditTaxSettingDto input)
         {
             var taxSetting = ObjectMapper.Map<TaxSetting>(input);
@@ -151,7 +151,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaxSettings_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings_Edit)]
         protected virtual async Task Update(CreateOrEditTaxSettingDto input)
         {
             var taxSetting = await _taxSettingRepository.FirstOrDefaultAsync((int)input.Id);
@@ -159,12 +159,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaxSettings_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _taxSettingRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_TaxSettings)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaxSettings)]
         public async Task<List<TaxSettingOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForTableDropdown()
         {
             return await _lookup_organizationUnitRepository.GetAll()

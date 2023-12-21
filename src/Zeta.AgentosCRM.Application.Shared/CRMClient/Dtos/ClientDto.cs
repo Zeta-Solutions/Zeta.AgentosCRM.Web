@@ -43,6 +43,8 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public bool ClientPortal { get; set; }
 
+        public bool TrainingRequired { get; set; }
+
         public int CountryId { get; set; }
 
         public long AssigneeId { get; set; }

@@ -11,7 +11,8 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/CreateOrEditModal.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
 }
 
 @section Styles
@@ -20,7 +21,6 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Partners/InformationDetails/_OtherInformationDetails.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Users/index.css" asp-append-version="true" /> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" /> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script> 
     }
  
 
@@ -113,13 +113,13 @@
 
 
                                                     </div>
-                                                     <div class="col-md-4 mb-3">
-                                                                    <label for="serviceWorkflow" class="form-label">@L("ServiceWorkflow")<span class="text-danger">*</span></label>
-                                                                    @Html.DropDownList("workflowId", new SelectList(Model.PartnerWorkflowList,"Id","DisplayName", (Model.IsEditMode ? Model.Partner.WorkflowId.ToString() : "")),@L("SelectAWorkFlow"), new { @class = "form-control" , @required="required" })
-                                                    </div>
                                                     <div class="col-md-4 mb-3">
                                                                     <label for="businessRegistrationNumber" class="form-label">@L("BusinessRegistrationNumber")</label>
                                                                     <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="BusinessRegNo" value="@Model.Partner.BusinessRegNo"style="width: 280px;">
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                                    <label for="businessRegistrationNumber" class="form-label">@L("BusinessRegistrationNumber")</label>
+                                                                    <input type="text" class="form-control custom-small-input rounded-0" id="businessRegistrationNumber" name="BusinessRegNo" value="@Model.Partner.BusinessRegNo">
                                                     </div>
                                                    
                                                     @* <div class="col-md-6 mb-3">
