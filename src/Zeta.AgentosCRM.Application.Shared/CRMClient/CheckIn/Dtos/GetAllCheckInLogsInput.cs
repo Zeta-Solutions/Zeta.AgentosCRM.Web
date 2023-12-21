@@ -25,6 +25,7 @@ namespace Zeta.AgentosCRM.CRMClient.CheckIn.Dtos
         public string ClientDisplayPropertyFilter { get; set; }
 
         public string UserNameFilter { get; set; }
+        public long? ClientIdFilter { get; set; }
 
     }
 }

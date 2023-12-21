@@ -103,13 +103,13 @@
                         markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
                         unDoneOnBackNavigation: true, // While navigate back, done state will be cleared
                         enableDoneStateNavigation: true // Enable/Disable the done state navigation
-                    }, 
-                    warningSteps: [TotalRecord.length - 1],// Highlight step with warnings
-                    keyboard: {
-                        keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
-                        keyLeft: [37], // Left key code
-                        keyRight: [39] // Right key code
                     } 
+                    //warningSteps: [TotalRecord.length - 1],// Highlight step with warnings
+                    //keyboard: {
+                    //    keyNavigation: false, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                    //    keyLeft: [37], // Left key code
+                    //    keyRight: [39] // Right key code
+                    //} 
                 })
                     .on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
                         //debugger

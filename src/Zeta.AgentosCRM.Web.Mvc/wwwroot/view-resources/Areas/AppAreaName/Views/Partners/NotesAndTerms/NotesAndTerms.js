@@ -24,10 +24,32 @@
             // Create a row for the card title and dots
             var titleRowDiv = $('<div>').addClass('row');
             var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
+            function renderDateTime(creationTime) {
+                let formattedDate = creationTime ? moment(creationTime).format('L') : "";
 
-           
-            cardTitle.html(note.title +
+                return formattedDate;
+            }
+            const currentDate = new Date(note.creationTime);
+            const today = new Date();
+
+            // Calculate the time difference in milliseconds
+            const timeDifference = today - currentDate;
+
+            // Convert the time difference to days, hours, and minutes
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+            // Format the result
+            const result = `${days} days, ${hours} hours, ${minutes} minutes`;
+
+            console.log(result);
+            // Include context menu HTML within the title
+            //var rowId = data.partner.id;
+            //var rowData = data.partner;
+            //var RowDatajsonString = JSON.stringify(rowData);
+            cardTitle.html('<strong>' + note.title + '</strong>' +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis123"><a href="#" data-id="' + note.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -39,16 +61,23 @@
                 '</div>' +
                 '</div>');
 
-            // Append title and dots to the title column
+            // Append title and dots to the title column......
             titleColDiv.append(cardTitle);
             titleRowDiv.append(titleColDiv);
 
             // Create a column for the card information
             var infoColDiv = $('<div>').addClass('col-md-6'); // Adjust the column size as needed
-            var infoParagraph = $('<p>').addClass('card-text');
-            infoParagraph.html('<br><hr>' + note.description);
+            var infoParagraph1 = $('<p>').addClass('card-text');
+            var infoParagraph2 = $('<p>').addClass('card-text');
+            infoParagraph1.html(note.description);
+            infoParagraph2.html('<hr/>' +
+                'Added by: ' +
+                '<strong>' + item.userName + '</strong>' +
+                '<br>' +
+                '<span class="text-muted">' + renderDateTime(note.creationTime) + '</span>' +
+                '<span class="text-muted pull-right">' + result + '</span>');
 
-            cardBodyDiv.append(titleRowDiv, infoParagraph);
+            cardBodyDiv.append(titleRowDiv, infoParagraph1, infoParagraph2);
             cardDiv.append(cardBodyDiv);
             colDiv.append(cardDiv);
             cardContainer.append(colDiv);

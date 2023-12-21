@@ -13,7 +13,7 @@
             {
                 <input type="hidden" name="id" value="@Model.CRMTask.Id" />
             }
-            <input type="hidden" name="ClientId" id="ClientId" value="" />
+            <input type="hidden" name="ClientId" id="clientId" value="" />
             <div class="row col-12">
                 <div class="my-3 col-6">
                     <label class="form-label" for="Application_Abbrivation">@L("Tittle")</label>
@@ -48,7 +48,8 @@
                 </div>
                 <div class="my-3 col-3">
                     <label class="form-label" for="Application_Name">@L("DueTime")</label>
-                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueTime" type="text" name="DueTime" value="@Model.CRMTask.DueTime" />
+                    @* <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueTime" type="text" name="DueTime" value="@Model.CRMTask.DueTime" /> *@
+                    <input class="form-control form-control-sm rounded-0 custom-select-input" id="DueTime" type="time" name="DueTime" value="@Model.CRMTask.DueTime.ToString("HH:mm")" />
                 </div>
             </div>
 

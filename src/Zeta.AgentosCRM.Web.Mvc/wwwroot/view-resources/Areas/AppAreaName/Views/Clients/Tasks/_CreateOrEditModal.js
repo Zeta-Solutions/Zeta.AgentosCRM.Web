@@ -18,6 +18,22 @@
             width: '100%',
             // Adjust the width as needed
         });
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Set the current time in the StartTime field
+        $(document).ready(function () {
+            if ($('input[name="id"]').val() < 1 || $('input[name="id"]').val() == undefined) {
+                const startTimeField = $("#DueTime");
+                if (startTimeField.length) {
+                    startTimeField.val(getCurrentTime());
+                }
+            }
+        });
         $.ajax({
             url: abp.appPath + 'api/services/app/TaskFollowers/GetAllUserForTableDropdown',
             method: 'GET',
@@ -99,9 +115,7 @@
             $productId.val(ms_array).trigger('change');
 
         }
-        var hiddenfield = $("#ClientId").val();
-
-        $("#ClientId").val(hiddenfield);
+       
       var _cRMTasksService = abp.services.app.cRMTasks;
 
     var _modalManager;
@@ -118,7 +132,9 @@
         locale: abp.localization.currentLanguage.name,
         format: 'L',
       });
+        var hiddenfield = $('input[name="Clientid"]').val();
 
+        $("#clientId").val(hiddenfield);
         _$tasksInformationForm = _modalManager.getModal().find('form[name=TaskInformationsForm]');
         _$tasksInformationForm.validate();
     };

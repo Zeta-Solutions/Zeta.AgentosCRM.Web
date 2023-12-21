@@ -41,8 +41,8 @@ namespace Zeta.AgentosCRM.CRMClient
                         .Include(e => e.TagFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.TagNameFilter), e => e.TagFk != null && e.TagFk.Name == input.TagNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.TagNameFilter), e => e.TagFk != null && e.TagFk.Name == input.TagNameFilter)
+                          .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredClientTags = filteredClientTags
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
