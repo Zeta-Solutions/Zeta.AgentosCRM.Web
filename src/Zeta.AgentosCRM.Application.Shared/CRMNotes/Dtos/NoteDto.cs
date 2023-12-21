@@ -16,6 +16,10 @@ namespace Zeta.AgentosCRM.CRMNotes.Dtos
         public long? AgentId { get; set; }
         public DateTime? CreationTime { get; set; }
 
+        public long? ApplicationStageId { get; set; }
+
+        public long? ApplicationId { get; set; }
+
        public long? CreatorUserId { get; set; }
     }
 }

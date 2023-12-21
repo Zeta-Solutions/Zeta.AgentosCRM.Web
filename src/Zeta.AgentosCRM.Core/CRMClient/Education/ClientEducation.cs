@@ -32,6 +32,8 @@ namespace Zeta.AgentosCRM.CRMClient.Education
 
         public virtual int DegreeLevelId { get; set; }
 
+        public virtual bool IsGpa { get; set; }
+
         [ForeignKey("DegreeLevelId")]
         public DegreeLevel DegreeLevelFk { get; set; }
 
@@ -44,6 +46,11 @@ namespace Zeta.AgentosCRM.CRMClient.Education
 
         [ForeignKey("SubjectAreaId")]
         public SubjectArea SubjectAreaFk { get; set; }
+
+        public virtual long ClientId { get; set; }
+
+        [ForeignKey("ClientId")]
+        public Client ClientFk { get; set; }
 
     }
 }

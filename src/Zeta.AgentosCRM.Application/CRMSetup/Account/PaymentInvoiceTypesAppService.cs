@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes)]
     public class PaymentInvoiceTypesAppService : AgentosCRMAppServiceBase, IPaymentInvoiceTypesAppService
     {
         private readonly IRepository<PaymentInvoiceType> _paymentInvoiceTypeRepository;
@@ -115,7 +115,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes_Edit)]
         public async Task<GetPaymentInvoiceTypeForEditOutput> GetPaymentInvoiceTypeForEdit(EntityDto input)
         {
             var paymentInvoiceType = await _paymentInvoiceTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -149,7 +149,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes_Create)]
         protected virtual async Task Create(CreateOrEditPaymentInvoiceTypeDto input)
         {
             var paymentInvoiceType = ObjectMapper.Map<PaymentInvoiceType>(input);
@@ -163,7 +163,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes_Edit)]
         protected virtual async Task Update(CreateOrEditPaymentInvoiceTypeDto input)
         {
             var paymentInvoiceType = await _paymentInvoiceTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -171,12 +171,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _paymentInvoiceTypeRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes)]
         public async Task<List<PaymentInvoiceTypeInvoiceTypeLookupTableDto>> GetAllInvoiceTypeForTableDropdown()
         {
             return await _lookup_invoiceTypeRepository.GetAll()
@@ -187,7 +187,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
                 }).ToListAsync();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_PaymentInvoiceTypes)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_PaymentInvoiceTypes)]
         public async Task<List<PaymentInvoiceTypeManualPaymentDetailLookupTableDto>> GetAllManualPaymentDetailForTableDropdown()
         {
             return await _lookup_manualPaymentDetailRepository.GetAll()

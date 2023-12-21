@@ -74,6 +74,8 @@ namespace Zeta.AgentosCRM.CRMClient
 
         public virtual bool Archived { get; set; }
 
+        public virtual bool TrainingRequired { get; set; }
+
         public virtual int CountryId { get; set; }
 
         [ForeignKey("CountryId")]

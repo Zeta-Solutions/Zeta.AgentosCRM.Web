@@ -37,7 +37,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return View(model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_WorkflowDocuments_Create, AppPermissions.Pages_WorkflowDocuments_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Create, AppPermissions.Pages_CRMSetup_WorkflowDocuments_Edit)]
 
         public async Task<PartialViewResult>   CreateOrEditModal(int? id)
         {
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         {
             return PartialView("AddNewCheckList/_AddNewCheckList", "");
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_WorkflowStepDocumentCheckLists_Create, AppPermissions.Pages_WorkflowStepDocumentCheckLists_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Create, AppPermissions.Pages_CRMSetup_WorkflowStepDocumentCheckLists_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditCheckListModal(int? id)
         {

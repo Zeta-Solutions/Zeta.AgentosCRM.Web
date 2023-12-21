@@ -16,7 +16,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Regions;
 <abp-page-subheader title='@L("Regions")' description='@L("RegionsHeaderInfo")'>
     <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_Regions_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_Regions_Create))
     {
     <button id="CreateNewRegionButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewRegion")</button>
     }

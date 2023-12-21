@@ -12,7 +12,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
 
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_FeeTypes)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes)]
 
     public class FeeTypeController : AgentosCRMControllerBase
     {
@@ -33,7 +33,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_FeeTypes_Create, AppPermissions.Pages_FeeTypes_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes_Create, AppPermissions.Pages_CRMSetup_FeeTypes_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

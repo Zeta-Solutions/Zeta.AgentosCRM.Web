@@ -16,7 +16,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.EmailTemplate;
 <abp-page-subheader title='@L("EmailTemplate")' description='@L("EmailTemplateHeaderInfo")'>
     <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
-    @if (IsGranted(AppPermissions.Pages_EmailTemplates_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_EmailTemplates_Create))
     {
     <button id="CreateNewEmailTemplate" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewEmailTemplate")</button>
      }

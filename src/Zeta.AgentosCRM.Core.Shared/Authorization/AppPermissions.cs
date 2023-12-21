@@ -39,77 +39,12 @@
         public const string Pages_ProductFees = "Pages.ProductFees";
         public const string Pages_ProductFees_Create = "Pages.ProductFees.Create";
         public const string Pages_ProductFees_Edit = "Pages.ProductFees.Edit";
-        public const string Pages_ProductFees_Delete = "Pages.ProductFees.Delete";
-
-        public const string Pages_DocumentCheckListPartners = "Pages.DocumentCheckListPartners";
-        public const string Pages_DocumentCheckListPartners_Create = "Pages.DocumentCheckListPartners.Create";
-        public const string Pages_DocumentCheckListPartners_Edit = "Pages.DocumentCheckListPartners.Edit";
-        public const string Pages_DocumentCheckListPartners_Delete = "Pages.DocumentCheckListPartners.Delete";
-
-        public const string Pages_DocumentCheckListProducts = "Pages.DocumentCheckListProducts";
-        public const string Pages_DocumentCheckListProducts_Create = "Pages.DocumentCheckListProducts.Create";
-        public const string Pages_DocumentCheckListProducts_Edit = "Pages.DocumentCheckListProducts.Edit";
-        public const string Pages_DocumentCheckListProducts_Delete = "Pages.DocumentCheckListProducts.Delete";
-
-        public const string Pages_WorkflowStepDocumentCheckLists = "Pages.WorkflowStepDocumentCheckLists";
-        public const string Pages_WorkflowStepDocumentCheckLists_Create = "Pages.WorkflowStepDocumentCheckLists.Create";
-        public const string Pages_WorkflowStepDocumentCheckLists_Edit = "Pages.WorkflowStepDocumentCheckLists.Edit";
-        public const string Pages_WorkflowStepDocumentCheckLists_Delete = "Pages.WorkflowStepDocumentCheckLists.Delete";
-
-        public const string Pages_WorkflowDocuments = "Pages.WorkflowDocuments";
-        public const string Pages_WorkflowDocuments_Create = "Pages.WorkflowDocuments.Create";
-        public const string Pages_WorkflowDocuments_Edit = "Pages.WorkflowDocuments.Edit";
-        public const string Pages_WorkflowDocuments_Delete = "Pages.WorkflowDocuments.Delete";
-
-        public const string Pages_TaxSettings = "Pages.TaxSettings";
-        public const string Pages_TaxSettings_Create = "Pages.TaxSettings.Create";
-        public const string Pages_TaxSettings_Edit = "Pages.TaxSettings.Edit";
-        public const string Pages_TaxSettings_Delete = "Pages.TaxSettings.Delete";
-
-        public const string Pages_PaymentInvoiceTypes = "Pages.PaymentInvoiceTypes";
-        public const string Pages_PaymentInvoiceTypes_Create = "Pages.PaymentInvoiceTypes.Create";
-        public const string Pages_PaymentInvoiceTypes_Edit = "Pages.PaymentInvoiceTypes.Edit";
-        public const string Pages_PaymentInvoiceTypes_Delete = "Pages.PaymentInvoiceTypes.Delete";
-
-        public const string Pages_InvoiceTypes = "Pages.InvoiceTypes";
-        public const string Pages_InvoiceTypes_Create = "Pages.InvoiceTypes.Create";
-        public const string Pages_InvoiceTypes_Edit = "Pages.InvoiceTypes.Edit";
-        public const string Pages_InvoiceTypes_Delete = "Pages.InvoiceTypes.Delete";
-
-        public const string Pages_ManualPaymentDetails = "Pages.ManualPaymentDetails";
-        public const string Pages_ManualPaymentDetails_Create = "Pages.ManualPaymentDetails.Create";
-        public const string Pages_ManualPaymentDetails_Edit = "Pages.ManualPaymentDetails.Edit";
-        public const string Pages_ManualPaymentDetails_Delete = "Pages.ManualPaymentDetails.Delete";
-
-        public const string Pages_InvoiceAddresses = "Pages.InvoiceAddresses";
-        public const string Pages_InvoiceAddresses_Create = "Pages.InvoiceAddresses.Create";
-        public const string Pages_InvoiceAddresses_Edit = "Pages.InvoiceAddresses.Edit";
-        public const string Pages_InvoiceAddresses_Delete = "Pages.InvoiceAddresses.Delete";
-
-        public const string Pages_BusinessRegNummbers = "Pages.BusinessRegNummbers";
-        public const string Pages_BusinessRegNummbers_Create = "Pages.BusinessRegNummbers.Create";
-        public const string Pages_BusinessRegNummbers_Edit = "Pages.BusinessRegNummbers.Edit";
-        public const string Pages_BusinessRegNummbers_Delete = "Pages.BusinessRegNummbers.Delete";
+        public const string Pages_ProductFees_Delete = "Pages.ProductFees.Delete"; 
 
         public const string Pages_AgentContacts = "Pages.AgentContacts";
         public const string Pages_AgentContacts_Create = "Pages.AgentContacts.Create";
         public const string Pages_AgentContacts_Edit = "Pages.AgentContacts.Edit";
         public const string Pages_AgentContacts_Delete = "Pages.AgentContacts.Delete";
-
-        public const string Pages_EmailTemplates = "Pages.EmailTemplates";
-        public const string Pages_EmailTemplates_Create = "Pages.EmailTemplates.Create";
-        public const string Pages_EmailTemplates_Edit = "Pages.EmailTemplates.Edit";
-        public const string Pages_EmailTemplates_Delete = "Pages.EmailTemplates.Delete";
-
-        public const string Pages_WorkflowOffices = "Pages.WorkflowOffices";
-        public const string Pages_WorkflowOffices_Create = "Pages.WorkflowOffices.Create";
-        public const string Pages_WorkflowOffices_Edit = "Pages.WorkflowOffices.Edit";
-        public const string Pages_WorkflowOffices_Delete = "Pages.WorkflowOffices.Delete";
-
-        public const string Pages_DocumentTypes = "Pages.DocumentTypes";
-        public const string Pages_DocumentTypes_Create = "Pages.DocumentTypes.Create";
-        public const string Pages_DocumentTypes_Edit = "Pages.DocumentTypes.Edit";
-        public const string Pages_DocumentTypes_Delete = "Pages.DocumentTypes.Delete";
 
         public const string Pages_ClientQuotationDetails = "Pages.ClientQuotationDetails";
         public const string Pages_ClientQuotationDetails_Create = "Pages.ClientQuotationDetails.Create";
@@ -249,71 +184,12 @@
         public const string Pages_Followers_Edit = "Pages.Followers.Edit";
         public const string Pages_Followers_Delete = "Pages.Followers.Delete";
 
-        public const string Pages_Clients = "Pages.Clients";
+        public const string Pages_Clients = "Pages.Clients"; 
         public const string Pages_Clients_ChangeProfilePicture = "Pages.Clients.ChangeProfilePicture";
         public const string Pages_Clients_Create = "Pages.Clients.Create";
         public const string Pages_Clients_Edit = "Pages.Clients.Edit";
         public const string Pages_Clients_Delete = "Pages.Clients.Delete";
 
-        public const string Pages_Countries = "Pages.Countries";
-        public const string Pages_Countries_Create = "Pages.Countries.Create";
-        public const string Pages_Countries_Edit = "Pages.Countries.Edit";
-        public const string Pages_Countries_Delete = "Pages.Countries.Delete";
-
-        public const string Pages_Regions = "Pages.Regions";
-        public const string Pages_Regions_Create = "Pages.Regions.Create";
-        public const string Pages_Regions_Edit = "Pages.Regions.Edit";
-        public const string Pages_Regions_Delete = "Pages.Regions.Delete";
-
-        public const string Pages_TaskCategories = "Pages.TaskCategories";
-        public const string Pages_TaskCategories_Create = "Pages.TaskCategories.Create";
-        public const string Pages_TaskCategories_Edit = "Pages.TaskCategories.Edit";
-        public const string Pages_TaskCategories_Delete = "Pages.TaskCategories.Delete";
-
-        public const string Pages_Tags = "Pages.Tags";
-        public const string Pages_Tags_Create = "Pages.Tags.Create";
-        public const string Pages_Tags_Edit = "Pages.Tags.Edit";
-        public const string Pages_Tags_Delete = "Pages.Tags.Delete";
-
-        public const string Pages_InstallmentTypes = "Pages.InstallmentTypes";
-        public const string Pages_InstallmentTypes_Create = "Pages.InstallmentTypes.Create";
-        public const string Pages_InstallmentTypes_Edit = "Pages.InstallmentTypes.Edit";
-        public const string Pages_InstallmentTypes_Delete = "Pages.InstallmentTypes.Delete";
-
-        public const string Pages_ProductTypes = "Pages.ProductTypes";
-        public const string Pages_ProductTypes_Create = "Pages.ProductTypes.Create";
-        public const string Pages_ProductTypes_Edit = "Pages.ProductTypes.Edit";
-        public const string Pages_ProductTypes_Delete = "Pages.ProductTypes.Delete";
-
-        public const string Pages_FeeTypes = "Pages.FeeTypes";
-        public const string Pages_FeeTypes_Create = "Pages.FeeTypes.Create";
-        public const string Pages_FeeTypes_Edit = "Pages.FeeTypes.Edit";
-        public const string Pages_FeeTypes_Delete = "Pages.FeeTypes.Delete";
-
-        public const string Pages_LeadSources = "Pages.LeadSources";
-        public const string Pages_LeadSources_Create = "Pages.LeadSources.Create";
-        public const string Pages_LeadSources_Edit = "Pages.LeadSources.Edit";
-        public const string Pages_LeadSources_Delete = "Pages.LeadSources.Delete";
-
-        public const string Pages_ServiceCategories = "Pages.ServiceCategories";
-        public const string Pages_ServiceCategories_Create = "Pages.ServiceCategories.Create";
-        public const string Pages_ServiceCategories_Edit = "Pages.ServiceCategories.Edit";
-        public const string Pages_ServiceCategories_Delete = "Pages.ServiceCategories.Delete";
-
-        public const string Pages_DegreeLevels = "Pages.DegreeLevels";
-        public const string Pages_DegreeLevels_Create = "Pages.DegreeLevels.Create";
-        public const string Pages_DegreeLevels_Edit = "Pages.DegreeLevels.Edit";
-        public const string Pages_DegreeLevels_Delete = "Pages.DegreeLevels.Delete";
-
-        public const string Pages_TaskPriorities = "Pages.TaskPriorities";
-        public const string Pages_TaskPriorities_Create = "Pages.TaskPriorities.Create";
-        public const string Pages_TaskPriorities_Edit = "Pages.TaskPriorities.Edit";
-        public const string Pages_TaskPriorities_Delete = "Pages.TaskPriorities.Delete";
-
-        public const string Pages_SubjectAreas = "Pages.SubjectAreas";
-        public const string Pages_SubjectAreas_Create = "Pages.SubjectAreas.Create";
-        public const string Pages_SubjectAreas_Edit = "Pages.SubjectAreas.Edit";
-        public const string Pages_SubjectAreas_Delete = "Pages.SubjectAreas.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
@@ -414,7 +290,9 @@
         public const string Pages_Administration_Host_Settings = "Pages.Administration.Host.Settings";
         public const string Pages_Administration_Host_Dashboard = "Pages.Administration.Host.Dashboard";
 
-        //Added by Raid new Forms
+        /// <summary>
+        /// Added Setup Forms below here
+        /// </summary>
         public const string Pages_CRMSetup = "Pages.CRMSetup";
         public const string Pages_CRMSetup_PartnerTypes = "Pages.CRMSetup.PartnerTypes";
         public const string Pages_CRMSetup_PartnerTypes_Create = "Pages.CRMSetup.PartnerTypes.Create";
@@ -426,19 +304,146 @@
         public const string Pages_CRMSetup_MasterCategories_Edit = "Pages.CRMSetup.MasterCategories.Edit";
         public const string Pages_CRMSetup_MasterCategories_Delete = "Pages.CRMSetup.MasterCategories.Delete";
 
-        public const string Pages_Subjects = "Pages.Subjects";
-        public const string Pages_Subjects_Create = "Pages.Subjects.Create";
-        public const string Pages_Subjects_Edit = "Pages.Subjects.Edit";
-        public const string Pages_Subjects_Delete = "Pages.Subjects.Delete";
+        public const string Pages_CRMSetup_Subjects = "Pages.CRMSetup.Subjects";
+        public const string Pages_CRMSetup_Subjects_Create = "Pages.CRMSetup.Subjects.Create";
+        public const string Pages_CRMSetup_Subjects_Edit = "Pages.CRMSetup.Subjects.Edit";
+        public const string Pages_CRMSetup_Subjects_Delete = "Pages.CRMSetup.Subjects.Delete";
 
-        public const string Pages_Workflows = "Pages.Workflows";
-        public const string Pages_Workflows_Create = "Pages.Workflows.Create";
-        public const string Pages_Workflows_Edit = "Pages.Workflows.Edit";
-        public const string Pages_Workflows_Delete = "Pages.Workflows.Delete";
+        public const string Pages_CRMSetup_Workflows = "Pages.CRMSetup.Workflows";
+        public const string Pages_CRMSetup_Workflows_Create = "Pages.CRMSetup.Workflows.Create";
+        public const string Pages_CRMSetup_Workflows_Edit = "Pages.CRMSetup.Workflows.Edit";
+        public const string Pages_CRMSetup_Workflows_Delete = "Pages.CRMSetup.Workflows.Delete";
 
-        public const string Pages_WorkflowSteps = "Pages.WorkflowSteps";
-        public const string Pages_WorkflowSteps_Create = "Pages.WorkflowSteps.Create";
-        public const string Pages_WorkflowSteps_Edit = "Pages.WorkflowSteps.Edit";
-        public const string Pages_WorkflowSteps_Delete = "Pages.WorkflowSteps.Delete";
+        public const string Pages_CRMSetup_WorkflowSteps = "Pages.CRMSetup.WorkflowSteps";
+        public const string Pages_CRMSetup_WorkflowSteps_Create = "Pages.CRMSetup.WorkflowSteps.Create";
+        public const string Pages_CRMSetup_WorkflowSteps_Edit = "Pages.CRMSetup.WorkflowSteps.Edit";
+        public const string Pages_CRMSetup_WorkflowSteps_Delete = "Pages.CRMSetup.WorkflowSteps.Delete"; 
+
+        public const string Pages_CRMSetup_DocumentCheckListPartners = "Pages.CRMSetup.DocumentCheckListPartners";
+        public const string Pages_CRMSetup_DocumentCheckListPartners_Create = "Pages.CRMSetup.DocumentCheckListPartners.Create";
+        public const string Pages_CRMSetup_DocumentCheckListPartners_Edit = "Pages.CRMSetup.DocumentCheckListPartners.Edit";
+        public const string Pages_CRMSetup_DocumentCheckListPartners_Delete = "Pages.CRMSetup.DocumentCheckListPartners.Delete";
+
+        public const string Pages_CRMSetup_DocumentCheckListProducts = "Pages.CRMSetup.DocumentCheckListProducts";
+        public const string Pages_CRMSetup_DocumentCheckListProducts_Create = "Pages.CRMSetup.DocumentCheckListProducts.Create";
+        public const string Pages_CRMSetup_DocumentCheckListProducts_Edit = "Pages.CRMSetup.DocumentCheckListProducts.Edit";
+        public const string Pages_CRMSetup_DocumentCheckListProducts_Delete = "Pages.CRMSetup.DocumentCheckListProducts.Delete";
+
+        public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists = "Pages.CRMSetup.WorkflowStepDocumentCheckLists";
+        public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Create = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Create";
+        public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Edit = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Edit";
+        public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Delete = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Delete";
+        
+        public const string Pages_CRMSetup_WorkflowDocuments = "Pages.CRMSetup.WorkflowDocuments";
+        public const string Pages_CRMSetup_WorkflowDocuments_Create = "Pages.CRMSetup.WorkflowDocuments.Create";
+        public const string Pages_CRMSetup_WorkflowDocuments_Edit = "Pages.CRMSetup.WorkflowDocuments.Edit";
+        public const string Pages_CRMSetup_WorkflowDocuments_Delete = "Pages.CRMSetup.WorkflowDocuments.Delete";
+
+        public const string Pages_CRMSetup_TaxSettings = "Pages.CRMSetup.TaxSettings";
+        public const string Pages_CRMSetup_TaxSettings_Create = "Pages.CRMSetup.TaxSettings.Create";
+        public const string Pages_CRMSetup_TaxSettings_Edit = "Pages.CRMSetup.TaxSettings.Edit";
+        public const string Pages_CRMSetup_TaxSettings_Delete = "Pages.CRMSetup.TaxSettings.Delete";
+
+        public const string Pages_CRMSetup_PaymentInvoiceTypes = "Pages.CRMSetup.PaymentInvoiceTypes";
+        public const string Pages_CRMSetup_PaymentInvoiceTypes_Create = "Pages.CRMSetup.PaymentInvoiceTypes.Create";
+        public const string Pages_CRMSetup_PaymentInvoiceTypes_Edit = "Pages.CRMSetup.PaymentInvoiceTypes.Edit";
+        public const string Pages_CRMSetup_PaymentInvoiceTypes_Delete = "Pages.CRMSetup.PaymentInvoiceTypes.Delete";
+
+        public const string Pages_CRMSetup_InvoiceTypes = "Pages.CRMSetup.InvoiceTypes";
+        public const string Pages_CRMSetup_InvoiceTypes_Create = "Pages.CRMSetup.InvoiceTypes.Create";
+        public const string Pages_CRMSetup_InvoiceTypes_Edit = "Pages.CRMSetup.InvoiceTypes.Edit";
+        public const string Pages_CRMSetup_InvoiceTypes_Delete = "Pages.CRMSetup.InvoiceTypes.Delete";
+
+        public const string Pages_CRMSetup_ManualPaymentDetails = "Pages.CRMSetup.ManualPaymentDetails";
+        public const string Pages_CRMSetup_ManualPaymentDetails_Create = "Pages.CRMSetup.ManualPaymentDetails.Create";
+        public const string Pages_CRMSetup_ManualPaymentDetails_Edit = "Pages.CRMSetup.ManualPaymentDetails.Edit";
+        public const string Pages_CRMSetup_ManualPaymentDetails_Delete = "Pages.CRMSetup.ManualPaymentDetails.Delete";
+
+        public const string Pages_CRMSetup_InvoiceAddresses = "Pages.CRMSetup.InvoiceAddresses";
+        public const string Pages_CRMSetup_InvoiceAddresses_Create = "Pages.CRMSetup.InvoiceAddresses.Create";
+        public const string Pages_CRMSetup_InvoiceAddresses_Edit = "Pages.CRMSetup.InvoiceAddresses.Edit";
+        public const string Pages_CRMSetup_InvoiceAddresses_Delete = "Pages.CRMSetup.InvoiceAddresses.Delete";
+
+        public const string Pages_CRMSetup_BusinessRegNummbers = "Pages.CRMSetup.BusinessRegNummbers";
+        public const string Pages_CRMSetup_BusinessRegNummbers_Create = "Pages.CRMSetup.BusinessRegNummbers.Create";
+        public const string Pages_CRMSetup_BusinessRegNummbers_Edit = "Pages.CRMSetup.BusinessRegNummbers.Edit";
+        public const string Pages_CRMSetup_BusinessRegNummbers_Delete = "Pages.CRMSetup.BusinessRegNummbers.Delete";
+
+        public const string Pages_CRMSetup_EmailTemplates = "Pages.CRMSetup.EmailTemplates";
+        public const string Pages_CRMSetup_EmailTemplates_Create = "Pages.CRMSetup.EmailTemplates.Create";
+        public const string Pages_CRMSetup_EmailTemplates_Edit = "Pages.CRMSetup.EmailTemplates.Edit";
+        public const string Pages_CRMSetup_EmailTemplates_Delete = "Pages.CRMSetup.EmailTemplates.Delete";
+
+        public const string Pages_CRMSetup_WorkflowOffices = "Pages.CRMSetup.WorkflowOffices";
+        public const string Pages_CRMSetup_WorkflowOffices_Create = "Pages.CRMSetup.WorkflowOffices.Create";
+        public const string Pages_CRMSetup_WorkflowOffices_Edit = "Pages.CRMSetup.WorkflowOffices.Edit";
+        public const string Pages_CRMSetup_WorkflowOffices_Delete = "Pages.CRMSetup.WorkflowOffices.Delete";
+
+        public const string Pages_CRMSetup_DocumentTypes = "Pages.CRMSetup.DocumentTypes";
+        public const string Pages_CRMSetup_DocumentTypes_Create = "Pages.CRMSetup.DocumentTypes.Create";
+        public const string Pages_CRMSetup_DocumentTypes_Edit = "Pages.CRMSetup.DocumentTypes.Edit";
+        public const string Pages_CRMSetup_DocumentTypes_Delete = "Pages.CRMSetup.DocumentTypes.Delete";
+
+
+        public const string Pages_CRMSetup_Countries = "Pages.CRMSetup.Countries";
+        public const string Pages_CRMSetup_Countries_Create = "Pages.CRMSetup.Countries.Create";
+        public const string Pages_CRMSetup_Countries_Edit = "Pages.CRMSetup.Countries.Edit";
+        public const string Pages_CRMSetup_Countries_Delete = "Pages.CRMSetup.Countries.Delete";
+
+        public const string Pages_CRMSetup_Regions = "Pages.CRMSetup.Regions";
+        public const string Pages_CRMSetup_Regions_Create = "Pages.CRMSetup.Regions.Create";
+        public const string Pages_CRMSetup_Regions_Edit = "Pages.CRMSetup.Regions.Edit";
+        public const string Pages_CRMSetup_Regions_Delete = "Pages.CRMSetup.Regions.Delete";
+
+        public const string Pages_CRMSetup_TaskCategories = "Pages.CRMSetup.TaskCategories";
+        public const string Pages_CRMSetup_TaskCategories_Create = "Pages.CRMSetup.TaskCategories.Create";
+        public const string Pages_CRMSetup_TaskCategories_Edit = "Pages.CRMSetup.TaskCategories.Edit";
+        public const string Pages_CRMSetup_TaskCategories_Delete = "Pages.CRMSetup.TaskCategories.Delete";
+
+        public const string Pages_CRMSetup_Tags = "Pages.CRMSetup.Tags";
+        public const string Pages_CRMSetup_Tags_Create = "Pages.CRMSetup.Tags.Create";
+        public const string Pages_CRMSetup_Tags_Edit = "Pages.CRMSetup.Tags.Edit";
+        public const string Pages_CRMSetup_Tags_Delete = "Pages.CRMSetup.Tags.Delete";
+
+        public const string Pages_CRMSetup_InstallmentTypes = "Pages.CRMSetup.InstallmentTypes";
+        public const string Pages_CRMSetup_InstallmentTypes_Create = "Pages.CRMSetup.InstallmentTypes.Create";
+        public const string Pages_CRMSetup_InstallmentTypes_Edit = "Pages.CRMSetup.InstallmentTypes.Edit";
+        public const string Pages_CRMSetup_InstallmentTypes_Delete = "Pages.CRMSetup.InstallmentTypes.Delete";
+
+        public const string Pages_CRMSetup_ProductTypes = "Pages.CRMSetup.ProductTypes";
+        public const string Pages_CRMSetup_ProductTypes_Create = "Pages.CRMSetup.ProductTypes.Create";
+        public const string Pages_CRMSetup_ProductTypes_Edit = "Pages.CRMSetup.ProductTypes.Edit";
+        public const string Pages_CRMSetup_ProductTypes_Delete = "Pages.CRMSetup.ProductTypes.Delete";
+
+        public const string Pages_CRMSetup_FeeTypes = "Pages.CRMSetup.FeeTypes";
+        public const string Pages_CRMSetup_FeeTypes_Create = "Pages.CRMSetup.FeeTypes.Create";
+        public const string Pages_CRMSetup_FeeTypes_Edit = "Pages.CRMSetup.FeeTypes.Edit";
+        public const string Pages_CRMSetup_FeeTypes_Delete = "Pages.CRMSetup.FeeTypes.Delete";
+
+        public const string Pages_CRMSetup_LeadSources = "Pages.CRMSetup.LeadSources";
+        public const string Pages_CRMSetup_LeadSources_Create = "Pages.CRMSetup.LeadSources.Create";
+        public const string Pages_CRMSetup_LeadSources_Edit = "Pages.CRMSetup.LeadSources.Edit";
+        public const string Pages_CRMSetup_LeadSources_Delete = "Pages.CRMSetup.LeadSources.Delete";
+
+        public const string Pages_CRMSetup_ServiceCategories = "Pages.CRMSetup.ServiceCategories";
+        public const string Pages_CRMSetup_ServiceCategories_Create = "Pages.CRMSetup.ServiceCategories.Create";
+        public const string Pages_CRMSetup_ServiceCategories_Edit = "Pages.CRMSetup.ServiceCategories.Edit";
+        public const string Pages_CRMSetup_ServiceCategories_Delete = "Pages.CRMSetup.ServiceCategories.Delete";
+
+        public const string Pages_CRMSetup_DegreeLevels = "Pages.CRMSetup.DegreeLevels";
+        public const string Pages_CRMSetup_DegreeLevels_Create = "Pages.CRMSetup.DegreeLevels.Create";
+        public const string Pages_CRMSetup_DegreeLevels_Edit = "Pages.CRMSetup.DegreeLevels.Edit";
+        public const string Pages_CRMSetup_DegreeLevels_Delete = "Pages.CRMSetup.DegreeLevels.Delete";
+
+        public const string Pages_CRMSetup_TaskPriorities = "Pages.CRMSetup.TaskPriorities";
+        public const string Pages_CRMSetup_TaskPriorities_Create = "Pages.CRMSetup.TaskPriorities.Create";
+        public const string Pages_CRMSetup_TaskPriorities_Edit = "Pages.CRMSetup.TaskPriorities.Edit";
+        public const string Pages_CRMSetup_TaskPriorities_Delete = "Pages.CRMSetup.TaskPriorities.Delete";
+
+        public const string Pages_CRMSetup_SubjectAreas = "Pages.CRMSetup.SubjectAreas";
+        public const string Pages_CRMSetup_SubjectAreas_Create = "Pages.CRMSetup.SubjectAreas.Create";
+        public const string Pages_CRMSetup_SubjectAreas_Edit = "Pages.CRMSetup.SubjectAreas.Edit";
+        public const string Pages_CRMSetup_SubjectAreas_Delete = "Pages.CRMSetup.SubjectAreas.Delete";
+
     }
 }

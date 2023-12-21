@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.ProductType
 {
-    [AbpAuthorize(AppPermissions.Pages_ProductTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes)]
     public class ProductTypesAppService : AgentosCRMAppServiceBase, IProductTypesAppService
     {
         private readonly IRepository<ProductType> _productTypeRepository;
@@ -103,7 +103,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ProductTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes_Edit)]
         public async Task<GetProductTypeForEditOutput> GetProductTypeForEdit(EntityDto input)
         {
             var productType = await _productTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -131,7 +131,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ProductTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes_Create)]
         protected virtual async Task Create(CreateOrEditProductTypeDto input)
         {
             var productType = ObjectMapper.Map<ProductType>(input);
@@ -145,7 +145,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ProductTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes_Edit)]
         protected virtual async Task Update(CreateOrEditProductTypeDto input)
         {
             var productType = await _productTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -153,12 +153,12 @@ namespace Zeta.AgentosCRM.CRMSetup.ProductType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ProductTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _productTypeRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_ProductTypes)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ProductTypes)]
         public async Task<List<ProductTypeMasterCategoryLookupTableDto>> GetAllMasterCategoryForTableDropdown()
         {
             return await _lookup_masterCategoryRepository.GetAll()

@@ -12,7 +12,7 @@ using Zeta.AgentosCRM.Web.Controllers;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_Subjects)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Subjects)]
     public class SubjectController : AgentosCRMControllerBase
     {
         private readonly ISubjectsAppService _subjectsAppService;
@@ -41,7 +41,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return PartialView("_ViewSubjectModal", model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_Subjects_Create, AppPermissions.Pages_Subjects_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Subjects_Create, AppPermissions.Pages_CRMSetup_Subjects_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetSubjectForEditOutput getSubjectForEditOutput;

@@ -30,7 +30,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_InvoiceTypes_Create, AppPermissions.Pages_InvoiceTypes_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes_Create, AppPermissions.Pages_CRMSetup_InvoiceTypes_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

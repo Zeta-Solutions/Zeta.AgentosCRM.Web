@@ -99,7 +99,7 @@
                         return '';
                     },
                     targets: 0,
-                },
+                }, 
                  
                 {
                     className: 'details-control',

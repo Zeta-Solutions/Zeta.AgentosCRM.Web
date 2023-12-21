@@ -28,7 +28,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View();
         } 
 
-        [AbpMvcAuthorize(AppPermissions.Pages_ManualPaymentDetails_Create, AppPermissions.Pages_ManualPaymentDetails_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Create, AppPermissions.Pages_CRMSetup_ManualPaymentDetails_Edit)]
 
         
         public async Task<PartialViewResult> CreateOrEditModal(int? id)

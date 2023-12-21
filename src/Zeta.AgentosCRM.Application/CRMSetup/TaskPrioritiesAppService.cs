@@ -18,7 +18,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_TaskPriorities)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities)]
     public class TaskPrioritiesAppService : AgentosCRMAppServiceBase, ITaskPrioritiesAppService
     {
         private readonly IRepository<TaskPriority> _taskPriorityRepository;
@@ -89,7 +89,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskPriorities_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities_Edit)]
         public async Task<GetTaskPriorityForEditOutput> GetTaskPriorityForEdit(EntityDto input)
         {
             var taskPriority = await _taskPriorityRepository.FirstOrDefaultAsync(input.Id);
@@ -111,7 +111,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskPriorities_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities_Create)]
         protected virtual async Task Create(CreateOrEditTaskPriorityDto input)
         {
             var taskPriority = ObjectMapper.Map<TaskPriority>(input);
@@ -125,7 +125,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskPriorities_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities_Edit)]
         protected virtual async Task Update(CreateOrEditTaskPriorityDto input)
         {
             var taskPriority = await _taskPriorityRepository.FirstOrDefaultAsync((int)input.Id);
@@ -133,7 +133,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_TaskPriorities_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_TaskPriorities_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _taskPriorityRepository.DeleteAsync(input.Id);

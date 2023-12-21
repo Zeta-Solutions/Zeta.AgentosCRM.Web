@@ -18,7 +18,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_Subjects)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_Subjects)]
     public class SubjectAreasAppService : AgentosCRMAppServiceBase, ISubjectAreasAppService
     {
         private readonly IRepository<SubjectArea> _subjectRepository;
@@ -89,7 +89,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Subjects_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Subjects_Edit)]
         public async Task<GetSubjectAreaForEditOutput> GetSubjectAreaForEdit(EntityDto input)
         {
             var subject = await _subjectRepository.FirstOrDefaultAsync(input.Id);
@@ -111,7 +111,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Subjects_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Subjects_Create)]
         protected virtual async Task Create(CreateOrEditSubjectAreaDto input)
         {
             var subject = ObjectMapper.Map<SubjectArea>(input);
@@ -125,7 +125,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Subjects_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Subjects_Edit)]
         protected virtual async Task Update(CreateOrEditSubjectAreaDto input)
         {
             var subject = await _subjectRepository.FirstOrDefaultAsync((int)input.Id);
@@ -133,7 +133,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Subjects_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Subjects_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _subjectRepository.DeleteAsync(input.Id);

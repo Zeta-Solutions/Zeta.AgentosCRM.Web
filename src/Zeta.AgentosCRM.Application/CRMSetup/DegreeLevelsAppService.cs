@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_DegreeLevels)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels)]
     public class DegreeLevelsAppService : AgentosCRMAppServiceBase, IDegreeLevelsAppService
     {
         private readonly IRepository<DegreeLevel> _degreeLevelRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DegreeLevels_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels_Edit)]
         public async Task<GetDegreeLevelForEditOutput> GetDegreeLevelForEdit(EntityDto input)
         {
             var degreeLevel = await _degreeLevelRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DegreeLevels_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels_Create)]
         protected virtual async Task Create(CreateOrEditDegreeLevelDto input)
         {
             var degreeLevel = ObjectMapper.Map<DegreeLevel>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DegreeLevels_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels_Edit)]
         protected virtual async Task Update(CreateOrEditDegreeLevelDto input)
         {
             var degreeLevel = await _degreeLevelRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DegreeLevels_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DegreeLevels_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _degreeLevelRepository.DeleteAsync(input.Id);
