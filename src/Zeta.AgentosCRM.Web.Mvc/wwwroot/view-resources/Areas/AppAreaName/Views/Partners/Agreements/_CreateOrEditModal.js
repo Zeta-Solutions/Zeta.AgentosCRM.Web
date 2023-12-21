@@ -3,10 +3,12 @@
         debugger
         $('#regionId').select2({
             width: '100%',
+            dropdownParent: $('#regionId').parent(),
             // Adjust the width as needed
         });
         $('#agentId').select2({
             width: '100%',
+            dropdownParent: $('#agentId').parent(),
             // Adjust the width as needed
         });
 
@@ -32,7 +34,14 @@
             _$partnerContractsInformationForm = _modalManager.getModal().find('form[name=ContractsInformationsForm]');
             _$partnerContractsInformationForm.validate();
         };
-
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
         this.save = function () {
             if (!_$partnerContractsInformationForm.valid()) {
                 return;

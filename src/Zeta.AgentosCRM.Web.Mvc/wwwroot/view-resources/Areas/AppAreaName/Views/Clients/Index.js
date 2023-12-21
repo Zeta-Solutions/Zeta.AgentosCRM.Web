@@ -412,6 +412,8 @@
         //    getClientsTags();
         //});
         $('#ExportToExcelButton').click(function () {
+            debugger
+            alert("hello");
             _clientsService
                 .getClientsToExcel({
                     filter: $('#ClientsTableFilter').val(),
@@ -464,10 +466,6 @@
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
             getClients();
-        });
-
-
-
-
+        }); 
     });
 })();

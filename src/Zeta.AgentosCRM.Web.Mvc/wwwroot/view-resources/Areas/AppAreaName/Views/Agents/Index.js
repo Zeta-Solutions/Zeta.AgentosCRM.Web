@@ -316,6 +316,7 @@
 					countryName3Filter: $('#CountryName3FilterId').val()
 				})
 				.done(function (result) {
+					debugger
 					app.downloadTempFile(result);
 				});
 		});

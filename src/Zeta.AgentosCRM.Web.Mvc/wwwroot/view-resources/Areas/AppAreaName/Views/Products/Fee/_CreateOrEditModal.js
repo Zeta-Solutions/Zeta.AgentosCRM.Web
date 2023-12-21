@@ -3,10 +3,12 @@
         $('#installmentTypeId').select2({
 
             width: '100%',
+            dropdownParent: $('#installmentTypeId').parent(),
             // Adjust the width as needed
         });
         $('#countryId').select2({
             width: '100%',
+            dropdownParent: $('#countryId').parent(),
             // Adjust the width as needed
         });
         var idValue = 0;
@@ -292,6 +294,18 @@
                 }
             });
         });
+
+
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
+
+
         this.save = function () {
             if (!_$feesInformationForm.valid()) {
                 return;
