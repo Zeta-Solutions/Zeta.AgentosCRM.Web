@@ -20,7 +20,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
-    [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts)]
     public class DocumentCheckListProductsAppService : AgentosCRMAppServiceBase, IDocumentCheckListProductsAppService
     {
         private readonly IRepository<DocumentCheckListProduct> _documentCheckListProductRepository;
@@ -116,7 +116,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts_Edit)]
         public async Task<GetDocumentCheckListProductForEditOutput> GetDocumentCheckListProductForEdit(EntityDto input)
         {
             var documentCheckListProduct = await _documentCheckListProductRepository.FirstOrDefaultAsync(input.Id);
@@ -150,7 +150,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts_Create)]
         protected virtual async Task Create(CreateOrEditDocumentCheckListProductDto input)
         {
             var documentCheckListProduct = ObjectMapper.Map<DocumentCheckListProduct>(input);
@@ -164,7 +164,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts_Edit)]
         protected virtual async Task Update(CreateOrEditDocumentCheckListProductDto input)
         {
             var documentCheckListProduct = await _documentCheckListProductRepository.FirstOrDefaultAsync((int)input.Id);
@@ -172,12 +172,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _documentCheckListProductRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts)]
         public async Task<List<DocumentCheckListProductProductLookupTableDto>> GetAllProductForTableDropdown()
         {
             return await _lookup_productRepository.GetAll()
@@ -188,7 +188,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
                 }).ToListAsync();
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentCheckListProducts)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentCheckListProducts)]
         public async Task<List<DocumentCheckListProductWorkflowStepDocumentCheckListLookupTableDto>> GetAllWorkflowStepDocumentCheckListForTableDropdown()
         {
             return await _lookup_workflowStepDocumentCheckListRepository.GetAll()

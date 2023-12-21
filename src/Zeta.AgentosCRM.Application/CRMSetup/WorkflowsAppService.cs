@@ -23,7 +23,7 @@ using Zeta.AgentosCRM.CRMPartner.Promotion;
 
 namespace Zeta.AgentosCRM.CRMSetup
 {
-    [AbpAuthorize(AppPermissions.Pages_Workflows)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_Workflows)]
     public class WorkflowsAppService : AgentosCRMAppServiceBase, IWorkflowsAppService
     {
         private readonly IRepository<Workflow> _workflowRepository;
@@ -92,7 +92,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Workflows_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Workflows_Edit)]
         public async Task<GetWorkflowForEditOutput> GetWorkflowForEdit(EntityDto input)
         {
             var workflow = await _workflowRepository.FirstOrDefaultAsync(input.Id);
@@ -125,7 +125,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Workflows_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Workflows_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowDto input)
         { 
             var workflow = ObjectMapper.Map<Workflow>(input);
@@ -154,7 +154,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             //await _workflowRepository.InsertAsync(workflow); 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Workflows_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Workflows_Edit)]
         protected virtual async Task Update(CreateOrEditWorkflowDto input)
         {
             var workflow = await _workflowRepository.FirstOrDefaultAsync((int)input.Id);
@@ -189,7 +189,7 @@ namespace Zeta.AgentosCRM.CRMSetup
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Workflows_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Workflows_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _workflowRepository.DeleteAsync(input.Id);

@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.CRMSetup.Documents.Dtos;
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
-    [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments)]
     public class WorkflowDocumentsAppService : AgentosCRMAppServiceBase, IWorkflowDocumentsAppService
     {
         private readonly IRepository<WorkflowDocument> _workflowDocumentRepository;
@@ -102,7 +102,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Edit)]
         public async Task<GetWorkflowDocumentForEditOutput> GetWorkflowDocumentForEdit(EntityDto input)
         {
             var workflowDocument = await _workflowDocumentRepository.FirstOrDefaultAsync(input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Create)]
         protected virtual async Task Create(CreateOrEditWorkflowDocumentDto input)
         {
             var workflowDocument = ObjectMapper.Map<WorkflowDocument>(input);
@@ -144,7 +144,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Edit)]
         protected virtual async Task Update(CreateOrEditWorkflowDocumentDto input)
         {
             var workflowDocument = await _workflowDocumentRepository.FirstOrDefaultAsync((int)input.Id);
@@ -152,12 +152,12 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _workflowDocumentRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_WorkflowDocuments)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_WorkflowDocuments)]
         public async Task<List<WorkflowDocumentWorkflowLookupTableDto>> GetAllWorkflowForTableDropdown()
         {
             return await _lookup_workflowRepository.GetAll()

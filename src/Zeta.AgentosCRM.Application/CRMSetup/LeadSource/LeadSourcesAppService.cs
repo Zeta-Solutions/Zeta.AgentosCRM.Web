@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.LeadSource
 {
-    [AbpAuthorize(AppPermissions.Pages_LeadSources)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_LeadSources)]
     public class LeadSourcesAppService : AgentosCRMAppServiceBase, ILeadSourcesAppService
     {
         private readonly IRepository<LeadSource> _leadSourceRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.LeadSource
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_LeadSources_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_LeadSources_Edit)]
         public async Task<GetLeadSourceForEditOutput> GetLeadSourceForEdit(EntityDto input)
         {
             var leadSource = await _leadSourceRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.LeadSource
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_LeadSources_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_LeadSources_Create)]
         protected virtual async Task Create(CreateOrEditLeadSourceDto input)
         {
             var leadSource = ObjectMapper.Map<LeadSource>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.LeadSource
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_LeadSources_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_LeadSources_Edit)]
         protected virtual async Task Update(CreateOrEditLeadSourceDto input)
         {
             var leadSource = await _leadSourceRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.LeadSource
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_LeadSources_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_LeadSources_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _leadSourceRepository.DeleteAsync(input.Id);

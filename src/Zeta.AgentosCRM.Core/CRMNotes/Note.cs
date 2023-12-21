@@ -7,6 +7,8 @@ using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
 using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.CRMApplications.Stages;
 
 namespace Zeta.AgentosCRM.CRMNotes
 {
@@ -38,6 +40,16 @@ namespace Zeta.AgentosCRM.CRMNotes
 
         [ForeignKey("AgentId")]
         public Agent AgentFk { get; set; }
+
+        public virtual long? ApplicationId { get; set; }
+
+        [ForeignKey("ApplicationId")]
+        public Application ApplicationFk { get; set; }
+
+        public virtual long? ApplicationStageId { get; set; }
+
+        [ForeignKey("ApplicationStageId")]
+        public ApplicationStage ApplicationStageFk { get; set; }
 
     }
 }

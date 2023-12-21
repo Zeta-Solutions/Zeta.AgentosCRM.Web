@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Email
 {
-    [AbpAuthorize(AppPermissions.Pages_EmailTemplates)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates)]
     public class EmailTemplatesAppService : AgentosCRMAppServiceBase, IEmailTemplatesAppService
     {
         private readonly IRepository<EmailTemplate> _emailTemplateRepository;
@@ -89,7 +89,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Email
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_EmailTemplates_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates_Edit)]
         public async Task<GetEmailTemplateForEditOutput> GetEmailTemplateForEdit(EntityDto input)
         {
             var emailTemplate = await _emailTemplateRepository.FirstOrDefaultAsync(input.Id);
@@ -111,7 +111,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Email
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_EmailTemplates_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates_Create)]
         protected virtual async Task Create(CreateOrEditEmailTemplateDto input)
         {
             var emailTemplate = ObjectMapper.Map<EmailTemplate>(input);
@@ -125,7 +125,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Email
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_EmailTemplates_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates_Edit)]
         protected virtual async Task Update(CreateOrEditEmailTemplateDto input)
         {
             var emailTemplate = await _emailTemplateRepository.FirstOrDefaultAsync((int)input.Id);
@@ -133,7 +133,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Email
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_EmailTemplates_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_EmailTemplates_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _emailTemplateRepository.DeleteAsync(input.Id);

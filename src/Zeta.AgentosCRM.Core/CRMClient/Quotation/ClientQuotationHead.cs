@@ -21,6 +21,10 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
 
         public virtual string ClientName { get; set; }
 
+        public virtual decimal TotalAmount { get; set; }
+
+        public virtual int ProductCount { get; set; }
+
         public virtual long ClientId { get; set; }
 
         [ForeignKey("ClientId")]

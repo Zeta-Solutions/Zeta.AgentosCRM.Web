@@ -15,7 +15,7 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.SubjectArea;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_TaskCategories)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories)]
     public class TaskCategoryController : AgentosCRMControllerBase
     {
         private readonly ITaskCategoriesAppService _taskCategoriesAppService;
@@ -41,7 +41,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
             return PartialView("_ViewCategoryModal", model);
         }
-        [AbpMvcAuthorize(AppPermissions.Pages_TaskCategories_Create, AppPermissions.Pages_TaskCategories_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_TaskCategories_Create, AppPermissions.Pages_CRMSetup_TaskCategories_Edit)]
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {
             GetTaskCategoryForEditOutput getTaskCategoryForEditOutput;

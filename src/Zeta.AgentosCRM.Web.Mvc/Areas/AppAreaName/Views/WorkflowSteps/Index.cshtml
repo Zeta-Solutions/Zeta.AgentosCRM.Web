@@ -15,7 +15,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.WorkflowSteps;
    }
 <abp-page-subheader title='@L("WorkflowSteps")' description='@L("WorkflowStepsHeaderInfo")'>
 
-    @if (IsGranted(AppPermissions.Pages_WorkflowSteps_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_WorkflowSteps_Create))
     {
     <button id="CreateNewWorkflowStepButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewWorkflowStep")</button>
     }

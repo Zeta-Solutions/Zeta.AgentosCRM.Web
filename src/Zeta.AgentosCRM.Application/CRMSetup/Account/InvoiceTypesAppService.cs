@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Account
 {
-    [AbpAuthorize(AppPermissions.Pages_InvoiceTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes)]
     public class InvoiceTypesAppService : AgentosCRMAppServiceBase, IInvoiceTypesAppService
     {
         private readonly IRepository<InvoiceType> _invoiceTypeRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes_Edit)]
         public async Task<GetInvoiceTypeForEditOutput> GetInvoiceTypeForEdit(EntityDto input)
         {
             var invoiceType = await _invoiceTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes_Create)]
         protected virtual async Task Create(CreateOrEditInvoiceTypeDto input)
         {
             var invoiceType = ObjectMapper.Map<InvoiceType>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes_Edit)]
         protected virtual async Task Update(CreateOrEditInvoiceTypeDto input)
         {
             var invoiceType = await _invoiceTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Account
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InvoiceTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InvoiceTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _invoiceTypeRepository.DeleteAsync(input.Id);

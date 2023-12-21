@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.FeeType
 {
-    [AbpAuthorize(AppPermissions.Pages_FeeTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes)]
     public class FeeTypesAppService : AgentosCRMAppServiceBase, IFeeTypesAppService
     {
         private readonly IRepository<FeeType> _feeTypeRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.FeeType
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_FeeTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes_Edit)]
         public async Task<GetFeeTypeForEditOutput> GetFeeTypeForEdit(EntityDto input)
         {
             var feeType = await _feeTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.FeeType
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_FeeTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes_Create)]
         protected virtual async Task Create(CreateOrEditFeeTypeDto input)
         {
             var feeType = ObjectMapper.Map<FeeType>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.FeeType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_FeeTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes_Edit)]
         protected virtual async Task Update(CreateOrEditFeeTypeDto input)
         {
             var feeType = await _feeTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.FeeType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_FeeTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_FeeTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _feeTypeRepository.DeleteAsync(input.Id);

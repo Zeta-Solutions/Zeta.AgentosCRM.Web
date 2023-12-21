@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Documents
 {
-    [AbpAuthorize(AppPermissions.Pages_DocumentTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes)]
     public class DocumentTypesAppService : AgentosCRMAppServiceBase, IDocumentTypesAppService
     {
         private readonly IRepository<DocumentType> _documentTypeRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes_Edit)]
         public async Task<GetDocumentTypeForEditOutput> GetDocumentTypeForEdit(EntityDto input)
         {
             var documentType = await _documentTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes_Create)]
         protected virtual async Task Create(CreateOrEditDocumentTypeDto input)
         {
             var documentType = ObjectMapper.Map<DocumentType>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes_Edit)]
         protected virtual async Task Update(CreateOrEditDocumentTypeDto input)
         {
             var documentType = await _documentTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Documents
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_DocumentTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_DocumentTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _documentTypeRepository.DeleteAsync(input.Id);

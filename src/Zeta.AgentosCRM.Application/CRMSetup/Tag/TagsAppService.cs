@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.Tag
 {
-    [AbpAuthorize(AppPermissions.Pages_Tags)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_Tags)]
     public class TagsAppService : AgentosCRMAppServiceBase, ITagsAppService
     {
         private readonly IRepository<Tag> _tagRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Tag
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Tags_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Tags_Edit)]
         public async Task<GetTagForEditOutput> GetTagForEdit(EntityDto input)
         {
             var tag = await _tagRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Tag
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Tags_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Tags_Create)]
         protected virtual async Task Create(CreateOrEditTagDto input)
         {
             var tag = ObjectMapper.Map<Tag>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Tag
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Tags_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Tags_Edit)]
         protected virtual async Task Update(CreateOrEditTagDto input)
         {
             var tag = await _tagRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.Tag
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Tags_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_Tags_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _tagRepository.DeleteAsync(input.Id);

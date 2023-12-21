@@ -41,6 +41,8 @@ namespace Zeta.AgentosCRM.TaskManagement
 
         public virtual int TaskCategoryId { get; set; }
 
+        public virtual bool IsCompleted { get; set; }
+
         [ForeignKey("TaskCategoryId")]
         public TaskCategory TaskCategoryFk { get; set; }
 

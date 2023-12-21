@@ -19,7 +19,7 @@ using Zeta.AgentosCRM.CRMSetup.Regions.Dtos;
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
     [Area("AppAreaName")]
-    [AbpMvcAuthorize(AppPermissions.Pages_Regions)]
+    [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Regions)]
 
     public class RegionsController : AgentosCRMControllerBase
     {
@@ -36,7 +36,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return View(Model);
         }
 
-        [AbpMvcAuthorize(AppPermissions.Pages_Regions_Create, AppPermissions.Pages_Regions_Edit)]
+        [AbpMvcAuthorize(AppPermissions.Pages_CRMSetup_Regions_Create, AppPermissions.Pages_CRMSetup_Regions_Edit)]
 
         public async Task<PartialViewResult> CreateOrEditModal(int? id)
         {

@@ -17,7 +17,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.InstallmentType
 {
-    [AbpAuthorize(AppPermissions.Pages_InstallmentTypes)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes)]
     public class InstallmentTypesAppService : AgentosCRMAppServiceBase, IInstallmentTypesAppService
     {
         private readonly IRepository<InstallmentType> _installmentTypeRepository;
@@ -86,7 +86,7 @@ namespace Zeta.AgentosCRM.CRMSetup.InstallmentType
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InstallmentTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes_Edit)]
         public async Task<GetInstallmentTypeForEditOutput> GetInstallmentTypeForEdit(EntityDto input)
         {
             var installmentType = await _installmentTypeRepository.FirstOrDefaultAsync(input.Id);
@@ -108,7 +108,7 @@ namespace Zeta.AgentosCRM.CRMSetup.InstallmentType
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InstallmentTypes_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes_Create)]
         protected virtual async Task Create(CreateOrEditInstallmentTypeDto input)
         {
             var installmentType = ObjectMapper.Map<InstallmentType>(input);
@@ -122,7 +122,7 @@ namespace Zeta.AgentosCRM.CRMSetup.InstallmentType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InstallmentTypes_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes_Edit)]
         protected virtual async Task Update(CreateOrEditInstallmentTypeDto input)
         {
             var installmentType = await _installmentTypeRepository.FirstOrDefaultAsync((int)input.Id);
@@ -130,7 +130,7 @@ namespace Zeta.AgentosCRM.CRMSetup.InstallmentType
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_InstallmentTypes_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_InstallmentTypes_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _installmentTypeRepository.DeleteAsync(input.Id);

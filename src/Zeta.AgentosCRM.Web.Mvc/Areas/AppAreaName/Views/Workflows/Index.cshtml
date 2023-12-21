@@ -17,7 +17,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Workflows;
    }
 <abp-page-subheader title='@L("Workflows")' description='@L("WorkflowsHeaderInfo")'>
 
-    @if (IsGranted(AppPermissions.Pages_Workflows_Create))
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_Workflows_Create))
     {
     <button id="CreateNewWorkflowButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewWorkflow")</button>
     }

@@ -18,7 +18,7 @@ using Zeta.AgentosCRM.Storage;
 
 namespace Zeta.AgentosCRM.CRMSetup.ServiceCategory
 {
-    [AbpAuthorize(AppPermissions.Pages_ServiceCategories)]
+    [AbpAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories)]
     public class ServiceCategoriesAppService : AgentosCRMAppServiceBase, IServiceCategoriesAppService
     {
         private readonly IRepository<ServiceCategory> _serviceCategoryRepository;
@@ -89,7 +89,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ServiceCategory
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ServiceCategories_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories_Edit)]
         public async Task<GetServiceCategoryForEditOutput> GetServiceCategoryForEdit(EntityDto input)
         {
             var serviceCategory = await _serviceCategoryRepository.FirstOrDefaultAsync(input.Id);
@@ -111,7 +111,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ServiceCategory
             }
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ServiceCategories_Create)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories_Create)]
         protected virtual async Task Create(CreateOrEditServiceCategoryDto input)
         {
             var serviceCategory = ObjectMapper.Map<ServiceCategory>(input);
@@ -125,7 +125,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ServiceCategory
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ServiceCategories_Edit)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories_Edit)]
         protected virtual async Task Update(CreateOrEditServiceCategoryDto input)
         {
             var serviceCategory = await _serviceCategoryRepository.FirstOrDefaultAsync((int)input.Id);
@@ -133,7 +133,7 @@ namespace Zeta.AgentosCRM.CRMSetup.ServiceCategory
 
         }
 
-        [AbpAuthorize(AppPermissions.Pages_ServiceCategories_Delete)]
+        [AbpAuthorize(AppPermissions.Pages_CRMSetup_ServiceCategories_Delete)]
         public async Task Delete(EntityDto input)
         {
             await _serviceCategoryRepository.DeleteAsync(input.Id);
