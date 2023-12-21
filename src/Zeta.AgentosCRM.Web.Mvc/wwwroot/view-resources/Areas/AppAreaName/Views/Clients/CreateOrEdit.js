@@ -1,4 +1,6 @@
-﻿(function () {
+﻿
+
+(function () {
     $(function () {
         var _clientsService = abp.services.app.clients;
         $("#kt_app_sidebar_toggle").trigger("click");
@@ -8,7 +10,24 @@
             width: '100%', 
             // Adjust the width as needed
         });
-         
+        var LeadSource = $("#leadSourceId option:selected").text();
+        {
+            if (LeadSource == "Agent") {
+                document.getElementById("field1").style.display = 'block';
+            }
+            else {
+                document.getElementById("field1").style.display = 'none';
+            }
+        }
+        $("#leadSourceId").change(function () {
+            debugger;
+            if ($("#leadSourceId option:selected").text() === "Agent") {
+                document.getElementById("field1").style.display = 'block';
+                //$("#field1").show();
+            } else {
+                document.getElementById("field1").style.display = 'none';
+            }
+        });
         var input = document.querySelector("#phone");
         const errorMsg = document.querySelector("#error-msg");
         const validMsg = document.querySelector("#valid-msg");
@@ -90,10 +109,22 @@
             .done(function (data) {
                 debugger
                 console.log('Response from server:', data);
-                $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                if (data.result.profilePicture != "") {
+                    $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                }
+                else {
+                    // Assuming you have an image element with the ID 'profileImage'
+                    $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+                }
+                
             })
             .fail(function (error) {
+                debugger
                 console.error('Error fetching data:', error);
+                // Assuming you have an image element with the ID 'profileImage'
+                $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+
+              
             });
          
     

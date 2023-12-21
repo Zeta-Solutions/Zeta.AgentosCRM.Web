@@ -109,7 +109,7 @@ namespace Zeta.AgentosCRM.CRMClient
         [ForeignKey("PassportCountryId")]
         public Country PassportCountryFk { get; set; }
 
-        public virtual long AgentId { get; set; }
+        public virtual long? AgentId { get; set; }
 
         [ForeignKey("AgentId")]
         public Agent AgentFk { get; set; }

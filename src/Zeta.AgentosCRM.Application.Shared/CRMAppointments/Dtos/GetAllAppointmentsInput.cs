@@ -24,6 +24,8 @@ namespace Zeta.AgentosCRM.CRMAppointments.Dtos
         public string PartnerPartnerNameFilter { get; set; }
 
         public string UserNameFilter { get; set; }
+        public long? ClientIdFilter { get; set; }
+        public long? PartnerIdFilter { get; set; }
 
     }
 }

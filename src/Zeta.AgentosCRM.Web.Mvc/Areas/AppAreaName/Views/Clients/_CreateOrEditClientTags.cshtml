@@ -34,7 +34,8 @@
 
             <div class="my-3 col-12">
                 <label class="form-label fw-bold text-dark" for="tags">@L("Tags")</label>
-                @Html.DropDownList("TagId", new SelectList(Model.ClientTagList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientTag.ClientId.ToString() : "")), @L("SelectATag"), new { @class = "form-control", @required = "required", @multiple = "multiple" })
+               
+                @Html.DropDownList("TagId", new SelectList(Model.ClientTagList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientTag.ClientId.ToString() : "")), @L("SelectATag"), new { @class = "form-control", @required = "required" })
             </div>
             
            

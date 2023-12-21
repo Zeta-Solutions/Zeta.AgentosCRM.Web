@@ -1,4 +1,5 @@
 (function ($) {
+
     $('#TagId').select2({
         width: '100%',
         // Adjust the width as needed
@@ -6,7 +7,7 @@
     app.modals.CreateOrEditClientTagsModal = function () {
         debugger
         var _clientTagsService = abp.services.app.clientTags;
-        var hiddenfield = $("#ID").val();
+        var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
         var _modalManager;
         var _$clientTagsInformationForm = null;
@@ -29,7 +30,7 @@
 
 
         function getClientsTags() {
-            var ClientTagId = $("#ID").val();
+            var ClientTagId = $('input[name="Clientid"]').val();
 
             $.ajax({
                 url: abp.appPath + 'api/services/app/ClientTags/GetAll',

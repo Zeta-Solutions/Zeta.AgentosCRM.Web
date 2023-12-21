@@ -6,6 +6,29 @@
             width: '100%',
             // Adjust the width as needed
         });
+        $('#Timezone').select2({
+            width: '100%',
+            dropdownParent: $('#Timezone').parent(),
+            // Adjust the width as needed
+        });
+
+        
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Set the current time in the StartTime field
+        $(document).ready(function () {
+            if ($('input[name="id"]').val() < 1 || $('input[name="id"]').val() ==undefined) {
+                const startTimeField = $("#AppointmentTime");
+                if (startTimeField.length) {
+                    startTimeField.val(getCurrentTime());
+                }
+            }
+        });
         $.ajax({
             url: abp.appPath + 'api/services/app/AppointmentInvitees/GetAllUserForTableDropdown',
             method: 'GET',
@@ -99,7 +122,7 @@
         var _$clientTagsInformationForm = null;
 
         $('input[name*="clientId"]').val(hiddenfield)
-        $('input[name*="AddedById"]').val(1);
+        //$('input[name*="AddedById"]').val(1);
     var _modalManager;
       var _$clientAppointmentsInformationForm = null;
 
@@ -122,12 +145,12 @@
     
 
 
-        $(document).on('blur', '#applointment_Invitees', function ()
-        {
-            var applointment_InviteesID=$("#applointment_Invitees").val();
-            console.log(applointment_InviteesID);
-            $("#AddedById").val(applointment_InviteesID);
-        });
+        //$(document).on('blur', '#applointment_Invitees', function ()
+        //{
+        //    var applointment_InviteesID=$("#applointment_Invitees").val();
+        //    console.log(applointment_InviteesID);
+        //    $("#AddedById").val(applointment_InviteesID);
+        //});
     this.save = function () {
         if (!_$clientAppointmentsInformationForm.valid()) {
         return;

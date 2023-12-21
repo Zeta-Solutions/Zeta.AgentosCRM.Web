@@ -21,5 +21,6 @@ namespace Zeta.AgentosCRM.CRMApplications.Dtos
         public int? ProductIdFilter { get; set; }
 
         public int? AgentIdFilter { get; set; }
+        public int? ClientIdFilter { get; set; }
     }
 }

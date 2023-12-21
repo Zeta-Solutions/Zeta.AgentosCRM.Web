@@ -762,7 +762,7 @@
             var Amount = (NetFee * Rate).toFixed(2);
 
             $CalAmount.find(".total").val(parseFloat(Amount).toFixed(2));
-            
+            CalculateAmt();
             //$CalAmount.find(".total").text(netamount);
         });
         $('#ClientsQuotationDetailtable').on('change', '.total', function () {
@@ -770,20 +770,21 @@
         });
         function CalculateAmt() {
             debugger
-            console.log('Calculating total...');
             var total = 0;
 
-            // Iterate over each table row
-            $('#ClientsQuotationDetailtable tbody tr').each(function () {
-                console.log('Processing row...');
-                var $totalInput = $(this).find(".total");
-                var totalValue = parseFloat($totalInput.val()) || 0;
-                console.log('Total value for this row:', totalValue);
-                total += totalValue;
+            var totalAmount = 0;
+            var taxRowCounter = $('.total').length;
+            $('.total').each(function () {
+                debugger
+                // Assuming there is an input field with class 'total' in each row
+                var amount = parseFloat($(this).val()) || 0;
+                totalAmount += amount;
             });
+            
+         
 
             // Set the calculated total to the #Total input
-            $("#Total").val(total.toFixed(2));
+            $("#Total").val(totalAmount.toFixed(2));
             console.log('Total calculated:', total.toFixed(2));
         }
 
