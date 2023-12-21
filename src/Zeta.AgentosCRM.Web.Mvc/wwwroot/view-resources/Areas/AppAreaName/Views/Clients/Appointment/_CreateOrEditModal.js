@@ -4,6 +4,7 @@
         $('#inviteesId').select2({
             multiple: true,
             width: '100%',
+            placeholder: 'Select Invitees',
             // Adjust the width as needed
         });
         $.ajax({

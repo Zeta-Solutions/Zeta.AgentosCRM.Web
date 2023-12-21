@@ -3,14 +3,17 @@
         $('#degreeLevelId').select2({
 
             width: '100%',
+            dropdownParent: $('#degreeLevelId').parent(),
             // Adjust the width as needed
         });
         $('#subjectId').select2({
             width: '100%',
+            dropdownParent: $('#subjectId').parent(),
             // Adjust the width as needed
         });
         $('#subjectAreaId').select2({
             width: '100%',
+            dropdownParent: $('#subjectAreaId').parent(),
             // Adjust the width as needed
         });
 
@@ -38,8 +41,15 @@
             _$othersInformationForm.validate();
         };
 
-
-
+         
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
 
 
         this.save = function () {

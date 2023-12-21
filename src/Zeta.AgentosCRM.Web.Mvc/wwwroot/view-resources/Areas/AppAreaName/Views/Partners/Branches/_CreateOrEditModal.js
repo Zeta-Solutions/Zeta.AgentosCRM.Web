@@ -3,6 +3,7 @@
         debugger
         $('#countryId').select2({
             width: '100%',
+            dropdownParent: $('#countryId').parent(),
             // Adjust the width as needed
         });
         var input = document.querySelector("#phone");
@@ -94,7 +95,14 @@
         _$branchInformationForm = _modalManager.getModal().find('form[name=BranchesTabInformationsForm]');
         _$branchInformationForm.validate();
     };
-
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
         this.save = function () {
             var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
 

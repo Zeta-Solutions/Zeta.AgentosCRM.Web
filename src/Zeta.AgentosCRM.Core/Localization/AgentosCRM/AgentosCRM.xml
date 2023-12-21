@@ -21,10 +21,10 @@
     <text name="ProductFeeDetails">Product Fee Details</text>
     <text name="FeeTypeName">Fee Type Name</text>
     <text name="PickFeeType">Pick Fee Type</text>
-    <text name="SelectAFeeType">Select a Fee Type</text>
+    <text name="SelectAFeeType">Select Fee Type</text>
     <text name="ProductFeeName">Product fee name</text>
     <text name="PickProductFee">Pick product fee</text>
-    <text name="SelectAProductFee">Select a Product Fee</text>
+    <text name="SelectAProductFee">Select Product Fee</text>
 
     <text name="ProductOtherTestRequirement">Product other test requirement</text>
     <text name="CreateNewProductOtherTestRequirement">Create new product other test requirement</text>
@@ -400,7 +400,7 @@
 		<text name="ProductTypeHeaderInfo">Product Type Header Info</text>
 
 		<text name="Priority">Priority</text>
-		<text name="SelectARegion">Select A Region</text>
+		<text name="SelectARegion">Select Region</text>
 		<text name="QuotationCurrency">Currency</text>
 		<text name="Icon">Icon</text>
 		<text name="TaskCategoryHeaderInfo">Task Category Header Info</text>
@@ -462,19 +462,19 @@
 		<text name="Enum_ContactPrefernce_1">Email</text>
 		<text name="Enum_ContactPrefernce_2">Phone</text>
 		<text name="PickCountry">Pick Country</text>
-		<text name="SelectACountry">Select a Country</text>
+		<text name="SelectACountry">Select Country</text>
 		<text name="PickUser">Pick User</text>
 		<text name="BinaryObjectDescription">Binary Object Description</text>
 		<text name="PickBinaryObject">Pick Binary Object</text>
 		<text name="DegreeLevelName">Degree Level Name</text>
 		<text name="PickDegreeLevel">Pick Degree Level</text>
-		<text name="SelectADegreeLevel">Select a Degree Level</text>
+		<text name="SelectADegreeLevel">Select Degree Level</text>
 		<text name="SubjectAreaName">Subject Area Name</text>
 		<text name="PickSubjectArea">Pick Subject Area</text>
-		<text name="SelectASubjectArea">Select a Subject Area</text>
+		<text name="SelectASubjectArea">Select Subject Area</text>
 		<text name="LeadSourceName">Lead Source Name</text>
 		<text name="PickLeadSource">Pick Lead Source</text>
-		<text name="SelectALeadSource">Select a Lead Source</text>
+		<text name="SelectALeadSource">Select Lead Source</text>
 		<text name="CountryName">Country Name</text>
 		<text name="DateofBirthRange">D.O.B Range</text>
 		<text name="PreferedIntakeRange">Prefered intake range</text>
@@ -560,7 +560,7 @@
 		<text name="PartnerTypes">Partner Types</text>
 		<text name="MasterCategoryName">Master Category Name</text>
 		<text name="PickMasterCategory">Pick Master Category</text>
-		<text name="SelectAMasterCategory">Select a Master Category</text>
+		<text name="SelectAMasterCategory">Select Master Category</text>
 
 		<text name="CRMSetup">CRM Setup</text>
 		<text name="MasterCategory">Master Category</text>
@@ -1439,13 +1439,13 @@
 		<text name="Theme_Theme10">Theme 10</text>
 		<text name="Theme_Theme11">Theme 11</text>
 		<text name="Theme_Theme12">Theme 12</text>
-		<text name="SelectATheme">Select a Theme</text>
+		<text name="SelectATheme">Select Theme</text>
 		<text name="QuickThemeSelection">Quick theme selection</text>
 		<text name="IsQuickThemeSelectEnabled">Is quick theme select enabled</text>
 		<text name="EmailMessage_CopyTheLinkBelowToYourBrowser">If the button above doesn't work, paste this into your browser:</text>
 		<text name="AddRole">Add role</text>
 		<text name="SelectRoles">Select roles</text>
-		<text name="SelectARole">Select a role</text>
+		<text name="SelectARole">Select role</text>
 		<text name="SelectAnOrganizationUnitToSeeRoles">Select an organization unit to see roles</text>
 		<text name="RemoveRoleFromOuWarningMessage">Are you sure to remove role {0} from organization unit {1}?</text>
 		<text name="ManagingRoles">Managing roles</text>
@@ -1608,7 +1608,7 @@
 		<text name="InputType">Input Type</text>
 		<text name="Values">Values</text>
 		<text name="Value">Value</text>
-		<text name="SelectAPermission">Select A Permission</text>
+		<text name="SelectAPermission">Select Permission</text>
 		<text name="EntityFullName">Entity Full Name</text>
 		<text name="SelectAnEntity">Select An Entity</text>
 		<text name="EntityRowId">Entity Row Id</text>
@@ -1674,7 +1674,7 @@
 		<text name="Wtrealm">Wtrealm</text>
 		<text name="AllowUsingGravatarProfilePicture">Allow users to use Gravatar profile picture</text>
 		<text name="UseGravatarProfilePicture">Use Gravatar profile picture</text>
-		<text name="PleaseSelectAPicture">Please select a picture!</text>
+		<text name="PleaseSelectAPicture">Please select picture!</text>
 		<text name="BackToMyAccount_Description">Go back to your own account</text>
 		<text name="ManageLinkedAccounts_Description">Manage accounts linked to your account</text>
 		<text name="ManageUserDelegations_Description">Manage authorized accounts</text>
@@ -1693,7 +1693,7 @@
 		<text name="AddNewDynamicEntityProperty">Add New Dynamic Entity Property</text>
 		<text name="EditDynamicProperty">Edit Dynamic Property</text>
 		<text name="DynamicPropertyManagement">Dynamic Property Management</text>
-		<text name="SelectADynamicProperty">Select a Dynamic Property</text>
+		<text name="SelectADynamicProperty">Select Dynamic Property</text>
 		<text name="PropertyName">Property Name</text>
 		<text name="AddNewDynamicPropertyValue">Add New Dynamic Property Value</text>
 		<text name="EditDynamicPropertyValue">Edit Dynamic Property Value</text>
@@ -1814,22 +1814,22 @@
 		<text name="Body">Body</text>
 		<text name="CreateNewEmailTemplate">Create New Email Template</text>
 		<text name="EmailTemplateHeaderInfo">Email Template Header Info</text>
-		<text name="SelectAPartnerType">Select a PartnerType</text>
-		<text name="SelectAWorkFlow">Select a WorkFlow</text>
+		<text name="SelectAPartnerType">Select PartnerType</text>
+		<text name="SelectAWorkFlow">Select WorkFlow</text>
 		<text name="Fax">Fax</text>
 		<text name="AssociatedPartner">Associated Partner</text>
-		<text name="SelectABranch">Select a Branch</text>
-		<text name="SelectAProductType">Select a ProductType</text>
+		<text name="SelectABranch">Select Branch</text>
+		<text name="SelectAProductType">Select ProductType</text>
 		<text name="IntakeMonth">Intake Month</text>
 		<text name="Products">Products</text>
 		<text name="ContractExpiryDate">Contract Expiry Date</text>
 		<text name="Department">Department</text>
 		<text name="Position">Position</text>
-		<text name="SelectAInvitees">Select a Invitees</text>
-		<text name="SelectAFollower">Select a Follower</text>
-		<text name="SelectACategory">Select a Category</text>
-		<text name="SelectAAssignee">Select a Assignee</text>
-		<text name="SelectAPriority">Select a Priority</text>
+		<text name="SelectAInvitees">Select Invitees</text>
+		<text name="SelectAFollower">Select Follower</text>
+		<text name="SelectACategory">Select Category</text>
+		<text name="SelectAAssignee">Select Assignee</text>
+		<text name="SelectAPriority">Select Priority</text>
 		<text name="ExpirayDate">Expiray Date</text>
 		<text name="PromotionTitle">Promotion Title</text>
 		<text name="StartDate">Start Date</text>
@@ -1914,5 +1914,8 @@
 		<text name="Individual1">Individual1</text> 
 		<text name="Bussiness">Bussiness</text> 
 		<text name="SelectAOrganizationUnitId">Select A Organization Unit</text> 
+		<text name="Create">Create</text> 
+		<text name="SelectAPartner">Select Partner</text> 
+		<text name="SelectAProduct">Select Product</text>  
 	</texts> 
 </localizationDictionary>

@@ -3,19 +3,26 @@
         $('#taskCategoryId').select2({
 
             width: '100%',
+            dropdownParent: $('#taskCategoryId').parent(),
+
             // Adjust the width as needed..
         });
         $('#assigneeId').select2({
             width: '100%',
+            dropdownParent: $('#assigneeId').parent(),
+
             // Adjust the width as needed
         });
         $('#taskPriorityId').select2({
             width: '100%',
+            dropdownParent: $('#taskPriorityId').parent(),
+
             // Adjust the width as needed
         });
         $('#followerId').select2({
             multiple: true,
             width: '100%',
+            placeholder:'Select Follower'
             // Adjust the width as needed
         });
         $.ajax({
@@ -122,11 +129,16 @@
             _$tasksInformationForm = _modalManager.getModal().find('form[name=TaskInformationsForm]');
             _$tasksInformationForm.validate();
         };
-
-
-
-
-
+         
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
+         
         this.save = function () {
             if (!_$tasksInformationForm.valid()) {
                 return;

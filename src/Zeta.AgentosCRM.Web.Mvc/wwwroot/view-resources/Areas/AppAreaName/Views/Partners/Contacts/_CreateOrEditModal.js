@@ -2,6 +2,7 @@
     app.modals.CreateOrEditContactsModal = function () {
         $('#branchId').select2({
             width: '100%',
+            dropdownParent: $('#branchId').parent(),
             // Adjust the width as needed
         });
         var hiddenfield = $("#PartnerId").val();
@@ -27,7 +28,14 @@
         console.log(_$partnerContactsInformationForm);
         _$partnerContactsInformationForm.validate();
     };
-
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
     this.save = function () {
         if (!_$partnerContactsInformationForm.valid()) {
         return;
