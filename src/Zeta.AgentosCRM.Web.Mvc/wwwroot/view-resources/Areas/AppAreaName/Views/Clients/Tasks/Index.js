@@ -8,57 +8,31 @@
 
         function createCardTask(item) {
             var cRMTasks = item.crmTask;
-            var cardId = 'card_' + cRMTasks.id; 
-            // Create a single row for all cards
+            var cardId = 'card_' + cRMTasks.id;  
             var mainDiv = $('<div>').addClass('maincard maindivcard')
                 .css({
                 'margin-left': '0.2px',
-                'margin-bottom': '20px' // Add margin between cards
+                'margin-bottom': '20px'  
             });
-
-            // Create a column for each card
-            //var colDiv = $('<div>').addClass('col-md-12');
+             
             var cardDiv = $('<div>').addClass('card').css({
                 'padding': '5px '
             });
             var cardBodyDiv = $('<div>').addClass('card-body').css({
                 'padding': '5px '
             });
-           
-            // Set max-height and overflow for the card body
-            //cardBodyDiv.css({
-            //    'max-height': '100px', // Adjust the height as needed
-            //    'overflow-y': 'auto'  // Add vertical scroll if content exceeds max height
-            //});
+            
             $('.circle-svg').css({
                 'display': 'inline-block',
-                'vertical-align': 'middle', // Align vertically with the text
-                'margin-left': '10px'  // Adjust margin as needed
+                'vertical-align': 'middle', 
+                'margin-left': '10px'  
             });
-           
-            // Create a row for the card title and dots
-            //var titleRowDiv = $('<div>').addClass('row');
-            var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
+            
+            var titleColDiv = $('<div>').addClass('col-md-12');  
             var cardTitle = $('<p>').addClass('card-title');
-
-            // Include context menu HTML within the title
-            //cardTitle.html(
-            //    '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
-            //    '<div class="ellipsisT"><a href="#" data-id="' + cRMTasks.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-            //    '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
-            //    '<ul style="list-style: none; padding: 0;color:black">' +
-            //    '<a href="#" style="color: black;" data-action15="edit" data-id="' + cRMTasks.id + '"><li>Edit</li></a>' +
-            //    "<a href='#' style='color: black;' data-action15='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
-            //    '</ul>' +
-            //    '</div>' +
-            //    '</div>');
-
-            // Append title and dots to the title column
-            //titleColDiv.append(cardTitle);
-            //titleRowDiv.append(titleColDiv);
-
+             
             // Create a column for the card information
-            var infoColDiv = $('<div>').addClass('row'); // Adjust the column size as needed
+            var infoColDiv = $('<div>').addClass('row'); 
             var infoParagraph1 = $('<p>').addClass('card-text col-md-1');
             var infoParagraph2 = $('<p>').addClass('card-text col-md-2');
             var infoParagraph3 = $('<p>').addClass('card-text col-md-2');
@@ -77,7 +51,7 @@
             infoParagraph4.html('<span class="replacedate label badge badge-danger">' + renderDateTime(cRMTasks.dueDate, cRMTasks.dueTime) + '</span>');
             infoParagraph5.html(  item.taskPriorityName );
             infoParagraph6.html('<span style="color: red; font-weight: bold;" class="replace"> Todo</span>' );
-            infoParagraph7.html( '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
+            infoParagraph7.html('<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsisT"><a href="#" data-id="' + cRMTasks.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +

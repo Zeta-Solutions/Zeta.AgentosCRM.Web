@@ -1,7 +1,6 @@
 ﻿(function () {
 
-    $(function () {
-
+    $(function () { 
         var _clientsTagsService = abp.services.app.clientTags;
         var _clientsFollowersService = abp.services.app.followers;
         var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
@@ -13,6 +12,7 @@
         getClientsTags();
         getClientsFollowers();
         var clientId = $('input[name="Clientid"]').val();
+      
         var imageUrl = $.ajax({
             url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByClient',
             data: {
@@ -114,7 +114,10 @@
       
      
 
-
+        $(document).on("click", "#EditProfile", function () {
+           
+            window.location = "/AppAreaName/Clients/ClientCreateDetail/" + clientId;
+        });
 
 
         $(document).keypress(function (e) {

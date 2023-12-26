@@ -13,8 +13,8 @@
 }
 @*if u want to give margin and padding between left and right*@
 @*<div class="@(await GetContainerClass())">*@
-<div class="maincard">
-    <div class="col-md-12 text-end mb-3">
+<div class="">
+    <div class="text-end mb-3">
           @if (IsGranted(AppPermissions.Pages_CheckInLogs))
     {
     <button id="CreateNewCheckInLogsButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddCheckInLogs")</button>

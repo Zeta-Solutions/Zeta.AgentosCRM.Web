@@ -3,8 +3,14 @@
 (function () {
     $(function () {
         var _clientsService = abp.services.app.clients;
+        var _applicationsService = abp.services.app.applications;
         $("#kt_app_sidebar_toggle").trigger("click");
 
+        $('#applicationId').select2({
+            multiple: true,
+            width: '100%',
+            // Adjust the width as needed
+        });
         $('#passportCountryId, #countryId, #highestQualificationId, #studyAreaId, #leadSourceId, #applicationId, #agentId').select2({
 
             width: '100%', 
@@ -95,6 +101,27 @@
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
 
+        /* Application Dropdown ... */
+         
+        _applicationsService.getAll("") 
+            .done(function (data) {
+                var Record = data.items;
+                $("#applicationId").empty();
+                optionhtml = '<option value="0">Select Application</option>';
+               
+                $("#applicationId").append(optionhtml);
+
+                $.each(Record, function (index, item) {
+                    debugger
+                    optionhtml = '<option value="' +
+                        item.application.productId + '">' + item.productName + '</option>';
+                    console.log(optionhtml);
+                    $("#applicationId").append(optionhtml);
+                });
+                debugger 
+            }) 
+
+
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
         _$clientInformationForm.validate();
         var clientId = $('input[name="id"]').val();
@@ -107,8 +134,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger
-                console.log('Response from server:', data);
+                debugger 
                 if (data.result.profilePicture != "") {
                     $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
                 }
@@ -119,15 +145,13 @@
                 
             })
             .fail(function (error) {
-                debugger
-                console.error('Error fetching data:', error);
+                debugger 
                 // Assuming you have an image element with the ID 'profileImage'
                 $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
 
               
             });
-         
-    
+        
 
 		        var _ClientcountryLookupTableModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CountryLookupTableModal',
@@ -335,8 +359,7 @@
             
 			
 			
-            abp.ui.setBusy();
-            console.log(client);
+            abp.ui.setBusy(); 
 			 _clientsService.createOrEdit(
 				client
 			 ).done(function () {
@@ -386,7 +409,30 @@
                 }
             });
         });
-        
+        $(document).on("change", "#applicationId", function () {
+            
+            var ProductIdFilter = $("#applicationId").val();
+            debugger
+            alert(ProductIdFilter);
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Applications/GetAll?ProductIdFilter=' + ProductIdFilter,
+                 
+                method: 'GET',
+                dataType: 'json',
+            })
+                .done(function (data) {
+                    debugger
+                    var html = '<div class=row>';
+                    html += '<div class="col-lg-4">' + data.result.items[0].productName +'</div>'
+                    html += '<div class="col-lg-4">' + data.result.items[0].workflowName +'</div>'
+                    html += '<div class="col-lg-4">' + data.result.items[0].productName +'</div>'
+                    html += '</div>'
+                    $(".ApplicationGridData").append(html);
+                        
+                    })
+                    .fail(function (Error) { });
+             
+        });
         $('.accordion-header').click(function () {
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');
