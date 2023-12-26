@@ -34,11 +34,11 @@
 @{
     var breadcrumbs = new List<BreadcrumbItem>()
                     {
-                        new BreadcrumbItem("/AppAreaName/Client", @L("Client")),
-                        new BreadcrumbItem(Model.IsEditMode ? @L("Edit") : @L("Create"))
+                        new BreadcrumbItem("/AppAreaName/Client", L("Client")),
+                        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
                     };
 }
-<abp-page-subheader title='@(Model.IsEditMode ? (@L("EditClient")) : @L("ADDNEWCLIENTORPROSPECT"))' breadcrumbs="breadcrumbs">
+<abp-page-subheader title='@(Model.IsEditMode ? (L("EditClient")) : L("ADDNEWCLIENTORPROSPECT"))' breadcrumbs="breadcrumbs">
                          <a href="\AppAreaName\Clients\Index" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("BackClientList")</a>                
 
 </abp-page-subheader>
@@ -87,7 +87,8 @@
                         }
                         else
                         {
-                           <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                           @* <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" /> *@
+                           <img class="img-circle" src="/Profile/GetProfilePictureByUser?userId=5&amp;profilePictureId=null">
                         }
                         
                                                             @* @if (Model.Client.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Clients_ChangeProfilePicture)) *@
@@ -164,13 +165,13 @@
                                                                  
                                                                     <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_Email">@L("Email")</label>
-                                                                        <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="text" name="email" required maxlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MaxEmailLength" minlength="@Zeta.AgentosCRM.CRMClient.ClientConsts.MinEmailLength" />
+                                                                        <input class="form-control custom-small-input rounded-0" id="Client_Email" value="@Model.Client.Email" type="email" name="email" required  />
                                                                     </div>
                                                                       
                                                                     <div class="col-md-4 mb-3" style="display: flex; flex-direction: column;">
                                                                     <label for="Phone" class="form-label">@L("Phone")</label>
                                                                         <input type="hidden" value="@Model.Client.PhoneCode" id="PhoneCode" name="PhoneCode" />
-                                                 <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
+                                                           <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="@Model.Client.PhoneNo">
                                                         <span id="valid-msg" class="hide">✓ Valid</span>
                                                         <span id="error-msg" class="hide"></span>
                                             </div>
@@ -427,9 +428,9 @@
                                                                         <label class="form-label fw-bold text-dark" for="leadSourceId">@L("LeadSource")</label>
                                                                         @Html.DropDownList("leadSourceId", new SelectList(Model.ClientLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control"  , @required="required" })
                                                                     </div>
-                                                                     <div class=" col-md-6" >
+                                                                    <div class=" col-md-6" id="field1" style="display:none">
 							<label class="form-label" for="Client_InternalId">@L("Agent")</label>
-							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control"  , @required="required" })
+							@Html.DropDownList("agentId", new SelectList(Model.ClientAgentList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.AgentId.ToString() : "")),@L("SelectAAgent"), new { @class = "form-control" })
 						</div>
                           <input type="hidden" name="assigneeId" id="assigneeId" value="@AbpSession.UserId" />
                                                                 </div>

@@ -79,7 +79,7 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-
+        var hiddenfield = $('input[name="Clientid"]').val();
         var dataTable = _$checkInLogstableTable.DataTable({
             paging: true,
             serverSide: true,
@@ -92,6 +92,7 @@
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                         subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        clientIdFilter: hiddenfield,
                     };
                 },
             },

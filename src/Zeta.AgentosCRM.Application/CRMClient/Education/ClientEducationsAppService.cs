@@ -55,7 +55,7 @@ namespace Zeta.AgentosCRM.CRMClient.Education
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectNameFilter), e => e.SubjectFk != null && e.SubjectFk.Name == input.SubjectNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.SubjectAreaFk != null && e.SubjectAreaFk.Name == input.SubjectAreaNameFilter);
-
+                         //.WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredClientEducations = filteredClientEducations
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

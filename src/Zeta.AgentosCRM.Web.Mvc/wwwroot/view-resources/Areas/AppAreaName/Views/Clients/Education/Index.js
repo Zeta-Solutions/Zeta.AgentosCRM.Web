@@ -8,11 +8,11 @@
         var _$EducationOtherTestScoreTable = $('#OtherTestScoretable');
         var _otherTestScoresService = abp.services.app.otherTestScores;
 
-        var hiddenfield = $("#clientId").val();
+        var hiddenfield = $('input[name="Clientid"]').val();
         var dynamicValue = hiddenfield;
         //CArd start
         var receivedId = 0;
-        getnotesreload(dynamicValue);
+        geteducationsreload(dynamicValue);
         getproductEnglishreload(dynamicValue);
         getproductOtherscoresreload(dynamicValue);
         function getproductOtherscoresreload(dynamicValue) {
@@ -314,7 +314,7 @@
         //
 
 
-        function getnotesreload(dynamicValue) {
+        function geteducationsreload(dynamicValue) {
             debugger
 
 

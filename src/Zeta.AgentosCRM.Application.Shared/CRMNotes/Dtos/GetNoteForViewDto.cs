@@ -9,6 +9,7 @@
         public string PartnerPartnerName { get; set; }
 
         public string CRMAgentAgentName { get; set; }
+        public string UserName { get; set; }
 
     }
 }

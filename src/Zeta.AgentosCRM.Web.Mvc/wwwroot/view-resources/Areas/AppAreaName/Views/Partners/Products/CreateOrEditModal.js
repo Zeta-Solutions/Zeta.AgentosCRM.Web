@@ -25,6 +25,7 @@
         $('#branchId').select2({
             multiple: true,
             width: '100%',
+            placeholder: 'Select Branch',
             // Adjust the width as needed
         });
         $('#partnerTypeId').select2({

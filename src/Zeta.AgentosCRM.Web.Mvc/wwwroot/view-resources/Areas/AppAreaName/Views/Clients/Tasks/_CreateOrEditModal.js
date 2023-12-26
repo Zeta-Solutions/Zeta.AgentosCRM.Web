@@ -3,20 +3,40 @@
         $('#taskCategoryId').select2({
            
             width: '100%',
+            dropdownParent: $('#taskCategoryId').parent(),
             // Adjust the width as needed
         });
         $('#assigneeId').select2({
             width: '100%',
+            dropdownParent: $('#assigneeId').parent(),
             // Adjust the width as needed
         });
         $('#taskPriorityId').select2({
             width: '100%',
+            dropdownParent: $('#taskPriorityId').parent(),
             // Adjust the width as needed
         });
         $('#followerId').select2({
             multiple: true,
             width: '100%',
+            placeholder:'Select Follower',
             // Adjust the width as needed
+        });
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Set the current time in the StartTime field
+        $(document).ready(function () {
+            if ($('input[name="id"]').val() < 1 || $('input[name="id"]').val() == undefined) {
+                const startTimeField = $("#DueTime");
+                if (startTimeField.length) {
+                    startTimeField.val(getCurrentTime());
+                }
+            }
         });
         $.ajax({
             url: abp.appPath + 'api/services/app/TaskFollowers/GetAllUserForTableDropdown',
@@ -99,9 +119,7 @@
             $productId.val(ms_array).trigger('change');
 
         }
-        var hiddenfield = $("#ClientId").val();
-
-        $("#ClientId").val(hiddenfield);
+       
       var _cRMTasksService = abp.services.app.cRMTasks;
 
     var _modalManager;
@@ -118,15 +136,22 @@
         locale: abp.localization.currentLanguage.name,
         format: 'L',
       });
+        var hiddenfield = $('input[name="Clientid"]').val();
 
+        $("#clientId").val(hiddenfield);
         _$tasksInformationForm = _modalManager.getModal().find('form[name=TaskInformationsForm]');
         _$tasksInformationForm.validate();
     };
 
-    
 
- 
-
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
     this.save = function () {
         if (!_$tasksInformationForm.valid()) {
         return;

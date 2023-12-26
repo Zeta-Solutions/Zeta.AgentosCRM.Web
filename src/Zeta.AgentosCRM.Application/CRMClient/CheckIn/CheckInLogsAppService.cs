@@ -59,8 +59,8 @@ namespace Zeta.AgentosCRM.CRMClient.CheckIn
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientDisplayPropertyFilter), e => string.Format("{0} {1}", e.ClientFk == null || e.ClientFk.FirstName == null ? "" : e.ClientFk.FirstName.ToString()
 , e.ClientFk == null || e.ClientFk.LastName == null ? "" : e.ClientFk.LastName.ToString()
 ) == input.ClientDisplayPropertyFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.CheckInAssigneeFk != null && e.CheckInAssigneeFk.Name == input.UserNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.CheckInAssigneeFk != null && e.CheckInAssigneeFk.Name == input.UserNameFilter)
+                        .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredCheckInLogs = filteredCheckInLogs
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

@@ -13,7 +13,7 @@
                 <input type="hidden" name="id" value="@Model.Appointment.Id" />
             }
             <input type="hidden" name="partnerId" id="partnerId" value="" />
-            <input type="hidden" name="AddedById" id="AddedById" />
+            <input type="hidden" name="AddedById" id="AddedById" value="@AbpSession.UserId" />
             @*
             <input type="hidden" name="clientId" id="clientAppID" /> *@
             <div class="row">
@@ -44,9 +44,9 @@
 
             <div class="my-3">
                 <label class="form-label" for="Applointment_TimeZone">@L("TimeZone")</label>
-                @* @Html.DropDownList("Timezone", Model.TimezoneItems.Select(i => i.ToSelectListItem()), new {@class = "form-select", id = "Timezone"}) *@
+                @Html.DropDownList("Timezone",Model.TimezoneItems.Select(i =>new SelectListItem{Value = i.Value,Text = i.DisplayText, Selected = Model.IsEditMode && i.Value == Model.Appointment.TimeZone}),@L("SelectATimeZone"), new { @class = "form-select", id = "Timezone" })
 
-                <input class="form-control custom-small-input rounded-0" id="Applointment_TimeZone" value="@Model.Appointment.TimeZone" type="text" name="TimeZone" required />
+                @* <input class="form-control custom-small-input rounded-0" id="Applointment_TimeZone" value="@Model.Appointment.TimeZone" type="text" name="TimeZone" required /> *@
             </div>
             @*  <div class="mb-5">
             <label for="Timezone" class="form-label">@L("Timezone")</label>
@@ -60,8 +60,8 @@
 
                 <div class="my-3 col-3">
                     <label class="form-label" for="Applointment_Time">@L("Time")</label>
-                    <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="Applointment_Time" value="2023-01-01 06:30:00" type="datetime" name="AppointmentTime" required />
-
+                    @* <input class="form-control form-control-sm rounded-0 custom-select-input datetime-picker" id="Applointment_Time" value="2023-01-01 06:30:00" type="datetime" name="AppointmentTime" required /> *@
+                    <input class="form-control form-control-sm rounded-0 custom-select-input" id="AppointmentTime" type="time" name="AppointmentTime" value="@Model.Appointment.AppointmentTime.ToString("HH:mm")"/>
                 </div>
 
             </div>
@@ -83,10 +83,10 @@
                     <label class="form-label" for="applointment_Invitees">@L("Invitees")</label>
                     <select id="inviteesId" class="form-select select2" data-id="" data-control="select2"></select>
                 </div>
-                <div class="my-3" hidden>
+                @* <div class="my-3" hidden>
                     <label class="form-label" for="applointment_AddedBy">@L("AddedBy")</label>
                     <input class="form-control custom-small-input rounded-0" id="AddedById" value="" type="text" name="AddedById" required />
-                </div>
+                </div> *@
             </div>
         </form>
     </div>

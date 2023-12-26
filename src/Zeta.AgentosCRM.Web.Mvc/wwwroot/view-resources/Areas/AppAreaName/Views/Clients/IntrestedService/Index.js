@@ -72,7 +72,7 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-
+        var hiddenfield = $('input[name="Clientid"]').val();
         var dataTable = _$IntrestedServicestableTable.DataTable({
             paging: true,
             serverSide: true,
@@ -85,6 +85,7 @@
                         abbrivationFilter: $('#AbbrivationFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
                         subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        clientIdFilter: hiddenfield,
                     };
                 },
             },
@@ -154,24 +155,20 @@
                     searchable: false,
 
 
-                    render: function (data, type, full, meta) {
-                        //console.log(data);
-                        var rowId = data.clientInterstedService.id;
-                        //console.log(rowId);
+                    render: function (data, type, full, meta) { 
+                        var rowId = data.clientInterstedService.id; 
                         var rowData = data.clientInterstedService;
-                        var RowDatajsonString = JSON.stringify(rowData);
-                        //console.log(RowDatajsonString);
+                        var RowDatajsonString = JSON.stringify(rowData); 
                         var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
                             '<div class="Serviceellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action2="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<a href="#" style="color: black;" data-action2="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             "<a href='#' style='color: black;' data-action2='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
-
-
+                             
                         return contaxtMenu;
                     }
 

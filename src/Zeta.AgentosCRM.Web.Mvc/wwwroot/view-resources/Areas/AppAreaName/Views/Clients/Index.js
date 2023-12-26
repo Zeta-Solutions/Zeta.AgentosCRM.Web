@@ -232,36 +232,63 @@
                     data: 'client.state',
                     name: 'state',
                 },
+                //{
+                //    width: 30,
+                //    targets: 12,
+                //    data: null,
+                //    orderable: false,
+                //    searchable: false,
+
+
+                //    render: function (data, type, full, meta) {
+
+                //        var rowId = data.client.id;
+                //        var rowData = data.client;
+                //        var RowDatajsonString = JSON.stringify(rowData);
+                //        console.log(RowDatajsonString);
+                //        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                //            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                //            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                //            '<ul style="list-style: none; padding: 0;color:black">' +
+                //            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                //            "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                //            '</ul>' +
+                //            '</div>' +
+                //            '</div>';
+
+
+                //        return contaxtMenu;
+                //    }
+
+
+                //}
                 {
-                    width: 30,
                     targets: 12,
+                    width: 30,
                     data: null,
                     orderable: false,
                     searchable: false,
-
-
                     render: function (data, type, full, meta) {
-
+                        console.log(data);
                         var rowId = data.client.id;
                         var rowData = data.client;
                         var RowDatajsonString = JSON.stringify(rowData);
-                        console.log(RowDatajsonString);
-                        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
+                        var contextMenu = '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                            '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
 
-
-                        return contaxtMenu;
+                        return contextMenu;
                     }
 
 
-                }
+                },
             ]
         });
 
@@ -317,7 +344,7 @@
             if (action === 'view') {
                 /*_viewProductTypeModal.open({ id: rowId });*/
                 // _createOrEditModal.open({ id: rowId });
-                window.location = "/AppAreaName/Clients/ViewClient/" + rowId;
+                window.location = "/AppAreaName/Clients/ClientProfileDetail/" + rowId;
 
             } else if (action === 'edit') {
                 //_createOrEditModal.open({ id: rowId });
@@ -385,6 +412,8 @@
         //    getClientsTags();
         //});
         $('#ExportToExcelButton').click(function () {
+            debugger
+            alert("hello");
             _clientsService
                 .getClientsToExcel({
                     filter: $('#ClientsTableFilter').val(),
@@ -437,10 +466,6 @@
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
             getClients();
-        });
-
-
-
-
+        }); 
     });
 })();

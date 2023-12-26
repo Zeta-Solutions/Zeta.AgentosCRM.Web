@@ -1,11 +1,11 @@
 ﻿(function ($) {
-    $('#followers').select2({
+    $('#UserId').select2({
         width: '100%',
     });
     app.modals.CreateOrEditClientFollwersModal = function () {
         debugger
         var _clientfollowersService = abp.services.app.followers;
-        var hiddenfield = $("#ID").val();
+        var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
         var _modalManager;
         var _$clientFollowersInformationForm = null;
@@ -29,7 +29,7 @@
 
 
         function getClientsFollowers() {
-            var ClientFollowersId = $("#ID").val();
+            var ClientFollowersId = $('input[name="Clientid"]').val();
             $.ajax({
                 url: abp.appPath + 'api/services/app/Followers/GetAll',
                 data: {

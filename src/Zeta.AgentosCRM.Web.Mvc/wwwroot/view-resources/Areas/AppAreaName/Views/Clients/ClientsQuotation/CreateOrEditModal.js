@@ -190,7 +190,7 @@
             // Adjust the width as needed
         });
         //const urlParams = new URLSearchParams(window.location.search);
-        //const clientIdValue = urlParams.get('clientId');
+        //const clientIdValue = urlParams.get('clientId');..
         $("#ClientId").val(partnerIdValue);
        
         var _$clientQuotationInformationForm = $('form[name=QuotationInformationsForm]');

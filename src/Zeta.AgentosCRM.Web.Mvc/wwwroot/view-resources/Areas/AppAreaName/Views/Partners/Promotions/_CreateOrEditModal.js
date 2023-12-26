@@ -5,6 +5,8 @@
         $('#productId').select2({
             multiple: true,
             width: '100%',
+            placeholder: 'Select Product'
+
             // Adjust the width as needed
         });
         //if (result.ContactOwner.length > 0) {

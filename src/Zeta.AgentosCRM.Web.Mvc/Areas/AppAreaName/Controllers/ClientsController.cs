@@ -35,6 +35,11 @@ using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Product;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
+using Abp.Configuration;
+using Abp.Runtime.Session;
+using Abp.Timing;
+using Zeta.AgentosCRM.Timing.Dto;
+using Zeta.AgentosCRM.Timing;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -56,17 +61,17 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IOtherTestScoresAppService _otherTestScoresAppService;
         private readonly IClientQuotationHeadsAppService _clientQuotationHeadsAppService;
         private readonly IClientQuotationDetailsAppService _clientQuotationDetailsAppService;
+        private readonly ITimingAppService _timingAppService;
 
-
-        public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService, 
-            IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService, 
-            IApplicationsAppService applicationsAppService ,
+        public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService,
+            IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService,
+            IApplicationsAppService applicationsAppService,
             IClientInterstedServicesAppService clientInterstedServicesAppService,
-            IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService, 
-            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService, 
+            IClientEducationsAppService clientEducationsAppService, INotesAppService notesAppService,
+            ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService,
             IEnglisTestScoresAppService englisTestScoresAppService,
-            IOtherTestScoresAppService otherTestScoresAppService ,
-            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService)
+            IOtherTestScoresAppService otherTestScoresAppService,
+            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService, ITimingAppService timingAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -82,6 +87,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _otherTestScoresAppService = otherTestScoresAppService;
             _clientQuotationHeadsAppService = clientQuotationHeadsAppService;
             _clientQuotationDetailsAppService = clientQuotationDetailsAppService;
+            _timingAppService = timingAppService;
         }
 
         #region "Clents"
@@ -316,11 +322,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                     Appointment = new CreateOrEditAppointmentDto()
                 };
             }
+            var timezoneItems = await _timingAppService.GetTimezoneComboboxItems(new GetTimezoneComboboxItemsInput
+            {
+                DefaultTimezoneScope = SettingScopes.Tenant,
+                SelectedTimezoneId = await SettingManager.GetSettingValueForTenantAsync(TimingSettingNames.TimeZone, AbpSession.GetTenantId())
+            });
             var ViewModel = new CreateOrEditAppointmentsViewModel()
             {
                 Appointment = getAppointmentForEditOutput.Appointment,
-                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown()
-
+                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown(),
+                TimezoneItems = timezoneItems
             };
 
             //return PartialView("_CreateOrEditModal", ViewModel);

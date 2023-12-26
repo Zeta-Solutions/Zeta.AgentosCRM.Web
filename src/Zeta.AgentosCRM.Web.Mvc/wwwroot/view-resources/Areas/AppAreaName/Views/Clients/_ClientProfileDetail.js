@@ -138,17 +138,18 @@
 
 
         function getClientsTags() {
-            var ClientTagId = $("#ID").val();
+            var ClientTagId = $('input[name="Clientid"]').val();
              
             $.ajax({
                 url: abp.appPath + 'api/services/app/ClientTags/GetAll',
                 data: {
-                    ClientId: ClientTagId,
+                    ClientIdFilter: ClientTagId,
                 },
                 method: 'GET',
                 dataType: 'json',
             })
                 .done(function (data) { 
+                    debugger
                     var test = data.result.items
                   
                     
@@ -163,17 +164,18 @@
                     });
 
                     // Create buttons for unique tag names and their associated tag IDs
+                 
                     uniqueTags.forEach(function (tagName) {
                         var correspondingTag = test.find(function (item) {
                             return item.tagName === tagName;
                         });
-
-                        var tagId = correspondingTag.clientTag.tagId;
+                        debugger
+                        var tagId = correspondingTag.clientTag.id;
 
                         // Construct HTML for a button with the given tagId and tagName values
                         var buttonHTML = '<div class="col-12 f-2"><button class="deleteTag"  value="' + tagId + '" style="display: inline-block; margin-right: 10px;"><span style="font-size: 11px;">' + tagName + '</span> ✖</button></div>';
 
-                        $(".List").append(buttonHTML); // Append the button HTML to the element with class "List"
+                        $(".List").append(buttonHTML); // Append the button HTML to the element with class "List..."
                     });
                       
                 })
@@ -184,9 +186,10 @@
                 });
         }
         $(document).on('click', '.deleteTag', function () {
-
+            debugger
             //
-            var tagId = 2;// $(this).val(); // Retrieve the value of the clicked button
+            var closestListElement = $(this).closest('.List');
+            var tagId = $(this).val();
 
             // Use the retrieved tagId value as needed
             //console.log("Tag ID:", tagId); // For example, log the tagId to the console
@@ -197,20 +200,28 @@
                             id: tagId,
                         })
                         .done(function () {
-                            //getClientss(true);
+                            getClientsTagss();
                             //
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }
             });
         });
-
+        function getClientsTagss() {
+            $(".List").empty();
+            $(".followersList").empty();
+            getClientsTags();
+            getClientsFollowers();
+        }
+        abp.event.on('app.createOrEditClientTagsModalSaved', function () {
+            getClientsTagss();
+        });
         function getClientsFollowers() {
-            var ClientFollowersId = $("#ID").val();
+            var ClientFollowersId = $('input[name="Clientid"]').val();
             $.ajax({
                 url: abp.appPath + 'api/services/app/Followers/GetAll',
                 data: {
-                    ClientId: ClientFollowersId,
+                    ClientIdFilter: ClientFollowersId,
                 },
                 method: 'GET',
                 dataType: 'json',
@@ -236,7 +247,7 @@
                             return item.userName === userName;
                         });
 
-                        var userId = correspondingTag.follower.userId;
+                        var userId = correspondingTag.follower.id;
 
                         // Construct HTML for a button with the given tagId and tagName values
                         var buttonHTML = '<button class="deleteUser" value="' + userId + '" style="display: inline-block; margin-right: 10px;"><span style="font-size: 11px;">' + userName + '</span> ✖</button>';
@@ -263,7 +274,8 @@
         $(document).on('click', '.deleteUser', function () {
 
             //
-            var UserId =  $(this).val(); // Retrieve the value of the clicked button
+            var closestListElement = $(this).closest('.List');
+            var UserId = $(this).val(); // Retrieve the value of the clicked button
 
             // Use the retrieved tagId value as needed
             //console.log("User ID:", UserId); // For example, log the tagId to the console
@@ -274,8 +286,8 @@
                             id: UserId,
                         })
                         .done(function () {
-                            //getClientss(true);
-                            //
+                            getClientsTagss();
+                            //..
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }

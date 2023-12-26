@@ -1,5 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AspNetCore.Mvc.Authorization;
+using Abp.Configuration;
+using Abp.Runtime.Session;
+using Abp.Timing;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -26,6 +29,8 @@ using Zeta.AgentosCRM.CRMProducts;
 using Zeta.AgentosCRM.CRMProducts.Dtos;
 using Zeta.AgentosCRM.TaskManagement;
 using Zeta.AgentosCRM.TaskManagement.Dtos;
+using Zeta.AgentosCRM.Timing;
+using Zeta.AgentosCRM.Timing.Dto;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Applications;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Appointments;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients;
@@ -54,7 +59,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IAppointmentsAppService _appointmentsAppService;
         private readonly IApplicationsAppService _applicationsAppService;
         private readonly IPromotionProductsAppService _promotionProductsAppService;
-        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService, IProductsAppService productsAppService, IAppointmentsAppService appointmentsAppService, IApplicationsAppService applicationsAppService, IPromotionProductsAppService promotionProductsAppService)
+        private readonly ITimingAppService _timingAppService;
+
+        public PartnersController(IPartnersAppService partnersAppService, IBranchesAppService branchsAppService, IPartnerContactsAppService partnerContactsAppService, IPartnerContractsAppService partnerContractsAppService, INotesAppService notesAppService, IPartnerPromotionsAppService partnerPromotionsAppService, ICRMTasksAppService cRMTasksAppService, IProductsAppService productsAppService, IAppointmentsAppService appointmentsAppService, IApplicationsAppService applicationsAppService, IPromotionProductsAppService promotionProductsAppService, ITimingAppService timingAppService)
         {
             _partnersAppService = partnersAppService;
             _branchsAppService = branchsAppService;
@@ -67,6 +74,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _appointmentsAppService = appointmentsAppService;
             _applicationsAppService = applicationsAppService;
             _promotionProductsAppService = promotionProductsAppService;
+            _timingAppService = timingAppService;
         }
 
         public IActionResult Index()
@@ -567,11 +575,16 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                     Appointment = new CreateOrEditAppointmentDto()
                 };
             }
+            var timezoneItems = await _timingAppService.GetTimezoneComboboxItems(new GetTimezoneComboboxItemsInput
+            {
+                DefaultTimezoneScope = SettingScopes.Tenant,
+                SelectedTimezoneId = await SettingManager.GetSettingValueForTenantAsync(TimingSettingNames.TimeZone, AbpSession.GetTenantId())
+            });
             var ViewModel = new CreateOrEditAppointmentsViewModel()
             {
                 Appointment = getAppointmentForEditOutput.Appointment,
-                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown()
-
+                AppointmentInviteesList = await _appointmentsAppService.GetAllUserForTableDropdown(),
+                  TimezoneItems = timezoneItems
             };
 
             //return PartialView("_CreateOrEditModal", ViewModel);

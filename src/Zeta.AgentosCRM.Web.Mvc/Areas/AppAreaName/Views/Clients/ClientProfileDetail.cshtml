@@ -170,7 +170,7 @@
                         <div class="card-body">
                             <div class="col-lg-12 ">
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("DateofBirth"):</label>
-                                <p class="text-muted fs-6"> @Model.Client.DateofBirth</p>
+                                <p class="text-muted fs-6"> @Model.Client.DateofBirth.ToString("MM/dd/yyyy")</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="Phone" class="form-label form-label-sm">@L("PhoneNo"):</label>
@@ -217,11 +217,11 @@
                             </div>
                             <div class="col-lg-12">
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("PreferedIntake"):</label>
-                                <p class="text-muted fs-6">@Model.Client.PreferedIntake</p>
+                                <p class="text-muted fs-6">@Model.Client.PreferedIntake.ToString("MM/dd/yyyy")</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("VisaExpiryDate"):</label>
-                                <p class="text-muted fs-6">@Model.Client.VisaExpiryDate</p>
+                                <p class="text-muted fs-6">@Model.Client.VisaExpiryDate.ToString("MM/dd/yyyy")</p>
                             </div>
                             <div class="col-lg-12">
                                 <label for="AddedFrom" class="form-label form-label-sm">@L("VisaType"):</label>

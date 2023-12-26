@@ -34,7 +34,7 @@
             debugger;
             var modal = $(this);
             var reversedItems = data.result.items.slice().reverse();
-
+            debugger 
             for (var i = 0; i < data.result.items.length; i++) {
                 var Name = "name" + (i + 1);
                 var idListening = "listenting" + (i + 1);
@@ -55,7 +55,7 @@
 
             }
 
-            _createOrEditenglishscoreModal.open();
+            //_createOrEditenglishscoreModal.open();
         }
 
 
@@ -95,7 +95,6 @@
                 var idTotalScore = "TotalScore" + i;
                 var hiddenfield = $("#ClientId").val();
                 var NameValue = $("." + Name).text(); // or .val() depending on the actual element type
-                debugger
                 var subject = {
                     Name: NameValue,
                     listenting: parseFloat($("." + idListening).val()),
