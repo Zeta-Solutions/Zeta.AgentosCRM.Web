@@ -44,6 +44,7 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
         public string CountryNameFilter { get; set; }
 
         public string CRMCurrencyNameFilter { get; set; }
+        public long? WorkFlowIdFilter { get; set; }
 
     }
 }

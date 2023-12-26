@@ -89,7 +89,7 @@
             // Append the card container to the mainDiv
             mainDiv.append(cardDiv);
 
-            return mainDiv; // Return the created card..
+            return mainDiv; // Return the created card....
         }
 
 

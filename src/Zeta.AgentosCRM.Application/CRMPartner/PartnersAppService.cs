@@ -76,8 +76,8 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerTypeNameFilter), e => e.PartnerTypeFk != null && e.PartnerTypeFk.Name == input.PartnerTypeNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.WorkflowNameFilter), e => e.WorkflowFk != null && e.WorkflowFk.Name == input.WorkflowNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter)
+                       .WhereIf(input.WorkFlowIdFilter.HasValue, e => false || e.WorkflowId == input.WorkFlowIdFilter.Value);
             var pagedAndFilteredPartners = filteredPartners
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
