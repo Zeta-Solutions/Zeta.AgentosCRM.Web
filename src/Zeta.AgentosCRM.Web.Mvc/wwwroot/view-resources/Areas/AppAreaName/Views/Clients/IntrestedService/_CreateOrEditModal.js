@@ -9,27 +9,19 @@
       var _$clientTagsInformationForm = null;
       $('#WorkflowId').select2({
           width: '100%',
-          placeholder: 'Select Workflow',
-          allowClear: true,
-          minimumResultsForSearch: Infinity,
+          dropdownParent: $('#WorkflowId').parent(),
       });
       $('#PartnerId').select2({
           width: '100%',
-          placeholder: 'Select Partner',
-          allowClear: true,
-          minimumResultsForSearch: 10,
+          dropdownParent: $('#WorkflowId').parent(),
       });
       $('#ProductId').select2({
           width: '100%',
-          placeholder: 'Select Product',
-          allowClear: true,
-          minimumResultsForSearch: Infinity,
+          dropdownParent: $('#WorkflowId').parent(),
       });
       $('#BranchId').select2({
           width: '100%',
-          placeholder: 'Select Branch',
-          allowClear: true,
-          minimumResultsForSearch: Infinity,
+          dropdownParent: $('#WorkflowId').parent(),
       });
       $('input[name*="clientId"]').val(hiddenfield)
     var _modalManager;
@@ -50,10 +42,15 @@
         _$_clientInterstedInformationForm = _modalManager.getModal().find('form[name=IntrestedServiceInformationsForm]');
         _$_clientInterstedInformationForm.validate();
     };
-
-    
-
- 
+     
+      $(document).on('select2:open', function () {
+          var $searchField = $('.select2-search__field');
+          $searchField.on('keydown', function (e) {
+              if (e.which == 13) {
+                  return false;
+              }
+          });
+      });
 
     this.save = function () {
         if (!_$_clientInterstedInformationForm.valid()) {

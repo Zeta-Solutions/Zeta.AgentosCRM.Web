@@ -34,11 +34,11 @@
 @{
     var breadcrumbs = new List<BreadcrumbItem>()
                     {
-                        new BreadcrumbItem("/AppAreaName/Client", @L("Client")),
-                        new BreadcrumbItem(Model.IsEditMode ? @L("Edit") : @L("Create"))
+                        new BreadcrumbItem("/AppAreaName/Client", L("Client")),
+                        new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
                     };
 }
-<abp-page-subheader title='@(Model.IsEditMode ? (@L("EditClient")) : @L("ADDNEWCLIENTORPROSPECT"))' breadcrumbs="breadcrumbs">
+<abp-page-subheader title='@(Model.IsEditMode ? (L("EditClient")) : L("ADDNEWCLIENTORPROSPECT"))' breadcrumbs="breadcrumbs">
                          <a href="\AppAreaName\Clients\Index" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("BackClientList")</a>                
 
 </abp-page-subheader>

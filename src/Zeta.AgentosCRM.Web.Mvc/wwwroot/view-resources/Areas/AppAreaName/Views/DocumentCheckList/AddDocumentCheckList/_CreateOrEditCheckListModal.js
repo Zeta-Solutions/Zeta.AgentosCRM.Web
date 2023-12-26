@@ -143,8 +143,7 @@
                     ms_val += "," + obj.partnerId;
 
                 });
-                if (ms_val == 0) {
-                    alert("There is no data")
+                if (ms_val == 0) { 
                     // When Ms_Va get 0 then Action Perform other wise else case run...
                 } else {
 

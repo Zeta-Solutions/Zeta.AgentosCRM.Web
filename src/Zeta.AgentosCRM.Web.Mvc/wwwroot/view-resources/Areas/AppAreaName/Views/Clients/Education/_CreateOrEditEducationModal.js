@@ -3,21 +3,15 @@
         var _clientEducationsService = abp.services.app.clientEducations;
        $('#DegreeLevelId').select2({
            width: '100%',
-            placeholder: 'Select Degree Level',
-            allowClear: true,
-            minimumResultsForSearch: Infinity,
+           dropdownParent: $('#DegreeLevelId').parent(),
         });
         $('#SubjectAreaId').select2({
             width: '100%',
-            placeholder: 'Select Subject Area',
-            allowClear: true,
-            minimumResultsForSearch: Infinity,
+            dropdownParent: $('#SubjectAreaId').parent(),
         });
         $('#SubjectId').select2({
             width: '100%',
-            placeholder: 'Select Subject',
-            allowClear: true,
-            minimumResultsForSearch: Infinity,
+            dropdownParent: $('#SubjectId').parent(),
         });
         var _modalManager;
         var _$educationForm = null;
@@ -38,6 +32,14 @@
             _$educationForm.validate();
         };
 
+        $(document).on('select2:open', function () {
+            var $searchField = $('.select2-search__field');
+            $searchField.on('keydown', function (e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
         this.save = function () {
             if (!_$educationForm.valid()) {
                 return;

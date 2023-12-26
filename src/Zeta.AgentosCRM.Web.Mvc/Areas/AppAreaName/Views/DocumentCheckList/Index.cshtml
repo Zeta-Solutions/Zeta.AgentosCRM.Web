@@ -14,7 +14,7 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentChecklist;
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
    }
 <abp-page-subheader title='@L("DocumentCheckList")' description='@L("DocumentCheckListHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
 
     @if (IsGranted(AppPermissions.Pages_CRMSetup_WorkflowDocuments_Create))
     {
@@ -43,10 +43,10 @@ ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.DocumentChecklist;
                 <div class="col-md-12">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3" hidden>
                     <div class="my-3">
                         <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
                     </div>
                 </div>
                 <div class="col-md-3">
