@@ -23,7 +23,7 @@ namespace Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos
 
         public int CountryId { get; set; }
 
-        public int PartnerId { get; set; }
+        public long PartnerId { get; set; }
 
     }
 }
