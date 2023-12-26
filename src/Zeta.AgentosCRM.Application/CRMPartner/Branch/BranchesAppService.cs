@@ -114,6 +114,57 @@ namespace Zeta.AgentosCRM.CRMPartner.PartnerBranch
 
         }
 
+
+        public async Task<List<GetBranchForViewDto>> GetBranchbyWorkflowId(long workflowId)
+        {
+            var partner = _lookup_partnerRepository.GetAll().Where(t => workflowId == t.WorkflowId);
+            var partnerIds = new List<long>();
+             
+            var pagedAndFilteredBranches = _branchRepository.GetAll();
+
+            var branches = from o in pagedAndFilteredBranches
+
+                           join o2 in partner on o.PartnerId equals o2.Id
+
+                           select new
+                           {
+
+                               o.Name,
+                               o.Email,
+                               o.City,
+                               o.State,
+                               o.Street,
+                               o.ZipCode,
+                               o.PhoneNo,
+                               o.PhoneCode,
+                               o.PartnerId,
+                               Id = o.Id, 
+                               PartnerPartnerName = o2 == null || o2.PartnerName == null ? "" : o2.PartnerName.ToString()
+                           };
+              
+            var dbList = await branches.ToListAsync();
+            var results = new List<GetBranchForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetBranchForViewDto()
+                {
+                    Branch = new BranchDto
+                    {
+                        Name = o.Name, 
+                        Id = o.Id, 
+                        PartnerId= o.PartnerId,
+                    },
+                    PartnerPartnerName = o.PartnerPartnerName,
+                };
+
+                results.Add(res);
+            }
+
+            return results;
+        }
+
+
         public async Task<GetBranchForViewDto> GetBranchForView(long id)
         {
             var branch = await _branchRepository.GetAsync(id);

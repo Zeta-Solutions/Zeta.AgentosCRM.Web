@@ -14,6 +14,8 @@ namespace Zeta.AgentosCRM.CRMPartner.PartnerBranch
 
         Task<GetBranchForViewDto> GetBranchForView(long id);
 
+        Task<List<GetBranchForViewDto>> GetBranchbyWorkflowId(long workflowId);
+
         Task<GetBranchForEditOutput> GetBranchForEdit(EntityDto<long> input);
 
         Task CreateOrEdit(CreateOrEditBranchDto input);

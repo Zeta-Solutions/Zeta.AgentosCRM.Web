@@ -347,6 +347,19 @@ namespace Zeta.AgentosCRM.CRMClient
 
         }
 
+        [AbpAuthorize(AppPermissions.Pages_Clients_Edit)]
+        public async Task UpdateClientIsArchived(UpdateArchivedClientDto input)
+        {
+            var client = await _clientRepository.FirstOrDefaultAsync((long)input.ClientId);
+            if (client == null)
+            {
+                // Create a new client profile if it doesn't exist
+                // client = new ClientProfile { ClientId = clientId };
+                return;
+            }
+            client.Archived = input.IsArchived; 
+        }
+
         [AbpAuthorize(AppPermissions.Pages_Clients_Delete)]
         public async Task Delete(EntityDto<long> input)
         {
