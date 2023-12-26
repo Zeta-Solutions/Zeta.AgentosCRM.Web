@@ -23,6 +23,8 @@ namespace Zeta.AgentosCRM.CRMClient
 
         Task CreateOrEdit(CreateOrEditClientDto input);
 
+        Task UpdateClientIsArchived(UpdateArchivedClientDto input);
+
         Task Delete(EntityDto<long> input);
 
         Task<FileDto> GetClientsToExcel(GetAllClientsForExcelInput input);
