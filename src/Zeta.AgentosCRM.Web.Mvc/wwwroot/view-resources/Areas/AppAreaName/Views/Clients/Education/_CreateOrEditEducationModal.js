@@ -21,7 +21,9 @@
         });
         var _modalManager;
         var _$educationForm = null;
+        var hiddenfield = $('input[name="Clientid"]').val();
 
+        $('input[name="clientId"]').val(hiddenfield)
         this.init = function (modalManager) {
             _modalManager = modalManager;
 

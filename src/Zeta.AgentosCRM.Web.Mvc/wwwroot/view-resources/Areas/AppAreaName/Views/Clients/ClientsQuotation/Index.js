@@ -104,7 +104,7 @@
                     },
                     targets: 0,
                 },
-                //{
+                //..{
                 //    targets: 1, // The column index (zero-based) where you want to add the "View" button
                 //    data: 'subject.abbrivation',
                 //    name: 'abbrivation',

@@ -25,6 +25,7 @@ namespace Zeta.AgentosCRM.CRMClient.Education.Dtos
         public string SubjectNameFilter { get; set; }
 
         public string SubjectAreaNameFilter { get; set; }
+        public long? ClientIdFilter { get; set; }
 
     }
 }

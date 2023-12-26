@@ -17,6 +17,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
         public string ClientFirstNameFilter { get; set; }
 
         public string CRMCurrencyNameFilter { get; set; }
+        public long? ClientIdFilter { get; set; }
 
     }
 }

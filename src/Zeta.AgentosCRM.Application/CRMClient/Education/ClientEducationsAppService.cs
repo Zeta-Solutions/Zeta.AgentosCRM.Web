@@ -54,8 +54,8 @@ namespace Zeta.AgentosCRM.CRMClient.Education
                         .WhereIf(input.MaxAcadmicScoreFilter != null, e => e.AcadmicScore <= input.MaxAcadmicScoreFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.DegreeLevelFk != null && e.DegreeLevelFk.Name == input.DegreeLevelNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectNameFilter), e => e.SubjectFk != null && e.SubjectFk.Name == input.SubjectNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.SubjectAreaFk != null && e.SubjectAreaFk.Name == input.SubjectAreaNameFilter);
-                         //.WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.SubjectAreaFk != null && e.SubjectAreaFk.Name == input.SubjectAreaNameFilter)
+                         .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredClientEducations = filteredClientEducations
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -79,6 +79,7 @@ namespace Zeta.AgentosCRM.CRMClient.Education
                                        o.CourseEndDate,
                                        o.AcadmicScore,
                                        Id = o.Id,
+                                       o.IsGpa,
                                        DegreeLevelName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                        SubjectName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                        SubjectAreaName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
@@ -102,6 +103,7 @@ namespace Zeta.AgentosCRM.CRMClient.Education
                         CourseEndDate = o.CourseEndDate,
                         AcadmicScore = o.AcadmicScore,
                         Id = o.Id,
+                        IsGpa = o.IsGpa,
                     },
                     DegreeLevelName = o.DegreeLevelName,
                     SubjectName = o.SubjectName,
