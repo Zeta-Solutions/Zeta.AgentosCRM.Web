@@ -132,6 +132,10 @@ namespace Zeta.AgentosCRM.TaskManagement
                                o.RelatedTo,
                                o.InternalId,
                                Id = o.Id,
+                               o.IsCompleted,
+                               o.TaskCategoryId,
+                               o.TaskPriorityId,
+                               o.AssigneeId,
                                TaskCategoryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                TaskPriorityName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
@@ -163,6 +167,10 @@ namespace Zeta.AgentosCRM.TaskManagement
                         RelatedTo = o.RelatedTo,
                         InternalId = o.InternalId,
                         Id = o.Id,
+                        IsCompleted=o.IsCompleted,
+                        TaskPriorityId = o.TaskPriorityId,
+                        TaskCategoryId = o.TaskCategoryId,
+                        AssigneeId = o.AssigneeId,
                     },
                     TaskCategoryName = o.TaskCategoryName,
                     UserName = o.UserName,
@@ -336,16 +344,21 @@ namespace Zeta.AgentosCRM.TaskManagement
             var crmTask = await _crmTaskRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, crmTask);
             crmTask.Attachment = await GetBinaryObjectFromCache(input.AttachmentToken);
-            var taskFollower = await _taskFollowerRepository.GetAllListAsync(p => p.CRMTaskId == input.Id);
-            foreach (var item in taskFollower)
+            if (input.Steps != null && input.Steps.Any())
             {
-                await _taskFollowerRepository.DeleteAsync(item.Id);
-            }
-            foreach (var step in input.Steps)
-            {
-                step.CRMTaskId = crmTask.Id;
-                var stepEntity = ObjectMapper.Map<TaskFollower>(step);
-                await _taskFollowerRepository.InsertAsync(stepEntity);
+
+
+                var taskFollower = await _taskFollowerRepository.GetAllListAsync(p => p.CRMTaskId == input.Id);
+                foreach (var item in taskFollower)
+                {
+                    await _taskFollowerRepository.DeleteAsync(item.Id);
+                }
+                foreach (var step in input.Steps)
+                {
+                    step.CRMTaskId = crmTask.Id;
+                    var stepEntity = ObjectMapper.Map<TaskFollower>(step);
+                    await _taskFollowerRepository.InsertAsync(stepEntity);
+                }
             }
             CurrentUnitOfWork.SaveChanges();
         }

@@ -46,16 +46,19 @@
             </div>
             <div class="col-12">
                 <div class="col-6">
-                    <label class="fw-bold">Academic Score:</label>
-                    <br />
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="relatedTo1" name="relatedTo" value="Option 1">
-                        <label class="form-check-label" for="relatedTo1">Percentage</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="relatedTo2" name="relatedTo" value="Option 2">
-                        <label class="form-check-label" for="relatedTo2">GPA</label>
-                    </div>
+                    <label class="form-label" for="Application_Abbrivation">@L("Academic Score")</label>
+                    <label class="form-check  form-check-inline">
+                        <input type="radio" class="form-check-input" id="IsGpa" name="IsGpa" value="false" @(!Model.ClientEducation.IsGpa ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("Percentage")
+                        </span>
+                    </label>
+                    <label class="form-check  form-check-inline ml-3 mt-3">
+                        <input id="IsGpa" type="radio" name="IsGpa" class="form-check-input" value="true" @Html.Raw(Model.ClientEducation.IsGpa ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("GPA")
+                        </span>
+                    </label>
                 </div>
                 <div class="col-6">
                     <input type="number" name="acadmicScore" class="form-control  custom-small-input rounded-0 input-sm" value="@Model.ClientEducation.AcadmicScore" />

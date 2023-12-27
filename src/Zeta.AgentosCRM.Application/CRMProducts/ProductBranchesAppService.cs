@@ -17,6 +17,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch.Dtos;
+using Zeta.AgentosCRM.CRMPartner;
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -44,8 +46,9 @@ namespace Zeta.AgentosCRM.CRMProducts
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ProductNameFilter), e => e.ProductFk != null && e.ProductFk.Name == input.ProductNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.BranchNameFilter), e => e.BranchFk != null && e.BranchFk.Name == input.BranchNameFilter)
+                         .WhereIf(input.BranchIdFilter.HasValue, e => false || e.BranchId == input.BranchIdFilter.Value)
+                         .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value);
             var pagedAndFilteredProductBranches = filteredProductBranches
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -137,6 +140,44 @@ namespace Zeta.AgentosCRM.CRMProducts
 
             return output;
         }
+
+        //public async Task<List<GetProductBranchForViewDto>> GetproductbybranchId(long branchid)
+        //{
+        //    var products = _productBranchRepository.GetAll().Where(t => branchid == t.BranchId);
+        //    var pagedAndFilteredBranches = _lookup_productRepository.GetAll();
+
+        //    var Products = from o in pagedAndFilteredBranches
+
+        //                   join o2 in products on o.Id equals o2.ProductId
+
+        //                   select new
+        //                   {
+
+        //                       Id = o.Id,
+        //                       ProductName = o2 == null || o2.Name == null ? "" : o2.Name.ToString(),
+        //                   };
+
+        //    var dbList = await Products.ToListAsync();
+        //    var results = new List<GetProductBranchForViewDto>();
+
+        //    foreach (var o in dbList)
+        //    {
+        //        var res = new GetProductBranchForViewDto()
+        //        {
+        //            ProductBranch = new ProductBranchDto
+        //            {
+
+        //                Id = o.Id,
+                       
+        //            }
+        //             ProductName = o.ProductName
+        //        };
+
+        //        results.Add(res);
+        //    }
+
+        //    return results;
+        //}
 
         public async Task CreateOrEdit(CreateOrEditProductBranchDto input)
         {

@@ -3,7 +3,7 @@
         debugger
         var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
-        $('input[name*="clientId"]').val(hiddenfield)
+        $('input[name="clientId"]').val(hiddenfield)
         getRecordsById(hiddenfield);
         debugger
         

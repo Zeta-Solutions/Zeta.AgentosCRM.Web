@@ -348,7 +348,7 @@
         //    // Do something with the form data
         //    console.log(formData);
           
-        //    // If you want to store it in a variable, you can do something like this:
+        //    // If you want to store it in a variable, you can do something like this..:
         //    // var myVariable = formData;
         //});
         function resetFormFields() {
@@ -387,7 +387,7 @@
 
 
   
-
+        var hiddenfield = $('input[name="Clientid"]').val();
         var dataTable = _$clientQuotationHeadsTable.DataTable({
             paging: true,
             serverSide: true,
@@ -399,6 +399,7 @@
                         filter: $('#NameFilterId').val(),
                         TimeZoneFilter: $('#TimeZoneFilterId').val(),
                         nameFilter: $('#NameFilterId').val(),
+                        clientIdFilter: hiddenfield,
                     };
                 },
             },
@@ -411,20 +412,24 @@
                     },
                     targets: 0,
                 },
-
                 {
                     targets: 1,
-                    data: 'clientQuotationHead.dueDate',
-                    name: 'dueDate',
-                    render: function (dueDate) {
-                        if (dueDate) {
-                            return moment(dueDate).format('L');
-                        }
-                        return "";
-                    }
+                    data: 'clientFirstName',
+                    name: 'ClientFirstNameFk',
                 },
                 {
                     targets: 2,
+                    data: 'clientQuotationHead.productCount',
+                    name: 'productCount',
+                },
+                {
+                    targets: 3,
+                    data: 'clientQuotationHead.totalAmount',
+                    name: 'totalAmount',
+                    
+                },
+                {
+                    targets: 4,
                     data: 'clientQuotationHead.dueDate',
                     name: 'dueDate',
                     render: function (dueDate) {
@@ -435,14 +440,25 @@
                     }
                 },
                 {
-                    targets: 3,
-                    data: 'clientFirstName',
-                    name: 'ClientFirstName',
+                    targets: 5,
+                    data: 'clientQuotationHead.creationTime',
+                    name: 'creationTime',
+                    render: function (creationTime) {
+                        if (creationTime) {
+                            return moment(creationTime).format('L');
+                        }
+                        return "";
+                    }
+                },
+                {
+                    targets: 6,
+                    data: 'userName',
+                    name: 'UserNameFk',
                 },
                 
                 {
                     width: 30,
-                    targets: 4,
+                    targets: 7,
                     data: null,
                     orderable: false,
                     searchable: false,
@@ -774,6 +790,8 @@
 
             var totalAmount = 0;
             var taxRowCounter = $('.total').length;
+            
+            $("#ProductCount").val(taxRowCounter);
             $('.total').each(function () {
                 debugger
                 // Assuming there is an input field with class 'total' in each row
@@ -784,7 +802,7 @@
          
 
             // Set the calculated total to the #Total input
-            $("#Total").val(totalAmount.toFixed(2));
+            $("#TotalAmount").val(totalAmount.toFixed(2));
             console.log('Total calculated:', total.toFixed(2));
         }
 

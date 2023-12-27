@@ -34,6 +34,9 @@ namespace Zeta.AgentosCRM.TaskManagement.Dtos
         public long? ApplicationId { get; set; }
 
         public long? ApplicationStageId { get; set; }
+        public bool? IsCompleted { get; set; }
+
+        
 
     }
 }

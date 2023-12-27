@@ -1,5 +1,6 @@
-﻿(function () {
+(function () {
     $(function () {
+        var _cRMTasksService = abp.services.app.cRMTasks;
         var hiddenfield = $('input[name="Clientid"]').val();
         var dynamicValue = hiddenfield;
 
@@ -29,8 +30,7 @@
             });
             
             var titleColDiv = $('<div>').addClass('col-md-12');  
-            var cardTitle = $('<p>').addClass('card-title');
-             
+            var cardTitle = $('<p>').addClass('card-title'); 
             // Create a column for the card information
             var infoColDiv = $('<div>').addClass('row'); 
             var infoParagraph1 = $('<p>').addClass('card-text col-md-1');
@@ -45,13 +45,22 @@
                 let formattedTime = dueTime ? moment(dueTime).format('LT') : "";
                 return formattedDate + " " + formattedTime;
             }
-            infoParagraph1.html('<input type="checkbox" id="reminderCheckbox" />');
-            infoParagraph2.html('<strong>Reminder:</strong>' + '&nbsp;&nbsp;' + cRMTasks.title);
-            infoParagraph3.html('<span class="replacename label badge badge-primary">' + item.userName + '</span>');
-            infoParagraph4.html('<span class="replacedate label badge badge-danger">' + renderDateTime(cRMTasks.dueDate, cRMTasks.dueTime) + '</span>');
-            infoParagraph5.html(  item.taskPriorityName );
-            infoParagraph6.html('<span style="color: red; font-weight: bold;" class="replace"> Todo</span>' );
-            infoParagraph7.html('<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
+ 
+            infoParagraph1.html('<input type="checkbox" id="reminderCheckbox" ' + (cRMTasks.isCompleted == true ? 'checked' : '') + '/>' + '<input type="hidden" id="categoriesId" class="categoriesId" value="' + cRMTasks.taskCategoryId + '"/>');
+            infoParagraph2.html('<strong>Reminder:</strong>&nbsp;&nbsp;<span class="tasktittle">' + cRMTasks.title + '</span><input type="hidden" id="taskid" class="taskid" value="' + cRMTasks.id + '"/>');
+            infoParagraph3.html('<span class="replacename label badge badge-primary">' + item.userName + '</span>' + '<input type="hidden" id="assigneId" class="assigneId" value="' + cRMTasks.assigneeId + '"/>' + '<input type="hidden" id="taskdescription" class="taskdescription" value="' + cRMTasks.description + '"/>');
+            if (cRMTasks.isCompleted==true) {
+                infoParagraph4.html('<span class="replacedate label badge badge-success">' + renderDateTime(cRMTasks.dueDate, cRMTasks.dueTime) + '</span>' + '<input type="hidden" id="dueDates" class="dueDates" value="' + cRMTasks.dueDate + '"/>' + '<input type="hidden" id="dueTimes" class="dueTimes" value="' + cRMTasks.dueTime + '"/>');
+            } else {
+                infoParagraph4.html('<span class="replacedate label badge badge-danger">' + renderDateTime(cRMTasks.dueDate, cRMTasks.dueTime) + '</span>' + '<input type="hidden" id="dueDates" class="dueDates" value="' + cRMTasks.dueDate + '"/>' + '<input type="hidden" id="dueTimes" class="dueTimes" value="' + cRMTasks.dueTime + '"/>');
+            }
+            infoParagraph5.html(item.taskPriorityName + '<input type="hidden" id="taskPrioritysId" class="taskPrioritysId" value="' + cRMTasks.taskPriorityId + '"/>');
+            if (cRMTasks.isCompleted) {
+                infoParagraph6.html('<span style="color: green; font-weight: bold;" class="replace">Completed</span>');
+            } else {
+                infoParagraph6.html('<span style="color: red; font-weight: bold;" class="replace">Todo</span>');
+            }
+            infoParagraph7.html( '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' + 
                 '<div class="ellipsisT"><a href="#" data-id="' + cRMTasks.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
@@ -70,7 +79,7 @@
             // Append the card container to the mainDiv
             mainDiv.append(cardDiv);
 
-            return mainDiv; // Return the created card
+            return mainDiv; // Return the created card....
         }
 
 
@@ -86,17 +95,69 @@
                     'font-weight': 'bold'
                 });
                 replaceElementdate.removeClass('badge-danger').addClass('badge-success').css('color', 'white');
+                var id = card.find('.taskid').val();
+                var taskCategoryId = card.find('.categoriesId').val();
+                var assigneeId = card.find('.assigneId').val();
+                var taskPriorityId = card.find('.taskPrioritysId').val();               
+                var dueDate = card.find('.dueDates').val();
+                var dueTime = card.find('.dueTimes').val();
+                var description = card.find('.taskdescription').val();
+                var title = card.find('.tasktittle').text();
+                var clientId = $('input[name="Clientid"]').val();
+                var isCompleted = true;
+                var inputData = {
+                    clientId: clientId,
+                    taskCategoryId: taskCategoryId,
+                    assigneeId: assigneeId,
+                    taskPriorityId: taskPriorityId,
+                    dueDate: dueDate,
+                    dueTime: dueTime,
+                    description: description,
+                    title: title,
+                    isCompleted: isCompleted,
+                    id: id
+
+                };
+                var Steps = JSON.stringify(inputData);
+                Steps = JSON.parse(Steps);
+                _cRMTasksService
+                    .createOrEdit(Steps)
+                    
             } else {
                 replaceElement.text('Todo').css({
                     'color': 'red',
                     'font-weight': 'bold'
                 });
                 replaceElementdate.removeClass('badge-success').addClass('badge-danger').css('color', 'white');
-            }
-            // Additional logic or actions can be added here
+                var id = card.find('.taskid').val();
+                var taskCategoryId = card.find('.categoriesId').val();
+                var assigneeId = card.find('.assigneId').val();
+                var taskPriorityId = card.find('.taskPrioritysId').val();
+                var dueDate = card.find('.dueDates').val();
+                var dueTime = card.find('.dueTimes').val();
+                var description = card.find('.taskdescription').val();
+                var title = card.find('.tasktittle').text();
+                var clientId = $('input[name="Clientid"]').val();
+                var isCompleted = false;
+                var inputData = {
+                    clientId: clientId,
+                    taskCategoryId: taskCategoryId,
+                    assigneeId: assigneeId,
+                    taskPriorityId: taskPriorityId,
+                    dueDate: dueDate,
+                    dueTime: dueTime,
+                    description: description,
+                    title: title,
+                    isCompleted: isCompleted,
+                    id: id
 
-            // For testing, you can log the current state to the console
-           // console.log(replaceElement.text());
+                };
+                var Steps = JSON.stringify(inputData);
+                Steps = JSON.parse(Steps);
+                _cRMTasksService
+                    .createOrEdit(Steps)
+            }
+           
         });
 
 
@@ -152,7 +213,7 @@
             }
         }
         function clearMainDiv() {
-            // Assuming main div has an id 'mainDiv', replace it with your actual id if needed
+            // Assuming main div has an id 'mainDiv', replace it with your actual id if needed...
             $('.maindivcard').remove();
 
         }
@@ -175,7 +236,7 @@
 
 
         var _$LeadSourceTable = $('#BranchTable');
-        var _cRMTasksService = abp.services.app.cRMTasks;
+      
 
         var $selectedDate = {
             startDate: null,

@@ -42,6 +42,7 @@
             <input type="hidden" name="clientId" id="ClientId" />
             <input type="hidden" name="ClientEmail" id="ClientEmail" />
             <input type="hidden" name="ClientName" id="ClientName" />
+            <input type="hidden" name="ProductCount" id="ProductCount" />
         <div class="card-body">
             <div class="form">
                        <div class="row col-12">
@@ -108,8 +109,8 @@
                        <input type="hidden" />
                         </div>
                         <div class="col-lg-4">
-                            <label for="TotalsId" class="form-label form-label-sm">@L("Total"):</label><br />
-                            <input class="form-control  custom-small-input rounded-0" id="Total" value="" type="text" name="Total" readonly />
+                            <label for="TotalsId" class="form-label form-label-sm">@L("Total"):</label><br /> 
+                            <input class="form-control  custom-small-input rounded-0" id="TotalAmount" value="@Model.ClientQuotationHead.TotalAmount" type="text" name="TotalAmount" readonly />
 
                         </div>
                             </div>

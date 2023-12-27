@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Mvc;
 using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 using Zeta.AgentosCRM.CRMClient.Quotation.Dtos;
 using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.Authorization.Users;
 
 namespace Zeta.AgentosCRM.CRMClient.Quotation
 {
@@ -33,12 +34,14 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
         private readonly IRepository<Client, long> _lookup_clientRepository;
         private readonly IRepository<CRMCurrency, int> _lookup_crmCurrencyRepository;
         private readonly IRepository<ClientQuotationDetail, long> _clientQuotationDetailRepository;
-        public ClientQuotationHeadsAppService(IRepository<ClientQuotationHead, long> clientQuotationHeadRepository, IRepository<Client, long> lookup_clientRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository, IRepository<ClientQuotationDetail, long> clientQuotationDetailRepository)
+        private readonly IRepository<User, long> _lookup_userRepository;
+        public ClientQuotationHeadsAppService(IRepository<ClientQuotationHead, long> clientQuotationHeadRepository, IRepository<Client, long> lookup_clientRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository, IRepository<ClientQuotationDetail, long> clientQuotationDetailRepository, IRepository<User, long> lookup_userRepository)
         {
             _clientQuotationHeadRepository = clientQuotationHeadRepository;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_crmCurrencyRepository = lookup_crmCurrencyRepository;
             _clientQuotationDetailRepository = clientQuotationDetailRepository;
+            _lookup_userRepository = lookup_userRepository;
         }
 
         public async Task<PagedResultDto<GetClientQuotationHeadForViewDto>> GetAll(GetAllClientQuotationHeadsInput input)
@@ -53,8 +56,8 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientEmailFilter), e => e.ClientEmail.Contains(input.ClientEmailFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientNameFilter), e => e.ClientName.Contains(input.ClientNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter);
-
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CRMCurrencyNameFilter), e => e.CurrencyFk != null && e.CurrencyFk.Name == input.CRMCurrencyNameFilter)
+                         .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
             var pagedAndFilteredClientQuotationHeads = filteredClientQuotationHeads
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -66,6 +69,8 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                                        join o2 in _lookup_crmCurrencyRepository.GetAll() on o.CurrencyId equals o2.Id into j2
                                        from s2 in j2.DefaultIfEmpty()
 
+                                       join o3 in _lookup_userRepository.GetAll() on o.CreatorUserId equals o3.Id into j3
+                                       from s3 in j3.DefaultIfEmpty()
                                        select new
                                        {
 
@@ -73,8 +78,13 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                                            o.ClientEmail,
                                            o.ClientName,
                                            Id = o.Id,
+                                           o.ProductCount,
+                                           o.TotalAmount,
+                                           o.CreationTime,
+                                           o.CreatorUserId,
                                            ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
-                                           CRMCurrencyName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
+                                           CRMCurrencyName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                                           UserName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
                                        };
 
             var totalCount = await filteredClientQuotationHeads.CountAsync();
@@ -93,9 +103,14 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                         ClientEmail = o.ClientEmail,
                         ClientName = o.ClientName,
                         Id = o.Id,
+                        ProductCount = o.ProductCount,
+                        TotalAmount = o.TotalAmount,
+                        CreationTime = o.CreationTime,
+                        CreatorUserId = o.CreatorUserId,
                     },
                     ClientFirstName = o.ClientFirstName,
-                    CRMCurrencyName = o.CRMCurrencyName
+                    CRMCurrencyName = o.CRMCurrencyName,
+                    UserName = o.UserName
                 };
 
                 results.Add(res);

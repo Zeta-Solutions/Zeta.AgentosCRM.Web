@@ -7,6 +7,7 @@
 
         var _$EducationOtherTestScoreTable = $('#OtherTestScoretable');
         var _otherTestScoresService = abp.services.app.otherTestScores;
+        var _clientEducationsService = abp.services.app.clientEducations;
 
         var hiddenfield = $('input[name="Clientid"]').val();
         var dynamicValue = hiddenfield;
@@ -366,11 +367,18 @@
                         //console.log('Formatted Date:', formattedEndDateEnglish); // Example output: "December 2009"
 
 
-// Adjust this according to the format you desire
+// Adjust this according to the format you desire..
                        
                         var rowId = item.clientEducation.id;
                         var CardDiv = '<div class="row maincard"><div class="col-lg-6"><span><span style="font-weight:bold;">' + item.clientEducation.degreeTitle + '</span><br>' + item.clientEducation.institution + '<span></div>'
-                            + '<div class="col-lg-5"><span><span style="background-color:lightgray;border-radius: 5px; padding: 0 5px;""> ' + formattedStartDateEnglish + ' - ' + formattedEndDateEnglish + ' </span> <br> <span style="color:blue;font-weight:bold;"><span>Score: </span> ' + item.clientEducation.acadmicScore + ' GPA' + '</span><br><span>' + item.clientEducation.degreeTitle +' >> ' + item.subjectAreaName + ' >>' + item.subjectName+'</span>' + '</span></div>' +
+                            + '<div class="col-lg-5">'
+                            + '<span>'
+                            + '<span style="background-color:lightgray;border-radius: 5px; padding: 0 5px;""> ' + formattedStartDateEnglish + ' - ' + formattedEndDateEnglish + ' </span>' +
+                            ' <br> <span style="color:blue;font-weight:bold;"><span>Score: </span> ' + item.clientEducation.acadmicScore
+                            + (item.clientEducation.isGpa == true ? ' GPA' : ' Percentage') 
+                            + '</span>'
+                            + '<br><span>' + item.clientEducation.degreeTitle + ' >> ' + item.subjectAreaName + ' >>' + item.subjectName + '</span>'
+                            + '</span></div>' +
                             '<div class="col-lg-1">' +
                             '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
@@ -424,21 +432,23 @@
                 _createOrEditModal.open({ id: rowId });
             } else if (action === 'delete') {
                 
-                deleteMasterCategory(rowId);
+                deleteeducation(rowId);
             }
         });
 
-        function deleteMasterCategory(rowId) {
+        function deleteeducation(education) {
+            debugger
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientEducationsService
                         .delete({
-                            id: rowId,
+                            id: education,
                         })
                         .done(function () {
                             //getSubjectAreas(true);
                             debugger
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
+                            location.reload();
                         });
                 }
             });
