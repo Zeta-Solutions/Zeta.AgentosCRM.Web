@@ -19,5 +19,8 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 
         public decimal TotalAmount { get; set; }
 
+        public DateTime? CreationTime { get; set; }
+        public long? CreatorUserId { get; set; }
+
     }
 }
