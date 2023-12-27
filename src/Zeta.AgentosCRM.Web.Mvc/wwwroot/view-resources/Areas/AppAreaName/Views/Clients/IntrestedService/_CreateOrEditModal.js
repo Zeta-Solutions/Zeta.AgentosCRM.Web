@@ -235,6 +235,7 @@
                       error: function (error) {
                           console.error('Error fetching data:', error);
                       }
+
                   });
       
               // Assuming data.result.promotionproduct is an array of objects with OwnerID property
