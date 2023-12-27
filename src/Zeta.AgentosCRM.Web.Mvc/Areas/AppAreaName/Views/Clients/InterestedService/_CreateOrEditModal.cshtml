@@ -10,6 +10,19 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
 }
 
+<style>
+    #SpinIcon {
+        position: relative; 
+    }  
+        #SpinIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(3);
+      z-index: 9999;
+}
+</style>
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
@@ -22,7 +35,9 @@
             @if (Model.IsEditMode)
             {
                 <input type="hidden" name="id" value="@Model.ClientInterestedService.Id" />
+                <div id="SpinIcon"><i id="submitbtnstyleFetchOnLoad"></i></div>
             }
+
              <input type="hidden" name="BranchId" id="BranchId" />
             <input type="hidden" name="ProductId" id="ProductId" />
             <input type="hidden" name="PartnerId" id="PartnerId" />
@@ -55,11 +70,11 @@
             <div class="row col-12">
                 <div class="col-md-6 mb-3">
                       <label for="SampleDatePicker" class="form-label">@L("ExpectedStartDate")</label>
-                       <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientInterestedService.StartDate" type="datetime" name="StartDate" required />
+                       <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="StartDate" value="@Model.ClientInterestedService.StartDate" type="text" name="StartDate" required />
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label" for="Client_Name">@L("ExpectedWinDate")</label>
-                     <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="EndDate" value="@Model.ClientInterestedService.EndDate" type="datetime" name="EndDate" required />
+                     <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="EndDate" value="@Model.ClientInterestedService.EndDate" type="text" name="EndDate" required />
                 </div>
             </div>
         </form>

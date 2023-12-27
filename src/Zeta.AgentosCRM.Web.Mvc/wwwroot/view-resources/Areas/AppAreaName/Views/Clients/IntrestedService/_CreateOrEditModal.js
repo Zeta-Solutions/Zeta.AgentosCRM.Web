@@ -1,5 +1,8 @@
 ﻿(function ($) {
-  app.modals.CreateOrEditInterestedServicesModal = function () {
+    app.modals.CreateOrEditInterestedServicesModal = function () {
+
+         
+        $('#submitbtnstyleFetchOnLoad').addClass('fa fa-refresh fa-spin');
       var _clientInterstedServices = abp.services.app.clientInterstedServices;
       var ClientName = $("#clientAppID").val();
       $("#Name").val(ClientName);
@@ -25,90 +28,125 @@
       });
       $('input[name*="clientId"]').val(hiddenfield)
 
-      var idValue = $("#WorkflowId").val();
-      $.ajax({
-          url: abp.appPath + 'api/services/app/Partners/GetAll?WorkFlowIdFilter=' + idValue,
-          method: 'GET',
-          dataType: 'json',
-          //data: {
-          //    PartnerIdFilter: dynamicValue,
-          //},
-          success: function (data) {
-              debugger
-              // Populate the dropdown with the fetched data....
-              populateDropdown(data);
-          },
-          error: function (error) {
-              console.error('Error fetching data:', error);
-          }
-      });
+        var idValue = $("#WorkflowId").val();
+        if (idValue > 0) { 
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Partners/GetAll?WorkFlowIdFilter=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+                //data: {
+                //    PartnerIdFilter: dynamicValue,
+                //},
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data....
+                    populateDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+        else {
+
+             
+            $('#partnerId').prepend($('<option></option>').attr('value', '').text('Select Partner'));
+            $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+            $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+        }
       $(document).on("change", "#WorkflowId", function () {
+          var idValue = $(this).val(); 
+          if (idValue > 0) {
+              $.ajax({
+                  url: abp.appPath + 'api/services/app/Partners/GetAll?WorkFlowIdFilter=' + idValue,
+                  method: 'GET',
+                  dataType: 'json',
+                  //data: {
+                  //    PartnerIdFilter: dynamicValue,
+                  //},
+                  success: function (data) {
+                      debugger
+                      // Populate the dropdown with the fetched data....
+                      populateDropdown(data);
 
-          var idValue = $(this).val();
-          $.ajax({
-              url: abp.appPath + 'api/services/app/Partners/GetAll?WorkFlowIdFilter=' + idValue,
-              method: 'GET',
-              dataType: 'json',
-              //data: {
-              //    PartnerIdFilter: dynamicValue,
-              //},
-              success: function (data) {
+                  },
+                  error: function (error) {
+                      console.error('Error fetching data:', error);
+                  }
+              });
 
-                  // Populate the dropdown with the fetched data....
-                  populateDropdown(data);
+          }
+          else {
+              $('#partnerId').empty();
+              $('#productId').empty();
+              $('#branchId').empty();
 
-              },
-              error: function (error) {
-                  console.error('Error fetching data:', error);
-              }
-          });
-
-
+              $('#partnerId').prepend($('<option></option>').attr('value', '').text('Select Partner'));
+              $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+              $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+          }
       });
       $(document).on("change", "#partnerId", function () {
 
           var idValue = $(this).val();
-          $.ajax({
-              url: abp.appPath + 'api/services/app/Products/GetAll?PartnerIdFilter=' + idValue,
-              method: 'GET',
-              dataType: 'json',
-              //data: {
-              //    PartnerIdFilter: dynamicValue,
-              //},
-              success: function (data) {
+           
+          if (idValue > 0) {
+              $.ajax({
+                  url: abp.appPath + 'api/services/app/Products/GetAll?PartnerIdFilter=' + idValue,
+                  method: 'GET',
+                  dataType: 'json',
+                  //data: {
+                  //    PartnerIdFilter: dynamicValue,
+                  //},
+                  success: function (data) {
 
-                  // Populate the dropdown with the fetched data....
-                  populateProductDropdown(data);
+                      // Populate the dropdown with the fetched data....
+                      populateProductDropdown(data);
 
-              },
-              error: function (error) {
-                  console.error('Error fetching data:', error);
-              }
-          });
-
+                  },
+                  error: function (error) {
+                      console.error('Error fetching data:', error);
+                  }
+              });
+          }
+          else {
+              //$('#partnerId').empty();
+              $('#productId').empty();
+              $('#branchId').empty();
+               
+              $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+              $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+          }
 
       });
       $(document).on("change", "#productId", function () {
           debugger
           var idValue = $(this).val();
-          $.ajax({
-              url: abp.appPath + 'api/services/app/ProductBranches/GetAll?ProductIdFilter=' + idValue,
-              method: 'GET',
-              dataType: 'json',
-              //data: {
-              //    PartnerIdFilter: dynamicValue,
-              //},
-              success: function (data) {
+          if (idValue > 0) {
+              $.ajax({
+                  url: abp.appPath + 'api/services/app/ProductBranches/GetAll?ProductIdFilter=' + idValue,
+                  method: 'GET',
+                  dataType: 'json',
+                  //data: {
+                  //    PartnerIdFilter: dynamicValue,
+                  //},
+                  success: function (data) {
 
-                  // Populate the dropdown with the fetched data....
-                  populatebranchDropdown(data);
+                      // Populate the dropdown with the fetched data....
+                      populatebranchDropdown(data);
 
-              },
-              error: function (error) {
-                  console.error('Error fetching data:', error);
-              }
-          });
+                  },
+                  error: function (error) {
+                      console.error('Error fetching data:', error);
+                  }
+              });
+          }
+          else {
 
+              $('#branchId').empty();
+               
+              $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+          }
 
       });
       function populateDropdown(data) {
@@ -154,6 +192,7 @@
                   console.warn('Invalid item:', item);
               }
           });
+
       }
       debugger
       if ($('input[name="id"]').val() > 0) {
@@ -207,11 +246,11 @@
                       console.error('Error fetching data:', error);
                   }
               });
-          }, 1000);
+          }, 100);
 
           // Assuming data.result.promotionproduct is an array of objects with OwnerID property
 
-      }, 1000);
+      }, 100);
 
 
       }
@@ -231,6 +270,9 @@
                           // Populate the dropdown with the fetched data......
                           populatebranchDropdown(data2);
                           $('#branchId').val(data.result.clientInterstedService.branchId).trigger('change.select2');
+
+                           
+                          $('#submitbtnstyleFetchOnLoad').removeClass('fa fa-refresh fa-spin');
                       },
                       error: function (error) {
                           console.error('Error fetching data:', error);
