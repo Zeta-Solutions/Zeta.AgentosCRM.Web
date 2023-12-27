@@ -1,52 +1,35 @@
 ﻿(function () {
     $(function () {
-        //var hiddenfield = $("#ClientId").val();
-        //var dynamicValue = hiddenfield;
-
+      
         getLtasksreload();
-        var globalData; // Declare the data variable in a broader scope
-
+        var globalData;  
         function createCardTask(item) {
             var cRMTasks = item.crmTask;
             var cardId = 'card_' + cRMTasks.id;
             // Create a single row for all cards
-            var mainDiv = $('<div>').addClass('maincard maindivcard')
+            var mainDiv = $('<div>').addClass('maincard maindivcard container-fluid')
                 .css({
                     'margin-left': '0.2px',
-                    'margin-bottom': '5px' // Add margin between cards
+                    'margin-bottom': '5px' 
                 });
-
-            // Create a column for each card
-            //var colDiv = $('<div>').addClass('col-md-12');
+                 
             var cardDiv = $('<div>').addClass('card').css({
                 'padding': '5px '
             });
             var cardBodyDiv = $('<div>').addClass('card-body').css({
                 'padding': '5px '
             });
-
-            // Set max-height and overflow for the card body
-            //cardBodyDiv.css({
-            //    'max-height': '100px', // Adjust the height as needed
-            //    'overflow-y': 'auto'  // Add vertical scroll if content exceeds max height
-            //});
+             
             $('.circle-svg').css({
                 'display': 'inline-block',
-                'vertical-align': 'middle', // Align vertically with the text
-                'margin-left': '10px'  // Adjust margin as needed
+                'vertical-align': 'middle',  
+                'margin-left': '10px'   
             });
-
-            // Create a row for the card title and dots
-            //var titleRowDiv = $('<div>').addClass('row');
-            var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
+             
+            var titleColDiv = $('<div>').addClass('col-md-12'); 
             var cardTitle = $('<p>').addClass('card-title');
-
-            //var formattedDate = cRMTasks.dueDate.toLocaleDateString('en-US', {
-            //year: 'numeric',
-            //    month: '2-digit',
-            //        day: '2-digit',
-            //                });
-            var infoColDiv = $('<div>').addClass('row'); // Adjust the column size as needed
+             
+            var infoColDiv = $('<div>').addClass('row');  
             var infoParagraph1 = $('<p>').addClass('card-text col-md-1');
             var infoParagraph2 = $('<p>').addClass('card-text col-md-2');
             var infoParagraph3 = $('<p>').addClass('card-text col-md-2');

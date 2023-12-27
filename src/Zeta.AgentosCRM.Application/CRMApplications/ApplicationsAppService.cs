@@ -83,6 +83,10 @@ namespace Zeta.AgentosCRM.CRMApplications
                                    o.WorkflowId,
                                    o.Id,
                                    o.ClientId,
+                                   o.ProductId,
+                                   o.BranchId,
+                                   o.Name,
+                                   o.PartnerId,
                                    ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                    WorkflowName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                    PartnerPartnerName = s3 == null || s3.PartnerName == null ? "" : s3.PartnerName.ToString(),
@@ -102,7 +106,9 @@ namespace Zeta.AgentosCRM.CRMApplications
                     {
                         WorkflowId= o.WorkflowId,
                         ClientId = o.ClientId,
-
+                        ProductId= o.ProductId, 
+                        Name=o.Name,
+                        PartnerId=o.PartnerId,
                         Id = o.Id,
                     },
                     ClientFirstName = o.ClientFirstName,

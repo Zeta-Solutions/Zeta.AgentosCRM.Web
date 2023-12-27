@@ -1921,5 +1921,6 @@
 		<text name="Create">Create</text> 
 		<text name="SelectAPartner">Select Partner</text> 
 		<text name="SelectAProduct">Select Product</text>  
+		<text name="Activity">Activity</text>  
 	</texts> 
 </localizationDictionary>
