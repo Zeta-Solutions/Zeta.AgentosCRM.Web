@@ -3,6 +3,7 @@
     $(function () { 
         var _clientsTagsService = abp.services.app.clientTags;
         var _clientsFollowersService = abp.services.app.followers;
+        var _clientsService = abp.services.app.clients;
         var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
         // alert(_clientsService);
         var $selectedDate = {
@@ -118,7 +119,44 @@
            
             window.location = "/AppAreaName/Clients/ClientCreateDetail/" + clientId;
         });
-
+        $(document).on("mouseenter", "#EditProfile", function () {
+            $(this).html('<i class="fa fa-pencil" style="font-size: 10px; color:Blue;" title="Edit"></i>');
+        });
+        $(document).on("mouseleave", "#EditProfile", function () {
+            // Revert the content when hovering ends
+            $(this).html('<span class="fa fa-pencil text-muted "></span>'); // Replace 'Original Content' with your actual original content
+        });
+        $(document).on("mouseenter", "#Archived", function () {
+            $(this).html('<i class="fa fa-archive" style="font-size: 10px; color:Blue;" title="Edit"></i>');
+        });
+        $(document).on("mouseleave", "#Archived", function () {
+            // Revert the content when hovering ends
+            $(this).html('<span class="fa fa-archive text-muted "></span>'); // Replace 'Original Content' with your actual original content
+        });
+        $(document).on("click", "#Archived", function () {
+            debugger
+            if ($("input[name='Archiveds']").val() == 'true' ){
+                var inputData = {
+                    clientId: clientId,
+                    isArchived: 0
+                };
+            }
+            else {
+                var inputData = {
+                    clientId: clientId,
+                    isArchived: 1
+                };
+            }
+               var Steps = JSON.stringify(inputData);
+               Steps = JSON.parse(Steps);
+            _clientsService
+                .updateClientIsArchived(Steps)
+                   .done(function () {
+                       //debugger
+                       abp.notify.info(app.localize('ArchivedSuccessfully'));
+                       location.reload();
+                   })
+        });
 
         $(document).keypress(function (e) {
             if (e.which === 13) {

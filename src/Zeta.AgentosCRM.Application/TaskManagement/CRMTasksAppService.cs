@@ -94,7 +94,9 @@ namespace Zeta.AgentosCRM.TaskManagement
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ApplicationNameFilter), e => e.ApplicationFk != null && e.ApplicationFk.Name == input.ApplicationNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ApplicationStageNameFilter), e => e.ApplicationStageFk != null && e.ApplicationStageFk.Name == input.ApplicationStageNameFilter)
                       .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value)
-                      .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
+                      .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value)
+                       .WhereIf(input.ApplicationIdFilter.HasValue, e => false || e.ApplicationId == input.ApplicationIdFilter.Value)
+                        .WhereIf(input.ApplicationstageIdFilter.HasValue, e => false || e.ApplicationStageId == input.ApplicationstageIdFilter.Value);
             var pagedAndFilteredCRMTasks = filteredCRMTasks
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

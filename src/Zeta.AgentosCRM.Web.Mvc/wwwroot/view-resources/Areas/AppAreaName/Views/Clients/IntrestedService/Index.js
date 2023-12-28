@@ -209,7 +209,9 @@
             debugger
             // Handle the selected action based on the rowId
             if (action === 'edit') {
+                $(".loader").show();
                 _createOrEditModal.open({ id: rowId });
+
             } else if (action === 'delete') {
                 console.log(rowId);
                 deleteclientInterstedService(rowId);

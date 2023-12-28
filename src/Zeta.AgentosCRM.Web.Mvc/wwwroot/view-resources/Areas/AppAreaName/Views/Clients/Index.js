@@ -279,6 +279,7 @@
                             '<ul style="list-style: none; padding: 0;color:black">' +
                             '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
                             '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                            '<a href="#" style="color: black;" data-action="archived" data-id="' + rowId + '"><li>Archived</li></a>' +
                             "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
@@ -354,6 +355,29 @@
             } else if (action === 'delete') {
                 debugger
                 deleteClient(rowId);
+            }
+            else if (action === 'archived') {
+                if ($("input[name='Archiveds']").val() == 'true') {
+                    var inputData = {
+                        clientId: rowId,
+                        isArchived: 0
+                    };
+                }
+                else {
+                    var inputData = {
+                        clientId: rowId,
+                        isArchived: 1
+                    };
+                }
+                var Steps = JSON.stringify(inputData);
+                Steps = JSON.parse(Steps);
+                _clientsService
+                    .updateClientIsArchived(Steps)
+                    .done(function () {
+                        //debugger
+                        abp.notify.info(app.localize('ArchivedSuccessfully'));
+                        location.reload();
+                    })
             }
         });
         // Add an event listener to handle the click event for the full name link
