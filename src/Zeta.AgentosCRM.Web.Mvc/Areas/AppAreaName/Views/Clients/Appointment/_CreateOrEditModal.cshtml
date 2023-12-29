@@ -14,9 +14,7 @@
                 <input type="hidden" name="id" value="@Model.Appointment.Id" />
             }
             <input type="hidden" name="clientId" id="ClientId" />
-            <input type="hidden" name="AddedById" id="AddedById" value="@AbpSession.UserId" />
-@* 
-            <input type="hidden" name="clientId" id="clientAppID" /> *@
+            <input type="hidden" name="AddedById" id="AddedById" value="@AbpSession.UserId" /> 
     <div class="row">
         <div class="col-6">
             <label class="fw-bold">Related to:</label>
@@ -54,9 +52,7 @@
                 {
                     <p>No timezones available</p>
                 }
-                @* @Html.DropDownList("Timezone", Model.TimezoneItems.Select(i => i.ToSelectListItem()), new {@class = "form-select", id = "Timezone"}) *@
-              
-                @* <input class="form-control form-control-sm rounded-0 custom-select-input" id="Applointment_TimeZone" value="@Model.Appointment.TimeZone" type="text" name="TimeZone" required /> *@
+                
             </div>
     
             <div class="row col-12">

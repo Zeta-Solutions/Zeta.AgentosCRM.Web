@@ -19,6 +19,9 @@ using Abp.Extensions;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Zeta.AgentosCRM.CRMAgent;
+using Zeta.AgentosCRM.CRMSetup.Tag;
+using Org.BouncyCastle.Crypto.Encodings;
+using Zeta.AgentosCRM.CRMApplications;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -30,12 +33,30 @@ namespace Zeta.AgentosCRM.CRMClient
         private readonly IRepository<Country, int> _lookup_countryRepository;
         private readonly IRepository<User, long> _lookup_userRepository;
         private readonly IRepository<Agent, long> _lookup_agentRepository;
+        private readonly IRepository<ClientTag, int> _lookup_ClientTagRepository;
+        private readonly IRepository<Tag, int> _lookup_TagRepository;
         private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
         private readonly IRepository<DegreeLevel, int> _lookup_degreeLevelRepository;
         private readonly IRepository<SubjectArea, int> _lookup_subjectAreaRepository;
         private readonly IRepository<LeadSource, int> _lookup_leadSourceRepository;
+        private readonly IRepository<Follower, int> _lookup_followerRepository;
+        private readonly IRepository<Application, long> _lookup_applicationRepository;
 
-        public ClientsAppService(IRepository<Client, long> clientRepository, IClientsExcelExporter clientsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<User, long> lookup_userRepository, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<LeadSource, int> lookup_leadSourceRepository, IRepository<Agent, long> lookup_agentRepository)
+        public ClientsAppService(IRepository<Client, long> clientRepository, 
+            IClientsExcelExporter clientsExcelExporter,
+            IRepository<Country, int> lookup_countryRepository, 
+            IRepository<User, long> lookup_userRepository, 
+            IRepository<BinaryObject, Guid> lookup_binaryObjectRepository,
+            IRepository<DegreeLevel, int> lookup_degreeLevelRepository,
+            IRepository<SubjectArea, int> lookup_subjectAreaRepository,
+            IRepository<LeadSource, int> lookup_leadSourceRepository,
+            IRepository<Agent, long> lookup_agentRepository,
+            IRepository<ClientTag ,int> lookup_ClientTagRepository,
+            IRepository<Tag, int> lookup_TagRepository,
+            IRepository<Follower, int> lookup_followerRepository,
+            IRepository<Application, long> lookup_applicationRepository
+
+			)
         {
             _clientRepository = clientRepository;
             _clientsExcelExporter = clientsExcelExporter;
@@ -46,6 +67,10 @@ namespace Zeta.AgentosCRM.CRMClient
             _lookup_subjectAreaRepository = lookup_subjectAreaRepository;
             _lookup_leadSourceRepository = lookup_leadSourceRepository;
             _lookup_agentRepository = lookup_agentRepository;
+            _lookup_ClientTagRepository = lookup_ClientTagRepository;
+            _lookup_TagRepository = lookup_TagRepository;
+            _lookup_followerRepository = lookup_followerRepository;
+			_lookup_applicationRepository = lookup_applicationRepository;
         }
 
         public async Task<PagedResultDto<GetClientForViewDto>> GetAll(GetAllClientsInput input)
@@ -108,39 +133,61 @@ namespace Zeta.AgentosCRM.CRMClient
 
                           join o8 in _lookup_agentRepository.GetAll() on o.AgentId equals o8.Id into j8
                           from s8 in j8.DefaultIfEmpty()
+                          
+                          join o9 in _lookup_ClientTagRepository.GetAll() on o.Id equals o9.ClientId into j9
+                          from s9 in j9.DefaultIfEmpty()
+                          
+                          join o10 in _lookup_TagRepository.GetAll() on s9.TagId equals o10.Id into j10
+                          from s10 in j10.DefaultIfEmpty()
 
-                          select new
-                          {
+                          join o12 in _lookup_applicationRepository.GetAll() on o.Id equals o12.ClientId into j12
+                          from s12 in j12.DefaultIfEmpty()
 
-                              o.FirstName,
-                              o.LastName,
-                              o.Email,
-                              o.PhoneNo,
-                              o.PhoneCode,
-                              o.DateofBirth,
-                              o.ContactPreferences,
-                              o.University,
-                              o.Street,
-                              o.City,
-                              o.State,
-                              o.ZipCode,
-                              o.PreferedIntake,
-                              o.PassportNo,
-                              o.VisaType,
-                              o.VisaExpiryDate,
-                              o.Rating,
-                              o.ClientPortal,
-                              Id = o.Id,
-                              o.ProfilePictureId,
-                              CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
-                              UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
-                              BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
-                              ImageBytes = s3 == null || s3.Bytes == null ? "" : Convert.ToBase64String(s3.Bytes),
-                              DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
-                              SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
-                              LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
-                              PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
-                              AgentName = s8 == null || s8.Name == null ? "" : s8.Name.ToString()
+
+						  group new { o, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s12 } by o.Id into g
+
+						  select new
+                          { 
+                              g.First().o.FirstName,
+                              g.First().o.LastName,
+							  g.First().o.Email,
+							  g.First().o.PhoneNo,
+							  g.First().o.PhoneCode,
+                              DateofBirth = g.First().o.DateofBirth,
+                              g.First().o.ContactPreferences,
+                              g.First().o.University,
+                              g.First().o.Street,
+                              g.First().o.City,
+                              g.First().o.State,
+                              g.First().o.ZipCode,
+                              g.First().o.PreferedIntake,
+                              g.First().o.PassportNo,
+                              g.First().o.VisaType,
+                              g.First().o.VisaExpiryDate,
+                              g.First().o.Rating,
+                              g.First().o.ClientPortal,
+                              g.First().o.Id,
+                              g.First().o.ProfilePictureId,
+                              g.First().o.CountryId,
+                              g.First().o.LastModificationTime,
+
+
+							  ApplicationCount = g.Count(entry => entry.s12 != null && entry.s12.Name != null),
+
+							  IsAnyApplicationActive = g.Any(entry => entry.s12 != null && entry.s12.IsDiscontinue==false),
+
+
+							  CountryName = g.First().s1 == null || g.First().s1.Name == null ? "" : g.First().s1.Name.ToString(),
+                              UserName = g.First().s2 == null || g.First().s2.Name == null ? "" : g.First().s2.Name.ToString(),
+                              BinaryObjectDescription = g.First().s3 == null || g.First().s3.Description == null ? "" : g.First().s3.Description.ToString(),
+                              ImageBytes = g.First().s3 == null || g.First().s3.Bytes == null ? "" : Convert.ToBase64String(g.First().s3.Bytes),
+                              DegreeLevelName = g.First().s4 == null || g.First().s4.Name == null ? "" : g.First().s4.Name.ToString(),
+                              SubjectAreaName = g.First().s5 == null || g.First().s5.Name == null ? "" : g.First().s5.Name.ToString(),
+                              LeadSourceName = g.First().s6 == null || g.First().s6.Name == null ? "" : g.First().s6.Name.ToString(),
+                              PassportCountry = g.First().s7 == null || g.First().s7.Name == null ? "" : g.First().s7.Name.ToString(),
+                              AgentName = g.First().s8 == null || g.First().s8.Name == null ? "" : g.First().s8.Name.ToString(),
+                              TagName = g.First().s10 == null || g.First().s10.Name == null ? "" : g.First().s10.Name.ToString(),
+							 // IsDiscontinue = s12 == null || s12.IsDiscontinue == true ? false : s12.IsDiscontinue
                           };
 
             var totalCount = await filteredClients.CountAsync();
@@ -171,10 +218,13 @@ namespace Zeta.AgentosCRM.CRMClient
                         PassportNo = o.PassportNo,
                         VisaType = o.VisaType,
                         VisaExpiryDate = o.VisaExpiryDate,
-                        Rating = o.Rating,
+						LastModificationTime = o.LastModificationTime,
+						Rating = o.Rating,
                         ClientPortal = o.ClientPortal,
                         Id = o.Id,
                         ProfilePictureId=o.ProfilePictureId,
+                        CountryId = o.CountryId,
+                        ApplicationCount = o.ApplicationCount,
                     },
                     CountryName = o.CountryName,
                     UserName = o.UserName,
@@ -184,7 +234,9 @@ namespace Zeta.AgentosCRM.CRMClient
                     LeadSourceName = o.LeadSourceName,
                     PassportCountry = o.PassportCountry,
                     AgentName = o.AgentName,
-                    ImageBytes=o.ImageBytes,
+                    TagName = o.TagName,
+					IsAnyApplicationActive = o.IsAnyApplicationActive,
+                    ImageBytes = o.ImageBytes,
                 };
 
                 results.Add(res);

@@ -142,9 +142,9 @@
                         console.log(RowDatajsonString);
                         var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis30"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                            '<div class="Appointmentoptions" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action30="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<a href="#" style="color: black;" data-action30="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             "<a href='#' style='color: black;' data-action30='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
@@ -163,8 +163,8 @@
         $(document).on('click', '.ellipsis30', function (e) {
             e.preventDefault();
             debugger
-            var options = $(this).closest('.context-menu').find('.Appointmentoptions');
-            var allOptions = $('.Appointmentoptions');  // Select all options
+            var options = $(this).closest('.context-menu').find('.options');
+            var allOptions = $('.options');  // Select all options
 
             // Close all other open options
             allOptions.not(options).hide();
@@ -176,7 +176,7 @@
         // Close the context menu when clicking outside of it
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
-                $('.Appointmentoptions').hide();
+                $('.options').hide();
             }
         });
         $(document).on('click', 'a[data-action30]', function (e) {

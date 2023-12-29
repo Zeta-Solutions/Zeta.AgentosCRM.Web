@@ -1922,5 +1922,14 @@
 		<text name="SelectAPartner">Select Partner</text> 
 		<text name="SelectAProduct">Select Product</text>  
 		<text name="Activity">Activity</text>  
+		<text name="currentcity">Current City</text>     
+		<text name="SelectATag">Select Tag</text>     
+		<text name="CreateFollower">Create Follower</text>     
+		<text name="CreateTags">Create Tags</text>     
+		<text name="SelectATimeZone">Select Time Zone</text>     
+		<text name="AcademicScore">Academic Score</text>     
+		<text name="Percentage">Percentage</text>     
+		<text name="GPA">GPA</text>     
+		<text name="EditChekInLogs">EditChekInLogs</text>     
 	</texts> 
 </localizationDictionary>

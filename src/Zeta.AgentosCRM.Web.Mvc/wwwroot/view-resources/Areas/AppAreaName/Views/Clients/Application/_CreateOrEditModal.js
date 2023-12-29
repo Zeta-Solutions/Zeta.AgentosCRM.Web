@@ -32,24 +32,29 @@
             dropdownParent: $('#productId').parent(),
         });
         var idValue = $("#WorkflowId").val();
-        $.ajax({
-            url: abp.appPath + 'api/services/app/Branches/GetBranchbyWorkflowId?workflowId=' + idValue,
-            method: 'GET',
-            dataType: 'json',
-            //data: {
-            //    PartnerIdFilter: dynamicValue,
-            //},
-            success: function (data) {
-                debugger
-                // Populate the dropdown with the fetched data....
-                $("#PartnerId").val(data.result[0].branch.partnerId)
-                populateDropdown(data);
-            },
-            error: function (error) {
-                console.error('Error fetching data:', error);
-            }
-        });
+        if (idValue > 0) { 
+            $.ajax({
+                url: abp.appPath + 'api/services/app/Branches/GetBranchbyWorkflowId?workflowId=' + idValue,
+                method: 'GET',
+                dataType: 'json',
+                //data: {
+                //    PartnerIdFilter: dynamicValue,
+                //},
+                success: function (data) {
+                    debugger
+                    // Populate the dropdown with the fetched data....
+                    $("#PartnerId").val(data.result[0].branch.partnerId)
+                    populateDropdown(data);
+                },
+                error: function (error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        } else { 
+            $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+            $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
 
+        }
         function populateDropdown(data) {
             debugger
             var dropdown = $('#branchId');
@@ -66,49 +71,79 @@
         }
         
         $(document).on("change", "#WorkflowId", function () {
-        
+        debugger
             var idValue = $(this).val();
-            $.ajax({
-                url: abp.appPath + 'api/services/app/Branches/GetBranchbyWorkflowId?workflowId=' + idValue,
-                method: 'GET',
-                dataType: 'json',
-                //data: {
-                //    PartnerIdFilter: dynamicValue,
-                //},
-                success: function (data) {
-                  
-                    // Populate the dropdown with the fetched data....
-                    $("input[name='PartnerId']").val(data.result[0].branch.partnerId)
-                    populateDropdown(data);
-                   
-                },
-                error: function (error) {
-                    console.error('Error fetching data:', error);
-                }
-            });
-           
+            if (idValue > 0) {
 
+                $.ajax({
+                    url: abp.appPath + 'api/services/app/Branches/GetBranchbyWorkflowId?workflowId=' + idValue,
+                    method: 'GET',
+                    dataType: 'json',
+                    //data: {
+                    //    PartnerIdFilter: dynamicValue,
+                    //},
+                    success: function (data) {
+                        debugger
+
+
+                        if (data == null || data == 0 || data == undefined || data.result.length == 0) {
+                            $('#branchId').empty();
+
+                            $('#productId').empty();  
+                            $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+                            $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+ 
+                        }
+                        else {
+                            populateDropdown(data);
+                            $("input[name='PartnerId']").val(data.result[0].branch.partnerId)
+                        }
+                    },
+                    error: function (error) {
+
+                        console.error('Error fetching data:', error);
+                    }
+                });
+
+            } else {
+                $('#branchId').empty();
+                $('#productId').empty();
+                  
+                    $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product'));
+                    $('#branchId').prepend($('<option></option>').attr('value', '').text('Select Branch'));
+
+                
+            }
         });
         $(document).on("change", "#branchId", function () {
             debugger
             var idBranchValue = $(this).val();
-            $.ajax({
-                url: abp.appPath + 'api/services/app/ProductBranches/GetAll?BranchIdFilter=' + idBranchValue,
-                method: 'GET',
-                dataType: 'json',
-                //data: {
-                //    PartnerIdFilter: dynamicValue,
-                //},
-                success: function (data) {
+            if (idBranchValue > 0) {
+                $.ajax({
+                    url: abp.appPath + 'api/services/app/ProductBranches/GetAll?BranchIdFilter=' + idBranchValue,
+                    method: 'GET',
+                    dataType: 'json',
+                    //data: {
+                    //    PartnerIdFilter: dynamicValue,
+                    //},
+                    success: function (data) {
 
-                    // Populate the dropdown with the fetched data......
-                    populateProductDropdown(data);
-                },
-                error: function (error) {
-                    console.error('Error fetching data:', error);
-                }
-            });
+                        // Populate the dropdown with the fetched data......
+                        populateProductDropdown(data);
+                    },
+                    error: function (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+            else {
 
+                $('#productId').empty();
+              
+                    $('#productId').prepend($('<option></option>').attr('value', '').text('Select Product')); 
+
+                
+            }
 
         });
         function populateProductDropdown(data) {
@@ -169,7 +204,7 @@
                         console.error('Error fetching data:', error);
                     }
                 });
-            }, 1000);
+            }, 100);
     
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
            

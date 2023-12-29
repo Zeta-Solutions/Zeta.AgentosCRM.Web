@@ -1,4 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMProducts;
@@ -20,6 +20,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMApplications.Stages; 
 using Zeta.AgentosCRM.CRMClient.Dtos;
 
 namespace Zeta.AgentosCRM.CRMApplications
@@ -33,8 +35,18 @@ namespace Zeta.AgentosCRM.CRMApplications
         private readonly IRepository<Workflow, int> _lookup_workflowRepository;
         private readonly IRepository<Partner, long> _lookup_partnerRepository;
         private readonly IRepository<Product, long> _lookup_productRepository;
+        private readonly IRepository<Branch, long> _lookup_branchRepository;
+        private readonly IRepository<ApplicationStage, long> _lookup_applicationStageRepository;
 
-        public ApplicationsAppService(IRepository<Application, long> applicationRepository, IApplicationsExcelExporter applicationsExcelExporter, IRepository<Client, long> lookup_clientRepository, IRepository<Workflow, int> lookup_workflowRepository, IRepository<Partner, long> lookup_partnerRepository, IRepository<Product, long> lookup_productRepository)
+        public ApplicationsAppService(IRepository<Application, long> applicationRepository,
+            IApplicationsExcelExporter applicationsExcelExporter,
+            IRepository<Client, long> lookup_clientRepository,
+            IRepository<Workflow, int> lookup_workflowRepository,
+            IRepository<Partner, long> lookup_partnerRepository,
+            IRepository<Product, long> lookup_productRepository,
+            IRepository<Branch, long> lookup_branchRepository,
+            IRepository<ApplicationStage, long> lookup_applicationStageRepository
+			)
         {
             _applicationRepository = applicationRepository;
             _applicationsExcelExporter = applicationsExcelExporter;
@@ -42,6 +54,8 @@ namespace Zeta.AgentosCRM.CRMApplications
             _lookup_workflowRepository = lookup_workflowRepository;
             _lookup_partnerRepository = lookup_partnerRepository;
             _lookup_productRepository = lookup_productRepository;
+			_lookup_branchRepository = lookup_branchRepository;
+			_lookup_applicationStageRepository = lookup_applicationStageRepository;
 
         }
 
@@ -79,6 +93,12 @@ namespace Zeta.AgentosCRM.CRMApplications
                                join o4 in _lookup_productRepository.GetAll() on o.ProductId equals o4.Id into j4
                                from s4 in j4.DefaultIfEmpty()
 
+                               join o5 in _lookup_branchRepository.GetAll() on o.BranchId equals o5.Id into j5
+                               from s5 in j5.DefaultIfEmpty()
+                               
+                               join o6 in _lookup_applicationStageRepository.GetAll().Where(stage=>stage.IsCurrent==true) on o.Id equals o6.ApplicationId into j6
+                               from s6 in j6.DefaultIfEmpty()
+
                                select new
                                {
                                    o.WorkflowId,
@@ -88,16 +108,24 @@ namespace Zeta.AgentosCRM.CRMApplications
                                    o.BranchId,
                                    o.Name,
                                    o.PartnerId,
+                                   o.CreationTime,
+                                   o.LastModificationTime,
+                                   o.IsDiscontinue,
                                    ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                    WorkflowName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                    PartnerPartnerName = s3 == null || s3.PartnerName == null ? "" : s3.PartnerName.ToString(),
-                                   ProductName = s4 == null || s4.Name == null ? "" : s4.Name.ToString()
-                               };
+                                   ProductName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                                   BranchName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
+                                   ApplicationName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
+
+								   IsCurrent = s6 == null || s6.IsCurrent == false ? true : s6.IsCurrent,
+								   IsActive = s6 == null || s6.IsActive == false ? true : s6.IsActive,
+								   IsCompleted = s6 == null || s6.IsCompleted == false ? true : s6.IsCompleted                               };
 
             var totalCount = await filteredApplications.CountAsync();
 
             var dbList = await applications.ToListAsync();
-            var results = new List<GetApplicationForViewDto>();
+            var results = new List<GetApplicationForViewDto>(); 
 
             foreach (var o in dbList)
             {
@@ -111,12 +139,21 @@ namespace Zeta.AgentosCRM.CRMApplications
                         Name=o.Name,
                         PartnerId=o.PartnerId,
                         Id = o.Id,
-                    },
+                        CreationTime = o.CreationTime,
+                        LastModificationTime = o.LastModificationTime,
+                        IsDiscontinue=o.IsDiscontinue,
+					},
                     ClientFirstName = o.ClientFirstName,
                     WorkflowName = o.WorkflowName,
                     PartnerPartnerName = o.PartnerPartnerName,
-                    ProductName = o.ProductName
-                };
+                    ProductName = o.ProductName,
+					BranchName = o.BranchName,
+					ApplicationName = o.ApplicationName,
+                    IsCurrent=o.IsCurrent,
+                    IsActive=o.IsActive,
+                    IsCompleted=o.IsCompleted,
+
+				};
 
                 results.Add(res);
             }

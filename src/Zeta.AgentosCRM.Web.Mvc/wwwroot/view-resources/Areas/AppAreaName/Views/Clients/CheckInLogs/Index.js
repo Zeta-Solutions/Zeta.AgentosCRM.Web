@@ -112,20 +112,6 @@
                 },
                 {
                     targets: 2,
-
-                    data: 'checkInLog.checkInPurpose',
-                    name: 'checkInPurpose',
-
-                },
-                {
-                    targets: 3,
-                    //data: 'application.productName',
-                    //name: 'productName',
-                    data: 'checkInLog.checkInStatus',
-                    name: 'checkInStatus',
-                },
-                {
-                    targets: 4,
                     data: 'checkInLog.checkInDate',
                     name: 'checkInDate',
                     render: function (checkInDate) {
@@ -136,7 +122,7 @@
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 3,
                     data: 'checkInLog.startTime',
                     name: 'startTime',
                     render: function (startTime) {
@@ -147,7 +133,7 @@
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 4,
                     data: 'checkInLog.endTime',
                     name: 'endTime',
                     render: function (endTime) {
@@ -156,15 +142,32 @@
                         }
                         return "";
                     }
+                }, 
+                {
+                    targets: 5,
+
+                    data: 'checkInLog.checkInPurpose',
+                    name: 'checkInPurpose',
+                },
+                {
+                    targets: 6,
+                    data: 'userName',
+                    name: 'userName',
+
+                },
+                {
+                    targets: 7,
+                    //data: 'application.productName',
+                    //name: 'productName',
+                    data: 'checkInLog.checkInStatus',
+                    name: 'checkInStatus',
                 },
                 {
                     width: 30,
-                    targets: 7,
+                    targets: 8,
                     data: null,
                     orderable: false,
-                    searchable: false,
-
-
+                    searchable: false, 
                     render: function (data, type, full, meta) {
                        // console.log(data);
                         var rowId = data.checkInLog.id;
@@ -176,19 +179,14 @@
                             '<div class="Checkellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action6="edit" data-id="' + rowId + '">Edit</a></li>' +
+                            '<a href="#" style="color: black;" data-action6="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             "<a href='#' style='color: black;' data-action6='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
-                            '</div>';
-
-
+                            '</div>'; 
                         return contaxtMenu;
-                    }
-
-
-                },
-
+                    } 
+                }, 
             ],
         });
 

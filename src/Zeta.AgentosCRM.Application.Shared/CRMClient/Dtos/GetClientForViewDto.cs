@@ -1,4 +1,6 @@
-﻿namespace Zeta.AgentosCRM.CRMClient.Dtos
+﻿using System;
+
+namespace Zeta.AgentosCRM.CRMClient.Dtos
 {
     public class GetClientForViewDto
     {
@@ -19,6 +21,8 @@
         public string PassportCountry { get; set; }
 
         public string AgentName { get; set; }
+        public string TagName { get; set; } 
+        public bool IsAnyApplicationActive { get; set; } 
         public string ImageBytes { get; set; }
 
     }

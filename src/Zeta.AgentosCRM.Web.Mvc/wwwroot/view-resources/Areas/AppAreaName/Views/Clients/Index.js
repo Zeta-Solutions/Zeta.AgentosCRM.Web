@@ -5,9 +5,9 @@
     $(function () {
 
         var _$clientsTable = $('#ClientsTable');
+        console.log(_$clientsTable);
         var _clientsService = abp.services.app.clients;
-        var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
-       // alert(_clientsService);
+        var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client'; 
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -154,21 +154,15 @@
                     orderable: false,
                     autoWidth: false,
                     defaultContent: '',
-                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
                     render: function (data, type, row) {
                         let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
                         let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
                         let initials = `${firstNameInitial}${lastNameInitial}`;
                         let fullName = `${row.client.firstName} ${row.client.lastName}`;
                        
-                  /*      console.log(row);*/
-                        debugger
-                        // Generate the URLs using JavaScript variables
-                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
-                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
-                        let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
-           /*             console.log(clientEmailComposeUrl);*/
-                        let profilePicture = row.imageBytes
+                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                         let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                         let profilePicture = row.imageBytes
                         return `
     <div class="d-flex align-items-center">
          ${profilePicture
@@ -189,81 +183,84 @@
                 },
                 {
                     targets: 3,
-                    data: 'client.rating',
-                    name: 'rating',
+                    data: 'tagName',
+                    name: 'tagName',
                 },
                 {
                     targets: 4,
-                    data: 'client.id',
-                    name: 'id',
+                    data: 'client.phoneNo',
+                    name: 'phoneNo',
                 },
                 {
                     targets: 5,
-                    data: 'userName',
-                    name: 'assigneeName',
-                },
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let city = row.client.city;
+                        let countryName = row.countryName;
+
+                        let fullName = `${city} <br> ${countryName}`;
+                         
+                        return ` ${fullName}`;
+                    },
+                    name: 'concatenatedData',
+                }, 
                 {
                     targets: 6,
-                    data: "client.phoneNo",
-                    name: "phoneNo"
+                    data: "userName",
+                    name: "userName"
                 },
                 {
                     targets: 7,
-                    data: 'client.id',
-                    name: 'id',
+                    data: 'userName',
+                    name: 'userName',
                 },
                 {
                     targets: 8,
-                    data: 'client.passportNo',
-                    name: 'passportNo',
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let isDiscontinue = row.isAnyApplicationActive;
+                        if (isDiscontinue == true) {
+                            return `<span style="color: red; font-size: 14px;">&#8226; Discontinue</span>`;
+                        } else {
+                            return `<span style="color:blue; font-size: 14px;">&#8226; InProgress</span>`;
+                        }
+                    },
+
+                    name: 'concatenatedData',
+                    //data: 'userName',.........
+                    //name: 'userName',......
                 },
                 {
                     targets: 9,
-                    data: 'client.city',
-                    name: 'city',
+                    data: 'client.applicationCount',
+                    name: 'applicationCount',
                 },
                 {
                     targets: 10,
-                    data: 'client.state',
-                    name: 'state',
-                },
-                {
-                    targets: 11,
-                    data: 'client.state',
-                    name: 'state',
+                    data: 'client.lastModificationTime',
+                    name: 'lastModificationTime',
+               
+                    render: function (lastModificationTime) {
+                        if (lastModificationTime) {
+                            return moment(lastModificationTime).format('L');
+                        }
+                        return "";
+                    }
                 },
                 //{
-                //    width: 30,
-                //    targets: 12,
-                //    data: null,
-                //    orderable: false,
-                //    searchable: false,
-
-
-                //    render: function (data, type, full, meta) {
-
-                //        var rowId = data.client.id;
-                //        var rowData = data.client;
-                //        var RowDatajsonString = JSON.stringify(rowData);
-                //        console.log(RowDatajsonString);
-                //        var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
-                //            '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                //            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
-                //            '<ul style="list-style: none; padding: 0;color:black">' +
-                //            '<li ><a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '">Edit</a></li>' +
-                //            "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
-                //            '</ul>' +
-                //            '</div>' +
-                //            '</div>';
-
-
-                //        return contaxtMenu;
-                //    }
-
-
-                //}
+                //    targets: 11,
+                //    data: 'client.state',
+                //    name: 'state',
+                //},
+                 
                 {
-                    targets: 12,
+                    targets: 11,
                     width: 30,
                     data: null,
                     orderable: false,
@@ -436,8 +433,7 @@
         //    getClientsTags();
         //});
         $('#ExportToExcelButton').click(function () {
-            debugger
-            alert("hello");
+            debugger 
             _clientsService
                 .getClientsToExcel({
                     filter: $('#ClientsTableFilter').val(),
