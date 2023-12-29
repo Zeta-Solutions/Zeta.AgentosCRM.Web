@@ -18,6 +18,8 @@ namespace Zeta.AgentosCRM.CRMApplications.Dtos
         public long BranchId { get; set; }
 
         public bool IsDiscontinue { get; set; }
+        public DateTime CreationTime { get; set; }
+        public DateTime? LastModificationTime { get; set; }
 
     }
 }

@@ -34,9 +34,9 @@
             //var cardTitle = $('<h5>').addClass('card-title col-md-12');
 
         
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("Academic Requirements" +
+            cardTitle.html("<strong>Academic Requirements</strong>" +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis5"><a href="#" data-id="' + productAcadamicRequirement.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -108,9 +108,9 @@
                 'padding': '5px'
             });
 
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("English Test Score" +
+            cardTitle.html("<strong>English Test Score</strong>" +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis51"><a href="#" data-id="' + (productEnglishRequirements.length > 0 ? productEnglishRequirements[0].productEnglishRequirement.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -295,9 +295,9 @@
                 'padding': '5px'
             });
 
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("Other Test Score" +
+            cardTitle.html("<strong>Other Test Score</strong>" +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis71"><a href="#" data-id="' + (productOtherTestRequirements.length > 0 ? productOtherTestRequirements[0].productOtherTestRequirement.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +

@@ -44,11 +44,7 @@
             // Format the result
             const result = `${days} days, ${hours} hours, ${minutes} minutes`;
 
-            console.log(result);
-            // Include context menu HTML within the title
-            //var rowId = data.partner.id;
-            //var rowData = data.partner;
-            //var RowDatajsonString = JSON.stringify(rowData);
+            console.log(result); 
             cardTitle.html('<strong>' + note.title + '</strong>'+
                '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis123"><a href="#" data-id="' + note.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +

@@ -6,8 +6,7 @@
         var dynamicValue = hiddenfield;
         
         getLbranchesreload(dynamicValue);
-        var globalData; // Declare the data variable in a broader scope
-
+        var globalData; 
         function createCard(item) {
             var branch = item.branch;
 
@@ -24,31 +23,24 @@
 
             // Create a row for the card title and dots
             var titleRowDiv = $('<div>').addClass('row');
-            var titleColDiv = $('<div>').addClass('col-md-12'); // Adjust the column size as needed
-            var cardTitle = $('<h5>').addClass('card-title');
-
-            // Include context menu HTML within the title
-            //var rowId = data.partner.id;
-            //var rowData = data.partner;
-            //var RowDatajsonString = JSON.stringify(rowData);
-            cardTitle.html('Head Office' +
+            var titleColDiv = $('<div>').addClass('col-md-12'); 
+            var cardTitle = $('<p>').addClass('card-title');
+             
+            cardTitle.html('<strong>Head Office</strong>' +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis"><a href="#" data-id="' + branch.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
-             /*   '<a href="#" style="color: black;" data-action="view" data-id="' + branch.id + '"><li>View</li></a>' +*/
                 '<a href="#" style="color: black;" data-action="edit" data-id="' + branch.id + '"><li>Edit</li></a>' +
                 "<a href='#' style='color: black;' data-action='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
                 '</ul>' +
                 '</div>' +
                 '</div>');
-
-            // Append title and dots to the title column
+                 
             titleColDiv.append(cardTitle);
             titleRowDiv.append(titleColDiv);
-
-            // Create a column for the card information
-            var infoColDiv = $('<div>').addClass('col-md-6'); // Adjust the column size as needed
+             
+            var infoColDiv = $('<div>').addClass('col-md-6'); 
             var infoParagraph = $('<p>').addClass('card-text');
             infoParagraph.html(branch.name + '<br>' + item.countryName + '<br><hr>' + branch.email);
 

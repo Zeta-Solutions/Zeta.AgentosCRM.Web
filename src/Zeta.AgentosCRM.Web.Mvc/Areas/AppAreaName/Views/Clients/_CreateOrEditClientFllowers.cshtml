@@ -13,7 +13,7 @@
 {
 <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/_ClientProfileDetail.js" asp-append-version="true"></script>
 }
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Create Follower")))
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateFollower")))
 
 
 <div class="modal-body">
@@ -29,13 +29,10 @@
                 @Html.DropDownList("TagId", new SelectList(Model.ClientTagList,"Id","DisplayName", (Model.IsEditMode ? Model.ClientTag.ClientId.ToString() : "")),@L("SelectATag"), new { @class = "form-control"  , @required="required" })
             </div> *@
 
-            <div class="my-3 col-12">
-                <label class="form-label fw-bold text-dark" for="followers">@L("Followers")</label>
+            <div class="my-3">
+                <label class="form-label" for="UserId">@L("Followers")</label>
                 @Html.DropDownList("UserId", new SelectList(Model.clientFolllowersList, "Id", "DisplayName", (Model.IsEditMode ? Model.clientFolllowers.UserId.ToString() : "")), @L("SelectAFollower"), new { @class = "form-control" })
-            </div>
-       
-
-           
+            </div> 
         </form>
     </div>
   </div>

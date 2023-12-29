@@ -121,7 +121,6 @@
                         return "";
                     }
                 },
-
                 {
                     targets: 3,
                     data: 'checkInLog.startTime',
@@ -143,14 +142,12 @@
                         }
                         return "";
                     }
-                },
-
+                }, 
                 {
                     targets: 5,
 
                     data: 'checkInLog.checkInPurpose',
                     name: 'checkInPurpose',
-
                 },
                 {
                     targets: 6,
@@ -170,9 +167,7 @@
                     targets: 8,
                     data: null,
                     orderable: false,
-                    searchable: false,
-
-
+                    searchable: false, 
                     render: function (data, type, full, meta) {
                        // console.log(data);
                         var rowId = data.checkInLog.id;
@@ -188,15 +183,10 @@
                             "<a href='#' style='color: black;' data-action6='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
-                            '</div>';
-
-
+                            '</div>'; 
                         return contaxtMenu;
-                    }
-
-
-                },
-
+                    } 
+                }, 
             ],
         });
 

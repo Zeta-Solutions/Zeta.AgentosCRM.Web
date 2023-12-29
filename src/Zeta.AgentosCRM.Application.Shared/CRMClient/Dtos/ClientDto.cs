@@ -38,6 +38,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
         public string VisaType { get; set; }
 
         public DateTime VisaExpiryDate { get; set; }
+        public DateTime? LastModificationTime { get; set; }
 
         public int Rating { get; set; }
 
@@ -60,6 +61,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
         public int? PassportCountryId { get; set; }
 
         public long? AgentId { get; set; }
+        public int ApplicationCount { get; set; }
 
     }
 }

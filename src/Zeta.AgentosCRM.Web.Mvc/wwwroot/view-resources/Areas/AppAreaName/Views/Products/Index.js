@@ -151,20 +151,13 @@
                     orderable: false,
                     autoWidth: false,
                     defaultContent: '',
-                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
                     render: function (data, type, row) {
-                        let firstNameInitial = row.partnerPartnerName.charAt(0).toUpperCase();
-                        //let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                        let firstNameInitial = row.partnerPartnerName.charAt(0).toUpperCase(); 
                         let initials = `${firstNameInitial}`;
-                        let fullName = `${row.partnerPartnerName}`;
-                        /*      console.log(row);*/
+                        let fullName = `${row.partnerPartnerName}`; 
                         debugger
-                        // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/partners/DetailsForm?id=${row.product.partnerId}`;
-                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
-                        // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
-                        /*             console.log(clientEmailComposeUrl);*/
-
+                         
                         return `
         <div class="d-flex align-items-center">
             <div class="d-flex flex-column">

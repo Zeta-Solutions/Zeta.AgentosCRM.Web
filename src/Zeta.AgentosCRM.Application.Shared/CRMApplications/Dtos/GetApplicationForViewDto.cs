@@ -11,6 +11,12 @@
         public string PartnerPartnerName { get; set; }
 
         public string ProductName { get; set; }
+        
+        public string BranchName { get; set; }
+        public string ApplicationName { get; set; }
 
-    }
+		public bool IsCurrent { get; set; }
+		public bool IsActive { get; set; }
+		public bool IsCompleted { get; set; }
+	}
 }

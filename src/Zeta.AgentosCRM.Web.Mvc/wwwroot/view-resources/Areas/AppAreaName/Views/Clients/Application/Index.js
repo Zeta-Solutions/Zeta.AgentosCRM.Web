@@ -1,13 +1,14 @@
 ﻿(function () {
     $(function () {
         var _$applicationsTable = $('#Applicationstable');
-        var _applicationsService = abp.services.app.applications; 
+        console.log(_$applicationsTable);
+        var _applicationsService = abp.services.app.applications;
         var $selectedDate = {
             startDate: null,
             endDate: null,
         };
-     
-     
+
+
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -57,7 +58,7 @@
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Application/_CreateOrEditModal.js',
             modalClass: 'CreateOrEditApplicationModal',
         });
-    
+
 
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
@@ -73,7 +74,7 @@
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
         var hiddenfield = $('input[name="Clientid"]').val();
-       
+
         var dataTable = _$applicationsTable.DataTable({
             paging: true,
             serverSide: true,
@@ -93,7 +94,7 @@
             columnDefs: [
                 {
                     className: ' responsive',
-                   /* className: 'control responsive',*/
+                    /* className: 'control responsive',*/
                     orderable: false,
                     render: function () {
                         return '';
@@ -104,16 +105,31 @@
                     targets: 1,
                     data: null,
                     orderable: false,
-                    searchable: false, 
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let productName = row.productName;
+                        let branchName = row.branchName;
+
+
+                        let displayBranchName = branchName ? branchName : '-';
+                        let clientDetailUrl = `/AppAreaName/products/ProductsDetail?id=${row.application.productId}`;
+
+                        let fullName = ` <a href="${clientDetailUrl}" class="text-truncate" title="${productName}"> <span style="color:blue; font-size: 14px;">${productName}</span> </a><br> ${displayBranchName}`;
+                        return `${fullName}`;
+                    },
+                    name: 'concatenatedData',
+                },
+                {
+                    targets: 2,
+                    data: null,
+                    orderable: false,
+                    searchable: false,
                     render: function (data, type, full, meta) {
                         console.log(data);
-                        let workflowName = data.workflowName; 
-                        let workflowId = data.application.workflowId; 
-                        let appId = data.application.id; 
-                        console.log("WorkflowID : " + data.application.workflowId)
-                        // Generate the URLs using JavaScript variables
-                        //let applicationStepUrl = "/AppAreaName/Client/ClientDetail?id=" + data.application.workflowId +"";
-                        //
+                        let workflowName = data.workflowName;
+                        let workflowId = data.application.workflowId;
+                        let appId = data.application.id;
                         var contaxtMenu = `
                                 <div class="d-flex align-items-center">
              
@@ -123,35 +139,73 @@
                                     </div>
                                 </div>
                             `;
-
-
                         return contaxtMenu;
-                    } 
-                },
-                {
-                    targets: 2,
+                    }
 
-                    data: 'partnerPartnerName',
-                    name: 'partnerPartnerNameFk.name', 
-                 
                 },
                 {
-                    targets: 3, 
-                    data: 'productName',
-                    name: 'productNameFk.name',
+                    targets: 3,
+                    data: 'applicationName',
+                    name: 'applicationName',
+                },
+                {
+                    targets: 4,
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let isDiscontinue = row.application.isDiscontinue;
+
+                        if (isDiscontinue == true) {
+                            return `<span style="color: red; font-size: 14px;">&#8226; Discontinue</span>`;
+                        } else {
+                            return `<span style="color:blue; font-size: 14px;">&#8226; InProgress</span>`;
+                        }
+                    },
+
+                    name: 'concatenatedData',
+                    //data: 'application.isDiscontinue',
+                    //name: 'application.isDiscontinue', 
+
+                },
+
+                {
+                    targets: 5,
+                    data: 'application.creationTime',
+                    name: 'creationTime',
+
+                    render: function (creationTime) {
+                        if (creationTime) {
+                            return moment(creationTime).format('L');
+                        }
+                        return "";
+                    }
+                },
+                {
+                    targets: 6,
+                    data: 'application.lastModificationTime',
+                    name: 'lastModificationTime',
+
+                    render: function (lastModificationTime) {
+                        if (lastModificationTime) {
+                            return moment(lastModificationTime).format('L');
+                        }
+                        return "";
+                    }
                 },
                 {
                     width: 30,
-                    targets: 4,
+                    targets: 7,
                     data: null,
                     orderable: false,
                     searchable: false,
 
 
-                    render: function (data, type, full, meta) { 
-                        var rowId = data.application.id; 
+                    render: function (data, type, full, meta) {
+                        var rowId = data.application.id;
                         var rowData = data.application;
-                        var RowDatajsonString = JSON.stringify(rowData); 
+                        var RowDatajsonString = JSON.stringify(rowData);
                         var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
                             '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -160,13 +214,13 @@
                             "<a href='#' style='color: black;' data-action1='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
-                            '</div>'; 
+                            '</div>';
                         return contaxtMenu;
-                    } 
-                }, 
+                    }
+                },
             ],
         });
-         
+
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '#search', function (e) {
             //
@@ -174,16 +228,16 @@
             var appId = $(this).data('action');
             $("#ApplicationWorkflowId").val(workflowId)
             $("#ApplicationId").val(appId)
-            
+
             // Show the selected tab
-            var selectedTab = document.getElementById("ApplicationDetailTab"); 
-            debugger
+            var selectedTab = document.getElementById("ApplicationDetailTab");
+
             var pane = selectedTab.attributes[0];
             var src = selectedTab.dataset.url;
             abp.ui.setBusy();
             $("#ApplicationDetailTabDiv").load(src + "/" + appId);
 
-            selectedTab.click(); 
+            selectedTab.click();
 
             abp.ui.clearBusy();
         });
@@ -215,7 +269,7 @@
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
-            } else if (action === 'delete') { 
+            } else if (action === 'delete') {
                 deleteApplications(rowId);
             }
         });
