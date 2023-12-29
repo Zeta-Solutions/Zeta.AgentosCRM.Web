@@ -197,6 +197,7 @@
       debugger
       if ($('input[name="id"]').val() > 0) {
           id = $('input[name="id"]').val()
+
           $.ajax({
               url: abp.appPath + 'api/services/app/ClientInterstedServices/GetClientInterstedServiceForEdit?Id=' + id,
               method: 'GET',
@@ -276,9 +277,14 @@
                       },
                       error: function (error) {
                           console.error('Error fetching data:', error);
+                      },
+                      complete: function () {
+                          // Hide the loader when the request is complete (regardless of success or error)
+                          $(".loader").hide();
                       }
+
                   });
-      
+ 
               // Assuming data.result.promotionproduct is an array of objects with OwnerID property
 
 

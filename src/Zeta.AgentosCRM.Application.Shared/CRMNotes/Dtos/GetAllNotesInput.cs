@@ -20,6 +20,8 @@ namespace Zeta.AgentosCRM.CRMNotes.Dtos
         public int? PartnerIdFilter { get; set; }
         public int? AgentIdFilter { get; set; }
         public int? ClientIdFilter { get; set; }
+        public int? ApplicationIdFilter { get; set; }
+        public int? ApplicationstageIdFilter { get; set; }
 
     }
 }

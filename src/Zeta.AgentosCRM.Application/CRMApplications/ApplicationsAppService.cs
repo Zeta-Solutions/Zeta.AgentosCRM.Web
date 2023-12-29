@@ -1,4 +1,4 @@
-﻿using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMSetup;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMProducts;
@@ -21,8 +21,8 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
-using Zeta.AgentosCRM.CRMApplications.Stages;
-using Org.BouncyCastle.Crypto.Agreement.Srp;
+using Zeta.AgentosCRM.CRMApplications.Stages; 
+using Zeta.AgentosCRM.CRMClient.Dtos;
 
 namespace Zeta.AgentosCRM.CRMApplications
 {
@@ -264,6 +264,18 @@ namespace Zeta.AgentosCRM.CRMApplications
             var application = await _applicationRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, application);
 
+        }
+        [AbpAuthorize(AppPermissions.Pages_Applications_Edit)]
+        public async Task UpdateApplicationIsDiscontinue(UpdateApplicationIsDiscontinue input)
+        {
+            var application = await _applicationRepository.FirstOrDefaultAsync((long)input.ApplicationId);
+            if (application == null)
+            {
+                // Create a new client profile if it doesn't exist
+                // client = new ClientProfile { ClientId = clientId };
+                return;
+            }
+            application.IsDiscontinue = input.IsDiscontinue;
         }
 
         [AbpAuthorize(AppPermissions.Pages_Applications_Delete)]

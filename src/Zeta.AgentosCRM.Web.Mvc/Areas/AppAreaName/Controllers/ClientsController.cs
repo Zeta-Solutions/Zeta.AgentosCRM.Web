@@ -635,6 +635,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return PartialView("NotesAndTerms/_CreateOrEditNotesModal", viewModel);
         }
+        
         #endregion
 
         #region "Tasks"
@@ -843,5 +844,62 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             ViewBag.ClientId = clientId;
             return PartialView("_ChangePictureModal");
         }
+        #region Application tabs
+        public async Task<PartialViewResult> CreateOrEditApplicationTasksModal(long? id)
+        {
+            GetCRMTaskForEditOutput getCRMTaskForEditOutput;
+            if (id.HasValue)
+            {
+                getCRMTaskForEditOutput = await _cRMTasksAppService.GetCRMTaskForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getCRMTaskForEditOutput = new GetCRMTaskForEditOutput
+                {
+                    CRMTask = new CreateOrEditCRMTaskDto()
+                };
+                getCRMTaskForEditOutput.CRMTask.DueDate = DateTime.Now;
+                getCRMTaskForEditOutput.CRMTask.DueTime = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditTaskModalViewModel()
+            {
+                CRMTask = getCRMTaskForEditOutput.CRMTask,
+                TaskCategoryName = getCRMTaskForEditOutput.TaskCategoryName,
+                TaskPriorityName = getCRMTaskForEditOutput.TaskPriorityName,
+                TaskUserName = getCRMTaskForEditOutput.UserName,
+                CRMTaskTaskCategoryList = await _cRMTasksAppService.GetAllTaskCategoryForTableDropdown(),
+                CRMTaskTaskPriorityList = await _cRMTasksAppService.GetAllTaskPriorityForTableDropdown(),
+                CRMTaskUserList = await _cRMTasksAppService.GetAllUserForTableDropdown(),
+
+
+            };
+            return PartialView("ApplicationsTabs/ApplicationTask/_CreateOrEditTaskModal", viewModel);
+
+        }
+        public async Task<PartialViewResult> CreateOrEditApplicationNotesModal(long? id)
+        {
+            GetNoteForEditOutput getNotesForEditOutput;
+            if (id.HasValue)
+            {
+                getNotesForEditOutput = await _notesAppService.GetNoteForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getNotesForEditOutput = new GetNoteForEditOutput
+                {
+                    Note = new CreateOrEditNoteDto()
+                };
+            }
+            var viewModel = new CreateOrEditNotesModalViewModel()
+            {
+                Note = getNotesForEditOutput.Note,
+
+
+            };
+
+            return PartialView("ApplicationsTabs/_CreateOrEditNotesModal", viewModel);
+        }
+        #endregion
     }
 }

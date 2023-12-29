@@ -35,6 +35,8 @@ namespace Zeta.AgentosCRM.TaskManagement.Dtos
         public string ApplicationStageNameFilter { get; set; }
         public int? PartnerIdFilter { get; set; }
         public int? ClientIdFilter { get; set; }
+        public int? ApplicationIdFilter { get; set; }
+        public int? ApplicationstageIdFilter { get; set; }
 
     }
 }

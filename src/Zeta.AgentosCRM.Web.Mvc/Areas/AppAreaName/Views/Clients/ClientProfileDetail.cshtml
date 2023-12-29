@@ -32,6 +32,9 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.js" asp-append-version="true"></script>
     @* <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script> *@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/Notes/NotesAndTerms.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/ApplicationMenu.js" asp-append-version="true"></script>
+
 
     
 }
@@ -76,13 +79,13 @@
                                     <a class="me-2 text-muted mx-2" id="EditProfile" data-toggle="tooltip" title="Edit">
                                         <span class="fa fa-pencil"></span>
                                     </a>
-                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Approve">
+                                    @* <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Approve">
                                         <span class="fa fa-check"></span>
-                                    </a>
+                                    </a> *@
                                     <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="SMS">
                                         <span class="fa fa-comment"></span>
                                     </a>
-                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Archived">
+                                    <a class="me-2 text-muted mx-2"id="Archived" data-toggle="tooltip" title="Archived">
                                         <span class="fa fa-archive"></span>
                                     </a>
                                 </div>
@@ -104,10 +107,19 @@
                                 <input type="hidden" value="@Model.Client.FirstName @Model.Client.LastName " id="clientAppID" />
                                 <input type="hidden" name="Clientid" value="@Model.Client.Id" id="ID" />
                                 <input type="hidden" value="" id="ApplicationWorkflowId" />
+                                <input type="hidden" value="" id="ApplicationStagesId" name="ApplicationStagesId" />
                             </div>
                             <div class="col-lg-12"><input type="hidden" id="ApplicationId" name="ApplicationId" /></div>
-                            <div class="col-lg-12"><input type="hidden" /></div>
-                        </div>
+                            
+                             @if (Model.Client.Archived)
+                                 {
+                                 <div class="col-lg-12">   <input type="hidden"id="Archived" name="Archiveds"value="true" /></div>
+                                }
+                                else
+                                {
+                                      <div class="col-lg-12">  <input type="hidden"id="Archived" name="Archiveds"value="false" /></div>
+                                }
+                            </div>
                     </div>
                 </div>
                 @* ////Card 2/// *@

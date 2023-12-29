@@ -1,11 +1,8 @@
-﻿using Zeta.AgentosCRM.CRMClient;
-using Zeta.AgentosCRM.CRMSetup.Countries;
+﻿using Zeta.AgentosCRM.CRMSetup.Countries;
 using Zeta.AgentosCRM.Authorization.Users;
 using Zeta.AgentosCRM.Storage;
-using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup.LeadSource;
-using Zeta.AgentosCRM.CRMSetup.Countries;
+using Zeta.AgentosCRM.CRMSetup; 
+using Zeta.AgentosCRM.CRMSetup.LeadSource; 
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

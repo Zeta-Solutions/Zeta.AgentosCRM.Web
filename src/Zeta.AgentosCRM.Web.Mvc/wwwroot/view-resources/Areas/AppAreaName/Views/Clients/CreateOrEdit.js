@@ -34,6 +34,50 @@
                 document.getElementById("field1").style.display = 'none';
             }
         });
+        var initialValue = $("#ContactPreferences").val();
+
+        // Select the button based on the initial value
+        $(".contact-preference-button[data-value='" + initialValue + "']").addClass("selected").css({
+            'background-color': '#007bff', // Adjust the background color as needed
+            'color': '#fff' // Adjust the text color as needed
+        });
+        $(document).ready(function () {
+            $(".contact-preference-button").click(function () {
+                debugger
+                var value = $(this).data('value');
+                setContactPreference(value); // Change 'Email' to the desired value
+            });
+        });
+        function setContactPreference(value) {
+            debugger;
+            $(".contact-preference-button").removeClass("selected").css({
+                'background-color': '',
+                'color': ''
+            });
+
+            // Add the selected class and set styles to the button corresponding to the value
+            $(".contact-preference-button[data-value='" + value + "']")
+                .addClass("selected")
+                .css({
+                    'background-color': '#007bff', // Adjust the background color as needed
+                    'color': '#fff' // Adjust the text color as needed
+                });
+            var numericValue = 0; // Default value
+
+            switch (value) {
+                case "Email":
+                    numericValue = 1;
+                    break;
+                case "Phone":
+                    numericValue = 2;
+                    break;
+                // Add more cases as needed for other enum values
+                // default case is not necessary since you've already set a default value
+            }
+
+            $("#ContactPreferences").val(numericValue);
+            // Add any additional logic or visual feedback here
+        }
         var input = document.querySelector("#phone");
         const errorMsg = document.querySelector("#error-msg");
         const validMsg = document.querySelector("#valid-msg");

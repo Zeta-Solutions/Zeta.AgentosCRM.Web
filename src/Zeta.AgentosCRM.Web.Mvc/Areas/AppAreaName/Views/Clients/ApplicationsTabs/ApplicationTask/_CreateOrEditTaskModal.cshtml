@@ -1,0 +1,88 @@
+﻿@using System.Globalization
+@model CreateOrEditTaskModalViewModel
+@using Abp.Extensions
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Tasks;
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditTask")) : L("CreateNewTask")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="TaskApplicationInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.CRMTask.Id" />
+            }
+            <input type="hidden" name="ClientId" id="clientId" value="" />
+            <input type="hidden" name="applicationId" id="applicationId" value="" />
+            <input type="hidden" name="ApplicationStageId" id="ApplicationStageId" value="" />
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Abbrivation">@L("Tittle")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="Title" name="Title" value="@Model.CRMTask.Title">
+                </div>
+
+                <div class="my-3 col-6">
+
+
+                    <label for="UNIVERSITY" class="form-label">@L("Category")</label>
+                    @Html.DropDownList("taskCategoryId", new SelectList(Model.CRMTaskTaskCategoryList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.TaskCategoryId.ToString() : "")),@L("SelectACategory"), new { @class = "form-control" , @required="required" })
+
+
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("Assignee")</label>
+                    @Html.DropDownList("assigneeId", new SelectList(Model.CRMTaskUserList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.AssigneeId.ToString() : "")),@L("SelectAAssignee"), new { @class = "form-control" , @required="required" })
+                </div>
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("Priority")</label>
+                    @Html.DropDownList("taskPriorityId", new SelectList(Model.CRMTaskTaskPriorityList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.TaskPriorityId.ToString() : "")),@L("SelectACategory"), new { @class = "form-control" , @required="required" })
+                </div>
+            </div>
+            <div class="row col-12">
+
+
+                <div class="my-3 col-6">
+                    <label class="form-label" for="Application_Name">@L("DueDate")</label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueDate" type="text" name="DueDate" value="@Model.CRMTask.DueDate" />
+                </div>
+                <div class="my-3 col-3">
+                    <label class="form-label" for="Application_Name">@L("DueTime")</label>
+                    @* <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueTime" type="text" name="DueTime" value="@Model.CRMTask.DueTime" /> *@
+                    <input class="form-control form-control-sm rounded-0 custom-select-input" id="DueTime" type="time" name="DueTime" value="@Model.CRMTask.DueTime.ToString("HH:mm")" />
+                </div>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="Application_Name">@L("Description")</label>
+                <textarea class="form-control custom-small-input rounded-0" id="messageTextarea" rows="6" name="Description" maxlength="255">@Model.CRMTask.Description</textarea>
+            </div>
+            <div class="col-12 my-3">
+                <label class="form-label" for="Application_Name">@L("Followers")</label>
+                @*   @Html.DropDownList("followerId", new SelectList(Model.CRMTaskUserList,"Id","DisplayName", (Model.IsEditMode ? Model.CRMTask.AssigneeId.ToString() : "")),@L("SelectAFollower"), new { @class = "form-control" , @required="required" }) *@
+
+                <select id="followerId" class="form-select select2" data-id="" data-control="select2"></select>
+            </div>
+            <span class="btn btn-primary btn-sm fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Attchment...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="files">
+            </span>
+
+        </form>
+    </div>
+</div>
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
+
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="closeTaskBtn" class="btn btn-secondary btn-sm btn-outline text-white close-button rounded-0 ">
+        <i class="fa fa-save"></i> @L("Close")
+    </button>
+    <button type="button" id="saveTaskBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Save")
+    </button>
+</div>

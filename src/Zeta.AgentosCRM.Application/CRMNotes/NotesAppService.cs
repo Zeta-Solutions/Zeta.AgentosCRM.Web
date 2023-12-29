@@ -43,7 +43,7 @@ namespace Zeta.AgentosCRM.CRMNotes
         }
 
         public async Task<PagedResultDto<GetNoteForViewDto>> GetAll(GetAllNotesInput input)
-        {
+            {
 
             var filteredNotes = _noteRepository.GetAll()
                         .Include(e => e.ClientFk)
@@ -57,7 +57,9 @@ namespace Zeta.AgentosCRM.CRMNotes
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerPartnerNameFilter), e => e.PartnerFk != null && e.PartnerFk.PartnerName == input.PartnerPartnerNameFilter)
                         .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value)
                         .WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value)
-                        .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
+                        .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value)
+                        .WhereIf(input.ApplicationIdFilter.HasValue, e => false || e.ApplicationId == input.ApplicationIdFilter.Value)
+                        .WhereIf(input.ApplicationstageIdFilter.HasValue, e => false || e.ApplicationStageId == input.ApplicationstageIdFilter.Value);
 
             var pagedAndFilteredNotes = filteredNotes
                 .OrderBy(input.Sorting ?? "id asc")

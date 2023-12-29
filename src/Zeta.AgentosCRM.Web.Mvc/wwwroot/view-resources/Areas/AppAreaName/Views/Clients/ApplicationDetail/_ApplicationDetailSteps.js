@@ -1,5 +1,6 @@
 ﻿(function ($) {
     var _ApplicationStagesService = abp.services.app.applicationStages;
+    var _ApplicationsService = abp.services.app.applications;
     var stepsArr=[];
     //window.onload = codeAddress;
 	//$(document).on('loaded', '#ApplicationDetailTab',
@@ -97,7 +98,7 @@
                // <button class="btn btn-danger btn-sm" id="discontinue-btn" type="button" onclick="onCancel()">Discontinue</button>`
                     },
                     anchor: {
-                        enableNavigation: true, // Enable/Disable anchor navigation 
+                        enableNavigation: false, // Enable/Disable anchor navigation 
                         enableNavigationAlways: false, // Activates all anchors clickable always
                         enableDoneState: true, // Add done state on visited steps
                         markPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
@@ -124,9 +125,38 @@
                             $("#AppNextBtn").show();
                             $("#AppPreviousBtn").removeClass('disabled');
                         }
+                        setTimeout(function () {
+                            var id = $("#ApplicationId").val();
+                            _ApplicationsService.getApplicationForView(id)
+                                .done(function (data) {
+                                    debugger;
+                                    if (data.application.isDiscontinue === true) {
+                                        $('#AppDiscontinueBtn').hide();
+                                        $('#AppActiveBtn').show();
+                                        $('#smartwizard').smartWizard("disable");
+                                        $("#AppPreviousBtn").addClass('disabled');
+                                        $("#AppNextBtn").addClass('disabled');
+                                        setTimeout(function () {
+                                            $('#smartwizard').smartWizard("goToStep", -1, true);
+                                        }, 100);
+
+                                    } else {
+                                        $('#AppDiscontinueBtn').show();
+                                        $('#AppActiveBtn').hide();
+                                        $("#AppPreviousBtn").removeClass('disabled');
+                                        $("#AppNextBtn").removeClass('disabled');
+
+                                    }
+                                })
+                                .fail(function (error) {
+                                    // Handle errors here, if needed
+                                    console.error("Error fetching application data:", error);
+                                });
+                        }, 100);
                         
                     })
                     .on("loaded", function (e) {
+                        debugger
                         $("#AppPreviousBtn").addClass('disabled');
                         $("#finish-btn").hide();
                         $('#AppSubmitBtn').hide(); 
@@ -164,7 +194,7 @@
                 })
                 .fail(function (error) {
                     console.error("Error fetching data:", error);
-                    // Handle the error appropriately
+                    // Handle the error appropriately..
                 });
 
         })
@@ -214,6 +244,7 @@
         var applicationId = $("#ApplicationId").val();
         var srno = $('.nav-link.default.active .num').text().trim();
         var workflowStepId = $("#stepId-" + srno).val();
+        var stageid = ($("#StageID-" + srno).val() || null) === "0" ? null : $("#StageID-" + srno).val();
         var name = document.querySelector('.nav-link.active').innerText;
         var textNodes = $('.nav-link.default.active').contents().filter(function () {
             return this.nodeType === 3; // Filter out text nodes..
@@ -232,7 +263,8 @@
             applicationId: applicationId,
             isCurrent: isCurrent,
             isCompleted: isCompleted,
-            isActive: isActive
+            isActive: isActive,
+            id: stageid
 
         };
         var Steps = JSON.stringify(inputData);
@@ -249,15 +281,48 @@
             });
 
     });
+
+ 
     $(document).on('click', '#AppPreviousBtn', function () {
         //debugger
         var stepId = $(this)
+        var applicationId = $("#ApplicationId").val();
         var srno = $('.nav-link.default.active .num').text().trim();
+        var workflowStepId = $("#stepId-" + srno).val();
         var stageid = $("#StageID-" + srno).val();
+        var name = document.querySelector('.nav-link.active').innerText;
+        var textNodes = $('.nav-link.default.active').contents().filter(function () {
+            return this.nodeType === 3; // Filter out text nodes..
+        });
+
+        var name = textNodes.map(function () {
+            return $(this).text().trim();
+        }).get().join(' ');
+        var isCurrent = false;
+        var isCompleted = false;
+        var isActive = false;
+        var inputData = {
+            name: name,
+            workflowStepId: workflowStepId,
+            applicationId: applicationId,
+            isCurrent: isCurrent,
+            isCompleted: isCompleted,
+            isActive: isActive,
+            id: stageid
+        };
+        var Steps = JSON.stringify(inputData);
+        Steps = JSON.parse(Steps);
         _ApplicationStagesService
-            .delete({
-                id: stageid,
-            })
+            .createOrEdit(Steps)
+            //.done(function () {
+            //    //debugger
+            //    abp.notify.info(app.localize('SavedSuccessfully'));
+            //    abp.event.trigger('app.createOrEditApplicationStagesSaved');
+            //})
+        //_ApplicationStagesService
+        //    .delete({
+        //        id: stageid,
+        //    })
         $('#smartwizard').smartWizard("prev");
 
 
@@ -303,11 +368,48 @@
 
     });
     $(document).on('click', '#AppDiscontinueBtn', function () {
-        var stepId = $(this)
-         alert("Discontinue")
-        //$('#smartwizard').smartWizard("disable"); 
 
+        var applicationId = $("#ApplicationId").val();
+        var inputData = {
+            applicationId: applicationId,
+            isDiscontinue: 1
+        };
+        var Steps = JSON.stringify(inputData);
+        Steps = JSON.parse(Steps);
+        _ApplicationsService
+            .updateApplicationIsDiscontinue(Steps)
+            .done(function () {
+                //debugger
+                abp.notify.info(app.localize('DiscontinueSuccessfully'));
+                $('#smartwizard').smartWizard("disable");
+                $('#AppDiscontinueBtn').hide();
+                $('#AppActiveBtn').show();
+                $("#AppPreviousBtn").addClass('disabled');
+                $("#AppNextBtn").addClass('disabled');
+               // location.reload();
+            })
     });
+    $(document).on('click', '#AppActiveBtn', function () {
 
+        var applicationId = $("#ApplicationId").val();
+        var inputData = {
+            applicationId: applicationId,
+            isDiscontinue: 0
+        };
+        var Steps = JSON.stringify(inputData);
+        Steps = JSON.parse(Steps);
+        _ApplicationsService
+            .updateApplicationIsDiscontinue(Steps)
+            .done(function () {
+                //debugger
+                abp.notify.info(app.localize('ActiveSuccessfully'));
+                $('#smartwizard').smartWizard("disable");
+                $('#AppDiscontinueBtn').show();
+                $('#AppActiveBtn').hide();
+                $("#AppPreviousBtn").removeClass('disabled');
+                $("#AppNextBtn").removeClass('disabled');
+                // location.reload();
+            })
+    });
      
 })(jQuery)
