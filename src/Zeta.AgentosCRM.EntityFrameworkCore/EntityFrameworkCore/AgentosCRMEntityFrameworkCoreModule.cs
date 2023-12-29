@@ -42,8 +42,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
             Configuration.EntityHistory.IsEnabled = true;
 
             // Uncomment below line to write change logs for the entities below:
-            // Configuration.EntityHistory.Selectors.Add("AgentosCRMEntities", EntityHistoryHelper.TrackedTypes);
-            // Configuration.CustomConfigProviders.Add(new EntityHistoryConfigProvider(Configuration));
+            Configuration.EntityHistory.Selectors.Add("AgentosCRMEntities", EntityHistoryHelper.TrackedTypes);
+            Configuration.CustomConfigProviders.Add(new EntityHistoryConfigProvider(Configuration));
         }
 
         public override void Initialize()
