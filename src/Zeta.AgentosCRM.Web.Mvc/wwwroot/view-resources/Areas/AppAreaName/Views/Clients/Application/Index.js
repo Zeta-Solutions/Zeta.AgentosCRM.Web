@@ -186,6 +186,31 @@
             selectedTab.click(); 
 
             abp.ui.clearBusy();
+            var id = appId;
+            //setTimeout(function () {
+            //    _applicationsService.getApplicationForView(id)
+            //        .done(function (data) {
+            //            debugger;
+            //            if (data.application.isDiscontinue === true) {
+            //                $('#AppDiscontinueBtn').hide();
+            //                $('#AppActiveBtn').show();
+            //                $('#smartwizard').smartWizard("disable");
+            //                $("#AppPreviousBtn").addClass('disabled');
+            //                $("#AppNextBtn").addClass('disabled');
+                           
+            //            } else {
+            //                $('#AppDiscontinueBtn').show();
+            //                $('#AppActiveBtn').hide();
+            //                $("#AppPreviousBtn").removeClass('disabled');
+            //                $("#AppNextBtn").removeClass('disabled');
+            //            }
+            //        })
+            //        .fail(function (error) {
+            //            // Handle errors here, if needed
+            //            console.error("Error fetching application data:", error);
+            //        });
+            //}, 100);
+                
         });
         $(document).on('click', '.Applicationellipsis', function (e) {
             e.preventDefault();

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMClient.Dtos;
 
 namespace Zeta.AgentosCRM.CRMApplications
 {
@@ -20,6 +21,7 @@ namespace Zeta.AgentosCRM.CRMApplications
         Task<GetApplicationForEditOutput> GetApplicationForEdit(EntityDto<long> input);
 
         Task CreateOrEdit(CreateOrEditApplicationDto input);
+        Task UpdateApplicationIsDiscontinue(UpdateApplicationIsDiscontinue input);
 
         Task Delete(EntityDto<long> input);
 

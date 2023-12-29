@@ -426,11 +426,11 @@
                             infoParagraph6.html('<span style="color: red; font-weight: bold;" class="replace">Todo</span>');
                         }
                         infoParagraph7.html('<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
-                            '<div class="ellipsisT"><a href="#" data-id="' + cRMTasks.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                            '<div class="ellipsis151"><a href="#" data-id="' + cRMTasks.id + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<a href="#" style="color: black;" data-action15="edit" data-id="' + cRMTasks.id + '"><li>Edit</li></a>' +
-                            "<a href='#' style='color: black;' data-action15='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
+                            '<a href="#" style="color: black;" data-action151="edit" data-id="' + cRMTasks.id + '"><li>Edit</li></a>' +
+                            "<a href='#' style='color: black;' data-action151='delete' data-id='" + JSON.stringify(item) + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>');
