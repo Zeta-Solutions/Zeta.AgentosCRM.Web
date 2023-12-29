@@ -192,10 +192,13 @@
                                                                     } *@
                                                                     <div class="col-md-4">
                                                                         <label class="form-label fw-bold text-dark" for="Client_ContactPreferences">@L("ContactPreferences")</label><br />
-                                                                        <div class="d-flex">
-                                                                            <button class="btn   btn-secondary flex-grow-1 btn-sm rounded-0">Email</button>
-                                                                            <button class="btn  btn-secondary flex-grow-1 btn-sm rounded-0">SMS</button>
-                                                                        </div>
+                                                                 @foreach (var preference in Enum.GetValues(typeof(ContactPrefernce)))
+                                                            {
+                                                                <button type="button" class="btn btn-secondary btn-sm contact-preference-button" data-value='@(preference)'>
+                                                                    @preference.ToString()
+                                                                </button>
+                                                            }
+                                                                        <input type="hidden" id="ContactPreferences" name="ContactPreferences" value="@Model.Client.ContactPreferences" />
                                                                     </div>
 
 
@@ -353,19 +356,27 @@
                                                             <div class="form-group">
                                                                 <div class="row">
 
-                                                                    <div class="my-3 col-4">
+                                                                    <div class="my-3 col-3">
                                                                         <label class="form-label fw-bold text-dark" for="highestQualificationId">@L("HighestQualificationI")</label>
                                                                         @Html.DropDownList("highestQualificationId", new SelectList(Model.ClientDegreeLevelList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.HighestQualificationId.ToString() : "")),@L("SelectADegreeLevel"), new { @class = "form-control"   })
-                                                                    </div>	<div class="my-3 col-4">
+                                                                    </div>	<div class="my-3 col-3">
                                                                         <label class="form-label fw-bold text-dark" for="studyAreaId">@L("SubjectArea")</label>
                                                                         @Html.DropDownList("studyAreaId", new SelectList(Model.ClientSubjectAreaList,"Id","DisplayName", (Model.IsEditMode ? Model.Client.StudyAreaId.ToString() : "")),@L("SelectASubjectArea"), new { @class = "form-control"   })
                                                                     </div>
 
-                                                                    <div class="my-3 col-4">
+                                                                    <div class="my-3 col-3">
                                                                         <label class="form-label fw-bold text-dark" for="Client_University">@L("University")</label>
                                                                         <input class="form-control custom-small-input rounded-0" id="Client_University" value="@Model.Client.University" type="text" name="university" />
                                                                     </div>
-
+                                                                    <div class="my-3 col-3">
+                                                                    
+                                                                     <label class="form-label fw-bold text-dark" for="Client_University">@L("IELTS/PTE Training Required")</label>
+                                                                     <br />
+                                                                        <input id="TrainingRequired" type="checkbox" name="TrainingRequired" class="form-check-input" value="true" @Html.Raw(Model.Client.TrainingRequired ? "checked=\"checked\"" : "")>
+                                                                      
+                                                                    
+                   
+                                                                        </div>
 
                                                                 </div>
                                                             </div>
