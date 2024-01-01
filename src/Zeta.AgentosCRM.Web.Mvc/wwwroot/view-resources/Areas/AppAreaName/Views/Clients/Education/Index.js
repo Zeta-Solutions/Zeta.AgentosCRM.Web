@@ -79,8 +79,8 @@
 
 
             var mainDiv = $('<div>').addClass('maincard maindivcard').css({
-                'margin-left': '0.2px',
-                'margin-bottom': '20px' // Add margin between cards
+                'margin-left': '20px',
+                'margin-bottom': '2px' // Add margin between cards
             });
 
             // Create card components
@@ -96,9 +96,9 @@
                 'padding': '5px'
             });
 
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("Other Test Score" +
+            cardTitle.html("<strong>Other Test Score</strong>" +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis71"><a href="#" data-id="' + (otherTestScores.length > 0 ? otherTestScores[0].otherTestScore.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -172,8 +172,8 @@
 
             var mainDiv = $('<div>')
                 .addClass('maincard maindivcard').css({
-                'margin-left': '0px',
-                'margin-bottom': '20px' // Add margin between cards
+                'margin-left': '20px',
+                'margin-bottom': '2px' // Add margin between cards
             });
 
             // Create card components
@@ -189,9 +189,9 @@
                 'padding': '5px'
             });
 
-            var cardTitle = $('<h5>').addClass('card-title');
+            var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("English Test Score" +
+            cardTitle.html("<strong>English Test Score</strong>" +
                 '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis51"><a href="#" data-id="' + (englisTestScores.length > 0 ? englisTestScores[0].englisTestScore.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -379,7 +379,7 @@
                             + '</span>'
                             + '<br><span>' + item.clientEducation.degreeTitle + ' >> ' + item.subjectAreaName + ' >>' + item.subjectName + '</span>'
                             + '</span></div>' +
-                            '<div class="col-lg-1">' +
+                            '<div class="col-lg-1 ">' +
                             '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +

@@ -3,11 +3,16 @@
 
 
 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-
+<style>
+    .CardAdjust {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+</style>
 @*if u want to give margin and padding between left and right*@
 @*<div class="@(await GetContainerClass())">*@
     <div class="">
-     <div class="text-end mb-3">
+     <div class="text-end mb-3 CardAdjust">
 @*
             <button id="AddButton" class="btn btn-primary blue"><i class="fa fa-plus"></i> @L("Add Documents")</button>*@
         <span class="btn  btn-sm btnclose btn-outline text-white rounded-0 fileinput-button">
@@ -17,7 +22,7 @@
                 <input id="fileupload" type="file" name="files">
             </span>
         </div>
-    <div class="card">
+    <div class="card CardAdjust">
 
         <div class="card-body">
             <div class="form">
