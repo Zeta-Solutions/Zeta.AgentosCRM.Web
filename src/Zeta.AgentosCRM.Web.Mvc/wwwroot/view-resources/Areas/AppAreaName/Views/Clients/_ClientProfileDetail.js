@@ -123,7 +123,7 @@
             $(this).html('<i class="fa fa-pencil" style="font-size: 10px; color:Blue;" title="Edit"></i>');
         });
         $(document).on("mouseleave", "#EditProfile", function () {
-            // Revert the content when hovering ends
+            // Revert the content when hovering ends..
             $(this).html('<span class="fa fa-pencil text-muted "></span>'); // Replace 'Original Content' with your actual original content
         });
         $(document).on("mouseenter", "#Archived", function () {

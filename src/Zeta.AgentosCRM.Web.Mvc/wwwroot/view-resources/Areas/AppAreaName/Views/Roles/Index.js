@@ -32,6 +32,11 @@
       modalClass: 'CreateOrEditRoleModal',
       cssClass: 'scrollable-modal',
     });
+      var _createOrEdithistoryModal = new app.ModalManager({
+          viewUrl: abp.appPath + 'AppAreaName/Common/EntityTypeHistoryModal',
+          scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Common/Modals/_EntityTypeHistoryModal.js',
+          modalClass: 'EntityTypeHistoryModal', 
+    });
 
     var _entityTypeHistoryModal = app.modals.EntityTypeHistoryModal.create();
 
@@ -96,16 +101,23 @@
                   return !data.record.isStatic && _permissions.delete;
                 },
                 action: function (data) {
-                  deleteRole(data.record);
+                    deleteRole(data.record); 
                 },
               },
               {
                 text: app.localize('History'),
-                visible: function () {
-                  return entityHistoryIsEnabled();
-                },
+                //visible: function () {
+                //  return entityHistoryIsEnabled();
+                //},
+                //action: function (data) {
+                //  _entityTypeHistoryModal.open({
+                //    entityTypeFullName: _entityTypeFullName,
+                //    entityId: data.record.id,
+                //    entityTypeDescription: data.record.displayName,
+                //  });
+                //},
                 action: function (data) {
-                  _entityTypeHistoryModal.open({
+                    _createOrEdithistoryModal.open({
                     entityTypeFullName: _entityTypeFullName,
                     entityId: data.record.id,
                     entityTypeDescription: data.record.displayName,
