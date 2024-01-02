@@ -36,6 +36,7 @@
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/Notes/NotesAndTerms.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/ApplicationMenu.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activites.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Documents/Document.js" asp-append-version="true"></script>
 
 
     
@@ -385,7 +386,7 @@
         </div>
          <div class="tab-pane pt-5 mb-7" id="DocumentTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientDocument.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Documents/Document.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="ConversationTab" role="tabpanel">

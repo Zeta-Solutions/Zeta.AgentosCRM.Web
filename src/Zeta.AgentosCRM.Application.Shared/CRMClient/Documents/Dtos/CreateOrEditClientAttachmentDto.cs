@@ -11,7 +11,7 @@ namespace Zeta.AgentosCRM.CRMClient.Documents.Dtos
 
         public Guid? AttachmentId { get; set; }
 
-        public string AttachmentIdToken { get; set; }
+        //public string AttachmentIdToken { get; set; }
 
         public long? ClientId { get; set; }
 
