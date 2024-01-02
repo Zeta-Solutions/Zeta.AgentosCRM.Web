@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="Discontinue">Discontinue</text>
+	<texts>    <text name="ClientAttachment">Client attachment</text>
+    <text name="CreateNewClientAttachment">Create new client attachment</text>
+    <text name="EditClientAttachment">Edit client attachment</text>
+    <text name="DeleteClientAttachment">Delete client attachment</text>
+    <text name="Discontinue">Discontinue</text>
     <text name="Complete">Complete</text>
     <text name="NextStep">Next Step</text>
     <text name="PreviousStep">Previous Step</text>
