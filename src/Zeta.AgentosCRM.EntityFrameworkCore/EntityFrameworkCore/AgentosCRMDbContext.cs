@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMProducts.Requirements;
+﻿using Zeta.AgentosCRM.CRMClient.Documents;
+using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee;
 using Zeta.AgentosCRM.CRMSetup.Account;
@@ -54,6 +55,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<ClientAttachment> ClientAttachments { get; set; }
+
         public virtual DbSet<ProductBranch> ProductBranches { get; set; }
 
         public virtual DbSet<ProductFeeDetail> ProductFeeDetails { get; set; }
@@ -216,10 +219,14 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductBranch>(p =>
+            modelBuilder.Entity<ClientAttachment>(c =>
             {
-                p.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ProductBranch>(p =>
+                       {
+                           p.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ProductFeeDetail>(p =>
                        {
                            p.HasIndex(e => new { e.TenantId });
