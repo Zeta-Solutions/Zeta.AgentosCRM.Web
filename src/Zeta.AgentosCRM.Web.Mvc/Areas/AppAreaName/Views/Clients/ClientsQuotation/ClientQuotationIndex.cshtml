@@ -4,16 +4,21 @@
 
 
 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-
+<style>
+    .CardAdjust {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+</style>
 @*if u want to give margin and padding between left and right*@
 @*<div class="@(await GetContainerClass())">*@
     <div class="">
-     <div class="text-end mb-3">
+    <div class="CardAdjust text-end mb-3">
         @* <a href="\AppAreaName\Clients\ClientsQuotation\ClientQuotationsDetail" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewClient")</a> *@
 
         <button id="CreateNewQuotation" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("AddQuotation")</button>
         </div>
-    <div class="card">
+    <div class="card CardAdjust">
 
         <div class="card-body">
             <div class="form">
