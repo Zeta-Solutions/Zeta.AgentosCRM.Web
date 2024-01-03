@@ -348,6 +348,7 @@ namespace Zeta.AgentosCRM
             configuration.CreateMap<AuditLog, AuditLogListDto>();
             configuration.CreateMap<EntityChange, EntityChangeListDto>();
             configuration.CreateMap<EntityPropertyChange, EntityPropertyChangeDto>();
+            configuration.CreateMap<EntityPropertyChange, CutomizedEntityChangeAndUserDto>();
 
             //Friendship
             configuration.CreateMap<Friendship, FriendDto>();

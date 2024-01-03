@@ -11,6 +11,7 @@
   {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activity.css" asp-append-version="true" />
     @* <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" /> *@
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" /> 
   }
@@ -34,6 +35,8 @@
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Client/ClientDetail.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/Notes/NotesAndTerms.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/ApplicationMenu.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activites.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Documents/Document.js" asp-append-version="true"></script>
 
 
     
@@ -266,13 +269,13 @@
         <div class="card-Head">
                 <div class="d-flex h-55px navbar-link-card-Allign">
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder ml-3 pl-2" id="tabs">
-                  @*   <li class="nav-item">
-                        <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font ">
+                    <li class="nav-item">
+                            <a href="#ActivitiesTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
                             @L("Activities")
                         </a>
-                    </li> *@
+                    </li>
                     <li class="nav-item">
-                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                            <a href="#ApplicationTab" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
                             @L("Application")
                         </a>
                     </li>
@@ -339,17 +342,18 @@
 
 <div>
     <div class="tab-content ">
-            <div class="tab-pane pt-5 active" id="ApplicationTab" role="tabpanel">
+            <div class="tab-pane pt-5 mb-7 active" id="ActivitiesTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Activites/Activity.cshtml")
+            </div>
+        </div>
+            <div class="tab-pane pt-5 " id="ApplicationTab" role="tabpanel">
             <div class="list-group" id="ApplicationDetail">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Application/ApplicationsIndex.cshtml")
             </div>
         </div>
 
-        @* <div class="tab-pane pt-5 mb-7 " id="ActivitiesTab" role="tabpanel">
-            <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_Activites.cshtml")
-            </div>
-        </div> *@
+        
         <div class="tab-pane pt-5 mb-7" id="InterestedServiceTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/InterestedService/IntrestedServiceIndex.cshtml")
@@ -382,7 +386,7 @@
         </div>
          <div class="tab-pane pt-5 mb-7" id="DocumentTab" role="tabpanel">
             <div class="list-group">
-                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Client/_ClientDocument.cshtml")
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Documents/Document.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="ConversationTab" role="tabpanel">

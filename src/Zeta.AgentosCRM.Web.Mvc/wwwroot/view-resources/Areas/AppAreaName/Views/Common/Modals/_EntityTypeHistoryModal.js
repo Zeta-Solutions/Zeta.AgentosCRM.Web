@@ -1,5 +1,5 @@
 ﻿(function () {
-  app.modals.EntityTypeHistoryModal = function () {
+    app.modals.EntityTypeHistoryModal = function () {
     var _modalManager;
     var _dataTable;
     var _$table;
@@ -50,7 +50,8 @@
         pageLength: _options.pageSize,
         deferLoading: _options.loadOnStartup ? null : 0,
         listAction: {
-          ajaxFunction: _auditLogService.getEntityTypeChanges,
+          //ajaxFunction: _auditLogService.getEntityTypeChanges,
+            ajaxFunction: _auditLogService.getEntityCustomizeChanges,
           inputFilter: function () {
             return {
               entityTypeFullName: _args.entityTypeFullName,

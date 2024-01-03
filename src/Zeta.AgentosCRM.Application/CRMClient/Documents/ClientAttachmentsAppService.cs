@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.CRMClient.Profile.Dto;
+using Zeta.AgentosCRM.Authorization.Users;
 
 namespace Zeta.AgentosCRM.CRMClient.Documents
 {
@@ -29,15 +30,16 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
 
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
+        private readonly IRepository<User, long> _lookup_userRepository;
 
-        public ClientAttachmentsAppService(IRepository<ClientAttachment, long> clientAttachmentRepository, IRepository<Client, long> lookup_clientRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        public ClientAttachmentsAppService(IRepository<ClientAttachment, long> clientAttachmentRepository, IRepository<Client, long> lookup_clientRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<User, long> lookup_userRepository = null)
         {
             _clientAttachmentRepository = clientAttachmentRepository;
             _lookup_clientRepository = lookup_clientRepository;
 
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
-
+            _lookup_userRepository = lookup_userRepository;
         }
 
         public async Task<PagedResultDto<GetClientAttachmentForViewDto>> GetAll(GetAllClientAttachmentsInput input)
@@ -57,13 +59,17 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
                                     join o1 in _lookup_clientRepository.GetAll() on o.ClientId equals o1.Id into j1
                                     from s1 in j1.DefaultIfEmpty()
 
+                                    join o2 in _lookup_userRepository.GetAll() on o.CreatorUserId equals o2.Id into j2
+                                    from s2 in j2.DefaultIfEmpty()
                                     select new
                                     {
 
                                         o.Name,
                                         o.AttachmentId,
                                         Id = o.Id,
-                                        ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString()
+                                        o.CreationTime,
+                                        ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
+                                        UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                                     };
 
             var totalCount = await filteredClientAttachments.CountAsync();
@@ -81,10 +87,12 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
                         Name = o.Name,
                         AttachmentId = o.AttachmentId,
                         Id = o.Id,
+                        CreationTime = o.CreationTime,
                     },
-                    ClientFirstName = o.ClientFirstName
+                    ClientFirstName = o.ClientFirstName,
+                    UserName = o.UserName,
                 };
-                res.ClientAttachment.AttachmentIdFileName = await GetBinaryFileName(o.AttachmentId);
+               // res.ClientAttachment.AttachmentIdFileName = await GetBinaryFileName(o.AttachmentId);
 
                 results.Add(res);
             }
@@ -154,7 +162,7 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
             }
 
             await _clientAttachmentRepository.InsertAsync(clientAttachment);
-            clientAttachment.AttachmentId = await GetBinaryObjectFromCache(input.AttachmentIdToken);
+            //clientAttachment.AttachmentId = await GetBinaryObjectFromCache(input.AttachmentIdToken);
 
         }
 
@@ -163,7 +171,7 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
         {
             var clientAttachment = await _clientAttachmentRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, clientAttachment);
-            clientAttachment.AttachmentId = await GetBinaryObjectFromCache(input.AttachmentIdToken);
+            //clientAttachment.AttachmentId = await GetBinaryObjectFromCache(input.AttachmentIdToken);
 
         }
 
@@ -230,11 +238,14 @@ namespace Zeta.AgentosCRM.CRMClient.Documents
 
             await _binaryObjectManager.DeleteAsync(clientAttachment.AttachmentId.Value);
             clientAttachment.AttachmentId = null;
+            await _clientAttachmentRepository.DeleteAsync(input.Id);
         }
 
 
         public async Task<Guid> InsertAttachmentForClient(UpdateClientProfilePictureInput input)
         {
+
+            //var logoFile = Request.Form.Files.First();
             byte[] byteArray;
 
             var imageBytes = _tempFileCacheManager.GetFile(input.FileToken);

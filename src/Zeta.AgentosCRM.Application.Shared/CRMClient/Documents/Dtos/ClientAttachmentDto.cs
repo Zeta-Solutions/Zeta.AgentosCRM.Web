@@ -12,6 +12,7 @@ namespace Zeta.AgentosCRM.CRMClient.Documents.Dtos
         public string AttachmentIdFileName { get; set; }
 
         public long? ClientId { get; set; }
+        public DateTime? CreationTime { get; set; }
 
     }
 }

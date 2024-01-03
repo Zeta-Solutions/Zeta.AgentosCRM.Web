@@ -156,7 +156,7 @@
     }
 
     //Appearance/Logo
-    $('#SettingsLightLogoUploadForm').ajaxForm({
+      $('#SettingsLightLogoUploadForm').ajaxForm({
       beforeSubmit: function (formData, jqForm, options) {
         var $fileInput = $('#SettingsLightLogoUploadForm input[name=ApplicationLogoImage]');
         var files = $fileInput.get()[0].files;
@@ -164,7 +164,7 @@
         if (!files.length) {
           return false;
         }
-
+        debugger
         var file = files[0];
         
         //File type check

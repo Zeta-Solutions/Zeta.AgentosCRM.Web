@@ -6,5 +6,6 @@
 
         public string ClientFirstName { get; set; }
 
+        public string UserName { get; set; }
     }
 }

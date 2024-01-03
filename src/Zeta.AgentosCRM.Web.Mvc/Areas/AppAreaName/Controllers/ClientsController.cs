@@ -40,6 +40,10 @@ using Abp.Runtime.Session;
 using Abp.Timing;
 using Zeta.AgentosCRM.Timing.Dto;
 using Zeta.AgentosCRM.Timing;
+using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
+using Zeta.AgentosCRM.CRMClient.Documents;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentAttachment;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -62,6 +66,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IClientQuotationHeadsAppService _clientQuotationHeadsAppService;
         private readonly IClientQuotationDetailsAppService _clientQuotationDetailsAppService;
         private readonly ITimingAppService _timingAppService;
+        private readonly IClientAttachmentsAppService _clientAttachmentsAppService;
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService,
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService,
@@ -71,7 +76,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService,
             IEnglisTestScoresAppService englisTestScoresAppService,
             IOtherTestScoresAppService otherTestScoresAppService,
-            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService, ITimingAppService timingAppService)
+            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService, ITimingAppService timingAppService, IClientAttachmentsAppService clientAttachmentsAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -88,6 +93,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _clientQuotationHeadsAppService = clientQuotationHeadsAppService;
             _clientQuotationDetailsAppService = clientQuotationDetailsAppService;
             _timingAppService = timingAppService;
+            _clientAttachmentsAppService = clientAttachmentsAppService;
         }
 
         #region "Clents"
@@ -899,6 +905,31 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             };
 
             return PartialView("ApplicationsTabs/_CreateOrEditNotesModal", viewModel);
+        }
+        #endregion
+
+        #region Documents
+        public async Task<PartialViewResult> CreateDocuments(long? id)
+        {
+            GetClientAttachmentForEditOutput getClientAttachmentForEditOutput;
+            if (id.HasValue)
+            {
+                getClientAttachmentForEditOutput = await _clientAttachmentsAppService.GetClientAttachmentForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientAttachmentForEditOutput = new GetClientAttachmentForEditOutput
+                {
+                    ClientAttachment = new CreateOrEditClientAttachmentDto()
+                };
+            }
+            var viewModel = new CreateOrEditDocumentsViewModel()
+            {
+                ClientAttachment = getClientAttachmentForEditOutput.ClientAttachment,
+
+
+            };
+            return PartialView("Documents/_CreateOrEditDocumentModal", viewModel);
         }
         #endregion
     }
