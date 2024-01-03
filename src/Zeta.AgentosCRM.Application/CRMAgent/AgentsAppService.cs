@@ -18,6 +18,8 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMApplications;
 
 namespace Zeta.AgentosCRM.CRMAgent
 {
@@ -32,7 +34,14 @@ namespace Zeta.AgentosCRM.CRMAgent
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly IRepository<BinaryObject, Guid> _lookup_binaryObjectRepository;
-        public AgentsAppService(IRepository<Agent, long> agentRepository, IAgentsExcelExporter agentsExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository)
+        private readonly IRepository<Client,long> _lookup_clientRepository;
+        private readonly IRepository<Application,long> _lookup_applicationRepository;
+        public AgentsAppService(
+            IRepository<Agent, long> agentRepository, IAgentsExcelExporter agentsExcelExporter,
+            IRepository<Country, int> lookup_countryRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository,
+            ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager,
+            IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<Client, long> lookup_clientRepository
+, IRepository<Application, long> lookup_applicationRepository)
         {
             _agentRepository = agentRepository;
             _agentsExcelExporter = agentsExcelExporter;
@@ -42,6 +51,8 @@ namespace Zeta.AgentosCRM.CRMAgent
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
             _lookup_binaryObjectRepository = lookup_binaryObjectRepository;
+            _lookup_clientRepository = lookup_clientRepository;
+            _lookup_applicationRepository = lookup_applicationRepository;
         }
 
         public async Task<PagedResultDto<GetAgentForViewDto>> GetAll(GetAllAgentsInput input)
@@ -82,12 +93,32 @@ namespace Zeta.AgentosCRM.CRMAgent
 
                          join o2 in _lookup_organizationUnitRepository.GetAll() on o.OrganizationUnitId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
+                         
                          join o3 in _lookup_binaryObjectRepository.GetAll() on o.ProfilePictureId equals o3.Id into j3
                          from s3 in j3.DefaultIfEmpty()
+                          
+                         let clientCount = (from p in _lookup_clientRepository.GetAll()
+                                             where o.Id == p.AgentId
+                                             select p.Id
+                                           ).Count()
+
+
+                         let ApplicationCount = (
+                         from o1 in _lookup_clientRepository.GetAll()
+                         where o.Id == o1.AgentId
+                         join o2 in _lookup_applicationRepository.GetAll() on o1.Id equals o2.ClientId into j2
+                         from s2 in j2.DefaultIfEmpty()
+                         where o1.Id == s2.ClientId
+                         select s2.Id
+                         //from a in _lookup_applicationRepository.GetAll()
+                         //                        where o.Id == a.PartnerId && a.IsDiscontinue == false
+                         //                        select a.Id
+                                                 )
+                                 .Count()
                          select new
                          {
 
-                             o.Name,
+                            o.Name,
                              o.IsSuperAgent,
                              o.IsBusiness,
                              o.PhoneNo,
@@ -104,6 +135,8 @@ namespace Zeta.AgentosCRM.CRMAgent
                              o.ContractExpiryDate,
                              o.ClaimRevenuePer,
                              Id = o.Id,
+                             clientCount,
+                             ApplicationCount,
                              CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                              OrganizationUnitDisplayName = s2 == null || s2.DisplayName == null ? "" : s2.DisplayName.ToString(),
                              ImageBytes = s3 == null || s3.Bytes == null ? "" : Convert.ToBase64String(s3.Bytes),
@@ -138,6 +171,8 @@ namespace Zeta.AgentosCRM.CRMAgent
                         ContractExpiryDate = o.ContractExpiryDate,
                         ClaimRevenuePer = o.ClaimRevenuePer,
                         Id = o.Id,
+                        clientCount =o.clientCount,
+                        ApplicationCount = o.ApplicationCount,
                     },
                     CountryName = o.CountryName,
                     OrganizationUnitDisplayName = o.OrganizationUnitDisplayName,

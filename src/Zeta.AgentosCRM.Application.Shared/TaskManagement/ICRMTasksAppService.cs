@@ -23,6 +23,7 @@ namespace Zeta.AgentosCRM.TaskManagement
         Task<GetCRMTaskForEditOutput> GetCRMTaskForEdit(EntityDto<long> input);
 
         Task CreateOrEdit(CreateOrEditCRMTaskDto input);
+        Task UpdateTaskIsCompleted(UpdateTaskIsCompletedDto input);
 
         Task Delete(EntityDto<long> input);
 

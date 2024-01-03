@@ -44,6 +44,8 @@ namespace Zeta.AgentosCRM.CRMAgent.Dtos
         public decimal ClaimRevenuePer { get; set; }
 
         public int CountryId { get; set; }
+        public int clientCount { get; set; }
+        public int ApplicationCount { get; set; }
 
         public long? OrganizationUnitId { get; set; }
 

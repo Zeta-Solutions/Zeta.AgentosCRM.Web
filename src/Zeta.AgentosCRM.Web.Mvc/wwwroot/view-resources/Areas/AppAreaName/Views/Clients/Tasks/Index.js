@@ -95,7 +95,7 @@
                     'font-weight': 'bold'
                 });
                 replaceElementdate.removeClass('badge-danger').addClass('badge-success').css('color', 'white');
-                var id = card.find('.taskid').val();
+                var taskid = card.find('.taskid').val();
                 var taskCategoryId = card.find('.categoriesId').val();
                 var assigneeId = card.find('.assigneId').val();
                 var taskPriorityId = card.find('.taskPrioritysId').val();               
@@ -105,23 +105,29 @@
                 var title = card.find('.tasktittle').text();
                 var clientId = $('input[name="Clientid"]').val();
                 var isCompleted = true;
+                //var inputData = {
+                //    clientId: clientId,
+                //    taskCategoryId: taskCategoryId,
+                //    assigneeId: assigneeId,...
+                //    taskPriorityId: taskPriorityId,
+                //    dueDate: dueDate,
+                //    dueTime: dueTime,
+                //    description: description,
+                //    title: title,
+                //    isCompleted: isCompleted,
+                //    id: id
+
+                //};
                 var inputData = {
-                    clientId: clientId,
-                    taskCategoryId: taskCategoryId,
-                    assigneeId: assigneeId,
-                    taskPriorityId: taskPriorityId,
-                    dueDate: dueDate,
-                    dueTime: dueTime,
-                    description: description,
-                    title: title,
+
                     isCompleted: isCompleted,
-                    id: id
+                    taskid: taskid
 
                 };
                 var Steps = JSON.stringify(inputData);
                 Steps = JSON.parse(Steps);
                 _cRMTasksService
-                    .createOrEdit(Steps)
+                    .updateTaskIsCompleted(Steps)
                     
             } else {
                 replaceElement.text('Todo').css({
@@ -129,33 +135,39 @@
                     'font-weight': 'bold'
                 });
                 replaceElementdate.removeClass('badge-success').addClass('badge-danger').css('color', 'white');
-                var id = card.find('.taskid').val();
-                var taskCategoryId = card.find('.categoriesId').val();
-                var assigneeId = card.find('.assigneId').val();
-                var taskPriorityId = card.find('.taskPrioritysId').val();
-                var dueDate = card.find('.dueDates').val();
-                var dueTime = card.find('.dueTimes').val();
-                var description = card.find('.taskdescription').val();
-                var title = card.find('.tasktittle').text();
-                var clientId = $('input[name="Clientid"]').val();
+                var taskid = card.find('.taskid').val();
+                //var taskCategoryId = card.find('.categoriesId').val();
+                //var assigneeId = card.find('.assigneId').val();
+                //var taskPriorityId = card.find('.taskPrioritysId').val();
+                //var dueDate = card.find('.dueDates').val();
+                //var dueTime = card.find('.dueTimes').val();
+                //var description = card.find('.taskdescription').val();
+                //var title = card.find('.tasktittle').text();
+                //var clientId = $('input[name="Clientid"]').val();
                 var isCompleted = false;
+                //var inputData = {
+                //    clientId: clientId,
+                //    taskCategoryId: taskCategoryId,
+                //    assigneeId: assigneeId,
+                //    taskPriorityId: taskPriorityId,
+                //    dueDate: dueDate,
+                //    dueTime: dueTime,
+                //    description: description,
+                //    title: title,
+                //    isCompleted: isCompleted,
+                //    taskid: taskid
+
+                //};
                 var inputData = {
-                    clientId: clientId,
-                    taskCategoryId: taskCategoryId,
-                    assigneeId: assigneeId,
-                    taskPriorityId: taskPriorityId,
-                    dueDate: dueDate,
-                    dueTime: dueTime,
-                    description: description,
-                    title: title,
+                    
                     isCompleted: isCompleted,
-                    id: id
+                    taskid: taskid
 
                 };
                 var Steps = JSON.stringify(inputData);
                 Steps = JSON.parse(Steps);
                 _cRMTasksService
-                    .createOrEdit(Steps)
+                    .updateTaskIsCompleted(Steps)
             }
            
         });

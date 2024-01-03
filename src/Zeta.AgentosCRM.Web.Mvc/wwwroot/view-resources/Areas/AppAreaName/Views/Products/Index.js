@@ -188,9 +188,19 @@
                     data: 'branchName',
                     name: 'BranchName',
                 },
-
                 {
                     targets: 5,
+                    data: 'product.enrolledCount',
+                    name: 'enrolledCount',
+                },
+                {
+                    targets: 6,
+                    data: 'product.productCount',
+                    name: 'productCount',
+                },
+
+                {
+                    targets: 7,
                     width: 30,
                     data: null,
                     orderable: false,

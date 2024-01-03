@@ -1930,6 +1930,7 @@
 		<text name="AcademicScore">Academic Score</text>     
 		<text name="Percentage">Percentage</text>     
 		<text name="GPA">GPA</text>     
-		<text name="EditChekInLogs">EditChekInLogs</text>     
+		<text name="EditChekInLogs">Edit Check In Logs</text>     
+		<text name="CheckBox">CheckBox</text>     
 	</texts> 
 </localizationDictionary>

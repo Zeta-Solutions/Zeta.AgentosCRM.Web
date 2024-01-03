@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Mvc;
 using Zeta.AgentosCRM.CRMAppointments.Invitees;
 using Zeta.AgentosCRM.CRMAppointments.Invitees.Dtos;
 using Zeta.AgentosCRM.TaskManagement.Followers.Dtos;
+using Zeta.AgentosCRM.CRMClient.Dtos;
 
 namespace Zeta.AgentosCRM.TaskManagement
 {
@@ -364,7 +365,18 @@ namespace Zeta.AgentosCRM.TaskManagement
             }
             CurrentUnitOfWork.SaveChanges();
         }
-
+        [AbpAuthorize(AppPermissions.Pages_CRMTasks_Edit)]
+        public async Task UpdateTaskIsCompleted(UpdateTaskIsCompletedDto input)
+        {
+            var task = await _crmTaskRepository.FirstOrDefaultAsync((long)input.TaskId);
+            if (task == null)
+            {
+                // Create a new client profile if it doesn't exist
+                // client = new ClientProfile { ClientId = clientId };
+                return;
+            }
+            task.IsCompleted = input.IsCompleted;
+        }
         [AbpAuthorize(AppPermissions.Pages_CRMTasks_Delete)]
         public async Task Delete(EntityDto<long> input)
         {

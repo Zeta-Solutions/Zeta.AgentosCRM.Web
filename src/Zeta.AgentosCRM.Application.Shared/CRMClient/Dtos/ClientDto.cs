@@ -63,6 +63,7 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public long? AgentId { get; set; }
         public int ApplicationCount { get; set; }
+        public bool IsAnyApplicationActive { get; set; }
 
     }
 }

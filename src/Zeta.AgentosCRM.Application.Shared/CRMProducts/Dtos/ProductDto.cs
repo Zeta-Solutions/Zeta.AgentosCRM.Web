@@ -24,6 +24,8 @@ namespace Zeta.AgentosCRM.CRMProducts.Dtos
         public int PartnerTypeId { get; set; }
 
         public long BranchId { get; set; }
+        public int ProductCount { get; set; }
+        public int EnrolledCount { get; set; }
 
         public Guid? ProfilePictureId { get; set; }
 

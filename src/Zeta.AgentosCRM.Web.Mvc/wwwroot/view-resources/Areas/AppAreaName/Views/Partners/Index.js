@@ -160,7 +160,7 @@
 						let initials = `${firstNameInitial}`;
 						let fullName = `${row.partner.partnerName}`;
 						
-						// Generate the URLs using JavaScript variables
+						// Generate the URLs using JavaScript variables.........
 						let clientDetailUrl = `/AppAreaName/partners/DetailsForm?id=${row.partner.id}`;
 						let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.partner.id}`;
 						let profilePicture = row.imageBytes
@@ -193,18 +193,44 @@
 					name: 'partnerType',
 				},
 				{
-					targets: 5,
-					data: 'partner.city',
-					name: 'city',
+					targets: 5, 
+					data: null,
+					orderable: false,
+					autoWidth: false,
+					defaultContent: '',
+					render: function (data, type, row) {
+						let city = row.partner.city;
+						let countryName = row.countryName;
+
+						let fullName = `${city} <br> ${countryName}`;
+
+						return ` ${fullName}`;
+					},
+					name: 'concatenatedData',
 				},
 				
 				{
 					targets: 6,
+					data: 'partner.productCount',
+					name: 'productCount',
+				},
+				{
+					targets: 7,
+					data: 'partner.enrolledCount',
+					name: 'enrolledCount',
+				},
+				{
+					targets: 8,
+					data: 'partner.progressCount',
+					name: 'progressCount',
+				},
+				{
+					targets: 9,
 					data: 'partner.marketingEmail',
 					name: 'MarketingEmail',
 				},
 				{
-					targets: 7,
+					targets: 10,
 					width: 30,
 					data: null,
 					orderable: false,

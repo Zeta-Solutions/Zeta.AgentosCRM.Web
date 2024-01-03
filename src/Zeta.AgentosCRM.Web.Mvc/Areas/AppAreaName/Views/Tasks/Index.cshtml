@@ -21,7 +21,12 @@
     <button id="CreateNewTaskButton" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddTask")</button>
 
 </abp-page-subheader>
+<style>
+    .separator-row td {
+        border-bottom: 1px solid #ddd; /* Adjust the color and thickness as needed */
+    }
 
+</style>
 <div class="@(await GetContainerClass())">
     <div class="card card-custom gutter-b">
         <div class="card-body">
@@ -46,13 +51,13 @@
 
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
+                        <label class="form-label" for="AbbrivationFilterId">@L("Title")</label>
                         <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="NameFilterId">@L("Name")</label>
+                        <label class="form-label" for="NameFilterId">@L("Description")</label>
                         <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
                     </div>
                 </div>
@@ -67,8 +72,30 @@
                     <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
                 </div>
             </div>
-            <div id="cardTaskContainer"></div>
+            @* <div id="cardTaskContainer"></div> *@
           
+<div> 
+            <div class="row ">
+                <div class="table-responsive">
+                    <table id="Tasktable" class="table border custom-table align-middle fs-8 gy-2 dataTable no-footer">
+                        <thead class="thead gy-7">
+                                <tr>
+                                    <th></th>
+                                    <th></th> 
+                                    <th>@L("Title")</th> 
+                                    <th>@L("UserName")</th> 
+                                    <th>@L("Description")</th>   
+                                    <th>@L("Date")</th>   
+                                    <th>@L("Status")</th>   
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>                           
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            </div> 
         </div>
     </div>
 </div>
