@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
@@ -184,6 +185,63 @@ namespace Zeta.AgentosCRM.Auditing
             return new PagedResultDto<EntityChangeListDto>(resultCount, entityChangeListDtos);
         }
 
+
+        //public async Task<PagedResultDto<CutomizedEntityChangeAndUserDto>> GetEntityCustomizeChanges(GetEntityTypeChangeInput input)
+        //{
+        //    // Fix for: https://github.com/aspnetzero/aspnet-zero-core/issues/2101
+        //    var entityId = "\"" + input.EntityId + "\"";
+
+        //    var query = from entityChangeSet in _entityChangeSetRepository.GetAll()
+        //                join entityChange in _entityChangeRepository.GetAll() on entityChangeSet.Id equals entityChange.EntityChangeSetId
+        //                join propertyChange in _entityPropertyChangeRepository.GetAll() on entityChange.Id equals propertyChange.EntityChangeId
+        //                join user in _userRepository.GetAll() on entityChangeSet.UserId equals user.Id
+        //                where entityChange.EntityTypeFullName == input.EntityTypeFullName &&
+        //                      (entityChange.EntityId == input.EntityId || entityChange.EntityId == entityId)
+        //                select new EntityChange_PropertyAndUser
+        //                {
+        //                    EntityChange = entityChange,
+        //                    User = user,
+        //                    EntityPropertyChange= propertyChange
+        //                };
+
+        //    var resultCount = await query.CountAsync();
+        //    var results = await query
+        //        .OrderBy(input.Sorting)
+        //        .PageBy(input)
+        //        .ToListAsync();
+
+        //    var entityChangeListDtos = ConvertToEntityChange_PropertyListDtos(results);
+
+        //    return new PagedResultDto<CutomizedEntityChangeAndUserDto>(resultCount, entityChangeListDtos);
+        //}
+
+        public async Task<PagedResultDto<EntityChangeListDto>> GetEntityCustomizeChanges(GetEntityTypeChangeInput input)
+        {
+            // Fix for: https://github.com/aspnetzero/aspnet-zero-core/issues/2101
+            var entityId = "\"" + input.EntityId + "\"";
+
+            var query = from entityChangeSet in _entityChangeSetRepository.GetAll()
+                        join entityChange in _entityChangeRepository.GetAll() on entityChangeSet.Id equals entityChange.EntityChangeSetId
+                        join propertyChange in _entityPropertyChangeRepository.GetAll() on entityChange.Id equals propertyChange.EntityChangeId
+                        join user in _userRepository.GetAll() on entityChangeSet.UserId equals user.Id
+                        where entityChange.EntityTypeFullName == input.EntityTypeFullName &&
+                              (entityChange.EntityId == input.EntityId || entityChange.EntityId == entityId)
+                        select new EntityChangeAndUser
+                        {
+                            EntityChange = entityChange,
+                            User = user
+                        };
+
+            var resultCount = await query.CountAsync();
+            var results = await query
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ToListAsync();
+
+            var entityChangeListDtos = ConvertToEntityChangeListDtos(results);
+
+            return new PagedResultDto<EntityChangeListDto>(resultCount, entityChangeListDtos);
+        }
         public async Task<FileDto> GetEntityChangesToExcel(GetEntityChangeInput input)
         {
             var entityChanges = await CreateEntityChangesAndUsersQuery(input)
@@ -204,6 +262,27 @@ namespace Zeta.AgentosCRM.Auditing
             return ObjectMapper.Map<List<EntityPropertyChangeDto>>(entityPropertyChanges);
         }
 
+        //private List<CutomizedEntityChangeAndUserDto> ConvertToEntityChange_PropertyListDtos(List<EntityChange_PropertyAndUser> results)
+        //{
+        //    try
+        //    {
+        //        return results.Select(
+        //        result =>
+        //        {
+        //            var entityChangeListDto = ObjectMapper.Map<CutomizedEntityChangeAndUserDto>(result.EntityChange);
+        //            entityChangeListDto.UserName = result.User?.UserName;
+        //            entityChangeListDto.ProfilePictureId = result.User?.ProfilePictureId;
+        //            entityChangeListDto.ChangedEntities = result.EntityPropertyChange?.PropertyName;
+
+        //            return entityChangeListDto;
+        //        }).ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log or handle the exception as needed
+        //        return new List<CutomizedEntityChangeAndUserDto>();
+        //    }
+        //}
         private List<EntityChangeListDto> ConvertToEntityChangeListDtos(List<EntityChangeAndUser> results)
         {
             return results.Select(
@@ -211,6 +290,7 @@ namespace Zeta.AgentosCRM.Auditing
                 {
                     var entityChangeListDto = ObjectMapper.Map<EntityChangeListDto>(result.EntityChange);
                     entityChangeListDto.UserName = result.User?.UserName;
+                    entityChangeListDto.ProfilePictureId = result.User?.ProfilePictureId;
                     return entityChangeListDto;
                 }).ToList();
         }

@@ -20,7 +20,7 @@
             multiple: true,
             width: '100%',
             placeholder:'Select Follower',
-            // Adjust the width as needed
+            // Adjust the width as needed..
         });
         function getCurrentTime() {
             const now = new Date();

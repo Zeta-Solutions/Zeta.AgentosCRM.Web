@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMProducts.Requirements;
+﻿using Zeta.AgentosCRM.CRMClient.Documents;
+using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee;
 using Zeta.AgentosCRM.CRMSetup.Account;
@@ -43,6 +44,7 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(ClientAttachment),
             typeof(ProductBranch),
             typeof(ProductFeeDetail),
             typeof(ProductOtherTestRequirement),

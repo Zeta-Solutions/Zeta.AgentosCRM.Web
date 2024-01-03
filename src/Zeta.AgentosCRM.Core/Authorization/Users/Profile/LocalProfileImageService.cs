@@ -102,5 +102,10 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
             var file = await _binaryObjectManager.GetOrNullAsync(pictureId);
             return file == null ? "" : Convert.ToBase64String(file.Bytes);
         } 
+        public async Task<string> GetProfilePictureByteArray(Guid pictureId)
+        { 
+            var file = await _binaryObjectManager.GetOrNullAsync(pictureId);
+            return file == null ? "" : Convert.ToBase64String(file.Bytes);
+        } 
     }
 }

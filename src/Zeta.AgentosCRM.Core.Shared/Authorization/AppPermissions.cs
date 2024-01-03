@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ClientAttachments = "Pages.ClientAttachments";
+        public const string Pages_ClientAttachments_Create = "Pages.ClientAttachments.Create";
+        public const string Pages_ClientAttachments_Edit = "Pages.ClientAttachments.Edit";
+        public const string Pages_ClientAttachments_Delete = "Pages.ClientAttachments.Delete";
+
         public const string Pages_ProductBranches = "Pages.ProductBranches";
         public const string Pages_ProductBranches_Create = "Pages.ProductBranches.Create";
         public const string Pages_ProductBranches_Edit = "Pages.ProductBranches.Edit";
@@ -39,7 +44,7 @@
         public const string Pages_ProductFees = "Pages.ProductFees";
         public const string Pages_ProductFees_Create = "Pages.ProductFees.Create";
         public const string Pages_ProductFees_Edit = "Pages.ProductFees.Edit";
-        public const string Pages_ProductFees_Delete = "Pages.ProductFees.Delete"; 
+        public const string Pages_ProductFees_Delete = "Pages.ProductFees.Delete";
 
         public const string Pages_AgentContacts = "Pages.AgentContacts";
         public const string Pages_AgentContacts_Create = "Pages.AgentContacts.Create";
@@ -184,12 +189,11 @@
         public const string Pages_Followers_Edit = "Pages.Followers.Edit";
         public const string Pages_Followers_Delete = "Pages.Followers.Delete";
 
-        public const string Pages_Clients = "Pages.Clients"; 
+        public const string Pages_Clients = "Pages.Clients";
         public const string Pages_Clients_ChangeProfilePicture = "Pages.Clients.ChangeProfilePicture";
         public const string Pages_Clients_Create = "Pages.Clients.Create";
         public const string Pages_Clients_Edit = "Pages.Clients.Edit";
         public const string Pages_Clients_Delete = "Pages.Clients.Delete";
-
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
@@ -317,7 +321,7 @@
         public const string Pages_CRMSetup_WorkflowSteps = "Pages.CRMSetup.WorkflowSteps";
         public const string Pages_CRMSetup_WorkflowSteps_Create = "Pages.CRMSetup.WorkflowSteps.Create";
         public const string Pages_CRMSetup_WorkflowSteps_Edit = "Pages.CRMSetup.WorkflowSteps.Edit";
-        public const string Pages_CRMSetup_WorkflowSteps_Delete = "Pages.CRMSetup.WorkflowSteps.Delete"; 
+        public const string Pages_CRMSetup_WorkflowSteps_Delete = "Pages.CRMSetup.WorkflowSteps.Delete";
 
         public const string Pages_CRMSetup_DocumentCheckListPartners = "Pages.CRMSetup.DocumentCheckListPartners";
         public const string Pages_CRMSetup_DocumentCheckListPartners_Create = "Pages.CRMSetup.DocumentCheckListPartners.Create";
@@ -333,7 +337,7 @@
         public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Create = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Create";
         public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Edit = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Edit";
         public const string Pages_CRMSetup_WorkflowStepDocumentCheckLists_Delete = "Pages.CRMSetup.WorkflowStepDocumentCheckLists.Delete";
-        
+
         public const string Pages_CRMSetup_WorkflowDocuments = "Pages.CRMSetup.WorkflowDocuments";
         public const string Pages_CRMSetup_WorkflowDocuments_Create = "Pages.CRMSetup.WorkflowDocuments.Create";
         public const string Pages_CRMSetup_WorkflowDocuments_Edit = "Pages.CRMSetup.WorkflowDocuments.Edit";
@@ -383,7 +387,6 @@
         public const string Pages_CRMSetup_DocumentTypes_Create = "Pages.CRMSetup.DocumentTypes.Create";
         public const string Pages_CRMSetup_DocumentTypes_Edit = "Pages.CRMSetup.DocumentTypes.Edit";
         public const string Pages_CRMSetup_DocumentTypes_Delete = "Pages.CRMSetup.DocumentTypes.Delete";
-
 
         public const string Pages_CRMSetup_Countries = "Pages.CRMSetup.Countries";
         public const string Pages_CRMSetup_Countries_Create = "Pages.CRMSetup.Countries.Create";

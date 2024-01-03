@@ -1,10 +1,12 @@
-﻿using System;
-using Abp.Application.Services.Dto;
+﻿using Abp.Application.Services.Dto;
 using Abp.Events.Bus.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Zeta.AgentosCRM.Auditing.Dto
 {
-    public class EntityChangeListDto : EntityDto<long>
+    public class CutomizedEntityChangeAndUserDto : EntityDto<long>
     {
         public long? UserId { get; set; }
 
@@ -19,6 +21,9 @@ namespace Zeta.AgentosCRM.Auditing.Dto
         public string ChangeTypeName => ChangeType.ToString();
 
         public long EntityChangeSetId { get; set; }
+
         public Guid? ProfilePictureId { get; set; }
+
+        public string ChangedEntities { get; set; }
     }
 }

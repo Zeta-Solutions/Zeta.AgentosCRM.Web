@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMProducts.Requirements.Dtos;
+﻿using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
+using Zeta.AgentosCRM.CRMClient.Documents;
+using Zeta.AgentosCRM.CRMProducts.Requirements.Dtos;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo.Dtos;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
@@ -129,6 +131,8 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditClientAttachmentDto, ClientAttachment>().ReverseMap();
+            configuration.CreateMap<ClientAttachmentDto, ClientAttachment>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductBranchDto, ProductBranch>().ReverseMap();
             configuration.CreateMap<ProductBranchDto, ProductBranch>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductFeeDetailDto, ProductFeeDetail>().ReverseMap();
@@ -344,6 +348,7 @@ namespace Zeta.AgentosCRM
             configuration.CreateMap<AuditLog, AuditLogListDto>();
             configuration.CreateMap<EntityChange, EntityChangeListDto>();
             configuration.CreateMap<EntityPropertyChange, EntityPropertyChangeDto>();
+            configuration.CreateMap<EntityPropertyChange, CutomizedEntityChangeAndUserDto>();
 
             //Friendship
             configuration.CreateMap<Friendship, FriendDto>();

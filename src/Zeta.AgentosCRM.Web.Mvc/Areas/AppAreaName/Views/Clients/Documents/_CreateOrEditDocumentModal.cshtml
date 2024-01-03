@@ -1,0 +1,38 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@using Abp.Timing;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentAttachment;
+@model CreateOrEditDocumentsViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditDocuments")) : L("AddNewDocument")))
+<div class="row col-sm-12 mt-5 mb-10">
+    <div class="col-sm-3">
+        <p></p>
+    </div>
+    <div class="col-sm-6 ">
+        <form id="ClientDocumentForm" method="POST" action="@Url.Action("UploadAttachments", "DocumentAttachment", new {area = "AppAreaName"})">
+            <h5>@L("UploadDocument")</h5>
+            <div class="mb-5 brand-dark-logo-preview-area" style="background: url(@(ApplicationPath)/Common/Images/transparent_background.png); width: 50%; padding: 5px; @Html.Raw(ViewBag.TenantDarkLogoId == null ? "display:none;" : "")">
+                <a href="@Url.Action("GetLogo", "TenantCustomization", new {area = string.Empty, tenantId = ViewBag.TenantId})" target="_blank">
+                    <img height="38" src="@Url.Action("GetTenantLogo", "TenantCustomization", new {area = string.Empty, skin="dark", tenantId = ViewBag.TenantId, t = Clock.Now.Ticks.ToString()})">
+                </a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div>
+                    <input type="file" class="custom-file-input" name="ApplicationLogoImage" id="ApplicationDarkLogoImage">
+                    <label class="custom-file-label form-label" id="ApplicationDarkLogoImageLabel"
+                           for="ApplicationDarkLogoImage">
+                        @L("ChooseAFile")
+                    </label>
+                </div>
+                <span class="form-text text-muted col-lg-12">Select a jpg|jpeg|png|gif|doc|pdf|docx|txt|text|plain file  with a maximum of 5MB size.</span>
+            </div>
+
+            <button class="btn btn-primary" type="submit">@L("Upload")</button>
+           @*  <button class="btn btn-secondary" type="reset">@L("Clear")</button> *@
+        </form>
+    </div>
+</div>
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
