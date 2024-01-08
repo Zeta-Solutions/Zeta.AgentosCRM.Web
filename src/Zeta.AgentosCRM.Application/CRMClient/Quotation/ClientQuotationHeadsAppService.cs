@@ -82,6 +82,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                                            o.TotalAmount,
                                            o.CreationTime,
                                            o.CreatorUserId,
+                                           o.ClientId,
                                            ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                            CRMCurrencyName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                            UserName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
@@ -102,6 +103,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
                         DueDate = o.DueDate,
                         ClientEmail = o.ClientEmail,
                         ClientName = o.ClientName,
+                        ClientId=o.ClientId,
                         Id = o.Id,
                         ProductCount = o.ProductCount,
                         TotalAmount = o.TotalAmount,
