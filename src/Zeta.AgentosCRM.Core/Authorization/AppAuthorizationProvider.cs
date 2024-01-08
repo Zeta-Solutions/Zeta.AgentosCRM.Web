@@ -30,6 +30,16 @@ namespace Zeta.AgentosCRM.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var sentEmails = pages.CreateChildPermission(AppPermissions.Pages_SentEmails, L("SentEmails"), multiTenancySides: MultiTenancySides.Tenant);
+            sentEmails.CreateChildPermission(AppPermissions.Pages_SentEmails_Create, L("CreateNewSentEmail"), multiTenancySides: MultiTenancySides.Tenant);
+            sentEmails.CreateChildPermission(AppPermissions.Pages_SentEmails_Edit, L("EditSentEmail"), multiTenancySides: MultiTenancySides.Tenant);
+            sentEmails.CreateChildPermission(AppPermissions.Pages_SentEmails_Delete, L("DeleteSentEmail"), multiTenancySides: MultiTenancySides.Tenant);
+
+            var emailConfigurations = pages.CreateChildPermission(AppPermissions.Pages_EmailConfigurations, L("EmailConfigurations"), multiTenancySides: MultiTenancySides.Tenant);
+            emailConfigurations.CreateChildPermission(AppPermissions.Pages_EmailConfigurations_Create, L("CreateNewEmailConfiguration"), multiTenancySides: MultiTenancySides.Tenant);
+            emailConfigurations.CreateChildPermission(AppPermissions.Pages_EmailConfigurations_Edit, L("EditEmailConfiguration"), multiTenancySides: MultiTenancySides.Tenant);
+            emailConfigurations.CreateChildPermission(AppPermissions.Pages_EmailConfigurations_Delete, L("DeleteEmailConfiguration"), multiTenancySides: MultiTenancySides.Tenant);
+
             var clientAttachments = pages.CreateChildPermission(AppPermissions.Pages_ClientAttachments, L("ClientAttachments"), multiTenancySides: MultiTenancySides.Tenant);
             clientAttachments.CreateChildPermission(AppPermissions.Pages_ClientAttachments_Create, L("CreateNewClientAttachment"), multiTenancySides: MultiTenancySides.Tenant);
             clientAttachments.CreateChildPermission(AppPermissions.Pages_ClientAttachments_Edit, L("EditClientAttachment"), multiTenancySides: MultiTenancySides.Tenant);

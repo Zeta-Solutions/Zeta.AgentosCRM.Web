@@ -29,7 +29,7 @@
         this.save = function () {
             if (!_$testAattachmentInformationForm.valid()) {
                 return;
-            }
+            } 
 
             
                         if (_fileUploading != null && _fileUploading.length > 0) {
