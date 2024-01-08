@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240105154741_Added_EmailConfiguration")]
+    partial class Added_EmailConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6208,74 +6211,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("EmailConfigurations");
                 });
 
-            modelBuilder.Entity("Zeta.AgentosCRM.Zeta.AgentosCRM.Tenants.Email.SentEmail", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long?>("ApplicationId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("BCCEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CCEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("ClientId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("EmailBody")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("EmailConfigurationId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("EmailTemplateId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FromEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsSent")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ToEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("EmailConfigurationId");
-
-                    b.HasIndex("EmailTemplateId");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("SentEmails");
-                });
-
             modelBuilder.Entity("Zeta.AgentosCRM.Editions.SubscribableEdition", b =>
                 {
                     b.HasBaseType("Abp.Application.Editions.Edition");
@@ -7603,33 +7538,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("CRMTaskFk");
 
                     b.Navigation("UserFk");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.Zeta.AgentosCRM.Tenants.Email.SentEmail", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMApplications.Application", "ApplicationFk")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMClient.Client", "ClientFk")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("Zeta.AgentosCRM.Tenants.Email.Configuration.EmailConfiguration", "EmailConfigurationFk")
-                        .WithMany()
-                        .HasForeignKey("EmailConfigurationId");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Email.EmailTemplate", "EmailTemplateFk")
-                        .WithMany()
-                        .HasForeignKey("EmailTemplateId");
-
-                    b.Navigation("ApplicationFk");
-
-                    b.Navigation("ClientFk");
-
-                    b.Navigation("EmailConfigurationFk");
-
-                    b.Navigation("EmailTemplateFk");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>

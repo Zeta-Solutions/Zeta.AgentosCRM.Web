@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="AddNewDocument">Add New Document</text>
+	<texts>    <text name="SentEmail">Sent email</text>
+    <text name="CreateNewSentEmail">Create new sent email</text>
+    <text name="EditSentEmail">Edit sent email</text>
+    <text name="DeleteSentEmail">Delete sent email</text>
+    <text name="Configuration">Configuration</text>
+    <text name="EmailConfiguration">Email configuration</text>
+    <text name="CreateNewEmailConfiguration">Create new email configuration</text>
+    <text name="EditEmailConfiguration">Edit email configuration</text>
+    <text name="DeleteEmailConfiguration">Delete email configuration</text>
+    <text name="AddNewDocument">Add New Document</text>
     <text name="UploadDocument">Upload Document</text>
     <text name="ClientAttachment">Client attachment</text>
     <text name="CreateNewClientAttachment">Create new client attachment</text>

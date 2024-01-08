@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
+﻿using Zeta.AgentosCRM.Tenants.Email.Configuration.Dtos;
+using Zeta.AgentosCRM.Tenants.Email.Configuration;
+using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
 using Zeta.AgentosCRM.CRMClient.Documents;
 using Zeta.AgentosCRM.CRMProducts.Requirements.Dtos;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
@@ -124,6 +126,8 @@ using Zeta.AgentosCRM.Notifications.Dto;
 using Zeta.AgentosCRM.Organizations.Dto;
 using Zeta.AgentosCRM.Sessions.Dto;
 using Zeta.AgentosCRM.WebHooks.Dto;
+using Zeta.AgentosCRM.Tenants.Email.Dtos;
+using Zeta.AgentosCRM.Tenants.Email;
 
 namespace Zeta.AgentosCRM
 {
@@ -131,6 +135,10 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditSentEmailDto, SentEmail>().ReverseMap();
+            configuration.CreateMap<SentEmailDto, SentEmail>().ReverseMap();
+            configuration.CreateMap<CreateOrEditEmailConfigurationDto, EmailConfiguration>().ReverseMap();
+            configuration.CreateMap<EmailConfigurationDto, EmailConfiguration>().ReverseMap();
             configuration.CreateMap<CreateOrEditClientAttachmentDto, ClientAttachment>().ReverseMap();
             configuration.CreateMap<ClientAttachmentDto, ClientAttachment>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductBranchDto, ProductBranch>().ReverseMap();

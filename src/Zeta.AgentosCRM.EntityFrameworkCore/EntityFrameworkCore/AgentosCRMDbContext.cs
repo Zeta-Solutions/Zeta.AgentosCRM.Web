@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMClient.Documents;
+﻿using Zeta.AgentosCRM.Tenants.Email.Configuration;
+using Zeta.AgentosCRM.CRMClient.Documents;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee;
@@ -50,11 +51,16 @@ using Zeta.AgentosCRM.MultiTenancy;
 using Zeta.AgentosCRM.MultiTenancy.Accounting;
 using Zeta.AgentosCRM.MultiTenancy.Payments;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.Tenants.Email;
 
 namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<SentEmail> SentEmails { get; set; }
+
+        public virtual DbSet<EmailConfiguration> EmailConfigurations { get; set; }
+
         public virtual DbSet<ClientAttachment> ClientAttachments { get; set; }
 
         public virtual DbSet<ProductBranch> ProductBranches { get; set; }
@@ -219,10 +225,18 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ClientAttachment>(c =>
+            modelBuilder.Entity<SentEmail>(s =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                s.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<EmailConfiguration>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ClientAttachment>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ProductBranch>(p =>
                        {
                            p.HasIndex(e => new { e.TenantId });
