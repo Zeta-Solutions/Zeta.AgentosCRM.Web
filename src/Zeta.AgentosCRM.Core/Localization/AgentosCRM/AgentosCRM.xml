@@ -1937,6 +1937,7 @@
 		<text name="Percentage">Percentage</text>     
 		<text name="GPA">GPA</text>     
 		<text name="EditChekInLogs">Edit Check In Logs</text>     
-		<text name="CheckBox">CheckBox</text>     
+		<text name="CheckBox">Check Box</text>     
+		<text name="AssigneeName">Assignee Name</text>     
 	</texts> 
 </localizationDictionary>

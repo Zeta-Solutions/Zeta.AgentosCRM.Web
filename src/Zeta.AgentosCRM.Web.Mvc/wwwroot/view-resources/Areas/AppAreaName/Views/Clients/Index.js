@@ -236,8 +236,8 @@
                     },
 
                     name: 'concatenatedData',
-                    //data: 'userName',.........
-                    //name: 'userName',......
+                    //data: 'userName',
+                    //name: 'userName',
                 },
                 {
                     targets: 9,

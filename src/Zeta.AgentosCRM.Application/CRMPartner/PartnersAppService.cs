@@ -126,54 +126,54 @@ namespace Zeta.AgentosCRM.CRMPartner
                            join o6 in _lookup_crmCurrencyRepository.GetAll() on o.CurrencyId equals o6.Id into j6
                            from s6 in j6.DefaultIfEmpty()
 
-                           let productCount=(from p in _lookup_productRepository.GetAll()
-                                             where o.Id== p.PartnerId
-                                             select p.Id 
-                                             ).Count() 
+                           let productCount = (from p in _lookup_productRepository.GetAll()
+                                               where o.Id == p.PartnerId
+                                               select p.Id
+                                             ).Count()
 
-                           let enrolledCount= (from o1 in _lookup_branchRepository.GetAll()
-                                               where o.Id == o1.PartnerId
-                                               join o2 in _lookup_applicationRepository.GetAll() on o1.Id equals o2.BranchId into j2
-                                               from s2 in j2.DefaultIfEmpty()
-                                               where o1.Id == s2.BranchId
-                                               select s2.Id)
-                                   .Count()  
-                                   
-                           let ProgressCount= (from a in  _lookup_applicationRepository.GetAll()
-                                               where o.Id == a.PartnerId && a.IsDiscontinue==false
-                                               select a.Id)
-                                   .Count()  
+                           let enrolledCount = (from o1 in _lookup_branchRepository.GetAll()
+                                                where o.Id == o1.PartnerId
+                                                join o2 in _lookup_applicationRepository.GetAll() on o1.Id equals o2.BranchId into j2
+                                                from s2 in j2.DefaultIfEmpty()
+                                                where o1.Id == s2.BranchId && s2.IsDeleted == false
+                                                select s2.Id)
+                                   .Count()
+
+                           let ProgressCount = (from a in _lookup_applicationRepository.GetAll()
+                                                where o.Id == a.PartnerId && a.IsDiscontinue == false
+                                                select a.Id)
+                                   .Count()
 
                            select new
                            {
 
-                                o.PartnerName,
-                                o.Street,
-                                o.City,
-                                o.State,
-                                o.ZipCode,
-                                o.PhoneNo,
-                                o.Email,
-                                o.Fax,
-                                o.Website,
-                                o.University,
-                                o.MarketingEmail,
-                                o.BusinessRegNo,
-                                o.PhoneCode,
-                                o.ProfilePictureId,
-                               Id =  o.Id,
+                               o.PartnerName,
+                               o.Street,
+                               o.City,
+                               o.State,
+                               o.ZipCode,
+                               o.PhoneNo,
+                               o.Email,
+                               o.Fax,
+                               o.Website,
+                               o.University,
+                               o.MarketingEmail,
+                               o.BusinessRegNo,
+                               o.PhoneCode,
+                               o.ProfilePictureId,
+                               Id = o.Id,
 
-                               ProductCount = productCount, 
+                               ProductCount = productCount,
                                EnrolledCount = enrolledCount,
-                               ProgressCount= ProgressCount,
+                               ProgressCount = ProgressCount,
 
-                               BinaryObjectDescription =  s1 == null ||  s1.Description == null ? "" :  s1.Description.ToString(),
-                               ImageBytes =  s1 == null ||  s1.Bytes == null ? "" : Convert.ToBase64String( s1.Bytes),
-                               MasterCategoryName =  s2 == null ||  s2.Name == null ? "" :  s2.Name.ToString(),
-                               PartnerTypeName =  s3 == null ||  s3.Name == null ? "" :  s3.Name.ToString(),
-                               WorkflowName =  s4 == null ||  s4.Name == null ? "" :  s4.Name.ToString(),
-                               CountryName =  s5 == null ||  s5.Name == null ? "" :  s5.Name.ToString(),
-                               CRMCurrencyName =  s6 == null ||  s6.Name == null ? "" :  s6.Name.ToString()
+                               BinaryObjectDescription = s1 == null || s1.Description == null ? "" : s1.Description.ToString(),
+                               ImageBytes = s1 == null || s1.Bytes == null ? "" : Convert.ToBase64String(s1.Bytes),
+                               MasterCategoryName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                               PartnerTypeName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
+                               WorkflowName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                               CountryName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
+                               CRMCurrencyName = s6 == null || s6.Name == null ? "" : s6.Name.ToString()
                            };
 
             var totalCount = await filteredPartners.CountAsync();
@@ -224,8 +224,8 @@ namespace Zeta.AgentosCRM.CRMPartner
             );
 
         }
-          
-         
+
+
         public async Task<GetPartnerForViewDto> GetPartnerForView(long id)
         {
             var Partner = await _partnerRepository.GetAsync(id);

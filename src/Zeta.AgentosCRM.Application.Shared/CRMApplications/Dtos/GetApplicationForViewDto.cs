@@ -5,6 +5,8 @@
         public ApplicationDto Application { get; set; }
 
         public string ClientFirstName { get; set; }
+        public string ClientLastName { get; set; }
+        public string ClientEmail { get; set; }
 
         public string WorkflowName { get; set; }
 
@@ -14,8 +16,10 @@
         
         public string BranchName { get; set; }
         public string ApplicationName { get; set; }
+        public string UserName { get; set; }
+        public string OfficeName { get; set; }
 
-		public bool IsCurrent { get; set; }
+		public bool IsCurrent { get; set; } 
 		public bool IsActive { get; set; }
 		public bool IsCompleted { get; set; }
 	}

@@ -109,10 +109,10 @@
                     // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
                     render: function (data, type, row) {
                         let firstNameInitial = row.clientFirstName.charAt(0).toUpperCase();
-                        //let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
-                        let initials = `${firstNameInitial}`;
-                        let fullName = `${row.clientFirstName}`;
-                        /*      console.log(row);*/
+                        let lastNameInitial = row.clientLastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}` + ' ' + `${lastNameInitial}`;
+                        let fullName = `${row.clientFirstName}` + ' ' + `${row.clientLastName}`; 
+                        let ClientEmail = row.clientEmail;
                         debugger
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
@@ -127,7 +127,7 @@
             </span>
             <div class="d-flex flex-column">
                 <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
-                    ${fullName}
+                    ${fullName}<br>   ${ClientEmail} 
                 </a> 
               
             </div>
@@ -139,15 +139,6 @@
 
                 },
 
-                //{
-                //    targets: 2,
-
-                //    data: 'application.name',
-                //    name: 'application',
-                //    //data: 'application.work',
-                //    //name: 'partnerPartnerName',
-
-                //},
                 {
                     width: 100,
                     targets: 2,
@@ -157,10 +148,12 @@
                     defaultContent: '',
                     // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
                     render: function (data, type, row) {
-                        let firstNameInitial = row.workflowName.charAt(0).toUpperCase();
+                        let branchName = row.branchName;//.charAt(0).toUpperCase();
                         //let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
-                        let initials = `${firstNameInitial}`;
+                        //let initials = `${firstNameInitial}`;
                         let fullName = `${row.workflowName}`;
+
+                        let displayBranchName = branchName ? branchName : '-';
                         /*      console.log(row);*/
                         debugger
                         // Generate the URLs using JavaScript variables
@@ -175,7 +168,7 @@
                 <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
                     ${fullName}
                 </a> 
-              
+              <span>${displayBranchName}</span>
             </div>
         </div>
     `;
@@ -189,17 +182,71 @@
                 //    data: 'workflowName',
                 //    name: 'workflowNameFk.name',
                 //},
-                //{
-                //    targets: 3,
-                //    //data: 'application.productName',
-                //    //name: 'productName',
+                {
+                    targets: 3,
 
-                //    data: 'productName',
-                //    name: 'productNameFk.name',
-                //},
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let IsCurrent = row.isCurrent;
+                        if (IsCurrent == false) {
+                            return `<span>` + row.applicationName + `</span>`;
+                        } else if (IsCurrent == true) {
+                            return `<span>` + row.applicationName + `</span>`;
+                        }
+                    },
+
+                    name: 'concatenatedData',
+                },
+                {
+                    targets: 4,
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let isDiscontinue = row.application.isDiscontinue;
+
+                        if (isDiscontinue == false) {
+                            return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                        } else if (isDiscontinue == true) {
+                            return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
+                        }
+                    },
+
+                    name: 'concatenatedData',
+                },
+
+                {
+                    targets: 5,
+
+                    data: 'application.creationTime',
+                    name: 'creationTime',
+                    render: function (creationTime) {
+                        if (creationTime) {
+                            return moment(creationTime).format('L');
+                        }
+                        return "";
+                    }
+                },
+                {
+                    targets: 6,
+
+                    data: 'application.lastModificationTime',
+                    name: 'lastModificationTime',
+                    render: function (lastModificationTime) {
+                        if (lastModificationTime) {
+                            return moment(lastModificationTime).format('L');
+                        }
+                        return "";
+                    }
+
+                },
                 {
                     width: 30,
-                    targets: 3,
+                    targets: 7,
                     data: null,
                     orderable: false,
                     searchable: false,

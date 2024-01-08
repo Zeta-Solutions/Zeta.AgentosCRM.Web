@@ -124,8 +124,7 @@
 					orderable: false,
 					autoWidth: false,
 					defaultContent: '',
-					render: function (data, type, full, meta) {
-						console.log(data);
+					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id;
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
 							'<div class="ellipsis"><input type="checkbox" ></div>' +
@@ -235,8 +234,7 @@
 					data: null,
 					orderable: false,
 					searchable: false,
-					render: function (data, type, full, meta) {
-						console.log(data);
+					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id; 
 						var rowData = data.partner;
 						var RowDatajsonString = JSON.stringify(rowData);
