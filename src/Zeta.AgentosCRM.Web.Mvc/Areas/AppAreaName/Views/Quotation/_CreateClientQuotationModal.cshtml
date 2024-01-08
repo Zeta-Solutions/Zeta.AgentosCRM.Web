@@ -1,0 +1,26 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CreateNewApplication")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="ClientQuotationInformationsForm" role="form" novalidate class="form-validation">
+
+
+            <input type="hidden" name="id" value="" />
+
+
+            <div class="my-3">
+                <label class="form-label" for="Application_PartnerandBranch">@L("SelectClient")</label>
+                <select id="ClientId" class="form-select select2" data-id="" data-control="select2"></select>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="col-md-12 text-end mb-3 ml-3">
+<button type="button" id="saveClientBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+    <i class="fa fa-save"></i> @L("Create")
+</button>
+<</div>

@@ -1,0 +1,90 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Clients.ClientQuotations;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model ClientQuotationsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.Quotation;
+}
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Quotation/Index.js" asp-append-version="true"></script>
+
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  }
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
+<abp-page-subheader title='@L("Quotation")' description='@L("QuotationHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+  <button id="CreateNewQuotationButton" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddnewQuotation")</button>
+
+</abp-page-subheader>
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+
+                        <div class="my-3">
+                            <div class="input-group">
+
+                                <input type="text" id="QuotationsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
+                                <button id="GetQuotationsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                <div class="col-md-12">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="NameFilterId">@L("Name")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-xl-12">
+                    <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                    <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="table-responsive">
+                <table id="Quotationtable" class="table align-middle fs-8 gy-2 dataTable no-footer">
+                    <thead class="thead gy-7">
+                        <tr>
+                            <th></th>
+                             <th>@L("ClientName")</th>
+                             <th>@L("Products")</th>
+                            <th>@L("TotalFee")</th>
+                            <th>@L("DueDate")</th>
+                            <th>@L("Createdon")</th>
+                            <th>@L("CreatedBy")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>
