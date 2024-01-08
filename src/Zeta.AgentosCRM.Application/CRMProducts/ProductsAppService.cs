@@ -15,7 +15,8 @@ using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Authorization; 
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore; 
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
+using Zeta.AgentosCRM.CRMApplications;
 
 namespace Zeta.AgentosCRM.CRMProducts
 {
@@ -28,7 +29,11 @@ namespace Zeta.AgentosCRM.CRMProducts
         private readonly IRepository<PartnerType, int> _lookup_partnerTypeRepository;
         private readonly IRepository<Branch, long> _lookup_branchRepository;
         private readonly IRepository<ProductBranch> _productBranchRepository;
-        public ProductsAppService(IRepository<Product, long> productRepository, IProductsExcelExporter productsExcelExporter, IRepository<Partner, long> lookup_partnerRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Branch, long> lookup_branchRepository, IRepository<ProductBranch> productBranchRepository)
+        private readonly IRepository<Application,long> _lookup_applicationRepository;
+        public ProductsAppService(IRepository<Product, long> productRepository, 
+            IProductsExcelExporter productsExcelExporter, IRepository<Partner, long> lookup_partnerRepository, 
+            IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Branch, long> lookup_branchRepository, 
+            IRepository<ProductBranch> productBranchRepository, IRepository<Application, long> lookup_applicationRepository)
         {
             _productRepository = productRepository;
             _productsExcelExporter = productsExcelExporter;
@@ -36,6 +41,7 @@ namespace Zeta.AgentosCRM.CRMProducts
             _lookup_partnerTypeRepository = lookup_partnerTypeRepository;
             _lookup_branchRepository = lookup_branchRepository;
             _productBranchRepository = productBranchRepository;
+            _lookup_applicationRepository = lookup_applicationRepository;
         }
 
         public async Task<PagedResultDto<GetProductForViewDto>> GetAll(GetAllProductsInput input)
@@ -73,6 +79,16 @@ namespace Zeta.AgentosCRM.CRMProducts
                            join o3 in _lookup_branchRepository.GetAll() on o.BranchId equals o3.Id into j3
                            from s3 in j3.DefaultIfEmpty()
 
+
+                           let ProgressCount = (from p in _lookup_applicationRepository.GetAll()
+                                               where o.Id == p.ProductId && p.IsDiscontinue == false
+                                                select p.Id
+                                             ).Count()
+                           let EnrolledCount = (from p in _lookup_applicationRepository.GetAll()
+                                               where o.Id == p.ProductId
+                                               select p.Id
+                                             ).Count()
+
                            select new
                            { 
                                o.Name,
@@ -82,7 +98,9 @@ namespace Zeta.AgentosCRM.CRMProducts
                                o.RevenueType,
                                o.IntakeMonth,
                                Id = o.Id,
-                               PartnerId = o.PartnerId,
+                               o.PartnerId,
+                               productCount= ProgressCount,
+                               EnrolledCount,
                                PartnerPartnerName = s1 == null || s1.PartnerName == null ? "" : s1.PartnerName.ToString(),
                                PartnerTypeName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                BranchName = s3 == null || s3.Name == null ? "" : s3.Name.ToString()
@@ -108,6 +126,8 @@ namespace Zeta.AgentosCRM.CRMProducts
                         IntakeMonth = o.IntakeMonth,
                         Id = o.Id,
                         PartnerId = o.PartnerId,
+                        ProductCount=o.productCount,
+                        EnrolledCount = o.EnrolledCount,
                     },
                     PartnerPartnerName = o.PartnerPartnerName,
                     PartnerTypeName = o.PartnerTypeName,

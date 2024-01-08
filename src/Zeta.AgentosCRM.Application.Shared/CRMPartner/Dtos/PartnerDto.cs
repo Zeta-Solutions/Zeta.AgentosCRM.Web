@@ -40,6 +40,10 @@ namespace Zeta.AgentosCRM.CRMPartner.Dtos
         public int WorkflowId { get; set; }
 
         public int CountryId { get; set; }
+        public int ProductCount { get; set; }
+        
+        public int EnrolledCount { get; set; }
+        public int ProgressCount { get; set; }
 
         public int? CurrencyId { get; set; }
 

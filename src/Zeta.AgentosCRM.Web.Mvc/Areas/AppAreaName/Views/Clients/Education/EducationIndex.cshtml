@@ -1,7 +1,13 @@
 ﻿<style>
     .CardAdjust {
         margin-left: 20px;  
-        margin-right: 20px;  
+        margin-right: 20px; 
+        padding-bottom: 0px !important;
+    }
+
+    .card-body { 
+        padding-top: 8px !important;
+        padding-bottom: 0px !important;
     }
 </style>
 <div class="">
@@ -11,18 +17,20 @@
     <div class="">
         <!-- Card -->
         <div class="card CardAdjust">
-            <div class="card-body">
-                <h5 class="card-title">Education Background</h5>
-                <div class="col-md-12 text-end mb-1">
-                    <button id="AddEducationBackgroundButton" class="btn  btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("Add")</button>
+            <div class="row card-body">
+                <div class="col-md-8 d-flex align-items-center">
+                    <h5 class="card-title">Education Background</h5>
+                </div>
+                <div class="col-md-4 text-end mb-1">
+                    <button id="AddEducationBackgroundButton" class="btn btn-sm btnclose btn-outline text-white rounded-0"><i class="fa fa-plus text-white"></i> @L("Add")</button>
                 </div>
                 <hr> 
-                <div class="col-md-6">
-                    <p class="card-text">Click Add button to fill eductaion background </p><br /> 
+                <div class="col-md-12">
+                    <span class="card-text">Click Add button to fill eductaion background</span>
                 </div>
                 <div id="cardContainerEducation"></div>
-                <br/>
-                <br />
+              @*   <br/>
+                <br /> *@
 
 
               

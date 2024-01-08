@@ -85,7 +85,15 @@ namespace Zeta.AgentosCRM.CRMClient
                         .Include(e => e.LeadSourceFk)
                         .Include(e => e.PassportCountryFk)
                         .Include(e => e.AgentFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) 
+                                                            || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) 
+                                                            || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) 
+                                                            || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) 
+                                                            || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) 
+                                                            || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter)
+                                                            || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) 
+                                                            || e.SecondaryEmail.Contains(input.Filter)||e.CountryFk.Name.Contains(input.Filter)
+                                                            || e.AssigneeFk.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email.Contains(input.EmailFilter))
@@ -140,53 +148,66 @@ namespace Zeta.AgentosCRM.CRMClient
                           join o10 in _lookup_TagRepository.GetAll() on s9.TagId equals o10.Id into j10
                           from s10 in j10.DefaultIfEmpty()
 
-                          join o12 in _lookup_applicationRepository.GetAll() on o.Id equals o12.ClientId into j12
-                          from s12 in j12.DefaultIfEmpty()
+                              //join o12 in _lookup_applicationRepository.GetAll() on o.Id equals o12.ClientId into j12
+                              //from s12 in j12.DefaultIfEmpty()
+
+                          let ApplicationCount = (from p in _lookup_applicationRepository.GetAll()
+                                               where o.Id == p.ClientId
+                                               select p.Id
+                                            ).Count()
 
 
-						  group new { o, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s12 } by o.Id into g
+                          let IsAnyApplicationActive = _lookup_applicationRepository
+             .GetAll()
+             .Count(p => o.Id == p.ClientId && p.IsDiscontinue == false)
 
-						  select new
+                          //let IsAnyApplicationActive = true
+                          //(from p in _lookup_applicationRepository.GetAll()
+                          //                     where o.Id == p.ClientId && p.IsDiscontinue==false
+                          //                     select p.Id
+                          //                  ) 
+                          //group new { o, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s12 } by o.Id into g
+
+                          select new
                           { 
-                              g.First().o.FirstName,
-                              g.First().o.LastName,
-							  g.First().o.Email,
-							  g.First().o.PhoneNo,
-							  g.First().o.PhoneCode,
-                              DateofBirth = g.First().o.DateofBirth,
-                              g.First().o.ContactPreferences,
-                              g.First().o.University,
-                              g.First().o.Street,
-                              g.First().o.City,
-                              g.First().o.State,
-                              g.First().o.ZipCode,
-                              g.First().o.PreferedIntake,
-                              g.First().o.PassportNo,
-                              g.First().o.VisaType,
-                              g.First().o.VisaExpiryDate,
-                              g.First().o.Rating,
-                              g.First().o.ClientPortal,
-                              g.First().o.Id,
-                              g.First().o.ProfilePictureId,
-                              g.First().o.CountryId,
-                              g.First().o.LastModificationTime,
+                               o.FirstName,
+                               o.LastName,
+							   o.Email,
+							   o.PhoneNo,
+							   o.PhoneCode,
+                               o.DateofBirth,
+                               o.ContactPreferences,
+                               o.University,
+                               o.Street,
+                               o.City,
+                               o.State,
+                               o.ZipCode,
+                               o.PreferedIntake,
+                               o.PassportNo,
+                               o.VisaType,
+                               o.VisaExpiryDate,
+                               o.Rating,
+                               o.ClientPortal,
+                               o.Id,
+                               o.ProfilePictureId,
+                               o.CountryId,
+                               o.LastModificationTime,
+                               ApplicationCount, //g.Count(entry => entry.s12 != null && entry.s12.Name != null),
 
 
-							  ApplicationCount = g.Count(entry => entry.s12 != null && entry.s12.Name != null),
-
-							  IsAnyApplicationActive = g.Any(entry => entry.s12 != null && entry.s12.IsDiscontinue==false),
+                               IsAnyApplicationActive= IsAnyApplicationActive>0 ? true:false,//g.Any(entry => entry.s12 != null && entry.s12.IsDiscontinue==false),
 
 
-							  CountryName = g.First().s1 == null || g.First().s1.Name == null ? "" : g.First().s1.Name.ToString(),
-                              UserName = g.First().s2 == null || g.First().s2.Name == null ? "" : g.First().s2.Name.ToString(),
-                              BinaryObjectDescription = g.First().s3 == null || g.First().s3.Description == null ? "" : g.First().s3.Description.ToString(),
-                              ImageBytes = g.First().s3 == null || g.First().s3.Bytes == null ? "" : Convert.ToBase64String(g.First().s3.Bytes),
-                              DegreeLevelName = g.First().s4 == null || g.First().s4.Name == null ? "" : g.First().s4.Name.ToString(),
-                              SubjectAreaName = g.First().s5 == null || g.First().s5.Name == null ? "" : g.First().s5.Name.ToString(),
-                              LeadSourceName = g.First().s6 == null || g.First().s6.Name == null ? "" : g.First().s6.Name.ToString(),
-                              PassportCountry = g.First().s7 == null || g.First().s7.Name == null ? "" : g.First().s7.Name.ToString(),
-                              AgentName = g.First().s8 == null || g.First().s8.Name == null ? "" : g.First().s8.Name.ToString(),
-                              TagName = g.First().s10 == null || g.First().s10.Name == null ? "" : g.First().s10.Name.ToString(),
+							  CountryName =  s1 == null ||  s1.Name == null ? "" :  s1.Name.ToString(),
+                              UserName =  s2 == null ||  s2.Name == null ? "" :  s2.Name.ToString(),
+                              BinaryObjectDescription =  s3 == null ||  s3.Description == null ? "" :  s3.Description.ToString(),
+                              ImageBytes =  s3 == null ||  s3.Bytes == null ? "" : Convert.ToBase64String( s3.Bytes),
+                              DegreeLevelName =  s4 == null ||  s4.Name == null ? "" :  s4.Name.ToString(),
+                              SubjectAreaName =  s5 == null ||  s5.Name == null ? "" :  s5.Name.ToString(),
+                              LeadSourceName =  s6 == null ||  s6.Name == null ? "" :  s6.Name.ToString(),
+                              PassportCountry =  s7 == null ||  s7.Name == null ? "" :  s7.Name.ToString(),
+                              AgentName =  s8 == null ||  s8.Name == null ? "" :  s8.Name.ToString(),
+                              TagName =  s10 == null ||  s10.Name == null ? "" :  s10.Name.ToString(),
 							 // IsDiscontinue = s12 == null || s12.IsDiscontinue == true ? false : s12.IsDiscontinue
                           };
 
@@ -225,6 +246,7 @@ namespace Zeta.AgentosCRM.CRMClient
                         ProfilePictureId=o.ProfilePictureId,
                         CountryId = o.CountryId,
                         ApplicationCount = o.ApplicationCount,
+                        IsAnyApplicationActive = o.IsAnyApplicationActive,
                     },
                     CountryName = o.CountryName,
                     UserName = o.UserName,
@@ -234,8 +256,7 @@ namespace Zeta.AgentosCRM.CRMClient
                     LeadSourceName = o.LeadSourceName,
                     PassportCountry = o.PassportCountry,
                     AgentName = o.AgentName,
-                    TagName = o.TagName,
-					IsAnyApplicationActive = o.IsAnyApplicationActive,
+                    TagName = o.TagName, 
                     ImageBytes = o.ImageBytes,
                 };
 

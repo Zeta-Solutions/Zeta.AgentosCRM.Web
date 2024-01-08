@@ -19,6 +19,11 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.CRMProducts;
+using Zeta.AgentosCRM.CRMPartner.PartnerBranch;
+using Zeta.AgentosCRM.CRMApplications;
+using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Zeta.AgentosCRM.CRMPartner
 {
@@ -34,7 +39,17 @@ namespace Zeta.AgentosCRM.CRMPartner
         private readonly IRepository<Country, int> _lookup_countryRepository;
         private readonly IRepository<CRMCurrency, int> _lookup_crmCurrencyRepository;
 
-        public PartnersAppService(IRepository<Partner, long> partnerRepository, IPartnersExcelExporter partnersExcelExporter, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository, IRepository<MasterCategory, int> lookup_masterCategoryRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository, IRepository<Workflow, int> lookup_workflowRepository, IRepository<Country, int> lookup_countryRepository, IRepository<CRMCurrency, int> lookup_crmCurrencyRepository)
+        private readonly IRepository<Product, long> _lookup_productRepository;
+        private readonly IRepository<Branch, long> _lookup_branchRepository;
+        private readonly IRepository<Application, long> _lookup_applicationRepository;
+        private readonly IRepository<Partner, long> _lookup_partnerRepository;
+        public PartnersAppService(IRepository<Partner, long> partnerRepository,
+            IPartnersExcelExporter partnersExcelExporter, IRepository<BinaryObject, Guid> lookup_binaryObjectRepository,
+            IRepository<MasterCategory, int> lookup_masterCategoryRepository, IRepository<PartnerType, int> lookup_partnerTypeRepository,
+            IRepository<Workflow, int> lookup_workflowRepository, IRepository<Country, int> lookup_countryRepository,
+            IRepository<CRMCurrency, int> lookup_crmCurrencyRepository, IRepository<Product, long> lookup_productRepository,
+            IRepository<Branch, long> lookup_branchRepository, IRepository<Application, long> lookup_applicationRepository,
+            IRepository<Partner, long> lookup_partnerRepository)
         {
             _partnerRepository = partnerRepository;
             _partnersExcelExporter = partnersExcelExporter;
@@ -44,7 +59,10 @@ namespace Zeta.AgentosCRM.CRMPartner
             _lookup_workflowRepository = lookup_workflowRepository;
             _lookup_countryRepository = lookup_countryRepository;
             _lookup_crmCurrencyRepository = lookup_crmCurrencyRepository;
-
+            _lookup_productRepository = lookup_productRepository;
+            _lookup_branchRepository = lookup_branchRepository;
+            _lookup_applicationRepository = lookup_applicationRepository;
+            _lookup_partnerRepository = lookup_partnerRepository;
         }
 
         public async Task<PagedResultDto<GetPartnerForViewDto>> GetAll(GetAllPartnersInput input)
@@ -57,7 +75,14 @@ namespace Zeta.AgentosCRM.CRMPartner
                         .Include(e => e.WorkflowFk)
                         .Include(e => e.CountryFk)
                         .Include(e => e.CurrencyFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.PartnerName.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) || e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter) || e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter),
+                                        e => false || e.PartnerName.Contains(input.Filter) ||
+                                        e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) ||
+                                        e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) ||
+                                        e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) ||
+                                        e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) ||
+                                        e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter) ||
+                                        e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerNameFilter), e => e.PartnerName.Contains(input.PartnerNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.StreetFilter), e => e.Street.Contains(input.StreetFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CityFilter), e => e.City.Contains(input.CityFilter))
@@ -101,6 +126,24 @@ namespace Zeta.AgentosCRM.CRMPartner
                            join o6 in _lookup_crmCurrencyRepository.GetAll() on o.CurrencyId equals o6.Id into j6
                            from s6 in j6.DefaultIfEmpty()
 
+                           let productCount = (from p in _lookup_productRepository.GetAll()
+                                               where o.Id == p.PartnerId
+                                               select p.Id
+                                             ).Count()
+
+                           let enrolledCount = (from o1 in _lookup_branchRepository.GetAll()
+                                                where o.Id == o1.PartnerId
+                                                join o2 in _lookup_applicationRepository.GetAll() on o1.Id equals o2.BranchId into j2
+                                                from s2 in j2.DefaultIfEmpty()
+                                                where o1.Id == s2.BranchId && s2.IsDeleted == false
+                                                select s2.Id)
+                                   .Count()
+
+                           let ProgressCount = (from a in _lookup_applicationRepository.GetAll()
+                                                where o.Id == a.PartnerId && a.IsDiscontinue == false
+                                                select a.Id)
+                                   .Count()
+
                            select new
                            {
 
@@ -119,8 +162,13 @@ namespace Zeta.AgentosCRM.CRMPartner
                                o.PhoneCode,
                                o.ProfilePictureId,
                                Id = o.Id,
+
+                               ProductCount = productCount,
+                               EnrolledCount = enrolledCount,
+                               ProgressCount = ProgressCount,
+
                                BinaryObjectDescription = s1 == null || s1.Description == null ? "" : s1.Description.ToString(),
-                               ImageBytes = s3 == null || s1.Bytes == null ? "" : Convert.ToBase64String(s1.Bytes),
+                               ImageBytes = s1 == null || s1.Bytes == null ? "" : Convert.ToBase64String(s1.Bytes),
                                MasterCategoryName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                PartnerTypeName = s3 == null || s3.Name == null ? "" : s3.Name.ToString(),
                                WorkflowName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
@@ -154,6 +202,9 @@ namespace Zeta.AgentosCRM.CRMPartner
                         BusinessRegNo = o.BusinessRegNo,
                         PhoneCode = o.PhoneCode,
                         Id = o.Id,
+                        ProductCount = o.ProductCount,
+                        EnrolledCount = o.EnrolledCount,
+                        ProgressCount = o.ProgressCount,
                     },
                     BinaryObjectDescription = o.BinaryObjectDescription,
                     MasterCategoryName = o.MasterCategoryName,

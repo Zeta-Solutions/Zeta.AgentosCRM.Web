@@ -98,15 +98,33 @@
 
             var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("<strong>Other Test Score</strong>" +
-                '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
+            cardTitle.html("<div class='row'><div class='col-lg-11 d-flex'><h5 class='my-auto' style='padding-left:20px'>Other Test Score</h5></div>" +
+                '<div class="col-lg-1 context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis71"><a href="#" data-id="' + (otherTestScores.length > 0 ? otherTestScores[0].otherTestScore.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
                 '<a href="#" style="color: black;" data-action71="edit" data-id="' + (otherTestScores.length > 0 ? otherTestScores[0].otherTestScore.id : 1) + '"><li>Edit</li></a>' +
                 '</ul>' +
                 '</div>' +
-                '</div><hr/>');
+                '</div></div><hr/>');
+
+
+            //var infoColheadingDiv = $('<div>').addClass('row');
+            //var infoColDiv = $('<div>').addClass('row');
+
+            //// Create headings
+            //var headings = ['&nbsp;&nbsp;', '<strong>SAT I:</strong>', '<strong>SAT II:</strong>', '<strong>GRE:</strong>', '<strong>GMAT:</strong>'];
+            //var dynamicHeadings = [];
+            //for (var i = 0; i < otherTestScores.length; i++) {
+            //    var testName = otherTestScores[i].otherTestScore.name;
+            //    var heading = '<strong>' + testName + ':</strong>';
+            //    dynamicHeadings.push(heading);
+            //}
+            //var allHeadings = headings.slice(0, 1).concat(dynamicHeadings, headings.slice(dynamicHeadings.length + 1));
+            //for (var j = 0; j < allHeadings.length; j++) {
+            //    $('<p>').addClass('card-text col-md-2').html(allHeadings[j]).appendTo(infoColheadingDiv);
+            //}
+            //cardBodyDiv.append(cardTitle);
 
 
             var infoColheadingDiv = $('<div>').addClass('row');
@@ -122,14 +140,16 @@
             }
             var allHeadings = headings.slice(0, 1).concat(dynamicHeadings, headings.slice(dynamicHeadings.length + 1));
             for (var j = 0; j < allHeadings.length; j++) {
-                $('<p>').addClass('card-text col-md-2').html(allHeadings[j]).appendTo(infoColheadingDiv);
+                var columnClass = j === 0 ? 'col-md-4' : 'col-md-2';
+                $('<p>').addClass('card-text ' + columnClass).html(allHeadings[j]).appendTo(infoColheadingDiv);
             }
             cardBodyDiv.append(cardTitle);
+
             // Append headings to card body
             cardBodyDiv.append(infoColheadingDiv);
             debugger
             var infoParagraphs = [];
-            var paragraph1 = $('<p>').addClass('card-text col-md-2').html('<strong>Over All Score:</strong>');
+            var paragraph1 = $('<p>').addClass('card-text col-md-4 text-center').html('<strong>Over All Score:</strong>');
             infoColDiv.append(paragraph1);
             // Create info paragraphs
             for (var i = 0; i < otherTestScores.length; i++) {
@@ -191,15 +211,15 @@
 
             var cardTitle = $('<p>').addClass('card-title');
 
-            cardTitle.html("<strong>English Test Score</strong>" +
-                '<div class="context-menu" style="position:relative; display: inline-block; float: right;">' +
+            cardTitle.html("<div class='row'><div class='col-lg-11  d-flex'><h5 class='my-auto' style='padding-left:20px'>English Test Score</h5></div>" +
+                '<div class="col-lg-1 context-menu" style="position:relative; display: inline-block; float: right;">' +
                 '<div class="ellipsis51"><a href="#" data-id="' + (englisTestScores.length > 0 ? englisTestScores[0].englisTestScore.id : 1) + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                 '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 0;border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                 '<ul style="list-style: none; padding: 0;color:black">' +
                 '<a href="#" style="color: black;" data-action51="edit" data-id="' + (englisTestScores.length > 0 ? englisTestScores[0].englisTestScore.id : 1) + '"><li>Edit</li></a>' +
                 '</ul>' +
                 '</div>' +
-                '</div><hr/>');
+                '</div></div><hr/>');
 
 
             var infoColheadingDiv = $('<div>').addClass('row');
@@ -220,7 +240,7 @@
                 var currentProduct = englisTestScores[i];
 
                 var infoParagraphs = [
-                    $('<p>').addClass('card-text col-md-2').html('<strong>' + currentProduct.englisTestScore.name + ':' + '</strong>' + '&nbsp;&nbsp;' +
+                    $('<p>').addClass('card-text col-md-2 text-center').html('<strong>' + currentProduct.englisTestScore.name + ':' + '</strong>' + '&nbsp;&nbsp;' +
                         '<input type="hidden" name="Id' + [i] + '" value="' + currentProduct.englisTestScore.id + '"/>')
                         .appendTo(infoColheadingDiv),
                     $('<p>').addClass('card-text col-md-2').html((currentProduct.englisTestScore.listenting ? currentProduct.englisTestScore.listenting : '-')),
@@ -331,50 +351,22 @@
                     
                     var Card = data.result.items;
                     $.each(Card, function (index, item) {
-                        debugger
-
+                        debugger 
                         const CourseStartDate = new Date(item.clientEducation.courseStartDate);
-                        const CourseendDate = new Date(item.clientEducation.courseEndDate);
+                        const CourseendDate = new Date(item.clientEducation.courseEndDate); 
+                        function renderDateTime(date) {
+                            return date ? moment(date).format('MMM YYYY') : "";
+                        }
 
-                        // Convert timestamp to a readable date format
-                        const formattedStartDate = CourseStartDate.toLocaleDateString(); // Adjust this according to the format you desire
-                        const formattedEndDate = CourseendDate.toLocaleDateString(); 
-                        
-                        // Convert the date string to a Date object
-                        const Startdate = new Date(formattedStartDate);
-                        const Enddate = new Date(formattedEndDate);
-
-                        // Array of month names in English
-                        const monthsInEnglish = [
-                            'January', 'February', 'March', 'April', 'May', 'June',
-                            'July', 'August', 'September', 'October', 'November', 'December'
-                        ];
-
-                        // Extract month in English
-                        const Startmonth = monthsInEnglish[Startdate.getMonth()];
-                        const Endmonth = monthsInEnglish[Enddate.getMonth()];
-
-                        // Extract year
-                        const Startyear = Startdate.getFullYear();
-                        const Endyear = Enddate.getFullYear();
-
-                        // The formatted date in English (Month and Year)
-                        const formattedStartDateEnglish = `${Startmonth} ${Startyear}`;
-                        const formattedEndDateEnglish = `${Endmonth} ${Endyear}`;
-
-                        // Now you can use formattedDateEnglish where needed
-                        //console.log('Formatted Date:', formattedStartDateEnglish); // Example output: "December 2009"
-                        //console.log('Formatted Date:', formattedEndDateEnglish); // Example output: "December 2009"
-
-
-// Adjust this according to the format you desire..
-                       
+                        var formattedStartDateEnglish = renderDateTime(CourseStartDate);
+                        var formattedEndDateEnglish = renderDateTime(CourseendDate);
+   
                         var rowId = item.clientEducation.id;
-                        var CardDiv = '<div class="row maincard"><div class="col-lg-6"><span><span style="font-weight:bold;">' + item.clientEducation.degreeTitle + '</span><br>' + item.clientEducation.institution + '<span></div>'
-                            + '<div class="col-lg-5">'
+                        var CardDiv = '<div class="row maincard"><div class="col-lg-5"><span><span style="font-weight:bold;">' + item.clientEducation.degreeTitle + '</span><br>' + item.clientEducation.institution + '<span></div>'
+                            + '<div class="col-lg-6">'
                             + '<span>'
                             + '<span style="background-color:lightgray;border-radius: 5px; padding: 0 5px;""> ' + formattedStartDateEnglish + ' - ' + formattedEndDateEnglish + ' </span>' +
-                            ' <br> <span style="color:blue;font-weight:bold;"><span>Score: </span> ' + item.clientEducation.acadmicScore
+                            '<br><span style="color:blue;font-weight:bold;"><span>Score: </span> ' + item.clientEducation.acadmicScore
                             + (item.clientEducation.isGpa == true ? ' GPA' : ' Percentage') 
                             + '</span>'
                             + '<br><span>' + item.clientEducation.degreeTitle + ' >> ' + item.subjectAreaName + ' >>' + item.subjectName + '</span>'
@@ -388,7 +380,7 @@
                             '<a href="#" style="color: black;" Education-data-action="delete" data-id="' + rowId  + '"><li>Delete</li></a>' +
                             '</ul>' +
                             '</div>' +
-                            '</div>' +'</div></div><br><br>   <hr/>';
+                            '</div>' +'</div></div><hr/>';
                         $("#cardContainerEducation").append(CardDiv);
                       
                     });

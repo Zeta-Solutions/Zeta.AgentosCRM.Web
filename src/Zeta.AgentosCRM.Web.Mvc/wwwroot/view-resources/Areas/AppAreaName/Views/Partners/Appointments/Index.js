@@ -4,7 +4,7 @@
         var _$Appointmentstable = $('#Appointmentstable');
         var _clientAppointmentsService = abp.services.app.appointments;
         debugger
-        console.log(_clientAppointmentsService);
+        //console.log(_clientAppointmentsService);
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -133,13 +133,10 @@
                     searchable: false,
 
 
-                    render: function (data, type, full, meta) {
-                        console.log(data);
-                        var rowId = data.appointment.id;
-                        console.log(rowId);
+                    render: function (data, type, full, meta) { 
+                        var rowId = data.appointment.id; 
                         var rowData = data.appointment;
-                        var RowDatajsonString = JSON.stringify(rowData);
-                        console.log(RowDatajsonString);
+                        var RowDatajsonString = JSON.stringify(rowData); 
                         var contaxtMenu = '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis30"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -188,8 +185,7 @@
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
-            } else if (action === 'delete') {
-                console.log(rowId);
+            } else if (action === 'delete') { 
                 deleteAppointments(rowId);
             }
         });

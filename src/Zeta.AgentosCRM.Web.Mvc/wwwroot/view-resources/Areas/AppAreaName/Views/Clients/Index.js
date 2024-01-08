@@ -115,9 +115,8 @@
                         binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
                         degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
                         subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-                        countryName2Filter: $('#CountryName2FilterId').val(),
-                        countryName3Filter: $('#CountryName3FilterId').val()
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+                        countryNameFilter: $('#CountryName3FilterId').val()
                     };
                 }
             },
@@ -224,17 +223,21 @@
                     autoWidth: false,
                     defaultContent: '',
                     render: function (data, type, row) {
-                        let isDiscontinue = row.isAnyApplicationActive;
-                        if (isDiscontinue == true) {
-                            return `<span style="color: red; font-size: 14px;">&#8226; Discontinue</span>`;
+                        let isDiscontinue = row.client.isAnyApplicationActive;
+                        let count = row.client.applicationCount;
+                         
+                        if (isDiscontinue == false && count > 0) {
+                            return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                        } else if (isDiscontinue == true && count > 0) {
+                            return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
                         } else {
-                            return `<span style="color:blue; font-size: 14px;">&#8226; InProgress</span>`;
+                            return `<span style="color:red; font-size: 14px;">&#8226;No-Application</span>`;
                         }
                     },
 
                     name: 'concatenatedData',
-                    //data: 'userName',.........
-                    //name: 'userName',......
+                    //data: 'userName',
+                    //name: 'userName',
                 },
                 {
                     targets: 9,
@@ -381,12 +384,7 @@
         $(document).on('click', '.text-truncate', function (e) {
             e.preventDefault(); // Prevent the default behavior of the link
             window.location.href = $(this).attr('href'); // Redirect to the specified URL
-        });
-        //$(document).on('click', '#CreateNewClientEmailButton', function (e) {
-        //    e.preventDefault(); // Prevent the default behavior of the link
-        //    _createOrEditModalEmail.open();
-        //    // window.location.href = $(this).attr('href'); // Redirect to the specified URL
-        //});
+        }); 
         function deleteClient(client) {
             debugger
             abp.message.confirm(
@@ -451,9 +449,8 @@
                     binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
                     degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
                     subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-                    countryName2Filter: $('#CountryName2FilterId').val(),
-                    countryName3Filter: $('#CountryName3FilterId').val()
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+                    countryNameFilter: $('#CountryName3FilterId').val()
                 })
                 .done(function (result) {
                     app.downloadTempFile(result);

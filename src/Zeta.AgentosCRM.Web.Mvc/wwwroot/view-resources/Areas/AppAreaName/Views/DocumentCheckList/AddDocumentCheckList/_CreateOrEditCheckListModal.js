@@ -377,15 +377,13 @@
             debugger
 
             var clientPortalValue = $(this).prop("checked");
-
-            alert(clientPortalValue);
+             
 
         });
         $(document).on('click', '#nextstage', function () {
             debugger
             nextstageValue = $(this).prop("checked");
-
-            alert(nextstageValue);
+             
         });
         $(document).on('change', '#DocumentTypeId', function () {
             debugger

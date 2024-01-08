@@ -17,8 +17,9 @@
 
 
                 <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
-                     <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button>
-            
+                     @* <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
+            <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    
                      @if (IsGranted(AppPermissions.Pages_Clients_Create))
                      {
         @* <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewCient")</button> *@
@@ -63,7 +64,7 @@
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="lastNameFilter" id="LastNameFilterId">
 								</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="EmailFilterId">@L("Email")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="emailFilter" id="EmailFilterId">
@@ -75,7 +76,7 @@
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="phoneNoFilter" id="PhoneNoFilterId">
 								</div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" hidden>
                                     <div class="my-3">
 										<label class="form-label fw-bold text-dark" for="MinDateofBirthFilterId">@L("DateofBirthRange")</label>
 										<div class="input-group">
@@ -85,13 +86,13 @@
 										</div>
 									</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="UniversityFilterId">@L("University")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="universityFilter" id="UniversityFilterId">
 								</div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" hidden>
                                  <div class="my-3">
 									<label class="form-label fw-bold text-dark" for="MinRatingFilterId">(@L("MinMax")) @L("Rating")</label>
 									<div class="input-group">
@@ -102,7 +103,7 @@
                             </div>
 
 
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="CountryDisplayPropertyFilterId">(@L("Country")) @L("DisplayProperty")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="countryDisplayPropertyFilter" id="CountryDisplayPropertyFilterId">
@@ -114,25 +115,25 @@
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="userNameFilter" id="UserNameFilterId">
 								</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="BinaryObjectDescriptionFilterId">(@L("BinaryObject")) @L("Description")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="binaryObjectDescriptionFilter" id="BinaryObjectDescriptionFilterId">
 								</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="DegreeLevelNameFilterId">(@L("DegreeLevel")) @L("Name")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="degreeLevelNameFilter" id="DegreeLevelNameFilterId">
 								</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="SubjectAreaNameFilterId">(@L("SubjectArea")) @L("Name")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="subjectAreaNameFilter" id="SubjectAreaNameFilterId">
 								</div>
                             </div>
-							<div class="col-md-3">
+							<div class="col-md-3" hidden>
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="LeadSourceNameFilterId">(@L("LeadSource")) @L("Name")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="leadSourceNameFilter" id="LeadSourceNameFilterId">

@@ -192,8 +192,7 @@
                     data: null,
                     orderable: false,
                     searchable: false,
-                    render: function (data, type, full, meta) {
-                        console.log(data);
+                    render: function (data, type, full, meta) { 
                         var rowId = data.partnerPromotion.id;
                         var rowData = data.partnerPromotion;
                         var RowDatajsonString = JSON.stringify(rowData);

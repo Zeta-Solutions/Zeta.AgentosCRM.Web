@@ -221,6 +221,16 @@
 				},
 				{
 					targets: 8,
+					data: 'agent.clientCount',
+					name: 'clientCount',
+				},
+				{
+					targets: 9,
+					data: 'agent.applicationCount',
+					name: 'applicationCount',
+				},
+				{
+					targets: 10,
 					width: 30,
 					data: null,
 					orderable: false,
