@@ -22,6 +22,11 @@ using Zeta.AgentosCRM.CRMAgent;
 using Zeta.AgentosCRM.CRMSetup.Tag;
 using Org.BouncyCastle.Crypto.Encodings;
 using Zeta.AgentosCRM.CRMApplications;
+using Zeta.AgentosCRM.Net.Sms;
+using Zeta.AgentosCRM.Authorization.Users.Profile.Dto;
+using Zeta.AgentosCRM.CRMClient.Conversation;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -41,22 +46,24 @@ namespace Zeta.AgentosCRM.CRMClient
         private readonly IRepository<LeadSource, int> _lookup_leadSourceRepository;
         private readonly IRepository<Follower, int> _lookup_followerRepository;
         private readonly IRepository<Application, long> _lookup_applicationRepository;
-
-        public ClientsAppService(IRepository<Client, long> clientRepository, 
+        private readonly ISmsSender _smsSender;
+        private TwilioSmsSenderConfiguration _twilioSmsSenderConfiguration;
+        public ClientsAppService(IRepository<Client, long> clientRepository,
             IClientsExcelExporter clientsExcelExporter,
-            IRepository<Country, int> lookup_countryRepository, 
-            IRepository<User, long> lookup_userRepository, 
+            IRepository<Country, int> lookup_countryRepository,
+            IRepository<User, long> lookup_userRepository,
             IRepository<BinaryObject, Guid> lookup_binaryObjectRepository,
             IRepository<DegreeLevel, int> lookup_degreeLevelRepository,
             IRepository<SubjectArea, int> lookup_subjectAreaRepository,
             IRepository<LeadSource, int> lookup_leadSourceRepository,
             IRepository<Agent, long> lookup_agentRepository,
-            IRepository<ClientTag ,int> lookup_ClientTagRepository,
+            IRepository<ClientTag, int> lookup_ClientTagRepository,
             IRepository<Tag, int> lookup_TagRepository,
             IRepository<Follower, int> lookup_followerRepository,
-            IRepository<Application, long> lookup_applicationRepository
-
-			)
+            IRepository<Application, long> lookup_applicationRepository,
+            ISmsSender smsSender
+,
+            TwilioSmsSenderConfiguration twilioSmsSenderConfiguration = null)
         {
             _clientRepository = clientRepository;
             _clientsExcelExporter = clientsExcelExporter;
@@ -70,7 +77,9 @@ namespace Zeta.AgentosCRM.CRMClient
             _lookup_ClientTagRepository = lookup_ClientTagRepository;
             _lookup_TagRepository = lookup_TagRepository;
             _lookup_followerRepository = lookup_followerRepository;
-			_lookup_applicationRepository = lookup_applicationRepository;
+            _lookup_applicationRepository = lookup_applicationRepository;
+            _smsSender = smsSender;
+            _twilioSmsSenderConfiguration = twilioSmsSenderConfiguration;
         }
 
         public async Task<PagedResultDto<GetClientForViewDto>> GetAll(GetAllClientsInput input)
@@ -623,6 +632,41 @@ namespace Zeta.AgentosCRM.CRMClient
                     DisplayName = agent == null || agent.Name == null ? "" : agent.Name.ToString()
                 }).ToListAsync();
         }
+        public async Task SendConversationSms(SendConversationSmsInputDto input)
+        {
+            //var code = RandomHelper.GetRandom(100000, 999999).ToString();
+            //var cacheKey = AbpSession.ToUserIdentifier().ToString();
+            //var cacheItem = new SmsVerificationCodeCacheItem
+            //{
+            //    Code = code
+            //};
 
+            //await _cacheManager.GetSmsVerificationCodeCache().SetAsync(
+            //    cacheKey,
+            //    cacheItem
+            //);
+
+            try
+            {
+                //await _smsSender.SendAsync(input.PhoneNumber, input.Message);
+                await SendAsync(input.PhoneNumber, input.Message);
+                // If the code reaches here, the SMS was sent successfully.
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception. You can inspect 'ex' to understand the issue.
+                Console.WriteLine($"Error sending SMS: {ex.Message}");
+            }
+        }
+        public async Task SendAsync(string number, string message)
+        {
+            TwilioClient.Init(_twilioSmsSenderConfiguration.AccountSid, _twilioSmsSenderConfiguration.AuthToken);
+
+            MessageResource resource = await MessageResource.CreateAsync(
+                body: message,
+                @from: new Twilio.Types.PhoneNumber(_twilioSmsSenderConfiguration.SenderNumber),
+                to: new Twilio.Types.PhoneNumber(number)
+            );
+        }
     }
 }

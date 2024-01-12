@@ -5,6 +5,7 @@ using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.Dto;
 using System.Collections.Generic; 
 using Zeta.AgentosCRM.Tenants.Email.Dtos;
+using Zeta.AgentosCRM.CRMSetup.Email.Dtos;
 
 namespace Zeta.AgentosCRM.Tenants.Email
 {
@@ -28,5 +29,6 @@ namespace Zeta.AgentosCRM.Tenants.Email
 
         Task<List<SentEmailApplicationLookupTableDto>> GetAllApplicationForTableDropdown();
 
+        bool SentEmail(ForSentEmailDto input);
     }
 }

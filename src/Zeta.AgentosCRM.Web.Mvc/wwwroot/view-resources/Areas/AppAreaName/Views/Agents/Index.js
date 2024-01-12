@@ -55,11 +55,15 @@
 			'delete': abp.auth.hasPermission('Pages.Clients.Delete')
 		};
 
+		//var _createOrEditModalEmail = new app.ModalManager({
+		//	viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+		//	modalClass: 'ClientEmailCompose'
+		//});
 		var _createOrEditModalEmail = new app.ModalManager({
-			viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
-			modalClass: 'ClientEmailCompose'
+			viewUrl: abp.appPath + 'AppAreaName/SentEmail/CreateOrEditModal',
+			scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/SentEmail/_CreateOrEditModal.js',
+			modalClass: 'CreateOrEditSentEmailModal',
 		});
-
 
 		var _viewClientModal = new app.ModalManager({
 			viewUrl: abp.appPath + 'AppAreaName/Clients/ViewclientModal',
@@ -263,7 +267,8 @@
 			e.preventDefault();
 			debugger
 			var rowId = $(this).data('id');
-			var action = $(this).data('action');
+			var Email = $(this).text();
+			$("#GetEmail").val(Email);
 			_createOrEditModalEmail.open(rowId);
 
 		});

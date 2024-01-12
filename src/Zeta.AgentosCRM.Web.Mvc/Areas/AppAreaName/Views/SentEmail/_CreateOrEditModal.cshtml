@@ -1,0 +1,103 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Email;
+@model CreateOrEditEmailModelViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditEmail")) : L("CreateNewEmail")))
+
+<div class="modal-body">
+    <div id="SentEmailInformationsTab">
+        <form name="SentEmailInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.SentEmail.Id" />
+            }
+            <input type="hidden" name="ApplicationId" value="@Model.SentEmail.ApplicationId" />
+            <input type="hidden" name="ClientId" value="@Model.SentEmail.ClientId" />
+             <input type="hidden" name="EmailBody" id="EmailBody" value="" />
+            @* <input type="hidden" name="ToEmail" id="ToEmail" value="" /> *@
+            <input type="hidden" name="Host" id="Host" value="" />
+            <input type="hidden" name="Port" id="Port" value="" />
+            <input type="hidden" name="username" id="username" value="" />
+            <input type="hidden" name="password" id="password" value="" />
+            <input type="hidden" name="EnableSsl" id="EnableSsl" value="" />
+            <input type="hidden" name="senderEmail" id="senderEmail" value="" />
+            <input type="hidden" name="IsSent" id="IsSent" value="true" />
+            <input type="hidden" name="FromEmail" id="FromEmail" value="" />
+            <div class="row col-lg-12">
+                <div class="my-3 col-lg-6">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("EmailTemplate")</label>
+                    @Html.DropDownList("EmailTemplateId", new SelectList(Model.SentEmailEmailTemplateList,"Id","DisplayName", (Model.IsEditMode ? Model.SentEmail.EmailTemplateId.ToString() : "")),@L("SelectAEmailTemplate"), new { @class = "form-control" , @required="required" })
+                    @* <input class="form-control  custom-small-input rounded-0 input-sm" id="FromEmail" value="@Model.SentEmail.FromEmail" type="text" name="FromEmail" /> *@
+                </div>
+
+                <div class="my-3 col-lg-6">
+                    <label class="form-label" for="InstallmentType_Name">@L("EmailConfiguration")</label>
+                    @Html.DropDownList("EmailConfigurationId", new SelectList(Model.SentEmailEmailConfigurationList,"Id","DisplayName", (Model.IsEditMode ? Model.SentEmail.EmailConfigurationId.ToString() : "")),@L("SelectAEmailConfiguration"), new { @class = "form-control" , @required="required" })
+                    @* <input class="form-control  custom-small-input rounded-0 input-sm" id="SmtpPort" value="@Model.SentEmail.ToEmail" type="text" name="ToEmail" required /> *@
+                </div>
+            </div>
+            <div class="row col-lg-12">
+                <div class="my-3 col-lg-12">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("Title")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="Title" value="@Model.SentEmail.Title" type="text" name="Title" />
+                </div>
+
+                <div class="my-3 col-lg-12">
+                    <label class="form-label" for="InstallmentType_Name">@L("Subject")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="Subject" value="@Model.SentEmail.Subject" type="text" name="Subject" />
+                </div>
+            </div>
+            <div class="row col-lg-12">
+               @*  <div class="my-3 col-lg-12">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("FromEmail")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="FromEmail" value="@Model.SentEmail.FromEmail" type="text" name="FromEmail" readonly/>
+                </div> *@
+
+                <div class="my-3 col-lg-12">
+                    <label class="form-label" for="InstallmentType_Name">@L("ToEmail")</label>
+                    @* <select id="ToEmails" class="form-select select2" data-id="" data-control="select2"></select> *@
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="ToEmail" value="@Model.SentEmail.ToEmail" type="text" name="ToEmail" readonly />
+                </div>
+            </div>
+           
+            <div class="row col-lg-12">
+                <div class="my-3 col-lg-12">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("CCEmail")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="CCEmail" value="@Model.SentEmail.CCEmail" type="text" name="CCEmail" />
+                </div>
+
+              
+               @*  <div class="my-3 col-lg-2 mt-11">
+                    <label class="form-check  form-check-inline">
+                        <input id="IsSent" type="checkbox" name="IsSent" class="form-check-input" value="true" @Html.Raw(Model.SentEmail.IsSent ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("IsSent")
+                        </span>
+                    </label>
+                </div> *@
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="EmailTemplate_EmailBody">@L("Body")</label>
+
+                <div id="kt_docs_quill_basic12" name="kt_docs_quill_basic" class="min-h-200px">
+                    @if (Model.SentEmail != null)
+                    {
+                        @Html.Raw(Model.SentEmail.EmailBody)
+                    }
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="closeSentEmailBtn" class="btn btn-secondary btn-sm btn-outline text-white close-button rounded-0 ">
+        <i class="fa fa-save"></i> @L("Close")
+    </button>
+    <button type="button" id="saveSentEmailBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Save")
+    </button>
+</div>

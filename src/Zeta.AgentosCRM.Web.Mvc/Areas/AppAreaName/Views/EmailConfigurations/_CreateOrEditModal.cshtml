@@ -1,0 +1,68 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.EmailConfigurations;
+@model CreateOrEditEmailConfigurationModelViewModel
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode?(L("EditEmailConfiguration")) : L("CreateNewEmailConfiguration")))
+
+<div class="modal-body">
+    <div id="EmailConfigurationInformationsTab">
+        <form name="EmailConfigurationInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.EmailConfiguration.Id" />
+            }
+            <div class="row col-lg-12">
+            <div class="my-3 col-lg-6">
+                <label class="form-label" for="InstallmentType_Abbrivation">@L("Name")</label>
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="Name" value="@Model.EmailConfiguration.Name" type="text" name="Name" required />
+            </div>
+
+            <div class="my-3 col-lg-6">
+                    <label class="form-label" for="InstallmentType_Name">@L("SenderEmail")</label>
+                <input class="form-control  custom-small-input rounded-0 input-sm" id="SenderEmail" value="@Model.EmailConfiguration.SenderEmail" type="text" name="SenderEmail" required />
+            </div>
+            </div>
+            <div class="row col-lg-12">
+                <div class="my-3 col-lg-6">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("SmtpServer")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="SmtpServer" value="@Model.EmailConfiguration.SmtpServer" type="text" name="SmtpServer"  />
+                </div>
+
+                <div class="my-3 col-lg-6">
+                    <label class="form-label" for="InstallmentType_Name">@L("SmtpPort")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="SmtpPort" value="@Model.EmailConfiguration.SmtpPort" type="text" name="SmtpPort" required />
+                </div>
+            </div>
+            <div class="row col-lg-12">
+                <div class="my-3 col-lg-4">
+                    <label class="form-label" for="InstallmentType_Abbrivation">@L("SenderPassword")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="SenderPassword" value="@Model.EmailConfiguration.SenderPassword" type="text" name="SenderPassword" />
+                </div>
+
+                <div class="my-3 col-lg-4">
+                    <label class="form-label" for="InstallmentType_Name">@L("Protocol")</label>
+                    <input class="form-control  custom-small-input rounded-0 input-sm" id="Protocol" value="@Model.EmailConfiguration.Protocol" type="text" name="Protocol" required />
+                </div> 
+                <div class="my-3 col-lg-2 mt-11">
+                    <label class="form-check  form-check-inline">
+                        <input id="IsActive" type="checkbox" name="IsActive" class="form-check-input" value="true" @Html.Raw(Model.EmailConfiguration.IsActive ? "checked=\"checked\"" : "")>
+                        <span class="form-check-label">
+                            @L("IsActive")
+                        </span>
+                    </label>
+                </div>
+                <div class="my-3 col-lg-2 mt-11">
+                <label class="form-check  form-check-inline">
+                        <input id="IsEnableSsl" type="checkbox" name="IsEnableSsl" class="form-check-input" value="true" @Html.Raw(Model.EmailConfiguration.IsEnableSsl ? "checked=\"checked\"" : "")>
+                    <span class="form-check-label">
+                            @L("IsEnableSsl")
+                    </span>
+                </label>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

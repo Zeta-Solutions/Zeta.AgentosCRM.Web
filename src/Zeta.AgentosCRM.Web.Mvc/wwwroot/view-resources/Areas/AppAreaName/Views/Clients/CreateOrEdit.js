@@ -45,7 +45,7 @@
             $(".contact-preference-button").click(function () {
                 debugger
                 var value = $(this).data('value');
-                setContactPreference(value); // Change 'Email' to the desired value
+                setContactPreference(value); // Change 'Email' to the desired value..
             });
         });
         function setContactPreference(value) {
@@ -398,10 +398,10 @@
             
            
             ProfilePictureId = $('input[name="ProfilePictureId"]').val()
-            
+           
             var client = _$clientInformationForm.serializeFormToObject();
             
-			
+			debugger
 			
             abp.ui.setBusy(); 
 			 _clientsService.createOrEdit(
