@@ -36,7 +36,7 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
         private readonly ITimeZoneService _timeZoneService;
         private readonly IFriendshipManager _friendshipManager;
         private readonly GoogleTwoFactorAuthenticateService _googleTwoFactorAuthenticateService;
-        private readonly ISmsSender _smsSender;
+        private readonly ISmsSender _smsSender; 
         private readonly ICacheManager _cacheManager;
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBackgroundJobManager _backgroundJobManager;
