@@ -85,14 +85,14 @@ namespace Zeta.AgentosCRM.CRMClient
                         .Include(e => e.LeadSourceFk)
                         .Include(e => e.PassportCountryFk)
                         .Include(e => e.AgentFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) 
-                                                            || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) 
-                                                            || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) 
-                                                            || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) 
-                                                            || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) 
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter)
+                                                            || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter)
+                                                            || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter)
+                                                            || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter)
+                                                            || e.City.Contains(input.Filter) || e.State.Contains(input.Filter)
                                                             || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter)
-                                                            || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) 
-                                                            || e.SecondaryEmail.Contains(input.Filter)||e.CountryFk.Name.Contains(input.Filter)
+                                                            || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter)
+                                                            || e.SecondaryEmail.Contains(input.Filter) || e.CountryFk.Name.Contains(input.Filter)
                                                             || e.AssigneeFk.Name.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
@@ -111,7 +111,8 @@ namespace Zeta.AgentosCRM.CRMClient
                         .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter)
-                         .WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value);
+                        .WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value)
+                         .WhereIf(input.IsArchived.HasValue, e => e.Archived == input.IsArchived);
 
             var pagedAndFilteredClients = filteredClients
                 .OrderBy(input.Sorting ?? "id asc")
