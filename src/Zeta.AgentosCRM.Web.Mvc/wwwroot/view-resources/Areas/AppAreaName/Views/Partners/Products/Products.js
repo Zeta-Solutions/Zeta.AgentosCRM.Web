@@ -177,8 +177,7 @@
                     data: null,
                     orderable: false,
                     searchable: false,
-                    render: function (data, type, full, meta) {
-                        console.log(data);
+                    render: function (data, type, full, meta) { 
                         var rowId = data.product.id;
                         var rowData = data.product;
                         var RowDatajsonString = JSON.stringify(rowData);

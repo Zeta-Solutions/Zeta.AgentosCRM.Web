@@ -106,30 +106,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View(model);
         }
-        public async Task<ActionResult> ClientsQuotationPreview(long? id)
-        {
-            GetClientQuotationHeadForEditOutput getClientQuotationHeadForEditOutput;
-            if (id.HasValue)
-            {
-                getClientQuotationHeadForEditOutput = await _clientQuotationHeadsAppService.GetClientQuotationHeadForEdit(new EntityDto<long> { Id = (long)id });
-            }
-            else
-            {
-                getClientQuotationHeadForEditOutput = new GetClientQuotationHeadForEditOutput
-                {
-                    ClientQuotationHead = new CreateOrEditClientQuotationHeadDto()
-                };
-                getClientQuotationHeadForEditOutput.ClientQuotationHead.DueDate = DateTime.Now;
-            }
-            var viewModel = new CreateOrEditClientQuotationsViewModel()
-            {
-                ClientQuotationHead = getClientQuotationHeadForEditOutput.ClientQuotationHead,
-                QuotationHeadClientList = await _clientQuotationHeadsAppService.GetAllClientForTableDropdown(),
-                QuotationHeadCRMCurrencyList = await _clientQuotationHeadsAppService.GetAllCRMCurrencyForTableDropdown(),
-				clientQuotationDeatils= getClientQuotationHeadForEditOutput.ClientQuotationDetail,
-			};
-            return View("ClientsQuotation/QuotationPreview", viewModel);
-        }
+  
         public async Task<ActionResult> ClientCreateDetail(long? id)
         {
             GetClientForEditOutput getClientForEditOutput;
@@ -844,6 +821,30 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("ClientsQuotation/_CreateOrEditQuotationDetailModal", viewModel);
 
         }
+        public async Task<ActionResult> ClientsQuotationPreview(long? id)
+        {
+            GetClientQuotationHeadForEditOutput getClientQuotationHeadForEditOutput;
+            if (id.HasValue)
+            {
+                getClientQuotationHeadForEditOutput = await _clientQuotationHeadsAppService.GetClientQuotationHeadForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getClientQuotationHeadForEditOutput = new GetClientQuotationHeadForEditOutput
+                {
+                    ClientQuotationHead = new CreateOrEditClientQuotationHeadDto()
+                };
+                getClientQuotationHeadForEditOutput.ClientQuotationHead.DueDate = DateTime.Now;
+            }
+            var viewModel = new CreateOrEditClientQuotationsViewModel()
+            {
+                ClientQuotationHead = getClientQuotationHeadForEditOutput.ClientQuotationHead,
+                QuotationHeadClientList = await _clientQuotationHeadsAppService.GetAllClientForTableDropdown(),
+                QuotationHeadCRMCurrencyList = await _clientQuotationHeadsAppService.GetAllCRMCurrencyForTableDropdown(),
+                clientQuotationDeatils = getClientQuotationHeadForEditOutput.ClientQuotationDetail,
+            };
+            return View("ClientsQuotation/QuotationPreview", viewModel);
+        }
         #endregion
         public PartialViewResult ChangePictureModal(long? clientId)
         {
@@ -930,6 +931,13 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             };
             return PartialView("Documents/_CreateOrEditDocumentModal", viewModel);
+        }
+        #endregion
+        #region ClientSms
+        public  PartialViewResult SendSms(long? id)
+        {
+          
+            return PartialView("Conversation/_SendEmail");
         }
         #endregion
     }

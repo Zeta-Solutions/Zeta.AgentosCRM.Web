@@ -1,6 +1,7 @@
 ﻿(function () {
 	$("#kt_app_sidebar_toggle").trigger("click");
 
+	$('.btnSmsMail').hide();
 	$(function () {
 
 		var _$partnersTable = $('#PartnersTable');
@@ -54,11 +55,15 @@
 			'delete': abp.auth.hasPermission('Pages.Clients.Delete')
 		};
 
+		//var _createOrEditModalEmail = new app.ModalManager({
+		//	viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+		//	modalClass: 'ClientEmailCompose'
+		//});
 		var _createOrEditModalEmail = new app.ModalManager({
-			viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
-			modalClass: 'ClientEmailCompose'
+			viewUrl: abp.appPath + 'AppAreaName/SentEmail/CreateOrEditModal',
+			scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/SentEmail/_CreateOrEditModal.js',
+			modalClass: 'CreateOrEditSentEmailModal',
 		});
-
 		var _viewClientModal = new app.ModalManager({
 			viewUrl: abp.appPath + 'AppAreaName/Clients/ViewclientModal',
 			modalClass: 'ViewClientModal'
@@ -124,11 +129,10 @@
 					orderable: false,
 					autoWidth: false,
 					defaultContent: '',
-					render: function (data, type, full, meta) {
-						console.log(data);
+					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id;
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-							'<div class="ellipsis"><input type="checkbox" ></div>' +
+							'<div><input type="checkbox" class="custom-checkbox" ></div>' +
 							'</div>';
 
 
@@ -160,7 +164,7 @@
 						let initials = `${firstNameInitial}`;
 						let fullName = `${row.partner.partnerName}`;
 						
-						// Generate the URLs using JavaScript variables
+						// Generate the URLs using JavaScript variables.........
 						let clientDetailUrl = `/AppAreaName/partners/DetailsForm?id=${row.partner.id}`;
 						let clientEmailComposeUrl = `/AppAreaName/Client/ClientEmailCompose?id=${row.partner.id}`;
 						let profilePicture = row.imageBytes
@@ -193,24 +197,49 @@
 					name: 'partnerType',
 				},
 				{
-					targets: 5,
-					data: 'partner.city',
-					name: 'city',
+					targets: 5, 
+					data: null,
+					orderable: false,
+					autoWidth: false,
+					defaultContent: '',
+					render: function (data, type, row) {
+						let city = row.partner.city;
+						let countryName = row.countryName;
+
+						let fullName = `${city} <br> ${countryName}`;
+
+						return ` ${fullName}`;
+					},
+					name: 'concatenatedData',
 				},
 				
 				{
 					targets: 6,
+					data: 'partner.productCount',
+					name: 'productCount',
+				},
+				{
+					targets: 7,
+					data: 'partner.enrolledCount',
+					name: 'enrolledCount',
+				},
+				{
+					targets: 8,
+					data: 'partner.progressCount',
+					name: 'progressCount',
+				},
+				{
+					targets: 9,
 					data: 'partner.marketingEmail',
 					name: 'MarketingEmail',
 				},
 				{
-					targets: 7,
+					targets: 10,
 					width: 30,
 					data: null,
 					orderable: false,
 					searchable: false,
-					render: function (data, type, full, meta) {
-						console.log(data);
+					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id; 
 						var rowData = data.partner;
 						var RowDatajsonString = JSON.stringify(rowData);
@@ -238,7 +267,8 @@
 			e.preventDefault();
 			debugger
 			var rowId = $(this).data('id');
-			var action = $(this).data('action');
+			var Email = $(this).text();
+			$("#GetEmail").val(Email);
 			_createOrEditModalEmail.open(rowId);
 
 		});
@@ -372,6 +402,46 @@
 
 
 
+		$(document).on('click', '#SelectAllCheckBox', function () {
+			chkAll();
+		})
+		function chkAll() {
+			debugger;
+			// Get the "Select All" checkbox
+			var chkAll = $("#SelectAllCheckBox");
+
+			// Get all the checkboxes except for the "Select All" checkbox
+			var checkboxes = $("input.custom-checkbox").not(chkAll);
+
+			// If the "Select All" checkbox is checked, check all the other checkboxes
+			if (chkAll.prop("checked")) {
+				checkboxes.prop("checked", true);
+				//$(".card").hide();
+				$(".btnSmsMail").show();
+
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				checkboxes.prop("checked", false);
+				$(".btnSmsMail").hide();
+
+			}
+		}
+
+
+		$('#PartnersTable').on('click', '.custom-checkbox', function () {
+			// Access the checked state of the clicked checkbox
+			var isChecked = $(this).prop('checked'); 
+			if (isChecked == true) {
+				$(".btnSmsMail").show();
+
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				$(".btnSmsMail").hide();
+
+			}
+		});
 
 	});
 })();

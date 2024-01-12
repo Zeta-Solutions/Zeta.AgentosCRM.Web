@@ -2,8 +2,8 @@
     $(function () {
         var _$applicationsTable = $('#Applicationstable');
         var _applicationsService = abp.services.app.applications;
-        debugger
-        console.log(_applicationsService)
+  
+        console.log(_$applicationsTable)
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -76,7 +76,6 @@
         };
         var hiddenfield = $("#PartnerId").val();
         var ContactPartnerValue = hiddenfield;
-
         var dataTable = _$applicationsTable.DataTable({
             paging: true,
             serverSide: true,
@@ -100,17 +99,99 @@
                     targets: 0,
                 },
                 {
-                    targets: 1,
-                    data: 'workflowName',
-                    name: 'workflowNameFk.name',
+                    targets: 1, 
+
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    // Assuming 'row' contains the client data with properties 'firstName', 'lastName', and 'email'
+                    render: function (data, type, row) {
+                        let firstNameInitial = row.clientFirstName.charAt(0).toUpperCase();
+                        let lastNameInitial = row.clientLastName.charAt(0).toUpperCase();
+                        let initials = `${firstNameInitial}` + ' ' + `${lastNameInitial}`;
+                        let fullName = `${row.clientFirstName}` + ' ' + `${row.clientLastName}`;
+                        let ClientEmail = row.clientEmail;
+                        debugger
+                        // Generate the URLs using JavaScript variables
+                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
+                        //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
+                        // let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                        /*             console.log(clientEmailComposeUrl);*/
+
+                        return `
+        <div class="d-flex align-items-center">
+            <span class="rounded-circle bg-primary text-white p-2 me-2" title="${fullName}">
+                <b>${initials}</b>
+            </span>
+            <div class="d-flex flex-column">
+                <a href="${clientDetailUrl}" class="text-truncate" title="${fullName}">
+                    ${fullName}<br>   ${ClientEmail} 
+                </a> 
+              
+            </div>
+        </div>
+    `;
+                    },
+
+                    name: 'concatenatedData',
+
+                    //data: 'clientFirstName',
+                    //name: 'clientFirstName',
+
+                    //data: null,
+                    //orderable: false,
+                    //autoWidth: false,
+                    //defaultContent: '',
+                    //render: function (data, type, row) {
+                    //    let clientFirstName = row.clientFirstName;
+                    //    let ClientLastName = row.clientLastName;
+                    //    let ClientEmail = row.clientEmail;
+                    //    let fullname = clientFirstName +' '+ ClientLastName;
+                    //    let workflowId = data.application.workflowId;
+                    //    let appId = data.application.id;
+
+                    //    let displayEmail = ClientEmail ? ClientEmail : '-';
+                    //    var contaxtMenu = `
+                    //            <div class="d-flex align-items-center">
+             
+                    //                <div class="d-flex flex-column">
+                    //                <div id="search" style="cursor: pointer;"><span style="font-size: 14px;">${fullname}</span><br>${displayEmail}</div>
+
+                    //                </div>
+                    //            </div>
+                    //        `;
+                    //    return contaxtMenu;
+                    //}
+
                 },
                 {
                     targets: 2,
+                    //data: 'application.productName',
+                    //name: 'productName',
 
-                    data: 'partnerPartnerName',
-                    name: 'partnerPartnerNameFk.name',
-                    //data: 'application.work',
-                    //name: 'partnerPartnerName',
+                    //data: 'productName',
+                    //name: 'productNameFk.name',
+
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let productName = row.userName;
+                        let branchName = row.officeName;
+                        let displayBranchName = branchName ? branchName : '-';
+                        var contaxtMenu = `
+                                <div class="d-flex align-items-center">
+             
+                                    <div class="d-flex flex-column">
+                                    <div id="search" style="cursor: pointer;"><span style="font-size: 14px;">${productName}</span><br>${displayBranchName}</div>
+
+                                    </div>
+                                </div>
+                            `;
+                        return contaxtMenu;
+                    }
 
                 },
                 {
@@ -118,40 +199,151 @@
                     //data: 'application.productName',
                     //name: 'productName',
 
-                    data: 'productName',
-                    name: 'productNameFk.name',
-                },
-                {
-                    width: 30,
-                    targets: 4,
+                    //data: 'productName',
+                    //name: 'productNameFk.name',
+
                     data: null,
                     orderable: false,
-                    searchable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let productName = row.productName;
+                        let branchName = row.branchName;
+                        let workflowId = data.application.workflowId;
+                        let appId = data.application.id;
 
+                        let displayBranchName = branchName ? branchName : '-';
+                        var contaxtMenu = `
+                                <div class="d-flex align-items-center">
+             
+                                    <div class="d-flex flex-column">
+                                    <div id="search" style="cursor: pointer;"><span style="font-size: 14px;">${productName}</span><br>${displayBranchName}</div>
 
-                    render: function (data, type, full, meta) {
-                        console.log(data);
-                        var rowId = data.application.id;
-                        console.log(rowId);
-                        var rowData = data.application;
-                        var RowDatajsonString = JSON.stringify(rowData);
-                        console.log(RowDatajsonString);
-                        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
-                            '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
-                            '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
-                            "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
-                            '</ul>' +
-                            '</div>' +
-                            '</div>';
-
-
+                                    </div>
+                                </div>
+                            `;
                         return contaxtMenu;
                     }
 
-
                 },
+                {
+                    targets: 4,
+                    //data: 'workflowName',
+                    //name: 'workflowNameFk.name',
+                    data: 'workflowName',
+                    name: 'workflowNameFk.name',
+                },
+                {
+                    targets: 5,
+                    
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let IsCurrent = row.isCurrent;
+                        debugger
+
+                        console.log(row);
+                        if (IsCurrent == true) {
+                            return `<span>` + row.applicationName + `</span>`;
+                        }
+                        else {
+                            return `<span>` + row.applicationName + `</span>`;
+                        }
+                    },
+
+                    name: 'concatenatedData',
+                },
+                {
+                    targets: 6,
+
+                    data: 'partnerPartnerName',
+                    name: 'partnerPartnerNameFk.name',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
+                    visible: false  
+                },
+                {
+                    targets: 7,
+
+                    //data: 'application.isDiscontinue',
+                    //name: 'isDiscontinue', 
+                    data: null,
+                    orderable: false,
+                    autoWidth: false,
+                    defaultContent: '',
+                    render: function (data, type, row) {
+                        let isDiscontinue = row.application.isDiscontinue; 
+
+                        if (isDiscontinue == false) {
+                            return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                        } else if (isDiscontinue == true) {
+                            return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
+                        }  
+                    },
+
+                    name: 'concatenatedData',
+                },  
+                {
+                    targets: 8,
+
+                    data: 'application.creationTime',
+                    name: 'creationTime',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
+                    render: function (creationTime) {
+                        if (creationTime) {
+                            return moment(creationTime).format('L');
+                        }
+                        return "";
+                    }
+                },
+                {
+                    targets: 9,
+
+                    data: 'application.lastModificationTime',
+                    name: 'lastModificationTime',
+                    //data: 'application.work',
+                    //name: 'partnerPartnerName',
+                    render: function (lastModificationTime) {
+                        if (lastModificationTime) {
+                            return moment(lastModificationTime).format('L');
+                        }
+                        return "";
+                    }
+                },
+                //{
+                //    width: 30,
+                //    targets: 4,
+                //    data: null,
+                //    orderable: false,
+                //    searchable: false,
+
+
+                //    render: function (data, type, full, meta) {
+                //        console.log(data);
+                //        var rowId = data.application.id;
+                //        console.log(rowId);
+                //        var rowData = data.application;
+                //        var RowDatajsonString = JSON.stringify(rowData);
+                //        console.log(RowDatajsonString);
+                //        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
+                //            '<div class="Applicationellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                //            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                //            '<ul style="list-style: none; padding: 0;color:black">' +
+                //            '<li ><a href="#" style="color: black;" data-action60="edit" data-id="' + rowId + '">Edit</a></li>' +
+                //            "<a href='#' style='color: black;' data-action60='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                //            '</ul>' +
+                //            '</div>' +
+                //            '</div>';
+
+
+                //        return contaxtMenu;
+                //    }
+
+
+                //},
 
 
             ],

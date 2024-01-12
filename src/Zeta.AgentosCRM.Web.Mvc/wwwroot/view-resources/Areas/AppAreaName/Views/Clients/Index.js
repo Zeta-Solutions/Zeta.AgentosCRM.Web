@@ -1,6 +1,7 @@
 ﻿(function () {
     $("#kt_app_sidebar_toggle").trigger("click");
     $('.tag').select2();
+    $('.btnSmsMail').hide();
 
     $(function () {
 
@@ -57,9 +58,14 @@
 
 
 
+        //var _createOrEditModalEmail = new app.ModalManager({
+        //    viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+        //    modalClass: 'ClientEmailCompose'
+        //});
         var _createOrEditModalEmail = new app.ModalManager({
-            viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
-            modalClass: 'ClientEmailCompose'
+            viewUrl: abp.appPath + 'AppAreaName/SentEmail/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/SentEmail/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditSentEmailModal',
         });
         var _createOrEditClientTagModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/CreateOrEditClientTags',
@@ -115,9 +121,8 @@
                         binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
                         degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
                         subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-                        countryName2Filter: $('#CountryName2FilterId').val(),
-                        countryName3Filter: $('#CountryName3FilterId').val()
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+                        countryNameFilter: $('#CountryName3FilterId').val()
                     };
                 }
             },
@@ -140,7 +145,7 @@
                        /* console.log(data);*/
                         var rowId = data.client.id;
                         var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-                            '<div class="ellipsis"><input type="checkbox" ></div>' +
+                            '<div><input type="checkbox" class="custom-checkbox" ></div>' +
                             '</div>';
 
 
@@ -224,17 +229,19 @@
                     autoWidth: false,
                     defaultContent: '',
                     render: function (data, type, row) {
-                        let isDiscontinue = row.isAnyApplicationActive;
-                        if (isDiscontinue == true) {
-                            return `<span style="color: red; font-size: 14px;">&#8226; Discontinue</span>`;
+                        let isDiscontinue = row.client.isAnyApplicationActive;
+                        let count = row.client.applicationCount;
+                         
+                        if (isDiscontinue == false && count > 0) {
+                            return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                        } else if (isDiscontinue == true && count > 0) {
+                            return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
                         } else {
-                            return `<span style="color:blue; font-size: 14px;">&#8226; InProgress</span>`;
+                            return `<span style="color:red; font-size: 14px;">&#8226;No-Application</span>`;
                         }
                     },
 
-                    name: 'concatenatedData',
-                    //data: 'userName',.........
-                    //name: 'userName',......
+                    name: 'concatenatedData', 
                 },
                 {
                     targets: 9,
@@ -252,12 +259,7 @@
                         }
                         return "";
                     }
-                },
-                //{
-                //    targets: 11,
-                //    data: 'client.state',
-                //    name: 'state',
-                //},
+                }, 
                  
                 {
                     targets: 11,
@@ -327,7 +329,8 @@
             e.preventDefault();
             debugger
             var rowId = $(this).data('id');
-            var action = $(this).data('action');
+            var Email=$(this).text();
+            $("#GetEmail").val(Email);
             _createOrEditModalEmail.open(rowId);
 
         });
@@ -339,14 +342,10 @@
             var action = $(this).data('action');
 
             // Handle the selected action based on the rowId
-            if (action === 'view') {
-                /*_viewProductTypeModal.open({ id: rowId });*/
-                // _createOrEditModal.open({ id: rowId });
+            if (action === 'view') { 
                 window.location = "/AppAreaName/Clients/ClientProfileDetail/" + rowId;
 
-            } else if (action === 'edit') {
-                //_createOrEditModal.open({ id: rowId });
-                //_createOrEditModal.open({ id: rowId });
+            } else if (action === 'edit') { 
                 window.location = "/AppAreaName/Clients/ClientCreateDetail/" + rowId;
 
             } else if (action === 'delete') {
@@ -354,13 +353,15 @@
                 deleteClient(rowId);
             }
             else if (action === 'archived') {
-                if ($("input[name='Archiveds']").val() == 'true') {
+                 alert("Archiuved Tab")
+                if ($("#TabValues").val() == 2) {
                     var inputData = {
                         clientId: rowId,
                         isArchived: 0
                     };
                 }
-                else {
+                else   {
+                 
                     var inputData = {
                         clientId: rowId,
                         isArchived: 1
@@ -381,12 +382,656 @@
         $(document).on('click', '.text-truncate', function (e) {
             e.preventDefault(); // Prevent the default behavior of the link
             window.location.href = $(this).attr('href'); // Redirect to the specified URL
+        }); 
+          
+        $(document).on('click', '#SelectAllCheckBox', function () {
+            chkAll();
+        })
+        function chkAll() {
+             debugger;
+            // Get the "Select All" checkbox
+            var chkAll = $("#SelectAllCheckBox");
+
+            // Get all the checkboxes except for the "Select All" checkbox
+            var checkboxes = $("input.custom-checkbox").not(chkAll);
+
+            // If the "Select All" checkbox is checked, check all the other checkboxes
+            if (chkAll.prop("checked")) {
+                checkboxes.prop("checked", true);
+                //$(".card").hide();
+                $(".btnSmsMail").show();
+
+            }
+            // If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+            else {
+                checkboxes.prop("checked", false);
+                $(".btnSmsMail").hide();
+
+            }
+        }
+
+
+        $('#ClientsTable').on('click', '.custom-checkbox', function () {
+            // Access the checked state of the clicked checkbox
+            var isChecked = $(this).prop('checked'); 
+            if (isChecked == true) { 
+                $(".btnSmsMail").show();
+
+            }
+            // If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+            else { 
+                $(".btnSmsMail").hide();
+
+            }
         });
-        //$(document).on('click', '#CreateNewClientEmailButton', function (e) {
-        //    e.preventDefault(); // Prevent the default behavior of the link
-        //    _createOrEditModalEmail.open();
-        //    // window.location.href = $(this).attr('href'); // Redirect to the specified URL
-        //});
+        $(document).on('click', '#Prospects', function () {
+
+            var Prospect = 0; 
+            $("#TabValues").val(Prospect);
+            if ($.fn.DataTable.isDataTable('#ClientsTable')) {
+                var table = $('#ClientsTable').DataTable();
+                table.clear().destroy();
+            }
+            var dataTable = _$clientsTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: _clientsService.getAll,
+                    inputFilter: function () {
+                        return {
+                            filter: $('#ClientsTableFilter').val(),
+                            firstNameFilter: $('#FirstNameFilterId').val(),
+                            lastNameFilter: $('#LastNameFilterId').val(),
+                            emailFilter: $('#EmailFilterId').val(),
+                            phoneNoFilter: $('#PhoneNoFilterId').val(),
+                            minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                            maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                            universityFilter: $('#UniversityFilterId').val(),
+                            minRatingFilter: $('#MinRatingFilterId').val(),
+                            maxRatingFilter: $('#MaxRatingFilterId').val(),
+                            countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                            userNameFilter: $('#UserNameFilterId').val(),
+                            binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                            degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                            leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                            countryNameFilter: $('#CountryName3FilterId').val(), 
+                        };
+                    }
+                },
+                columnDefs: [
+                    {
+                        className: 'control responsive',
+                        orderable: false,
+                        render: function () {
+                            return '';
+                        },
+                        targets: 0
+                    },
+                    {
+                        targets: 1,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, full, meta) {
+                            /* console.log(data);*/
+                            var rowId = data.client.id;
+                            var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '</div>';
+
+
+                            return contaxtMenu;
+                        }
+                    },
+                    {
+                        width: 200,
+                        targets: 2,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                            let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                            let initials = `${firstNameInitial}${lastNameInitial}`;
+                            let fullName = `${row.client.firstName} ${row.client.lastName}`;
+
+                            let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                            let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                            let profilePicture = row.imageBytes
+                            return `
+    <div class="d-flex align-items-center">
+         ${profilePicture
+                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+        <div class="d-flex flex-column">
+            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                ${fullName}
+            </a> 
+             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+        </div>
+    </div>
+`;
+                        },
+
+                        name: 'concatenatedData',
+
+                    },
+                    {
+                        targets: 3,
+                        data: 'tagName',
+                        name: 'tagName',
+                    },
+                    {
+                        targets: 4,
+                        data: 'client.phoneNo',
+                        name: 'phoneNo',
+                    },
+                    {
+                        targets: 5,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let city = row.client.city;
+                            let countryName = row.countryName;
+
+                            let fullName = `${city} <br> ${countryName}`;
+
+                            return ` ${fullName}`;
+                        },
+                        name: 'concatenatedData',
+                    },
+                    {
+                        targets: 6,
+                        data: "userName",
+                        name: "userName"
+                    },
+                    {
+                        targets: 7,
+                        data: 'userName',
+                        name: 'userName',
+                    },
+                    {
+                        targets: 8,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let isDiscontinue = row.client.isAnyApplicationActive;
+                            let count = row.client.applicationCount;
+
+                            if (isDiscontinue == false && count > 0) {
+                                return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                            } else if (isDiscontinue == true && count > 0) {
+                                return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
+                            } else {
+                                return `<span style="color:red; font-size: 14px;">&#8226;No-Application</span>`;
+                            }
+                        },
+
+                        name: 'concatenatedData', 
+                    },
+                    {
+                        targets: 9,
+                        data: 'client.applicationCount',
+                        name: 'applicationCount',
+                    },
+                    {
+                        targets: 10,
+                        data: 'client.lastModificationTime',
+                        name: 'lastModificationTime',
+
+                        render: function (lastModificationTime) {
+                            if (lastModificationTime) {
+                                return moment(lastModificationTime).format('L');
+                            }
+                            return "";
+                        }
+                    }, 
+                    {
+                        targets: 11,
+                        width: 30,
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            console.log(data);
+                            var rowId = data.client.id;
+                            var rowData = data.client;
+                            var RowDatajsonString = JSON.stringify(rowData);
+                            var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                                '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                                '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                                '<ul style="list-style: none; padding: 0;color:black">' +
+                                '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                                '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                                '<a href="#" style="color: black;" data-action="archived" data-id="' + rowId + '"><li>Archived</li></a>' +
+                                "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                                '</ul>' +
+                                '</div>' +
+                                '</div>';
+
+                            return contextMenu;
+                        }
+
+
+                    },
+                ]
+            });
+            
+        });
+        $(document).on('click', '#clients', function () { 
+
+            var clients = 1; 
+            $("#TabValues").val(clients)
+            //if ($.fn.DataTable.isDataTable('#ClientsTable')) {
+            //    $('#ClientsTable').DataTable().destroy();
+            //}
+            if ($.fn.DataTable.isDataTable('#ClientsTable')) {
+                var table = $('#ClientsTable').DataTable();
+                table.clear().destroy();
+            }
+            var dataTable = _$clientsTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: _clientsService.getAll,
+                    inputFilter: function () {
+                        return {
+                            filter: $('#ClientsTableFilter').val(),
+                            firstNameFilter: $('#FirstNameFilterId').val(),
+                            lastNameFilter: $('#LastNameFilterId').val(),
+                            emailFilter: $('#EmailFilterId').val(),
+                            phoneNoFilter: $('#PhoneNoFilterId').val(),
+                            minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                            maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                            universityFilter: $('#UniversityFilterId').val(),
+                            minRatingFilter: $('#MinRatingFilterId').val(),
+                            maxRatingFilter: $('#MaxRatingFilterId').val(),
+                            countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                            userNameFilter: $('#UserNameFilterId').val(),
+                            binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                            degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                            leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                            countryNameFilter: $('#CountryName3FilterId').val(),
+                            isArchived: false,
+                        };
+                    }
+                },
+                columnDefs: [
+                    {
+                        className: 'control responsive',
+                        orderable: false,
+                        render: function () {
+                            return '';
+                        },
+                        targets: 0
+                    },
+                    {
+                        targets: 1,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, full, meta) { 
+                            var rowId = data.client.id;
+                            var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '</div>';
+
+
+                            return contaxtMenu;
+                        }
+                    },
+                    {
+                        width: 200,
+                        targets: 2,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                            let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                            let initials = `${firstNameInitial}${lastNameInitial}`;
+                            let fullName = `${row.client.firstName} ${row.client.lastName}`;
+
+                            let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                            let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                            let profilePicture = row.imageBytes
+                            return `
+    <div class="d-flex align-items-center">
+         ${profilePicture
+                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+        <div class="d-flex flex-column">
+            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                ${fullName}
+            </a> 
+             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+        </div>
+    </div>
+`;
+                        },
+
+                        name: 'concatenatedData',
+
+                    },
+                    {
+                        targets: 3,
+                        data: 'tagName',
+                        name: 'tagName',
+                    },
+                    {
+                        targets: 4,
+                        data: 'client.phoneNo',
+                        name: 'phoneNo',
+                    },
+                    {
+                        targets: 5,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let city = row.client.city;
+                            let countryName = row.countryName;
+
+                            let fullName = `${city} <br> ${countryName}`;
+
+                            return ` ${fullName}`;
+                        },
+                        name: 'concatenatedData',
+                    },
+                    {
+                        targets: 6,
+                        data: "userName",
+                        name: "userName"
+                    },
+                    {
+                        targets: 7,
+                        data: 'userName',
+                        name: 'userName',
+                    },
+                    {
+                        targets: 8,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let isDiscontinue = row.client.isAnyApplicationActive;
+                            let count = row.client.applicationCount;
+
+                            if (isDiscontinue == false && count > 0) {
+                                return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                            } else if (isDiscontinue == true && count > 0) {
+                                return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
+                            } else {
+                                return `<span style="color:red; font-size: 14px;">&#8226;No-Application</span>`;
+                            }
+                        },
+
+                        name: 'concatenatedData', 
+                    },
+                    {
+                        targets: 9,
+                        data: 'client.applicationCount',
+                        name: 'applicationCount',
+                    },
+                    {
+                        targets: 10,
+                        data: 'client.lastModificationTime',
+                        name: 'lastModificationTime',
+
+                        render: function (lastModificationTime) {
+                            if (lastModificationTime) {
+                                return moment(lastModificationTime).format('L');
+                            }
+                            return "";
+                        }
+                    }, 
+
+                    {
+                        targets: 11,
+                        width: 30,
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            console.log(data);
+                            var rowId = data.client.id;
+                            var rowData = data.client;
+                            var RowDatajsonString = JSON.stringify(rowData);
+                            var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                                '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                                '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                                '<ul style="list-style: none; padding: 0;color:black">' +
+                                '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                                '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                                '<a href="#" style="color: black;" data-action="archived" data-id="' + rowId + '"><li>Archived</li></a>' +
+                                "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                                '</ul>' +
+                                '</div>' +
+                                '</div>';
+
+                            return contextMenu;
+                        }
+
+
+                    },
+                ]
+            });
+        });
+        $(document).on('click', '#Archived', function () {
+
+            var Archived = 2; 
+            $("#TabValues").val(Archived)
+            if ($.fn.DataTable.isDataTable('#ClientsTable')) {
+                var table = $('#ClientsTable').DataTable();
+                table.clear().destroy();
+            }
+            var dataTable = _$clientsTable.DataTable({
+                paging: true,
+                serverSide: true,
+                processing: true,
+                listAction: {
+                    ajaxFunction: _clientsService.getAll,
+                    inputFilter: function () {
+                        return {
+                            filter: $('#ClientsTableFilter').val(),
+                            firstNameFilter: $('#FirstNameFilterId').val(),
+                            lastNameFilter: $('#LastNameFilterId').val(),
+                            emailFilter: $('#EmailFilterId').val(),
+                            phoneNoFilter: $('#PhoneNoFilterId').val(),
+                            minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                            maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                            universityFilter: $('#UniversityFilterId').val(),
+                            minRatingFilter: $('#MinRatingFilterId').val(),
+                            maxRatingFilter: $('#MaxRatingFilterId').val(),
+                            countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                            userNameFilter: $('#UserNameFilterId').val(),
+                            binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                            degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                            leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                            countryNameFilter: $('#CountryName3FilterId').val(),
+                            isArchived: true,
+                        };
+                    }
+                },
+                columnDefs: [
+                    {
+                        className: 'control responsive',
+                        orderable: false,
+                        render: function () {
+                            return '';
+                        },
+                        targets: 0
+                    },
+                    {
+                        targets: 1,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, full, meta) { 
+                            var rowId = data.client.id;
+                            var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
+                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '</div>';
+
+
+                            return contaxtMenu;
+                        }
+                    },
+                    {
+                        width: 200,
+                        targets: 2,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let firstNameInitial = row.client.firstName.charAt(0).toUpperCase();
+                            let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
+                            let initials = `${firstNameInitial}${lastNameInitial}`;
+                            let fullName = `${row.client.firstName} ${row.client.lastName}`;
+
+                            let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                            let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                            let profilePicture = row.imageBytes
+                            return `
+    <div class="d-flex align-items-center">
+         ${profilePicture
+                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+        <div class="d-flex flex-column">
+            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                ${fullName}
+            </a> 
+             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+        </div>
+    </div>
+`;
+                        },
+
+                        name: 'concatenatedData',
+
+                    },
+                    {
+                        targets: 3,
+                        data: 'tagName',
+                        name: 'tagName',
+                    },
+                    {
+                        targets: 4,
+                        data: 'client.phoneNo',
+                        name: 'phoneNo',
+                    },
+                    {
+                        targets: 5,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let city = row.client.city;
+                            let countryName = row.countryName;
+
+                            let fullName = `${city} <br> ${countryName}`;
+
+                            return ` ${fullName}`;
+                        },
+                        name: 'concatenatedData',
+                    },
+                    {
+                        targets: 6,
+                        data: "userName",
+                        name: "userName"
+                    },
+                    {
+                        targets: 7,
+                        data: 'userName',
+                        name: 'userName',
+                    },
+                    {
+                        targets: 8,
+                        data: null,
+                        orderable: false,
+                        autoWidth: false,
+                        defaultContent: '',
+                        render: function (data, type, row) {
+                            let isDiscontinue = row.client.isAnyApplicationActive;
+                            let count = row.client.applicationCount;
+
+                            if (isDiscontinue == false && count > 0) {
+                                return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
+                            } else if (isDiscontinue == true && count > 0) {
+                                return `<span style="color:blue; font-size: 14px;">&#8226;InProgress</span>`;
+                            } else {
+                                return `<span style="color:red; font-size: 14px;">&#8226;No-Application</span>`;
+                            }
+                        },
+
+                        name: 'concatenatedData', 
+                    },
+                    {
+                        targets: 9,
+                        data: 'client.applicationCount',
+                        name: 'applicationCount',
+                    },
+                    {
+                        targets: 10,
+                        data: 'client.lastModificationTime',
+                        name: 'lastModificationTime',
+
+                        render: function (lastModificationTime) {
+                            if (lastModificationTime) {
+                                return moment(lastModificationTime).format('L');
+                            }
+                            return "";
+                        }
+                    }, 
+                    {
+                        targets: 11,
+                        width: 30,
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            console.log(data);
+                            var rowId = data.client.id;
+                            var rowData = data.client;
+                            var RowDatajsonString = JSON.stringify(rowData);
+                            var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                                '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
+                                '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                                '<ul style="list-style: none; padding: 0;color:black">' +
+                                '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                                '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                                '<a href="#" style="color: black;" data-action="archived" data-id="' + rowId + '"><li>Archived</li></a>' +
+                                "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                                '</ul>' +
+                                '</div>' +
+                                '</div>';
+
+                            return contextMenu;
+                        }
+
+
+                    },
+                ]
+            });
+        });
         function deleteClient(client) {
             debugger
             abp.message.confirm(
@@ -451,9 +1096,8 @@
                     binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
                     degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
                     subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-                    countryName2Filter: $('#CountryName2FilterId').val(),
-                    countryName3Filter: $('#CountryName3FilterId').val()
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+                    countryNameFilter: $('#CountryName3FilterId').val()
                 })
                 .done(function (result) {
                     app.downloadTempFile(result);

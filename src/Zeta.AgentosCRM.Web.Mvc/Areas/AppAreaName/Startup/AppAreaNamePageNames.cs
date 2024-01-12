@@ -65,6 +65,8 @@
             public const string Products = "Dashboard.Products";
             public const string Tasks = "Dashboard.Tasks";
             public const string Quotation = "Dashboard.Quotation";
+            public const string EmailConfiguration = "CRMSetup.EmailConfiguration";
+            public const string SentEmail = "CRMSetup.SentEmail"; 
         }
     }
 }

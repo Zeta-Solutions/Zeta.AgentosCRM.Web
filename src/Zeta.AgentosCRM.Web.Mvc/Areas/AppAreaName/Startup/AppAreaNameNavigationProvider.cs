@@ -197,7 +197,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.CRMSetup,
                         L("CRMSetup"),
-                        icon: "flaticon-settings"
+                        icon: "flaticon-settings",
+                        isVisible:false
                     ).AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.MasterCategories,
                         L("MasterCategories"),
@@ -258,7 +259,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_LeadSources)
                         )
-                    ) 
+                    )
                      .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.DocumentChecklist,
                             L("DocumentCheckList"),
@@ -316,7 +317,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             icon: "flaticon-more",
                             permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMCurrencies)
                           )
-                    ) 
+                    )
                     .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.ServiceCategory,
                             L("ServiceCategory"),
@@ -361,6 +362,22 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         )
                     )
                     .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.EmailConfiguration,
+                            L("EmailConfiguration"),
+                            url: "AppAreaName/EmailConfigurations",
+                            icon: "flaticon-more"
+                        // permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_LeadSources)
+                        )
+                    )
+            .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.Tenant.SentEmail,
+                            L("SentEmail"),
+                            url: "AppAreaName/SentEmail",
+                            icon: "flaticon-more"
+                        //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_LeadSources)
+                        )
+                    )
+                    .AddItem(new MenuItemDefinition(
                             AppAreaNamePageNames.Tenant.Regions,
                             L("Regions"),
                             url: "AppAreaName/Regions",
@@ -385,7 +402,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                                     url: "AppAreaName/Clients",
                                     icon: "flaticon-profile-1",
                                     permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
-                                ) 
+                                )
                             )
 
                    .AddItem(new MenuItemDefinition(
@@ -417,22 +434,24 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.Quotation,
                         L("Quotation"),
-                        url: "AppAreaName/Clients",
+                        url: "AppAreaName/Quotation",
                         icon: "flaticon-file-1"
-                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
+                    //, permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
                     )
 
                 )
                     .AddItem(new MenuItemDefinition(
-						AppAreaNamePageNames.Tenant.Tasks,
-						L("Tasks"),
-						url: "AppAreaName/Tasks",
-						icon: "flaticon-calendar"
+                        AppAreaNamePageNames.Tenant.Tasks,
+                        L("Tasks"),
+                        url: "AppAreaName/Tasks",
+                        icon: "flaticon-calendar"
                     , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_TaskPriorities)
                     )
 
-				);
-		}
+                );
+            
+
+        }
 
         private static ILocalizableString L(string name)
         {

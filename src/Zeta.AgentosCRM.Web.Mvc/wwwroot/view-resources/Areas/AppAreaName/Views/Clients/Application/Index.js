@@ -110,13 +110,30 @@
                     render: function (data, type, row) {
                         let productName = row.productName;
                         let branchName = row.branchName;
-
+                         
+                        let workflowId = data.application.workflowId;
+                        let appId = data.application.id;
 
                         let displayBranchName = branchName ? branchName : '-';
-                        let clientDetailUrl = `/AppAreaName/products/ProductsDetail?id=${row.application.productId}`;
+                        //let clientDetailUrl = `/AppAreaName/products/ProductsDetail?id=${row.application.productId}`;
 
-                        let fullName = ` <a href="${clientDetailUrl}" class="text-truncate" title="${productName}"> <span style="color:blue; font-size: 14px;">${productName}</span> </a><br> ${displayBranchName}`;
-                        return `${fullName}`;
+                        //let fullName = ` <a href="${clientDetailUrl}" class="text-truncate" title="${productName}"> <span style="color:blue; font-size: 14px;">${productName}</span> </a><br> ${displayBranchName}`;
+                        //return `${fullName}`;
+                        var contaxtMenu = `
+                                <div class="d-flex align-items-center">
+             
+                                    <div class="d-flex flex-column">
+                                    <div id="search" style="cursor: pointer;" data-id="${workflowId}" data-action="${appId}"><span style="color:blue; font-size: 14px;">${productName}</span><br>${displayBranchName}</div>
+
+                                    </div>
+                                </div>
+                            `;
+                        return contaxtMenu;
+
+
+
+
+
                     },
                     name: 'concatenatedData',
                 },
@@ -134,7 +151,7 @@
                                 <div class="d-flex align-items-center">
              
                                     <div class="d-flex flex-column">
-                                    <div id="search" style="cursor: pointer; color:blue;" data-id="${workflowId}" data-action="${appId}">${workflowName}</div>
+                                    <div id="search">${workflowName}</div>
 
                                     </div>
                                 </div>

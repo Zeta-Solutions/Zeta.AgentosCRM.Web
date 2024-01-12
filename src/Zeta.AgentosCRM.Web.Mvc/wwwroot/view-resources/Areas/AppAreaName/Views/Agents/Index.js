@@ -3,7 +3,11 @@
 
 
 
- 
+		//var sendBulkSMSButton = document.getElementById("SendBulkSMS");
+		//sendBulkSMSButton.removeAttribute("hidden")
+
+		
+
 		var _$agentsTable = $('#AgentsTable');
 		var _agentsService = abp.services.app.agents;
 		var _entityTypeFullName = 'Zeta.AgentosCRM.CRMAgent.Agent';
@@ -55,11 +59,15 @@
 			'delete': abp.auth.hasPermission('Pages.Clients.Delete')
 		};
 
+		//var _createOrEditModalEmail = new app.ModalManager({
+		//	viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
+		//	modalClass: 'ClientEmailCompose'
+		//});
 		var _createOrEditModalEmail = new app.ModalManager({
-			viewUrl: abp.appPath + 'AppAreaName/Clients/ClientEmailCompose',
-			modalClass: 'ClientEmailCompose'
+			viewUrl: abp.appPath + 'AppAreaName/SentEmail/CreateOrEditModal',
+			scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/SentEmail/_CreateOrEditModal.js',
+			modalClass: 'CreateOrEditSentEmailModal',
 		});
-
 
 		var _viewClientModal = new app.ModalManager({
 			viewUrl: abp.appPath + 'AppAreaName/Clients/ViewclientModal',
@@ -130,7 +138,7 @@
 						console.log(data);
 						var rowId = data.agent.id;
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-							'<div class="ellipsis"><input type="checkbox" ></div>' +
+							'<div><input type="checkbox" class="custom-checkbox" ></div>' +
 							'</div>';
 
 
@@ -221,6 +229,16 @@
 				},
 				{
 					targets: 8,
+					data: 'agent.clientCount',
+					name: 'clientCount',
+				},
+				{
+					targets: 9,
+					data: 'agent.applicationCount',
+					name: 'applicationCount',
+				},
+				{
+					targets: 10,
 					width: 30,
 					data: null,
 					orderable: false,
@@ -253,7 +271,8 @@
 			e.preventDefault();
 			debugger
 			var rowId = $(this).data('id');
-			var action = $(this).data('action');
+			var Email = $(this).text();
+			$("#GetEmail").val(Email);
 			_createOrEditModalEmail.open(rowId);
 
 		});
@@ -387,5 +406,83 @@
 			}
 		});
 
+
+		$(document).on('click', '#SelectAllCheckBox', function () {
+			chkAll();
+		})
+		function chkAll() {
+			debugger;
+			// Get the "Select All" checkbox
+			var chkAll = $("#SelectAllCheckBox");
+
+			// Get all the checkboxes except for the "Select All" checkbox
+			var checkboxes = $("input.custom-checkbox").not(chkAll);
+
+			// If the "Select All" checkbox is checked, check all the other checkboxes
+			if (chkAll.prop("checked")) {
+				checkboxes.prop("checked", true);
+				//$(".card").hide();
+				//$(".btnSmsMail").show();
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				// Loop through the collection and remove the "hidden" attribute for each element
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].removeAttribute("hidden");
+				}
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				checkboxes.prop("checked", false);
+				//$(".btnSmsMail").hide();
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				// Loop through the collection and apply the "hidden" attribute for each element
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].setAttribute("hidden", true);
+				}
+			}
+		}
+
+
+		$('#AgentsTable').on('click', '.custom-checkbox', function () {
+			// Access the checked state of the clicked checkbox
+			var isChecked = $(this).prop('checked');
+			if (isChecked == true) {
+				//$(".btnSmsMail").show();
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				// Loop through the collection and remove the "hidden" attribute for each element
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].removeAttribute("hidden");
+				}
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				//$(".btnSmsMail").hide();
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				// Loop through the collection and apply the "hidden" attribute for each element
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].setAttribute("hidden", true);
+				}
+			}
+		});
+
+
+		$(document).on('click', '#Active', function () {
+
+            var Prospect = 0;
+            $("#TabValues").val(Prospect);
+            //if ($.fn.DataTable.isDataTable('#ClientsTable')) {
+            //    var table = $('#ClientsTable').DataTable();
+            //    table.clear().destroy();
+            //}
+           
+        });
+		$(document).on('click', '#Inactive', function () {
+
+            var clients = 1;
+            $("#TabValues").val(clients) 
+        });
   });
 })();

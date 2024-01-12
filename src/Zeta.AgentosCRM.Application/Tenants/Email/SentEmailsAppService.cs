@@ -18,6 +18,16 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.Tenants.Email.Dtos;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using static Zeta.AgentosCRM.Configuration.AppSettings.UserManagement;
+using Twilio.TwiML.Messaging;
+using Zeta.AgentosCRM.CRMSetup;
+using Zeta.AgentosCRM.CRMSetup.Email.Dtos;
+using static Zeta.AgentosCRM.Configuration.AppSettings;
+using MimeKit;
+using MailKit.Net.Smtp;
+using static Abp.Net.Mail.EmailSettingNames;
 
 namespace Zeta.AgentosCRM.Tenants.Email
 {
@@ -284,6 +294,55 @@ namespace Zeta.AgentosCRM.Tenants.Email
                     DisplayName = application == null || application.Name == null ? "" : application.Name.ToString()
                 }).ToListAsync();
         }
+        //public static void SentEmail(string[] args)
+        public bool  SentEmail(ForSentEmailDto input)
+        {
+            try
+            {
+              
 
+                MimeMessage emailMessage = new MimeMessage();
+
+                MailboxAddress emailFrom = new MailboxAddress(input.Username, input.MailAddressFrom);
+                emailMessage.From.Add(emailFrom);
+                  
+                foreach (string ToMail in input.MailAddressTo.Split(',')) // Split on ,
+                {
+                    //MailboxAddress emailCc = new MailboxAddress(input.CCEmail, input.CCEmail);
+                    emailMessage.To.Add(new MailboxAddress(ToMail, ToMail));
+                }
+                  
+                foreach (string CcMail in input.CCEmail.Split(',')) // Split on ,
+                {
+                    //MailboxAddress emailCc = new MailboxAddress(input.CCEmail, input.CCEmail);
+                    emailMessage.Cc.Add(new MailboxAddress(CcMail, CcMail));
+                }
+
+                emailMessage.Subject = input.Subject;
+
+                BodyBuilder emailBodyBuilder = new BodyBuilder();
+                emailBodyBuilder.HtmlBody = input.Body;
+                emailMessage.Body = emailBodyBuilder.ToMessageBody();
+
+                SmtpClient emailClient = new SmtpClient();
+                emailClient.Connect(input.Host, input.Port, input.EnableSsl);//SecureSocketOptions.StartTlsWhenAvailable);
+                emailClient.Authenticate(input.MailAddressFrom, input.Password);
+                emailClient.Send(emailMessage);
+                emailClient.Disconnect(true);
+                emailClient.Dispose();
+
+                // await smtp.SendMailAsync(email);
+
+                //smtp.Send(email);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+    
     }
 }
