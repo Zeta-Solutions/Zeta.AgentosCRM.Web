@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.Generic;
+using Zeta.AgentosCRM.CRMClient.Conversation;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -43,5 +44,6 @@ namespace Zeta.AgentosCRM.CRMClient
 
         Task<List<ClientAgentLookupTableDto>> GetAllAgentForTableDropdown();
 
+        Task SendConversationSms(SendConversationSmsInputDto input);
     }
 }

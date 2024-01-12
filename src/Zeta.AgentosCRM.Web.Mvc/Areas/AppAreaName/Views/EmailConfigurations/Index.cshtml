@@ -1,0 +1,94 @@
+﻿@using Zeta.AgentosCRM.Authorization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.EmailConfigurations;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
+@model  EmailConfigurationsViewModel
+@{
+    ViewBag.CurrentPageName = AppAreaNamePageNames.Tenant.EmailConfiguration;
+}
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/EmailConfiguration/Index.js" asp-append-version="true"></script>
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+  
+   }
+
+
+
+<abp-page-subheader title='@L("EmailConfiguration")' description='@L("EmailConfigurationHeaderInfo")'>
+    <button id="ExportToExcelButton" hidden class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+
+    @if (IsGranted(AppPermissions.Pages_CRMSetup_EmailTemplates_Create))
+    {
+    <button id="CreateNewEmailConfiguration" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewEmailConfiguration")</button>
+     }
+</abp-page-subheader>
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="form">
+                <div class="row align-items-center mb-4">
+                    <div class="col-xl-12">
+
+                        <div class="my-3" >
+                            <div class="input-group">
+                                <input type="text" id="MasterCategoriesTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="@Model.FilterText" >
+                                <button id="GetMasterCategoriesButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="AdvacedAuditFiltersArea" style="display: none" class="row mb-4">
+                <div class="col-md-12">
+                </div>
+
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
+                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="NameFilterId">@L("Name")</label>
+                        <input type="text" class="form-control  custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                </div>
+            </div>
+            <div class="row my-4" >
+                <div class="col-xl-12">
+                    <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
+                    <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <table id="EmailConfigurationTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th></th>
+                             
+                            <th>@L("Name")</th>
+                            <th>@L("SenderEmail")</th>
+                            <th>@L("SenderPassword")</th>
+                            <th>@L("SmtpServer")</th>
+                            <th>@L("SmtpPort")</th>
+                            <th>@L("Protocol")</th>
+                            <th>@L("IsEnableSsl")</th>
+                            <th>@L("IsActive")</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

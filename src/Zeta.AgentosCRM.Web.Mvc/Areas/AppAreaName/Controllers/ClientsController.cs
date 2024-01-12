@@ -933,5 +933,12 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Documents/_CreateOrEditDocumentModal", viewModel);
         }
         #endregion
+        #region ClientSms
+        public  PartialViewResult SendSms(long? id)
+        {
+          
+            return PartialView("Conversation/_SendEmail");
+        }
+        #endregion
     }
 }

@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("SendSms")))
+
+<div class="modal-body">
+    <div id="ConversationInformationsTab">
+        <form name="ConversationInformationsForm" role="form" novalidate class="form-validation">
+          
+
+            <input type="hidden" name="clientId" id="clientId" value="" />
+            <div class="form-row">
+                <div class="form-group col-md-12 mb-3">
+                    <label for="Title" class="form-label">@L("number")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0" id="number" name="number" value="">
+                </div>
+                <div class="col-12">
+                    <label for="messageTextarea" class="form-label">@L("message")</label>
+                    <textarea class="form-control custom-small-input rounded-0" id="message" rows="6" maxlength="255" name="message"> </textarea>
+
+                   
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="closeSmsConversationBtn" class="btn btn-secondary btn-sm btn-outline text-white close-button rounded-0 ">
+        <i class="fa fa-save"></i> @L("Close")
+    </button>
+    <button type="button" id="saveSmsConversationBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Save")
+    </button>

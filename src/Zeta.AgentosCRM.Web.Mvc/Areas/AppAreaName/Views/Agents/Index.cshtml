@@ -9,11 +9,12 @@
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Agents/Index.js" asp-append-version="true"></script>
-
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>s
 }
 @section Styles
     {
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
   }
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
 <abp-page-subheader title='@L("Agent")' description='@L("AgentHeaderInfo")'>
@@ -34,6 +35,7 @@
 
                                 <input type="text" id="AgentsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
                                 <button id="GetAgentsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>
+                                <input type="hidden" id="GetEmail" class="form-control form-control-sm">
                             </div>
                         </div>
 

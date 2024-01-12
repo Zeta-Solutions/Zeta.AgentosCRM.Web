@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="SentEmail">Sent email</text>
+	<texts>	<text name="IsEnableSsl">IsEnableSSl</text>	<text name="SmtpServer">Smtp Server</text>	<text name="Protocol">Protocol</text>	<text name="SenderPassword">Sender Password</text>	<text name="SenderEmail">Sender Email</text>	<text name="FromEmail">From Email</text>	<text name="ToEmail">To Email</text>	<text name="CCEmail">CCEmail</text>	<text name="SelectAEmailConfiguration">Select A EmailConfiguration</text>	<text name="SelectAEmailTemplate">Select A EmailTemplate</text>    <text name="SentEmail">Sent email</text>
     <text name="CreateNewSentEmail">Create new sent email</text>
     <text name="EditSentEmail">Edit sent email</text>
     <text name="DeleteSentEmail">Delete sent email</text>
