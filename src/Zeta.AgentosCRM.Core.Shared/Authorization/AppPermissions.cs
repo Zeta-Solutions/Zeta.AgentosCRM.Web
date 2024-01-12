@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_SentEmails = "Pages.SentEmails";
+        public const string Pages_SentEmails_Create = "Pages.SentEmails.Create";
+        public const string Pages_SentEmails_Edit = "Pages.SentEmails.Edit";
+        public const string Pages_SentEmails_Delete = "Pages.SentEmails.Delete";
+
+        public const string Pages_EmailConfigurations = "Pages.EmailConfigurations";
+        public const string Pages_EmailConfigurations_Create = "Pages.EmailConfigurations.Create";
+        public const string Pages_EmailConfigurations_Edit = "Pages.EmailConfigurations.Edit";
+        public const string Pages_EmailConfigurations_Delete = "Pages.EmailConfigurations.Delete";
+
         public const string Pages_ClientAttachments = "Pages.ClientAttachments";
         public const string Pages_ClientAttachments_Create = "Pages.ClientAttachments.Create";
         public const string Pages_ClientAttachments_Edit = "Pages.ClientAttachments.Edit";

@@ -16,6 +16,7 @@
             {
                 <input type="hidden" name="id" value="@Model.EmailTemplate.Id" />
             }
+            <input type="hidden" name="EmailBody" id="EmailBody" value="" />
             <div class="my-3">
                 <label class="form-label" for="EmailTemplate_Title">@L("Title")</label>
                 <input class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_Title" value="@Model.EmailTemplate.Title" type="text" name="Title" required maxlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MaxTitleLength" minlength="@Zeta.AgentosCRM.CRMSetup.Email.EmailTemplateConsts.MinTitleLength" />
@@ -28,18 +29,52 @@
             
             <div class="my-3">
                 <label class="form-label" for="EmailTemplate_EmailBody">@L("Body")</label>
+
+                <div id="kt_docs_quill_basic1" name="kt_docs_quill_basic" class="min-h-200px">
+                    @if (Model.EmailTemplate != null)
+                    {
+                        @Html.Raw(Model.EmailTemplate.EmailBody)
+                    }
+                </div>
+                
                 @* <div id="kt_docs_quill_basic" name="kt_docs_quill_basic" class="min-h-200px">
                 </div> *@
-                <textarea rows="3" class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_EmailBody" type="text" name="EmailBody">@Model.EmailTemplate.EmailBody</textarea>
+                @* <textarea rows="3" class="form-control  custom-small-input rounded-0 input-sm" id="EmailTemplate_EmailBody" type="text" name="EmailBody">@Model.EmailTemplate.EmailBody</textarea> *@
                 @* <input class="form-control" id="FeeType_Name" value="Name" type="text" name="name" required maxlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MaxNameLength" minlength="@Zeta.AgentosCRM.CRMSetup.FeeType.FeeTypeConsts.MinNameLength" /> *@
             </div>
-            <div class="my-3">
+           @*  <div class="my-3">
                 <label class="form-label" for="FeeType_Name">@L("Attachments")</label>
                 <input type="file" id="actual-btn" hidden/>
                 <label for="actual-btn">Add files</label>
-            </div>
+            </div> *@
         </form>
     </div>
 </div>
+@* <div class="card-title">
+    <div class="card-title">
+        <h3 class="card-label">
+            Quill Editor
+        </h3>
+    </div>
+</div>
+<form class="form">
+    <div class="card-body">
+        <div class="mb-5">
+            <div id="kt_docs_quill_basic1" name="kt_docs_quill_basic" class="min-h-200px">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary emailnotes" type="button">@L("Submit")</button>
+    </div>
+</form> *@
 
-@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+@* @await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml") *@
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="closeEmailSetupBtn" class="btn btn-secondary btn-sm btn-outline text-white close-button rounded-0 ">
+        <i class="fa fa-save"></i> @L("Close")
+    </button>
+    <button type="button" id="saveEmailSetupBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Save")
+    </button>
+</div>

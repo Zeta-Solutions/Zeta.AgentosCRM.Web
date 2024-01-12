@@ -418,9 +418,9 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.Quotation,
                         L("Quotation"),
-                        url: "AppAreaName/Clients",
+                        url: "AppAreaName/Quotation",
                         icon: "flaticon-file-1"
-                    , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
+                    //, permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
                     )
 
                 )

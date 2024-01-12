@@ -416,7 +416,9 @@
                 datarows.push(dataRowItem);
             }
 
+            var taxRowCounter = $('.total').length;
 
+            $("#ProductCount").val(taxRowCounter);
             // Convert the array to a JSON string
             var QuotationDetails = JSON.stringify(datarows);
             QuotationDetails = JSON.parse(QuotationDetails);
@@ -446,12 +448,19 @@
 
         $('#saveBtn').click(function () {
             save(function () {
-                window.location = "/AppAreaName/Clients";
+                var taxRowCounter = $('.total').length;
+
+                $("#ProductCount").val(taxRowCounter);
+                window.location = "/AppAreaName/Quotation";
+                //location.reload();
             });
         });
 
         $('#saveAndNewBtn').click(function () {
             save(function () {
+                var taxRowCounter = $('.total').length;
+
+                $("#ProductCount").val(taxRowCounter);
                 if (!$('input[name=id]').val()) {//if it is create page
                     clearForm();
                 }

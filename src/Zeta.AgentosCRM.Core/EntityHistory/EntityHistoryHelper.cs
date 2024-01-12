@@ -29,6 +29,7 @@ using System.Linq;
 using Abp.Organizations;
 using Zeta.AgentosCRM.Authorization.Roles;
 using Zeta.AgentosCRM.MultiTenancy;
+using Zeta.AgentosCRM.Tenants.Email;
 
 namespace Zeta.AgentosCRM.EntityHistory
 {
@@ -44,6 +45,7 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(SentEmail),
             typeof(ClientAttachment),
             typeof(ProductBranch),
             typeof(ProductFeeDetail),

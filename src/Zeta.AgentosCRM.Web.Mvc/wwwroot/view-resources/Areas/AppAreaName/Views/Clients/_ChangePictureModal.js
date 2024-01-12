@@ -43,7 +43,7 @@
                 abp.notify.warn(app.localize('PleaseSelectAPicture'));
                 return;
             }
-
+             
             var file = files[0];
 
             //File type check
