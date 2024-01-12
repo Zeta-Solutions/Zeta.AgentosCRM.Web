@@ -18,7 +18,9 @@
   }
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
 <abp-page-subheader title='@L("Agent")' description='@L("AgentHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+     <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden>@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
+    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
+     <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
     <a href="@Url.Action("CreateOrEdit", "Agents", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewAgent")</a>
 
 </abp-page-subheader>
@@ -46,6 +48,12 @@
                 <div class="col-md-12">
                 </div>
 
+                <div class="col-md-3" hidden>
+                    <div class="my-3">
+                        <label class="form-label" for="AbbrivationFilterId">@L("TabValues")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup"  name="TabValues" id="TabValues" value="0">
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="my-3">
                         <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
@@ -69,14 +77,35 @@
                     <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
                 </div>
             </div>
+
+            
+            <div class="card navbar-link-card-Tab-height pt-1 pr-1 pl-2 d-flex">
+                    <div class="card-Head CardTab">
+                <div class="d-flex h-30px navbar-link-card-Allign">
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder ml-3 pl-2" id="tabs">
+                    <li class="nav-item">
+                            <a href="#ActivitiesTab" id="Active" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                            @L("Active")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a href="#ApplicationTab" id="Inactive" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            @L("Inactive")
+                        </a>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+ 
             <div class="row align-items-center">
                 <div class="table-responsive">
                 <table id="AgentsTable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead gy-7">
                         <tr> 
                            <th class="align-middle" style="padding:2px"></th>
-                            <th><input type="checkbox"></th> 
-                              <th>@L("Name")</th>
+                                <th><input id="SelectAllCheckBox" type="checkbox"></th>
+                                <th>@L("Name")</th>
                             <th>@L("Type")</th>
                             <th>@L("Stucture")</th> 
                             <th>@L("Phone")</th>

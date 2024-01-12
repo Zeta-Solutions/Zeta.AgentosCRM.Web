@@ -20,8 +20,12 @@
 
                 <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
                      @* <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
-            <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0">@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
+    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0"><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
+    <button id="ChangeAssignee" class="btn btn-success btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0"> @L("ChangeAssignee")</button>
     
+     <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+     
                      @if (IsGranted(AppPermissions.Pages_Clients_Create))
                      {
         @* <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewCient")</button> *@
@@ -55,6 +59,12 @@
 					</div>
 
 
+							<div class="col-md-3" hidden>
+								<div class="my-3">
+									<label class="form-label fw-bold text-dark" for="FirstNameFilterId">@L("TabValues")</label>
+									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="TabValues" id="TabValues" value="0">
+								</div>
+                            </div>
 							<div class="col-md-3">
 								<div class="my-3">
 									<label class="form-label fw-bold text-dark" for="FirstNameFilterId">@L("FirstName")</label>
@@ -158,13 +168,50 @@
                         <span id="ShowAdvancedFiltersSpan" class="text-muted clickable-item"><i class="fa fa-angle-down"></i> @L("ShowAdvancedFilters")</span>
                         <span id="HideAdvancedFiltersSpan" class="text-muted clickable-item" style="display: none"><i class="fa fa-angle-up"></i> @L("HideAdvancedFilters")</span>
                     </div>
-                </div>
+                </div> 
+
+        <div class="card navbar-link-card-Tab-height pt-1 pr-1 pl-2 d-flex">
+                    <div class="card-Head CardTab">
+                <div class="d-flex h-30px navbar-link-card-Allign">
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder ml-3 pl-2" id="tabs">
+                    <li class="nav-item">
+                            <a href="#ActivitiesTab" id="Prospects" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                            @L("Prospects")
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a href="#ApplicationTab" id="clients" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            @L("Clients")
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                            <a href="#ApplicationTab" id="Archived" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            @L("Archived")
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+ 
+@* <div>
+    <div class="tab-content ">
+            <div class="tab-pane pt-5 mb-7 active" id="ActivitiesTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Activites/Activity.cshtml")
+            </div>
+        </div>
+            
+    </div>
+</div> *@
             <div class="row align-items-center">
                 <table id="ClientsTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead gy-7">
                         <tr>
 							   <th class="align-middle" style="padding:2px"></th>
-                                <th><input type="checkbox"></th>
+                                <th><input id="SelectAllCheckBox" type="checkbox"></th>
             <th >@L("Name")</th>
             <th >@L("Tagname")</th>
             <th >@L("Phone")</th>

@@ -197,7 +197,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.CRMSetup,
                         L("CRMSetup"),
-                        icon: "flaticon-settings"
+                        icon: "flaticon-settings",
+                        isVisible:false
                     ).AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.MasterCategories,
                         L("MasterCategories"),

@@ -1,6 +1,7 @@
 ﻿(function () {
 	$("#kt_app_sidebar_toggle").trigger("click");
 
+	$('.btnSmsMail').hide();
 	$(function () {
 
 		var _$partnersTable = $('#PartnersTable');
@@ -131,7 +132,7 @@
 					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id;
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-							'<div class="ellipsis"><input type="checkbox" ></div>' +
+							'<div><input type="checkbox" class="custom-checkbox" ></div>' +
 							'</div>';
 
 
@@ -401,6 +402,46 @@
 
 
 
+		$(document).on('click', '#SelectAllCheckBox', function () {
+			chkAll();
+		})
+		function chkAll() {
+			debugger;
+			// Get the "Select All" checkbox
+			var chkAll = $("#SelectAllCheckBox");
+
+			// Get all the checkboxes except for the "Select All" checkbox
+			var checkboxes = $("input.custom-checkbox").not(chkAll);
+
+			// If the "Select All" checkbox is checked, check all the other checkboxes
+			if (chkAll.prop("checked")) {
+				checkboxes.prop("checked", true);
+				//$(".card").hide();
+				$(".btnSmsMail").show();
+
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				checkboxes.prop("checked", false);
+				$(".btnSmsMail").hide();
+
+			}
+		}
+
+
+		$('#PartnersTable').on('click', '.custom-checkbox', function () {
+			// Access the checked state of the clicked checkbox
+			var isChecked = $(this).prop('checked'); 
+			if (isChecked == true) {
+				$(".btnSmsMail").show();
+
+			}
+			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+			else {
+				$(".btnSmsMail").hide();
+
+			}
+		});
 
 	});
 })();
