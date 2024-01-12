@@ -48,6 +48,7 @@ using Zeta.AgentosCRM.Net.Emailing;
 using Zeta.AgentosCRM.Notifications;
 using Zeta.AgentosCRM.WebHooks;
 using Newtonsoft.Json;
+using Zeta.AgentosCRM.Net.Sms;
 
 namespace Zeta.AgentosCRM
 {
@@ -96,7 +97,7 @@ namespace Zeta.AgentosCRM
             //Configuration.Modules.ZeroLdap().Enable(typeof(AppLdapAuthenticationSource));
 
             //Twilio - Enable this line to activate Twilio SMS integration
-            //Configuration.ReplaceService<ISmsSender,TwilioSmsSender>();
+            Configuration.ReplaceService<ISmsSender, TwilioSmsSender>();
 
             //Adding DynamicEntityParameters definition providers
             Configuration.DynamicEntityProperties.Providers.Add<AppDynamicEntityPropertyDefinitionProvider>();

@@ -4,10 +4,10 @@
     {
 
         public const int MinDegreeTitleLength = 1;
-        public const int MaxDegreeTitleLength = 30;
+        public const int MaxDegreeTitleLength = 100;
 
         public const int MinInstitutionLength = 1;
-        public const int MaxInstitutionLength = 30;
+        public const int MaxInstitutionLength = 100;
 
     }
 }

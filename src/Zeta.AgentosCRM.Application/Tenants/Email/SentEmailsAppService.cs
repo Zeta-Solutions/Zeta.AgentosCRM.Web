@@ -2,7 +2,6 @@
 using Zeta.AgentosCRM.Tenants.Email.Configuration;
 using Zeta.AgentosCRM.CRMClient;
 using Zeta.AgentosCRM.CRMApplications;
-
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
