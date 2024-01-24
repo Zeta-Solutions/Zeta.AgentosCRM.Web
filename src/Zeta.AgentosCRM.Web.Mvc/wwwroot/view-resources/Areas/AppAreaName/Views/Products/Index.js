@@ -94,7 +94,10 @@
                 ajaxFunction: _productsService.getAll,
                 inputFilter: function () {
                     return {
-
+                        filter: $('#ProductsTableFilter').val(),
+                        nameFilter: $('#NameFilterId').val(),
+                        branchNameFilter: $('#BranchFilterId').val(),
+                        partnerTypeNameFilter: $('#ProductTypeFilterId').val(), 
                         partnerIdFilter: ContactPartnerValue,
                     };
                 },
@@ -272,10 +275,11 @@
 
         $('#ExportToExcelButton').click(function () {
             _productsService
-                .getMasterCategoriesToExcel({
-                    filter: $('#LeadSourcesTableFilter').val(),
-                    abbrivationFilter: $('#AbbrivationFilterId').val(),
+                .getProductsToExcel({
+                    filter: $('#ProductsTableFilter').val(),
                     nameFilter: $('#NameFilterId').val(),
+                    branchNameFilter: $('#BranchFilterId').val(),
+                    partnerTypeNameFilter: $('#ProductTypeFilterId').val(),
                 })
                 .done(function (result) {
                     app.downloadTempFile(result);

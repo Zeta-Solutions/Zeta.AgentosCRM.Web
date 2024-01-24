@@ -25,6 +25,7 @@ namespace Zeta.AgentosCRM.CRMClient
         Task CreateOrEdit(CreateOrEditClientDto input);
 
         Task UpdateClientIsArchived(UpdateArchivedClientDto input);
+        Task UpdateClientAssignee(UpdateClientAssigneeDto input);
 
         Task Delete(EntityDto<long> input);
 

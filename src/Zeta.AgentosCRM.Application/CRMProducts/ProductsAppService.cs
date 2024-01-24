@@ -54,7 +54,11 @@ namespace Zeta.AgentosCRM.CRMProducts
                         .Include(e => e.PartnerFk)
                         .Include(e => e.PartnerTypeFk)
                         .Include(e => e.BranchFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter) || e.Duration.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.Note.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || 
+                        e.Name.Contains(input.Filter) || e.Duration.Contains(input.Filter) || 
+                        e.Description.Contains(input.Filter) || e.Note.Contains(input.Filter) || 
+                        e.BranchFk.Name.Contains(input.Filter) || e.PartnerTypeFk.Name.Contains(input.Filter)
+                        )
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DurationFilter), e => e.Duration.Contains(input.DurationFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))

@@ -1,7 +1,7 @@
 ﻿(function () {
 	$("#kt_app_sidebar_toggle").trigger("click");
 
-	$('.btnSmsMail').hide();
+	//$('.btnSmsMail').hide();
 	$(function () {
 
 		var _$partnersTable = $('#PartnersTable');
@@ -104,8 +104,11 @@
 					debugger;
 					return {
 						filter: $('#PartnersTableFilter').val(),
-						/*		abbrivationFilter: $('#AbbrivationFilterId').val(),*/
-						nameFilter: $('#NameFilterId').val(),
+						partnerNameFilter: $('#NameFilter').val(), 
+						workflowNameFilter: $('#WorkFlowNameFilter').val(),
+						partnerTypeNameFilter: $('#PartnerTypeFilter').val(),
+						cityFilter: $('#CityFilter').val(), 
+						emailFilter: $('#EmailFilter').val(), 
 					};
 				},
 			},
@@ -117,12 +120,7 @@
 						return '';
 					},
 					targets: 0,
-				},
-				//{
-				//	targets: 1,
-				//	data: 'partner.abbrivation',
-				//	name: 'abbrivation',
-				//},
+				}, 
 				{
 					targets: 1,
 					data: null,
@@ -132,10 +130,9 @@
 					render: function (data, type, full, meta) { 
 						var rowId = data.partner.id;
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-							'<div><input type="checkbox" class="custom-checkbox" ></div>' +
-							'</div>';
-
-
+							'<div><input type="checkbox" class="custom-checkbox" value="' + data.partner.email + '"></div>' +
+							'<input hidden class="phoneNo" value="' + data.partner.phoneNo + '"></div>' +
+							'</div>'; 
 						return contaxtMenu;
 					}
 				},
@@ -308,26 +305,15 @@
 
 
 		$('#ExportToExcelButton').click(function () {
-			_clientsService
-				.getClientsToExcel({
-					filter: $('#ClientsTableFilter').val(),
-					firstNameFilter: $('#FirstNameFilterId').val(),
-					lastNameFilter: $('#LastNameFilterId').val(),
-					emailFilter: $('#EmailFilterId').val(),
-					phoneNoFilter: $('#PhoneNoFilterId').val(),
-					minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
-					maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
-					universityFilter: $('#UniversityFilterId').val(),
-					minRatingFilter: $('#MinRatingFilterId').val(),
-					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
-					userNameFilter: $('#UserNameFilterId').val(),
-					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val(),
-					countryName3Filter: $('#CountryName3FilterId').val()
+			_partnersService
+				.getPartnersToExcel({
+					filter: $('#PartnersTableFilter').val(),
+					partnerNameFilter: $('#NameFilter').val(),
+					workflowNameFilter: $('#WorkFlowNameFilter').val(),
+					partnerTypeNameFilter: $('#PartnerTypeFilter').val(),
+					cityFilter: $('#CityFilter').val(),
+					emailFilter: $('#EmailFilter').val(),
+					 
 				})
 				.done(function (result) {
 					app.downloadTempFile(result);
@@ -402,9 +388,85 @@
 
 
 
+		//$(document).on('click', '#SelectAllCheckBox', function () {
+		//	chkAll();
+		//})
+		//function chkAll() {
+		//	debugger;
+		//	// Get the "Select All" checkbox
+		//	var chkAll = $("#SelectAllCheckBox");
+
+		//	// Get all the checkboxes except for the "Select All" checkbox
+		//	var checkboxes = $("input.custom-checkbox").not(chkAll);
+
+		//	// If the "Select All" checkbox is checked, check all the other checkboxes
+		//	if (chkAll.prop("checked")) {
+		//		checkboxes.prop("checked", true);
+		//		//$(".card").hide();
+		//		//$(".btnSmsMail").show();
+		//		var elements = document.getElementsByClassName("btnSmsMail");
+
+		//		// Loop through the collection and remove the "hidden" attribute for each element
+		//		for (var i = 0; i < elements.length; i++) {
+		//			elements[i].removeAttribute("hidden");
+		//		}
+		//	}
+		//	// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+		//	else {
+		//		checkboxes.prop("checked", false);
+		//		//$(".btnSmsMail").hide();
+		//		var elements = document.getElementsByClassName("btnSmsMail");
+
+		//		// Loop through the collection and apply the "hidden" attribute for each element
+		//		for (var i = 0; i < elements.length; i++) {
+		//			elements[i].setAttribute("hidden", true);
+		//		}
+		//	}
+		//}
+
+
+
+		var selectedCheckboxes = [];
+		var commaSeparatedEmails; 
+		var commaSeparatedPhoneNo;
 		$(document).on('click', '#SelectAllCheckBox', function () {
 			chkAll();
-		})
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
+		});
+
+		$(document).on('click', 'input.custom-checkbox', function () {
+			if (!$(this).prop("checked")) {
+				debugger
+				// If any custom checkbox is unchecked, uncheck the "Select All" checkbox
+				$("#SelectAllCheckBox").prop("checked", false);
+				//$(".btnSmsMail").hide();
+			}
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
+		});
+
+		function updateSelectedCheckboxes() {
+			selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+				return $(this).val();
+			}).get();
+
+			commaSeparatedEmails = selectedCheckboxes.join(',');
+
+			debugger
+			console.log(commaSeparatedEmails);
+		}
+
+		function updateSelectedCheckboxesPhoneNo() {
+			selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+				return $(".context-menu .phoneNo").val();
+			}).get();
+
+			commaSeparatedPhoneNo = selectedCheckboxes.join(',');
+
+			debugger
+			console.log(commaSeparatedPhoneNo);
+		}
 		function chkAll() {
 			debugger;
 			// Get the "Select All" checkbox
@@ -417,31 +479,87 @@
 			if (chkAll.prop("checked")) {
 				checkboxes.prop("checked", true);
 				//$(".card").hide();
-				$(".btnSmsMail").show();
+				//$(".btnSmsMail").show();
+				var elements = document.getElementsByClassName("btnSmsMail");
 
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].removeAttribute("hidden");
+				}
 			}
 			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
 			else {
 				checkboxes.prop("checked", false);
-				$(".btnSmsMail").hide();
+				//$(".btnSmsMail").hide();
+				var elements = document.getElementsByClassName("btnSmsMail");
 
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].setAttribute("hidden", true);
+				}
 			}
 		}
 
 
-		$('#PartnersTable').on('click', '.custom-checkbox', function () {
-			// Access the checked state of the clicked checkbox
-			var isChecked = $(this).prop('checked'); 
-			if (isChecked == true) {
-				$(".btnSmsMail").show();
+		//$('#PartnersTable').on('click', '.custom-checkbox', function () {
+		//	// Access the checked state of the clicked checkbox
+		//	var isChecked = $(this).prop('checked');
+		//	if (isChecked == true) {
+		//		//$(".btnSmsMail").show();
+		//		var elements = document.getElementsByClassName("btnSmsMail");
 
-			}
-			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
-			else {
-				$(".btnSmsMail").hide();
+		//		// Loop through the collection and remove the "hidden" attribute for each element
+		//		for (var i = 0; i < elements.length; i++) {
+		//			elements[i].removeAttribute("hidden");
+		//		}
+		//	}
+		//	// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
+		//	else {
+		//		//$(".btnSmsMail").hide();
+		//		var elements = document.getElementsByClassName("btnSmsMail");
 
+		//		// Loop through the collection and apply the "hidden" attribute for each element
+		//		for (var i = 0; i < elements.length; i++) {
+		//			elements[i].setAttribute("hidden", true);
+		//		}
+		//	}
+		//});
+
+		$('#PartnersTable').on('click', 'input.custom-checkbox', function () {
+			// Check if any of the checkboxes are checked
+			var anyChecked = $('.custom-checkbox:checked').length > 0;
+
+			// If any checkbox is checked, show the button
+			if (anyChecked) {
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].removeAttribute("hidden");
+				}
+			} else {
+
+				var elements = document.getElementsByClassName("btnSmsMail");
+
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].setAttribute("hidden", true);
+				}
 			}
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
 		});
 
+
+		$(document).on('click', '#SendMail', function (e) {
+			e.preventDefault();
+			debugger
+			var Email = commaSeparatedEmails;
+			$("#GetEmail").val(Email);
+			_createOrEditModalEmail.open();
+
+		});
+		$(document).on('click', '#SendBulkSMS', function (e) {
+			e.preventDefault();
+			debugger
+			var PhoneNo = commaSeparatedPhoneNo;
+			alert(PhoneNo);
+		});
 	});
 })();

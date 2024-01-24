@@ -50,9 +50,14 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation
             var filteredClientQuotationHeads = _clientQuotationHeadRepository.GetAll()
                         .Include(e => e.ClientFk)
                         .Include(e => e.CurrencyFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.ClientEmail.Contains(input.Filter) || e.ClientName.Contains(input.Filter))
-                        .WhereIf(input.MinDueDateFilter != null, e => e.DueDate >= input.MinDueDateFilter)
-                        .WhereIf(input.MaxDueDateFilter != null, e => e.DueDate <= input.MaxDueDateFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || 
+                        e.ClientEmail.Contains(input.Filter) || e.ClientName.Contains(input.Filter)||
+                        e.ClientFk.FirstName.Contains(input.Filter) || e.ClientFk.LastName.Contains(input.Filter)
+                        )
+                        .WhereIf(input.DueDateFilter != null, e => e.DueDate == input.DueDateFilter)
+                        .WhereIf(input.TotalAmountFilter != 0, e => e.TotalAmount == input.TotalAmountFilter)
+                        //.WhereIf(input.MinDueDateFilter != null, e => e.DueDate >= input.MinDueDateFilter)
+                        //.WhereIf(input.MaxDueDateFilter != null, e => e.DueDate <= input.MaxDueDateFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientEmailFilter), e => e.ClientEmail.Contains(input.ClientEmailFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientNameFilter), e => e.ClientName.Contains(input.ClientNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)

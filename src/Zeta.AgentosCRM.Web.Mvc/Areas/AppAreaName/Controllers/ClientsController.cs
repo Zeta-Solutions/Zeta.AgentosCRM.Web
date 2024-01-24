@@ -940,5 +940,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             return PartialView("Conversation/_SendEmail");
         }
         #endregion
+
+
+
+        #region changeAssignee
+        public PartialViewResult ClientChangeAssignee()
+        {
+
+            return PartialView("ClientChangeAssignee/_CreateOrEditModal");
+        }
+        #endregion
     }
 }

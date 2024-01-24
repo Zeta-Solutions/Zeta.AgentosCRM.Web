@@ -328,6 +328,12 @@
 
 
         });
+        // Function to validate date format
+        function isValidDateFormat(dateString) {
+            // Validate date format "MM/DD/YYYY"
+            var regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/\d{4}$/;
+            return regex.test(dateString);
+        }
 
 
 
@@ -338,13 +344,39 @@
             processing: true,
             listAction: {
                 ajaxFunction: _clientQuotationHeadsService.getAll,
+                //inputFilter: function () {
+                //    //return {
+                //    //    filter: $('#QuotationsTableFilter').val(),
+                //    //    minDueDateFilter: $('#DateFilter').val(),
+                //    //    clientNameFilter: $('#NameFilterId').val(),
+                //    //};
+
+                //},
                 inputFilter: function () {
+                    debugger
+                    var filter = $('#QuotationsTableFilter').val();
+                    var dueDateFilter = $('#DateFilter').val();
+                    var clientNameFilter = $('#NameFilterId').val();
+                    //var totalAmountFilter = $('#TotalAmountFilter').val();
+
+                     debugger
+                    if (dueDateFilter && !isValidDateFormat(dueDateFilter)) { 
+                       
+                        return null;  
+                    }
+                    //if (totalAmountFilter == null || totalAmountFilter=="") { 
+                       
+                    //    return null;  
+                    //}
+
                     return {
-                        filter: $('#NameFilterId').val(),
-                        TimeZoneFilter: $('#TimeZoneFilterId').val(),
-                        nameFilter: $('#NameFilterId').val(),
+                        filter: filter,
+                        dueDateFilter: dueDateFilter,
+                        clientNameFilter: clientNameFilter,
+                        //totalAmountFilter: totalAmountFilter,
                     };
                 },
+                 
             },
             columnDefs: [
                 {
