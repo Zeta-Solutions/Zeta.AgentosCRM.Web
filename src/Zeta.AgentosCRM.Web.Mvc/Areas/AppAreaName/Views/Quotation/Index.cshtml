@@ -16,7 +16,7 @@
   }
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
 <abp-page-subheader title='@L("Quotation")' description='@L("QuotationHeaderInfo")'>
-    <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+    <button id="ExportToExcelButton" hidden class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
   <button id="CreateNewQuotationButton" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddnewQuotation")</button>
 
 </abp-page-subheader>
@@ -32,7 +32,7 @@
                             <div class="input-group">
 
                                 <input type="text" id="QuotationsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetQuotationsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>
+                                <button id="GetQuotationsButton" class="btn btn-sm  rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                             </div>
                         </div>
 
@@ -45,17 +45,23 @@
 
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="my-3">
                         <label class="form-label" for="NameFilterId">@L("Name")</label>
                         <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="DateFilter">@L("DueDate")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="dateFilter" id="DateFilter">
+                    </div>
+                </div>
+                @* <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="TotalAmountFilter">@L("TotalFee")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="totalAmountFilter" id="TotalAmountFilter">
+                    </div>
+                </div> *@
                 <div class="col-md-12 mt-5">
                     <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
                 </div>

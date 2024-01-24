@@ -1,19 +1,18 @@
 ﻿(function () {
     $("#kt_app_sidebar_toggle").trigger("click");
     $('.tag').select2();
-    $('.btnSmsMail').hide();
+    //$('.btnSmsMail').hide();
 
     $(function () {
 
         var _$clientsTable = $('#ClientsTable');
         console.log(_$clientsTable);
         var _clientsService = abp.services.app.clients;
-        var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client'; 
+        var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
         var $selectedDate = {
             startDate: null,
             endDate: null,
         }
-        debugger
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -121,7 +120,7 @@
                         binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
                         degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
                         subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
                         countryNameFilter: $('#CountryName3FilterId').val()
                     };
                 }
@@ -142,10 +141,13 @@
                     autoWidth: false,
                     defaultContent: '',
                     render: function (data, type, full, meta) {
-                       /* console.log(data);*/
+                        /* console.log(data);*/
                         var rowId = data.client.id;
+                        console.log(rowId);
                         var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-                            '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                            '<div><input type="checkbox" class="custom-checkbox" value="' + data.client.email + '"></div>' +
+                            '<input hidden class="phoneNo" value="' + data.client.phoneNo + '"></div>' +
+                            '<input hidden class="clientchangeassignee" value="' + data.client.id + '"></div>' +
                             '</div>';
 
 
@@ -164,15 +166,15 @@
                         let lastNameInitial = row.client.lastName.charAt(0).toUpperCase();
                         let initials = `${firstNameInitial}${lastNameInitial}`;
                         let fullName = `${row.client.firstName} ${row.client.lastName}`;
-                       
-                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
-                         let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
-                         let profilePicture = row.imageBytes
+
+                        let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
+                        let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
+                        let profilePicture = row.imageBytes
                         return `
     <div class="d-flex align-items-center">
          ${profilePicture
-                            ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
-                            : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+                                ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
         <div class="d-flex flex-column">
             <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
                 ${fullName}
@@ -207,11 +209,11 @@
                         let countryName = row.countryName;
 
                         let fullName = `${city} <br> ${countryName}`;
-                         
+
                         return ` ${fullName}`;
                     },
                     name: 'concatenatedData',
-                }, 
+                },
                 {
                     targets: 6,
                     data: "userName",
@@ -231,7 +233,7 @@
                     render: function (data, type, row) {
                         let isDiscontinue = row.client.isAnyApplicationActive;
                         let count = row.client.applicationCount;
-                         
+
                         if (isDiscontinue == false && count > 0) {
                             return `<span style="color: red; font-size: 14px;">&#8226;Discontinue</span>`;
                         } else if (isDiscontinue == true && count > 0) {
@@ -241,7 +243,7 @@
                         }
                     },
 
-                    name: 'concatenatedData', 
+                    name: 'concatenatedData',
                 },
                 {
                     targets: 9,
@@ -252,15 +254,15 @@
                     targets: 10,
                     data: 'client.lastModificationTime',
                     name: 'lastModificationTime',
-               
+
                     render: function (lastModificationTime) {
                         if (lastModificationTime) {
                             return moment(lastModificationTime).format('L');
                         }
                         return "";
                     }
-                }, 
-                 
+                },
+
                 {
                     targets: 11,
                     width: 30,
@@ -291,12 +293,105 @@
                 },
             ]
         });
+        //$(".custom-checkbox").click(function () {
+        //    debugger
 
+
+        //});
         function getClients() {
             dataTable.ajax.reload();
         }
 
+        function tabgetClients() {
+            debugger
+            if ($("#TabValues").val() == 1) {
 
+
+                var filters = {
+                    filter: $('#ClientsTableFilter').val(),
+                    firstNameFilter: $('#FirstNameFilterId').val(),
+                    lastNameFilter: $('#LastNameFilterId').val(),
+                    emailFilter: $('#EmailFilterId').val(),
+                    phoneNoFilter: $('#PhoneNoFilterId').val(),
+                    minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                    maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                    universityFilter: $('#UniversityFilterId').val(),
+                    minRatingFilter: $('#MinRatingFilterId').val(),
+                    maxRatingFilter: $('#MaxRatingFilterId').val(),
+                    countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                    userNameFilter: $('#UserNameFilterId').val(),
+                    binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                    degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                    subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                    countryNameFilter: $('#CountryName3FilterId').val(),
+                    isArchived: false,
+                };
+            }
+
+            else if ($("#TabValues").val() == 2) {
+
+
+                var filters = {
+                    filter: $('#ClientsTableFilter').val(),
+                    firstNameFilter: $('#FirstNameFilterId').val(),
+                    lastNameFilter: $('#LastNameFilterId').val(),
+                    emailFilter: $('#EmailFilterId').val(),
+                    phoneNoFilter: $('#PhoneNoFilterId').val(),
+                    minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                    maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                    universityFilter: $('#UniversityFilterId').val(),
+                    minRatingFilter: $('#MinRatingFilterId').val(),
+                    maxRatingFilter: $('#MaxRatingFilterId').val(),
+                    countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                    userNameFilter: $('#UserNameFilterId').val(),
+                    binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                    degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                    subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                    countryNameFilter: $('#CountryName3FilterId').val(),
+                    isArchived: true,
+                };
+            }
+
+            else if ($("#TabValues").val() == 0) {
+
+
+                var filters = {
+                    filter: $('#ClientsTableFilter').val(),
+                    firstNameFilter: $('#FirstNameFilterId').val(),
+                    lastNameFilter: $('#LastNameFilterId').val(),
+                    emailFilter: $('#EmailFilterId').val(),
+                    phoneNoFilter: $('#PhoneNoFilterId').val(),
+                    minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                    maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                    universityFilter: $('#UniversityFilterId').val(),
+                    minRatingFilter: $('#MinRatingFilterId').val(),
+                    maxRatingFilter: $('#MaxRatingFilterId').val(),
+                    countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                    userNameFilter: $('#UserNameFilterId').val(),
+                    binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                    degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                    subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                    countryNameFilter: $('#CountryName3FilterId').val(),
+                };
+            }
+            var filters = JSON.stringify(filters);
+            filters = JSON.parse(filters)
+            // dataTable.ajax.reload();
+            _clientsService.getAll(filters)
+                .then(function (data) {
+                    debugger
+                    console.log('Data from service:', data);
+                    //dataTable.ajax.reload();
+                    dataTable.clear().rows.add(data.items).draw();
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+
+        }
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.ellipsis', function (e) {
             e.preventDefault();
@@ -327,9 +422,8 @@
         // Handle menu item clicks
         $(document).on('click', '.EmailForm', function (e) {
             e.preventDefault();
-            debugger
             var rowId = $(this).data('id');
-            var Email=$(this).text();
+            var Email = $(this).text();
             $("#GetEmail").val(Email);
             _createOrEditModalEmail.open(rowId);
 
@@ -342,26 +436,24 @@
             var action = $(this).data('action');
 
             // Handle the selected action based on the rowId
-            if (action === 'view') { 
+            if (action === 'view') {
                 window.location = "/AppAreaName/Clients/ClientProfileDetail/" + rowId;
 
-            } else if (action === 'edit') { 
+            } else if (action === 'edit') {
                 window.location = "/AppAreaName/Clients/ClientCreateDetail/" + rowId;
 
             } else if (action === 'delete') {
-                debugger
                 deleteClient(rowId);
             }
             else if (action === 'archived') {
-                 alert("Archiuved Tab")
                 if ($("#TabValues").val() == 2) {
                     var inputData = {
                         clientId: rowId,
                         isArchived: 0
                     };
                 }
-                else   {
-                 
+                else {
+
                     var inputData = {
                         clientId: rowId,
                         isArchived: 1
@@ -372,7 +464,6 @@
                 _clientsService
                     .updateClientIsArchived(Steps)
                     .done(function () {
-                        //debugger
                         abp.notify.info(app.localize('ArchivedSuccessfully'));
                         location.reload();
                     })
@@ -382,13 +473,47 @@
         $(document).on('click', '.text-truncate', function (e) {
             e.preventDefault(); // Prevent the default behavior of the link
             window.location.href = $(this).attr('href'); // Redirect to the specified URL
-        }); 
-          
+        });
+
+        var selectedCheckboxes = [];
+        var commaSeparatedEmails;
+        var commaSeparatedPhoneNo;
+
         $(document).on('click', '#SelectAllCheckBox', function () {
             chkAll();
-        })
+            updateSelectedCheckboxes();
+            updateSelectedCheckboxesPhoneNo();
+        });
+
+        $(document).on('click', 'input.custom-checkbox', function () {
+            if (!$(this).prop("checked")) {
+                // If any custom checkbox is unchecked, uncheck the "Select All" checkbox
+                $("#SelectAllCheckBox").prop("checked", false);
+                //$(".btnSmsMail").hide();
+            }
+            updateSelectedCheckboxes();
+            updateSelectedCheckboxesPhoneNo();
+        });
+
+        function updateSelectedCheckboxes() {
+            selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+                return $(this).val();
+            }).get();
+
+            commaSeparatedEmails = selectedCheckboxes.join(',');
+
+        }
+        function updateSelectedCheckboxesPhoneNo() {
+
+            selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+                return $(".context-menu .phoneNo").val();
+            }).get();
+
+            commaSeparatedPhoneNo = selectedCheckboxes.join(',');
+
+            console.log(commaSeparatedPhoneNo);
+        }
         function chkAll() {
-             debugger;
             // Get the "Select All" checkbox
             var chkAll = $("#SelectAllCheckBox");
 
@@ -399,34 +524,71 @@
             if (chkAll.prop("checked")) {
                 checkboxes.prop("checked", true);
                 //$(".card").hide();
-                $(".btnSmsMail").show();
+                //$(".btnSmsMail").show();
+                var elements = document.getElementsByClassName("btnSmsMail");
 
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].removeAttribute("hidden");
+                }
             }
             // If the "Select All" checkbox is not checked, uncheck all the other checkboxes
             else {
                 checkboxes.prop("checked", false);
-                $(".btnSmsMail").hide();
+                //$(".btnSmsMail").hide();
+                var elements = document.getElementsByClassName("btnSmsMail");
 
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].setAttribute("hidden", true);
+                }
             }
         }
 
+        $('#ClientsTable').on('click', 'input.custom-checkbox', function () {
+            // Check if any of the checkboxes are checked
+            debugger
+            var anyChecked = $('.custom-checkbox:checked').length > 0;
 
-        $('#ClientsTable').on('click', '.custom-checkbox', function () {
-            // Access the checked state of the clicked checkbox
-            var isChecked = $(this).prop('checked'); 
-            if (isChecked == true) { 
-                $(".btnSmsMail").show();
+            // If any checkbox is checked, show the button
+            if (anyChecked) {
+                var elements = document.getElementsByClassName("btnSmsMail");
 
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].removeAttribute("hidden");
+                }
+            } else {
+
+                var elements = document.getElementsByClassName("btnSmsMail");
+
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].setAttribute("hidden", true);
+                }
             }
-            // If the "Select All" checkbox is not checked, uncheck all the other checkboxes
-            else { 
-                $(".btnSmsMail").hide();
+            updateSelectedCheckboxes();
+            updateSelectedCheckboxesPhoneNo();
+        });
 
-            }
+
+        $(document).on('click', '#SendMail', function (e) {
+            e.preventDefault();
+            var Email = commaSeparatedEmails;
+            $("#GetEmail").val(Email);
+            _createOrEditModalEmail.open();
+
+        });
+        $(document).on('click', '#SendBulkSMS', function (e) {
+            e.preventDefault();
+            debugger
+            var PhoneNo = commaSeparatedPhoneNo;
+            alert(PhoneNo);
         });
         $(document).on('click', '#Prospects', function () {
 
-            var Prospect = 0; 
+
+            $("#SelectAllCheckBox").prop("checked", false);
+            commaSeparatedEmails = "";
+            commaSeparatedPhoneNo = "";
+
+            var Prospect = 0;
             $("#TabValues").val(Prospect);
             if ($.fn.DataTable.isDataTable('#ClientsTable')) {
                 var table = $('#ClientsTable').DataTable();
@@ -438,27 +600,27 @@
                 processing: true,
                 listAction: {
                     ajaxFunction: _clientsService.getAll,
-                    inputFilter: function () {
-                        return {
-                            filter: $('#ClientsTableFilter').val(),
-                            firstNameFilter: $('#FirstNameFilterId').val(),
-                            lastNameFilter: $('#LastNameFilterId').val(),
-                            emailFilter: $('#EmailFilterId').val(),
-                            phoneNoFilter: $('#PhoneNoFilterId').val(),
-                            minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
-                            maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
-                            universityFilter: $('#UniversityFilterId').val(),
-                            minRatingFilter: $('#MinRatingFilterId').val(),
-                            maxRatingFilter: $('#MaxRatingFilterId').val(),
-                            countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
-                            userNameFilter: $('#UserNameFilterId').val(),
-                            binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-                            degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-                            subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                            leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-                            countryNameFilter: $('#CountryName3FilterId').val(), 
-                        };
-                    }
+                    //inputFilter: function () {
+                    //    return {
+                    //        filter: $('#ClientsTableFilter').val(),
+                    //        firstNameFilter: $('#FirstNameFilterId').val(),
+                    //        lastNameFilter: $('#LastNameFilterId').val(),
+                    //        emailFilter: $('#EmailFilterId').val(),
+                    //        phoneNoFilter: $('#PhoneNoFilterId').val(),
+                    //        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                    //        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                    //        universityFilter: $('#UniversityFilterId').val(),
+                    //        minRatingFilter: $('#MinRatingFilterId').val(),
+                    //        maxRatingFilter: $('#MaxRatingFilterId').val(),
+                    //        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                    //        userNameFilter: $('#UserNameFilterId').val(),
+                    //        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                    //        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                    //        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                    //        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                    //        countryNameFilter: $('#CountryName3FilterId').val(), 
+                    //    };
+                    //}
                 },
                 columnDefs: [
                     {
@@ -479,8 +641,11 @@
                             /* console.log(data);*/
                             var rowId = data.client.id;
                             var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '<div><input type="checkbox" class="custom-checkbox" value="' + data.client.email + '"></div>' +
+                                '<input hidden class="phoneNo" value="' + data.client.phoneNo + '"></div>' +
+                                '<input hidden class="clientId" value="' + data.client.id + '"></div>' +
                                 '</div>';
+
 
 
                             return contaxtMenu;
@@ -575,7 +740,7 @@
                             }
                         },
 
-                        name: 'concatenatedData', 
+                        name: 'concatenatedData',
                     },
                     {
                         targets: 9,
@@ -593,7 +758,7 @@
                             }
                             return "";
                         }
-                    }, 
+                    },
                     {
                         targets: 11,
                         width: 30,
@@ -624,11 +789,15 @@
                     },
                 ]
             });
-            
-        });
-        $(document).on('click', '#clients', function () { 
 
-            var clients = 1; 
+        });
+        $(document).on('click', '#clients', function () {
+
+            $("#SelectAllCheckBox").prop("checked", false);
+            commaSeparatedEmails = "";
+            commaSeparatedPhoneNo = "";
+
+            var clients = 1;
             $("#TabValues").val(clients)
             //if ($.fn.DataTable.isDataTable('#ClientsTable')) {
             //    $('#ClientsTable').DataTable().destroy();
@@ -681,11 +850,14 @@
                         orderable: false,
                         autoWidth: false,
                         defaultContent: '',
-                        render: function (data, type, full, meta) { 
+                        render: function (data, type, full, meta) {
                             var rowId = data.client.id;
                             var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '<div><input type="checkbox" class="custom-checkbox" value="' + data.client.email + '"></div>' +
+                                '<input hidden class="phoneNo" value="' + data.client.phoneNo + '"></div>' +
+                                '<input hidden class="clientId" value="' + data.client.id + '"></div>' +
                                 '</div>';
+
 
 
                             return contaxtMenu;
@@ -780,7 +952,7 @@
                             }
                         },
 
-                        name: 'concatenatedData', 
+                        name: 'concatenatedData',
                     },
                     {
                         targets: 9,
@@ -798,7 +970,7 @@
                             }
                             return "";
                         }
-                    }, 
+                    },
 
                     {
                         targets: 11,
@@ -833,7 +1005,11 @@
         });
         $(document).on('click', '#Archived', function () {
 
-            var Archived = 2; 
+            $("#SelectAllCheckBox").prop("checked", false);
+            commaSeparatedEmails = "";
+            commaSeparatedPhoneNo = "";
+
+            var Archived = 2;
             $("#TabValues").val(Archived)
             if ($.fn.DataTable.isDataTable('#ClientsTable')) {
                 var table = $('#ClientsTable').DataTable();
@@ -883,11 +1059,14 @@
                         orderable: false,
                         autoWidth: false,
                         defaultContent: '',
-                        render: function (data, type, full, meta) { 
+                        render: function (data, type, full, meta) {
                             var rowId = data.client.id;
                             var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-                                '<div><input type="checkbox" class="custom-checkbox" ></div>' +
+                                '<div><input type="checkbox" class="custom-checkbox" value="' + data.client.email + '"></div>' +
+                                '<input hidden class="phoneNo" value="' + data.client.phoneNo + '"></div>' +
+                                '<input hidden class="clientId" value="' + data.client.id + '"></div>' +
                                 '</div>';
+
 
 
                             return contaxtMenu;
@@ -982,7 +1161,7 @@
                             }
                         },
 
-                        name: 'concatenatedData', 
+                        name: 'concatenatedData',
                     },
                     {
                         targets: 9,
@@ -1000,7 +1179,7 @@
                             }
                             return "";
                         }
-                    }, 
+                    },
                     {
                         targets: 11,
                         width: 30,
@@ -1033,7 +1212,6 @@
             });
         });
         function deleteClient(client) {
-            debugger
             abp.message.confirm(
                 '',
                 app.localize('AreYouSure'),
@@ -1049,7 +1227,7 @@
                 }
             );
         }
-        
+
         $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
             $('#HideAdvancedFiltersSpan').show();
@@ -1066,6 +1244,40 @@
             window.location.href = abp.appPath + 'AppAreaName/Clients/ClientCreateDetail';
 
         });
+
+        var _createOrEditModalChangeAssignee = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Clients/ClientChangeAssignee',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/ClientChangeAssignee/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditChangeAssignee',
+        });
+
+        //$('#ChangeAssignee').click(function () {
+
+        //    e.preventDefault(); 
+
+        //    _createOrEditModalChangeAssignee.open();
+
+        //});
+
+
+
+        $(document).on('click', '#ChangeAssignee', function (e) {
+            e.preventDefault();
+
+
+            _createOrEditModalChangeAssignee.open();
+
+
+        });
+        //$(document).on('change', '#LastNameFilterId', function (e) {
+
+        //    e.preventDefault();
+
+
+        //    getClients();
+
+
+        //});
         //Client Tags Modal
         //$('#CreateNewClientsTagsButton').click(function () {
         //     _createOrEditClientTagModal.open();
@@ -1078,30 +1290,131 @@
         //    getClientsTags();
         //});
         $('#ExportToExcelButton').click(function () {
-            debugger 
-            _clientsService
-                .getClientsToExcel({
-                    filter: $('#ClientsTableFilter').val(),
-                    firstNameFilter: $('#FirstNameFilterId').val(),
-                    lastNameFilter: $('#LastNameFilterId').val(),
-                    emailFilter: $('#EmailFilterId').val(),
-                    phoneNoFilter: $('#PhoneNoFilterId').val(),
-                    minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
-                    maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
-                    universityFilter: $('#UniversityFilterId').val(),
-                    minRatingFilter: $('#MinRatingFilterId').val(),
-                    maxRatingFilter: $('#MaxRatingFilterId').val(),
-                    countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
-                    userNameFilter: $('#UserNameFilterId').val(),
-                    binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-                    degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-                    subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-                    leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
-                    countryNameFilter: $('#CountryName3FilterId').val()
-                })
-                .done(function (result) {
-                    app.downloadTempFile(result);
-                });
+            debugger
+            //_clientsService
+            //    .getClientsToExcel({
+            //        filter: $('#ClientsTableFilter').val(),
+            //        firstNameFilter: $('#FirstNameFilterId').val(),
+            //        lastNameFilter: $('#LastNameFilterId').val(),
+            //        emailFilter: $('#EmailFilterId').val(),
+            //        phoneNoFilter: $('#PhoneNoFilterId').val(),
+            //        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+            //        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+            //        universityFilter: $('#UniversityFilterId').val(),
+            //        minRatingFilter: $('#MinRatingFilterId').val(),
+            //        maxRatingFilter: $('#MaxRatingFilterId').val(),
+            //        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+            //        userNameFilter: $('#UserNameFilterId').val(),
+            //        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+            //        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+            //        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+            //        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(), 
+            //        countryNameFilter: $('#CountryName3FilterId').val()
+            //    })
+            //    .done(function (result) {
+            //        app.downloadTempFile(result);
+            //    });
+
+
+
+
+
+            if ($("#TabValues").val() == 1) {
+
+                _clientsService
+                    .getClientsToExcel({
+                        filter: $('#ClientsTableFilter').val(),
+                        firstNameFilter: $('#FirstNameFilterId').val(),
+                        lastNameFilter: $('#LastNameFilterId').val(),
+                        emailFilter: $('#EmailFilterId').val(),
+                        phoneNoFilter: $('#PhoneNoFilterId').val(),
+                        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                        universityFilter: $('#UniversityFilterId').val(),
+                        minRatingFilter: $('#MinRatingFilterId').val(),
+                        maxRatingFilter: $('#MaxRatingFilterId').val(),
+                        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                        userNameFilter: $('#UserNameFilterId').val(),
+                        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                        countryNameFilter: $('#CountryName3FilterId').val(),
+                        isArchived: false,
+                    })
+                    .done(function (result) {
+                        app.downloadTempFile(result);
+                    })
+                    .fail(function (error) {
+                        alert(error)
+                        console.error('Error fetching data:', error);
+                    });
+
+
+            }
+
+            else if ($("#TabValues").val() == 2) {
+
+                _clientsService
+                    .getClientsToExcel({
+                        filter: $('#ClientsTableFilter').val(),
+                        firstNameFilter: $('#FirstNameFilterId').val(),
+                        lastNameFilter: $('#LastNameFilterId').val(),
+                        emailFilter: $('#EmailFilterId').val(),
+                        phoneNoFilter: $('#PhoneNoFilterId').val(),
+                        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                        universityFilter: $('#UniversityFilterId').val(),
+                        minRatingFilter: $('#MinRatingFilterId').val(),
+                        maxRatingFilter: $('#MaxRatingFilterId').val(),
+                        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                        userNameFilter: $('#UserNameFilterId').val(),
+                        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                        countryNameFilter: $('#CountryName3FilterId').val(),
+                        isArchived: true,
+                    })
+                    .done(function (result) {
+                        app.downloadTempFile(result);
+                    })
+                    .fail(function (error) {
+                        alert(error)
+                        console.error('Error fetching data:', error);
+                    });
+            }
+
+            else if ($("#TabValues").val() == 0) {
+
+                _clientsService
+                    .getClientsToExcel({
+                        filter: $('#ClientsTableFilter').val(),
+                        firstNameFilter: $('#FirstNameFilterId').val(),
+                        lastNameFilter: $('#LastNameFilterId').val(),
+                        emailFilter: $('#EmailFilterId').val(),
+                        phoneNoFilter: $('#PhoneNoFilterId').val(),
+                        minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
+                        maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
+                        universityFilter: $('#UniversityFilterId').val(),
+                        minRatingFilter: $('#MinRatingFilterId').val(),
+                        maxRatingFilter: $('#MaxRatingFilterId').val(),
+                        countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
+                        userNameFilter: $('#UserNameFilterId').val(),
+                        binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
+                        degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
+                        subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
+                        leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
+                        countryNameFilter: $('#CountryName3FilterId').val()
+                    })
+                    .done(function (result) {
+                        app.downloadTempFile(result);
+                    })
+                    .fail(function (error) {
+                        alert(error)
+                        console.error('Error fetching data:', error);
+                    });
+            }
         });
 
         abp.event.on('app.createOrEditClientModalSaved', function () {
@@ -1124,12 +1437,14 @@
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            getClients();
+            debugger
+            //getClients();
+            tabgetClients();
         });
 
         $('#btn-reset-filters').click(function (e) {
             $('.reload-on-change,.reload-on-keyup,#MyEntsTableFilter').val('');
             getClients();
-        }); 
+        });
     });
 })();

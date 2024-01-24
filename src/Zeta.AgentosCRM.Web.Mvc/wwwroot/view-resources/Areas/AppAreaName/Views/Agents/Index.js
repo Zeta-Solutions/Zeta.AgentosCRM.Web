@@ -108,9 +108,11 @@
 				inputFilter: function () {
 					debugger;
 					return {
-						filter: $('#PartnersTableFilter').val(),
-						/*		abbrivationFilter: $('#AbbrivationFilterId').val(),*/
-						nameFilter: $('#NameFilterId').val(),
+						filter: $('#AgentsTableFilter').val(),
+						nameFilter: $('#NameFilterId').val(), 
+						phoneNoFilter: $('#PhoneFilterId').val(),
+						cityFilter: $('#CityFilterId').val(),
+						emailFilter: $('#EmailFilterId').val(), 
 					};
 				},
 			},
@@ -122,25 +124,18 @@
 						return '';
 					},
 					targets: 0,
-				},
-				//{
-				//	targets: 1,
-				//	data: 'partner.abbrivation',
-				//	name: 'abbrivation',
-				//},
+				}, 
 				{
 					targets: 1,
 					data: null,
 					orderable: false,
 					autoWidth: false,
 					defaultContent: '',
-					render: function (data, type, full, meta) {
-						console.log(data);
-						var rowId = data.agent.id;
+					render: function (data, type, full, meta) { 
 						var contaxtMenu = '<div class="context-menu" style="position: absolute;">' +
-							'<div><input type="checkbox" class="custom-checkbox" ></div>' +
-							'</div>';
-
+							'<div><input type="checkbox" class="custom-checkbox" value="' + data.agent.email + '"></div>' +
+							'<input hidden class="phoneNo" value="' + data.agent.phoneNo + '"></div>' +
+							'</div>'; 
 
 						return contaxtMenu;
 					}
@@ -273,6 +268,7 @@
 			var rowId = $(this).data('id');
 			var Email = $(this).text();
 			$("#GetEmail").val(Email);
+
 			_createOrEditModalEmail.open(rowId);
 
 		});
@@ -313,26 +309,13 @@
 
 
 		$('#ExportToExcelButton').click(function () {
-			_clientsService
-				.getClientsToExcel({
-					filter: $('#ClientsTableFilter').val(),
-					firstNameFilter: $('#FirstNameFilterId').val(),
-					lastNameFilter: $('#LastNameFilterId').val(),
-					emailFilter: $('#EmailFilterId').val(),
-					phoneNoFilter: $('#PhoneNoFilterId').val(),
-					minDateofBirthFilter: getDateFilter($('#MinDateofBirthFilterId')),
-					maxDateofBirthFilter: getMaxDateFilter($('#MaxDateofBirthFilterId')),
-					universityFilter: $('#UniversityFilterId').val(),
-					minRatingFilter: $('#MinRatingFilterId').val(),
-					maxRatingFilter: $('#MaxRatingFilterId').val(),
-					countryDisplayPropertyFilter: $('#CountryDisplayPropertyFilterId').val(),
-					userNameFilter: $('#UserNameFilterId').val(),
-					binaryObjectDescriptionFilter: $('#BinaryObjectDescriptionFilterId').val(),
-					degreeLevelNameFilter: $('#DegreeLevelNameFilterId').val(),
-					subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
-					leadSourceNameFilter: $('#LeadSourceNameFilterId').val(),
-					countryName2Filter: $('#CountryName2FilterId').val(),
-					countryName3Filter: $('#CountryName3FilterId').val()
+			_agentsService
+				.getAgentsToExcel({
+					filter: $('#AgentsTableFilter').val(), 
+					nameFilter: $('#NameFilterId').val(),
+					phoneNoFilter: $('#PhoneFilterId').val(),
+					cityFilter: $('#CityFilterId').val(),
+					emailFilter: $('#EmailFilterId').val(), 
 				})
 				.done(function (result) {
 					debugger
@@ -407,11 +390,46 @@
 		});
 
 
+		var selectedCheckboxes = [];  
+		var commaSeparatedEmails;
+		var commaSeparatedPhoneNo;
 		$(document).on('click', '#SelectAllCheckBox', function () {
 			chkAll();
-		})
-		function chkAll() {
-			debugger;
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
+		});
+
+		$(document).on('click', 'input.custom-checkbox', function () {
+			if (!$(this).prop("checked")) {
+				debugger 
+				$("#SelectAllCheckBox").prop("checked", false); 
+			}
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
+		});
+
+		function updateSelectedCheckboxes() { 
+			selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+				return $(this).val();
+			}).get(); 
+
+			 commaSeparatedEmails = selectedCheckboxes.join(',');
+
+			debugger 
+			console.log(commaSeparatedEmails);
+		}
+
+		function updateSelectedCheckboxesPhoneNo() {
+			selectedCheckboxes = $("input.custom-checkbox:checked").map(function () {
+				return $(".context-menu .phoneNo").val();
+			}).get();
+
+			commaSeparatedPhoneNo = selectedCheckboxes.join(',');
+
+			debugger
+			console.log(commaSeparatedPhoneNo);
+		}
+		function chkAll() { 
 			// Get the "Select All" checkbox
 			var chkAll = $("#SelectAllCheckBox");
 
@@ -425,7 +443,6 @@
 				//$(".btnSmsMail").show();
 				var elements = document.getElementsByClassName("btnSmsMail");
 
-				// Loop through the collection and remove the "hidden" attribute for each element
 				for (var i = 0; i < elements.length; i++) {
 					elements[i].removeAttribute("hidden");
 				}
@@ -436,38 +453,51 @@
 				//$(".btnSmsMail").hide();
 				var elements = document.getElementsByClassName("btnSmsMail");
 
-				// Loop through the collection and apply the "hidden" attribute for each element
 				for (var i = 0; i < elements.length; i++) {
 					elements[i].setAttribute("hidden", true);
 				}
 			}
 		}
+		 
 
+		$('#AgentsTable').on('click', 'input.custom-checkbox', function () {
+			// Check if any of the checkboxes are checked
+			var anyChecked = $('.custom-checkbox:checked').length > 0;
 
-		$('#AgentsTable').on('click', '.custom-checkbox', function () {
-			// Access the checked state of the clicked checkbox
-			var isChecked = $(this).prop('checked');
-			if (isChecked == true) {
-				//$(".btnSmsMail").show();
+			// If any checkbox is checked, show the button
+			if (anyChecked) {
 				var elements = document.getElementsByClassName("btnSmsMail");
 
-				// Loop through the collection and remove the "hidden" attribute for each element
 				for (var i = 0; i < elements.length; i++) {
 					elements[i].removeAttribute("hidden");
 				}
-			}
-			// If the "Select All" checkbox is not checked, uncheck all the other checkboxes
-			else {
-				//$(".btnSmsMail").hide();
+			} else {
+
 				var elements = document.getElementsByClassName("btnSmsMail");
 
-				// Loop through the collection and apply the "hidden" attribute for each element
 				for (var i = 0; i < elements.length; i++) {
 					elements[i].setAttribute("hidden", true);
 				}
 			}
+			updateSelectedCheckboxes();
+			updateSelectedCheckboxesPhoneNo();
 		});
 
+
+		$(document).on('click', '#SendMail', function (e) {
+			e.preventDefault();
+			debugger 
+			var Email = commaSeparatedEmails;
+			$("#GetEmail").val(Email);
+			_createOrEditModalEmail.open();
+
+		});
+		$(document).on('click', '#SendBulkSMS', function (e) {
+			e.preventDefault();
+			debugger
+			var PhoneNo = commaSeparatedPhoneNo;
+			alert(PhoneNo);
+		});
 
 		$(document).on('click', '#Active', function () {
 
@@ -481,6 +511,9 @@
         });
 		$(document).on('click', '#Inactive', function () {
 
+			//$("#SelectAllCheckBox").prop("checked", false);
+			//commaSeparatedEmails = "";
+			//commaSeparatedPhoneNo = "";
             var clients = 1;
             $("#TabValues").val(clients) 
         });

@@ -39,5 +39,6 @@ namespace Zeta.AgentosCRM.CRMClient.Dtos
 
         public string PassportCountryFilter { get; set; }
 
+        public bool? IsArchived { get; set; }
     }
 }

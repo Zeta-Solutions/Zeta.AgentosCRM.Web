@@ -9,6 +9,7 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 
         public DateTime? MaxDueDateFilter { get; set; }
         public DateTime? MinDueDateFilter { get; set; }
+        public DateTime? DueDateFilter { get; set; }
 
         public string ClientEmailFilter { get; set; }
 
@@ -18,6 +19,8 @@ namespace Zeta.AgentosCRM.CRMClient.Quotation.Dtos
 
         public string CRMCurrencyNameFilter { get; set; }
         public long? ClientIdFilter { get; set; }
+
+        public decimal TotalAmountFilter { get; set; }
 
     }
 }

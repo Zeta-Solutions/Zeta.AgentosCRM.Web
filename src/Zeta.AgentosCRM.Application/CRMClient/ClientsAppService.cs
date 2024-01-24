@@ -2,7 +2,7 @@
 using Zeta.AgentosCRM.Authorization.Users;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.CRMSetup;
-using Zeta.AgentosCRM.CRMSetup.LeadSource; 
+using Zeta.AgentosCRM.CRMSetup.LeadSource;
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -27,6 +27,7 @@ using Zeta.AgentosCRM.Authorization.Users.Profile.Dto;
 using Zeta.AgentosCRM.CRMClient.Conversation;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Newtonsoft.Json;
 
 namespace Zeta.AgentosCRM.CRMClient
 {
@@ -151,10 +152,10 @@ namespace Zeta.AgentosCRM.CRMClient
 
                           join o8 in _lookup_agentRepository.GetAll() on o.AgentId equals o8.Id into j8
                           from s8 in j8.DefaultIfEmpty()
-                          
+
                           join o9 in _lookup_ClientTagRepository.GetAll() on o.Id equals o9.ClientId into j9
                           from s9 in j9.DefaultIfEmpty()
-                          
+
                           join o10 in _lookup_TagRepository.GetAll() on s9.TagId equals o10.Id into j10
                           from s10 in j10.DefaultIfEmpty()
 
@@ -162,8 +163,8 @@ namespace Zeta.AgentosCRM.CRMClient
                               //from s12 in j12.DefaultIfEmpty()
 
                           let ApplicationCount = (from p in _lookup_applicationRepository.GetAll()
-                                               where o.Id == p.ClientId
-                                               select p.Id
+                                                  where o.Id == p.ClientId
+                                                  select p.Id
                                             ).Count()
 
 
@@ -179,46 +180,46 @@ namespace Zeta.AgentosCRM.CRMClient
                           //group new { o, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s12 } by o.Id into g
 
                           select new
-                          { 
-                               o.FirstName,
-                               o.LastName,
-							   o.Email,
-							   o.PhoneNo,
-							   o.PhoneCode,
-                               o.DateofBirth,
-                               o.ContactPreferences,
-                               o.University,
-                               o.Street,
-                               o.City,
-                               o.State,
-                               o.ZipCode,
-                               o.PreferedIntake,
-                               o.PassportNo,
-                               o.VisaType,
-                               o.VisaExpiryDate,
-                               o.Rating,
-                               o.ClientPortal,
-                               o.Id,
-                               o.ProfilePictureId,
-                               o.CountryId,
-                               o.LastModificationTime,
-                               ApplicationCount, //g.Count(entry => entry.s12 != null && entry.s12.Name != null),
+                          {
+                              o.FirstName,
+                              o.LastName,
+                              o.Email,
+                              o.PhoneNo,
+                              o.PhoneCode,
+                              o.DateofBirth,
+                              o.ContactPreferences,
+                              o.University,
+                              o.Street,
+                              o.City,
+                              o.State,
+                              o.ZipCode,
+                              o.PreferedIntake,
+                              o.PassportNo,
+                              o.VisaType,
+                              o.VisaExpiryDate,
+                              o.Rating,
+                              o.ClientPortal,
+                              o.Id,
+                              o.ProfilePictureId,
+                              o.CountryId,
+                              o.LastModificationTime,
+                              ApplicationCount, //g.Count(entry => entry.s12 != null && entry.s12.Name != null),
 
 
-                               IsAnyApplicationActive= IsAnyApplicationActive>0 ? true:false,//g.Any(entry => entry.s12 != null && entry.s12.IsDiscontinue==false),
+                              IsAnyApplicationActive = IsAnyApplicationActive > 0 ? true : false,//g.Any(entry => entry.s12 != null && entry.s12.IsDiscontinue==false),
 
 
-							  CountryName =  s1 == null ||  s1.Name == null ? "" :  s1.Name.ToString(),
-                              UserName =  s2 == null ||  s2.Name == null ? "" :  s2.Name.ToString(),
-                              BinaryObjectDescription =  s3 == null ||  s3.Description == null ? "" :  s3.Description.ToString(),
-                              ImageBytes =  s3 == null ||  s3.Bytes == null ? "" : Convert.ToBase64String( s3.Bytes),
-                              DegreeLevelName =  s4 == null ||  s4.Name == null ? "" :  s4.Name.ToString(),
-                              SubjectAreaName =  s5 == null ||  s5.Name == null ? "" :  s5.Name.ToString(),
-                              LeadSourceName =  s6 == null ||  s6.Name == null ? "" :  s6.Name.ToString(),
-                              PassportCountry =  s7 == null ||  s7.Name == null ? "" :  s7.Name.ToString(),
-                              AgentName =  s8 == null ||  s8.Name == null ? "" :  s8.Name.ToString(),
-                              TagName =  s10 == null ||  s10.Name == null ? "" :  s10.Name.ToString(),
-							 // IsDiscontinue = s12 == null || s12.IsDiscontinue == true ? false : s12.IsDiscontinue
+                              CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
+                              UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                              BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
+                              ImageBytes = s3 == null || s3.Bytes == null ? "" : Convert.ToBase64String(s3.Bytes),
+                              DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                              SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
+                              LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
+                              PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
+                              AgentName = s8 == null || s8.Name == null ? "" : s8.Name.ToString(),
+                              TagName = s10 == null || s10.Name == null ? "" : s10.Name.ToString(),
+                              // IsDiscontinue = s12 == null || s12.IsDiscontinue == true ? false : s12.IsDiscontinue
                           };
 
             var totalCount = await filteredClients.CountAsync();
@@ -249,11 +250,11 @@ namespace Zeta.AgentosCRM.CRMClient
                         PassportNo = o.PassportNo,
                         VisaType = o.VisaType,
                         VisaExpiryDate = o.VisaExpiryDate,
-						LastModificationTime = o.LastModificationTime,
-						Rating = o.Rating,
+                        LastModificationTime = o.LastModificationTime,
+                        Rating = o.Rating,
                         ClientPortal = o.ClientPortal,
                         Id = o.Id,
-                        ProfilePictureId=o.ProfilePictureId,
+                        ProfilePictureId = o.ProfilePictureId,
                         CountryId = o.CountryId,
                         ApplicationCount = o.ApplicationCount,
                         IsAnyApplicationActive = o.IsAnyApplicationActive,
@@ -266,7 +267,7 @@ namespace Zeta.AgentosCRM.CRMClient
                     LeadSourceName = o.LeadSourceName,
                     PassportCountry = o.PassportCountry,
                     AgentName = o.AgentName,
-                    TagName = o.TagName, 
+                    TagName = o.TagName,
                     ImageBytes = o.ImageBytes,
                 };
 
@@ -384,7 +385,7 @@ namespace Zeta.AgentosCRM.CRMClient
             {
                 var _lookupCountry = await _lookup_countryRepository.FirstOrDefaultAsync((int)output.Client.PassportCountryId);
                 output.PassportCountry = _lookupCountry?.Name?.ToString();
-            } 
+            }
 
             if (output.Client.AgentId != null)
             {
@@ -423,7 +424,7 @@ namespace Zeta.AgentosCRM.CRMClient
 
         [AbpAuthorize(AppPermissions.Pages_Clients_Edit)]
         protected virtual async Task Update(CreateOrEditClientDto input)
-        { 
+        {
             var client = await _clientRepository.FirstOrDefaultAsync((long)input.Id);
             input.ProfilePictureId = client.ProfilePictureId;
             ObjectMapper.Map(input, client);
@@ -440,9 +441,20 @@ namespace Zeta.AgentosCRM.CRMClient
                 // client = new ClientProfile { ClientId = clientId };
                 return;
             }
-            client.Archived = input.IsArchived; 
+            client.Archived = input.IsArchived;
         }
-
+        [AbpAuthorize(AppPermissions.Pages_Clients_Edit)]
+        public async Task UpdateClientAssignee(UpdateClientAssigneeDto input)
+        {
+            var client = await _clientRepository.FirstOrDefaultAsync((long)input.ClientId);
+            if (client == null)
+            {
+                // Create a new client profile if it doesn't exist
+                // client = new ClientProfile { ClientId = clientId };
+                return;
+            }
+            client.AssigneeId = input.AssigneeId;
+        }
         [AbpAuthorize(AppPermissions.Pages_Clients_Delete)]
         public async Task Delete(EntityDto<long> input)
         {
@@ -451,92 +463,110 @@ namespace Zeta.AgentosCRM.CRMClient
 
         public async Task<FileDto> GetClientsToExcel(GetAllClientsForExcelInput input)
         {
+            try
+            {
+                var filteredClients = _clientRepository.GetAll()
+                     .Include(e => e.CountryFk)
+                     .Include(e => e.AssigneeFk)
+                     .Include(e => e.ProfilePictureFk)
+                     .Include(e => e.HighestQualificationFk)
+                     .Include(e => e.StudyAreaFk)
+                     .Include(e => e.LeadSourceFk)
+                     .Include(e => e.PassportCountryFk)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false
+                                  || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter)
+                                  || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter)
+                                  || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter)
+                                  || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter)
+                                  || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter)
+                                  || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter)
+                                  || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter)
+                                  || e.CountryFk.Name.Contains(input.Filter) || e.AssigneeFk.Name.Contains(input.Filter))
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email.Contains(input.EmailFilter))
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNo.Contains(input.PhoneNoFilter))
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneNo.Contains(input.PhoneCodeFilter))
+                     .WhereIf(input.MinDateofBirthFilter != null, e => e.DateofBirth >= input.MinDateofBirthFilter)
+                     .WhereIf(input.MaxDateofBirthFilter != null, e => e.DateofBirth <= input.MaxDateofBirthFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
+                     .WhereIf(input.MinRatingFilter != null, e => e.Rating >= input.MinRatingFilter)
+                     .WhereIf(input.MaxRatingFilter != null, e => e.Rating <= input.MaxRatingFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AssigneeFk != null && e.AssigneeFk.Name == input.UserNameFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.HighestQualificationFk != null && e.HighestQualificationFk.Name == input.DegreeLevelNameFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
+                     .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter)
+                      .WhereIf(input.IsArchived.HasValue, e => e.Archived == input.IsArchived);
+                var query = (from o in filteredClients
+                             join o1 in _lookup_countryRepository.GetAll() on o.CountryId equals o1.Id into j1
+                             from s1 in j1.DefaultIfEmpty()
 
-            var filteredClients = _clientRepository.GetAll()
-                        .Include(e => e.CountryFk)
-                        .Include(e => e.AssigneeFk)
-                        .Include(e => e.ProfilePictureFk)
-                        .Include(e => e.HighestQualificationFk)
-                        .Include(e => e.StudyAreaFk)
-                        .Include(e => e.LeadSourceFk)
-                        .Include(e => e.PassportCountryFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FirstName.Contains(input.Filter) || e.LastName.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.University.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.City.Contains(input.Filter) || e.State.Contains(input.Filter) || e.ZipCode.Contains(input.Filter) || e.PassportNo.Contains(input.Filter) || e.VisaType.Contains(input.Filter) || e.AddedFrom.Contains(input.Filter) || e.SecondaryEmail.Contains(input.Filter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.FirstNameFilter), e => e.FirstName.Contains(input.FirstNameFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LastNameFilter), e => e.LastName.Contains(input.LastNameFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.EmailFilter), e => e.Email.Contains(input.EmailFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneNoFilter), e => e.PhoneNo.Contains(input.PhoneNoFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PhoneCodeFilter), e => e.PhoneNo.Contains(input.PhoneCodeFilter))
-                        .WhereIf(input.MinDateofBirthFilter != null, e => e.DateofBirth >= input.MinDateofBirthFilter)
-                        .WhereIf(input.MaxDateofBirthFilter != null, e => e.DateofBirth <= input.MaxDateofBirthFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UniversityFilter), e => e.University.Contains(input.UniversityFilter))
-                        .WhereIf(input.MinRatingFilter != null, e => e.Rating >= input.MinRatingFilter)
-                        .WhereIf(input.MaxRatingFilter != null, e => e.Rating <= input.MaxRatingFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CountryNameFilter), e => e.CountryFk != null && e.CountryFk.Name == input.CountryNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.AssigneeFk != null && e.AssigneeFk.Name == input.UserNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.BinaryObjectDescriptionFilter), e => e.ProfilePictureFk != null && e.ProfilePictureFk.Description == input.BinaryObjectDescriptionFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.DegreeLevelNameFilter), e => e.HighestQualificationFk != null && e.HighestQualificationFk.Name == input.DegreeLevelNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.SubjectAreaNameFilter), e => e.StudyAreaFk != null && e.StudyAreaFk.Name == input.SubjectAreaNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.LeadSourceNameFilter), e => e.LeadSourceFk != null && e.LeadSourceFk.Name == input.LeadSourceNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.PassportCountryFilter), e => e.PassportCountryFk != null && e.PassportCountryFk.Name == input.PassportCountryFilter);
+                             join o2 in _lookup_userRepository.GetAll() on o.AssigneeId equals o2.Id into j2
+                             from s2 in j2.DefaultIfEmpty()
 
-            var query = (from o in filteredClients
-                         join o1 in _lookup_countryRepository.GetAll() on o.CountryId equals o1.Id into j1
-                         from s1 in j1.DefaultIfEmpty()
+                             join o3 in _lookup_binaryObjectRepository.GetAll() on o.ProfilePictureId equals o3.Id into j3
+                             from s3 in j3.DefaultIfEmpty()
 
-                         join o2 in _lookup_userRepository.GetAll() on o.AssigneeId equals o2.Id into j2
-                         from s2 in j2.DefaultIfEmpty()
+                             join o4 in _lookup_degreeLevelRepository.GetAll() on o.HighestQualificationId equals o4.Id into j4
+                             from s4 in j4.DefaultIfEmpty()
 
-                         join o3 in _lookup_binaryObjectRepository.GetAll() on o.ProfilePictureId equals o3.Id into j3
-                         from s3 in j3.DefaultIfEmpty()
+                             join o5 in _lookup_subjectAreaRepository.GetAll() on o.StudyAreaId equals o5.Id into j5
+                             from s5 in j5.DefaultIfEmpty()
 
-                         join o4 in _lookup_degreeLevelRepository.GetAll() on o.HighestQualificationId equals o4.Id into j4
-                         from s4 in j4.DefaultIfEmpty()
+                             join o6 in _lookup_leadSourceRepository.GetAll() on o.LeadSourceId equals o6.Id into j6
+                             from s6 in j6.DefaultIfEmpty()
 
-                         join o5 in _lookup_subjectAreaRepository.GetAll() on o.StudyAreaId equals o5.Id into j5
-                         from s5 in j5.DefaultIfEmpty()
+                             join o7 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o7.Id into j7
+                             from s7 in j7.DefaultIfEmpty()
 
-                         join o6 in _lookup_leadSourceRepository.GetAll() on o.LeadSourceId equals o6.Id into j6
-                         from s6 in j6.DefaultIfEmpty()
-
-                         join o7 in _lookup_countryRepository.GetAll() on o.PassportCountryId equals o7.Id into j7
-                         from s7 in j7.DefaultIfEmpty()
-
-                         select new GetClientForViewDto()
-                         {
-                             Client = new ClientDto
+                             select new GetClientForViewDto()
                              {
-                                 FirstName = o.FirstName,
-                                 LastName = o.LastName,
-                                 Email = o.Email,
-                                 PhoneNo = o.PhoneNo,
-                                 PhoneCode = o.PhoneCode,
-                                 DateofBirth = o.DateofBirth,
-                                 ContactPreferences = o.ContactPreferences,
-                                 University = o.University,
-                                 Street = o.Street,
-                                 City = o.City,
-                                 State = o.State,
-                                 ZipCode = o.ZipCode,
-                                 PreferedIntake = o.PreferedIntake,
-                                 PassportNo = o.PassportNo,
-                                 VisaType = o.VisaType,
-                                 VisaExpiryDate = o.VisaExpiryDate,
-                                 Rating = o.Rating,
-                                 ClientPortal = o.ClientPortal,
-                                 Id = o.Id
-                             },
-                             CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
-                             UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
-                             BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
-                             DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
-                             SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
-                             LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
-                             PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString()
-                         });
+                                 Client = new ClientDto
+                                 {
+                                     FirstName = o.FirstName,
+                                     LastName = o.LastName,
+                                     Email = o.Email,
+                                     PhoneNo = o.PhoneNo,
+                                     PhoneCode = o.PhoneCode,
+                                     DateofBirth = o.DateofBirth,
+                                     ContactPreferences = o.ContactPreferences,
+                                     University = o.University,
+                                     Street = o.Street,
+                                     City = o.City,
+                                     State = o.State,
+                                     ZipCode = o.ZipCode,
+                                     PreferedIntake = o.PreferedIntake,
+                                     PassportNo = o.PassportNo,
+                                     VisaType = o.VisaType,
+                                     VisaExpiryDate = o.VisaExpiryDate,
+                                     Rating = o.Rating,
+                                     ClientPortal = o.ClientPortal,
+                                     Id = o.Id
+                                 },
+                                 CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
+                                 UserName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
+                                 BinaryObjectDescription = s3 == null || s3.Description == null ? "" : s3.Description.ToString(),
+                                 DegreeLevelName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                                 SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
+                                 LeadSourceName = s6 == null || s6.Name == null ? "" : s6.Name.ToString(),
+                                 PassportCountry = s7 == null || s7.Name == null ? "" : s7.Name.ToString()
+                             });
 
-            var clientListDtos = await query.ToListAsync();
+                var clientListDtos = await query.ToListAsync();
 
-            return _clientsExcelExporter.ExportToFile(clientListDtos);
+                return _clientsExcelExporter.ExportToFile(clientListDtos);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetClientsToExcel: {ex.Message}");
+                 
+                throw;
+            }
+
+         
         }
 
         [AbpAuthorize(AppPermissions.Pages_Clients)]
