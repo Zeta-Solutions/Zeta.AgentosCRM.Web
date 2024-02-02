@@ -20,11 +20,11 @@
 
                 <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
                      @* <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
-    <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0">@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
-    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0"><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
-    <button id="ChangeAssignee" class="btn btn-success btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0"> @L("ChangeAssignee")</button>
+    <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden>@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
+    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
+    <button id="ChangeAssignee" class="btn btn-success btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden> @L("ChangeAssignee")</button>
     
-     <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+     <button id="ExportToExcelButton" hidden class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
      
                      @if (IsGranted(AppPermissions.Pages_Clients_Create))
                      {
@@ -59,9 +59,9 @@
 					</div>
 
 
-							<div class="col-md-3" hidden>
+							<div class="col-md-3" hidden >
 								<div class="my-3">
-									<label class="form-label fw-bold text-dark" for="FirstNameFilterId">@L("TabValues")</label>
+                        <label class="form-label fw-bold text-dark" for="TabValues">@L("TabValues")</label>
 									<input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="TabValues" id="TabValues" value="0">
 								</div>
                             </div>

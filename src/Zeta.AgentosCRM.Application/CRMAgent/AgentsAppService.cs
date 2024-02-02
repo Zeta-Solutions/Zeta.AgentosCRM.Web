@@ -61,7 +61,11 @@ namespace Zeta.AgentosCRM.CRMAgent
             var filteredAgents = _agentRepository.GetAll()
                         .Include(e => e.CountryFk)
                         .Include(e => e.OrganizationUnitFk)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Name.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || e.Email.Contains(input.Filter) || e.City.Contains(input.Filter) || e.Street.Contains(input.Filter) || e.State.Contains(input.Filter) || e.PrimaryContactName.Contains(input.Filter) || e.TaxNo.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false ||
+                         e.Name.Contains(input.Filter) || e.PhoneNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter) || 
+                         e.Email.Contains(input.Filter) || e.City.Contains(input.Filter) || e.Street.Contains(input.Filter) || 
+                         e.State.Contains(input.Filter) || e.PrimaryContactName.Contains(input.Filter) || e.TaxNo.Contains(input.Filter)
+                         )
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter))
                         .WhereIf(input.IsSuperAgentFilter.HasValue && input.IsSuperAgentFilter > -1, e => (input.IsSuperAgentFilter == 1 && e.IsSuperAgent) || (input.IsSuperAgentFilter == 0 && !e.IsSuperAgent))
                         .WhereIf(input.IsBusinessFilter.HasValue && input.IsBusinessFilter > -1, e => (input.IsBusinessFilter == 1 && e.IsBusiness) || (input.IsBusinessFilter == 0 && !e.IsBusiness))

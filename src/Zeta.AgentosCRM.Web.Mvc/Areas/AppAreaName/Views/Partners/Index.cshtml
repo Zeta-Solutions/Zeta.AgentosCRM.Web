@@ -20,8 +20,8 @@
       <script abp-src="/view-resources/Areas/AppAreaName/Views/Partners/ComposeEmail/_Email.js" asp-append-version="true"></script>
 
 <abp-page-subheader title='@L("Partners")' description='@L("PartnersHeaderInfo")'>
-      <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0">@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
-    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0"><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
+      <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden>@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
+    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
     <button id="ExportToExcelButton" class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
     <a href="@Url.Action("CreateOrEdit", "Partners", new { area = "AppAreaName" })" class="btn btn-white btn-outline btn-sm rounded-0">@L("AddNewPartner")</a>
 
@@ -52,14 +52,32 @@
 
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
+                        <label class="form-label" for="NameFilter">@L("Name")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilter">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="my-3">
-                        <label class="form-label" for="NameFilterId">@L("Name")</label>
-                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
+                        <label class="form-label" for="WorkFlowNameFilter">@L("WorkflowName")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="WorkFlowNameFilter">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="PartnerTypeFilter">@L("PartnerType")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="partnerTypeFilter" id="PartnerTypeFilter">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="CityFilter">@L("City")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="CityFilter" id="CityFilter">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="EmailFilter">@L("Email")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="EmailFilter" id="EmailFilter">
                     </div>
                 </div>
 

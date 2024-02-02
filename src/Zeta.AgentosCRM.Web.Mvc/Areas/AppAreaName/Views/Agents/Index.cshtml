@@ -36,7 +36,7 @@
                             <div class="input-group">
 
                                 <input type="text" id="AgentsTableFilter" class="form-control form-control-sm reload-on-change" placeholder='@L("SearchWithThreeDot")' value="">
-                                <button id="GetAgentsButton" class="btn btn-sm" type="submit"><i class="flaticon-search-1"></i></button>
+                                <button id="GetAgentsButton" class="btn btn-sm rounded-0 btnsearch" type="submit"><i class="flaticon-search-1"></i></button>
                                 <input type="hidden" id="GetEmail" class="form-control form-control-sm">
                             </div>
                         </div>
@@ -50,14 +50,8 @@
 
                 <div class="col-md-3" hidden>
                     <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("TabValues")</label>
+                        <label class="form-label" for="TabValues">@L("TabValues")</label>
                         <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup"  name="TabValues" id="TabValues" value="0">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="my-3">
-                        <label class="form-label" for="AbbrivationFilterId">@L("Abbrivation")</label>
-                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="abbrivationFilter" id="AbbrivationFilterId">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -66,7 +60,25 @@
                         <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="nameFilter" id="NameFilterId">
                     </div>
                 </div>
-
+                 
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="PhoneFilterId">@L("PhoneNo")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="PhoneFilter" id="PhoneFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="EmailFilterId">@L("Email")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="emailFilter" id="EmailFilterId">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="my-3">
+                        <label class="form-label" for="CityFilterId">@L("City")</label>
+                        <input type="text" class="form-control custom-small-input rounded-0 input-sm reload-on-keyup" name="cityFilter" id="CityFilterId">
+                    </div>
+                </div>
                 <div class="col-md-12 mt-5">
                     <button class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
                 </div>
@@ -78,8 +90,8 @@
                 </div>
             </div>
 
-            
-            <div class="card navbar-link-card-Tab-height pt-1 pr-1 pl-2 d-flex">
+           @*  
+            <div class="card navbar-link-card-Tab-height pt-1 pr-1 pl-2 d-flex" >
                     <div class="card-Head CardTab">
                 <div class="d-flex h-30px navbar-link-card-Allign">
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder ml-3 pl-2" id="tabs">
@@ -97,7 +109,7 @@
             </div>
         </div>
     </div>
- 
+  *@
             <div class="row align-items-center">
                 <div class="table-responsive">
                 <table id="AgentsTable" class="table border align-middle  fs-8 gy-2 dataTable no-footer">

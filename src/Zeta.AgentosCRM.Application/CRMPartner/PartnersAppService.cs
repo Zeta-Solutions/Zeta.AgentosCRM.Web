@@ -82,7 +82,12 @@ namespace Zeta.AgentosCRM.CRMPartner
                                         e.PhoneNo.Contains(input.Filter) || e.Email.Contains(input.Filter) ||
                                         e.Fax.Contains(input.Filter) || e.Website.Contains(input.Filter) ||
                                         e.University.Contains(input.Filter) || e.MarketingEmail.Contains(input.Filter) ||
-                                        e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter))
+                                        e.BusinessRegNo.Contains(input.Filter) || e.PhoneCode.Contains(input.Filter)||
+                                        e.WorkflowFk.Name.Contains(input.Filter)||
+                                        e.PartnerTypeFk.Name.Contains(input.Filter)||
+                                        e.CountryFk.Name.Contains(input.Filter)||
+                                        e.CurrencyFk.Name.Contains(input.Filter) 
+                                        )
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PartnerNameFilter), e => e.PartnerName.Contains(input.PartnerNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.StreetFilter), e => e.Street.Contains(input.StreetFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CityFilter), e => e.City.Contains(input.CityFilter))

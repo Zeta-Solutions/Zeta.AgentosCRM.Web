@@ -1937,5 +1937,15 @@
 		<text name="EditChekInLogs">Edit Check In Logs</text>     
 		<text name="CheckBox">Check Box</text>     
 		<text name="AssigneeName">Assignee Name</text>     
+		<text name="Prospects">Prospects</text>     
+		<text name="SendMail">Send Mail</text>     
+		<text name="SendBulkSMS">Send Bulk SMS</text>
+		<text name="Inactive">Inactive</text>
+		<text name="ChangeAssignee">Change Assignee</text>     
+		<text name="CreateNewEmail">Create New Email</text>     
+		<text name="EditEmail">Edit Email</text>     
+		<text name="QuotationHeaderInfo">Quotation Header Info</text>     
+		<text name="AddnewQuotation">Addn New Quotation</text>     
+		<text name="SelectClient">Select Client</text>     
 	</texts> 
 </localizationDictionary>
