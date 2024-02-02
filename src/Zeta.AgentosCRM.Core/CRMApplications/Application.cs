@@ -47,6 +47,7 @@ namespace Zeta.AgentosCRM.CRMApplications
         public Product ProductFk { get; set; }
 
         public virtual bool IsDiscontinue { get; set;}
+        public virtual bool IsCompleted { get; set;}
 
     }
 }

@@ -128,6 +128,8 @@ using Zeta.AgentosCRM.Sessions.Dto;
 using Zeta.AgentosCRM.WebHooks.Dto;
 using Zeta.AgentosCRM.Tenants.Email.Dtos;
 using Zeta.AgentosCRM.Tenants.Email;
+using Zeta.AgentosCRM.CRMLead.Dtos;
+using Zeta.AgentosCRM.CRMLead;
 
 namespace Zeta.AgentosCRM
 {
@@ -135,6 +137,10 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditLeadHeadDto, LeadHead>().ReverseMap();
+            configuration.CreateMap<LeadHeadDto, LeadHead>().ReverseMap();
+            configuration.CreateMap<CreateOrEditLeadDetailDto, LeadDetail>().ReverseMap();
+            configuration.CreateMap<LeadDetailDto, LeadDetail>().ReverseMap();
             configuration.CreateMap<CreateOrEditSentEmailDto, SentEmail>().ReverseMap();
             configuration.CreateMap<SentEmailDto, SentEmail>().ReverseMap();
             configuration.CreateMap<CreateOrEditEmailConfigurationDto, EmailConfiguration>().ReverseMap();
