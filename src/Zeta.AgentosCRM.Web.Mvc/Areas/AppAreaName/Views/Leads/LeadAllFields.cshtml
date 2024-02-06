@@ -1,0 +1,805 @@
+﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMLead;
+@model CreateOrEditLeadHeadModelViewModel
+@section Scripts
+    {
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/CRMLead/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+}
+@section Styles
+    {
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true"/>
+   }
+<abp-page-subheader title='@L("Lead")' description='@L("LeadHeaderInfo")'>
+    <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+
+    @* @if (IsGranted(AppPermissions.Pages_FeeTypes_Create))
+    { *@
+    <button id="CreateNewCRMLeadform" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewLead")</button>
+    @*  } *@
+</abp-page-subheader>
+<style>
+    .text-container {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .checkboxLabel {
+        position: absolute;
+        top: 60%;
+        right: 30px;
+        transform: translateY(-50%);
+    }
+
+    .MainHeader {
+        background-color: #9bb0db;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+</style>
+@* <div class="row ml-5">
+<div class="col-md-3 ">
+    <div class="my-3">
+        <label class="form-label" id="exampleInputLabel">@L("Testing Code")</label>
+        <div class="input-group">
+            <input type="checkbox" id="exampleCheckbox" class="form-check-input">
+            <input type="number" class="form-control custom-small-input rounded-0 input-sm" id="TestingInput">
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="my-3">
+        <label class="form-label" id="exampleInputLabel">@L("Name")</label>
+        <div class="input-group">
+            <input type="checkbox" id="exampleCheckbox" class="form-check-input">
+            <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="NameInput">
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="my-3">
+        <label class="form-label" id="exampleInputLabel">@L("Age")</label>
+        <div class="input-group">
+            <input type="checkbox" id="exampleCheckbox" class="form-check-input">
+            <input type="number" class="form-control custom-small-input rounded-0 input-sm" id="exampleInput">
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="my-3">
+        <label class="form-label" id="exampleInputLabel">@L("LastName")</label>
+        <div class="input-group">
+            <input type="checkbox" id="exampleCheckbox" class="form-check-input">
+            <input type="number" class="form-control custom-small-input rounded-0 input-sm" id="exampleInput">
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="my-3">
+        <label class="form-label" id="exampleInputLabel">@L("Testing Code")</label>
+        <div class="input-group">
+            <input type="checkbox" id="exampleCheckbox" class="form-check-input">
+            <input type="number" class="form-control custom-small-input rounded-0 input-sm" id="exampleInput">
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-md-12">
+    <label class="checkbox-bootstrap checkbox-sm">
+        <input class="save_data" id="save_title" type="checkbox" />
+        <span class="checkbox-placeholder"></span>
+    </label>
+    <label for="title">Title (max 120 characters)</label>
+    <input type="text" class="form-control" id="title" placeholder="Title" name="title" autocomplete="off" maxlength="120">
+</div>
+<div class="col-md-12">
+    <label class="checkbox-bootstrap checkbox-sm">
+        <input class="save_data" id="save_title" type="checkbox" />
+        <span class="checkbox-placeholder"></span>
+    </label>
+    <label for="title">select (max 120 characters)</label>
+    <select id="test"></select>
+</div>
+<div class="col-md-12">
+    <label class="checkbox-bootstrap checkbox-sm">
+        <input class="save_data" id="save_title" type="checkbox" />
+        <span class="checkbox-placeholder"></span>
+    </label>
+    <label for="title">datetime (max 120 characters)</label>
+    <input type="datetime" class="form-control" id="datetime" placeholder="datetime" name="datetime" autocomplete="off" maxlength="120">
+</div> *@
+
+
+
+<div class="@(await GetContainerClass())">
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <div class="row card-body my-4">
+                @if (Model.IsEditMode)
+            {
+                <input type="hidden" name="id" value="@Model.LeadHead.Id" />
+            }
+            <input type="hidden" name="Consent" id="Consent" value="" />
+                <input type="hidden" name="PrivacyInfo" id="PrivacyInfo" value="" />
+                 <input type="hidden" name="ProfilePictureId" id="ProfilePictureId" value="" />
+                 <input type="hidden" name="CoverPictureId" id="CoverPictureId" value="" />
+                <div class="col-xl-1" style="text-align: right;">
+                    <i class="fa fa-file"></i>
+                </div>
+                <div class="col-xl-2">
+                    <label for="Formname" style="display: inline-block; text-align: left;">@L("Saveformas*")</label>
+                </div>
+                <div class="col-xl-4">
+                    <input type="text" id="FormName" class="form-control custom-small-input rounded-0 input-sm" style="text-align: left;">
+                </div>
+            </div>
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("ADDCOVERIMAGE")</h5>
+                </div>
+               @*  <div class="col-lg-2">
+
+                    <input type="image" id="image" alt="Login" src="/media/examples/login-button.png" />
+                </div> *@
+                <div class="col-sm-2 text-center margin-top-15 margin-bottom-15">
+                    <img id="CoverImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                    <button class="btn btn-light btn-sm mb-5"  id="changeCoverPicture">@L("ChangeCoverPicture")</button>
+                </div>
+               
+            </div>
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("FormHeader")</h5>
+                </div>
+               @*  <div class="col-lg-2">
+
+                    <input type="image" id="image" alt="Login" src="/media/examples/login-button.png" />
+                </div> *@
+                <div class="col-sm-2 text-center margin-top-15 margin-bottom-15">
+                    <img id="profileImage" src="" width="128" height="128" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />
+                    <button class="btn btn-light btn-sm mb-5" id="changeProfilePicture">@L("ChangeProfilePicture")</button>             
+            </div>
+                <div class="col-lg-3">
+                    <input type="text" id="formTitle" placeholder="Form Title" class="form-control custom-small-input rounded-0 input-sm" />
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" hidden />
+                </div>
+                <div class="col-lg-3">
+                    <textarea id="CardHeader" placeholder="Header Text (e.g: Address/ Contact Details)" class="form-control rounded-0 input-sm" rows="5" cols="5"></textarea>
+                </div>
+            </div>
+
+            <div class="row card-body my-4 mb-3">     
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("PERSONALDETAILS")</h5>
+                    <input type="checkbox" id="SelectAllCheckPersonalDetail" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container ">
+                    <label class="checkbox-bootstrap checkbox-sm  checkboxLabel">
+                        <input class="save_data custom-checkboxPersonalDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("UpdateProfileImage")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm " id="UpdateProfileImage" placeholder="Update Profile Image">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxPersonalDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("FirstName")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="firstname" placeholder="First Name">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxPersonalDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("LastName")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="LastName" placeholder="Last Name">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxPersonalDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("DateOfBrith")</label>
+                    <input type="datetime" class="form-control custom-small-input rounded-0 input-sm" id="DateOfBrith" placeholder="Date Of Brith">
+                </div>
+            </div>
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("CONTACTDETAILS")</h5>
+                    <input type="checkbox" id="SelectAllCheckContactDetail" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxContactDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Phone")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Phone" placeholder="Phone">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxContactDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Email")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Email" placeholder="Email">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxContactDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("SecondryEmail")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="SecondaryEmail" placeholder="Secondary Email">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxContactDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("contactpreferences")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="contactpreferences" placeholder="contact preferences">
+                </div>
+
+
+            </div>
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("ADDRESSDETAILS")</h5>
+                    <input type="checkbox" id="SelectAllCheckAddressDetail" style="margin-left: auto;">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm  checkboxLabel">
+                        <input class="save_data custom-checkboxAddressDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Street")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Street" placeholder="Street">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxAddressDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("City")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="City" placeholder="City">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxAddressDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("State")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="State" placeholder="State">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxAddressDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("PortalCode")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="PortalCode" placeholder="Portal Code">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxAddressDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Country")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Country" placeholder="Country">
+                </div>
+
+            </div>
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("CURRENTVISAINFORMATION")</h5>
+                    <input type="checkbox" id="SelectAllCheckCurrentVisaInfo" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxCurrentVisaInfo" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("VisaType")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="VisaType" placeholder="Visa Type">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxCurrentVisaInfo" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("VisaExpiryDate") </label>
+                    <input type="datetime" class="form-control custom-small-input rounded-0 input-sm" id="VisaExpiryDate" placeholder="Visa Expiry Date">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxCurrentVisaInfo" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("CountryofPassport")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="CountryofPassport" placeholder="Country of Passport">
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("OTHERDETAIL")</h5>
+                    <input type="checkbox" id="SelectAllCheckotherDetail" style="margin-left: auto;">
+                </div>
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxOtherDetail" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("PrefferedIntake")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="PrefferedIntake" placeholder="Preffered Intake">
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("INTERESTEDSERVICES")</h5>
+                    <input type="checkbox" id="SelectAllCheckIntererstedService" style="margin-left: auto;">
+                    </div>
+                <div id="cardContainerInterested"></div>
+                    @*
+                    <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("AustralianEducationWithVise")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="AustralianEduWithVise" placeholder="Australian Education With Vise">
+                </div>
+                
+                 
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("ViseService")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="ViseService" placeholder="Vise Service">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("OSHCInsuranceservice")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="OSHCInsuranceservice" placeholder="OSHC Insurance service">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("AustralianEducationonly")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="AustralianEduOnly" placeholder="AustralianEduOnly">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("AustralianSKillAssessment")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="AustralianSKillAssessment" placeholder="Australian SKill Assessment">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("consultancyAdministrationFee")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="consultancyAdministrationFee" placeholder="consultancy Administration Fee">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("ApplicationFee")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="ApplicationFee" placeholder="Application Fee">
+                </div>
+
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("RPLService")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="RPLService" placeholder="RPL Service">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("AATAppeal")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="AATAppeal" placeholder="AAT Appeal">
+                </div> *@
+
+
+
+
+            </div>
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("EDUCATIONBACKGROUND") </h5>
+                    <input type="checkbox" id="SelectAllCheckEduBackGround" style="margin-left: auto;">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("DegreeTitle")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="DegreeTitle" placeholder="Degree Title">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("DegreeLevel") </label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Degreelevel" placeholder="Degree level">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Institution")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Institution" placeholder="Institution">
+                </div>
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("SubjectArea")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="SubjectArea" placeholder="Subject Area">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("Subject") </label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Subject" placeholder="Subject">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("CourseStart")</label>
+                    <input type="datetime" class="form-control custom-small-input rounded-0 input-sm" id="CourseStart" placeholder="Course Start">
+                </div>
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("CourseEnd")</label>
+                    <input type="datetime" class="form-control custom-small-input rounded-0 input-sm" id="CourseEnd" placeholder="Course End">
+                </div>
+
+
+
+                <div class="col-md-3 text-container mb-2">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEduBackground" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("AcademicScore")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="AcademicScore" placeholder="Academic Score">
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    @* <h5>@L("ENGLISHTESTSCORES")</h5> *@
+                    <h5 class="SectionName">@L("ENGLISHTESTSCORES")</h5>
+                    <input type="checkbox" id="SelectAllCheckEnglishTestScore" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEnglishTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("TOEFl")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Toffl" placeholder="Toffl">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEnglishTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("IELTS")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Ielts" placeholder="Ielts">
+                </div>
+
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxEnglishTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("PTE")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="pte" placeholder="pte">
+                </div>
+                <div>
+                    <br />
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm ">
+                        <input class="save_data" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title">@L("Enabledallindividualfields")</label>
+                    <input type="text" hidden class="form-control custom-small-input rounded-0 input-sm" id="Toffl" placeholder="Toffl">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm ">
+                        <input class="save_data" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title">@L("Enabledallindividualfields")</label>
+                    <input type="text" hidden class="form-control custom-small-input rounded-0 input-sm" id="Toffl" placeholder="Toffl">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm ">
+                        <input class="save_data" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title">@L("Enabledallindividualfields")</label>
+                    <input type="text" hidden class="form-control custom-small-input rounded-0 input-sm" id="Toffl" placeholder="Toffl">
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("OTHERTESTSCORES")</h5>
+                    <input type="checkbox" id="SelectAllCheckOtherTestScore" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxOtherTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("SATI")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Sati" placeholder="SATI">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxOtherTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("SATII")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Satii" placeholder="SATII">
+                </div>
+
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxOtherTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("GRE")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Gre" placeholder="GRE">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxOtherTestScore" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("GMAT")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="GMAT" placeholder="GMAT">
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("UPLOADDOCUMENETS")</h5>
+                    <input type="checkbox" id="SelectAllCheckDocument" style="margin-left: auto;">
+                </div>
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkboxDocument" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("UPLOADDOCUMENETS")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="UploadDocument" placeholder="Upload Document">
+                </div>
+
+            </div>
+
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("COMMENTS")</h5>
+                    <input type="checkbox" id="SelectAllCheckBox" style="margin-left: auto;">
+                </div>
+
+
+                <div class="col-md-3 text-container">
+                    <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                        <input class="save_data custom-checkbox" id="save_title" type="checkbox" />
+                        <span class="checkbox-placeholder"></span>
+                    </label>
+                    <label for="title" hidden>@L("COMMENTS")</label>
+                    <input type="text" class="form-control custom-small-input rounded-0 input-sm" id="Comments" placeholder="Comments">
+                </div>
+            </div>
+
+
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("FORMPROPERTIES")</h5>
+                    @* <input type="checkbox" id="SelectAllCheckDocument" style="margin-left: auto;"> *@
+                </div>
+
+                <div class="col-md-4 text-container">
+                    @*  <label class="checkbox-bootstrap checkbox-sm checkboxLabel">
+                    <input class="save_data custom-checkboxDocument" id="save_title" type="checkbox" />
+                    <span class="checkbox-placeholder"></span>
+                    </label> *@
+                    <label for="title" hidden>@L("RelatedOffice")</label>
+                    @Html.DropDownList("organizationUnitId", new SelectList(Model.LeadOrganizationalList,"Id","DisplayName", (Model.IsEditMode ? Model.LeadHead.OrganizationUnitId.ToString() : "")),@L("SelectARelatedOffice"), new { @class = "form-control" , @required="required" })
+                </div>
+                <div class="col-md-4 text-container">
+                    <label for="title" hidden>@L("Source")</label>
+                    @Html.DropDownList("leadSourceId", new SelectList(Model.LeadLeadSourceList,"Id","DisplayName", (Model.IsEditMode ? Model.LeadHead.LeadSourceId.ToString() : "")),@L("SelectALeadSource"), new { @class = "form-control" , @required="required" })
+                </div>
+                <div class="col-md-4 text-container">
+                    <label for="title" hidden>@L("TagName")</label>
+                    <select id="TagName" class="form-select select2" data-id="" data-control="select2"></select>
+                </div>
+            </div>
+            <div class="row card-body my-4 mb-3">
+                <div class="col-lg-12 mb-6 MainHeader">
+                    <h5 class="SectionName">@L("LEGAlGDPRCOMPLIANCE")</h5>
+                </div>
+                <div class="col-lg-12 mb-6">
+                    @* <input type="checkbox" /> *@
+                     <input id="IsPrivacyShown" type="checkbox" name="IsPrivacyShown" class="form-check-input" value="true" @Html.Raw(Model.LeadHead.IsPrivacyShown ? "checked=\"checked\"" : "")>
+                    <label>@L("Showtheinformationinleadform")</label>
+                </div>
+
+                <div class="col-lg-12 mb-6  ">
+                    <label>@L("privacyInformation")</label>
+                    <div id="kt_docs_quill_basic1" name="kt_docs_quill_basic" class="min-h-200px" style="height: 100px; width: 100%;">
+                        We're committed to your privacy. We use the information you provide to us to contact you about our relevant content, products, and services. 
+                        You may unsubscribe from these communications at any time by emailing us. For more information, check out our Privacy policy.
+                  @*   @if (Model.EmailTemplate != null)
+                    {
+                        @Html.Raw(Model.EmailTemplate.EmailBody)
+                    } *@
+                </div>
+                    @* <textArea typeof="text" class="form-control custom-small-input rounded-0 input-sm" rows="5" cols="5"></textArea> *@
+                </div>
+                <div class="col-lg-12 mb-6  ">
+                    <label>@L("consect")</label>
+                    <div id="kt_docs_quill_basic2" name="kt_docs_quill_basic" class="min-h-100px" style="height: 100px; width: 100%;">
+                        I agree to Terms of Service and Privacy Policy.
+                    @* <textArea typeof="text" class="form-control custom-small-input rounded-0 input-sm" rows="5" cols="5"></textArea>  *@
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="saveSentLeadBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Save")
+    </button>
+</div>

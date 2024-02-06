@@ -1,0 +1,103 @@
+﻿@using System.Globalization
+@using Abp.AspNetCore.Mvc.Caching
+@using Abp.AspNetZeroCore.Timing
+@using Abp.CachedUniqueKeys
+@using Abp.Configuration
+@using Abp.MultiTenancy
+@using Abp.Web.Mvc.Alerts
+@using Zeta.AgentosCRM.Features
+@using Zeta.AgentosCRM.Web.Resources
+@using Abp.Web.Security.AntiForgery
+@using Zeta.AgentosCRM.Configuration
+@using Zeta.AgentosCRM.UiCustomization
+@using Zeta.AgentosCRM.UiCustomization.Dto
+@using Zeta.AgentosCRM.Url
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Layout
+@using Zeta.AgentosCRM.Web.Session
+@using CultureHelper = Zeta.AgentosCRM.Localization.CultureHelper
+@inject ScriptPaths ScriptPaths
+@inject AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebUrlService WebUrlService
+@inject IPerRequestSessionCache SessionCache
+@inject IAlertManager AlertManager
+@inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
+@inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@inject IUiThemeCustomizerFactory ThemeCustomizerFactory
+@{
+    AbpAntiForgeryManager.SetCookie(Context);
+
+   
+    var headerViewModel = new HeaderViewModel();
+    var theme = await GetTheme();
+    var themeCustomizer = await ThemeCustomizerFactory.GetCurrentUiCustomizer();
+}
+<!DOCTYPE html>
+<html lang="en" dir="@(CultureHelper.IsRtl ? "rtl" : "")" data-theme="@(theme.BaseSettings.Layout.DarkMode ? "dark" : "light")">
+<head prefix="og: http://ogp.me/ns#">
+    <title>AgentosCRM</title>
+    
+
+    <link rel="shortcut icon" href="~/favicon.ico"/>
+
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/vendors.bundle.css" asp-append-version="true"/>
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.css" asp-append-version="true"/>
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/common-styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" abp-href="/Common/Scripts/Datatables/datatables@(CultureHelper.IsRtl ? "-rtl" : "").css" asp-append-version="true"/>
+    <link rel="stylesheet" abp-href="/Common/Styles/metronic-customize.css" asp-append-version="true"/>
+
+    @if (CultureHelper.IsRtl)
+    {
+        <link rel="stylesheet" href="@(ApplicationPath)Common/Styles/abp-zero-template-rtl.css" asp-append-version="true"/>
+    }
+
+  
+
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Layout/_Layout.css" asp-append-version="true"/>
+
+    @await RenderSectionAsync("Styles", false)
+  
+      
+</head>
+<!-- END HEAD -->
+<!-- begin::Body -->
+<body id="kt_app_body" data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" 
+data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" 
+data-kt-app-sidebar-push-header="true" data-kt-app-toolbar-enabled="true" data-kt-app-sidebar-push-toolbar="true" 
+data-kt-app-sidebar-push-footer="true" data-kt-app-sidebar-minimize="off" data-kt-app-toolbar-fixed="false" 
+data-kt-app-toolbar-fixed-mobile="false" class="app-default" style="">
+<!-- begin:: Page -->
+@RenderBody()
+<!-- end:: Page --> 
+<!--begin::Base Scripts -->
+<script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/app-layout-libs.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/default-scripts.bundle.js" asp-append-version="true"></script>
+
+<!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+<script src="@(ApplicationPath)AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+
+@if (GetScriptsResponsePerUserConfiguration.IsEnabled)
+{
+    <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(await CachedUniqueKeyPerUser.GetKeyAsync(GetScriptsResponsePerUserCache.CacheName))" type="text/javascript"></script>
+}
+else
+{
+    <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+}
+
+<script type="text/javascript">
+        abp.localization.currentCulture = $.extend({}, abp.localization.currentCulture, { displayNameEnglish: '@CultureInfo.CurrentUICulture.EnglishName' });
+        abp.localization.defaultSourceName = '@LocalizationSourceName';
+        moment.locale('@(GetMomentLocale())'); //Localizing moment.js
+</script>
+     
+<!--end::Base Scripts -->
+<!--begin::Page Snippets -->
+@await RenderSectionAsync("Scripts", false) 
+<!--end::Page Snippets -->
+<!--begin: svg symbols for alerts-->
+
+<!--end: svg symbols for alerts-->
+</body>
+<!-- end::Body -->
+</html>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>	<text name="IsEnableSsl">IsEnableSSl</text>	<text name="SmtpServer">Smtp Server</text>	<text name="Protocol">Protocol</text>	<text name="SenderPassword">Sender Password</text>	<text name="SenderEmail">Sender Email</text>	<text name="FromEmail">From Email</text>	<text name="ToEmail">To Email</text>	<text name="CCEmail">CCEmail</text>	<text name="SelectAEmailConfiguration">Select A EmailConfiguration</text>	<text name="SelectAEmailTemplate">Select A EmailTemplate</text>    <text name="SentEmail">Sent email</text>
+	<texts>	<text name="SecondryEmail">SecondryEmail</text>	<text name="ChangeCoverPicture">ChangeCoverPicture</text>	<text name="ADDCOVERIMAGE">ADD COVER IMAGE</text>	<text name="PrefferedIntake">PrefferedIntake</text>	<text name="PortalCode">PortalCode</text>	<text name="Enabledallindividualfields">Enabled all Individual fields</text>	<text name="DateOfBrith">DateOfBrith</text>	<text name="UpdateProfileImage">UpdateProfileImage</text>	<text name="SelectARelatedOffice">Select A Related Office</text>	<text name="FormName">Form Name</text>	<text name="TagName">Tag Name</text>	<text name="FORMPROPERTIES">FORM PROPERTIES</text>	<text name="ADDRESSDETAILS">ADDRESS DETAILS</text>	<text name="LeadHeaderInfo">Lead Header Info</text>	<text name="PERSONALDETAILS">PERSONAL DETAILS</text>	<text name="CURRENTVISAINFORMATION">CURRENT VISA INFORMATION</text>	<text name="CONTACTDETAILS">CONTACT DETAILS</text>	<text name="OTHERDETAIL">OTHER DETAIL</text>	<text name="INTERESTEDSERVICES">INTERESTED SERVICES</text>	<text name="EDUCATIONBACKGROUND">EDUCATION BACKGROUND</text>	<text name="LEGAlGDPRCOMPLIANCE">LEGAl AND GDPR COMPLIANCE</text>	<text name="ENGLISHTESTSCORES">ENGLISH TEST SCORES</text>	<text name="OTHERTESTSCORES">OTHER TEST SCORES</text>	<text name="Showtheinformationinleadform">Showtheinformationinleadform</text>	<text name="privacyInformation">privacyInformation</text>	<text name="COMMENTS">COMMENTS</text>	<text name="UPLOADDOCUMENETS">UPLOAD DOCUMENETS</text>	<text name="consect">Consect</text>	<text name="FormHeader">Form Header</text>	<text name="Saveformas*">SaveFormas</text>	<text name="RelatedOffice">Related Office</text>	<text name="CreateNewLead">Create New Lead</text>	<text name="Lead">Lead</text>	<text name="IsEnableSsl">IsEnableSSl</text>	<text name="SmtpServer">Smtp Server</text>	<text name="Protocol">Protocol</text>	<text name="SenderPassword">Sender Password</text>	<text name="SenderEmail">Sender Email</text>	<text name="FromEmail">From Email</text>	<text name="ToEmail">To Email</text>	<text name="CCEmail">CCEmail</text>	<text name="SelectAEmailConfiguration">Select A EmailConfiguration</text>	<text name="SelectAEmailTemplate">Select A EmailTemplate</text>    <text name="SentEmail">Sent email</text>
     <text name="CreateNewSentEmail">Create new sent email</text>
     <text name="EditSentEmail">Edit sent email</text>
     <text name="DeleteSentEmail">Delete sent email</text>
@@ -819,14 +819,10 @@
 		<text name="Apply">Apply</text>
 		<text name="CustomRange">Custom range</text>
 		<text name="DashboardNoteForMpaVersion">
-			<![CDATA[
-      See Demo for Multi-Page Application version with <strong>ASP.NET MVC</strong> and <strong>jQuery</strong>.
-      ]]>
+			<![CDATA[      See Demo for Multi-Page Application version with <strong>ASP.NET MVC</strong> and <strong>jQuery</strong>.      ]]>
 		</text>
 		<text name="DashboardNoteForSpaVersion">
-			<![CDATA[
-      Notice: There is also a <strong>Single-Page Application</strong> version built using ASP.NET MVC and <strong>AngularJs</strong>.
-      ]]>
+			<![CDATA[      Notice: There is also a <strong>Single-Page Application</strong> version built using ASP.NET MVC and <strong>AngularJs</strong>.      ]]>
 		</text>
 		<text name="SeeDemo">See demo</text>
 		<text name="Edition">Edition</text>
@@ -1006,14 +1002,7 @@
 		<text name="YouDontHaveAnyFriend">You don't have any friends. Write a username to above input box and click "Add Friend" button.</text>
 		<text name="YouDontHaveAnyBlockedFriend">You don't have any blocked users. In order to block a friend, select a friend and select block from actions dropdown.</text>
 		<text name="ChatUserSearch_Hint">
-			<![CDATA[
-      Write only username for same tenant users, <br>
-      <strong>[tenancyName]\[userName]</strong> for other tenant's users <br><br>
-      for example: <br>
-      .\admin -> for host admin <br>
-      Test\admin -> for test tenant's admin <br>
-      admin -> for your tenant's admin
-      ]]>
+			<![CDATA[      Write only username for same tenant users, <br>      <strong>[tenancyName]\[userName]</strong> for other tenant's users <br><br>      for example: <br>      .\admin -> for host admin <br>      Test\admin -> for test tenant's admin <br>      admin -> for your tenant's admin      ]]>
 		</text>
 		<text name="AddFriend">Add friend</text>
 		<text name="AddFriendFromDifferentTenant">Add a friend from different tenant</text>

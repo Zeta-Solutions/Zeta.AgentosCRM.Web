@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240130112929_CRMLead")]
+    partial class CRMLead
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1893,9 +1896,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -3029,9 +3029,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("LeadHeadId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PropertyName")
                         .HasColumnType("nvarchar(max)");
 
@@ -3046,8 +3043,6 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LeadHeadId");
-
                     b.HasIndex("TenantId");
 
                     b.ToTable("LeadDetails");
@@ -3060,9 +3055,6 @@ namespace Zeta.AgentosCRM.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Consent")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CoverImage")
                         .HasColumnType("nvarchar(max)");
@@ -3093,9 +3085,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsPrivacyShown")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2");
 
@@ -3110,9 +3099,6 @@ namespace Zeta.AgentosCRM.Migrations
 
                     b.Property<long?>("OrganizationUnitId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("PrivacyInfo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TagName")
                         .HasColumnType("nvarchar(max)");
@@ -7092,17 +7078,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("ClientFk");
 
                     b.Navigation("CurrencyFk");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMLead.LeadDetail", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMLead.LeadHead", "LeadHeadFK")
-                        .WithMany()
-                        .HasForeignKey("LeadHeadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LeadHeadFK");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMLead.LeadHead", b =>
