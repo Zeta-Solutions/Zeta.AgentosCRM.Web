@@ -6,7 +6,7 @@
         getActivityreload(dynamicValue, NameFilter);
         var globalData; // Declare the data variable in a broader scope
         function createActivityCard(item) {
-            debugger;
+             ;
             var clienActivitytname = $("#clientAppID").val();
              
             function renderTime(changeTime) {
@@ -26,7 +26,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     console.log('Response from server:', data);
                     $('.userimage').attr('src', "data:image/png;base64," + data.result.profilePicture);
                 })
@@ -86,7 +86,7 @@
 
 
         function getActivityreload(dynamicValue,NameFilter) {
-            debugger
+             
 
 
            $.ajax({
@@ -99,7 +99,7 @@
                 dataType: 'json',
             })
                .done(function (data) {
-                   debugger
+                    
                     // console.log('Response from server:', data);
                     globalData = data; // Assign data to the global variable....
                     processActivityData(); // Call processData function after data is available..
@@ -109,7 +109,7 @@
                 });
         }
         function processActivityData() {
-            debugger
+             
             var cardContainer = $('#cardContainerActivity');
 
             // Check if globalData.result.items is an array before attempting to iterate

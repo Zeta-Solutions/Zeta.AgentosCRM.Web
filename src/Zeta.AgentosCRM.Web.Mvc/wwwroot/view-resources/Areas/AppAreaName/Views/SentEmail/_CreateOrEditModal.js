@@ -43,7 +43,7 @@
                     //    PartnerIdFilter: dynamicValue,
                     //},
                     success: function (data) {
-                        debugger
+                         
                         port = data.result.emailConfiguration.smtpPort
                         Host = data.result.emailConfiguration.smtpServer
                         username = data.result.emailConfiguration.name
@@ -84,7 +84,7 @@
         //    }
         //});
         //function populateDropdown(data) {
-        //    debugger
+        //     
         //    var dropdown = $('#ToEmails');
 
         //    dropdown.empty();
@@ -99,7 +99,7 @@
         //}
         //$(document).on("change", "#ToEmails", function () {
         //var selectedValues = $("#ToEmails :selected").map(function (i, el) {
-        //    debugger
+        //     
         //    return $(el).attr('data-email');
         //}).get().join(",");
         //    $("#ToEmail").val(selectedValues);
@@ -115,7 +115,7 @@
                     //    PartnerIdFilter: dynamicValue,
                     //},
                     success: function (data) {
-                        debugger
+                         
                         EmailBody =data.result.emailTemplate.emailBody
                         quill.root.innerHTML = EmailBody;
                     },
@@ -144,7 +144,7 @@
             _$sentemailsInformationForm.validate();
         };
         $(document).off("click", "#saveSentEmailBtn").on("click", "#saveSentEmailBtn", function (e) {
-            debugger
+             
             $("#saveSentEmailBtn").prop('disabled', true);
             //this.save = function () {
                 if (!_$sentemailsInformationForm.valid()) {
@@ -168,14 +168,14 @@
                         Body: $("input[name='EmailBody']").val(),
                         CCEmail: $("#CCEmail").val(),
                     };
-                    debugger
+                     
 
                     var Steps = JSON.stringify(args);
                     Steps = JSON.parse(Steps);
                     _sentemailsService
                         .sentEmail(Steps)
                         .done(function (data) {
-                            debugger
+                             
                             if (data = true) {
                                 var sentemail = _$sentemailsInformationForm.serializeFormToObject();
 

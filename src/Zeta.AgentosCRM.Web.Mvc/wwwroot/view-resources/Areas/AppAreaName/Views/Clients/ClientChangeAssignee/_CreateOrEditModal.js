@@ -20,7 +20,7 @@
             }
         });
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#AssigneeID');
 
             dropdown.empty();
@@ -57,7 +57,7 @@
             //if (!_$countriesInformationForm.valid()) {
             //    return;
             //}
-            debugger
+             
             var anyChecked = $('.custom-checkbox:checked').length > 0;
 
             if (anyChecked) {
@@ -74,7 +74,7 @@
                         assigneeId: assignnid
                     };
                     checkedValues = JSON.stringify(checkedValues);
-                    debugger
+                     
                     checkedValues = JSON.parse(checkedValues);
                     _clientsService
                         .updateClientAssignee(checkedValues)

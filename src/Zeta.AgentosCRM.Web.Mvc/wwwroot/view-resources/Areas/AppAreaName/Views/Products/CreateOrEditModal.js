@@ -1,6 +1,6 @@
 ﻿(function () {
     $(function () {
-        debugger
+         
         //const urlParams = new URLSearchParams(window.location.search);
         //const partnerIdValue = urlParams.get('partnerId');
 
@@ -37,7 +37,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger
+                 
                 console.log('Response from server:', data);
                 $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
             })
@@ -109,7 +109,7 @@
         }
 
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property..
@@ -342,7 +342,7 @@
             //}
             var datarows = [];
             var datarowsList = $("#branchId :selected").map(function (i, el) {
-                debugger
+                 
                 return $(el).val();
             }).get();
             $.each(datarowsList, function (index, value) {
@@ -379,12 +379,12 @@
         };
 
         function clearForm() {
-            debugger
+             
             _$productInformationForm[0].reset();
         }
 
         $('#saveBtn').click(function () {
-            debugger
+             
             //var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
 
             //var subcode = titleValue.split("-");

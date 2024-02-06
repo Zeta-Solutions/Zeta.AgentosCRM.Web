@@ -1,7 +1,7 @@
 ﻿
 (function ($) {
     app.modals.CreateOrEditDocumentsModal = function () {
-        debugger
+         
         var _clientAttachmentsService = abp.services.app.clientAttachments;
         var _modalManager;
         var _$clientDocumentsInformationForm = null;
@@ -31,7 +31,7 @@
                 if (!files.length) {
                     return false;
                 }
-                debugger
+                 
                 attachmentnames = files[0].name;
                 var file = files[0];
 
@@ -53,7 +53,7 @@
                 return true;
             },
             success: function (response) {
-                debugger
+                 
                 //if (response.success) {
                 //    refreshLogo(
                 //        abp.appPath +
@@ -82,7 +82,7 @@
                 _clientAttachmentsService
                     .createOrEdit(Steps)
                     .done(function () {
-                        //debugger..
+                        // ..
                         abp.notify.info(app.localize('SavedSuccessfully'));
                         _modalManager.close();
                         abp.event.trigger('app.createOrEditClientDocumentsModalSaved');

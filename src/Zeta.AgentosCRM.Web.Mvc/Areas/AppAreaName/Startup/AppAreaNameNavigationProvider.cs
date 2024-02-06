@@ -10,7 +10,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 {
     public class AppAreaNameNavigationProvider : NavigationProvider
     {
-        public const string MenuName = "App";        public override void SetNavigation(INavigationProviderContext context)
+        public const string MenuName = "App";        
+        public override void SetNavigation(INavigationProviderContext context)
         {
             var menu = context.Manager.Menus[MenuName] = new MenuDefinition(MenuName, new FixedLocalizableString("Main Menu"));
 

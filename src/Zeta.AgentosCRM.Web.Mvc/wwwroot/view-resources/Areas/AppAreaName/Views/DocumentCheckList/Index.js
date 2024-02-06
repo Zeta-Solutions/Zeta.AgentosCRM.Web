@@ -122,7 +122,7 @@
                         var GetWorkFlowId = data.workflowDocument.workflowId;
                         var rowData = data.workflowDocument;
                         var RowDatajsonString = JSON.stringify(rowData);
-                        debugger
+                         
                         var contextMenu = '<div class="context-menu" style="position:relative;">' +
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
@@ -172,7 +172,7 @@
               
           // Handle the selected action based on the rowId
           //if (action === 'view') {
-          //    debugger
+          //     
           //    _viewFeeTypeModal.open({ id: rowId });
             // } else
             if (action === 'edit') { 
@@ -214,11 +214,11 @@
         });
 
         $('#CreateNewDocumentCheckList').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
         //$('#NewCheckList').click(function () {
-        //    debugger
+        //     
         //    _createOrEditAddNewCheckListModal.open();
         //    $("#DDlPartners").hide();
 
@@ -248,16 +248,16 @@
         //});
         //$(document).on('click', '#AllPartner', function () {
         //    $("#DDlPartners").hide();
-        //    debugger
+        //     
         //});
 
         //$(document).on('click', '#selectedPartner', function () {
         //    $("#DDlPartners").show();
-        //    debugger
+        //     
         //});
 
         abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-            debugger
+             
             getDocumentCheckList();
         });
 

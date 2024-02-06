@@ -1,12 +1,12 @@
 ﻿(function ($) {
     app.modals.CreateOrEditNotesAndTermsModal = function () {
-        debugger
+         
 
         var _notesService = abp.services.app.notes;
         
 
         $(document).off("click", "#saveNoteBtn").on("click", "#saveNoteBtn", function (e) {
-            debugger
+             
 
             var hiddenfield = $('input[name="Clientid"]').val();
             var hiddenapplicationfield = $("#ApplicationId").val()

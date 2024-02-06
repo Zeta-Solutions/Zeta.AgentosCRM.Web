@@ -119,7 +119,7 @@
                             {
                                 text: app.localize('View'),
                                 action: function (data) {
-                                    debugger;
+                                     ;
                                   //  _viewLeadSourceModal.open("/AppAreaName/Partners/PartnersDetails");
                                     window.location.href = abp.appPath + 'AppAreaName/Partners/PartnersDetails';
                                     //_viewLeadSourceModal.window.open("/AppAreaName/Partners/PartnersDetails");

@@ -1,7 +1,7 @@
 ﻿(function ($) {
   app.modals.CreateOrEditPartnerTypeModal = function () {
       var _partnerTypesService = abp.services.app.partnerTypes;
-      debugger 
+        
       //$('#masterCategoryId').select2({
       //    width: '750px',
       //    //placeholder: 'Select a Master Category',

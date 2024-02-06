@@ -190,7 +190,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 // _viewFeeTypeModal.open({ id: rowId });
@@ -235,7 +235,7 @@
 
 
         abp.event.on('app.createOrEditSentEmailModalSaved', function () {
-            debugger
+             
             getSentEmails();
         });
 

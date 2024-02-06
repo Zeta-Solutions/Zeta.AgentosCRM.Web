@@ -3,7 +3,7 @@
     $(function () {
         var _$Appointmentstable = $('#Appointmentstable');
         var _clientAppointmentsService = abp.services.app.appointments;
-        debugger
+         
         console.log(_clientAppointmentsService);
         var $selectedDate = {
             startDate: null,
@@ -197,7 +197,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action20');
-            debugger
+             
             // Handle the selected action based on the rowId
             // Handle the selected action based on the rowId
             if (action === 'edit') {

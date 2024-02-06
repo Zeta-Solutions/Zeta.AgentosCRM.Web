@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditManualPaymentModal = function () {
-        debugger
+         
         var _documentTypesService = abp.services.app.manualPaymentDetails;
         var _paymentInvoiceTypesService = abp.services.app.paymentInvoiceTypes;
         var hiddenfield = $("#WorkFlowOfficeId").val();
@@ -20,7 +20,7 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
                 var data = data.result.items;
                 if (data == null) {
                     //alert("Record Not Found.");
@@ -50,7 +50,7 @@
                 dataType: 'json',
 
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updateProductDropdown(data);
                 },
@@ -61,12 +61,12 @@
         }
 
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
             $.each(data.result.paymentInvoiceType, function (index, obj) {
-                debugger
+                 
                 ms_val += "," + obj.invoiceTypeId;
 
             });
@@ -114,7 +114,7 @@
             if (!_$documentTypesInformationForm.valid()) {
                 return;
             }
-            debugger
+             
             var InvoiceTyperows = [];
             var datarowsList = $("#InvoiceTypeId :selected").map(function (i, el) {
                 return $(el).val();
@@ -138,7 +138,7 @@
             _documentTypesService
                 .createOrEdit(feeType)
                 .done(function () {
-                    debugger
+                     
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
                     abp.event.trigger('app.createOrEditFeeTypeModalSaved');
@@ -146,10 +146,10 @@
                 .always(function () {
                     _modalManager.setBusy(false);
                 });
-            //debugger
+            // 
             //_paymentInvoiceTypesService.createOrEdit(PaymentInvoiceTypes)
             //    .done(function () {
-            //        debugger
+            //         
             //        abp.event.trigger('app.createOrEditFeeTypeModalSaved');
             //    })
             //    .always(function () {

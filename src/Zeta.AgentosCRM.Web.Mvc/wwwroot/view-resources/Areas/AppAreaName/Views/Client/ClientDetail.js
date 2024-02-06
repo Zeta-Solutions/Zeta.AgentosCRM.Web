@@ -4,7 +4,7 @@
 
         //alert("23123");
         var _$Clienttable = $('#Clienttable');
-        debugger;
+         ;
         var _clientService = abp.services.app.clients;
         var _$clientInformationForm = $('form[name=ClientInformationsForm]');
        // _$clientInformationForm.validate();
@@ -73,7 +73,7 @@
         $('#saveBtn').click(function () {
             //alert("ok");
             save(function () {
-                debugger
+                 
                 alert("123");
                 window.location = "/AppAreaName/Client";
             });

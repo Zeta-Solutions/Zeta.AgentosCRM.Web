@@ -25,7 +25,7 @@
             }
         });
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#ClientId');
 
             dropdown.empty();
@@ -63,7 +63,7 @@
 
 
         $(document).on("change", "#WorkflowId", function () {
-            debugger
+             
             var idValue = $(this).val();
             if (idValue > 0) {
 
@@ -75,7 +75,7 @@
                     //    PartnerIdFilter: dynamicValue,
                     //},
                     success: function (data) {
-                        debugger
+                         
 
 
                         if (data == null || data == 0 || data == undefined || data.result.length == 0) {
@@ -101,7 +101,7 @@
 
 
         $('#saveClientBtn').click(function () {
-            debugger
+             
             var hiddenfield = $("#ClientId").val();
 
 

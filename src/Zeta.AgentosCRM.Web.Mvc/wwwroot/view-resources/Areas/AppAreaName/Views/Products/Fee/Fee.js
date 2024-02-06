@@ -80,7 +80,7 @@
                         var totalRecord = data.result.items;
                        
                         $.each(totalRecord, function (index, item) {
-                            debugger
+                             
                             var WorkflowStepID = item.productFee.id;
                             var WorkflowStepName = item.productFee.name;
                             var Countryname = item.countryName;
@@ -103,7 +103,7 @@
                                     })
                                         .done(function (data) {
                                             var CheckListRecord = data.result.items;
-                                            debugger
+                                             
                                             var ListOfCheckList = "";
                                             var DocumentWorkflowStepID = 0;
 
@@ -126,11 +126,11 @@
 `;
 
                                             $.each(CheckListRecord, function (index, item) {
-                                                debugger
+                                                 
                                                 DocumentWorkflowStepID = item.productFeeDetail.productFeeId;
 
                                                 //var CheckPartner = item.workflowStepDocumentCheckList.isForAllPartners;
-                                                debugger
+                                                 
                                                 if (WorkflowStepID == DocumentWorkflowStepID) {
                                                     NewCheckListRecord += ` 
             <span class="DocumentCheckList" style=""><input type="text" hidden id="WorkFlowRowId" value="${item.productFeeDetail.id}"/></span>
@@ -149,7 +149,7 @@
                                 <span class="" style="font-size:30px ;color:#9bb0db">${TotaAmont}</span>
                                 
                             </div></div></div>`;
-                                            debugger
+                                             
                                             $("#FeescardContainer").append(NewCheckListRecord);
                                         });
                                 }
@@ -161,7 +161,7 @@
         }
 
         $(document).on('click', '.AddNewCheckList', function () {
-            debugger
+             
             var $timelineItem = $(this).closest('.timeline-item');
 
             var workFlowStepId = $timelineItem.find('.WorkFlowStepId').text();
@@ -183,7 +183,7 @@
         //        dataType: 'json',
         //    })
         //        .done(function (data) {
-        //            debugger
+        //             
         //            console.log('Response from server:', data);
         //            globalFeeData = data;
         //            // Assign data to the global variable
@@ -194,7 +194,7 @@
         //        });
         //}
         //function procesFeeData(data) {
-        //    debugger
+        //     
         //    var cardContainer = $('#FeescardContainer'); // or replace '#container' with your actual container selector
 
         //    // Check if globalData.result.items is an array before attempting to iterate
@@ -249,7 +249,7 @@
             endDate: null,
         };
         //_productOtherInformationsService.getAll().done(function (data) {
-        //    debugger;
+        //     ;
         //    processData(data);
         //}).fail(function (error) {
         //    console.error('Error fetching data:', error);
@@ -445,7 +445,7 @@
 
         });
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';

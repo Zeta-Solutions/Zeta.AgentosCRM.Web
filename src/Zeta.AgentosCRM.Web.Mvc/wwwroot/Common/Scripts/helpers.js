@@ -62,18 +62,18 @@
   };
   
     app.getClientPicturePath = function (profilePictureId) {
-        debugger
+         
     return profilePictureId
         ? abp.appPath + 'ClientProfile/GetProfilePictureByClient?userId=' + profilePictureId
       : abp.appPath + 'Common/Images/default-profile-picture.png';
   };
 
     app.getUserProfilePicturePath = function () {
-      debugger
+       
     return abp.appPath + 'Profile/GetProfilePicture?v=' + new Date().valueOf();
   };
     //app.getClientPicturePath = function () {
-    //    debugger
+    //     
     //    return abp.appPath + 'ClientProfile/GetProfilePicture?v=' + new Date().valueOf();
     //};
   app.getShownLinkedUserName = function (linkedUser) {

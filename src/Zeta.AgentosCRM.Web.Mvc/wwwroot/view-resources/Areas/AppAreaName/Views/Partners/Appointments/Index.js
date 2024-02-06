@@ -3,7 +3,7 @@
     $(function () {
         var _$Appointmentstable = $('#Appointmentstable');
         var _clientAppointmentsService = abp.services.app.appointments;
-        debugger
+         
         //console.log(_clientAppointmentsService);
         var $selectedDate = {
             startDate: null,
@@ -159,7 +159,7 @@
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.ellipsis30', function (e) {
             e.preventDefault();
-            debugger
+             
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -178,10 +178,10 @@
         });
         $(document).on('click', 'a[data-action30]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action30');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });

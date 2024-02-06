@@ -1,5 +1,5 @@
 ﻿(function () { 
-    debugger
+     
     $("#DDlPartners").hide();
     $("#RadioProducts").hide();
     $("#DDlProduct").hide();
@@ -14,14 +14,14 @@
         var clientPortalValue = $("#clientportal").val();
         var nextstageValue = $("#nextstage").val();
         var WorkFlowDocumentID = $("#workFlowStepId").val();
-        debugger
+         
         $("#workFlowStepModelId").val(WorkFlowDocumentID); 
         var _documentTypesService = abp.services.app.documentTypes;
         var _workflowStepDocumentCheckListsService = abp.services.app.workflowStepDocumentCheckLists; 
         var input = "";
         _documentTypesService.getAll(input)
             .done(function (data) {
-                debugger
+                 
                 var optionhtml = '<option value="0"> select Document Type</option>';
                 $("#AddNewCheckListDocumentType").append(optionhtml);
 
@@ -40,7 +40,7 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
                 populateDropdown(data);
             },
             error: function (error) {
@@ -58,7 +58,7 @@
             dropdown.empty();
 
             $.each(data.result.items, function (index, item) {
-                debugger
+                 
                 if (item && item.partner.id !== null && item.partner.id !== undefined && item.partner.partnerName !== null && item.partner.partnerName !== undefined) {
                     dropdown.append($('<option></option>').attr('value', item.partner.id).attr('data-id', item.partner.id).text(item.partner.partnerName));
                 } else {
@@ -128,11 +128,11 @@
         //});
 
         //$(document).on('click', '#ProductID', function () {
-        //  debugger
+        //   
         //  $("#RadioProducts").show();
         //});
         $('#PartnerID').on('change', function () {
-            debugger
+             
             var PartnerId = $('#PartnerID').val();
 
             var partnerIdArray = $('#PartnerID').val();
@@ -140,7 +140,7 @@
             // Extract the string value and remove surrounding quotes
             var PartnerId = partnerIdArray[0].replace(/^['"]|['"]$/g, '');
 
-            debugger
+             
             $("#RadioProducts").show();
 
             if (PartnerId > 0) {
@@ -153,7 +153,7 @@
                     dataType: 'json',
 
                     success: function (data) {
-                        debugger
+                         
                         populateDropdown(data);
                     },
                     error: function (error) {
@@ -170,7 +170,7 @@
                     dropdown.empty();
 
                     $.each(data.result.items, function (index, item) {
-                        debugger
+                         
                         if (item && item.id !== null && item.product.id !== undefined && item.product.name !== null && item.product.name !== undefined) {
                             dropdown.append($('<option></option>').attr('value', item.product.id).attr('data-id', item.product.id).text(item.product.name));
                         } else {
@@ -196,17 +196,17 @@
             $("#DDlPartners").hide();
             GetPartnerValue = false;
 
-            debugger
+             
         });
 
         $(document).on('click', '#selectedPartner', function () {
             $("#DDlPartners").show();
             GetPartnerValue = true;
 
-            debugger
+             
         });
         $(document).on('click', '#clientportal', function () {
-            debugger
+             
 
             var clientPortalValue = $(this).prop("checked");
              
@@ -214,23 +214,23 @@
             
         });
         $(document).on('click', '#nextstage', function () {
-            debugger
+             
              nextstageValue = $(this).prop("checked");
 
             alert(nextstageValue);
         });
 
         //$('#NewCheckList').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
         //});
 
         abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-            debugger
+             
             getDocumentCheckList();
         }); 
         $(document).on('click', '.save-button', function () {
-            debugger
+             
             var jsonData = {
                 Name : $("#Description").val(),
                 Description : $("#Description").val(),
@@ -261,7 +261,7 @@
                 Partnerrows.push(datarowsItem);
             });
             var PartnerId = JSON.stringify(Partnerrows);
-            debugger
+             
             PartnerId = JSON.parse(PartnerId);
             //Product dropdown Save 
 
@@ -279,7 +279,7 @@
                 PRoductrows.push(datarowsItem);
             });
             var ProductId = JSON.stringify(PRoductrows);
-            debugger
+             
             ProductId = JSON.parse(ProductId);
 
             jsonData.DocumentCheckListPartner = PartnerId
@@ -289,7 +289,7 @@
             _workflowStepDocumentCheckListsService
                 .createOrEdit(jsonData)
                 .done(function () {
-                    debugger
+                     
                     abp.notify.info(app.localize('SavedSuccessfully'));
                      
                     location.reload();

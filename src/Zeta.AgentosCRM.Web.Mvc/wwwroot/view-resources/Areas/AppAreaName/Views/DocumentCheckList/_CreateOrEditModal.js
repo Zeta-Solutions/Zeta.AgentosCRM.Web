@@ -14,7 +14,7 @@
     var _modalManager;
         var _$feeTypesInformationForm = null;
         var workflowId = $("#WorkflowId").val();
-        debugger
+         
         if (workflowId > 0) {
             $.ajax({
                 url: abp.appPath + 'api/services/app/WorkflowSteps/GetAll',
@@ -25,12 +25,12 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     var TotalRecord = data.result.items;
                      
 
                         $.each(TotalRecord, function (index, item) {
-                            debugger
+                             
                             var workFlowStep = `
                                 <div class="col-12 timeline-item  timeline-itemRowDelete ">
                                     <div class="timeline-item col-11">
@@ -53,7 +53,7 @@
         }
         //_workflowStepsService.getAll(WorkflowId)
         //    .done(function (data) {
-        //        debugger
+        //         
         //        console.log(data);
                  
         //    })
@@ -71,7 +71,7 @@
         _$feeTypesInformationForm.validate();
     };
         $("#WorkflowId").on("change", function () {
-            debugger
+             
             var selectedWorkflowName = $(this).find("option:selected").text();
             $("#WorkFlow_Name").val(selectedWorkflowName); 
         });
@@ -81,7 +81,7 @@
       }
 
         var feeType = _$feeTypesInformationForm.serializeFormToObject();
-        debugger
+         
       _modalManager.setBusy(true);
         _workflowDocumentsService
             .createOrEdit(feeType)

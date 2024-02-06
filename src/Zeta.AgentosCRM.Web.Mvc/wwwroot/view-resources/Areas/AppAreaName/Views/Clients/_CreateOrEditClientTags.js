@@ -5,7 +5,7 @@
         // Adjust the width as needed
     });
     app.modals.CreateOrEditClientTagsModal = function () {
-        debugger
+         
         var _clientTagsService = abp.services.app.clientTags;
         var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
@@ -71,7 +71,7 @@
                 })
 
                 .fail(function (error) {
-                    debugger
+                     
                     console.error('Error fetching data:', error);
                 });
         }
@@ -86,7 +86,7 @@
 
 
             var Tags = _$clientTagsInformationForm.serializeFormToObject();
-            debugger
+             
             console.log(Tags);
             _modalManager.setBusy(true);
             _clientTagsService

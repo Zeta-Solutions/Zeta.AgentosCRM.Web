@@ -7,7 +7,7 @@
         var globalData; // Declare the data variable in a broader scope
 
         function createCard(item) {
-            debugger
+             
             var note = item.note;
 
             // Create a single row for all cards
@@ -90,7 +90,7 @@
 
 
         function getnotesreload(dynamicValue) {
-            debugger
+             
 
 
             var branchesAjax = $.ajax({
@@ -146,7 +146,7 @@
 
         // Button click event handler
         $('#showCardsButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
             _createOrEditModal.open();
@@ -165,7 +165,7 @@
             endDate: null,
         };
         //_branchesService.getAll().done(function (data) {
-        //    debugger;
+        //     ;
         //    processData(data);
         //}).fail(function (error) {
         //    console.error('Error fetching data:', error);
@@ -276,7 +276,7 @@
                             {
                                 text: app.localize('View'),
                                 action: function (data) {
-                                    debugger;
+                                     ;
                                     alert("sabar kro abhi bnaya nhi !")
                                     //  _viewLeadSourceModal.open("/AppAreaName/Partners/PartnersDetails");
                                     // window.location.href = abp.appPath + 'AppAreaName/Partners/ViewApplicationDetails';
@@ -329,7 +329,7 @@
         }
 
         function deletenotes(note) {
-            debugger
+             
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
@@ -358,20 +358,20 @@
         });
 
         $('#CreateNewNotesButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
 
             // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         });
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
         $('#BranchesButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
 
@@ -449,7 +449,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action123');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });

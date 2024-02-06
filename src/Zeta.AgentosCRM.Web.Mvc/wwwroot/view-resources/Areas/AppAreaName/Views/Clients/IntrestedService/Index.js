@@ -184,7 +184,7 @@
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.Serviceellipsis', function (e) {
             e.preventDefault();
-            debugger
+             
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -203,10 +203,10 @@
         });
         $(document).on('click', 'a[data-action2]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action2');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 $(".loader").show();
@@ -218,7 +218,7 @@
             }
         });
         function deleteclientInterstedService(clientInterstedService) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientInterstedServices

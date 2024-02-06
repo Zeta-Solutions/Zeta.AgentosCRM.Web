@@ -164,7 +164,7 @@
         if (!files.length) {
           return false;
         }
-        debugger
+         
         var file = files[0];
         
         //File type check

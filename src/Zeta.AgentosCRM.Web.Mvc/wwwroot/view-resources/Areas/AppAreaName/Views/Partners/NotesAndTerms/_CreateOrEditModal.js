@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditNotesAndTermsModal = function () {
-        debugger
+         
         $('#countryId').select2({
             width: '100%',
             // Adjust the width as needed

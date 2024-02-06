@@ -114,7 +114,7 @@
                         let initials = `${firstNameInitial}${lastNameInitial}`;
                         let fullName = `${row.client.firstName} ${row.client.lastName}`;
                         /*      console.log(row);*/
-                        debugger
+                         
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.client.id}`;
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);

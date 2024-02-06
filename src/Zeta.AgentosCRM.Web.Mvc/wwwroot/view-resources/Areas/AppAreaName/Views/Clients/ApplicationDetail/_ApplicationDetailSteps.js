@@ -4,27 +4,28 @@
     var stepsArr=[];
     //window.onload = codeAddress;
 	//$(document).on('loaded', '#ApplicationDetailTab',
+
 	$('#tabs').on('click', 'a', function (e) {
         e.preventDefault();
         $("#ApplicationDetailTabDiv").empty();
 		var tabId = $(this)
 		var tabHref= tabId.attr('href')
 		if (tabHref == "#ApplicationDetailTabDiv") {
-            //debugger
-
-            $("#ApplicationDetailTabDiv").empty();
+            //debugger 
+            $("#ApplicationDetailTabDiv").empty(); 
             setTimeout(function () {
-                $('#smartwizard').smartWizard("reset"); 
+                //$('#smartwizard').smartWizard("reset"); 
                 // Show the modal (adjust as needed) 
-                LoadSteps();
-            }, 500);
+                LoadSteps(); 
+           }, 3000);
 		}
 		
 	});
 
     function LoadSteps() {
         // SmartWizard initialize
-
+        debugger
+        //$('#smartwizard').html(""); 
         var _workflowStepsService = abp.services.app.workflowSteps;
         var workflowsId = $("#ApplicationWorkflowId").val()
         var applicationId = $("#ApplicationId").val();
@@ -40,7 +41,7 @@
             .done(function (data) {
                 //Row.remove()..;
                 var TotalRecord = data.result.items;
-                //debugger
+                //  
                 stepsArr = [];
                 $.each(TotalRecord, function (index, item) {
                     var step = `<li class="nav-item">
@@ -63,27 +64,9 @@
                         workflowStepIdFilter: item.workflowStep.id 
                     };
                     stepsArr.push(inputGetData);
-                    //var Getdata = JSON.stringify(inputGetData);
-                    //Getdata = JSON.parse(Getdata);
-                    //_ApplicationStagesService
-                    //    .getAll(Getdata)
-                    //    .done(function (data) {
-                    //        //debugger
-                    //        if (data && data.items && data.items.length > 0) {
-                    //            //stepForm += `<input type="hidden" id="StageID-${index + 1}" value="${data.items[0].applicationStage.id}"></input> </div>`;
-                    //            $("#StageID-" + index + 1).val(data.items[0].applicationStage.id);
-                    //            if (data.items[0].applicationStage.isCurrent == true) {
-                    //                currentstage = index;
-                    //                $('#smartwizard').smartWizard("goToStep", currentstage, true);
-                    //            }
-                    //        }
-                    //    })
-                        //.fail(function (error) {
-                        //    console.error("Error fetching data:", error);
-                        //    // Handle the error appropriately
-                        //});
+                     
                   
-                })
+                }) 
 
                 //abp.notify.success(app.localize('SuccessfullyLoaded'));
                 $('#smartwizard').smartWizard({
@@ -113,7 +96,7 @@
                     //} 
                 })
                     .on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
-                        //debugger
+                        // 
                         if (stepPosition === 'first') {
                             $("#AppPreviousBtn").addClass('disabled');
                             $("#AppSubmitBtn").hide();
@@ -129,7 +112,7 @@
                             var id = $("#ApplicationId").val();
                             _ApplicationsService.getApplicationForView(id)
                                 .done(function (data) {
-                                    debugger;
+                                     ;
                                     if (data.application.isDiscontinue === true) {
                                         $('#AppDiscontinueBtn').hide();
                                         $('#AppActiveBtn').show();
@@ -156,14 +139,14 @@
                         
                     })
                     .on("loaded", function (e) {
-                        debugger
+                         
                         $("#AppPreviousBtn").addClass('disabled');
                         $("#finish-btn").hide();
                         $('#AppSubmitBtn').hide(); 
 
                         getStageData(stepsArr)
                     })
-
+                 
             })
             .fail(function (error) {
                 //
@@ -173,21 +156,20 @@
 
     };
     function getStageData(inputGetData) {
-        debugger
+         
         $.each(inputGetData, function (index, item) { 
             var Getdata = JSON.stringify(item);
             Getdata = JSON.parse(Getdata);
             _ApplicationStagesService
                 .getAll(Getdata)
                 .done(function (data) {
-                    //debugger
+                    // 
                     if (data && data.items && data.items.length > 0) {
-                        //stepForm += `<input type="hidden" id="StageID-${index + 1}" value="${data.items[0].applicationStage.id}"></input> </div>`;
                         $("#StageID-" + parseInt(index + 1)).val(data.items[0].applicationStage.id);
 
                         if (data.items[0].applicationStage.isCurrent == true) {
                             currentstage = index;
-                            debugger
+                             
                             $('#smartwizard').smartWizard("goToStep", index, true);
                         }
                     }
@@ -201,15 +183,15 @@
         
     }
     $(document).on('click', '#AppNextBtn', function () {
-        //debugger
+        // 
         var stepId = $(this)
         $('#smartwizard').smartWizard("next");
-        //debugger
+        // 
         var ApplicationIdFilter = parseInt($("#ApplicationId").val());
         var applicationId = $("#ApplicationId").val();
         var IsCurrentIdFilter = true;
         var srno = $('.nav-link.default.active .num').text().trim();
-        //debugger
+        // 
         if (srno > 1) {
             var inputGetData = {
                 applicationIdFilter: ApplicationIdFilter,
@@ -220,7 +202,7 @@
             _ApplicationStagesService
                 .getAll(Getdata)
                 .done(function (data) {
-                    //debugger
+                    // 
                    
                     var inputData = {
                         name: data.items[0].applicationStage.name,
@@ -237,7 +219,7 @@
                         .createOrEdit(Steps)
                 })
                 //...done(function (data) {
-                //    //debugger
+                //    // 
 
                 //    })
         }
@@ -272,7 +254,7 @@
         _ApplicationStagesService
             .createOrEdit(Steps)
             .done(function () {
-                //debugger
+                // 
                 abp.notify.info(app.localize('SavedSuccessfully'));
                 abp.event.trigger('app.createOrEditApplicationStagesSaved');
             })
@@ -282,9 +264,23 @@
 
     });
 
+    abp.event.on('app.createOrEditApplicationStagesSaved', function () {
+        //$('#smartwizard').smartWizard("reset"); 
+        var selectedTab = document.getElementById("ApplicationDetailTab");
+        var appId=$("#ApplicationId").val()
+        var pane = selectedTab.attributes[0];
+        var src = selectedTab.dataset.url;
+        abp.ui.setBusy();
+        $("#ApplicationDetailTabDiv").load(src + "/" + appId);
+
+        selectedTab.click();
+
+        abp.ui.clearBusy();
+    });
+
  
     $(document).on('click', '#AppPreviousBtn', function () {
-        //debugger
+        // 
         var stepId = $(this)
         var applicationId = $("#ApplicationId").val();
         var srno = $('.nav-link.default.active .num').text().trim();
@@ -315,7 +311,7 @@
         _ApplicationStagesService
             .createOrEdit(Steps)
             //.done(function () {
-            //    //debugger
+            //    // 
             //    abp.notify.info(app.localize('SavedSuccessfully'));
             //    abp.event.trigger('app.createOrEditApplicationStagesSaved');
             //})
@@ -356,7 +352,7 @@
         _ApplicationStagesService
             .createOrEdit(Steps)
             .done(function () {
-                //debugger
+                // 
                 abp.notify.info(app.localize('SavedSuccessfully'));
                 abp.event.trigger('app.createOrEditApplicationStagesSaved');
             })
@@ -379,7 +375,7 @@
         _ApplicationsService
             .updateApplicationIsDiscontinue(Steps)
             .done(function () {
-                //debugger
+                // 
                 abp.notify.info(app.localize('DiscontinueSuccessfully'));
                 $('#smartwizard').smartWizard("disable");
                 $('#AppDiscontinueBtn').hide();
@@ -401,7 +397,7 @@
         _ApplicationsService
             .updateApplicationIsDiscontinue(Steps)
             .done(function () {
-                //debugger
+                // 
                 abp.notify.info(app.localize('ActiveSuccessfully'));
                 $('#smartwizard').smartWizard("disable");
                 $('#AppDiscontinueBtn').show();

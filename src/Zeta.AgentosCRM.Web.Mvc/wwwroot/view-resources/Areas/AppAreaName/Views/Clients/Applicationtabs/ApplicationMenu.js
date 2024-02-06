@@ -27,15 +27,17 @@
                 dataType: 'json',
             })
                  .done(function (data) {
-                     debugger
+                      
                     stagesdata=data
                     // console.log('Response from server:', data);
                      // Call processData function after data is 
-                     var Applicationstage = stagesdata.result.items[0].applicationStage.id;
-                     var dynamicValue = hiddenfield;
-                     getApplicationtasksreload(dynamicValue, Applicationdynamic, Applicationstage);
+                     if (data && data.items && data.items.length > 0) {
+                         var Applicationstage = stagesdata.result.items[0].applicationStage.id;
+                         var dynamicValue = hiddenfield;
+                         getApplicationtasksreload(dynamicValue, Applicationdynamic, Applicationstage);
+                     }
                      function getApplicationtasksreload(dynamicValue, Applicationdynamic, Applicationstage) {
-                         debugger
+                          
 
 
                          var branchesAjax = $.ajax({
@@ -61,7 +63,7 @@
             //var srno = $('.nav-link.default.active .num').text().trim();
            
             function processApplicationtaskData(data) {
-                debugger
+                 
                 var cardContainer = $('#cardContainerapplicationTasks'); // or replace '#container' with your actual container selector
 
                 // Check if globalData.result.items is an array before attempting to iterate
@@ -172,7 +174,7 @@
                 $(this).addClass('custom-bg-color').css({ 'border-radius': '10em' })
 
                 $('ul.activeTab li:not(.active)').removeClass("custom-bg-color").css('border-radius', '');
-                debugger
+                 
                 var InputValue = $(this).find('input').val();
                
                 if (InputValue == 1) {
@@ -185,7 +187,7 @@
                     var dynamicValue = hiddenfield;
                     getapplicationsnotesreload(dynamicValue, Applicationdynamic, Applicationstage);
                     function getapplicationsnotesreload(dynamicValue, Applicationdynamic, Applicationstage) {
-                        debugger
+                         
 
 
                         var branchesAjax = $.ajax({
@@ -232,7 +234,7 @@
                         }
                     }
                     function createCard(item) {
-                        debugger
+                         
                         var note = item.note;
 
                         // Create a single row for all cards
@@ -325,7 +327,7 @@
                     var dynamicValue = hiddenfield;
                     getApplicationtasksreload(dynamicValue, Applicationdynamic, Applicationstage);
                     function getApplicationtasksreload(dynamicValue, Applicationdynamic, Applicationstage) {
-                        debugger
+                         
 
 
                         var branchesAjax = $.ajax({
@@ -348,7 +350,7 @@
                             });
                     }
                     function processApplicationtaskData(data) {
-                        debugger
+                         
                         var cardContainer = $('#cardContainerapplicationTasks'); // or replace '#container' with your actual container selector
 
                         // Check if globalData.result.items is an array before attempting to iterate
@@ -450,7 +452,7 @@
             });
         }); 
         //$(document).off("click", ".BtnNewNotes").on("click", ".BtnNewNotes", function () {
-        //    debugger
+        //     
         //    _createOrEditNotesApplicationModal.open();
         //});
 

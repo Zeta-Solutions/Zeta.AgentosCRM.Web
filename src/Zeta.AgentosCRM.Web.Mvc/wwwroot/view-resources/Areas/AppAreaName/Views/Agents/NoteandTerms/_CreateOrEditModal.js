@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditNotesAndTermsModal = function () {
-        debugger
+         
 
 
         var _notesService = abp.services.app.notes;
