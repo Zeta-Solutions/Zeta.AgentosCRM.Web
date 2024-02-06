@@ -396,6 +396,15 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                             AppPermissions.Pages_CRMSetup_PartnerTypes)
                         )
                     )
+                    .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.Leads,
+                        L("Lead"),
+                         url: "AppAreaName/Leads",
+                        icon: "flaticon-more"
+                    //, permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_TaskPriorities)
+                    )
+
+                )
                 )
                  .AddItem(new MenuItemDefinition(
                                     AppAreaNamePageNames.Tenant.Clients,

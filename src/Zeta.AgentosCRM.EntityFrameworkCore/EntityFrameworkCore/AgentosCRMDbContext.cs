@@ -52,11 +52,14 @@ using Zeta.AgentosCRM.MultiTenancy.Accounting;
 using Zeta.AgentosCRM.MultiTenancy.Payments;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.Tenants.Email;
+using Zeta.AgentosCRM.CRMLead;
 
 namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<LeadHead> LeadHeads { get; set; }
+        public virtual DbSet<LeadDetail> LeadDetails { get; set; }
         public virtual DbSet<SentEmail> SentEmails { get; set; }
 
         public virtual DbSet<EmailConfiguration> EmailConfigurations { get; set; }
@@ -224,6 +227,15 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<LeadDetail>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
+            modelBuilder.Entity<LeadHead>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
 
             modelBuilder.Entity<SentEmail>(s =>
             {
