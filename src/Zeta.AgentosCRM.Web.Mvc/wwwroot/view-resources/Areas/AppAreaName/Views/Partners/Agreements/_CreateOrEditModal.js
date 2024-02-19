@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditAgreementsModal = function () {
-        debugger
+         
         $('#regionId').select2({
             width: '100%',
             dropdownParent: $('#regionId').parent(),

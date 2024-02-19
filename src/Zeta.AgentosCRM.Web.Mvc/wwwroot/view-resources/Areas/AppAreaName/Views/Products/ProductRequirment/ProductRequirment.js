@@ -10,7 +10,7 @@
         var globalData; // Declare the data variable in a broader scope
 
         function createCardTask(item) {
-            debugger
+             
             var productAcadamicRequirement = item.productAcadamicRequirement || { id: 0 };
             //var cardId = 'card_' + productOtherInformation.id;
             // Create a single row for all cards
@@ -63,7 +63,7 @@
                 infoColDiv.append(infoParagraph1, infoParagraph2);
             }
             else if (productAcadamicRequirement !== undefined) {
-                debugger
+                 
                 var infoParagraph1 = $('<p>').addClass('card-text col-md-4');
 
                 infoParagraph1.html('<strong>No Data:</strong>');
@@ -83,7 +83,7 @@
             return mainDiv; // Return the created card
         }
         function createEnglishCardTask(item) {
-            debugger;
+             ;
         
         var productEnglishRequirements = item || [{ productEnglishRequirement: { id: 0 } }];
 
@@ -133,7 +133,7 @@
             cardBodyDiv.append(cardTitle);
             // Append headings to card body
             cardBodyDiv.append(infoColheadingDiv);
-            debugger
+             
             // Create info paragraphs
             for (var i = 0; i < productEnglishRequirements.length; i++) {
                 var currentProduct = productEnglishRequirements[i];
@@ -175,7 +175,7 @@
 
 
         //function createEnglishCardTask(item) {
-        //    debugger;
+        //     ;
         //    var productEnglishRequirements = item; /*item[0].productEnglishRequirement || [];*/
 
         //    var mainDiv = $('<div>').addClass('maincard maindivcard').css({
@@ -270,7 +270,7 @@
         //}
 
         function createProductothercard(item) {
-            debugger;
+             ;
 
             var productOtherTestRequirements = item || [{ productOtherTestRequirement: { id: 0, name: '' } }];
 
@@ -326,7 +326,7 @@
             cardBodyDiv.append(cardTitle);
             // Append headings to card body
             cardBodyDiv.append(infoColheadingDiv);
-            debugger
+             
             var infoParagraphs = [];
             var paragraph1 = $('<p>').addClass('card-text col-md-2').html('<strong>Over All Score:</strong>');
             infoColDiv.append(paragraph1);
@@ -385,12 +385,12 @@
                 });
         }
         function processotherscoreData(data) {
-            debugger
+             
             var cardContainer = $('#cardProductotherContainer'); // or replace '#container' with your actual container selector
-            debugger
+             
             // Check if globalData.result.items is defined and is an array with elements
             if (Array.isArray(globalotherData.result.items) && globalotherData.result.items.length > 0) {
-                debugger
+                 
                 // Call createEnglishCardTask once with the entire array
                 var cards = createProductothercard(globalotherData.result.items);
 
@@ -405,7 +405,7 @@
                 // Append the row to the cardContainer
                 cardContainer.append(rowDiv);
             } else {
-                debugger
+                 
                 var defaultotherItem = {}; // You can provide some default values or an empty object
                 var defaultCard = createProductothercard(defaultotherItem);
 
@@ -461,7 +461,7 @@
                 });
         }
         function processData(data) {
-            debugger
+             
             var cardContainer = $('#cardProductRequirmentsContainer'); // or replace '#container' with your actual container selector
 
             // Check if globalData.result.items is defined and is an array with elements
@@ -482,7 +482,7 @@
                     cardContainer.append(rowDiv);
                 }
             } else {
-                debugger
+                 
                 var defaultItem = {}; // You can provide some default values or an empty object
                 var defaultCard = createCardTask(defaultItem);
 
@@ -496,9 +496,9 @@
             }
         }
         function procesenglishData(data) {
-            debugger
+             
             var cardContainer = $('#cardProductEnglishContainer'); // or replace '#container' with your actual container selector
-            debugger
+             
             // Check if globalData.result.items is defined and is an array with elements
             if (Array.isArray(globalenglishData.result.items) && globalenglishData.result.items.length > 0) {
                 // Call createEnglishCardTask once with the entire array
@@ -515,7 +515,7 @@
                 // Append the row to the cardContainer
                 cardContainer.append(rowDiv);
             }else {
-                debugger
+                 
                 var defaultItem = {}; // You can provide some default values or an empty object
                 var defaultCard = createEnglishCardTask(defaultItem);
 
@@ -540,7 +540,7 @@
 
         // Button click event handler
         $('#showCardsButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
             _createOrEditModal.open();
@@ -560,7 +560,7 @@
             endDate: null,
         };
         //_productOtherInformationsService.getAll().done(function (data) {
-        //    debugger;
+        //     ;
         //    processData(data);
         //}).fail(function (error) {
         //    console.error('Error fetching data:', error);
@@ -681,7 +681,7 @@
                             {
                                 text: app.localize('View'),
                                 action: function (data) {
-                                    debugger;
+                                     ;
                                     //  _viewLeadSourceModal.open("/AppAreaName/Partners/PartnersDetails");
                                     // window.location.href = abp.appPath + 'AppAreaName/Partners/ViewApplicationDetails';
                                     //_viewLeadSourceModal.window.open("/AppAreaName/Partners/PartnersDetails");
@@ -734,7 +734,7 @@
         }
 
         function deleteotherinfo(productOtherInformation) {
-            debugger
+             
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
@@ -763,7 +763,7 @@
         });
 
         $('#CreateNewproductAcadamicRequirementButton').click(function () {
-            debugger
+             
             if(receivedId && parseInt(receivedId) > 0) {
                 _createOrEditModal.open({ id: receivedId });
 
@@ -776,14 +776,14 @@
 
         });
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
         $('#BranchesButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
 
@@ -859,10 +859,10 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action5]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action5');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });
@@ -903,10 +903,10 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action51]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action51');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });
@@ -954,10 +954,10 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action71]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action71');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });

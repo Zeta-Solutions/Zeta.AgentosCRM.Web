@@ -3,12 +3,16 @@
     $(function () {
         //var _$Appointmentstable = $('#Appointmentstable');
        // var _clientAppointmentsService = abp.services.app.appointments;
-        debugger
-       
+
+        var _sentEmailService = abp.services.app.sentEmails;
+        var _$clientEmailTable = $('#ClientEmailTable');
+
         var $selectedDate = {
             startDate: null,
             endDate: null,
         };
+
+        var clientId = $('input[name="Clientid"]').val();
 
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
@@ -54,15 +58,13 @@
             delete: abp.auth.hasPermission('Pages.Subjects.Delete'),
         };
 
-        var _createOrEditModal = new app.ModalManager({
+        var _createOrEditSmsModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Clients/SendSms',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Conversation/_SendSmsConversationModal.js',
             modalClass: 'SendSmsModal',
         });
 
-
-     
-
+         
         var getDateFilter = function (element) {
             if ($selectedDate.startDate == null) {
                 return null;
@@ -96,6 +98,55 @@
             });
         }
 
+
+        var dataTable = _$clientEmailTable.DataTable({
+            paging: true,
+            serverSide: true,
+            processing: true,
+            listAction: {
+                ajaxFunction: _sentEmailService.getAll,
+                inputFilter: function () {
+                    return {
+                        filter: $('#EmailsTableFilter').val(),
+                        subjectFilter: $('#SubjectFilter').val(),
+                        clientIdFilter: clientId,//$('#EmailClientIdFilter').val(),
+                        
+                    };
+                }
+            },
+            columnDefs: [
+                {
+                    className: 'control responsive',
+                    orderable: false,
+                    render: function () {
+                        return '';
+                    },
+                    targets: 0
+                }, 
+                {
+                    targets: 1,
+                    data: 'sentEmail.subject',
+                    name: 'sentEmail.subject',
+                },
+                {
+                    targets: 2,
+                    data: 'sentEmail.toEmail',
+                    name: 'sentEmail.toEmail',
+                }, 
+                {
+                    targets: 3,
+                    data: "userName",
+                    name: "userName"
+                },
+                {
+                    targets: 4,
+                    data: 'sentEmail.creationTime',
+                    name: 'sentEmail.creationTime',
+                }, 
+            ]
+        });
+
+
         $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
             $('#HideAdvancedFiltersSpan').show();
@@ -109,9 +160,9 @@
         });
 
         $('#SmsButton').click(function () {
-            _createOrEditModal.open();
+            //_createOrEditSmsModal.open();
         });
-
+         
         $('#ExportToExcelButton').click(function () {
             _clientAppointmentsService
                 .getPartnerTypesToExcel({

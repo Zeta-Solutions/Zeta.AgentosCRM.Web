@@ -234,7 +234,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('actionp');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewFeeTypeModal.open({ id: rowId });

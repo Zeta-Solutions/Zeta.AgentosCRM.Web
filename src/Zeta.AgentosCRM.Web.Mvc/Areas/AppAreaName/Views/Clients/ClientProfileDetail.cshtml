@@ -13,7 +13,8 @@
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/DemoUiComponents/DateAndTimePickers/DemoDateAndTimePickers.css" asp-append-version="true" />
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activity.css" asp-append-version="true" />
     @* <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" /> *@
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
   }
 @section Scripts
 {
@@ -38,6 +39,7 @@
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activites.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Documents/Document.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Conversation/Index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
 
 
     
@@ -77,19 +79,19 @@
                             @* /////Icons div///// *@
                             <div class="col-lg-12 mb-3  d-flex justify-content-center align-items-center">
                                 <div class="d-flex justify-content-between pl-3">
-                                    <a class="me-2 text-muted rounded-circle mx-2" data-toggle="tooltip" title="Email">
+                                    <a class="me-2 text-muted mx-2 p-1" id="SendEmail" data-toggle="tooltip" title="Email">
                                         <span class="fa fa-envelope"></span>
                                     </a>
-                                    <a class="me-2 text-muted mx-2" id="EditProfile" data-toggle="tooltip" title="Edit">
+                                    <a class="me-2 text-muted mx-2 p-1" id="EditProfile" data-toggle="tooltip" title="Edit">
                                         <span class="fa fa-pencil"></span>
                                     </a>
                                     @* <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="Approve">
                                         <span class="fa fa-check"></span>
                                     </a> *@
-                                    <a class="me-2 text-muted mx-2" data-toggle="tooltip" title="SMS">
+                                    <a class="me-2 text-muted mx-2 p-1" id="SendSms" data-toggle="tooltip" title="SMS">
                                         <span class="fa fa-comment"></span>
                                     </a>
-                                    <a class="me-2 text-muted mx-2"id="Archived" data-toggle="tooltip" title="Archived">
+                                    <a class="me-2 text-muted mx-2 p-1" id="Archived" data-toggle="tooltip" title="Archived">
                                         <span class="fa fa-archive"></span>
                                     </a>
                                 </div>
@@ -105,6 +107,7 @@
                             <div class="col-lg-12 text-center">
                                 <label for="ClientId" class="form-label form-label-sm">@L("Email")</label><br />
                                 <p id="ClientId" class="mb-0 text-muted">@Model.Client.Email</p>
+                                <input type="hidden" id="GetEmail" class="form-control form-control-sm">  
                             </div>
 
                             <div class="col-lg-12">

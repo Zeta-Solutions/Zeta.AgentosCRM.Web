@@ -2,7 +2,7 @@
     $(function () {
         var _$QuotationCurrencyTable = $('#QuotationCurrencyTable');
         var _QuotationCurrenciesService = abp.services.app.cRMCurrencies;
-        debugger
+         
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -173,7 +173,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewTagModal.open({ id: rowId });
@@ -213,7 +213,7 @@
         });
 
         $('#CreateNewQuotationCurrencyButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
 
@@ -235,7 +235,7 @@
         });
 
         $('#GetQuotationCurrenciesButton').click(function (e) {
-            debugger
+             
             e.preventDefault();
             getcRMCurrencies();
 

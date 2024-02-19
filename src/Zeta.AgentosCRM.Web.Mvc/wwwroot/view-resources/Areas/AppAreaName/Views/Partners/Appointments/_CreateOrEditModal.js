@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditClientsAppoinmentModal = function () {
-        debugger;
+         ;
         $('#inviteesId').select2({
             multiple: true,
             width: '100%',
@@ -44,7 +44,7 @@
             }
         });
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#inviteesId');
 
             dropdown.empty();
@@ -81,7 +81,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updateProductDropdown(data);
                 },
@@ -91,7 +91,7 @@
             });
         }
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
@@ -154,7 +154,7 @@
             }
             var datarows = [];
             var datarowsList = $("#inviteesId :selected").map(function (i, el) {
-                debugger
+                 
                 return $(el).val();
             }).get();
             $.each(datarowsList, function (index, value) {
@@ -166,7 +166,7 @@
             var Steps = JSON.stringify(datarows);
 
             Steps = JSON.parse(Steps);
-            debugger
+             
             var ClientAppointment = _$clientAppointmentsInformationForm.serializeFormToObject();
             ClientAppointment.Steps = Steps;
 

@@ -215,7 +215,7 @@
         //// Attach a click event handler to the button with the specified class
         //$(document).on('click', '.Edit_WorkflowStep_WorkflowIdTest', function (event) {
         //    event.preventDefault();  
-        //    debugger
+        //     
         //    // Extract the data-id attribute from the clicked button
         //    var workflowId = $(this).data('id');
 
@@ -290,7 +290,7 @@
                 if (currentOpenedDetailRow) currentOpenedDetailRow.child.hide();
 
                 $.get(url).then((data) => {
-                    debugger
+                     
                     row.child(data).show();
                     tr.addClass('shown');
                     currentOpenedDetailRow = row;

@@ -40,7 +40,7 @@
                 return;
             }
 
-            debugger
+             
             var Subject = _$othersInformationForm.serializeFormToObject();
             _modalManager.setBusy(true);
             _productAcadamicRequirements

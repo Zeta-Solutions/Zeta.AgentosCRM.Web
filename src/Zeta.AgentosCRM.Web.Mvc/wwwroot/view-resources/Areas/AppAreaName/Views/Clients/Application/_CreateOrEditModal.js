@@ -7,7 +7,7 @@
         $("#ClientId").val(hiddenfield);
         var _modalManager;
         var _$clientTagsInformationForm = null;
-        debugger
+         
         $('input[name*="clientId"]').val(hiddenfield)
         var _modalManager;
         var _$applicationsInformationForm = null;
@@ -41,7 +41,7 @@
                 //    PartnerIdFilter: dynamicValue,
                 //},
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data....
                     $("#PartnerId").val(data.result[0].branch.partnerId)
                     populateDropdown(data);
@@ -56,7 +56,7 @@
 
         }
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#branchId');
 
             dropdown.empty();
@@ -71,7 +71,7 @@
         }
         
         $(document).on("change", "#WorkflowId", function () {
-        debugger
+         
             var idValue = $(this).val();
             if (idValue > 0) {
 
@@ -83,7 +83,7 @@
                     //    PartnerIdFilter: dynamicValue,
                     //},
                     success: function (data) {
-                        debugger
+                         
 
 
                         if (data == null || data == 0 || data == undefined || data.result.length == 0) {
@@ -116,7 +116,7 @@
             }
         });
         $(document).on("change", "#branchId", function () {
-            debugger
+             
             var idBranchValue = $(this).val();
             if (idBranchValue > 0) {
                 $.ajax({
@@ -147,14 +147,14 @@
 
         });
         function populateProductDropdown(data) {
-            debugger;
+             ;
             var dropdown = $('#productId');
 
             dropdown.empty();
             dropdown.prepend($('<option></option>').attr('value', '').text('Select Product'));
 
             $.each(data.result.items, function (index, item) {
-                debugger
+                 
                 if (item && item.productBranch && item.productBranch.id !== null && item.productBranch.id !== undefined && item.productName !== null && item.productName !== undefined) {
                     dropdown.append($('<option></option>').attr('value', item.productBranch.id).attr('data-id', item.productBranch.id).text(item.productName));
                 } else {
@@ -184,12 +184,12 @@
             });
         }
         function updateDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
         
             $('#branchId').val(data.result.application.branchId).trigger('change.select2');
             var idBranchValue = $("#branchId").val();
-            debugger
+             
             setTimeout(function () {
                 $.ajax({
                     url: abp.appPath + 'api/services/app/ProductBranches/GetAll?BranchIdFilter=' + idBranchValue,
@@ -239,7 +239,7 @@
     
        
         this.save = function () {  
-            debugger
+             
 
             if (!_$applicationsInformationForm.valid()) {
                 return;

@@ -75,7 +75,7 @@
         };
 
         function saveInternal(input) {
-                debugger
+                 
             _profileService.updateProfilePicture(input).done(function () {
                 if ($cropperJsApi) {
                     $cropperJsApi = null;

@@ -7,7 +7,7 @@
     
 
         $(document).off("change", "#reminderCheckboxApplication").on("change", "#reminderCheckboxApplication", function (e) {
-            debugger
+             
             var card = $(this).closest('.maincard'); // Assuming the unique class is 'maincard'
             var replaceElement = card.find('.replace');
             var replaceElementdate = card.find('.replacedate');
@@ -115,7 +115,7 @@
 
       
         //_cRMTasksService.getAll().done(function (data) {
-        //    debugger;
+        //     ;
         //    processData(data);
         //}).fail(function (error) {
         //    console.error('Error fetching data:', error);
@@ -228,7 +228,7 @@
   
 
         $(document).off("click", ".BtnNewTask").on("click", ".BtnNewTask", function () {
-            debugger
+             
             _createOrEditTaskApplicationModal.open();
         });
        
@@ -301,7 +301,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action151');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });

@@ -211,7 +211,7 @@
 
             var rowId = $(this).data('id'); 
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewMasterCategoryModal.open({ id: rowId });
@@ -225,12 +225,12 @@
 
 
         function deleteMasterCategory(masterCategory) {
-            //debugger
+            // 
             //var category = JSON.parse(masterCategory);
             //console.log(category);
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
-                    debugger
+                     
                     _masterCategoriesService
                         .delete({
                             id: masterCategory.id,

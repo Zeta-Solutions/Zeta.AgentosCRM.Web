@@ -3,12 +3,12 @@
     app.modals.CreateOrEditWorkflowModal = function () {
         var _workflowsService = abp.services.app.workflows;
         if ($("#allOffice").attr("checked")) {
-            debugger
+             
 
             document.getElementById("showhide").style.display = 'none';
         }
         else {
-            debugger
+             
             document.getElementById("showhide").style.display = 'block';
         }
         $('#WorkFlowOfficeId').select2({
@@ -23,7 +23,7 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
                 populateDropdown(data);
             },
             error: function (error) {
@@ -49,7 +49,7 @@
         }
 
 
-        debugger
+         
         var Workflowsetuptable = $('#Workflowsetuptable').DataTable();
         var _workflowStepsService = abp.services.app.workflowSteps;
 
@@ -80,7 +80,7 @@
         var _modalManager;
         var _$workflowInformationForm = null;
         var workflowId = $("#WorkflowId").val();
-        debugger
+         
         //Fill Drop Down
 
         if (workflowId > 0) {
@@ -92,7 +92,7 @@
                 dataType: 'json',
 
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updateProductDropdown(data);
                 },
@@ -103,7 +103,7 @@
         }
 
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
@@ -131,7 +131,7 @@
                     var TotalRecord = data.result.items;
 
                     $.each(TotalRecord, function (index, item) {
-                        debugger
+                         
                         var newTimelineItem = `
     <div class="col-12 timeline-item  timeline-itemRowDelete ">
         <div class="timeline-item col-11">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="col-1">`
-                        debugger
+                         
                         if (item.workflowStep.isWinStage == true) {
                             newTimelineItem += `<span  class="btn btn-sm Stage"  data-workflow-id="0"><i class="fa fa-trophy" style="font-size: 20px; color:Blue;" title="Remove to win Satge"></i></span>`
                         } else {
@@ -234,7 +234,7 @@
         var Abbrivation = document.getElementById("abbrivation");
         var Name = document.getElementById("name");
         $(document).on('click', '.add-button-WorkFlow', function () {
-            debugger;
+             ;
             //var newIndex = 0;
             var newIndex = $("#sortable .timeline-item").length + 1;
             //var newIndex = $("#sortable").length + 1;
@@ -324,18 +324,18 @@
         });
 
         $(document).on('click', '.hashtag', function () {
-            debugger;
+             ;
 
             var hashtagID11 = $(this).closest('.timeline-item').find('.HashTag-inputValue').val();
             console.log(hashtagID);
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.HashTag-inputValue').val('false');
                 $(this).html('<i class="fa fa-hashtag" style="font-size: 20px;  title="Required Partner Client ID"></i>');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.HashTag-inputValue').val('true');
@@ -351,13 +351,13 @@
             var hashtagID11 = $(this).closest('.timeline-item').find('.calendar-inputValue').val();
 
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.calendar-inputValue').val('false');
                 $(this).html('<i class="fa fa-calendar" style="font-size: 20px" title="Add Start and End Date"></i>');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.calendar-inputValue').val('true');
@@ -367,18 +367,18 @@
         });
 
         $(document).on('click', '.file', function () {
-            /*  debugger;*/
+            /*   ;*/
 
             var hashtagID11 = $(this).closest('.timeline-item').find('.file-inputValue').val();
 
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.file-inputValue').val('false');
                 $(this).html('<i class="fa fa-file-text-o" style="font-size: 20px "title="Add Note"></i>');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.file-inputValue').val('true');
@@ -388,18 +388,18 @@
         });
 
         $(document).on('click', '.Application', function () {
-            /*debugger;*/
+            /* ;*/
 
             var hashtagID11 = $(this).closest('.timeline-item').find('.Application-inputValue').val();
 
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.Application-inputValue').val('false');
                 $(this).html('<i class="fa fa-calendar-check-o" style="font-size: 20px" title="Add Application intake field"></i>');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.Application-inputValue').val('true');
@@ -413,13 +413,13 @@
             var hashtagID11 = $(this).closest('.timeline-item').find('.Stage-inputValue').val();
 
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.Stage-inputValue').val('false');
                 $(this).html('<i class="fa fa-trophy" style="font-size: 20px" title="Set to win Stage"></i>');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.Stage-inputValue').val('true');
@@ -434,12 +434,12 @@
             var hashtagID11 = $(this).closest('.timeline-item').find('.switchValue').val();
 
             if (hashtagID11 == "true") {
-                debugger
+                 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.switchValue').val('false');
 
             } else {
-                debugger
+                 
 
                 var hashtagID = $(this).closest('.timeline-item');
                 hashtagID.find('.switchValue').val('true');
@@ -514,11 +514,11 @@
 
                 return $(el).val();
             }).get();
-            debugger
+             
             var test = $("input[name='IsForAllOffices']:checked").val();
             if (test == "false") {
                 if (datarowsList == '') {
-                    debugger
+                     
 
                     abp.notify.warn(app.localize('Please Select Office'));
                     return true
@@ -532,14 +532,14 @@
                 officerows.push(datarowsItem);
             });
             var officeSteps = JSON.stringify(officerows);
-            debugger
+             
             officeSteps = JSON.parse(officeSteps);
 
             var workflow = _$workflowInformationForm.serializeFormToObject();
 
             workflow.steps = Steps;
             workflow.officeSteps = officeSteps;
-            debugger
+             
             _modalManager.setBusy(true);
             _workflowsService
                 .createOrEdit(workflow)

@@ -6,7 +6,7 @@
     $(function () {
 
         var _$clientsTable = $('#ClientsTable');
-        console.log(_$clientsTable);
+        //console.log(_$clientsTable);
         var _clientsService = abp.services.app.clients;
         var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
         var $selectedDate = {
@@ -294,7 +294,7 @@
             ]
         });
         //$(".custom-checkbox").click(function () {
-        //    debugger
+        //     
 
 
         //});
@@ -303,7 +303,7 @@
         }
 
         function tabgetClients() {
-            debugger
+             
             if ($("#TabValues").val() == 1) {
 
 
@@ -382,7 +382,7 @@
             // dataTable.ajax.reload();
             _clientsService.getAll(filters)
                 .then(function (data) {
-                    debugger
+                     
                     console.log('Data from service:', data);
                     //dataTable.ajax.reload();
                     dataTable.clear().rows.add(data.items).draw();
@@ -545,7 +545,7 @@
 
         $('#ClientsTable').on('click', 'input.custom-checkbox', function () {
             // Check if any of the checkboxes are checked
-            debugger
+             
             var anyChecked = $('.custom-checkbox:checked').length > 0;
 
             // If any checkbox is checked, show the button
@@ -577,7 +577,7 @@
         });
         $(document).on('click', '#SendBulkSMS', function (e) {
             e.preventDefault();
-            debugger
+             
             var PhoneNo = commaSeparatedPhoneNo;
             alert(PhoneNo);
         });
@@ -668,18 +668,18 @@
                             let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
                             let profilePicture = row.imageBytes
                             return `
-    <div class="d-flex align-items-center">
-         ${profilePicture
-                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
-                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
-        <div class="d-flex flex-column">
-            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
-                ${fullName}
-            </a> 
-             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
-        </div>
-    </div>
-`;
+                                <div class="d-flex align-items-center">
+                                     ${profilePicture
+                                                                ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                                                : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+                                    <div class="d-flex flex-column">
+                                        <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                                            ${fullName}
+                                        </a> 
+                                         <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+                                    </div>
+                                </div>
+                            `;
                         },
 
                         name: 'concatenatedData',
@@ -880,18 +880,18 @@
                             let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
                             let profilePicture = row.imageBytes
                             return `
-    <div class="d-flex align-items-center">
-         ${profilePicture
-                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
-                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
-        <div class="d-flex flex-column">
-            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
-                ${fullName}
-            </a> 
-             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
-        </div>
-    </div>
-`;
+                                <div class="d-flex align-items-center">
+                                     ${profilePicture
+                                                                ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                                                : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+                                    <div class="d-flex flex-column">
+                                        <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                                            ${fullName}
+                                        </a> 
+                                         <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+                                    </div>
+                                </div>
+                            `;
                         },
 
                         name: 'concatenatedData',
@@ -1089,18 +1089,18 @@
                             let clientEmailComposeUrl = `/AppAreaName/Clients/ClientEmailCompose?id=${row.client.id}`;
                             let profilePicture = row.imageBytes
                             return `
-    <div class="d-flex align-items-center">
-         ${profilePicture
-                                    ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
-                                    : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
-        <div class="d-flex flex-column">
-            <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
-                ${fullName}
-            </a> 
-             <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
-        </div>
-    </div>
-`;
+                                <div class="d-flex align-items-center">
+                                     ${profilePicture
+                                                                ? `<a href="${profilePicture}" target="_blank"><img class="rounded-circle border border-dark text-white me-2 h-40px w-40px" src="data:image/png;base64,${profilePicture}" alt="${fullName}" title="${fullName}"></a>`
+                                                                : `<span class="rounded-circle bg-dark text-white text-center border border-dark fs-3 pt-2 me-2 h-40px w-40px" title="${fullName}"><b>${initials}</b></span>`}
+                                    <div class="d-flex flex-column">
+                                        <a href="${clientDetailUrl}" class="fs-6 text-uppercase text-bold" title="${fullName}">
+                                            ${fullName}
+                                        </a> 
+                                         <a href="#" class="EmailForm" data-id="${row.client.id}">${row.client.email}</a>
+                                    </div>
+                                </div>
+                            `;
                         },
 
                         name: 'concatenatedData',
@@ -1290,7 +1290,7 @@
         //    getClientsTags();
         //});
         $('#ExportToExcelButton').click(function () {
-            debugger
+             
             //_clientsService
             //    .getClientsToExcel({
             //        filter: $('#ClientsTableFilter').val(),
@@ -1437,7 +1437,7 @@
         });
 
         $('.reload-on-keyup').keyup(function (e) {
-            debugger
+             
             //getClients();
             tabgetClients();
         });

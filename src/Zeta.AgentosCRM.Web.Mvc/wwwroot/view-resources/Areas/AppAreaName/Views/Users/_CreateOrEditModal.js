@@ -14,7 +14,7 @@
       //    type: 'GET',
       //    data: { userId: userId },
       //    success: function (data) {
-      //        debugger
+      //         
       //        // Assuming data.profilePicture contains the base64-encoded image string
       //        var base64Image = data.result.profilePicture;
 

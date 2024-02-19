@@ -205,7 +205,7 @@
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.ellipsis', function (e) {
             e.preventDefault();
-            debugger
+             
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -218,7 +218,7 @@
 
         // Close the context menu when clicking outside of it
         $(document).on('click', function (event) {
-            debugger
+             
             if (!$(event.target).closest('.context-menu').length) {
                 $('.options').hide();
             }
@@ -230,7 +230,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewCountryModal.open({ id: rowId });

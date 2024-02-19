@@ -12,5 +12,7 @@
 
         public string ApplicationName { get; set; }
 
+        public string UserName { get; set; }
+
     }
 }

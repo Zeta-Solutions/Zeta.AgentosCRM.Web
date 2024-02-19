@@ -4,7 +4,7 @@
         const partnerIdValue = urlParams.get('clientId');
         var idValue = 0;
         var idElements = document.getElementsByName("id");
-        debugger
+         
       
 
         if (idElements.length > 0) {
@@ -22,14 +22,14 @@
         }
         if (idValue > 0) {
 
-            debugger
+             
             $.ajax({
                 url: abp.appPath + 'api/services/app/ClientQuotationHeads/GetClientQuotationHeadForEdit?id=' + idValue,
                 method: 'GET',
                 dataType: 'json',
 
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updatetable(data);
                 },
@@ -39,7 +39,7 @@
             });
         }
         function updatetable(data) {
-            debugger;
+             ;
             var clientQuotationDetails = data.result.clientQuotationDetail;
             for (var i = 0; i < data.result.clientQuotationDetail.length; i++) {
                 var clientQuotationDetail = clientQuotationDetails[i];
@@ -65,7 +65,7 @@
 
                 var srCount = rowCount + 2;
 
-                debugger
+                 
                 var mainDiv = $('<div>').addClass('maincard maindivcard');
 
 
@@ -120,7 +120,7 @@
 
             // Append card to the mainDiv
             mainDiv.append(cardDiv);
-            debugger
+             
             var clientname = item.firstName + item.lastName;
             var clientEmail = item.email;
             $("input[name='ClientEmail']").val(clientEmail);
@@ -138,7 +138,7 @@
 
 
         function getclientsreload(partnerIdValue) {
-            debugger
+             
 
             var branchesAjax = $.ajax({
                 url: abp.appPath + 'api/services/app/Clients/GetClientForView',
@@ -158,7 +158,7 @@
                 });
         }
         function processData(data) {
-            debugger
+             
             var cardContainer = $('#cardContainerContact'); // or replace '#container' with your actual container selector
             var item = globalData.result.client;
             var card = createCard(item);
@@ -371,12 +371,12 @@
             //    return;
             //}
 
-            debugger; 
+             ; 
             var datarows = [];
 
             // Assuming you have some way of determining the number of rows you want to save, let's say 'rowCount'.
             var rowCount = $(".workflowsId").length;
-            debugger
+             
             for (var i = 0; i < rowCount; i++) {
                 var WorkflowId = parseInt($(".workflowsId").eq(i).val(), 10);
               

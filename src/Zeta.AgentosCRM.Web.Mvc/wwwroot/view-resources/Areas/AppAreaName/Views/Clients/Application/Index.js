@@ -261,7 +261,7 @@
             //setTimeout(function () {
             //    _applicationsService.getApplicationForView(id)
             //        .done(function (data) {
-            //            debugger;
+            //             ;
             //            if (data.application.isDiscontinue === true) {
             //                $('#AppDiscontinueBtn').hide();
             //                $('#AppActiveBtn').show();

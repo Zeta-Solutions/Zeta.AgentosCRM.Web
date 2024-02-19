@@ -7,7 +7,7 @@
 }
 @section Styles
 	{
-	<link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
+	 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
 	 <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
    }
 @section Scripts
@@ -18,21 +18,19 @@
 
 
 
-                <abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
-                     @* <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
-    <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden>@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
-    <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
-    <button id="ChangeAssignee" class="btn btn-success btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden> @L("ChangeAssignee")</button>
+<abp-page-subheader title='@L("Clients")' description='@L("ClientsHeaderInfo")'>
+        @* <button id="ExportToExcelButton" class="btn btn-outline btn-sm btn-white text-black rounded-0 me-1"><i class="fa fa-file-excel"></i> @L("ExportToExcel")</button> *@
+        <button id="SendMail" class="btn btn-success border  btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden>@* <i class="fa-regular fa-envelope"></i> *@<i style="font-size:18px" class="fa">&#xf0e0;</i> @L("SendMail")</button>
+        <button id="SendBulkSMS" class="btn btn-success border btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden><i style='font-size:18px' class='fas'>&#xf4ad;</i> @L("SendBulkSMS")</button>
+        <button id="ChangeAssignee" class="btn btn-success btn-white btn-outline btn-sm btnSmsMail me-1 rounded-0" hidden> @L("ChangeAssignee")</button>
     
-     <button id="ExportToExcelButton" hidden class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
+        <button id="ExportToExcelButton" hidden class="btn btn-white btn-outline btn-sm  me-1 rounded-0"><i class="fa fa-file-excel text-success"></i> @L("ExportToExcel")</button>
      
-                     @if (IsGranted(AppPermissions.Pages_Clients_Create))
-                     {
-        @* <button id="CreateNewClientButton" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewCient")</button> *@
-
-                         <a href="\AppAreaName\Clients\ClientCreateDetail" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                
-                     }
-                </abp-page-subheader>
+        @if (IsGranted(AppPermissions.Pages_Clients_Create))
+        { 
+            <a href="\AppAreaName\Clients\ClientCreateDetail" class="btn btn-white btn-sm btn-outline text-black rounded-0"><i class="fa fa-plus"></i> @L("CreateNewClient")</a>                
+        }
+</abp-page-subheader>
             
 <div class="@(await GetContainerClass())">   
     <div class="card card-custom gutter-b">
@@ -57,8 +55,7 @@
                     <div class="col-md-12">
 						
 					</div>
-
-
+                     
 							<div class="col-md-3" hidden >
 								<div class="my-3">
                         <label class="form-label fw-bold text-dark" for="TabValues">@L("TabValues")</label>
@@ -175,12 +172,12 @@
                 <div class="d-flex h-30px navbar-link-card-Allign">
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder ml-3 pl-2" id="tabs">
                     <li class="nav-item">
-                            <a href="#ActivitiesTab" id="Prospects" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active" aria-selected="true">
+                            <a href="#ActivitiesTab" id="Prospects" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font">
                             @L("Prospects")
                         </a>
                     </li>
                     <li class="nav-item">
-                            <a href="#ApplicationTab" id="clients" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font " >
+                            <a href="#ApplicationTab" id="clients" data-bs-toggle="tab" role="tab" class="nav-link navbar-link-item-card-font active"  aria-selected="true">
                             @L("Clients")
                         </a>
                     </li>
@@ -210,19 +207,19 @@
                 <table id="ClientsTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
                     <thead class="thead gy-7">
                         <tr>
-							   <th class="align-middle" style="padding:2px"></th>
-                                <th><input id="SelectAllCheckBox" type="checkbox"></th>
-            <th >@L("Name")</th>
-            <th >@L("Tagname")</th>
-            <th >@L("Phone")</th>
-			<th>@L("currentcity")</th>
-            <th>@L("Assignee")</th>
-            <th >@L("Followers")</th>
-            <th>@L("Status")</th>
-            <th>@L("Application")</th>
-            <th>@L("LastUpdate")</th>
-            @* <th>@L("State")</th> *@
-            <th></th>
+							<th class="align-middle" style="padding:2px"></th>
+                            <th><input id="SelectAllCheckBox" type="checkbox"></th>
+                            <th >@L("Name")</th>
+                            <th >@L("Tagname")</th>
+                            <th >@L("Phone")</th>
+			                <th>@L("currentcity")</th>
+                            <th>@L("Assignee")</th>
+                            <th >@L("Followers")</th>
+                            <th>@L("Status")</th>
+                            <th>@L("Application")</th>
+                            <th>@L("LastUpdate")</th>
+                            @* <th>@L("State")</th> *@
+                            <th></th>
                             @* 
                             <th>@L("Actions")</th>
 								<th>@L("FirstName")</th>

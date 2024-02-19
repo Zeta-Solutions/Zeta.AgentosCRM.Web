@@ -112,7 +112,7 @@
                         let initials = `${firstNameInitial}` + ' ' + `${lastNameInitial}`;
                         let fullName = `${row.clientFirstName}` + ' ' + `${row.clientLastName}`;
                         let ClientEmail = row.clientEmail;
-                        debugger
+                         
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
@@ -242,7 +242,7 @@
                     defaultContent: '',
                     render: function (data, type, row) {
                         let IsCurrent = row.isCurrent;
-                        debugger
+                         
 
                         console.log(row);
                         if (IsCurrent == true) {
@@ -351,7 +351,7 @@
         // Add a click event handler for the ellipsis icons
         //$(document).on('click', '.Applicationellipsis', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var options = $(this).closest('.context-menu').find('.options');
         //    var allOptions = $('.options');  // Select all options
 
@@ -370,10 +370,10 @@
         //});
         //$(document).on('click', 'a[data-action60]', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var rowId = $(this).data('id');
         //    var action = $(this).data('action60');
-        //    debugger
+        //     
         //    // Handle the selected action based on the rowId
         //    if (action === 'edit') {
         //        _createOrEditModal.open({ id: rowId });

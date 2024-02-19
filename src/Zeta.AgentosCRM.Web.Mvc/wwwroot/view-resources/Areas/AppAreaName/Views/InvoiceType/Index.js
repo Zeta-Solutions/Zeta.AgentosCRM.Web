@@ -2,7 +2,7 @@
     $(function () {
         var _$DocumentTypeTable = $('#DocumentTypeTable');
         var _documentTypesService = abp.services.app.invoiceTypes;
-        debugger
+         
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -167,10 +167,10 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
-                debugger
+                 
                 _viewFeeTypeModal.open({ id: rowId });
             } else if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
@@ -208,12 +208,12 @@
         });
 
         $('#CreateNewInvoiceType').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
 
         abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-            debugger
+             
             getDocumentType();
         });
 

@@ -1,13 +1,13 @@
 ﻿(function ($) {
     app.modals.CreateOrEditEnglishscoreModal = function () {
-        debugger
+         
         var hiddenfield = $("#ProductId").val();
 
         $("#productId").val(hiddenfield);
         getRecordsById(hiddenfield);
-        debugger
+         
         function getRecordsById(hiddenfield) {
-            debugger
+             
             $.ajax({
                 url: abp.appPath + 'api/services/app/ProductEnglishRequirements/GetAll',
                 data: {
@@ -17,7 +17,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     console.log('Response from server:', data);
                     globalenglishData = data;
                     if (data || data.length > 1) {
@@ -30,7 +30,7 @@
                 });
         }
         function fetchrecord(data) {
-            debugger;
+             ;
             var modal = $(this);
             var reversedItems = data.result.items.slice().reverse();
 
@@ -95,7 +95,7 @@
                 var idTotalScore = "TotalScore" + i;
                 var hiddenfield = $("#ProductId").val();
                 var NameValue = $("." + Name).text(); // or .val() depending on the actual element type
-                debugger
+                 
                 var subject = {
                     Name: NameValue,
                     Listening: parseFloat($("." + idListening).val()),
@@ -112,7 +112,7 @@
                     row3 = $('.card-text.col-md-2 input[name="Id2"]').val();
             $.each(items, function (index, data) {
                 var Steps = JSON.stringify(data);
-                debugger
+                 
                 _productEnglishRequirements
                     .delete({
                         id: row1,
@@ -139,7 +139,7 @@
                     });
             });
             //var Steps = JSON.stringify(items);
-            //debugger
+            // 
             //Steps = JSON.parse(Steps);
             //var Fstep = Steps[0];
 

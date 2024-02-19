@@ -215,7 +215,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewCategoryModal.open({ id: rowId });
@@ -259,7 +259,7 @@
         });
 
         //$('#ExportToExcelButton').click(function () {
-        //    debugger
+        //     
         //    _taskCategoriesService
         //        .getMasterCategoriesToExcel({
         //            filter: $('#TaskCategoriesTableFilter').val(),

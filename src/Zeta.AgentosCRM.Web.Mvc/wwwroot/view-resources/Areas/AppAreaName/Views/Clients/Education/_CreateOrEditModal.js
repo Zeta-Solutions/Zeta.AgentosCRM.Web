@@ -1,14 +1,14 @@
 ﻿(function ($) {
     app.modals.CreateOrEditOtherscoreModal = function () {
-        debugger
+         
         var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
         $('input[name="clientId"]').val(hiddenfield)
         getRecordsById(hiddenfield);
-        debugger
+         
         
         function getRecordsById(hiddenfield) {
-            debugger
+             
             $.ajax({
                 url: abp.appPath + 'api/services/app/OtherTestScores/GetAll',
                 data: {
@@ -18,7 +18,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     console.log('Response from server:', data);
                     globalOtherData = data;
                     if (data || data.length > 1) {
@@ -31,7 +31,7 @@
                 });
         }
         function fetchrecord(data) {
-            debugger;
+             ;
             var modal = $(this);
             var reversedItems = data.result.items.slice().reverse();
 
@@ -84,7 +84,7 @@
                 var idtotalscore = "Totalscore" + i;
                 var hiddenfield = $("#ClientId").val();
                 var NameValue = $("." + Name).text(); // or .val() depending on the actual element type
-                debugger
+                 
                 var subject = {
                     Name: NameValue,
                     TotalScore: parseFloat($("." + idtotalscore).val()),
@@ -92,14 +92,14 @@
                 };
                 items.push(subject);
             }
-            debugger
+             
             row1 = $('.card-text.col-md-2 input[name="Idother0"]').val();
             row2 = $('.card-text.col-md-2 input[name="Idother1"]').val();
             row3 = $('.card-text.col-md-2 input[name="Idother2"]').val();
             row4 = $('.card-text.col-md-2 input[name="Idother3"]').val();
             $.each(items, function (index, data) {
                 var Steps = JSON.stringify(data);
-                debugger
+                 
                 _productOtherTestRequirements
                     .delete({
                         id: row1,
@@ -127,7 +127,7 @@
                     });
             });
             //var Steps = JSON.stringify(items);
-            //debugger
+            // 
             //Steps = JSON.parse(Steps);
             //var Fstep = Steps[0];
 

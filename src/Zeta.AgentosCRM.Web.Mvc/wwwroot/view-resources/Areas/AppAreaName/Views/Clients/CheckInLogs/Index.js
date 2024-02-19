@@ -196,7 +196,7 @@
         // Add a click event handler for the ellipsis icons
         $(document).on('click', '.Checkellipsis', function (e) {
             e.preventDefault();
-            debugger
+             
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -215,10 +215,10 @@
         });
         $(document).on('click', 'a[data-action6]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action6');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });

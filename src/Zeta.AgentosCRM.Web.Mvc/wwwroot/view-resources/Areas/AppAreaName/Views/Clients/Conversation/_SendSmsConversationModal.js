@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.SendSmsModal = function () {
-        debugger;
+         ;
         
 
 
@@ -46,7 +46,7 @@
         //    $("#AddedById").val(applointment_InviteesID);
         //});
         $(document).off("click", "#saveSmsConversationBtn").on("click", "#saveSmsConversationBtn", function (e) {
-            debugger
+             
             var inputGetData = {
                 phoneNumber: $("input[name='number']").val(),
                 message: $("#message").val()
@@ -56,7 +56,7 @@
             _clientsService
                 .sendConversationSms(Getdata)
                 .done(function (data) {
-                    //debugger
+                    // 
                     abp.notify.info(app.localize('SavedSuccessfully'));
                     _modalManager.close();
                     

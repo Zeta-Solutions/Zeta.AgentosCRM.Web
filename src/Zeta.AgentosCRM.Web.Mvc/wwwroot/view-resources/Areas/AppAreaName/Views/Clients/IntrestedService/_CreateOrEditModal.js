@@ -38,7 +38,7 @@
                 //    PartnerIdFilter: dynamicValue,
                 //},
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data....
                     populateDropdown(data);
                 },
@@ -65,7 +65,7 @@
                   //    PartnerIdFilter: dynamicValue,
                   //},
                   success: function (data) {
-                      debugger
+                       
                       // Populate the dropdown with the fetched data....
                       populateDropdown(data);
 
@@ -120,7 +120,7 @@
 
       });
       $(document).on("change", "#productId", function () {
-          debugger
+           
           var idValue = $(this).val();
           if (idValue > 0) {
               $.ajax({
@@ -150,7 +150,7 @@
 
       });
       function populateDropdown(data) {
-          debugger
+           
           var dropdown = $('#partnerId');
 
           dropdown.empty();
@@ -164,7 +164,7 @@
           });
       }
       function populateProductDropdown(data) {
-          debugger
+           
           var dropdown = $('#productId');
 
           dropdown.empty();
@@ -178,14 +178,14 @@
           });
       }
       function populatebranchDropdown(data) {
-          debugger;
+           ;
           var dropdown = $('#branchId');
 
           dropdown.empty();
           dropdown.prepend($('<option></option>').attr('value', '').text('Select Product'));
 
           $.each(data.result.items, function (index, item) {
-              debugger
+               
               if (item && item.productBranch && item.productBranch.id !== null && item.productBranch.id !== undefined && item.branchName !== null && item.branchName !== undefined) {
                   dropdown.append($('<option></option>').attr('value', item.productBranch.id).attr('data-id', item.productBranch.id).text(item.branchName));
               } else {
@@ -194,7 +194,7 @@
           });
 
       }
-      debugger
+       
       if ($('input[name="id"]').val() > 0) {
           id = $('input[name="id"]').val()
 
@@ -232,7 +232,7 @@
 
           $('#partnerId').val(data.result.clientInterstedService.partnerId).trigger('change.select2');
           var idpartnerValue = $("#partnerId").val();
-          debugger
+           
           setTimeout(function () {
               $.ajax({
                   url: abp.appPath + 'api/services/app/Products/GetAll?PartnerIdFilter=' + idpartnerValue,
@@ -256,7 +256,7 @@
 
       }
       function updatebranchDropdown(data) {
-          debugger;
+           ;
        
               var ms_val = 0;
 

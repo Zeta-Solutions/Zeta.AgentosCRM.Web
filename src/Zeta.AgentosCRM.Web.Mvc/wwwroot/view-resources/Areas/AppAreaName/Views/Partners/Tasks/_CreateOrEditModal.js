@@ -55,7 +55,7 @@
             }
         });
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#followerId');
 
             dropdown.empty();
@@ -92,7 +92,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updateProductDropdown(data);
                 },
@@ -102,7 +102,7 @@
             });
         }
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
@@ -159,7 +159,7 @@
             }
             var datarows = [];
             var datarowsList = $("#followerId :selected").map(function (i, el) {
-                debugger
+                 
                 return $(el).val();
             }).get();
             $.each(datarowsList, function (index, value) {
