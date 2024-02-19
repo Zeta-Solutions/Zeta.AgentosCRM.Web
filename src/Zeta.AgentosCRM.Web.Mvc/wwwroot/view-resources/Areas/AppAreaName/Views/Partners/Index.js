@@ -101,7 +101,7 @@
 			listAction: {
 				ajaxFunction: _partnersService.getAll,
 				inputFilter: function () {
-					debugger;
+					 ;
 					return {
 						filter: $('#PartnersTableFilter').val(),
 						partnerNameFilter: $('#NameFilter').val(), 
@@ -262,7 +262,7 @@
 
 		$(document).on('click', '.EmailForm', function (e) {
 			e.preventDefault();
-			debugger
+			 
 			var rowId = $(this).data('id');
 			var Email = $(this).text();
 			$("#GetEmail").val(Email);
@@ -374,7 +374,7 @@
 
 			var rowId = $(this).data('id');
 			var action = $(this).data('action');
-			debugger
+			 
 			// Handle the selected action based on the rowId
 			if (action === 'view') {
 				//_viewMasterCategoryModal.open({ id: rowId });
@@ -392,7 +392,7 @@
 		//	chkAll();
 		//})
 		//function chkAll() {
-		//	debugger;
+		//	 ;
 		//	// Get the "Select All" checkbox
 		//	var chkAll = $("#SelectAllCheckBox");
 
@@ -437,7 +437,7 @@
 
 		$(document).on('click', 'input.custom-checkbox', function () {
 			if (!$(this).prop("checked")) {
-				debugger
+				 
 				// If any custom checkbox is unchecked, uncheck the "Select All" checkbox
 				$("#SelectAllCheckBox").prop("checked", false);
 				//$(".btnSmsMail").hide();
@@ -453,7 +453,7 @@
 
 			commaSeparatedEmails = selectedCheckboxes.join(',');
 
-			debugger
+			 
 			console.log(commaSeparatedEmails);
 		}
 
@@ -464,11 +464,11 @@
 
 			commaSeparatedPhoneNo = selectedCheckboxes.join(',');
 
-			debugger
+			 
 			console.log(commaSeparatedPhoneNo);
 		}
 		function chkAll() {
-			debugger;
+			 ;
 			// Get the "Select All" checkbox
 			var chkAll = $("#SelectAllCheckBox");
 
@@ -549,7 +549,7 @@
 
 		$(document).on('click', '#SendMail', function (e) {
 			e.preventDefault();
-			debugger
+			 
 			var Email = commaSeparatedEmails;
 			$("#GetEmail").val(Email);
 			_createOrEditModalEmail.open();
@@ -557,7 +557,7 @@
 		});
 		$(document).on('click', '#SendBulkSMS', function (e) {
 			e.preventDefault();
-			debugger
+			 
 			var PhoneNo = commaSeparatedPhoneNo;
 			alert(PhoneNo);
 		});

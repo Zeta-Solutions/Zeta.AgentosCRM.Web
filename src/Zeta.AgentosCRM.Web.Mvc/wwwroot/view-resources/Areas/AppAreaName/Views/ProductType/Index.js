@@ -7,7 +7,7 @@
             startDate: null,
             endDate: null,
         };
-        debugger
+         
         $('.date-picker').on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
@@ -215,7 +215,7 @@
         //    //var dataid = $(this).dataset.id;
         //    var rowId = $(this).data('id');
 
-        //    debugger
+        //     
         //    // Create a context menu with edit and delete options
         //    // Create a context menu with edit and delete options
         //    var contextMenu = $('<ul class="context-menu" style="list-style: none;">' +
@@ -237,7 +237,7 @@
 
         //    // Handle menu item clicks
         //    contextMenu.on('click', 'a[data-action]', function () {
-        //        debugger
+        //         
         //        var action = $(this).data('action');
         //        contextMenu.remove(); // Remove the context menu
         //        handleContextMenuAction(rowId, action); // Handle the selected action
@@ -252,7 +252,7 @@
         //});
 
         //function handleContextMenuAction(rowId, action) {
-        //    debugger
+        //     
         //    // Implement your logic for the selected action based on the rowId
         //    // For example, open a modal for editing or perform a delete operation
         //    if (action =="view") {
@@ -273,7 +273,7 @@
 
 
         function deleteProductType(productType) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _productTypesService
@@ -301,7 +301,7 @@
         });
 
         $('#CreateNewProductTypeButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
 

@@ -90,7 +90,7 @@
                         nameFilter: $('#NameFilterId').val(),
                         subjectNameFilter: $('#SubjectAreaNameFilterId').val(),
                     };
-                    debugger
+                     
                 },
             },
             columnDefs: [
@@ -186,7 +186,7 @@
         });
 
         function getSubjects() {
-            debugger
+             
             dataTable.ajax.reload();
         }
 
@@ -217,7 +217,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 _viewSubjectModal.open({ id: rowId });
@@ -261,7 +261,7 @@
         });
 
         $('#ExportToExcelButton').click(function () {
-            debugger
+             
             _subjectsService.getSubjectsToExcel
                 ({
                     filter: $('#SubjectsTableFilter').val(),
@@ -270,7 +270,7 @@
                     subjectAreaNameFilter: $('#SubjectAreaNameFilterId').val(),
                 })
                 .done(function (result) {
-                    debugger
+                     
                     app.downloadTempFile(result);
                 });
         });
@@ -280,7 +280,7 @@
         });
 
         $('#GetSubjectButton').click(function (e) {
-            debugger
+             
             e.preventDefault();
             getSubjects();
         });

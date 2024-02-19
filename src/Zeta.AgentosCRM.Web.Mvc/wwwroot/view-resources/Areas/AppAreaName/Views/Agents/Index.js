@@ -106,7 +106,7 @@
 			listAction: {
 				ajaxFunction: _agentsService.getAll,
 				inputFilter: function () {
-					debugger;
+					 ;
 					return {
 						filter: $('#AgentsTableFilter').val(),
 						nameFilter: $('#NameFilterId').val(), 
@@ -264,7 +264,7 @@
 
 		$(document).on('click', '.EmailForm', function (e) {
 			e.preventDefault();
-			debugger
+			 
 			var rowId = $(this).data('id');
 			var Email = $(this).text();
 			$("#GetEmail").val(Email);
@@ -318,7 +318,7 @@
 					emailFilter: $('#EmailFilterId').val(), 
 				})
 				.done(function (result) {
-					debugger
+					 
 					app.downloadTempFile(result);
 				});
 		});
@@ -377,7 +377,7 @@
 
 			var rowId = $(this).data('id');
 			var action = $(this).data('action');
-			debugger
+			 
 			// Handle the selected action based on the rowId
 			if (action === 'view') {
 				//_viewMasterCategoryModal.open({ id: rowId });
@@ -401,7 +401,7 @@
 
 		$(document).on('click', 'input.custom-checkbox', function () {
 			if (!$(this).prop("checked")) {
-				debugger 
+				  
 				$("#SelectAllCheckBox").prop("checked", false); 
 			}
 			updateSelectedCheckboxes();
@@ -415,7 +415,7 @@
 
 			 commaSeparatedEmails = selectedCheckboxes.join(',');
 
-			debugger 
+			  
 			console.log(commaSeparatedEmails);
 		}
 
@@ -426,7 +426,7 @@
 
 			commaSeparatedPhoneNo = selectedCheckboxes.join(',');
 
-			debugger
+			 
 			console.log(commaSeparatedPhoneNo);
 		}
 		function chkAll() { 
@@ -486,7 +486,7 @@
 
 		$(document).on('click', '#SendMail', function (e) {
 			e.preventDefault();
-			debugger 
+			  
 			var Email = commaSeparatedEmails;
 			$("#GetEmail").val(Email);
 			_createOrEditModalEmail.open();
@@ -494,7 +494,7 @@
 		});
 		$(document).on('click', '#SendBulkSMS', function (e) {
 			e.preventDefault();
-			debugger
+			 
 			var PhoneNo = commaSeparatedPhoneNo;
 			alert(PhoneNo);
 		});

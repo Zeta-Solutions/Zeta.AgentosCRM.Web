@@ -1,6 +1,6 @@
 ﻿(function () {
     $(function () {
-        debugger
+         
         $("#kt_app_sidebar_toggle").trigger("click");
         //$('#masterCategoryId').select2({
         //    width: '280px',
@@ -37,7 +37,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger
+                 
                 console.log('Response from server:', data);
                 $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
             })
@@ -421,12 +421,12 @@
         };
 
         function clearForm() {
-            debugger
+             
             _$agentInformationForm[0].reset();
         }
 
         $('#saveBtn').click(function () {
-            debugger
+             
             var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
 
             var subcode = titleValue.split("-");

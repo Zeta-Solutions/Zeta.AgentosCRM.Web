@@ -46,7 +46,7 @@
             }
 
             var countries = _$educationForm.serializeFormToObject();
-            debugger
+             
             _modalManager.setBusy(true);
             _clientEducationsService
                 .createOrEdit(countries)

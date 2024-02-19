@@ -181,7 +181,7 @@
         });
        
         $('#CreateNewQuotation').click(function () {
-            debugger
+             
             var hiddenfield = $("#ID").val();
 
             // Construct the URL with the data as a query parameter

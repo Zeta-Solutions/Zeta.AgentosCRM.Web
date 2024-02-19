@@ -1,6 +1,6 @@
 ﻿(function ($) { 
     app.modals.CreateOrEditPromotionsModal = function () {
-        debugger
+         
     
         $('#productId').select2({
             multiple: true,
@@ -39,7 +39,7 @@
                 PartnerIdFilter: dynamicValue,
             },
             success: function (data) {
-                debugger
+                 
                 // Populate the dropdown with the fetched data
                 populateDropdown(data);
             },
@@ -111,7 +111,7 @@
             method: 'GET',
             dataType: 'json',
             success: function (data) {
-                debugger
+                 
                 // Populate the dropdown with the fetched data
                 updateProductDropdown(data);
             },
@@ -121,7 +121,7 @@
         });
         }
         function updateProductDropdown(data) {
-            debugger;
+             ;
             var ms_val = 0;
 
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
@@ -139,7 +139,7 @@
             $productId.val(ms_array).trigger('change');
             // Add new options
             //$.each(ms_array, function (index, value) {
-            //    debugger
+            //     
             //    var newOption = new Option(value, value, true, true);
             //    $productId.append(newOption).trigger('change');
             //    //$productId.val(newOption).trigger("chosen:updated");
@@ -197,7 +197,7 @@
             }
             var datarows = [];
             var datarowsList = $("#productId :selected").map(function (i, el) {
-                debugger
+                 
                 return $(el).val();
             }).get();
             $.each(datarowsList, function (index, value) {
@@ -213,7 +213,7 @@
 
             var leadSources = _$partnerPromotionsInformationForm.serializeFormToObject();
             leadSources.Steps = Steps;
-            debugger
+             
             _modalManager.setBusy(true);
             _partnerPromotionsService
                 .createOrEdit(leadSources)

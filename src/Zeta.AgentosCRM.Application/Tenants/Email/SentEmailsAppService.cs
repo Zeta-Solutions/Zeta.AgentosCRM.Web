@@ -28,6 +28,8 @@ using static Zeta.AgentosCRM.Configuration.AppSettings;
 using MimeKit;
 using MailKit.Net.Smtp;
 using static Abp.Net.Mail.EmailSettingNames;
+using NUglify.Helpers;
+using Abp.Authorization.Users;
 
 namespace Zeta.AgentosCRM.Tenants.Email
 {
@@ -39,15 +41,16 @@ namespace Zeta.AgentosCRM.Tenants.Email
         private readonly IRepository<EmailConfiguration, long> _lookup_emailConfigurationRepository;
         private readonly IRepository<Client, long> _lookup_clientRepository;
         private readonly IRepository<Application, long> _lookup_applicationRepository;
+        private readonly IRepository<UserAccount, long> _lookup_userAccountRepository;
 
-        public SentEmailsAppService(IRepository<SentEmail, long> sentEmailRepository, IRepository<EmailTemplate, int> lookup_emailTemplateRepository, IRepository<EmailConfiguration, long> lookup_emailConfigurationRepository, IRepository<Client, long> lookup_clientRepository, IRepository<Application, long> lookup_applicationRepository)
+        public SentEmailsAppService(IRepository<SentEmail, long> sentEmailRepository, IRepository<EmailTemplate, int> lookup_emailTemplateRepository, IRepository<EmailConfiguration, long> lookup_emailConfigurationRepository, IRepository<Client, long> lookup_clientRepository, IRepository<Application, long> lookup_applicationRepository, IRepository<UserAccount, long> lookup_userAccountRepository)
         {
             _sentEmailRepository = sentEmailRepository;
             _lookup_emailTemplateRepository = lookup_emailTemplateRepository;
             _lookup_emailConfigurationRepository = lookup_emailConfigurationRepository;
             _lookup_clientRepository = lookup_clientRepository;
             _lookup_applicationRepository = lookup_applicationRepository;
-
+            _lookup_userAccountRepository = lookup_userAccountRepository;
         }
 
         public async Task<PagedResultDto<GetSentEmailForViewDto>> GetAll(GetAllSentEmailsInput input)
@@ -70,6 +73,7 @@ namespace Zeta.AgentosCRM.Tenants.Email
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailTemplateTitleFilter), e => e.EmailTemplateFk != null && e.EmailTemplateFk.Title == input.EmailTemplateTitleFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.EmailConfigurationNameFilter), e => e.EmailConfigurationFk != null && e.EmailConfigurationFk.Name == input.EmailConfigurationNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ClientFirstNameFilter), e => e.ClientFk != null && e.ClientFk.FirstName == input.ClientFirstNameFilter)
+                        .WhereIf(input.ClientIdFilter.HasValue, e => e.ClientFk != null && e.ClientId == input.ClientIdFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ApplicationNameFilter), e => e.ApplicationFk != null && e.ApplicationFk.Name == input.ApplicationNameFilter);
 
             var pagedAndFilteredSentEmails = filteredSentEmails
@@ -89,6 +93,9 @@ namespace Zeta.AgentosCRM.Tenants.Email
                              join o4 in _lookup_applicationRepository.GetAll() on o.ApplicationId equals o4.Id into j4
                              from s4 in j4.DefaultIfEmpty()
 
+                             join o5 in _lookup_userAccountRepository.GetAll() on o.CreatorUserId equals o5.Id into j5
+                             from s5 in j5.DefaultIfEmpty()
+
                              select new
                              {
 
@@ -101,10 +108,12 @@ namespace Zeta.AgentosCRM.Tenants.Email
                                  o.EmailBody,
                                  o.IsSent,
                                  o.Id,
+                                 o.CreationTime,
                                  EmailTemplateTitle = s1 == null || s1.Title == null ? "" : s1.Title.ToString(),
                                  EmailConfigurationName = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
                                  ClientFirstName = s3 == null || s3.FirstName == null ? "" : s3.FirstName.ToString(),
-                                 ApplicationName = s4 == null || s4.Name == null ? "" : s4.Name.ToString()
+                                 ApplicationName = s4 == null || s4.Name == null ? "" : s4.Name.ToString(),
+                                 UserName = s5 == null || s5.UserName == null ? "" : s5.UserName.ToString()
                              };
 
             var totalCount = await filteredSentEmails.CountAsync();
@@ -128,11 +137,13 @@ namespace Zeta.AgentosCRM.Tenants.Email
                         EmailBody = o.EmailBody,
                         IsSent = o.IsSent,
                         Id = o.Id,
+                        CreationTime=o.CreationTime
                     },
                     EmailTemplateTitle = o.EmailTemplateTitle,
                     EmailConfigurationName = o.EmailConfigurationName,
                     ClientFirstName = o.ClientFirstName,
-                    ApplicationName = o.ApplicationName
+                    ApplicationName = o.ApplicationName,
+                    UserName = o.UserName
                 };
 
                 results.Add(res);

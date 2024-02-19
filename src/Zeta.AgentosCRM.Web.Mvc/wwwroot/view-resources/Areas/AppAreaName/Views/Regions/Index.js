@@ -202,7 +202,7 @@
 
           var rowId = $(this).data('id');
           var action = $(this).data('action');
-          debugger 
+            
           if (action === 'view') {
               _viewRegionModal.open({ id: rowId });
           } else if (action === 'edit') {

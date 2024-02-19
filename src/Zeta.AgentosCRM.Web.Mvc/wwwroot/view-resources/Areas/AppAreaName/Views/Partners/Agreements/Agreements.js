@@ -67,7 +67,7 @@
 
 
         function getagreementsreload(dynamicValue) {
-            debugger
+             
 
 
             var PartnerContractsAjax = $.ajax({
@@ -90,7 +90,7 @@
                 });
         }
         function processData(data) {
-            debugger
+             
             var dateValue = data.result.items[0].partnerContract.contractExpiryDate;
             var AgentName = data.result.items[0].agentName;
             var RegionName = data.result.items[0].regionName;
@@ -128,7 +128,7 @@
 
         // Button click event handler
         $('#showCardsButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
             _createOrEditModal.open();
@@ -147,7 +147,7 @@
             endDate: null,
         };
         //_branchesService.getAll().done(function (data) {
-        //    debugger;
+        //     ;
         //    processData(data);
         //}).fail(function (error) {
         //    console.error('Error fetching data:', error);
@@ -259,7 +259,7 @@
                             {
                                 text: app.localize('View'),
                                 action: function (data) {
-                                    debugger;
+                                     ;
                                     alert("sabar kro abhi bnaya nhi !")
                                     //  _viewLeadSourceModal.open("/AppAreaName/Partners/PartnersDetails");
                                     // window.location.href = abp.appPath + 'AppAreaName/Partners/ViewApplicationDetails';
@@ -312,7 +312,7 @@
         }
 
         function deletebranches(branch) {
-            debugger
+             
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
@@ -341,7 +341,7 @@
         });
 
         $('#CreateNewContractButton').click(function () {
-            debugger;
+             ;
 
             // Assuming receivedId is a globally declared variable
             if (receivedId && parseInt(receivedId) > 0) {
@@ -356,14 +356,14 @@
         });
 
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
         $('#BranchesButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
 
@@ -441,7 +441,7 @@
 
         //    var rowId = $(this).data('id');
         //    var action = $(this).data('action');
-        //    debugger
+        //     
         //    // Handle the selected action based on the rowId
         //    if (action === 'view') {
         //        //_viewMasterCategoryModal.open({ id: rowId });

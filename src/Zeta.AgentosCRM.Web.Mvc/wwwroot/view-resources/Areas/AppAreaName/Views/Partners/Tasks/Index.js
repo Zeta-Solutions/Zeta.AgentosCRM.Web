@@ -173,7 +173,7 @@
 
 
         function getLtasksreload(dynamicValue) {
-            debugger
+             
 
 
             var branchesAjax = $.ajax({
@@ -194,7 +194,7 @@
                 });
         }
         function processData(data) {
-            debugger
+             
             var cardContainer = $('#cardTaskContainer'); 
              
             if (Array.isArray(globalData.result.items)) { 
@@ -221,7 +221,7 @@
 
         } 
         $('#showCardsButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty();  
             _createOrEditModal.open(); 
@@ -311,7 +311,7 @@
         }
 
         function deletetasks(crmTask) {
-            debugger
+             
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
@@ -340,20 +340,20 @@
         });
 
         $('#CreateNewTaskButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
 
             // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         });
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
         $('#BranchesButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
 
@@ -431,7 +431,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action15');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });

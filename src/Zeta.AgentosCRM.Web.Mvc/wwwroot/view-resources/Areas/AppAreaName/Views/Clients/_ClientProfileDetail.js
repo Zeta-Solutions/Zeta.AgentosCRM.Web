@@ -5,6 +5,22 @@
         var _clientsFollowersService = abp.services.app.followers;
         var _clientsService = abp.services.app.clients;
         var _entityTypeFullName = 'Zeta.AgentosCRM.CRMClient.Client';
+
+
+        var _createOrEditModalEmail = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/SentEmail/CreateOrEditModal',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/SentEmail/_CreateOrEditModal.js',
+            modalClass: 'CreateOrEditSentEmailModal',
+        });
+
+
+        var _createOrEditSmsModal = new app.ModalManager({
+            viewUrl: abp.appPath + 'AppAreaName/Clients/SendSms',
+            scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/Clients/Conversation/_SendSmsConversationModal.js',
+            modalClass: 'SendSmsModal',
+        });
+
+
         // alert(_clientsService);
         var $selectedDate = {
             startDate: null,
@@ -23,7 +39,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger
+                 
                 console.log('Response from server:', data);
                 if (data.result.profilePicture == null || data.result.profilePicture=='') {
                     var fullname = $("#clientAppID").val().split(" ");
@@ -113,28 +129,52 @@
 
         });
       
-     
+        $(document).on('click', '#SendSms', function () { 
+            
+            _createOrEditSmsModal.open();
+
+        });
+        SendSmselement = document.getElementById('SendSms');
+        SendSmselement.addEventListener("mouseover", function () {
+            this.style.background = "#ADD8E6";
+        });
+        SendSmselement.addEventListener("mouseout", function () {
+            this.style.background = "#FFFFFF";
+        });
+
+
+
+        $(document).on('click', '#SendEmail', function () {
+            debugger
+            var Email = $("#ClientId").text();
+            $("#GetEmail").val(Email);
+            _createOrEditModalEmail.open(clientId);
+
+        });
+        Emailelement = document.getElementById('SendEmail');
+        Emailelement.addEventListener("mouseover", function () {
+            this.style.background = "#ADD8E6";
+        });
+        Emailelement.addEventListener("mouseout", function () {
+            this.style.background = "#FFFFFF";
+        });
+
 
         $(document).on("click", "#EditProfile", function () {
            
             window.location = "/AppAreaName/Clients/ClientCreateDetail/" + clientId;
         });
-        $(document).on("mouseenter", "#EditProfile", function () {
-            $(this).html('<i class="fa fa-pencil" style="font-size: 10px; color:Blue;" title="Edit"></i>');
+        EditProfileElement = document.getElementById('EditProfile');
+        EditProfileElement.addEventListener("mouseover", function () {
+            this.style.background = "#ADD8E6";
         });
-        $(document).on("mouseleave", "#EditProfile", function () {
-            // Revert the content when hovering ends..
-            $(this).html('<span class="fa fa-pencil text-muted "></span>'); // Replace 'Original Content' with your actual original content
+        EditProfileElement.addEventListener("mouseout", function () {
+            this.style.background = "#FFFFFF";
         });
-        $(document).on("mouseenter", "#Archived", function () {
-            $(this).html('<i class="fa fa-archive" style="font-size: 10px; color:Blue;" title="Edit"></i>');
-        });
-        $(document).on("mouseleave", "#Archived", function () {
-            // Revert the content when hovering ends
-            $(this).html('<span class="fa fa-archive text-muted "></span>'); // Replace 'Original Content' with your actual original content
-        });
+
+
         $(document).on("click", "#Archived", function () {
-            debugger
+             
             if ($("input[name='Archiveds']").val() == 'true' ){
                 var inputData = {
                     clientId: clientId,
@@ -152,10 +192,18 @@
             _clientsService
                 .updateClientIsArchived(Steps)
                    .done(function () {
-                       //debugger
+                       // 
                        abp.notify.info(app.localize('ArchivedSuccessfully'));
                        location.reload();
                    })
+        });
+
+        ArchivedElement = document.getElementById('Archived');
+        ArchivedElement.addEventListener("mouseover", function () {
+            this.style.background = "#ADD8E6";
+        });
+        ArchivedElement.addEventListener("mouseout", function () {
+            this.style.background = "#FFFFFF";
         });
 
         $(document).keypress(function (e) {
@@ -190,7 +238,7 @@
                 dataType: 'json',
             })
                 .done(function (data) { 
-                    debugger
+                     
                     var test = data.result.items
                   
                     
@@ -210,7 +258,7 @@
                         var correspondingTag = test.find(function (item) {
                             return item.tagName === tagName;
                         });
-                        debugger
+                         
                         var tagId = correspondingTag.clientTag.id;
 
                         // Construct HTML for a button with the given tagId and tagName values
@@ -227,7 +275,7 @@
                 });
         }
         $(document).on('click', '.deleteTag', function () {
-            debugger
+             
             //
             var closestListElement = $(this).closest('.List');
             var tagId = $(this).val();

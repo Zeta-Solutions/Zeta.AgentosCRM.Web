@@ -183,7 +183,7 @@
         });
 
         $('#CreateNewAppointmentButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
         });
 

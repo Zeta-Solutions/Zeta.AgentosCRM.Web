@@ -2,7 +2,7 @@
 
     app.modals.CreateOrEditDocumentCheckListHeadModal = function () {
       
-        debugger
+         
         $("#RadioProducts").hide();
         //$("#DDlProduct").show();
         $('#PartnerID,#ProductID').select2({
@@ -26,7 +26,7 @@
         var nextstageValue = $("#nextstage").val();
         if ($("#workflowDocumentCheckListId").val() == '') {
             var WorkFlowDocumentID = $("#workFlowStepId").val();
-            debugger
+             
 
             $("#workFlowStepModelId").val(WorkFlowDocumentID);
 
@@ -60,7 +60,7 @@
         var input = "";
         _documentTypesService.getAll(input)
             .done(function (data) {
-                debugger
+                 
                 var optionhtml = '<option value="0"> select Document Type</option>';
                 $("#AddNewCheckListDocumentType").append(optionhtml);
 
@@ -79,7 +79,7 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
                 populatePartnerDropdown(data);
             },
             error: function (error) {
@@ -109,10 +109,10 @@
 
         //Fill Drop Down
         var workflowDocumentCheckListId = $("#workflowDocumentCheckListId").val();
-        debugger
+         
 
         if (workflowDocumentCheckListId > 0) {
-            debugger
+             
 
             $.ajax({
                 url: abp.appPath + 'api/services/app/WorkflowStepDocumentCheckLists/GetWorkflowStepDocumentCheckListForEdit?id=' + workflowDocumentCheckListId,
@@ -121,7 +121,7 @@
                 dataType: 'json',
 
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     //updatePartnerDropdown(data);
                     setTimeout(function () {
@@ -136,10 +136,10 @@
             function updatePartnerDropdown(data) {
 
                 var ms_val = 0;
-                debugger
+                 
                 // Assuming data.result.promotionproduct is an array of objects with OwnerID property
                 $.each(data.result.documentCheckListPartner, function (index, obj) {
-                    debugger
+                     
                     ms_val += "," + obj.partnerId;
 
                 });
@@ -149,7 +149,7 @@
 
                     var ms_array = ms_val.split(',');
                     //alert("There is some data" + ms_array)
-                    debugger
+                     
                     //$("#PartnerID").select2("val", ms_array);
                     //$("#PartnerID").empty()
                     $("#PartnerID").val(ms_array) 
@@ -201,7 +201,7 @@
         }
         //_workflowStepsService.getAll(WorkflowId)
         //    .done(function (data) {
-        //        debugger
+        //         
         //        console.log(data);
                  
         //    })
@@ -219,14 +219,14 @@
         _$feeTypesInformationForm.validate();
     };
         $("#WorkflowId").on("change", function () {
-            debugger
+             
             var selectedWorkflowName = $(this).find("option:selected").text();
             $("#WorkFlow_Name").val(selectedWorkflowName); 
         });
 
 
         $('#PartnerID').on('change', function () {
-            debugger
+             
             if ($("#PartnerID").val() != "") {
                 var PartnerId = $('#PartnerID').val();
                 console.log(PartnerId);
@@ -238,15 +238,15 @@
                 //// Extract the string value and remove surrounding quotes
                 //var PartnerId = partnerIdArray[0].replace(/^['"]|['"]$/g, '');
             }
-            debugger
+             
             $("#RadioProducts").show();
             //setTimeout(myFunction, 2000); 
             /*if (PartnerId > 0) {*/
-                debugger
+                 
                 var partnerIds = PartnerId
                     _productsService.getProductsByPartnerId(partnerIds)
             .done(function (data) {
-                debugger
+                 
                 populateProductDropdown(data);
 
             })
@@ -258,7 +258,7 @@
                     dropdown.empty();
 
                     $.each(data, function (index, item) {
-                        debugger
+                         
                         if (item && item.id !== null && item.product.id !== undefined && item.product.name !== null && item.product.name !== undefined) {
                             dropdown.append($('<option></option>').attr('value', item.product.id).attr('data-id', item.product.id).text(item.product.name));
                         } else {
@@ -275,7 +275,7 @@
                 //    dataType: 'json',
 
                 //    success: function (data) {
-                //        debugger
+                //         
                 //        populateProductDropdown(data);
                 //    },
                 //    error: function (error) {
@@ -292,7 +292,7 @@
                 //    dropdown.empty();
 
                 //    $.each(data.result, function (index, item) {
-                //        debugger
+                //         
                 //        if (item && item.id !== null && item.product.id !== undefined && item.product.name !== null && item.product.name !== undefined) {
                 //            dropdown.append($('<option></option>').attr('value', item.product.id).attr('data-id', item.product.id).text(item.product.name));
                 //        } else {
@@ -304,9 +304,9 @@
 
 
             var workflowDocumentCheckListId = $("#workflowDocumentCheckListId").val();
-            debugger
+             
             if (workflowDocumentCheckListId > 0) {
-                debugger
+                 
 
                 $.ajax({
                     url: abp.appPath + 'api/services/app/WorkflowStepDocumentCheckLists/GetWorkflowStepDocumentCheckListForEdit?id=' + workflowDocumentCheckListId,
@@ -314,7 +314,7 @@
                     dataType: 'json',
 
                     success: function (data) {
-                        debugger
+                         
                         // Populate the dropdown with the fetched data
                         updateProductDropdown(data);
                     },
@@ -325,12 +325,12 @@
             }
 
             function updateProductDropdown(data) {
-                debugger;
+                 ;
                 var ms_val = 0;
                 var ms_valProduct = 0;
-                debugger
+                 
                 $.each(data.result.documentCheckListProduct, function (index, obj) {
-                    debugger
+                     
                     ms_val += "," + obj.productId;
 
                 });
@@ -339,7 +339,7 @@
                 } else {
                     // MS_Val Not Empty Value .,,,
                     var ms_array = ms_val.split(','); 
-                    debugger
+                     
                     var $productId = $("#ProductID");
                     $productId.val(ms_array).trigger('change');
                 }
@@ -359,34 +359,34 @@
 
         });
         $(document).on('click', '#AllPartner', function () {
-            debugger
+             
             $("#DDlPartners").hide();
             $('#PartnerID').val(null).trigger('change');
             GetPartnerValue = false;
             $("#RadioProducts").hide();
-            debugger
+             
         });
 
         $(document).on('click', '#selectedPartner', function () {
             $("#DDlPartners").show();
             GetPartnerValue = true;
 
-            debugger
+             
         });
         $(document).on('click', '#AllowOnClientPortal', function () {
-            debugger
+             
 
             var clientPortalValue = $(this).prop("checked");
              
 
         });
         $(document).on('click', '#nextstage', function () {
-            debugger
+             
             nextstageValue = $(this).prop("checked");
              
         });
         $(document).on('change', '#DocumentTypeId', function () {
-            debugger
+             
 
             var selectedDocumentTypeName = $(this).find("option:selected").text();
             $("#Name").val(selectedDocumentTypeName); 
@@ -396,9 +396,9 @@
         return;
       }
         //if ($("#workflowDocumentCheckListId").val() == '' || $("#workflowDocumentCheckListId").val() == '0') {
-        //    debugger
+        //     
         //    var WorkFlowDocumentID = $("#workFlowStepId").val();
-        //    debugger
+        //     
 
         //    $("#workFlowStepModelId").val(WorkFlowDocumentID);
         //}
@@ -445,7 +445,7 @@
 
         feeType.DocumentCheckListPartner = PartnerId
         feeType.DocumentCheckListProduct = ProductId
-        debugger
+         
       _modalManager.setBusy(true);
         _workflowStepDocumentCheckListsService
             .createOrEdit(feeType)

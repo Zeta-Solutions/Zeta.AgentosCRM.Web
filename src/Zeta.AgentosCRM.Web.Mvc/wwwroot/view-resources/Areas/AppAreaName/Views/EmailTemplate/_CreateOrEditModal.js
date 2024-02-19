@@ -19,7 +19,7 @@
       });
       //$('#kt_docs_quill_basic1').change(function () {
       //    demoUiComponentsService.sendAndGetValue(quill.root.innerHTML).done(function (data) {
-      //        debugger
+      //         
       //        $("input[name='EmailBody']").val(data.output);
       //          abp.libs.sweetAlert.config.info.html = true;
       //          abp.message.info(data.output, app.localize('PostedValue'), { isHtml: true });
@@ -29,7 +29,7 @@
       //quill.on('text-change', function (delta, oldDelta, source) {
       //    // Your existing code here...
       //    demoUiComponentsService.sendAndGetValue(quill.root.innerHTML).done(function (data) {
-      //        debugger;
+      //         ;
       //        $("input[name='EmailBody']").val(data.output);
       //        abp.libs.sweetAlert.config.info.html = true;
       //        abp.message.info(data.output, app.localize('PostedValue'), { isHtml: true });
@@ -38,7 +38,7 @@
       var enterKeyPressed = false;
       $(document).keyup(function (e) {
           if (e.which === 13) {
-              debugger
+               
               // Enter key is pressed
               // Call your function here
               e.preventDefault();
@@ -64,7 +64,7 @@
     };
       
       $(document).off("click", "#saveEmailSetupBtn").on("click", "#saveEmailSetupBtn", function (e) {
-          debugger
+           
 
           //this.save = function () {
 
@@ -73,12 +73,12 @@
               }
 
               demoUiComponentsService.sendAndGetValue(quill.root.innerHTML).done(function (data) {
-                  debugger;
+                   ;
                   $("input[name='EmailBody']").val(data.output);
                   abp.libs.sweetAlert.config.info.html = true;
 
                   var feeType = _$emailTemplatesInformationForm.serializeFormToObject();
-                  debugger
+                   
                   _modalManager.setBusy(true);
                   _emailTemplatesService
                       .createOrEdit(feeType)

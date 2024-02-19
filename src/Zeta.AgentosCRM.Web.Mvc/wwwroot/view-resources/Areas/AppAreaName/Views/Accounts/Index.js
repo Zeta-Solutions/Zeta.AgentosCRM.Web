@@ -5,7 +5,7 @@
         var _taxSettingsService = abp.services.app.taxSettings;
         var _businessRegNummbersService = abp.services.app.businessRegNummbers;
         var _invoiceAddressesService = abp.services.app.invoiceAddresses;
-        debugger
+         
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -31,7 +31,7 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
                 var data = data.result;
                 if (data == null) {
                 //alert("Record Not Found.");
@@ -59,14 +59,14 @@
             dataType: 'json',
 
             success: function (data) {
-                debugger
+                 
 
                 var ManualPayment = data.result.items;
 
                 var optionhtml = '<option value="0">Select Country</option>';
                     $("#B_I_Country").append(optionhtml);
                 $.each(ManualPayment, function (index, item) {
-                    debugger
+                     
                     optionhtml = '<option value="' +
                         item.country.id + '">' + item.country.name + '</option>';
                     $("#B_I_Country").append(optionhtml);
@@ -236,10 +236,10 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
-                debugger
+                 
                 _viewFeeTypeModal.open({ id: rowId });
             } else if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
@@ -259,7 +259,7 @@
             var CountryId = $("#B_I_Country").val(); 
             var OrganizationUnitId = $("#WorkFlowOfficeId").val();
             
-            debugger
+             
             var requestData = {
                 id: ID,
                 Street: Street,
@@ -271,7 +271,7 @@
             };
             var jsonData = JSON.stringify(requestData);
             jsonData = JSON.parse(jsonData);
-            debugger
+             
             _invoiceAddressesService.createOrEdit(jsonData)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
@@ -287,7 +287,7 @@
             var ID = $("#businessregistrationID").val();
             var businessregistrationnumber = $("#businessregistrationnumber").val();
             var OrganizationUnitId = $("#WorkFlowOfficeId").val();
-            debugger
+             
             var requestData = {
                 id: ID,
                 RegistrationNo: businessregistrationnumber,
@@ -296,7 +296,7 @@
              
             var jsonData = JSON.stringify(requestData);
             jsonData = JSON.parse(jsonData);
-            debugger
+             
             _businessRegNummbersService.createOrEdit(jsonData)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
@@ -307,7 +307,7 @@
              
         });
         function deleteFeeType(feeType) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _documentTypesService
@@ -315,7 +315,7 @@
                             id: feeType,
                         })
                         .done(function () {
-                            debugger
+                             
                             getDocumentType(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
@@ -326,19 +326,19 @@
 
             var ManualPaymentDetailID = $(this).closest('.ManualPaymentData');
             var EmailID = ManualPaymentDetailID.find("#ManualPaymentDetailID").val();
-            debugger
+             
             deleteFeeType(EmailID);
         });
 
         $(document).on("click", ".Edit-icon", function () {
-            debugger
+             
             var ManualPaymentDetailID = $(this).closest('.ManualPaymentData');
             var EmailID = ManualPaymentDetailID.find("#ManualPaymentDetailID").val();
 
             console.log(EmailID);
-            debugger
+             
             _createOrEditModal.open({ id: EmailID });
-            debugger
+             
         });
         $('#ShowAdvancedFiltersSpan').click(function () {
             $('#ShowAdvancedFiltersSpan').hide();
@@ -356,7 +356,7 @@
             var OrganizationUnitId =$("#WorkFlowOfficeId").val();
             //var  Id = $("#TaxID").val();
             $(".AddTaxDiv .TaxRow").each(function () {
-                debugger
+                 
                 var Id = $(this).find('.TaxSettingID').val();
                 var TaxCode = $(this).find('.TaxCode').val();
                 var TaxRate = $(this).find('.TaxRate').val();
@@ -374,7 +374,7 @@
             $.each(dataRows, function (index, row) {
                 var jsonData = JSON.stringify(row); 
                 jsonData = JSON.parse(jsonData);
-                debugger
+                 
                 _taxSettingsService.createOrEdit(jsonData)
                 .done(function () {
                     abp.notify.info(app.localize('SavedSuccessfully'));
@@ -386,13 +386,13 @@
         });
 
         $('.addMaunalTax').click(function () {
-            debugger
+             
             //var OrganizationUnitId = $("#WorkFlowOfficeId").val();
             _createOrEditModal.open();
         });
 
         $(document).on('click', '.addTax', function () {
-            debugger
+             
             var newTimelineItem = `
     <div class="row TaxRow">
         <div class="col-lg-3">
@@ -420,10 +420,10 @@
 
         });
         $(document).on('click', '.TaxRowDelete', function () {
-            debugger; 
+             ; 
             var row = $(this).closest(".TaxRow");
             var TaxRowid=row.find('.TaxSettingID').val();
-            debugger; 
+             ; 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _taxSettingsService
@@ -431,7 +431,7 @@
                             id: TaxRowid,
                         })
                         .done(function () {
-                            debugger 
+                              
 
                             row.remove();
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
@@ -441,7 +441,7 @@
 
         });
         $(document).on('click', '.TaxSettingValue', function () {
-            debugger;
+             ;
 
             var row = $(this).closest(".TaxRow");
             var taxSettingValue = row.find('.TaxSettingValue');
@@ -465,12 +465,12 @@
         function filterRcordwithOfficeId() {
             var organizationUnitIdFilter = $("#WorkFlowOfficeId").val();
             if (organizationUnitIdFilter > 0) {
-                debugger
+                 
                 $(".btnbusinessRegNummbers,.btnbusinessAddress,.addMaunalTax ,.addTax,.TaxSettingSave").prop("disabled", false);
 
                 //_businessRegNummbersService.getAll(organizationUnitIdFilter)
                 //    .done(function (data) {
-                //        debugger
+                //         
                 //        $("#businessregistrationID").val(data.items[0].businessRegNummber.id);
                 //        $("#businessregistrationnumber").val(data.items[0].businessRegNummber.registrationNo);  
 
@@ -529,7 +529,7 @@
                         $(".ManualDetail").empty();
                         var ManualPayment = data.result.items;
                         $.each(ManualPayment, function (index, item) {
-                            debugger
+                             
                             var ManualPaymentDetail = '<div class="row ManualPaymentData">' +
                                 '<div class="col-lg-4" hidden><input type="hidden" id="ManualPaymentDetailID" value="' + item.manualPaymentDetail.id + '"/></div>' +
                                 '<div class="col-lg-4">' + item.manualPaymentDetail.name + '</div>' +

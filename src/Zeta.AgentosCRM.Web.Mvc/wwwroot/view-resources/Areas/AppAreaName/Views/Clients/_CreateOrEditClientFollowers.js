@@ -3,7 +3,7 @@
         width: '100%',
     });
     app.modals.CreateOrEditClientFollwersModal = function () {
-        debugger
+         
         var _clientfollowersService = abp.services.app.followers;
         var hiddenfield = $('input[name="Clientid"]').val();
         $("#ClientId").val(hiddenfield);
@@ -69,7 +69,7 @@
                 })
 
                 .fail(function (error) {
-                    debugger
+                     
                     console.error('Error fetching data:', error);
                 });
         }
@@ -82,7 +82,7 @@
 
 
             var followers = _$clientFollowersInformationForm.serializeFormToObject();
-            debugger
+             
             _modalManager.setBusy(true);
             _clientfollowersService
                 .createOrEdit(followers)

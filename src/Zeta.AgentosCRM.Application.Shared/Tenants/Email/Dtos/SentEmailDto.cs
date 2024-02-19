@@ -29,5 +29,7 @@ namespace Zeta.AgentosCRM.Tenants.Email.Dtos
 
         public long? ApplicationId { get; set; }
 
+        public DateTime? CreationTime { get; set; }
+
     }
 }
