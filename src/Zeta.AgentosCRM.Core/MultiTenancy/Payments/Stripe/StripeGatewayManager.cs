@@ -314,53 +314,53 @@ namespace Zeta.AgentosCRM.MultiTenancy.Payments.Stripe
             AsyncHelper.RunSync(() => UpdateSubscription(subscriptionPayment.ExternalPaymentId, newPlanId));
         }
 
-        public async Task HandleInvoicePaymentSucceededAsync(Invoice invoice)
-        {
-            var customerService = new CustomerService();
-            var customer = await customerService.GetAsync(invoice.CustomerId);
+        //public async Task HandleInvoicePaymentSucceededAsync(Invoice invoice)
+        //{
+        //    var customerService = new CustomerService();
+        //    var customer = await customerService.GetAsync(invoice.CustomerId);
 
-            int tenantId;
-            int editionId;
+        //    int tenantId;
+        //    int editionId;
 
-            PaymentPeriodType? paymentPeriodType;
+        //    PaymentPeriodType? paymentPeriodType;
 
-            using (CurrentUnitOfWork.SetTenantId(null))
-            {
-                var tenant = await _tenantManager.FindByTenancyNameAsync(customer.Description);
-                tenantId = tenant.Id;
+        //    using (CurrentUnitOfWork.SetTenantId(null))
+        //    {
+        //        var tenant = await _tenantManager.FindByTenancyNameAsync(customer.Description);
+        //        tenantId = tenant.Id;
 
-                using (CurrentUnitOfWork.SetTenantId(tenantId))
-                {
-                    var lastPayment = GetLastCompletedSubscriptionPayment(tenantId);
-                    paymentPeriodType = lastPayment.GetPaymentPeriodType();
-                    editionId = lastPayment.EditionId;
-                }
+        //        using (CurrentUnitOfWork.SetTenantId(tenantId))
+        //        {
+        //            var lastPayment = GetLastCompletedSubscriptionPayment(tenantId);
+        //            paymentPeriodType = lastPayment.GetPaymentPeriodType();
+        //            editionId = lastPayment.EditionId;
+        //        }
 
-                await _tenantManager.UpdateTenantAsync(
-                    tenant.Id,
-                    isActive: true,
-                    isInTrialPeriod: false,
-                    paymentPeriodType,
-                    editionId,
-                    EditionPaymentType.Extend);
-            }
+        //        await _tenantManager.UpdateTenantAsync(
+        //            tenant.Id,
+        //            isActive: true,
+        //            isInTrialPeriod: false,
+        //            paymentPeriodType,
+        //            editionId,
+        //            EditionPaymentType.Extend);
+        //    }
 
-            var payment = new SubscriptionPayment
-            {
-                TenantId = tenantId,
-                Amount = ConvertFromStripePrice(invoice.AmountPaid),
-                DayCount = (int) paymentPeriodType,
-                PaymentPeriodType = paymentPeriodType,
-                EditionId = editionId,
-                ExternalPaymentId = invoice.ChargeId,
-                Gateway = SubscriptionPaymentGatewayType.Stripe,
-                IsRecurring = true
-            };
+        //    var payment = new SubscriptionPayment
+        //    {
+        //        TenantId = tenantId,
+        //        Amount = ConvertFromStripePrice(invoice.AmountPaid),
+        //        DayCount = (int) paymentPeriodType,
+        //        PaymentPeriodType = paymentPeriodType,
+        //        EditionId = editionId,
+        //        ExternalPaymentId = invoice.ChargeId,
+        //        Gateway = SubscriptionPaymentGatewayType.Stripe,
+        //        IsRecurring = true
+        //    };
 
-            payment.SetAsPaid();
+        //    payment.SetAsPaid();
 
-            await _subscriptionPaymentRepository.InsertAsync(payment);
-        }
+        //    await _subscriptionPaymentRepository.InsertAsync(payment);
+        //}
 
         public string GetPlanId(string editionName, PaymentPeriodType paymentPeriodType)
         {

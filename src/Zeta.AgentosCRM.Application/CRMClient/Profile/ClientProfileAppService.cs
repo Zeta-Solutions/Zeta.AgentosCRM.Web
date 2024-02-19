@@ -43,7 +43,18 @@ namespace Zeta.AgentosCRM.CRMClient.Profile
             var profileImage = await _localProfileImageService.GetProfilePictureContentForClient(clientId);
             return new GetProfilePictureOutput(profileImage); 
         }
-        
+        [AbpAllowAnonymous]
+        public async Task<GetProfilePictureOutput> GetCoverPictureByLead(long leadId)
+        {
+            var profileImage = await _localProfileImageService.GetCoverPictureContentForLead(leadId);
+            return new GetProfilePictureOutput(profileImage);
+        }
+        [AbpAllowAnonymous]
+        public async Task<GetProfilePictureOutput> GetProfilePictureByLead(long leadId)
+        {
+            var profileImage = await _localProfileImageService.GetProfilePictureContentForLead(leadId);
+            return new GetProfilePictureOutput(profileImage);
+        }
         [AbpAllowAnonymous]
         public async Task<GetProfilePictureOutput> GetProfilePictureByPictireId(string fileTokkenId)
         {

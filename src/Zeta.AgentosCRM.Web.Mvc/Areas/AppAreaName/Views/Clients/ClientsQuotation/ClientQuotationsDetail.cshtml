@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-lg-4">
                             <label for="TotalsId" class="form-label form-label-sm">@L("Total"):</label><br /> 
-                            <input class="form-control  custom-small-input rounded-0" id="TotalAmount" value="@Model.ClientQuotationHead.TotalAmount" type="text" name="TotalAmount" readonly />
+                           <input class="form-control custom-small-input rounded-0" id="TotalAmount" value="@Model.ClientQuotationHead.TotalAmount.ToString("N2")" type="text" name="TotalAmount" readonly />
 
                         </div>
                             </div>

@@ -34,10 +34,10 @@
                  
                 attachmentnames = files[0].name;
                 var file = files[0];
-
+                debugger
                 //File type check
                 var type = '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
-                if ('|jpg|jpeg|png|gif|doc|pdf|docx|txt|text|plain|'.indexOf(type) === -1) {
+                if ('|jpg|jpeg|png|gif|doc|pdf|docx|txt|text|plain|vnd.openxmlformats-officedocument.wordprocessingml.document|'.indexOf(type) === -1) {
                     abp.message.warn(app.localize('File_Invalid_Type_Error'));
                     return false;
                 }

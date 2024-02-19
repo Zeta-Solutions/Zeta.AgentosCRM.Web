@@ -44,6 +44,9 @@ using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
 using Zeta.AgentosCRM.CRMClient.Documents;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentTypes;
 using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.DocumentAttachment;
+using Zeta.AgentosCRM.CRMInvoice;
+using Zeta.AgentosCRM.CRMInvoice.Dtos;
+using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.CRMInvoice;
 
 namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 {
@@ -67,6 +70,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         private readonly IClientQuotationDetailsAppService _clientQuotationDetailsAppService;
         private readonly ITimingAppService _timingAppService;
         private readonly IClientAttachmentsAppService _clientAttachmentsAppService;
+        private readonly IInvoiceHeadAppService _invoiceHeadAppService;
 
         public ClientsController(IClientsAppService clientsAppService, IAppointmentsAppService appointmentsAppService,
             IClientTagsAppService clientTagsAppService, IFollowersAppService followersAppService,
@@ -76,7 +80,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             ICRMTasksAppService cRMTasksAppService, ICheckInLogsAppService checkInLogsAppService,
             IEnglisTestScoresAppService englisTestScoresAppService,
             IOtherTestScoresAppService otherTestScoresAppService,
-            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService, ITimingAppService timingAppService, IClientAttachmentsAppService clientAttachmentsAppService)
+            IClientQuotationHeadsAppService clientQuotationHeadsAppService, IClientQuotationDetailsAppService clientQuotationDetailsAppService, ITimingAppService timingAppService, IClientAttachmentsAppService clientAttachmentsAppService, IInvoiceHeadAppService invoiceHeadAppService)
         {
             _clientsAppService = clientsAppService;
             _appointmentsAppService = appointmentsAppService;
@@ -94,6 +98,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
             _clientQuotationDetailsAppService = clientQuotationDetailsAppService;
             _timingAppService = timingAppService;
             _clientAttachmentsAppService = clientAttachmentsAppService;
+            _invoiceHeadAppService = invoiceHeadAppService;
         }
 
         #region "Clents"
@@ -471,6 +476,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     ClientInterstedService = new CreateOrEditClientInterstedServiceDto()
                 };
+                getClientInterstedServiceForEditOutput.ClientInterstedService.StartDate = DateTime.Now;
+                getClientInterstedServiceForEditOutput.ClientInterstedService.EndDate = DateTime.Now;
             }
             var ViewModel = new CreateOrEditInterestedServicesViewModel()
             {
@@ -520,6 +527,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     ClientEducation = new CreateOrEditClientEducationDto()
                 };
+                getClientEducationForEditOutput.ClientEducation.CourseStartDate = DateTime.Now;
+                getClientEducationForEditOutput.ClientEducation.CourseEndDate = DateTime.Now;
             }
             var ViewModel = new CreateOrEditEducationViewModel()
             {
@@ -696,6 +705,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 {
                     CheckInLog = new CreateOrEditCheckInLogDto()
                 };
+                getCheckInLogForEditOutput.CheckInLog.CheckInDate = DateTime.Now;
             }
             var viewModel = new CreateOrEditCheckInLogsViewModel()
             {
@@ -948,6 +958,55 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
         {
 
             return PartialView("ClientChangeAssignee/_CreateOrEditModal");
+        }
+        #endregion
+
+        #region Invoice
+        public async Task<ActionResult> Invoice(long? id)
+        {
+            long invoiceId = id.GetValueOrDefault();
+            var getInvoiceHeadForViewDto = await _invoiceHeadAppService.GetInvoiceHeadForView(invoiceId);
+            var model = new InvoiceHeadViewModel()
+            {
+                InvoiceHead = getInvoiceHeadForViewDto.InvoiceHead
+
+            };
+
+            return View("~/ClientsQuotation/ClientQuotationIndex.cshtml", model);
+        }
+        public async Task<PartialViewResult> CreateOrEditInvoiceHeadModal(long? id)
+        {
+            GetInvoiceHeadForEditOutput getInvoiceHeadForEditOutput;
+            if (id.HasValue)
+            {
+                getInvoiceHeadForEditOutput = await _invoiceHeadAppService.GetInvoiceHeadForEdit(new EntityDto<long> { Id = (long)id });
+            }
+            else
+            {
+                getInvoiceHeadForEditOutput = new GetInvoiceHeadForEditOutput
+                {
+                    InvoiceHead = new CreateOrEditInvoiceHeadDto()
+                };
+                getInvoiceHeadForEditOutput.InvoiceHead.InvoiceDate = DateTime.Now;
+                getInvoiceHeadForEditOutput.InvoiceHead.InvoiceDueDate = DateTime.Now;
+            }
+
+            var viewModel = new CreateOrEditInvoiceHeadModelViewModel()
+            {
+                InvoiceHead = getInvoiceHeadForEditOutput.InvoiceHead,
+                InvoiceManualPaymentDetailName = getInvoiceHeadForEditOutput.InvoiceManualPaymentDetailName,
+                InvoiceCurrencyName = getInvoiceHeadForEditOutput.InvoiceCurrencyName,
+                InvoicePaymentList = await _invoiceHeadAppService.GetAllPaymentForTableDropdown(),
+                InvoiceCurrencyList = await _invoiceHeadAppService.GetAllCurrencyForTableDropdown(),
+
+
+            };
+            return PartialView("Invoice/CreateOrEditInvoiceHeadModal", viewModel);
+
+        }
+        public ActionResult CreateInvoiceTypeModal(long? id)
+        {
+            return PartialView("Invoice/_InvoiceTypeModal");
         }
         #endregion
     }
