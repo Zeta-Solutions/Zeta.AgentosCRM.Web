@@ -79,11 +79,11 @@
                     "<tr class='trq_" + srCount + "'>" +
                     "<td>" + cardHtml + "</td>" +
                     "<td><textarea type='text' placeholder='Description' class='form-control border-0 input-sm Description'>" + clientQuotationDetail.description + "</textarea></td>" +
-                    "<td><input id='fee_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.serviceFee + "' class='form-control border-0 input-sm fee' /></td>" +
-                    "<td><input id='discount_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.discount + "' class='form-control border-0 input-sm discount' /></td>" +
-                    "<td><input id='NetFee_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.netFee + "' class='form-control border-0 input-sm NetFee'readonly /></td>" +
-                    "<td><input id='Rate_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.exchangeRate + "' class='form-control border-0 input-sm Rate' /></td>" +
-                    "<td><input id='total_" + srCount + "' type='text' placeholder='' value='" + clientQuotationDetail.totalAmount + "' class='form-control border-0 input-sm total'readonly /></td>" +
+                    "<td><input id='fee_" + srCount + "' type='text' placeholder='' value='" + parseFloat(clientQuotationDetail.serviceFee).toLocaleString() + "' class='form-control border-0 input-sm fee' /></td>" +
+                    "<td><input id='discount_" + srCount + "' type='text' placeholder='' value='" + parseFloat(clientQuotationDetail.discount).toLocaleString() + "' class='form-control border-0 input-sm discount' /></td>" +
+                    "<td><input id='NetFee_" + srCount + "' type='text' placeholder='' value='" + parseFloat(clientQuotationDetail.netFee).toLocaleString() + "' class='form-control border-0 input-sm NetFee'readonly /></td>" +
+                    "<td><input id='Rate_" + srCount + "' type='text' placeholder='' value='" + parseFloat(clientQuotationDetail.exchangeRate).toLocaleString() + "' class='form-control border-0 input-sm Rate' /></td>" +
+                    "<td><input id='total_" + srCount + "' type='text' placeholder='' value='" + parseFloat(clientQuotationDetail.totalAmount).toLocaleString() + "' class='form-control border-0 input-sm total'readonly /></td>" +
                     "<td><span class='Delete-icon delete' style='cursor: pointer; margin-left: 5px;'><i class='fa fa-trash' style='font-size: 10px;'></i></span></td>" +
                     "</tr>";
 

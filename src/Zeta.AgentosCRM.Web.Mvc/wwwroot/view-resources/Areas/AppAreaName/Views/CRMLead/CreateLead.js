@@ -5,14 +5,15 @@
         $("#kt_app_wrapper").css("margin", "0");
         //...
         var _leadsService = abp.services.app.leadHead;
+
         var img;
         const urlParams = new URLSearchParams(window.location.search);
         const FormName = urlParams.get('FormName');
         const id = urlParams.get('id');
-
+      
         getLeadsreload(id);
         var globalData; // Declare the data variable in a broader scope..
-
+     
         function createCard(item) {
             // Example: Creating a card with Bootstrap classes
             var card = $('<div>').addClass('card');
@@ -386,8 +387,9 @@
                     cardBodyDiv.append(cardFooterheading,cardConsentheading);
                 }
                 var button = `<div style="display: flex; justify-content: center;">
-    <button type="button" id="saveEmailSetupBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
-        <i class="fa fa-save"></i> Submit Form
+    <button type="button" id="saveEmailSetupBtn" class="btn btn-primary save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> 
+        Submit Form
     </button>  
 </div>`;
                 var poweredBy = `<br><div class="text-muted" style="display: flex; justify-content: center; align-items: center; ">
@@ -506,6 +508,7 @@
                 console.error('globalData.result.items is not an array:', globalData.result.items);
             }
         }
+  
         function handleDateInputMouseDown() {
             $('.date-picker').daterangepicker({
                 singleDatePicker: true,
@@ -520,6 +523,7 @@
                 format: 'L'
             });
         }
+     
     //    $(document).off("click", ".date-picker").on("click", ".date-picker", function (e) {
     //        $('.date-picker').daterangepicker({
     //            singleDatePicker: true,

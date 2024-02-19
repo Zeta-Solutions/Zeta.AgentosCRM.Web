@@ -186,23 +186,39 @@ namespace Zeta.AgentosCRM.CRMLead
         protected virtual async Task Update(CreateOrEditLeadHeadDto input)
         {
             var lead = await _leadHeadRepository.FirstOrDefaultAsync((long)input.Id);
+            if (AbpSession.TenantId != null)
+            {
+                lead.TenantId = (int)AbpSession.TenantId;
+            }
             ObjectMapper.Map(input, lead);
+            var Leaddetails = await _leadDetailRepository.GetAllListAsync(p => p.LeadHeadId == input.Id);
+            foreach (var item in Leaddetails)
+            {
+                await _leadDetailRepository.DeleteAsync(item.Id);
+            }
             foreach (var leads in input.LeadDetails)
             {
-
-                if (leads.Id == 0)
-                {
-                    leads.LeadheadId = (int)input.Id;
-                    var LeadDetail = ObjectMapper.Map<LeadDetail>(lead);
-                    await _leadDetailRepository.InsertAsync(LeadDetail);
-                }
-                else
-                {
-                    leads.LeadheadId = (int)input.Id;
-                    var workflowStep = await _leadDetailRepository.FirstOrDefaultAsync((int)leads.Id);
-                    ObjectMapper.Map(leads, workflowStep);
-                }
+                leads.LeadheadId = (int)input.Id;
+                var LeadDetail = ObjectMapper.Map<LeadDetail>(leads);
+                await _leadDetailRepository.InsertAsync(LeadDetail);
             }
+            CurrentUnitOfWork.SaveChanges();
+            //foreach (var leads in input.LeadDetails)
+            //{
+
+            //    if (leads.Id == 0)
+            //    {
+            //        leads.LeadheadId = (int)input.Id;
+            //        var LeadDetail = ObjectMapper.Map<LeadDetail>(lead);
+            //        await _leadDetailRepository.InsertAsync(LeadDetail);
+            //    }
+            //    else
+            //    {
+            //        leads.LeadheadId = (int)input.Id;
+            //        var workflowStep = await _leadDetailRepository.FirstOrDefaultAsync((int)leads.Id);
+            //        ObjectMapper.Map(leads, workflowStep);
+            //    }
+            //}
         }
 
         public async Task Delete(EntityDto<long> input)

@@ -1,0 +1,54 @@
+﻿@using System.Globalization
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Common.Modals
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("CommissionInvoice")))
+
+<div class="modal-body">
+    <div id="InformationsForm">
+        <form name="InvoiceTypeInformationsForm" role="form" novalidate class="form-validation">
+
+
+            <input type="hidden" name="id" value="" />
+            
+            <div class="my-3" id="radioGroupContainer" style="display: none;">
+            <label class="form-label" for="Application_PartnerandBranch">@L("ChooseInvoice")</label>
+            <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="radioGroup" id="radio12" value="option12" checked>
+                <label class="form-check-label" for="radio12">
+                    @L("NetClaimInvoice")
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="radioGroup" id="radio2" value="option2">
+                <label class="form-check-label" for="radio2">
+                    @L("GrossClaimInvoice")
+                </label>
+            </div>
+            </div>
+            <div class="my-3" id="radioGroupBContainer" style="display: none;">
+                <label class="form-label" for="Application_PartnerandBranch">@L("ChooseInvoice")</label>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkbox1" checked disabled>
+                    <label class="form-check-label" for="checkbox1">
+                        @L("ClientInvoice")
+                    </label>
+                </div>
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_PartnerandBranch">@L("Client")</label>
+                <input class="form-control form-control-sm rounded-0 custom-select-input" id="Invoice_ClietName" value="" type="text" name="clietName" disabled />
+            </div>
+            <div class="my-3">
+                <label class="form-label" for="Application_PartnerandBranch">@L("Application")</label>
+                <select id="ApplicationInvoiceTypeId" class="form-select select2" data-id="" data-control="select2"></select>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="col-md-12 text-end mb-3 ml-3">
+    <button type="button" id="saveInvoiceTypeBtn" class="btn btnclose btn-sm btn-outline text-white save-button rounded-0" style="margin-right:25px;">
+        <i class="fa fa-save"></i> @L("Create")
+    </button>
+</div>

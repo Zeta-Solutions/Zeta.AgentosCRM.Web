@@ -239,6 +239,7 @@ table.dataTable thead tr {
     .hide-on-print {
         display: none !important;
     }
+
 }
 @media print {
     @page {
@@ -248,7 +249,9 @@ table.dataTable thead tr {
 
     body {
         margin: 0; /* this affects the margin on the content before sending to printer */
+        overflow: hidden;
     }
+    
     .h12 {
         background-color: #072e47 !important;
         -webkit-print-color-adjust: exact;
@@ -260,3 +263,21 @@ table.dataTable thead tr {
     -webkit-print-color-adjust: exact;
 }
 
+@media print {
+    body, html {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #wrapper {
+        height: auto !important;
+        overflow: hidden;
+    }
+}
+@media print {
+
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}

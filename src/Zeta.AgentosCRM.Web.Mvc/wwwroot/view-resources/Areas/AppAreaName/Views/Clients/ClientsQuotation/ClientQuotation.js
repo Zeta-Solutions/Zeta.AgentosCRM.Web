@@ -426,7 +426,13 @@
                     targets: 3,
                     data: 'clientQuotationHead.totalAmount',
                     name: 'totalAmount',
-                    
+                    render: function (data, type, row) {
+                        // Format the totalAmount with commas
+                        if (type === 'display' || type === 'filter') {
+                            return parseFloat(data).toLocaleString();
+                        }
+                        return data;
+                    }
                 },
                 {
                     targets: 4,
@@ -802,8 +808,10 @@
          
 
             // Set the calculated total to the #Total input
-            $("#TotalAmount").val(totalAmount.toFixed(2));
-            console.log('Total calculated:', total.toFixed(2));
+            //$("#TotalAmount").val(totalAmount.toFixed(2).toLocaleString());
+            //console.log('Total calculated:', total.toFixed(2));
+            var localizedTotalAmount = parseFloat(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 });
+            $("#TotalAmount").val(localizedTotalAmount);
         }
 
         //function CalculateAmt() {

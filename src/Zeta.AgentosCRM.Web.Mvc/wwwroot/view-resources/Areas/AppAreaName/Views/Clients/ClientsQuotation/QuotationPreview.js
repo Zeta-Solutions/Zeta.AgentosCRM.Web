@@ -45,6 +45,7 @@
             $('.app-header').addClass('hide-on-print');
             $('.app-footer').addClass('hide-on-print');
             $('.svg-icon').addClass('hide-on-print');
+
             // Trigger window print
             window.print();
 

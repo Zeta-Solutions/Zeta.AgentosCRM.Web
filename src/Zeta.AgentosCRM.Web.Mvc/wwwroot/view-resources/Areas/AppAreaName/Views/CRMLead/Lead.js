@@ -161,7 +161,7 @@
                             '<div class="ellipsis"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
                             '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
+                            //'<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +
                             '<a href="#" style="color: black;" data-action="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
                             "<a href='#' style='color: black;' data-action='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
                             '</ul>' +
@@ -229,7 +229,7 @@
                 $('.options').hide();
             }
         });
-
+        
         // Handle menu item clicks
         $(document).on('click', 'a[data-action]', function (e) {
             e.preventDefault();
@@ -239,16 +239,17 @@
             debugger
             // Handle the selected action based on the rowId
             if (action === 'view') {
-                _viewDegeeLevelModal.open({ id: rowId });
+                window.location = "/AppAreaName/Leads/DetailsForm/" + rowId;
+                    
             } else if (action === 'edit') {
-                _createOrEditModal.open({ id: rowId });
+                window.location = "/AppAreaName/Leads/LeadAllFields/" + rowId;
+                
             } else if (action === 'delete') {
-                console.log(rowId);
-                deleteMasterCategory(rowId);
+                deleteCRMLead(rowId);
             }
         });
 
-        function deleteMasterCategory(degreeLevel) {
+        function deleteCRMLead(degreeLevel) {
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _LeadDetailservice
