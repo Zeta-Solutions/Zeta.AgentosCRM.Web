@@ -4,8 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Zeta.AgentosCRM.CRMAgent.Dtos;
 using Zeta.AgentosCRM.Dto;
-using System.Collections.Generic;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace Zeta.AgentosCRM.CRMAgent
 {
