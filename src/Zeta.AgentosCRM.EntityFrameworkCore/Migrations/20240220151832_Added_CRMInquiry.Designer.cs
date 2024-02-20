@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zeta.AgentosCRM.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Zeta.AgentosCRM.EntityFrameworkCore;
 namespace Zeta.AgentosCRM.Migrations
 {
     [DbContext(typeof(AgentosCRMDbContext))]
-    partial class AgentosCRMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220151832_Added_CRMInquiry")]
+    partial class Added_CRMInquiry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2993,251 +2996,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.HasIndex("TenantId");
 
                     b.ToTable("ClientQuotationHeads");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMInvoice.InvoiceDetail", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("CommissionAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("CommissionPercent")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IncomeType")
-                        .HasColumnType("int");
-
-                    b.Property<long>("InvoiceHeadId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("InvoiceTypes")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("NetAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("Tax")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TaxAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TaxSettings")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InvoiceTypes");
-
-                    b.HasIndex("TaxSettings");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("InvoiceDetail");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMInvoice.InvoiceHead", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long?>("ApplicationId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ApplicationName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ApplicationOwner")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Branch")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClientAssignee")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ClientDOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("ClientId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ClientName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("CommissionClaimed")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CurrencyId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("DiscountGivenToClient")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("InvoiceDueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InvoiceNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsInvoiceNetOrGross")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("ManualPaymentDetail")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ManualPaymentDetails")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("NetFeePaidToPartner")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("NetFeeReceived")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("NetIncome")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("PartnerAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerClientId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerContact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("PartnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PartnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartnerService")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Product")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal?>("Tax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalAmountInclTax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TotalDetailCount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalDue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalIncome")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalPayables")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Workflow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("CurrencyId");
-
-                    b.HasIndex("ManualPaymentDetails");
-
-                    b.HasIndex("PartnerId");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("InvoiceHead");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMLead.LeadDetail", b =>
@@ -6287,6 +6045,34 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("AppFriendships");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.MultiTenancy.Accounting.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("InvoiceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InvoiceNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenantAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenantLegalName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenantTaxNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppInvoices");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.MultiTenancy.Payments.SubscriptionPayment", b =>
                 {
                     b.Property<long>("Id")
@@ -7487,54 +7273,6 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("ClientFk");
 
                     b.Navigation("CurrencyFk");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMInvoice.InvoiceDetail", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Account.InvoiceType", "InvoiceTypesFk")
-                        .WithMany()
-                        .HasForeignKey("InvoiceTypes");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Account.TaxSetting", "TaxSettingFk")
-                        .WithMany()
-                        .HasForeignKey("TaxSettings");
-
-                    b.Navigation("InvoiceTypesFk");
-
-                    b.Navigation("TaxSettingFk");
-                });
-
-            modelBuilder.Entity("Zeta.AgentosCRM.CRMInvoice.InvoiceHead", b =>
-                {
-                    b.HasOne("Zeta.AgentosCRM.CRMApplications.Application", "ApplicationFk")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMClient.Client", "ClientFk")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.CRMCurrency.CRMCurrency", "CurrencyFk")
-                        .WithMany()
-                        .HasForeignKey("CurrencyId");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Account.ManualPaymentDetail", "ManualPaymentDetailFk")
-                        .WithMany()
-                        .HasForeignKey("ManualPaymentDetails");
-
-                    b.HasOne("Zeta.AgentosCRM.CRMPartner.Partner", "PartnerFk")
-                        .WithMany()
-                        .HasForeignKey("PartnerId");
-
-                    b.Navigation("ApplicationFk");
-
-                    b.Navigation("ClientFk");
-
-                    b.Navigation("CurrencyFk");
-
-                    b.Navigation("ManualPaymentDetailFk");
-
-                    b.Navigation("PartnerFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMLead.LeadDetail", b =>
