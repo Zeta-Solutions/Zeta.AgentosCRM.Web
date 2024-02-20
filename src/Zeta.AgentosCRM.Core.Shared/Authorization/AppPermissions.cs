@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_CRMInquiries = "Pages.CRMInquiries";
+        public const string Pages_CRMInquiries_Create = "Pages.CRMInquiries.Create";
+        public const string Pages_CRMInquiries_Edit = "Pages.CRMInquiries.Edit";
+        public const string Pages_CRMInquiries_Delete = "Pages.CRMInquiries.Delete";
+
         public const string Pages_SentEmails = "Pages.SentEmails";
         public const string Pages_SentEmails_Create = "Pages.SentEmails.Create";
         public const string Pages_SentEmails_Edit = "Pages.SentEmails.Edit";

@@ -1,4 +1,6 @@
-﻿using Zeta.AgentosCRM.Tenants.Email.Configuration.Dtos;
+﻿using Zeta.AgentosCRM.CRMLeadInquiry.Dtos;
+using Zeta.AgentosCRM.CRMLeadInquiry;
+using Zeta.AgentosCRM.Tenants.Email.Configuration.Dtos;
 using Zeta.AgentosCRM.Tenants.Email.Configuration;
 using Zeta.AgentosCRM.CRMClient.Documents.Dtos;
 using Zeta.AgentosCRM.CRMClient.Documents;
@@ -137,6 +139,8 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCRMInquiryDto, CRMInquiry>().ReverseMap();
+            configuration.CreateMap<CRMInquiryDto, CRMInquiry>().ReverseMap();
             configuration.CreateMap<CreateOrEditLeadHeadDto, LeadHead>().ReverseMap();
             configuration.CreateMap<LeadHeadDto, LeadHead>().ReverseMap();
             configuration.CreateMap<CreateOrEditLeadDetailDto, LeadDetail>().ReverseMap();
