@@ -6,6 +6,18 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_InvoiceDetails = "Pages.InvoiceDetails";
+        public const string Pages_InvoiceDetails_Create = "Pages.InvoiceDetails.Create";
+        public const string Pages_InvoiceDetails_Edit = "Pages.InvoiceDetails.Edit";
+        public const string Pages_InvoiceDetails_Delete = "Pages.InvoiceDetails.Delete";
+
+
+        public const string Pages_InvoiceHead = "Pages.InvoiceHead";
+        public const string Pages_InvoiceHead_Create = "Pages.InvoiceHead.Create";
+        public const string Pages_InvoiceHead_Edit = "Pages.InvoiceHead.Edit";
+        public const string Pages_InvoiceHead_Delete = "Pages.InvoiceHead.Delete";
+
+
         public const string Pages_CRMInquiries = "Pages.CRMInquiries";
         public const string Pages_CRMInquiries_Create = "Pages.CRMInquiries.Create";
         public const string Pages_CRMInquiries_Edit = "Pages.CRMInquiries.Edit";

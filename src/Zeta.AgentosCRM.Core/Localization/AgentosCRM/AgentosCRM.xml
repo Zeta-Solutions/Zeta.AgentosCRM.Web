@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-	<texts>    <text name="CRMLeadInquiry">C r m lead inquiry</text>
+	<texts>	<text name="AddNewInvoice">Add New Invoice</text>	<text name="DiscountGiven">Discount Given</text>	<text name="IncomeShared">Income Shared</text>	<text name="InvoiceAmount">Invoice Amount</text>	<text name="IssueDate">Issue Date</text>    <text name="CRMLeadInquiry">C r m lead inquiry</text>
     <text name="CRMInquiry">C r m inquiry</text>
     <text name="CreateNewCRMInquiry">Create new c r m inquiry</text>
     <text name="EditCRMInquiry">Edit c r m inquiry</text>

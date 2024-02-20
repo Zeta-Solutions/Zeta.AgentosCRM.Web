@@ -54,11 +54,14 @@ using Zeta.AgentosCRM.MultiTenancy.Payments;
 using Zeta.AgentosCRM.Storage;
 using Zeta.AgentosCRM.Tenants.Email;
 using Zeta.AgentosCRM.CRMLead;
+using Zeta.AgentosCRM.CRMInvoice;
 
 namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<InvoiceHead> InvoiceHeads { get; set; }
+        public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual DbSet<CRMInquiry> CRMInquiries { get; set; }
 
         public virtual DbSet<LeadHead> LeadHeads { get; set; }
@@ -213,7 +216,7 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 
         public virtual DbSet<SubscriptionPayment> SubscriptionPayments { get; set; }
 
-        public virtual DbSet<Invoice> Invoices { get; set; }
+       // public virtual DbSet<Invoice> Invoices { get; set; }
 
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
@@ -230,6 +233,14 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<InvoiceDetail>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
+            modelBuilder.Entity<InvoiceHead>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
 
             modelBuilder.Entity<CRMInquiry>(c =>
             {

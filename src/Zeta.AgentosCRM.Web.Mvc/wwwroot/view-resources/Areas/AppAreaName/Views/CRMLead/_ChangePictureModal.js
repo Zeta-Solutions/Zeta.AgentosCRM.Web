@@ -75,22 +75,24 @@
             });
         };
         //.....
+        const pathArray = window.location.pathname.split('/');
+        const id = pathArray[pathArray.length - 1];
         function saveInternal(input) {
             debugger
-            if (input.ClientId > 0) {
+            if (input.id > 0) {
                 _profileService.updateProfilePicture(input).done(function () {
                     if ($cropperJsApi) {
                         $cropperJsApi = null;
                     }
-                    var clientId = input.ClientId ?? 0;
+                    var clientId = id ?? 0;
                     var profilePictureId = input.fileToken;
                     $('input[name="ProfilePictureId"]').val(input.fileToken)
 
-
+                    debugger
                     var imageUrl = $.ajax({
-                        url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByClient',
+                        url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByLead',
                         data: {
-                            clientId: clientId,
+                            leadId: clientId,
                         },
                         method: 'GET',
                         dataType: 'json',

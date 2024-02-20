@@ -5,6 +5,9 @@
         var demoUiComponentsService = abp.services.app.demoUiComponents;
         var globalData;
         var Tags;
+        const pathArray = window.location.pathname.split('/');
+        const id = pathArray[pathArray.length - 1];
+
         $('#TagName').select2({
             multiple: true,
             width: '100%',
@@ -64,7 +67,7 @@
             success: function (data) {
                 
                 var globalData = data
-                // Populate the dropdown with the fetched data
+                // Populate the dropdown with the fetched data..
                 createintrestedservice(globalData);
             },
             error: function (error) {
@@ -136,6 +139,10 @@
             placeholder: 'Type your text here...',
             theme: 'snow' // or 'bubble'
         });
+        if (id>1) {
+            editmode(id);
+        }
+       
         $("#exampleCheckbox").change(function () {
             var inputField = $("#exampleInput");
             var inputType;
@@ -297,8 +304,147 @@
         //        }
         //    });
         //});
+        //..
+        function editmode(id) {
+            setTimeout(function () {
+            debugger
+            _leadsService.getLeadHeadForEdit({ id: id })
+                .done(function (data) {
+                    debugger
+                    var headernote = data.leadHead.headerNote
+                    headernote = headernote.replace(/\\n/g, '\n');
+                    //var IsPro = data.leadHead.tagName;
+                    var tagname = data.leadHead.tagName;
+                    var tagIds = tagname.split(',');
+                    var tagValues = [];
+                    tagIds.forEach(function (id) {
+                        tagValues.push(id);
+                    });
+                    $('#TagName').val(tagIds).trigger('change');
+                    $("#formTitle").val(data.leadHead.formtittle);
+                    $("#CardHeader").val(headernote);
+                    $("#FormName").val(data.leadHead.formName);
+                    $("#CoverPictureId").val(data.leadHead.coverImage);
+                    $("#ProfilePictureId").val(data.leadHead.logo);
+                    $("#Consent").val(data.leadHead.consent);
+                    $("#PrivacyInfo").val(data.leadHead.privacyInfo);
+                    $("#TenantId").val(data.leadHead.tenantId);
+                    
+                    data.leadDetail.forEach(function (detail) {
+                        debugger
+                        // Get the propertyName from the detail object
+                        var propertyName = detail.propertyName;
+                        if (detail.sectionName === "INTERESTED SERVICES") {
+                            
+                                var parentDiv = $("#" + propertyName).closest('div');
+                                var checkbox = parentDiv.find("[id^='save_title']");
+                                // Check the checkbox
+                                checkbox.prop("checked", true);
+                            // Change delay time as needed, here set to 0 for immediate execution
+                        }
+                        var parentDiv = $("input[placeholder='" + propertyName + "']").closest('div');
+                        //var parentDiv = $("#" + propertyName).closest('div');
+
+                        // Find the checkbox within the parent container
+                        var checkbox = parentDiv.find("[id^='save_title']");
+                        // Check the checkbox
+                        checkbox.prop("checked", true);
+                    });
+                   
+                    if (data.leadHead.logo !== null && data.leadHead.coverImage === null || data.leadHead.logo != "" && data.leadHead.coverImage == "") {
 
 
+                        $.ajax({
+                            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByPictireId?fileTokkenId=' + data.leadHead.logo,
+                            //data: {
+                            //    pictureId: globalData.result.leadHead.logo,
+                            //},
+                            method: 'GET',
+                            dataType: 'json',
+                        })
+                            .done(function (data) {
+                                //debugger
+                                //$('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                if (data.result.profilePicture != "") {
+                                    $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                }
+                                else {
+                                    // Assuming you have an image element with the ID 'profileImage'
+                                    $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+                                }
+
+                            })
+                    }
+                    else if (data.leadHead.logo == "" && data.leadHead.coverImage != "" || data.leadHead.logo === null && data.leadHead.coverImage !== null) {
+                        $.ajax({
+                            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByPictireId?fileTokkenId=' + data.leadHead.coverImage,
+                            //data: {
+                            //    pictureId: globalData.result.leadHead.logo,
+                            //},
+                            method: 'GET',
+                            dataType: 'json',
+                        })
+                            .done(function (data) {
+                                //debugger
+                                //$('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                if (data.result.profilePicture != "") {
+                                    $('#CoverImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                }
+                                else {
+                                    // Assuming you have an image element with the ID 'profileImage'
+                                    $('#CoverImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+                                }
+
+                            })
+                    }
+                    else if (
+                        (data.leadHead.logo !== null && data.leadHead.coverImage !== null) &&
+                        (data.leadHead.logo !== "" && data.leadHead.coverImage !== "")
+                    ) {
+                        $.ajax({
+                            url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByPictireId?fileTokkenId=' + data.leadHead.coverImage,
+                            //data: {
+                            //    pictureId: globalData.result.leadHead.logo,
+                            //},
+                            method: 'GET',
+                            dataType: 'json',
+                        })
+                            .done(function (imgdata) {
+                                //debugger
+                                //$('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                if (imgdata.result.profilePicture != "") {
+                                    $('#CoverImage').attr('src', "data:image/png;base64," + imgdata.result.profilePicture);
+                                }
+                                else {
+                                    // Assuming you have an image element with the ID 'profileImage'
+                                    $('#CoverImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+                                }
+
+                                $.ajax({
+                                    url: abp.appPath + 'api/services/app/ClientProfile/GetProfilePictureByPictireId?fileTokkenId=' + data.leadHead.logo,
+                                    //data: {
+                                    //    pictureId: globalData.result.leadHead.logo,
+                                    //},
+                                    method: 'GET',
+                                    dataType: 'json',
+                                })
+                                    .done(function (data) {
+                                        //debugger
+                                        //$('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                        if (data.result.profilePicture != "") {
+                                            $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
+                                        }
+                                        else {
+                                            // Assuming you have an image element with the ID 'profileImage'
+                                            $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
+                                        }
+
+                                    })
+                            })
+                    }
+                });
+            }, 100); 
+        }
         var changeProfilePictureModal = new app.ModalManager({
             viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',
             scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/CRMLead/_ChangePictureModal.js',
@@ -526,7 +672,7 @@
         $('#saveSentLeadBtn').click(function () {
             // Array to store checked values
             var checkedValues = [];
-            var uniqueInputIds = []; // Array to store unique input IDs
+            var uniqueInputIds = []; // Array to store unique input IDs..
             var allCheckedValues = [];
             $("[id^='save_title']").each(function () {
                 if ($(this).is(':checked')) {
@@ -640,7 +786,9 @@
                 consent: $("input[name='Consent']").val(),
                 logo: $('input[name="ProfilePictureId"]').val(),
                 coverImage: $('input[name="CoverPictureId"]').val(),
+                tenantId: $('input[name="TenantId"]').val(),
                 tagName: Tags,
+                id:$("input[name='id']").val(),
             };
            
             LeadHead.LeadDetails = LeadDetails;
@@ -651,7 +799,8 @@
                     // Introduce a delay before reloading the page..
 
                     abp.notify.info(app.localize('SavedSuccessfully'));
-                    location.reload();
+                        window.location = "/AppAreaName/Leads/";
+                    //location.reload();
                     // Adjust the delay time as needed
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {

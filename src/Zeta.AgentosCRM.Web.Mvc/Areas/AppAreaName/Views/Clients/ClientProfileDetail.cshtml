@@ -38,8 +38,9 @@
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Applicationtabs/ApplicationMenu.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Activites/Activites.js" asp-append-version="true"></script>
      <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Documents/Document.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Conversation/Index.js" asp-append-version="true"></script>
-    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Conversation/Index.js" asp-append-version="true"></script> 
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Invoice/Index.js" asp-append-version="true"></script> 
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script> 
 
 
     
@@ -319,6 +320,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="#AccountsTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
+                            @L("Accounts")
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#EducationTab" data-bs-toggle="tab" role="tab" class="nav-link  navbar-link-item-card-font ">
                             @L("Educations")
                         </a>
@@ -409,6 +415,11 @@
          <div class="tab-pane pt-5 mb-7" id="TasksTab" role="tabpanel">
             <div class="list-group">
                 @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Tasks/Tasks.cshtml")
+            </div>
+        </div>
+        <div class="tab-pane pt-5 mb-7" id="AccountsTab" role="tabpanel">
+            <div class="list-group">
+                @await Html.PartialAsync("~/Areas/AppAreaName/Views/Clients/Invoice/InvoiceIndex.cshtml")
             </div>
         </div>
         <div class="tab-pane pt-5 mb-7" id="EducationTab" role="tabpanel">

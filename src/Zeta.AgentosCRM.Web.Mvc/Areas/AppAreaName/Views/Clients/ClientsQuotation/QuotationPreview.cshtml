@@ -87,6 +87,7 @@
                 <th class="col-2  pb-9 text-end">Net Amt</th>
                 <th class="col-2 pe-lg-6 pb-9 text-end">Ex.Rate</th>
                 <th class="col-2 pe-lg-6 pb-9 text-end">Amount</th>
+
             </tr>
         </thead>
         <tbody>
@@ -103,11 +104,11 @@
                     </td>
                   
                     <td class="pt-11">@detail.Description</td>
-                    <td class="pt-11">@detail.ServiceFee</td>
-                    <td class="pt-11">@detail.Discount</td>
-                    <td class="pt-11 fs-5 pe-lg-6 text-dark fw-bolder">@detail.NetFee</td>
-					 <td class="pt-11">@detail.ExchangeRate</td>
-			      <td class="pt-11 fs-5 pe-lg-6 text-dark fw-bolder">@detail.TotalAmount</td>
+                   <td class="pt-11">@detail.ServiceFee.ToString("N2")</td>
+                    <td class="pt-11">@detail.Discount.ToString("N2")</td>
+                    <td class="pt-11 fs-5 pe-lg-6 text-dark fw-bolder">@detail.NetFee.ToString("N2")</td>
+					 <td class="pt-11">@detail.ExchangeRate.ToString("N2")</td>
+			      <td class="pt-11 fs-5 pe-lg-6 text-dark fw-bolder">@detail.TotalAmount.ToString("N2")</td>
                 </tr>
             }
         </tbody>
@@ -128,7 +129,9 @@
 													@{
 							decimal totalAmountSum = Model.clientQuotationDeatils.Sum(detail => detail.TotalAmount);
 												}
-													<div class="fs-xl-2x fs-2 fw-bolder">AUD @totalAmountSum.ToString("")</div>
+													<div class="fs-xl-2x fs-2 fw-bolder">AUD @totalAmountSum.ToString("N2")</div>
+													@* <div class="fs-xl-2x fs-2 fw-bolder">@string.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", totalAmountSum)</div> *@
+
 													<div class="text-muted fw-semibold">Taxes included</div>
 													<!--end::Total Amount-->
 													@* <div class="border-bottom w-100 my-7 my-lg-16"></div> *@

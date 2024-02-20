@@ -5,6 +5,7 @@ using Abp.Dependency;
 using Abp.Domain.Repositories; 
 using Zeta.AgentosCRM.CRMAgent;
 using Zeta.AgentosCRM.CRMClient;
+using Zeta.AgentosCRM.CRMLead;
 using Zeta.AgentosCRM.CRMPartner;
 using Zeta.AgentosCRM.CRMProducts;
 using Zeta.AgentosCRM.Storage;
@@ -19,14 +20,15 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
         private readonly IRepository<Agent, long> _agentRepository;
         private readonly IRepository<Partner, long> _partnerRepository;
         private readonly IRepository<Product, long> _productRepository;
-
+        private readonly IRepository<LeadHead, long> _leadHeadRepository;
         public LocalProfileImageService(
             IBinaryObjectManager binaryObjectManager,
             UserManager userManager,
             IRepository<Client, long> clientRepository,
             IRepository<Agent, long> agentRepository,
             IRepository<Partner, long> partnerRepository,
-            IRepository<Product, long> productRepository)
+            IRepository<Product, long> productRepository,
+            IRepository<LeadHead, long> leadHeadRepository)
         {
             _binaryObjectManager = binaryObjectManager;
             _userManager = userManager;
@@ -34,6 +36,7 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
             _agentRepository = agentRepository;
             _partnerRepository = partnerRepository;
             _productRepository = productRepository;
+            _leadHeadRepository = leadHeadRepository;
         }
 
         public async Task<string> GetProfilePictureContentForUser(UserIdentifier userIdentifier)
@@ -58,7 +61,28 @@ namespace Zeta.AgentosCRM.Authorization.Users.Profile
             var file = await _binaryObjectManager.GetOrNullAsync(client.ProfilePictureId.Value);
             return file == null ? "" : Convert.ToBase64String(file.Bytes);
         }
-
+        public async Task<string> GetCoverPictureContentForLead(long leadId)
+        {
+            var Leadhead = await _leadHeadRepository.GetAsync(leadId);
+            if (Leadhead?.CoverImage == null)
+            {
+                return "";
+            }
+            var coverImageGuid = Guid.Parse(Leadhead.CoverImage);
+            var file = await _binaryObjectManager.GetOrNullAsync(coverImageGuid);
+            return file == null ? "" : Convert.ToBase64String(file.Bytes);
+        }
+        public async Task<string> GetProfilePictureContentForLead(long leadId)
+        {
+            var Leadhead = await _leadHeadRepository.GetAsync(leadId);
+            if (Leadhead?.Logo == null)
+            {
+                return "";
+            }
+            var coverImageGuid = Guid.Parse(Leadhead.Logo);
+            var file = await _binaryObjectManager.GetOrNullAsync(coverImageGuid);
+            return file == null ? "" : Convert.ToBase64String(file.Bytes);
+        }
         public async Task<string> GetProfilePictureContentForAgent(long agentId)
         {
             var agent = await _agentRepository.GetAsync(agentId);
