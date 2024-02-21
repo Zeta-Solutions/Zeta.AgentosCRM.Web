@@ -12,7 +12,7 @@
             $("#radioGroupBContainer").show();
             var modalTitle = document.querySelector('.modal-title');
 
-            // Set the inner HTML of the <h5> element
+            // Set the inner HTML of the <h5> element..
             modalTitle.innerHTML = '<span>General Invoice</span>';
         }
         $('#ApplicationInvoiceTypeId').select2({

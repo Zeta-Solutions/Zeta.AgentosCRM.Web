@@ -68,6 +68,7 @@
             public const string EmailConfiguration = "CRMSetup.EmailConfiguration";
             public const string SentEmail = "CRMSetup.SentEmail";
             public const string Leads = "CRMSetup.Lead";
+            public const string Equiries = "Dashboard.Equiries";
         }
     }
 }

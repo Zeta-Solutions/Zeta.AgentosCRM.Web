@@ -405,6 +405,14 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
 
                 )
                 )
+                .AddItem(new MenuItemDefinition(
+                                    AppAreaNamePageNames.Tenant.Equiries,
+                                    L("Equiries"),
+                                    url: "AppAreaName/Equiries",
+                                    icon: "flaticon-comment"
+                                //permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Clients)
+                                )
+                            )
                  .AddItem(new MenuItemDefinition(
                                     AppAreaNamePageNames.Tenant.Clients,
                                     L("Clients"),
