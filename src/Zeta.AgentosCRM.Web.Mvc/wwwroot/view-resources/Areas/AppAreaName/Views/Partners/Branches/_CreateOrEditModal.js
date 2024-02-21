@@ -1,6 +1,6 @@
 ﻿(function ($) {
     app.modals.CreateOrEditBranchesModal = function () {
-        debugger
+         
         $('#countryId').select2({
             width: '100%',
             dropdownParent: $('#countryId').parent(),

@@ -44,7 +44,7 @@
             }
         });
         function populatePartnerDropdown(data) {
-            debugger
+             
             var dropdown = $('#partnerId');
 
             dropdown.empty();
@@ -74,7 +74,7 @@
             }
         });
         function populateBranchDropdown(data) {
-            debugger
+             
             var dropdown = $('#branchId');
 
             dropdown.empty();
@@ -104,7 +104,7 @@
             }
         });
         function populateProductDropdown(data) {
-            debugger
+             
             var dropdown = $('#productId');
 
             dropdown.empty();
@@ -134,7 +134,7 @@
             }
         });
         function populateDropdown(data) {
-            debugger
+             
             var dropdown = $('#workflowId');
 
             dropdown.empty();
@@ -166,7 +166,7 @@
         $(document).ready(function () {
             $(document).on("click", "#updatequotationBtn", function () {
                 //$('#updatequotationBtn').click(function () {
-                debugger
+                 
                 // Get form data
                 var formData = getFormData();
                 var rowCount = $("#ClientsQuotationDetailtable tbody tr").length;
@@ -178,7 +178,7 @@
                     //var targetRowNumber = parseInt(tr.attr('class').match(/\d+/)[0]);
                     if (currentRowNumber > 0) {
                         //var existingRow = $("#ClientsQuotationDetailtable").length;
-                        debugger
+                         
 
                         // Update the content of the existing row
                         closestTr.find('.workflowsName').text(formData.workflowName);
@@ -220,7 +220,7 @@
 
                     var srCount = rowCount + 2;
 
-                    debugger
+                     
                     var mainDiv = $('<div>').addClass('maincard maindivcard');
 
 
@@ -251,7 +251,7 @@
         });
         var closestTr = "";
         $(document).on("click", ".Edit-icon", function () {
-            debugger
+             
             var modal = $(this)
             closestTr = $(this).closest('tr')
             var trClass = closestTr.attr('class');
@@ -273,7 +273,7 @@
             $('#QuotationDetailModal').modal('show');
         });
         $(document).on('click', '.delete', function () {
-            debugger
+             
             closestTr = $(this).closest('tr')
             var quotationdetailsid = closestTr.find('.Id').val();
 
@@ -284,7 +284,7 @@
                             id: quotationdetailsid,
                         })
                         .done(function () {
-                            debugger
+                             
                             closestTr.remove();
 
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
@@ -317,7 +317,7 @@
             $(".total").val('');
         }
         $('#closedquotationBtn').click(function () {
-            debugger
+             
             //$('#workflowId').val(0),
             //    $('#partnerId').val(0),
             //    $('#productId').val(0),
@@ -353,13 +353,13 @@
 
                 //},
                 inputFilter: function () {
-                    debugger
+                     
                     var filter = $('#QuotationsTableFilter').val();
                     var dueDateFilter = $('#DateFilter').val();
                     var clientNameFilter = $('#NameFilterId').val();
                     //var totalAmountFilter = $('#TotalAmountFilter').val();
 
-                     debugger
+                      
                     if (dueDateFilter && !isValidDateFormat(dueDateFilter)) { 
                        
                         return null;  
@@ -560,7 +560,7 @@
         }
 
         function deleteQuotationDetails(clientQuotationHead) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientQuotationHeadsService
@@ -592,7 +592,7 @@
         });
 
         $('#CreateNewQuotationButton').click(function () {
-            debugger
+             
             _createOrEditClientsQuotationModal.open();
             // _createOrEditModal.open();
 
@@ -600,7 +600,7 @@
         });
 
         $('#addquotationBtn').click(function () {
-            debugger
+             
             var modal = $(this)
             //  closestTr = $(this).closest('tr')
             var workflow = 0;
@@ -622,7 +622,7 @@
 
         });
         //$('#closedquotationBtn').click(function () {
-        //    debugger
+        //     
         //    $('#QuotationDetailModal').modal('hide');
 
         //    // _createOrEditQuotationDetailModal.open();
@@ -670,7 +670,7 @@
             getquotations();
         });
         $("#ClientsQuotationDetailtable").on('change', '.fee', function () {
-            debugger;
+             ;
             var $CalAmount = $(this).closest('tr');
             var fee = parseFloat($CalAmount.find(".fee").val());
             var discount = +($CalAmount.find(".discount").val());
@@ -698,7 +698,7 @@
             //$CalAmount.find(".total").text(netamount);
         });
         $("#ClientsQuotationDetailtable").on('change', '.Rate', function () {
-            debugger;
+             ;
             var $CalAmount = $(this).closest('tr');
             var fee = parseFloat($CalAmount.find(".fee").val());
             var discount = +($CalAmount.find(".discount").val());
@@ -726,7 +726,7 @@
             CalculateAmt();
         });
         $("#ClientsQuotationDetailtable").on('change', '.discount', function () {
-            debugger;
+             ;
             var $CalAmount = $(this).closest('tr');
             var fee = parseFloat($CalAmount.find(".fee").val());
             var discount = +($CalAmount.find(".discount").val());
@@ -757,7 +757,7 @@
             CalculateAmt();
         });
         function CalculateAmt() {
-            debugger
+             
             var total = 0;
 
             var totalAmount = 0;
@@ -765,7 +765,7 @@
 
             $("#ProductCount").val(taxRowCounter);
             $('.total').each(function () {
-                debugger
+                 
                 // Assuming there is an input field with class 'total' in each row
                 var amount = parseFloat($(this).val()) || 0;
                 totalAmount += amount;
@@ -779,14 +779,14 @@
         }
 
         //function CalculateAmt() {
-        //    debugger;
+        //     ;
 
         //    var Workflowsetuptable = $('#ClientsQuotationDetailtable');
         //    var data = Workflowsetuptable.rows().data().toArray();
         //    var total = 0;
 
         //    for (var i = 0; i < data.length; i++) {
-        //        debugger;
+        //         ;
 
         //        // Assuming the field you want to sum is in the 'total' column
         //        var totalValue = parseFloat(data[i].total) || 0;
@@ -800,7 +800,7 @@
         //}
         //$(document).on('click', '.ellipsis60', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var options = $(this).closest('.context-menu').find('.Appointmentoptions');
         //    var allOptions = $('.Appointmentoptions');  // Select all options
 
@@ -819,10 +819,10 @@
         //});
         //$(document).on('click', 'a[data-action60]', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var rowId = $(this).data('id');
         //    var action = $(this).data('action60');
-        //    debugger
+        //     
         //    // Handle the selected action based on the rowId..
         //    if (action === 'edit') {
 
@@ -874,11 +874,11 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action60]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action60');
             var hiddenfield = $('.ClientId', $(this).closest('tr')).text();
-            debugger
+             
             // Handle the selected action based on the rowId..
             if (action === 'edit') {
 

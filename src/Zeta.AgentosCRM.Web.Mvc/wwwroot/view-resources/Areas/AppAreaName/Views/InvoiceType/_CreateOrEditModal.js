@@ -1,7 +1,7 @@
 ﻿(function ($) {
     app.modals.CreateOrEditDocumentTypeModal = function () {
         var _documentTypesService = abp.services.app.invoiceTypes;
-        debugger
+         
         var _modalManager;
         var _$documentTypesInformationForm = null;
 
@@ -25,7 +25,7 @@
             }
 
             var feeType = _$documentTypesInformationForm.serializeFormToObject();
-            debugger
+             
             _modalManager.setBusy(true);
             _documentTypesService
                 .createOrEdit(feeType)

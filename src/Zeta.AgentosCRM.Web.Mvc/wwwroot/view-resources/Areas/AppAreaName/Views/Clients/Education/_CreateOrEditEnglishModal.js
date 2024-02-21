@@ -1,14 +1,14 @@
 ﻿(function ($) {
     //...
     app.modals.CreateOrEditEnglishTestScoreModal = function () {
-        debugger
+         
         var hiddenfield = $("#ID").val();
         $("#ClientId").val(hiddenfield);
         $('input[name*="clientId"]').val(hiddenfield)
         getRecordsById(hiddenfield);
-        debugger
+         
         function getRecordsById(hiddenfield) {
-            debugger
+             
             $.ajax({
                 url: abp.appPath + 'api/services/app/EnglisTestScores/GetAll',
                 data: {
@@ -18,7 +18,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     console.log('Response from server:', data);
                     globalenglishData = data;
                     if (data || data.length > 1) {
@@ -31,10 +31,10 @@
                 });
         }
         function fetchrecord(data) {
-            debugger;
+             ;
             var modal = $(this);
             var reversedItems = data.result.items.slice().reverse();
-            debugger 
+              
             for (var i = 0; i < data.result.items.length; i++) {
                 var Name = "name" + (i + 1);
                 var idListening = "listenting" + (i + 1);
@@ -82,7 +82,7 @@
             if (!_$englisTestScoresInformationsForm.valid()) {
                 return;
             }
-            debugger
+             
             var items = [];
 
             // Assuming each entry has a unique identifier, you may need to modify this part accordingly
@@ -106,13 +106,13 @@
                 };
                 items.push(subject);
             }
-            debugger
+             
             row1 = $('.card-text.col-md-2 input[name="Id0"]').val();
             row2 = $('.card-text.col-md-2 input[name="Id1"]').val();
             row3 = $('.card-text.col-md-2 input[name="Id2"]').val();
             $.each(items, function (index, data) {
                 var Steps = JSON.stringify(data);
-                debugger
+                 
                 _englisTestScoresService
                     .delete({
                         id: row1,

@@ -2,7 +2,7 @@
     $("#kt_app_sidebar_toggle").trigger("click");
     $(function () {
         var _$Clienttable = $('#ClientsTable');
-        debugger;
+         ;
         var _clientService = abp.services.app.clients;
     var $selectedDate = {
       startDate: null,

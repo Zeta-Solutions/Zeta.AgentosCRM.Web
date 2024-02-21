@@ -88,7 +88,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger;
+                     ;
                     var AllData = data.result.items;
 
                     $(".EmailtemplateRecord").empty();
@@ -117,7 +117,7 @@
             
             var emailTemplateID = $(this).closest('.Emailtemplate'); 
            var EmailID= emailTemplateID.find("#EmailTemplateID").val();
-            debugger 
+              
             deleteEmailTemplate(EmailID);
         });
         $(document).on("click", ".Edit-icon", function () {
@@ -125,7 +125,7 @@
             var emailTemplateID = $(this).closest('.Emailtemplate'); 
            var EmailID= emailTemplateID.find("#EmailTemplateID").val();
             _createOrEditModal.open({ id: EmailID });
-            debugger  
+               
         });
        
         function deleteEmailTemplate(EmailID) {
@@ -136,7 +136,7 @@
                             id: EmailID,
                         })
                         .done(function () {
-                            debugger
+                             
                             getAllEmailData(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
@@ -161,7 +161,7 @@
             _createOrEditModal.open();
         }); 
         abp.event.on('app.createOrEditEmailTemplateModalSaved', function () {
-            debugger
+             
             getAllEmailData();
         });
 

@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.CRMClient.Documents;
+﻿using Zeta.AgentosCRM.CRMLeadInquiry;
+using Zeta.AgentosCRM.CRMClient.Documents;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
 using Zeta.AgentosCRM.CRMProducts.Fee;
@@ -45,6 +46,7 @@ namespace Zeta.AgentosCRM.EntityHistory
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(CRMInquiry),
             typeof(SentEmail),
             typeof(ClientAttachment),
             typeof(ProductBranch),

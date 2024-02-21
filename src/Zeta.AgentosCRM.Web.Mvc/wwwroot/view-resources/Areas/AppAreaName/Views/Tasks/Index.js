@@ -97,7 +97,7 @@
         //});
 
         //function getLtasksreload() {
-        //    debugger
+        //     
 
 
         //    var branchesAjax = $.ajax({
@@ -118,7 +118,7 @@
         //        });
         //}
         //function processData(data) {
-        //    debugger
+        //     
         //    var cardContainer = $('#cardTaskContainer'); // or replace '#container' with your actual container selector
 
         //    // Check if globalData.result.items is an array before attempting to iterate
@@ -152,7 +152,7 @@
 
         //// Button click event handler
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    var cardContainer = $('#cardContainer');
         //    cardContainer.empty(); // Clear existing cards
         //    _createOrEditModal.open();
@@ -166,7 +166,7 @@
         var _$TaskTable = $('#Tasktable');
         var _cRMTasksService = abp.services.app.cRMTasks;
         console.log(_$TaskTable);
-        debugger
+         
         var $selectedDate = {
             startDate: null,
             endDate: null,
@@ -268,7 +268,7 @@
                     width: 100,
                     targets: 1,
                     render: function (data, type, row) {
-                        debugger
+                         
                         if (row.crmTask.isCompleted == true) {
                             var rowId = row.crmTask.id;
                             return '<input type="checkbox" class="custom-checkbox" id="' + rowId + '" checked />';
@@ -333,7 +333,7 @@
                     targets: 6,
                     data: null,
                     render: function (data, type, row) {
-                        debugger
+                         
                         if (row.crmTask.isCompleted == true) {
                             return '<span style="display: inline-block; padding: 5px 10px; border-radius: 15px;  color: #50cd89;"><b> Completed </b></span>';
                         }
@@ -416,7 +416,7 @@
             }
         });
         function deletetasks(crmTask) {
-            debugger
+             
 
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
@@ -445,19 +445,19 @@
         });
 
         $('#CreateNewTaskButton').click(function () {
-            debugger
+             
             _createOrEditModal.open();
 
         });
         //$('#showCardsButton').click(function () {
-        //    debugger
+        //     
         //    _createOrEditModal.open();
 
         //   // window.location.href = abp.appPath + 'AppAreaName/Partners/AddPartnersDetails';
         //});
 
         $('#BranchesButton').click(function () {
-            debugger
+             
             var cardContainer = $('#cardContainer');
             cardContainer.empty(); // Clear existing cards
 
@@ -531,13 +531,13 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action15]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action15');
-            debugger
+             
             // Handle the selected action based on the rowId
             //if (action === 'view') {
-            //    debugger
+            //     
             //    //_createOrEditModal.open({ id: rowId });
             //    window.location = "/AppAreaName/Partners/DetailsForm/" + rowId;
             //} else
@@ -547,7 +547,7 @@
             } else if (action === 'delete') {
 
                 deletetasks(rowId);
-                debugger
+                 
             }
         });
     });

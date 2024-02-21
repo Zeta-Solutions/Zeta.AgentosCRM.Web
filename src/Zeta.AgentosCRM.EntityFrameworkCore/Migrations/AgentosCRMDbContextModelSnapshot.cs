@@ -3376,6 +3376,184 @@ namespace Zeta.AgentosCRM.Migrations
                     b.ToTable("LeadHead");
                 });
 
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMLeadInquiry.CRMInquiry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal?>("AcademicScore")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactPreference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CourseEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CourseStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DegreeLevelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DegreeTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DocumentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("GMat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Gre")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Ielts")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsGpa")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LeadSourceId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("OrganizationUnitId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("PassportCountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PictureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreferedInTake")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Pte")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Sat1")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Sat2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SecondaryEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubjectAreaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Toefl")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("VisaExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VisaType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("DegreeLevelId");
+
+                    b.HasIndex("LeadSourceId");
+
+                    b.HasIndex("OrganizationUnitId");
+
+                    b.HasIndex("PassportCountryId");
+
+                    b.HasIndex("SubjectAreaId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TagId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("CRMInquiries");
+                });
+
             modelBuilder.Entity("Zeta.AgentosCRM.CRMNotes.Note", b =>
                 {
                     b.Property<long>("Id")
@@ -7383,6 +7561,57 @@ namespace Zeta.AgentosCRM.Migrations
                     b.Navigation("LeadSourceFk");
 
                     b.Navigation("OrganizationUnitFK");
+                });
+
+            modelBuilder.Entity("Zeta.AgentosCRM.CRMLeadInquiry.CRMInquiry", b =>
+                {
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "CountryFk")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.DegreeLevel", "DegreeLevelFk")
+                        .WithMany()
+                        .HasForeignKey("DegreeLevelId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.LeadSource.LeadSource", "LeadSourceFk")
+                        .WithMany()
+                        .HasForeignKey("LeadSourceId");
+
+                    b.HasOne("Abp.Organizations.OrganizationUnit", "OrganizationUnitFk")
+                        .WithMany()
+                        .HasForeignKey("OrganizationUnitId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Countries.Country", "PassportCountryFk")
+                        .WithMany()
+                        .HasForeignKey("PassportCountryId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.SubjectArea", "SubjectAreaFk")
+                        .WithMany()
+                        .HasForeignKey("SubjectAreaId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Subject", "SubjectFk")
+                        .WithMany()
+                        .HasForeignKey("SubjectId");
+
+                    b.HasOne("Zeta.AgentosCRM.CRMSetup.Tag.Tag", "TagFk")
+                        .WithMany()
+                        .HasForeignKey("TagId");
+
+                    b.Navigation("CountryFk");
+
+                    b.Navigation("DegreeLevelFk");
+
+                    b.Navigation("LeadSourceFk");
+
+                    b.Navigation("OrganizationUnitFk");
+
+                    b.Navigation("PassportCountryFk");
+
+                    b.Navigation("SubjectAreaFk");
+
+                    b.Navigation("SubjectFk");
+
+                    b.Navigation("TagFk");
                 });
 
             modelBuilder.Entity("Zeta.AgentosCRM.CRMNotes.Note", b =>

@@ -26,7 +26,7 @@
             }
         }
         $("#leadSourceId").change(function () {
-            debugger;
+             ;
             if ($("#leadSourceId option:selected").text() === "Agent") {
                 document.getElementById("field1").style.display = 'block';
                 //$("#field1").show();
@@ -43,13 +43,13 @@
         });
         $(document).ready(function () {
             $(".contact-preference-button").click(function () {
-                debugger
+                 
                 var value = $(this).data('value');
                 setContactPreference(value); // Change 'Email' to the desired value..
             });
         });
         function setContactPreference(value) {
-            debugger;
+             ;
             $(".contact-preference-button").removeClass("selected").css({
                 'background-color': '',
                 'color': ''
@@ -156,13 +156,13 @@
                 $("#applicationId").append(optionhtml);
 
                 $.each(Record, function (index, item) {
-                    debugger
+                     
                     optionhtml = '<option value="' +
                         item.application.productId + '">' + item.productName + '</option>';
                     console.log(optionhtml);
                     $("#applicationId").append(optionhtml);
                 });
-                debugger 
+                  
             }) 
 
 
@@ -178,7 +178,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger 
+                  
                 if (data.result.profilePicture != "") {
                     $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
                 }
@@ -189,7 +189,7 @@
                 
             })
             .fail(function (error) {
-                debugger 
+                  
                 // Assuming you have an image element with the ID 'profileImage'
                 $('#profileImage').attr('src', '/Profile/GetProfilePictureByUser?userId=5&profilePictureId=null');
 
@@ -393,16 +393,11 @@
                 abp.message.error(app.localize('{0}IsRequired', app.localize('Country')));
                 return;
             }
-            
-
-            
-           
+             
             ProfilePictureId = $('input[name="ProfilePictureId"]').val()
            
             var client = _$clientInformationForm.serializeFormToObject();
-            
-			debugger
-			
+             
             abp.ui.setBusy(); 
 			 _clientsService.createOrEdit(
 				client
@@ -456,7 +451,7 @@
         $(document).on("change", "#applicationId", function () {
             
             var ProductIdFilter = $("#applicationId").val();
-            debugger
+             
             alert(ProductIdFilter);
             $.ajax({
                 url: abp.appPath + 'api/services/app/Applications/GetAll?ProductIdFilter=' + ProductIdFilter,
@@ -465,7 +460,7 @@
                 dataType: 'json',
             })
                 .done(function (data) {
-                    debugger
+                     
                     var html = '<div class=row>';
                     html += '<div class="col-lg-4">' + data.result.items[0].productName +'</div>'
                     html += '<div class="col-lg-4">' + data.result.items[0].workflowName +'</div>'

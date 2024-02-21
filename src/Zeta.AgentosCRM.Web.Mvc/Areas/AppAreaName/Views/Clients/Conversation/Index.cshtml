@@ -6,21 +6,46 @@
     <div class="Main">
         <div class="row">
             <div class="col-md-12 d-flex align-items-start mb-3">
-                <!-- Email Button -->
-                <button class="btn btn-primary btn-circle btn-sm mr-2" id="EmailButton">
-                    <span>Email</span>
-                    <i class="fas fa-envelope"></i>
-                </button>
+                 
+                <div class="btn-group fs-6" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="EmailButton" autocomplete="off" checked>
+                    <label class="btn btn-primary" for="EmailButton">
+                        <span>Email</span>
+                        <i class="fas fa-envelope"></i>
+                    </label>
 
-                <!-- SMS Button -->
-                <button class="btn btn-primary btn-sm btn-circle" id="SmsButton">
-                    <span class="">SMS</span>
-                    <i class="fas fa-sms"></i>
-                </button>
+                    <input type="radio" class="btn-check" name="btnradio" id="SmsButton" autocomplete="off">
+                    <label class="btn btn-primary" for="SmsButton">
+                        <span class="">SMS</span>
+                        <i class="fas fa-sms"></i>
+                    </label>
+                     
+                </div>
+
+
             </div>
         </div>
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+
+                <div class="row align-items-center">
+                    <table id="ClientEmailTable" class="table align-middle  fs-8 gy-2 dataTable no-footer">
+                        <thead class="thead gy-7">
+                            <tr>
+                                <th class="align-middle" style="padding:2px" hidden></th> 
+                                <th>@L("Subject")</th>
+                                <th>@L("SentTo")</th>
+                                <th>@L("SentBy")</th>
+                                <th>@L("SentDate")</th> 
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
 
+            </div>
+        </div>
     </div>
 </div>
 

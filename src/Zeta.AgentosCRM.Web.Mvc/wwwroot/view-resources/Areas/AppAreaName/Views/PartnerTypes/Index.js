@@ -76,7 +76,7 @@
             }
             return $selectedDate.endDate.format('YYYY-MM-DDT23:59:59Z');
         };
-        debugger
+         
         var dataTable = _$partnerTypesTable.DataTable({
             paging: true,
             serverSide: true,
@@ -146,7 +146,7 @@
         });
 
         function getPartnerTypes() {
-            debugger
+             
             dataTable.ajax.reload();
         }
          
@@ -172,7 +172,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).data('action');
-            debugger 
+              
             if (action === 'view') {
                 _viewPartnerTypeModal.open({ id: rowId });
             } else if (action === 'edit') {
@@ -232,7 +232,7 @@
         });
 
         $('#GetPartnerTypesButton').click(function (e) {
-            debugger
+             
             e.preventDefault();
             getPartnerTypes();
         });

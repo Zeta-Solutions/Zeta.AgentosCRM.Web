@@ -42,7 +42,7 @@
       }
 
         var leadSources = _$partnerContactsInformationForm.serializeFormToObject();
-        debugger
+         
       _modalManager.setBusy(true);
         _partnerContactsService
             .createOrEdit(leadSources)

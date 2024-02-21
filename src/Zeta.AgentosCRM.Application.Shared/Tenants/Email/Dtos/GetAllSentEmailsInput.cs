@@ -29,6 +29,8 @@ namespace Zeta.AgentosCRM.Tenants.Email.Dtos
 
         public string ClientFirstNameFilter { get; set; }
 
+        public int? ClientIdFilter { get; set; }
+
         public string ApplicationNameFilter { get; set; }
 
     }

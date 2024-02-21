@@ -21,7 +21,7 @@
         _$SubjectInformationForm.validate();
     };
         $('#updatequotationBtn').click(function () {
-            debugger
+             
             var updatedData = {};  // Variable to store the updated data as an object
 
            

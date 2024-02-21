@@ -1,4 +1,5 @@
-﻿using Zeta.AgentosCRM.Tenants.Email.Configuration;
+﻿using Zeta.AgentosCRM.CRMLeadInquiry;
+using Zeta.AgentosCRM.Tenants.Email.Configuration;
 using Zeta.AgentosCRM.CRMClient.Documents;
 using Zeta.AgentosCRM.CRMProducts.Requirements;
 using Zeta.AgentosCRM.CRMProducts.OtherInfo;
@@ -61,6 +62,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
     {
         public virtual DbSet<InvoiceHead> InvoiceHeads { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual DbSet<CRMInquiry> CRMInquiries { get; set; }
+
         public virtual DbSet<LeadHead> LeadHeads { get; set; }
         public virtual DbSet<LeadDetail> LeadDetails { get; set; }
         public virtual DbSet<SentEmail> SentEmails { get; set; }
@@ -238,10 +241,15 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
             {
                 s.HasIndex(e => new { e.TenantId });
             });
-            modelBuilder.Entity<LeadDetail>(s =>
+
+            modelBuilder.Entity<CRMInquiry>(c =>
             {
-                s.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<LeadDetail>(s =>
+                       {
+                           s.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<LeadHead>(s =>
             {
                 s.HasIndex(e => new { e.TenantId });

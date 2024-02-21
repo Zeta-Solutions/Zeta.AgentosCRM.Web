@@ -166,10 +166,10 @@
 
           var rowId = $(this).data('id');
           var action = $(this).data('action');
-          debugger
+           
           // Handle the selected action based on the rowId
           if (action === 'view') {
-              debugger
+               
               _viewFeeTypeModal.open({ id: rowId });
           } else if (action === 'edit') {
               _createOrEditModal.open({ id: rowId });
@@ -207,12 +207,12 @@
     });
 
       $('#CreateNewDocumentType').click(function () {
-          debugger
+           
       _createOrEditModal.open();
     });
      
       abp.event.on('app.createOrEditFeeTypeModalSaved', function () {
-          debugger
+           
           getDocumentType();
     });
 

@@ -1,5 +1,7 @@
-﻿@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Layout;
+﻿@using Microsoft.AspNetCore.Http;
+@using Zeta.AgentosCRM.Web.Areas.AppAreaName.Models.Layout;
 @using Zeta.AgentosCRM.Web.Navigation;
+@using System.Web;
 @model MenuViewModel
 @section Scripts
     {
@@ -33,7 +35,7 @@
     document.getElementById('kt_app_root').addEventListener('click', function (event) {
         // $(".Divtoggel").hide();
 
-        // debugger
+        //  
 
     });
 
@@ -66,7 +68,7 @@
             divtoggel.hide();
             // });
         } else {
-            debugger
+             
             var ValueofToggleSetupForm = 1;
             $("#DivTogglevalue").val(ValueofToggleSetupForm)
             // Slide down to show
@@ -87,6 +89,8 @@
     }
     else
     {
+        string hostUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+        
         @for (var i = 0; i < Model.Menu.Items.Count; i++)
         {
 
@@ -97,12 +101,12 @@
                 @for (var j = 0; j < Setuprecord.Count; j++)
                 {
                     var displayName = Setuprecord[j].DisplayName;
-                    var Url = Setuprecord[j].Url;
+                    var Url = hostUrl + "/" + Setuprecord[j].Url;
                     @*var Icon = Setuprecord[j].Icon;<i class="@Icon"></i> *@
                     var pathAfterSlash = Url.Substring(Url.IndexOf('/') + 1);
                     <div class="menu-item px-3">
 
-                        <a class="menu-link py-3" href=@pathAfterSlash>
+                        <a class="menu-link py-3" href=@Url>
                             <span class="menu-text">@displayName</span><br />
                         </a>
 

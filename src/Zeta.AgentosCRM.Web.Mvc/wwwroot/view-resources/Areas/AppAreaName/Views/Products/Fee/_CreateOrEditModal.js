@@ -33,7 +33,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    debugger
+                     
                     // Populate the dropdown with the fetched data
                     updateProductFee(data);
                 },
@@ -44,7 +44,7 @@
         }
  
         function updateProductFee(data) {
-            debugger;
+             ;
             // Assuming data.result.promotionproduct is an array of objects with OwnerID property
             $.each(data.result.feeDetail, function (index, obj) {
                 var newTimelineItem = `
@@ -88,7 +88,7 @@
                     dataType: 'json',
 
                     success: function (data) {
-                        debugger
+                         
                         var $currentDropdown = $(".FeeType" + index);
                         $currentDropdown.empty();
                         var data = data.result;
@@ -147,7 +147,7 @@
 
       
         $(document).on('click', '.addTax', function () {
-            debugger
+             
             var taxRowCounter = $('.TaxRow').length;
             var newTimelineItem = `
     <div class="row TaxRow">
@@ -193,7 +193,7 @@
         //    dataType: 'json',
           
         //    success: function (data) {
-        //        debugger
+        //         
         //        var data = data.result;
         //        if (data == null) {
         //            //alert("Record Not Found.");
@@ -216,7 +216,7 @@
         //});
         //});
         $(document).on('change', '.Amount', function () {
-            debugger;
+             ;
             var Amount = $(this).closest('.TaxRow').find('.Amount').val();
             var installment = $(this).closest('.TaxRow').find('.installment').val();
             if (isNaN(Amount)) {
@@ -230,7 +230,7 @@
            
         });
         $(document).on('change', '.installment', function () {
-            debugger;
+             ;
             var Amount = $(this).closest('.TaxRow').find('.Amount').val();
             var installment = $(this).closest('.TaxRow').find('.installment').val();
             if (isNaN(Amount)) {
@@ -250,7 +250,7 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    debugger;
+                     ;
                     $(".FeeType" + taxRowCounter1).empty();
                     var dropdownData = data.result;
 
@@ -275,7 +275,7 @@
             });
         });
         $(document).on('click', '.TaxRowDelete', function () {
-            debugger
+             
             var closestTr = $(this).closest('.row');
             var feedetailsid = closestTr.find('.ID').val();
 
@@ -286,7 +286,7 @@
                             id: feedetailsid,
                         })
                         .done(function () {
-                            debugger
+                             
                             closestTr.remove();
 
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
@@ -315,7 +315,7 @@
 
             // Assuming you have some way of determining the number of rows you want to save, let's say 'rowCount'.
             var rowCount = $(".Amount").length;
-            debugger
+             
             for (var i = 0; i < rowCount; i++) {
                 var InstallmentAmount = $('.TaxRow').eq(i).find('.Amount').val();
                 var Installments = $('.TaxRow').eq(i).find('.installment').val();

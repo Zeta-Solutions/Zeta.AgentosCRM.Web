@@ -2,7 +2,7 @@
     $(function () {
         var _$applicationsTable = $('#Applicationstable');
         var _applicationsService = abp.services.app.applications;
-        debugger
+         
         console.log(_applicationsService)
         var $selectedDate = {
             startDate: null,
@@ -113,7 +113,7 @@
                         let initials = `${firstNameInitial}` + ' ' + `${lastNameInitial}`;
                         let fullName = `${row.clientFirstName}` + ' ' + `${row.clientLastName}`; 
                         let ClientEmail = row.clientEmail;
-                        debugger
+                         
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
@@ -155,7 +155,7 @@
 
                         let displayBranchName = branchName ? branchName : '-';
                         /*      console.log(row);*/
-                        debugger
+                         
                         // Generate the URLs using JavaScript variables
                         let clientDetailUrl = `/AppAreaName/Clients/ClientProfileDetail?id=${row.application.clientId}`;
                         //let clientEmailComposeUrl = _createOrEditModalEmail.open(row.client.id);
@@ -282,7 +282,7 @@
         // Add a click event handler for the ellipsis icons
         //$(document).on('click', '.Applicationellipsis', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var options = $(this).closest('.context-menu').find('.options');
         //    var allOptions = $('.options');  // Select all options
 
@@ -301,10 +301,10 @@
         //});
         //$(document).on('click', 'a[data-action60]', function (e) {
         //    e.preventDefault();
-        //    debugger
+        //     
         //    var rowId = $(this).data('id');
         //    var action = $(this).data('action60');
-        //    debugger
+        //     
         //    // Handle the selected action based on the rowId
         //    if (action === 'edit') {
         //        _createOrEditModal.open({ id: rowId });

@@ -64,7 +64,7 @@
                 input = {
                     fileToken: fileToken
                 };
-                debugger
+                 
                // var userIdInput = _modalManager.getModal().find("#clientId");
                 var userIdInput = $('input[name="id"]').val();
                 if (userIdInput > 0) {
@@ -76,7 +76,7 @@
         };
         //.....
         function saveInternal(input) {
-            debugger
+             
             if (input.ClientId > 0) {
                 _profileService.updateProfilePicture(input).done(function () {
                     if ($cropperJsApi) {
@@ -96,7 +96,7 @@
                             dataType: 'json',
                         })
                             .done(function (data) {
-                                debugger
+                                 
                                 console.log('Response from server:', data);
                                 $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
                             })
@@ -128,7 +128,7 @@
                         dataType: 'json',
                     })
                         .done(function (data) {
-                            debugger
+                             
                             console.log('Response from server:', data);
                             $('#profileImage').attr('src', "data:image/png;base64," + data.result.profilePicture);
                         })

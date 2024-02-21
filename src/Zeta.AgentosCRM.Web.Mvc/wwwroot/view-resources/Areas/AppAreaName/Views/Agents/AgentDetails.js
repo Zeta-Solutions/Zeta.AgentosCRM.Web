@@ -11,7 +11,7 @@
             dataType: 'json',
         })
             .done(function (data) {
-                debugger
+                 
                 console.log('Response from server:', data);
                 if (data.result.profilePicture == null || data.result.profilePicture == '') {
                     var fullname = $("#AgentName").val();

@@ -1,7 +1,7 @@
 ﻿(function () {
     
     $(function () {
-        debugger
+         
         var _$EducationEnglishTestScoreTable = $('#EnglishTestScoretable');
         var _englisTestScoresService = abp.services.app.englisTestScores;
 
@@ -37,12 +37,12 @@
                 });
         }
         function processotherscoreData(data) {
-            debugger
+             
             var cardContainer = $('#cardProductotherContainer'); // or replace '#container' with your actual container selector
-            debugger
+             
             // Check if globalData.result.items is defined and is an array with elements
             if (Array.isArray(globalotherData.result.items) && globalotherData.result.items.length > 0) {
-                debugger
+                 
                 // Call createEnglishCardTask once with the entire array
                 var cards = createProductothercard(globalotherData.result.items);
 
@@ -57,7 +57,7 @@
                 // Append the row to the cardContainer
                 cardContainer.append(rowDiv);
             } else {
-                debugger
+                 
                 var defaultotherItem = {}; // You can provide some default values or an empty object
                 var defaultCard = createProductothercard(defaultotherItem);
 
@@ -71,7 +71,7 @@
             }
         }
         function createProductothercard(item) {
-            debugger;
+             ;
 
             var otherTestScores = item || [{ otherTestScore: { id: 0, name: '' } }];
 
@@ -147,7 +147,7 @@
 
             // Append headings to card body
             cardBodyDiv.append(infoColheadingDiv);
-            debugger
+             
             var infoParagraphs = [];
             var paragraph1 = $('<p>').addClass('card-text col-md-4 text-center').html('<strong>Over All Score:</strong>');
             infoColDiv.append(paragraph1);
@@ -183,7 +183,7 @@
             return mainDiv; // Return the created card
         }
         function createEnglishCardTask(item) {
-            debugger;
+             ;
 
             var englisTestScores = item || [{ englisTestScore: { id: 0 } }];
 
@@ -234,7 +234,7 @@
             cardBodyDiv.append(cardTitle);
             // Append headings to card body
             cardBodyDiv.append(infoColheadingDiv);
-            debugger
+             
             // Create info paragraphs
             for (var i = 0; i < englisTestScores.length; i++) {
                 var currentProduct = englisTestScores[i];
@@ -294,9 +294,9 @@
                 });
         }
         function procesenglishData(data) {
-            debugger
+             
             var cardContainer = $('#cardProductEnglishContainer'); // or replace '#container' with your actual container selector
-            debugger
+             
             // Check if globalData.result.items is defined and is an array with elements
             if (Array.isArray(globalenglishData.result.items) && globalenglishData.result.items.length > 0) {
                 // Call createEnglishCardTask once with the entire array
@@ -313,7 +313,7 @@
                 // Append the row to the cardContainer
                 cardContainer.append(rowDiv);
             } else {
-                debugger
+                 
                 var defaultItem = {}; // You can provide some default values or an empty object
                 var defaultCard = createEnglishCardTask(defaultItem);
 
@@ -336,7 +336,7 @@
 
 
         function geteducationsreload(dynamicValue) {
-            debugger
+             
 
 
             var branchesAjax = $.ajax({
@@ -351,7 +351,7 @@
                     
                     var Card = data.result.items;
                     $.each(Card, function (index, item) {
-                        debugger 
+                          
                         const CourseStartDate = new Date(item.clientEducation.courseStartDate);
                         const CourseendDate = new Date(item.clientEducation.courseEndDate); 
                         function renderDateTime(date) {
@@ -418,7 +418,7 @@
 
             var rowId = $(this).data('id');
             var action = $(this).attr('Education-data-action');
-            debugger
+             
             // Handle the selected action based on the rowId
              if (action === 'edit') {
                 _createOrEditModal.open({ id: rowId });
@@ -429,7 +429,7 @@
         });
 
         function deleteeducation(education) {
-            debugger
+             
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _clientEducationsService
@@ -438,7 +438,7 @@
                         })
                         .done(function () {
                             //getSubjectAreas(true);
-                            debugger
+                             
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                             location.reload();
                         });
@@ -720,7 +720,7 @@
             _createOrEditModal.open();
         });
         //$('#AddEnglishTestScoreButton').click(function () {
-        //    debugger;
+        //     ;
 
         //    // Assuming receivedId is a globally declared variable
         //    if (receivedId && parseInt(receivedId) > 0) {
@@ -736,7 +736,7 @@
 
 
         //$('#AddEnglishTestScoreButton').click(function () {
-        //   debugger
+        //    
         //    _createOrEditEnglishScoreModal.open([id]);
         //});
         $('#AddOtherTestScoreButton').click(function () {
@@ -809,10 +809,10 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action51]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action51');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });
@@ -854,10 +854,10 @@
         // Handle menu item clicks
         $(document).on('click', 'a[data-action71]', function (e) {
             e.preventDefault();
-            debugger
+             
             var rowId = $(this).data('id');
             var action = $(this).data('action71');
-            debugger
+             
             // Handle the selected action based on the rowId
             if (action === 'view') {
                 //_viewMasterCategoryModal.open({ id: rowId });
