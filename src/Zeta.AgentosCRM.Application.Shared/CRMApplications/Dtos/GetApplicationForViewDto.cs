@@ -1,4 +1,6 @@
-﻿namespace Zeta.AgentosCRM.CRMApplications.Dtos
+﻿using System;
+
+namespace Zeta.AgentosCRM.CRMApplications.Dtos
 {
     public class GetApplicationForViewDto
     {
@@ -22,5 +24,9 @@
 		public bool IsCurrent { get; set; } 
 		public bool IsActive { get; set; }
 		public bool IsCompleted { get; set; }
-	}
+		public DateTime? DateofBirth { get; set; }
+        public string Email { get; set; }
+        public string ClientAssigneeName { get; set; }
+        public long? AssigneeId { get; set; }
+    }
 }

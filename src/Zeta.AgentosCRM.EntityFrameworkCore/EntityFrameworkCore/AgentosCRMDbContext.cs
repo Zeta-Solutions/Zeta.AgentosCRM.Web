@@ -60,6 +60,8 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
 {
     public class AgentosCRMDbContext : AbpZeroDbContext<Tenant, Role, User, AgentosCRMDbContext>
     {
+        public virtual DbSet<InvIncomeSharing> InvIncomeSharings { get; set; }
+        public virtual DbSet<InvPaymentReceived> InvPaymentReceiveds { get; set; }
         public virtual DbSet<InvoiceHead> InvoiceHeads { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual DbSet<CRMInquiry> CRMInquiries { get; set; }
@@ -233,6 +235,14 @@ namespace Zeta.AgentosCRM.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<InvIncomeSharing>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
+            modelBuilder.Entity<InvPaymentReceived>(s =>
+            {
+                s.HasIndex(e => new { e.TenantId });
+            });
             modelBuilder.Entity<InvoiceDetail>(s =>
             {
                 s.HasIndex(e => new { e.TenantId });

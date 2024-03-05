@@ -14,6 +14,8 @@ using Zeta.AgentosCRM.Authorization;
 using Zeta.AgentosCRM.CRMInvoice.Dtos;
 using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
+using SkiaSharp;
+using System.Linq.Expressions;
 
 namespace Zeta.AgentosCRM.CRMInvoice
 {
@@ -24,13 +26,17 @@ namespace Zeta.AgentosCRM.CRMInvoice
         private readonly IRepository<InvoiceDetail, long> _invoiceDetailsRepository;
         private readonly IRepository<CRMCurrency, int> _lookup_CurrencyRepository;
         private readonly IRepository<ManualPaymentDetail, int> _lookup_ManualPaymentDetailRepository;
+        private readonly IRepository<InvPaymentReceived, long> _invPaymentReceivedRepository;
+        private readonly IRepository<InvIncomeSharing, long> _invIncomeSharingRepository;
 
-        public InvoiceHeadAppService(IRepository<InvoiceHead, long> invoiceHeadRepository, IRepository<InvoiceDetail, long> invoiceDetailsRepository, IRepository<CRMCurrency, int> lookup_CurrencyRepository, IRepository<ManualPaymentDetail, int> lookup_ManualPaymentDetailRepository)
+        public InvoiceHeadAppService(IRepository<InvoiceHead, long> invoiceHeadRepository, IRepository<InvoiceDetail, long> invoiceDetailsRepository, IRepository<CRMCurrency, int> lookup_CurrencyRepository, IRepository<ManualPaymentDetail, int> lookup_ManualPaymentDetailRepository, IRepository<InvIncomeSharing, long> invIncomeSharingRepository, IRepository<InvPaymentReceived, long> invPaymentReceivedRepository)
         {
             _invoiceHeadRepository = invoiceHeadRepository;
             _invoiceDetailsRepository = invoiceDetailsRepository;
             _lookup_CurrencyRepository = lookup_CurrencyRepository;
             _lookup_ManualPaymentDetailRepository = lookup_ManualPaymentDetailRepository;
+            _invIncomeSharingRepository = invIncomeSharingRepository;
+            _invPaymentReceivedRepository = invPaymentReceivedRepository;
         }
         public async Task<PagedResultDto<GetInvoiceHeadForViewDto>> GetAll(GetAllInvoiceHeadInput input)
         {
@@ -83,12 +89,16 @@ namespace Zeta.AgentosCRM.CRMInvoice
                                   o.TotalPaid,
                                   o.TotalDue,
                                   o.InvoiceNo,
-                                  o.Status,
-                                  o.IsInvoiceNetOrGross,
+                                  o.Status,                                 
                                   o.ApplicationName,
                                   o.ClientAssignee,
                                   o.ApplicationOwner,
                                   o.TotalDetailCount,
+                                  o.InvoiceType,
+                                  o.InvoiceCreatedDate,
+                                  o.InvoiceCreatedDateDet,
+                                  o.TotalRevenue,
+                                  o.ClientEmail,
                                   InvoiceCurrencyName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                   InvoiceManualPaymentDetailName = s2 == null || s2.Name == null ? "" : s2.Name.ToString()
                               };
@@ -136,12 +146,14 @@ namespace Zeta.AgentosCRM.CRMInvoice
                         TotalDue = o.TotalDue,
                         InvoiceNo = o.InvoiceNo,
                         Status = o.Status,
-                        IsInvoiceNetOrGross = o.IsInvoiceNetOrGross,
                         ApplicationName = o.ApplicationName,
                         ClientAssignee = o.ClientAssignee,
                         ApplicationOwner = o.ApplicationOwner,
                         TotalDetailCount = o.TotalDetailCount,
-
+                        InvoiceType=o.InvoiceType,
+                        InvoiceCreatedDateDet = o.InvoiceCreatedDateDet,
+                        TotalRevenue = o.TotalRevenue,
+                        ClientEmail = o.ClientEmail
                     },
                     InvoiceCurrencyName=o.InvoiceCurrencyName,
                     InvoiceManualPaymentDetailName=o.InvoiceManualPaymentDetailName,
@@ -213,6 +225,7 @@ namespace Zeta.AgentosCRM.CRMInvoice
         protected virtual async Task Create(CreateOrEditInvoiceHeadDto input)
         {
             var invoicehead = ObjectMapper.Map<InvoiceHead>(input);
+            invoicehead.InvoiceNo = await GetInvoiceCode();
 
             if (AbpSession.TenantId != null)
             {
@@ -225,11 +238,37 @@ namespace Zeta.AgentosCRM.CRMInvoice
                 var stepEntity = ObjectMapper.Map<InvoiceDetail>(step);
                 await _invoiceDetailsRepository.InsertAsync(stepEntity);
             }
+            foreach (var PaymentReceived in input.InvPaymentReceived)
+            {
+                PaymentReceived.InvoiceHeadId = invoiceheadId;
+                var PaymentReceivedEntity = ObjectMapper.Map<InvPaymentReceived>(PaymentReceived);
+                await _invPaymentReceivedRepository.InsertAsync(PaymentReceivedEntity);
+            }
+            foreach (var IncomeSharing in input.InvIncomeSharing)
+            {
+                IncomeSharing.InvoiceHeadId = invoiceheadId;
+                var IncomeSharingEntity = ObjectMapper.Map<InvIncomeSharing>(IncomeSharing);
+                await _invIncomeSharingRepository.InsertAsync(IncomeSharingEntity);
+            }
+            //var InvIncomeSharing = ObjectMapper.Map<InvIncomeSharing>(input.InvIncomeSharing);
+            //InvIncomeSharing.InvoiceHeadId = invoiceheadId;
+            //await _invIncomeSharingRepository.InsertAsync(InvIncomeSharing);
+
             CurrentUnitOfWork.SaveChanges();
             //await _leadHeadRepository.InsertAsync(lead);
 
         }
-        //[AbpAuthorize(AppPermissions.Pages_InvoiceHead_Edit)]
+        private async Task<string> GetInvoiceCode()
+        {
+            var invoiceHead = await _invoiceHeadRepository.GetAll()
+                                                .OrderByDescending(x => x.Id)
+                                                .FirstOrDefaultAsync();
+            var invoiceid = invoiceHead.Id;
+            var formattedInvoiceId = invoiceHead.Id.ToString("D3");
+            var InvoiceNo = "INV-" + formattedInvoiceId;
+
+            return InvoiceNo; 
+        }
         protected virtual async Task Update(CreateOrEditInvoiceHeadDto input)
         {
             var invoicehead = await _invoiceHeadRepository.FirstOrDefaultAsync((long)input.Id);
@@ -250,7 +289,42 @@ namespace Zeta.AgentosCRM.CRMInvoice
                     ObjectMapper.Map(invoice, invoicedet);
                 }
             }
-            
+            foreach (var PaymentReceived in input.InvPaymentReceived)
+            {
+
+                if (PaymentReceived.Id == 0)
+                {
+                    PaymentReceived.InvoiceHeadId = (int)input.Id;
+                    var payment = ObjectMapper.Map<InvPaymentReceived>(PaymentReceived);
+                    await _invPaymentReceivedRepository.InsertAsync(payment);
+                }
+                else
+                {
+                    PaymentReceived.InvoiceHeadId = (int)input.Id;
+                    var paymentdet = await _invPaymentReceivedRepository.FirstOrDefaultAsync((int)PaymentReceived.Id);
+                    ObjectMapper.Map(PaymentReceived, paymentdet);
+                }
+            }
+            foreach (var invIncomeSharing in input.InvIncomeSharing)
+            {
+
+                if (invIncomeSharing.Id == 0)
+                {
+                    invIncomeSharing.InvoiceHeadId = (int)input.Id;
+                    var incomeSharings = ObjectMapper.Map<InvIncomeSharing>(invIncomeSharing);
+                    await _invIncomeSharingRepository.InsertAsync(incomeSharings);
+                }
+                else
+                {
+                    invIncomeSharing.InvoiceHeadId = (int)input.Id;
+                    var Incomedet = await _invPaymentReceivedRepository.FirstOrDefaultAsync((int)invIncomeSharing.Id);
+                    ObjectMapper.Map(invIncomeSharing, Incomedet);
+                }
+            }
+            //var invIncomeSharing = input.InvIncomeSharing;
+            //var incomeSharing = await _invIncomeSharingRepository.FirstOrDefaultAsync(x => x.InvoiceHeadId == input.Id);
+            //ObjectMapper.Map(input.InvIncomeSharing, incomeSharing);
+
         }
         //[AbpAuthorize(AppPermissions.Pages_InvoiceHead_Delete)]
         public async Task Delete(EntityDto<long> input)
@@ -267,7 +341,7 @@ namespace Zeta.AgentosCRM.CRMInvoice
                     DisplayName = payment == null || payment.Name == null ? "" : payment.Name.ToString()
                 }).ToListAsync();
         }
-        [AbpAuthorize(AppPermissions.Pages_InvoiceHead)]
+        //[AbpAuthorize(AppPermissions.Pages_InvoiceHead)]
         public async Task<List<InvoiceCurrencyLookupTableDto>> GetAllCurrencyForTableDropdown()
         {
             return await _lookup_CurrencyRepository.GetAll()

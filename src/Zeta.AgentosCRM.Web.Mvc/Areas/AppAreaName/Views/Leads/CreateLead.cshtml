@@ -2,15 +2,22 @@
 @section Scripts
     {
     <script abp-src="/view-resources/Areas/AppAreaName/Views/CRMLead/CreateLead.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
 }
 @section Styles
     {
        
     <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/Common/_PartialCardView.css" asp-append-version="true" />
-
+    <link rel="stylesheet" abp-href="/view-resources/Areas/AppAreaName/Views/_Bundles/demo-ui-components.css" asp-append-version="true" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
    }
 <div class="maincard mt-1">
     <form name="LeadInformationsForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="contactPreference" id="contactPreference" value="" />
+        <input type="hidden" name="IntrestedService" id="IntrestedService" value="" />
     <div id="cardContainerLead" class="container">
         
     </div>

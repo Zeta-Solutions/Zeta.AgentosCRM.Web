@@ -1,6 +1,6 @@
 ﻿(function () {
     $(function () {
-        var _$invoiceTable = $('#Invoicestable');
+        var _$invoiceTable = $('#ClientInvoicestable');
         var _invoiceheadServices = abp.services.app.invoiceHead;
 
         var $selectedDate = {
@@ -107,12 +107,27 @@
                     name: 'invoiceDate',
                     //data: 'application.work',
                     //name: 'partnerPartnerName',
-                    render: function (invoiceDate) {
-                        if (invoiceDate) {
-                            return moment(invoiceDate).format('L');
+                    render: function (data, type, row) {
+                       
+                        if (data) {
+                            //return moment(data).format('L');
+                            var formattedDate = moment(data).format('L');
+                          
+                            if (row.invoiceHead.invoiceType == 1) {
+                                return formattedDate + ' <span style="display: inline-block; padding: 2px 5px; border-radius: 5px; background-color:#009ef7; color: white;"><b>' + "Net" + '</b></span>';
+                            }
+                            else if (row.invoiceHead.invoiceType == 2) {
+                                return formattedDate + ' <span style="display: inline-block; padding: 2px 5px; border-radius: 5px; background-color:#009ef7; color: white;"><b>' + "Gross" + '</b></span>';
+                            }
+                            else {
+                                return formattedDate + ' <span style="display: inline-block; padding: 2px 5px; border-radius: 5px; background-color:#009ef7; color: white;"><b>' + "General" + '</b></span>';
+                            }
+                           
                         }
-                        return "";
+                       
+                       
                     }
+                   
                 },
                 {
                     targets: 3,
@@ -124,8 +139,8 @@
                 },
                 {
                     targets: 4,
-                    data: 'invoiceHead.totalAmount',
-                    name: 'totalAmount',
+                    data: 'invoiceHead.totalAmountInclTax',
+                    name: 'TotalAmountInclTax',
                 },
                 {
                     targets: 5,
@@ -143,31 +158,46 @@
                     targets: 7,
                     data: 'invoiceHead.status',
                     name: 'status',
-
+                    render: function (data, type, row) {
+                        
+                        
+                            if (row.invoiceHead.status == true) {
+                                return '<span style="display: inline-block; padding: 2px 5px; border-radius: 5px; background-color:#009ef7; color: white;"><b>' + "Paid" + '</b></span>';
+                            } else {
+                                return '<span style="display: inline-block; padding: 2px 5px; border-radius: 5px; background-color:#f1416c; color: white;"><b>' + "UnPaid" + '</b></span>';
+                            }
+                         
+                    }
                 },
                 {
                     width: 30,
-                    targets: 7,
+                    targets: 8,
                     data: null,
                     orderable: false,
                     searchable: false,
 
 
                     render: function (data, type, full, meta) {
-                        var rowId = data.invoiceHead.id;
+                        debugger
+                        var rowId = full.invoiceHead.id;
                         var rowData = data.invoiceHead;
+                        var ApplicationId = full.invoiceHead.applicationId;
+                        var invoicetypeId = full.invoiceHead.invoiceType;
                         var RowDatajsonString = JSON.stringify(rowData);
-                        var contaxtMenu = '<div class="context-menu Applicationmenu" style="position:relative;">' +
-                            '<div class="Serviceellipsis"><a href="#" data-id="' + rowId + '"><span class="fa fa-ellipsis-v"></span></a></div>' +
-                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
+                        
+                        var contextMenu = '<div class="context-menu" style="position:relative;">' +
+                            '<input type="hidden" class="applicationid" id="applicationid" value="' + ApplicationId + '"></input>' +
+                            '<input type="hidden" class="invoicetypeid" id="invoicetypeid" value="' + invoicetypeId + '"></input>' +
+                            '<div class="ellipsis666"><a href="#" data-id="' + rowId + '"><span class="flaticon-more"></span></a></div>' +
+                            '<div class="options" style="display: none; color:black; left: auto; position: absolute; top: 0; right: 100%;border: 1px solid #ccc;   border-radius: 4px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); padding:1px 0px; margin:1px 5px ">' +
                             '<ul style="list-style: none; padding: 0;color:black">' +
-                            '<a href="#" style="color: black;" data-action2="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
-                            "<a href='#' style='color: black;' data-action2='delete' data-id='" + RowDatajsonString + "'><li>Delete</li></a>" +
+                            /* '<a href="#" style="color: black;" data-action="view" data-id="' + rowId + '"><li>View</li></a>' +*/
+                            '<a href="#" style="color: black;" data-action666="edit" data-id="' + rowId + '"><li>Edit</li></a>' +
+                            "<a href='#' style='color: black;' data-action666='delete' data-id='" + rowId + "'><li>Delete</li></a>" +
                             '</ul>' +
                             '</div>' +
                             '</div>';
-
-                        return contaxtMenu;
+                        return contextMenu;
                     }
 
 
@@ -176,13 +206,13 @@
             ],
         });
 
-        function getclientInterstedService() {
+        function getInvoiceHeadService() {
             dataTable.ajax.reload();
         }
         // Add a click event handler for the ellipsis icons
-        $(document).on('click', '.Serviceellipsis', function (e) {
+        $(document).on('click', '.ellipsis666', function (e) {
             e.preventDefault();
-            debugger
+
             var options = $(this).closest('.context-menu').find('.options');
             var allOptions = $('.options');  // Select all options
 
@@ -192,39 +222,47 @@
             // Toggle the visibility of the options
             options.toggle();
         });
-
-        // Close the contextcontext menu when clicking outside of it
         $(document).on('click', function (event) {
             if (!$(event.target).closest('.context-menu').length) {
                 $('.options').hide();
             }
         });
-        $(document).on('click', 'a[data-action2]', function (e) {
+
+        // Handle menu item clicks
+        $(document).on('click', 'a[data-action666]', function (e) {
+            debugger
             e.preventDefault();
-            debugger
+
             var rowId = $(this).data('id');
-            var action = $(this).data('action2');
-            debugger
+            var action = $(this).data('action666');
+            var contextMenu = $(this).closest('.context-menu');
+            var invoicetypeId = contextMenu.find('.invoicetypeid').val();
+            var ApplicationId = contextMenu.find('.applicationid').val();
+            
+
+            // Handle the selected action based on the rowId
             // Handle the selected action based on the rowId
             if (action === 'edit') {
-                $(".loader").show();
-                _createOrEditModal.open({ id: rowId });
-
+                var baseUrl = "/AppAreaName/Clients/CreateOrEditInvoiceHeadModal/?Id=" + rowId;
+                var url = baseUrl + "&ApplicationId=" + ApplicationId + "&InvoiceType=" + invoicetypeId;
+              
+                // Redirect to the constructed URL
+                window.location.href = url;
             } else if (action === 'delete') {
-                console.log(rowId);
-                deleteclientInterstedService(rowId);
+                // console.log(rowId);
+                deleteInvoiceHead(rowId);
             }
         });
-        function deleteclientInterstedService(clientInterstedService) {
+        function deleteInvoiceHead(invoiceHead) {
             debugger
             abp.message.confirm('', app.localize('AreYouSure'), function (isConfirmed) {
                 if (isConfirmed) {
                     _invoiceheadServices
                         .delete({
-                            id: clientInterstedService.id,
+                            id: invoiceHead,
                         })
                         .done(function () {
-                            getclientInterstedService(true);
+                            getInvoiceHeadService(true);
                             abp.notify.success(app.localize('SuccessfullyDeleted'));
                         });
                 }

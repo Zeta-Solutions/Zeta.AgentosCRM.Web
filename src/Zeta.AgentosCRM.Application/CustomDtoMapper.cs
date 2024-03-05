@@ -132,6 +132,10 @@ using Zeta.AgentosCRM.Tenants.Email.Dtos;
 using Zeta.AgentosCRM.Tenants.Email;
 using Zeta.AgentosCRM.CRMLead.Dtos;
 using Zeta.AgentosCRM.CRMLead;
+using Zeta.AgentosCRM.CRMInvoice;
+using Zeta.AgentosCRM.CRMInvoice.Dtos;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvPaymentReceived;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvIncomeSharing;
 
 namespace Zeta.AgentosCRM
 {
@@ -139,6 +143,15 @@ namespace Zeta.AgentosCRM
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditInvIncomeSharingDto, InvIncomeSharing>().ReverseMap();
+            configuration.CreateMap<InvIncomeSharingDto, InvIncomeSharing>().ReverseMap();
+
+            configuration.CreateMap<CreateOrEditInvPaymentReceivedDto, InvPaymentReceived>().ReverseMap();
+            configuration.CreateMap<InvPaymentReceivedDto, InvPaymentReceived>().ReverseMap();
+            configuration.CreateMap<CreateOrEditInvoiceHeadDto, InvoiceHead>().ReverseMap();
+            configuration.CreateMap<InvoiceHeadDto, InvoiceHead>().ReverseMap();
+            configuration.CreateMap<CreateOrEditInvoiceDetailDto, InvoiceDetail>().ReverseMap();
+            configuration.CreateMap<InvoiceDetailDto, InvoiceDetail>().ReverseMap();
             configuration.CreateMap<CreateOrEditCRMInquiryDto, CRMInquiry>().ReverseMap();
             configuration.CreateMap<CRMInquiryDto, CRMInquiry>().ReverseMap();
             configuration.CreateMap<CreateOrEditLeadHeadDto, LeadHead>().ReverseMap();

@@ -129,5 +129,8 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
         [ForeignKey("TagId")]
         public Tag TagFk { get; set; }
 
+        public virtual bool? IsPrivacy { get; set; }
+
+        public virtual string InterstedService { get; set; }
     }
 }

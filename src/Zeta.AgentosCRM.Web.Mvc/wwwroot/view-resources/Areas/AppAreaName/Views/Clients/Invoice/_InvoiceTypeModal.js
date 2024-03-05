@@ -1,20 +1,42 @@
 ﻿(function ($) {
     app.modals.CreateOrEditInvoiceTypeModal = function () {
+        debugger
         var _clientInterstedServices = abp.services.app.clientInterstedServices;
         var ClientName = $("#clientAppID").val();
-        $("#Invoice_ClietName").val(ClientName);
+        if (typeof ClientName === 'undefined') {
+            ClientName = $("#ClientName").val();
+            $("#Invoice_ClietName").val(ClientName);
+        } else {
+            $("#Invoice_ClietName").val(ClientName);
+        }
+
+       
         var _modalManager;
         var _$clientTagsInformationForm = null;
+        var invoiceType;
         var invoicetype = $("#invoicetype").val();
         if (invoicetype === "1") {
             $("#radioGroupContainer").show();
+            invoiceType = 1;
         } else {
             $("#radioGroupBContainer").show();
             var modalTitle = document.querySelector('.modal-title');
 
             // Set the inner HTML of the <h5> element..
             modalTitle.innerHTML = '<span>General Invoice</span>';
+            invoiceType = 3;
         }
+        
+        
+        $(document).off("click", "#GrossClaimGroup").on("click", "#GrossClaimGroup", function (e) {
+            $("input[name='NetClaimGroup']").prop("checked", false);
+            invoiceType = 2;
+        });
+        $(document).off("click", "#NetClaimGroup").on("click", "#NetClaimGroup", function (e) {
+            $("input[name='GrossClaimGroup']").prop("checked", false);
+                    invoiceType = 1;
+          
+        });
         $('#ApplicationInvoiceTypeId').select2({
             width: '100%',
             //dropdownParent: $('#Timezone').parent(),
@@ -32,8 +54,13 @@
             var $returnString = $('<span>' + selectionText[0].substring(0, 21) + '</span>');
             return $returnString;
         };
-        var clientID=$('input[name="Clientid"]').val()
-
+        var clientID = $('input[name="Clientid"]').val()
+        if (typeof clientID === 'undefined') {
+            var clientID = $('input[name="ClientId"]').val()
+        }
+        else {
+            var clientID = $('input[name="Clientid"]').val()
+        }
         var idValue = $("#ApplicationInvoiceTypeId").val();
        
             $.ajax({
@@ -70,10 +97,15 @@
                             .attr('data-id', item.application.id)
                             .html(optionText)
                     );
+                  
                 } else {
                     console.warn('Invalid item:', item);
                 }
+              
             });
+            const urlParams = new URLSearchParams(window.location.search);
+            const ApplicationIdValue = urlParams.get('ApplicationId');
+             dropdown.val(ApplicationIdValue).trigger("change");
         }
 
   
@@ -105,13 +137,14 @@
                 }
             });
         });
+        //..
         $('#saveInvoiceTypeBtn').click(function () {
             debugger
-            var hiddenfield = $("#ClientId").val();
+            var hiddenfield = $("#ApplicationInvoiceTypeId").val();
 
 
             var baseUrl = "/AppAreaName/Clients/CreateOrEditInvoiceHeadModal/";
-            var url = baseUrl + "?clientId=" + hiddenfield;
+            var url = baseUrl + "?ApplicationId=" + hiddenfield + "&InvoiceType=" + invoiceType;
 
             // Redirect to the constructed URL
             window.location.href = url;

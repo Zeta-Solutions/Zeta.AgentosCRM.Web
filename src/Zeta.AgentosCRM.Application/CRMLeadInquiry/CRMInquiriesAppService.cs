@@ -21,26 +21,29 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Zeta.AgentosCRM.Storage;
+using Zeta.AgentosCRM.Authorization.Users;
+using Zeta.AgentosCRM.CRMClient.InterstedServices;
 
 namespace Zeta.AgentosCRM.CRMLeadInquiry
 {
-    [AbpAuthorize(AppPermissions.Pages_CRMInquiries)]
+    //[AbpAuthorize(AppPermissions.Pages_CRMInquiries)]
     public class CRMInquiriesAppService : AgentosCRMAppServiceBase, ICRMInquiriesAppService
     {
         private readonly IRepository<CRMInquiry, long> _crmInquiryRepository;
         private readonly ICRMInquiriesExcelExporter _crmInquiriesExcelExporter;
         private readonly IRepository<Country, int> _lookup_countryRepository;
+        private readonly IRepository<User, long> _lookup_userRepository;
         private readonly IRepository<DegreeLevel, int> _lookup_degreeLevelRepository;
         private readonly IRepository<Subject, int> _lookup_subjectRepository;
         private readonly IRepository<SubjectArea, int> _lookup_subjectAreaRepository;
         private readonly IRepository<OrganizationUnit, long> _lookup_organizationUnitRepository;
         private readonly IRepository<LeadSource, int> _lookup_leadSourceRepository;
         private readonly IRepository<Tag, int> _lookup_tagRepository;
-
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
-
-        public CRMInquiriesAppService(IRepository<CRMInquiry, long> crmInquiryRepository, ICRMInquiriesExcelExporter crmInquiriesExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<Subject, int> lookup_subjectRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository, IRepository<LeadSource, int> lookup_leadSourceRepository, IRepository<Tag, int> lookup_tagRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        private readonly IRepository<ClientInterstedService, long> _clientInterstedServiceRepository;
+        private readonly IRepository<Workflow> _workflowRepository;
+        public CRMInquiriesAppService(IRepository<CRMInquiry, long> crmInquiryRepository, ICRMInquiriesExcelExporter crmInquiriesExcelExporter, IRepository<Country, int> lookup_countryRepository, IRepository<DegreeLevel, int> lookup_degreeLevelRepository, IRepository<Subject, int> lookup_subjectRepository, IRepository<SubjectArea, int> lookup_subjectAreaRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository, IRepository<LeadSource, int> lookup_leadSourceRepository, IRepository<Tag, int> lookup_tagRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager, IRepository<User, long> lookup_userRepository, IRepository<ClientInterstedService, long> clientInterstedServiceRepository, IRepository<Workflow> workflowRepository)
         {
             _crmInquiryRepository = crmInquiryRepository;
             _crmInquiriesExcelExporter = crmInquiriesExcelExporter;
@@ -54,7 +57,9 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
 
             _tempFileCacheManager = tempFileCacheManager;
             _binaryObjectManager = binaryObjectManager;
-
+            _lookup_userRepository = lookup_userRepository;
+            _clientInterstedServiceRepository = clientInterstedServiceRepository;
+            _workflowRepository = workflowRepository;
         }
 
         public async Task<PagedResultDto<GetCRMInquiryForViewDto>> GetAll(GetAllCRMInquiriesInput input)
@@ -152,6 +157,12 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
                                join o8 in _lookup_tagRepository.GetAll() on o.TagId equals o8.Id into j8
                                from s8 in j8.DefaultIfEmpty()
 
+                               join o9 in _lookup_userRepository.GetAll() on o.CreatorUserId equals o9.Id into j9
+                               from s9 in j9.DefaultIfEmpty()
+
+                               
+
+
                                select new
                                {
 
@@ -188,6 +199,9 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
                                    o.Comments,
                                    o.Status,
                                    o.IsArchived,
+                                   o.CreationTime,
+                                   o.LastModificationTime,
+                                   o.InterstedService,
                                    Id = o.Id,
                                    CountryName = s1 == null || s1.Name == null ? "" : s1.Name.ToString(),
                                    CountryName2 = s2 == null || s2.Name == null ? "" : s2.Name.ToString(),
@@ -196,8 +210,9 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
                                    SubjectAreaName = s5 == null || s5.Name == null ? "" : s5.Name.ToString(),
                                    OrganizationUnitDisplayName = s6 == null || s6.DisplayName == null ? "" : s6.DisplayName.ToString(),
                                    LeadSourceName = s7 == null || s7.Name == null ? "" : s7.Name.ToString(),
-                                   TagName = s8 == null || s8.Name == null ? "" : s8.Name.ToString()
-                               };
+                                   TagName = s8 == null || s8.Name == null ? "" : s8.Name.ToString(),
+                                   UserName = s9 == null || s9.Name == null ? "" : s9.Name.ToString(),
+        };
 
             var totalCount = await filteredCRMInquiries.CountAsync();
 
@@ -245,6 +260,8 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
                         Status = o.Status,
                         IsArchived = o.IsArchived,
                         Id = o.Id,
+                        CreationTime=o.CreationTime,
+                        LastModificationTime=o.LastModificationTime,
                     },
                     CountryName = o.CountryName,
                     CountryName2 = o.CountryName2,
@@ -253,8 +270,10 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
                     SubjectAreaName = o.SubjectAreaName,
                     OrganizationUnitDisplayName = o.OrganizationUnitDisplayName,
                     LeadSourceName = o.LeadSourceName,
-                    TagName = o.TagName
+                    TagName = o.TagName,
+                    UserName = o.UserName,
                 };
+                res.CRMInquiry.InterstedService = await GetDisplayNamesForIds(o.InterstedService);
                 res.CRMInquiry.DocumentIdFileName = await GetBinaryFileName(o.DocumentId);
                 res.CRMInquiry.PictureIdFileName = await GetBinaryFileName(o.PictureId);
 
@@ -267,6 +286,52 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry
             );
 
         }
+        private async Task<string> GetDisplayNamesForIds(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+                return string.Empty;
+
+            var idArray = ids.Split(',').Select(long.Parse).ToList(); // Convert to List<long>
+            var clientInterstedServices = _clientInterstedServiceRepository.GetAll()
+                .Where(clientIntersted => idArray.Contains(clientIntersted.Id))
+                .ToList();
+
+            var workflowIdList = new List<long>();
+            foreach (var clientIntersted in clientInterstedServices)
+            {
+                workflowIdList.Add(clientIntersted.WorkflowId);
+
+            }
+            var workFlowNames = new List<string>();
+            foreach (var Wid in workflowIdList)
+            {
+                var workFlow = _workflowRepository.GetAll()
+                    .FirstOrDefault(workflow => workflow.Id == Wid); // Retrieve the workflow with the specific ID
+
+                if (workFlow != null)
+                {
+                    workFlowNames.Add(workFlow.Name);
+                }
+            }
+            //var workFlowNames = _workflowRepository.GetAll()
+            //    .Where(workflow => workflowIdList.Contains(workflow.Id))
+            //    .Select(workflow => workflow.Name)
+            //.ToList();
+            string concatenatedNames = "";
+            foreach (var name in workFlowNames)
+            {
+                if (!string.IsNullOrEmpty(concatenatedNames))
+                {
+                    concatenatedNames += ", ";
+                }
+                concatenatedNames += name;
+            }
+            return concatenatedNames;
+            //return string.Join(", ", workFlowNames);
+        }
+
+
+
 
         public async Task<GetCRMInquiryForViewDto> GetCRMInquiryForView(long id)
         {

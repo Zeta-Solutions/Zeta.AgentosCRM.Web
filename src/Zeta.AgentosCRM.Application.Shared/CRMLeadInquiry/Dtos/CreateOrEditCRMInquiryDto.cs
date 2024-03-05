@@ -92,6 +92,8 @@ namespace Zeta.AgentosCRM.CRMLeadInquiry.Dtos
         public int? LeadSourceId { get; set; }
 
         public int? TagId { get; set; }
+        public  bool? IsPrivacy { get; set; }
 
+        public  string InterstedService { get; set; }
     }
 }

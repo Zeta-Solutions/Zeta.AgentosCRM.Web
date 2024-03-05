@@ -974,7 +974,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
             return View("~/ClientsQuotation/ClientQuotationIndex.cshtml", model);
         }
-        public async Task<PartialViewResult> CreateOrEditInvoiceHeadModal(long? id)
+        public async Task<ActionResult> CreateOrEditInvoiceHeadModal(long? id)
         {
             GetInvoiceHeadForEditOutput getInvoiceHeadForEditOutput;
             if (id.HasValue)
@@ -989,6 +989,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
                 };
                 getInvoiceHeadForEditOutput.InvoiceHead.InvoiceDate = DateTime.Now;
                 getInvoiceHeadForEditOutput.InvoiceHead.InvoiceDueDate = DateTime.Now;
+                getInvoiceHeadForEditOutput.InvoiceHead.InvoiceCreatedDateDet = DateTime.Now;
             }
 
             var viewModel = new CreateOrEditInvoiceHeadModelViewModel()
@@ -1001,7 +1002,8 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Controllers
 
 
             };
-            return PartialView("Invoice/CreateOrEditInvoiceHeadModal", viewModel);
+            return View("Invoice/CreateOrEditInvoiceHeadModal", viewModel);
+            //return PartialView("Invoice/CreateOrEditInvoiceHeadModal", viewModel);
 
         }
         public ActionResult CreateInvoiceTypeModal(long? id)

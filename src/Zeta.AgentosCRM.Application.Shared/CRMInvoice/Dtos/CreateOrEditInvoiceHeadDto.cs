@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvIncomeSharing;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvPaymentReceived;
 
 namespace Zeta.AgentosCRM.CRMInvoice.Dtos
 {
@@ -48,6 +50,13 @@ namespace Zeta.AgentosCRM.CRMInvoice.Dtos
         public   string ApplicationOwner { get; set; }
 
         public   int? TotalDetailCount { get; set; }
+        public int? InvoiceType { get; set; }
+        public int? InvoiceCreatedDate { get; set; }
+        public  DateTime? InvoiceCreatedDateDet { get; set; }
+        public int? TotalRevenue { get; set; }
+        public string ClientEmail { get; set; }
         public List<CreateOrEditInvoiceDetailDto> InvoiceDetail { get; set; }
+        public List<CreateOrEditInvPaymentReceivedDto> InvPaymentReceived { get; set; }
+        public List<CreateOrEditInvIncomeSharingDto> InvIncomeSharing { get; set; }
     }
 }

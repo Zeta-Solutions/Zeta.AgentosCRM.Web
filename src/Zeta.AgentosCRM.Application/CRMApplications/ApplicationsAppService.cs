@@ -25,6 +25,7 @@ using Zeta.AgentosCRM.CRMApplications.Stages;
 using Zeta.AgentosCRM.CRMClient.Dtos;
 using Abp.Authorization.Users;
 using Abp.Organizations;
+using Zeta.AgentosCRM.Authorization.Users;
 
 namespace Zeta.AgentosCRM.CRMApplications
 {
@@ -41,7 +42,7 @@ namespace Zeta.AgentosCRM.CRMApplications
         private readonly IRepository<ApplicationStage, long> _lookup_applicationStageRepository;
         private readonly IRepository<UserAccount, long> _lookup_userAccountRepository;
         private readonly IRepository<OrganizationUnit, long> _lookup_organizationUnitRepository;
-
+        private readonly IRepository<User, long> _lookup_userRepository;
         public ApplicationsAppService(IRepository<Application, long> applicationRepository,
             IApplicationsExcelExporter applicationsExcelExporter,
             IRepository<Client, long> lookup_clientRepository,
@@ -50,8 +51,8 @@ namespace Zeta.AgentosCRM.CRMApplications
             IRepository<Product, long> lookup_productRepository,
             IRepository<Branch, long> lookup_branchRepository,
             IRepository<ApplicationStage, long> lookup_applicationStageRepository,
-            IRepository<UserAccount, long> lookup_userAccountRepository,IRepository<OrganizationUnit, long> lookup_organizationUnitRepository
-            )
+            IRepository<UserAccount, long> lookup_userAccountRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository
+, IRepository<User, long> lookup_userRepository)
         {
             _applicationRepository = applicationRepository;
             _applicationsExcelExporter = applicationsExcelExporter;
@@ -63,6 +64,7 @@ namespace Zeta.AgentosCRM.CRMApplications
             _lookup_applicationStageRepository = lookup_applicationStageRepository;
             _lookup_userAccountRepository = lookup_userAccountRepository;
             _lookup_organizationUnitRepository = lookup_organizationUnitRepository;
+            _lookup_userRepository = lookup_userRepository;
         }
 
         public async Task<PagedResultDto<GetApplicationForViewDto>> GetAll(GetAllApplicationsInput input)
@@ -81,7 +83,8 @@ namespace Zeta.AgentosCRM.CRMApplications
             .WhereIf(input.PartnerIdFilter.HasValue, e => false || e.PartnerId == input.PartnerIdFilter.Value)
             .WhereIf(input.ProductIdFilter.HasValue, e => false || e.ProductId == input.ProductIdFilter.Value)
            //.WhereIf(input.AgentIdFilter.HasValue, e => false || e.AgentId == input.AgentIdFilter.Value);
-           .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value);
+           .WhereIf(input.ClientIdFilter.HasValue, e => false || e.ClientId == input.ClientIdFilter.Value)
+           .WhereIf(input.ApplicationIdFilter.HasValue, e => false || e.Id == input.ApplicationIdFilter.Value);
             var pagedAndFilteredApplications = filteredApplications
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
@@ -113,7 +116,9 @@ namespace Zeta.AgentosCRM.CRMApplications
 
                                join o8 in _lookup_organizationUnitRepository.GetAll() on s7.Id equals o8.Id into j8
                                from s8 in j8.DefaultIfEmpty()
-                                
+
+                               join o9 in _lookup_userRepository.GetAll() on s1.AssigneeId equals o9.Id into j9
+                               from s9 in j9.DefaultIfEmpty()
 
                                let applicationStage = _lookup_applicationStageRepository.GetAll().FirstOrDefault(a => o.Id == a.ApplicationId && a.IsCurrent == true)
 
@@ -128,8 +133,10 @@ namespace Zeta.AgentosCRM.CRMApplications
                                    o.PartnerId,
                                    o.CreationTime,
                                    o.LastModificationTime,
-                                   o.IsDiscontinue, 
-                                   
+                                   o.IsDiscontinue,
+                                   s1.DateofBirth,
+                                   s1.Email,
+                                   s1.AssigneeId,
                                    ClientFirstName = s1 == null || s1.FirstName == null ? "" : s1.FirstName.ToString(),
                                    ClientLastName = s1 == null || s1.LastName == null ? "" : s1.LastName.ToString(),
                                    ClientEmail = s1 == null || s1.Email == null ? "" : s1.Email.ToString(),
@@ -145,6 +152,7 @@ namespace Zeta.AgentosCRM.CRMApplications
                                    IsCompleted = applicationStage == null || applicationStage.IsCurrent == false ? true : applicationStage.IsCurrent,//s6 == null || s6.IsCompleted == false ? true : s6.IsCompleted,
                                    UserName = s7 == null || s7.UserName == null?"":s7.UserName.ToString(),
                                    OfficeName=s8 == null||s8.DisplayName==null?"":s8.DisplayName.ToString(),
+                                   ClientAssigneeName = s9 == null || s9.Name == null ? "" : s9.Name.ToString(),
                                };
 
             var totalCount = await filteredApplications.CountAsync();
@@ -181,7 +189,10 @@ namespace Zeta.AgentosCRM.CRMApplications
                     IsCompleted = o.IsCompleted,
                     UserName = o.UserName,
                     OfficeName = o.OfficeName,
-
+                    DateofBirth=o.DateofBirth,
+                    Email = o.Email,
+                    AssigneeId=o.AssigneeId,
+                    ClientAssigneeName=o.ClientAssigneeName,
                 };
 
                 results.Add(res);
@@ -223,7 +234,11 @@ namespace Zeta.AgentosCRM.CRMApplications
                 var _lookupProduct = await _lookup_productRepository.FirstOrDefaultAsync((long)output.Application.ProductId);
                 output.ProductName = _lookupProduct?.Name?.ToString();
             }
-
+            if (output.Application.BranchId != null)
+            {
+                var _lookupBranch = await _lookup_branchRepository.FirstOrDefaultAsync((long)output.Application.BranchId);
+                output.BranchName = _lookupBranch?.Name?.ToString();
+            }
             return output;
         }
 

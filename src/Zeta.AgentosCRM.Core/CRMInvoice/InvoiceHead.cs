@@ -20,6 +20,7 @@ namespace Zeta.AgentosCRM.CRMInvoice
     public class InvoiceHead : FullAuditedEntity<long>, IMustHaveTenant
     {
         public int TenantId { get; set; }
+        public virtual string InvoiceNo { get; set; }
         public virtual long? ClientId { get; set; }
         [ForeignKey("ClientId")]
         public Client ClientFk { get; set; }
@@ -62,13 +63,15 @@ namespace Zeta.AgentosCRM.CRMInvoice
         public virtual decimal? TotalAmountInclTax { get; set; }
         public virtual decimal? TotalPaid { get; set; }
         public virtual decimal? TotalDue { get; set; }
-        public virtual string InvoiceNo { get; set; }
         public virtual bool? Status { get; set; }
-        public virtual bool? IsInvoiceNetOrGross { get; set; }
+        public virtual int? InvoiceType { get; set; }
+        public virtual DateTime? InvoiceCreatedDateDet { get; set; }
+        public virtual int? InvoiceCreatedDate { get; set; }
+        public virtual int? TotalRevenue { get; set; }
+        public virtual string ClientEmail { get; set; }
         public virtual string ApplicationName { get; set; }
-        public virtual string ClientAssignee { get; set; }
-        public virtual string ApplicationOwner { get; set; }
-        
+        public virtual string ClientAssignee { get; set; }       
+        public virtual string ApplicationOwner { get; set; }       
         public virtual int? TotalDetailCount { get; set; }
     }
 }

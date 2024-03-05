@@ -199,7 +199,7 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                         AppAreaNamePageNames.Tenant.CRMSetup,
                         L("CRMSetup"),
                         icon: "flaticon-settings",
-                        isVisible:false
+                        isVisible: false
                     ).AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Tenant.MasterCategories,
                         L("MasterCategories"),
@@ -466,10 +466,52 @@ namespace Zeta.AgentosCRM.Web.Areas.AppAreaName.Startup
                     , permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_TaskPriorities)
                     )
 
-                );
-            
+                ).AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Tenant.Account,
+                        L("Account"),
+                        url: "AppAreaName/Account",
+                        icon: "fa-solid fa-dollar-sign"
+					//, permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_CRMSetup_TaskPriorities)
+					).AddItem(new MenuItemDefinition(
+								AppAreaNamePageNames.Tenant.Invoices,
+								L("Invoices"),
+								url: "AppAreaName/Invoices"
+								//icon: "flaticon-mail-1"
+							)
+						)
+					.AddItem(new MenuItemDefinition(
+								AppAreaNamePageNames.Tenant.Payments,
+								L("Payments"),
+								url: "AppAreaName/Payments"
+							//icon: "flaticon-mail-1"
+							)
+						)
+					.AddItem(new MenuItemDefinition(
+								AppAreaNamePageNames.Tenant.GroupInvoice,
+								L("GroupInvoice"),
+								url: "AppAreaName/GroupInvoice"
+							//icon: "flaticon-mail-1"
+							)
+						)
+					.AddItem(new MenuItemDefinition(
+								AppAreaNamePageNames.Tenant.InvoiceSchedules,
+								L("InvoiceSchedules"),
+								url: "AppAreaName/Invoices"
+								//icon: "flaticon-mail-1"
+							)
+						)
+					.AddItem(new MenuItemDefinition(
+								AppAreaNamePageNames.Tenant.IncomeSharing,
+								L("IncomeSharing"),
+								url: "AppAreaName/IncomeSharing"
+							//icon: "flaticon-mail-1"
+							)
+						)
+				);
 
-        }
+
+
+		}
 
         private static ILocalizableString L(string name)
         {

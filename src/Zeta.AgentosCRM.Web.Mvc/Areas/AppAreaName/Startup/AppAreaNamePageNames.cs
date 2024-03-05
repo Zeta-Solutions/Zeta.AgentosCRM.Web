@@ -69,6 +69,12 @@
             public const string SentEmail = "CRMSetup.SentEmail";
             public const string Leads = "CRMSetup.Lead";
             public const string Equiries = "Dashboard.Equiries";
+            public const string Account = "Dashboard.Accounts";
+            public const string Invoices = "Account.Invoices";
+            public const string Payments = "Account.Payments";
+            public const string GroupInvoice = "Account.GroupInvoice";
+            public const string InvoiceSchedules = "Account.InvoiceSchedules";
+            public const string IncomeSharing = "Account.IncomeSharing";
         }
     }
 }

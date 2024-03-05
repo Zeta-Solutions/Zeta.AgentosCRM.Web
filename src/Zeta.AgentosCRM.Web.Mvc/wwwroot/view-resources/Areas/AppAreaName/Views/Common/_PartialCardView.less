@@ -234,7 +234,11 @@ table.dataTable thead tr {
     border: 0.2px solid #ccc; /* Use a lighter grey color */
     padding: 8px; /* Adjust padding as needed */
 }
-
+#Invoicetable th,
+#Invoicetable td {
+    border: 0.2px solid #ccc; /* Use a lighter grey color */
+    padding: 8px; /* Adjust padding as needed */
+}
 @media print {
     .hide-on-print {
         display: none !important;
@@ -280,4 +284,12 @@ table.dataTable thead tr {
     ::-webkit-scrollbar {
         display: none;
     }
+}
+.popup {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 9999; /* Ensure it appears on top of other elements */
 }

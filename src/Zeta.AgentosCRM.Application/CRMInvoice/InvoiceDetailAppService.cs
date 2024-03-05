@@ -171,22 +171,25 @@ namespace Zeta.AgentosCRM.CRMInvoice
             var invoiceDetail = await _invoiceDetailsRepository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, invoiceDetail);
         }
-        [AbpAuthorize(AppPermissions.Pages_InvoiceDetails_Delete)]
+        //[AbpAuthorize(AppPermissions.Pages_InvoiceDetails_Delete)]
         public async Task Delete(EntityDto<long> input)
         {
             await _invoiceDetailsRepository.DeleteAsync(input.Id);
         }
-        [AbpAuthorize(AppPermissions.Pages_InvoiceDetails)]
+        //[AbpAuthorize(AppPermissions.Pages_InvoiceDetails)]
         public async Task<List<InvoiceTaxLookupTableDto>> GetAllTaxForTableDropdown()
         {
             return await _taxSettingRepository.GetAll()
                 .Select(tax => new InvoiceTaxLookupTableDto
                 {
                     Id = tax.Id,
-                    DisplayName = tax == null || tax.TaxCode == null ? "" : tax.TaxCode.ToString()
-                }).ToListAsync();
+                    // DisplayName = tax == null || tax.TaxCode == null ? "" : tax.TaxCode.ToString()
+                   DisplayName = (tax == null || tax.TaxCode == null ? "" : tax.TaxCode.ToString()) + "(" + (tax == null || tax.TaxRate == null ? "" : tax.TaxRate.ToString()) + "%)"
+
+
+        }).ToListAsync();
         }
-        [AbpAuthorize(AppPermissions.Pages_InvoiceDetails)]
+        //[AbpAuthorize(AppPermissions.Pages_InvoiceDetails)]
         public async Task<List<InvoiceIncomeTypeLookupTableDto>> GetAllIncomeTypeForTableDropdown()
         {
             return await _invoiceTypesRepository.GetAll()

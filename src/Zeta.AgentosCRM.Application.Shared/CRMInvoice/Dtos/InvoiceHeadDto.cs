@@ -47,5 +47,10 @@ namespace Zeta.AgentosCRM.CRMInvoice.Dtos
         public string ApplicationOwner { get; set; }
 
         public int? TotalDetailCount { get; set; }
+        public  int? InvoiceType { get; set; }
+        public  int? InvoiceCreatedDate { get; set; }
+        public  DateTime? InvoiceCreatedDateDet { get; set; }
+        public  int? TotalRevenue { get; set; }
+        public  string ClientEmail { get; set; }
     }
 }

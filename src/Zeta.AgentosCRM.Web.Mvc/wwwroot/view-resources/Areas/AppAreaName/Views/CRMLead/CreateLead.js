@@ -5,7 +5,8 @@
         $("#kt_app_wrapper").css("margin", "0");
         //...
         var _leadsService = abp.services.app.leadHead;
-
+        var _cRMInquiriessService = abp.services.app.cRMInquiries;
+        var demoUiComponentsService = abp.services.app.demoUiComponents;
         var img;
         const urlParams = new URLSearchParams(window.location.search);
         const FormName = urlParams.get('FormName');
@@ -30,7 +31,11 @@
 
 
 
-
+        //var changeProfilePictureModal = new app.ModalManager({
+        //    viewUrl: abp.appPath + 'AppAreaName/Profile/ChangePictureModal',
+        //    scriptUrl: abp.appPath + 'view-resources/Areas/AppAreaName/Views/CRMLead/_ChangePictureModal.js',
+        //    modalClass: 'ChangeProfilePictureModal',
+        //});
 
 
         function getLeadsreload(id) {
@@ -224,21 +229,17 @@
             var ddlidArray = [];
             // Set the background color of the entire page to blue
             $('body').css('background-color', '#9bb0db');
-            var imgElement = $(`<img id="CoverImage" src=${coverimg} width="700" height="" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />`);
+            var imgElement = $(`<img id="CoverImage" src=${coverimg} width="" height="" class="img-thumbnail img-rounded client-edit-dialog-profile-image" />`);
             var container = $('#cardContainerLead');
             imgElement.css({
+                'height': '',
                 'display': 'block',
-                'margin-left': 'auto',
-                'margin-right': 'auto',
-                'border': 'none',
-                'background-color': '#9bb0db',
+                'margin': '0 auto', // Center the image horizontally with no margin on top and bottom
+                'padding': '0', // Remove any padding
+                'border-bottom': '1px solid',
+                'border-radius': '0'
             });
-            //$('#CoverImage').attr('src', "data:image/png;base64," + data.result.profilePicture).css({
-            //    'width': '100px',
-            //    'height': '200px',
-            //    'object-fit': 'contain',  // Ensure the entire image fits within the specified dimensions
-            //    // Additional styles as needed
-            //});
+            container.css('padding', '0');
             container.append(imgElement);
             
             // Check if globalData.result.items is an array before attempting to iterate
@@ -247,7 +248,9 @@
                 var groupedItems = groupBy(globalData.result.leadDetail, 'sectionName');
 
                 // Create a card div for all sections
-                var cardDiv = $('<div>').addClass('card mt-3');
+                var cardDiv = $('<div>').addClass('card mt-0').css({
+                    'border-radius': '0' // Remove rounded corners
+                });;
 
                 // Set card background color to white
                 cardDiv.css('background-color', 'white');
@@ -293,25 +296,51 @@
                     // Iterate through items in the current section
                     for (var i = 0; i < sectionItems.length; i++) {
                         var item = sectionItems[i];
-
                         // Create a div for the item with a border
                         //var itemDiv = $('<div>').addClass('col-md-3 form-group border p-3'); // Added border and padding
                         var itemDiv = $('<div>').addClass('col-md-3 form-group  p-3'); // Added border and padding
                         var label = $('<label>').append($('<strong>').text(item.propertyName + ':'));
 
                         var input;
+                        var removespace = item.propertyName.replace(/[\s!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, '');
+                       
                         if (sectionName == "INTERESTED SERVICES") {
+                            var checkedValues = [];
+
+                            var removeintrestedspace = item.propertyName.replace(/[\s!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, '');
+                            var index = removeintrestedspace.indexOf('0');
+                            var firstPart = index !== -1 ? removeintrestedspace.substr(0, index) : removeintrestedspace;
+                            var secondPart = index !== -1 ? removeintrestedspace.substr(index + 1) : '';
+                            var label = $('<label>').append($('<strong>').text(item.propertyName.replace(item.propertyName, firstPart)));
                             var input = $('<input>').attr({
                                 'type': 'checkbox',
-                                'id':item.propertyName,
+                                'id': secondPart,
                                 'class': 'form-check-input custom-checkbox' // Add your additional classes here
+
+                            });
+                            input.click(function () {
+                                if ($(this).is(':checked')) {
+                                    // If checked, add its value to the checkedValues array
+                                    checkedValues.push($(this).attr('id'));
+                                } else {
+                                    // If unchecked, remove its value from the checkedValues array
+                                    var index = checkedValues.indexOf($(this).attr('id'));
+                                    if (index !== -1) {
+                                        checkedValues.splice(index, 1);
+                                    }
+                                }
+
+                                // Update the comma-separated list in your desired location
+                                var commaSeparatedValues = checkedValues.join(',');
+                                // Replace 'targetElementId' with the ID of the element where you want to display the comma-separated list
+                                $('#IntrestedService').val(commaSeparatedValues);
                             });
                         }
                         else {
                             if (item.inputtype === 'Select') {
                                 // Create a select element
                                 input = $('<select>').attr({
-                                    'id':item.propertyName,
+                                    'id': removespace,
                                     'style': 'width: 100%'
                                 });
 
@@ -325,10 +354,10 @@
 
                             } else {
                                 //debugger
-                                if (item.propertyName == "DateOfBrith" || item.propertyName == "Visa Expiry Date" || item.propertyName == "Visa Expiry Date" || item.propertyName == "Course Start" || item.propertyName == "Course End") {
+                                if (item.propertyName == "DateOfBrith" || item.propertyName == "Visa Expiry Date" || item.propertyName == "Visa Expiry Date" || item.propertyName == "Course Start" || item.propertyName == "Course End" || item.propertyName == "PrefferedIntake") {
                                     input = $('<input>').attr({
                                         'type': "text",
-                                        'id':item.propertyName,
+                                        'id': removespace,
                                         'placeholder': item.propertyName,
                                         'style': 'width: 100%',
                                         'class': 'form-control form-control-sm rounded-0 custom-select-input date-picker'
@@ -336,7 +365,7 @@
 
                                 }
                                 else if (item.propertyName == "Country" || item.propertyName == "Country of Passport" || item.propertyName == "Degree Level" || item.propertyName == "Subject Area" || item.propertyName == "Subject") {
-                                    var removespace = item.propertyName.replace(/[\s!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/g, '');
+                                    
                                     input = $('<select>').attr({
                                         'id': removespace,
                                         'style': 'width: 100%'
@@ -345,11 +374,103 @@
                                     ddlidArray.push(removespace);
                                    // ddlid = removespace;
                                 }
+                                else if (item.propertyName == "Contact Preferences") {
+
+                                    var contactPreferences = ["Email", "Phone"]; // Replace with your preferences
+
+                                    // Create a div element to contain the buttons
+                                     input = document.createElement("div");
+
+                                    // Loop through the contactPreferences array and create buttons dynamically
+                                    contactPreferences.forEach(function (preference) {
+                                        var button = document.createElement("button");
+                                        button.setAttribute("type", "button");
+                                        button.setAttribute("class", "btn btn-secondary btn-sm contact-preference-button");
+                                        button.setAttribute("data-value", preference);
+                                        button.textContent = preference;
+                                        button.addEventListener("click", function () {
+                                            document.querySelectorAll('.contact-preference-button').forEach(function (btn) {
+                                                btn.classList.remove('active');
+                                                // Remove the background color of all buttons
+                                                btn.style.backgroundColor = "";
+                                            });
+
+                                            // Add the 'active' class to the clicked button
+                                            button.classList.add('active');
+                                            // Set the background color of the clicked button to blue
+                                            button.style.backgroundColor = "blue";
+                                            var dataValue = button.getAttribute("data-value");
+                                            $("#contactPreference").val(dataValue);
+                                        });
+                                        // Append each button to the div
+                                        input.appendChild(button);
+                                    });
+                                }
+                                else if (item.propertyName == "UpdateProfileImage") {
+
+                                    input = document.createElement("div");
+                                    input.setAttribute("class", "col-sm-11 text-center margin-top-15 margin-bottom-15");
+
+                                    // Create the image element
+                                    var image = document.createElement("img");
+                                    image.setAttribute("id", "profileImage");
+                                    image.setAttribute("src", ""); // Set the src attribute according to your requirements
+                                    image.setAttribute("width", "128");
+                                    image.setAttribute("height", "128");
+                                    image.setAttribute("class", "img-thumbnail img-rounded client-edit-dialog-profile-image");
+
+                                    // Append the image element to the outer div
+                                    input.appendChild(image);
+
+                                    // Create the button element
+                                    var button1 = document.createElement("button");
+                                    button1.setAttribute("class", "btn btn-light btn-sm mb-5");
+                                    button1.setAttribute("id", "changeProfilePicture");
+                                    button1.textContent = "Change Profile Picture"; // Set the button text according to your requirements
+                                    button1.addEventListener("click", function () {
+                                        debugger
+                                        event.preventDefault();
+                                        changeProfilePictureModal.open({ userId: 0 });
+                                        changeProfilePictureModal.onClose(function () {
+                                            $('.user-edit-dialog-profile-image').attr('src', abp.appPath + "Profile/GetProfilePictureByUser?userId=" + $('input[name=Id]').val());
+                                        });
+                                    });
+                                    // Append the button element to the outer div
+                                    input.appendChild(button1);
+                                }
+                                else if (item.propertyName == "Phone") {
+                                     input =` <div class="" style="display: flex; flex-direction: column;">
+     <input type="hidden" value="" id="PhoneCode" name="PhoneCode" />
+     <input type="tel" class="form-control custom-small-input  rounded-0" id="phone" name="PhoneNo" value="">
+     <span id="valid-msg" class="hide">✓ Valid</span>
+     <span id="error-msg" class="hide"></span>
+ </div>`
+                                    
+                                    // Append the button element to the outer div
+                                    //input.appendChild(inputphone);
+                                }
+                                else if (item.propertyName == "Academic Score") {
+                                    input = `<input type="number" name="acadmicScore" class="form-control  custom-small-input rounded-0 input-sm" value="0">
+                                    <label class="form-check  form-check-inline">
+                        <input type="radio" class="form-check-input" id="IsGpa" name="IsGpa" value="false" checked="&quot;checked&quot;">
+                        <span class="form-check-label">
+                            Percentage
+                        </span>
+                    </label><label class="form-check  form-check-inline ml-3 mt-3">
+                        <input id="IsGpa" type="radio" name="IsGpa" class="form-check-input" value="true">
+                        <span class="form-check-label">
+                            GPA
+                        </span>
+                    </label>`
+
+                                    // Append the button element to the outer div
+                                    //input.appendChild(inputphone);
+                                }
                                 else {
                                     // Create an input element
                                     input = $('<input>').attr({
                                         'type': item.inputtype,
-                                        'id':item.propertyName,
+                                        'id': removespace,
                                         'placeholder': item.propertyName,
                                         'style': 'width: 100%',
                                         'class': 'form-control custom-small-input rounded-0 input-sm'
@@ -358,7 +479,7 @@
                             }
                         }
                         // Append label and input to the item div
-                        itemDiv.append(label, '<br>', input);
+                        itemDiv.append(label, '<br>', input,);
 
                         // Append the item div to the row div
                         rowDiv.append(itemDiv);
@@ -387,11 +508,12 @@
                     cardBodyDiv.append(cardFooterheading,cardConsentheading);
                 }
                 var button = `<div style="display: flex; justify-content: center;">
-    <button type="button" id="saveEmailSetupBtn" class="btn btn-primary save-button rounded-0" style="margin-right:25px;">
+    <button type="button" id="saveEmailSetupBtn" class="btn btn-primary save-button rounded-0" style="margin-right:25px; width: 234px; height: 52px;">
         <i class="fa fa-save"></i> 
         Submit Form
     </button>  
 </div>`;
+
                 var poweredBy = `<br><div class="text-muted" style="display: flex; justify-content: center; align-items: center; ">
     Powered By &nbsp; 
   <img alt="Logo" src="/Common/Images/app-logo-on-light.svg?&amp;t=638424805980745571" class="h-35px h-25px app-sidebar-logo-default" >
@@ -515,15 +637,55 @@
                 locale: abp.localization.currentLanguage.name,
                 format: 'L'
             });
+            SelectphoneNo();
         }
-        function Selectdropdown() {
-            $('.date-picker').daterangepicker({
-                singleDatePicker: true,
-                locale: abp.localization.currentLanguage.name,
-                format: 'L'
+        function SelectphoneNo() {
+            var input = document.querySelector("#phone");
+            const errorMsg = document.querySelector("#error-msg");
+            const validMsg = document.querySelector("#valid-msg");
+
+            const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+            var iti = intlTelInput(input, {
+                initialCountry: "auto",
+                geoIpLookup: function (success, failure) {
+                    var countryCode = "PK"; // Replace with the appropriate country code
+                    success(countryCode);
+                },
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
             });
+
+            var settittle = $("#PhoneCode").val();
+            var selectedCountry = settittle;
+
+            iti.setCountry(selectedCountry);
+
+            const reset = () => {
+                input.classList.remove("error");
+                errorMsg.innerHTML = "";
+                errorMsg.classList.add("hide");
+                validMsg.classList.add("hide");
+            };
+
+            input.addEventListener('blur', () => {
+                reset();
+                if (input.value.trim()) {
+                    if (iti.isValidNumber()) {
+                        validMsg.classList.remove("hide");
+                    } else {
+                        input.classList.add("error");
+                        const errorCode = iti.getValidationError();
+                        errorMsg.innerHTML = errorMap[errorCode];
+                        errorMsg.classList.remove("hide");
+                    }
+                }
+            });
+
+            input.addEventListener('change', reset);
+            input.addEventListener('keyup', reset);
         }
-     
+
+  
     //    $(document).off("click", ".date-picker").on("click", ".date-picker", function (e) {
     //        $('.date-picker').daterangepicker({
     //            singleDatePicker: true,
@@ -544,8 +706,89 @@
                 return acc;
             }, {});
         }
+        $(document).off("click", "#saveEmailSetupBtn").on("click", "#saveEmailSetupBtn", function (e) {
+            debugger
+            var phoneNo = $("#phone").val() !== undefined ? $("#phone").val() : "";
+            if (phoneNo !== null && phoneNo !== "" && phoneNo !== undefined) {
+                var titleValue = $(".iti__selected-flag").attr("aria-activedescendant");
 
+                var subcode = titleValue.split("-");
 
+                var phonecode = subcode[2];
+            }
+            var consentCheckbox = $("#consentCheckbox").val() !== undefined ? $("#consentCheckbox").val() : "";
+            if (consentCheckbox !== null && consentCheckbox !== "" && consentCheckbox !== undefined) {
+                var checkbox = document.getElementById('consentCheckbox');
 
+                // Check if the checkbox is checked
+                var isChecked = checkbox.checked;
+            }
+            // Save the title value to a field (e.g., an input field with the ID "myField")
+           
+
+            var inputData = {
+                firstName: $("#FirstName").val(),
+                lastName: $("#LastName").val(),
+                dateofBirth: $("#DateOfBrith").val(),
+                phoneCode: phonecode,
+                phoneNo: $("#phone").val(),
+                email: $("#Email").val(),
+                secondaryEmail: $("#SecondryEmail").val(),
+                contactPreference: $("#contactPreference").val(),
+                street: $("#Street").val(),
+                city: $("#City").val(),
+                state: $("#State").val(),
+                postalCode: $("#ZipCode").val(),
+                visaType: $("#VisaType").val(),
+                visaExpiryDate: $("#VisaExpiryDate").val(),
+                preferedInTake: $("#PrefferedIntake").val(),
+                degreeTitle: $("#DegreeTitle").val(),
+                institution: $("#Institution").val(),
+                courseStartDate: $("#CourseStart").val(),
+                courseEndDate: $("#CourseEnd").val(),
+                academicScore: $("input[name='acadmicScore']").val(),
+                isGpa: $("input[name='IsGpa']:checked").val(),
+                toefl: $("#TOEFl").val(),
+                ielts: $("#IELTS").val(),
+                pte: $("#PTE").val(),
+                sat1: $("#SATI").val(),
+                sat2: $("#SATII").val(),
+                gre: $("#GRE").val(),
+                gMat: $("#GMAT").val(),
+                documentId: $("#UPLOADDOCUMENETS").val(),
+                documentIdToken: $("#UPLOADDOCUMENETS").val(),
+                pictureId: $("#UpdateProfileImage").val(),
+                pictureIdToken: $("#UpdateProfileImage").val(),
+                comments: $("#COMMENTS").val(),
+                status: $("#status").val(),
+                isArchived: $("#isArchived").val(),
+                countryId: $("#Country").val(),
+                passportCountryId: $("#CountryofPassport").val(),
+                degreeLevelId: $("#DegreeLevel").val(),
+                subjectId: $("#Subject").val(),
+                subjectAreaId: $("#SubjectArea").val(),
+                interstedService: $('#IntrestedService').val(),
+                isPrivacy: isChecked,
+                //organizationUnitId: $("#FirstName").val(),
+                //leadSourceId: $("#FirstName").val(),
+               // tagId: $("#FirstName").val(),
+            };
+            var Steps = JSON.stringify(inputData);
+            Steps = JSON.parse(Steps);
+            _cRMInquiriessService
+                .createOrEdit(Steps)
+                .done(function () {
+                    location.reload();
+                    //$('#cardContainerapplicationnotes').remove();
+                    //abp.event.trigger('app.createOrEditNoteModalSaved');
+
+                })
+                .always(function () {
+                    _modalManager.setBusy(false);
+                });
+
+        });
+        
+        
     });
 })();

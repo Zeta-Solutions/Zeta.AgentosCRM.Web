@@ -85,8 +85,9 @@
                     var item = globalData.result.items[i];
                     // Generate unique identifiers for each dynamically created element
                     var uniqueIdSuffix = i + 1;
-
+                    debugger
                     // Access the workflowName from the current item
+                    var workflowid = item.clientInterstedService.id || 0;
                     var workflowName = item.workflowName || '';
                     var workflowNameid = (item.workflowName || '').replace(/\s+/g, ''); // Remove spaces and special characters
                     var intrested = `<div class="col-md-3 text-container mb-2 p-2">
@@ -94,8 +95,8 @@
                     <input class="save_data custom-checkboxIntererstedService" id="save_title" type="checkbox" />
                     <span class="checkbox-placeholder"></span>
                 </label>
-                <label for="title" hidden>${workflowName}</label>
-                <input type="text" class="form-control custom-small-input rounded-0 input-sm mt-2" id="${workflowNameid}${uniqueIdSuffix}" placeholder="${workflowName}">
+                <label for="title" hidden>${workflowName}0${workflowid}</label>
+                <input type="text" class="form-control custom-small-input rounded-0 input-sm mt-2" id="${workflowNameid}0${workflowid}" placeholder="${workflowName}">
             </div>`;
 
                     cardContainer.append(intrested);
@@ -786,7 +787,7 @@
                 consent: $("input[name='Consent']").val(),
                 logo: $('input[name="ProfilePictureId"]').val(),
                 coverImage: $('input[name="CoverPictureId"]').val(),
-                tenantId: $('input[name="TenantId"]').val(),
+                tenantId: $('input[name="TenantId"]').val()||0,
                 tagName: Tags,
                 id:$("input[name='id']").val(),
             };

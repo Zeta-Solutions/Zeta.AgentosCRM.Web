@@ -20,5 +20,8 @@
 
         public string TagName { get; set; }
 
+        public string UserName { get; set; }
+        public string workflowName { get; set; }
+
     }
 }

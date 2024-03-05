@@ -10,8 +10,7 @@
   }
 @section Scripts
     {
-     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/ClientQuotation.js" asp-append-version="true"></script>
-     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/ClientsQuotation/CreateOrEditModal.js" asp-append-version="true"></script>
+     <script abp-src="/view-resources/Areas/AppAreaName/Views/Clients/Invoice/CreateOrEditInvoiceHeadModel.js" asp-append-version="true"></script>
         <script abp-src="/view-resources/Areas/AppAreaName/Views/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
     <script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/user-list.js" asp-append-version="true"></script>
 }
@@ -20,7 +19,7 @@
  @{
                       var breadcrumbs = new List<BreadcrumbItem>()
                       {
-        new BreadcrumbItem(/* "/AppAreaName/Clients/CreateOrEditClientQuotationModal" ,*/ L("CreateQuotation")),
+        new BreadcrumbItem(/* "/AppAreaName/Clients/CreateOrEditClientQuotationModal" ,*/ L("CreateInvoice")),
                           new BreadcrumbItem(L("Details")),
                       };
                    }
@@ -39,26 +38,60 @@
             {
                 <input type="hidden" name="id" value="@Model.InvoiceHead.Id" />
             }
-            <input type="hidden" name="clientId" id="ClientId" />
-            <input type="hidden" name="ClientEmail" id="ClientEmail" />
+            <input type="hidden" name="ClientId" id="ClientId" />
+            <input type="hidden" name="PartnerId" id="PartnerId" />
+            <input type="hidden" name="ApplicationId" id="ApplicationId" />
+            <input type="hidden" name="PartnerName" id="PartnerName" />
+            <input type="hidden" name="PartnerAddress" id="PartnerAddress" />
+            <input type="hidden" name="PartnerContact" id="PartnerContact" />
+            <input type="hidden" name="PartnerService" id="PartnerService" />
             <input type="hidden" name="ClientName" id="ClientName" />
-            <input type="hidden" name="ProductCount" id="ProductCount" />
+            <input type="hidden" name="Product" id="Product" />
+            <input type="hidden" name="Branch" id="Branch" />
+            <input type="hidden" name="Workflow" id="Workflow" />
+            <input type="hidden" name="IsInvoiceNetOrGross" id="IsInvoiceNetOrGross" />
+            <input type="hidden" name="dateofBirth" id="dateofBirth" />
+            <input type="hidden" name="ClientAssignee" id="ClientAssignee" />
+            <input type="hidden" name="ApplicationOwner" id="ApplicationOwner" />
+            <input type="hidden" name="NetFeeReceived" id="NetFeeReceived" value="@Model.InvoiceHead.NetFeeReceived" />
+            <input type="hidden" name="NetIncome" id="NetIncome" value="@Model.InvoiceHead.NetIncome" />
+            <input type="hidden" name="TotalPayables" id="TotalPayables" value="@Model.InvoiceHead.TotalPayables" />
+            <input type="hidden" name="TotalIncome" id="TotalIncome" value="@Model.InvoiceHead.TotalIncome" />
+            <input type="hidden" name="TotalRevenue" id="TotalRevenue" value="@Model.InvoiceHead.TotalRevenue" />
+            <input type="hidden" name="InvoiceType" id="InvoiceType" />
+            <input type="hidden" name="InvoiceNo" id="InvoiceNo" value="@Model.InvoiceHead.InvoiceNo" />
+            <input type="hidden" name="TenantId" id="TenantId" value="@Model.InvoiceHead.TenantId" />
+            <input type="hidden" name="Attachments" id="Attachments"  />
+           
         <div class="card-body">
             <div class="form">
                        <div class="row col-12">
                         <div class="col-md-4 my-3 ">
-                            <div id="cardContainerApplicationClient" class="container"></div>
+                            <div id="cardContainerInvoicePartner" class="container"></div>
                         </div>
 
-                        <div class="col-md-4"></div>
                         <div class="col-md-4">
+                           <div id="cardContainerInvoiceClient" class="container"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12 mb-3">
+                            @if (Model.IsEditMode)
+                            {
+                                    <label for="TotalAmount3" class="form-label form-label-sm">@L("InvoiceNo"):</label>
+                                    <input class="form-control custom-small-input rounded-0" id="InvoiceNo" value="@Model.InvoiceHead.InvoiceNo" type="text" name="InvoiceNo" readonly/>
+                            }
+                             </div>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold text-dark" for="DueDate">@L("DueDate")</label>
-                           @* <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="DueDate" type="text" name="DueDate" value="@Model.ClientQuotationHead.DueDate" /> *@
+                            <label class="form-label fw-bold text-dark" for="DueDate">@L("InvoiceDate")</label>
+                          <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="InvoiceDate" type="text" name="InvoiceDate" value="@Model.InvoiceHead.InvoiceDate" /> 
                         </div>
                         <div class="my-3 col-md-12 mb-3">
-                        <label class="form-label fw-bold text-dark" for="CurrencyId">@L("QuotationCurrency")</label>
-                                @* @Html.DropDownList("currencyId", new SelectList(Model.QuotationHeadCRMCurrencyList, "Id", "DisplayName", (Model.IsEditMode ? Model.ClientQuotationHead.CurrencyId.ToString() : "")), @L("SelectACurrency"), new { @class = "form-control form-control-sm custom-select-input rounded-0", @required = "required" }) *@
+                        <label class="form-label fw-bold text-dark" for="CurrencyId">@L("InvoiceDueDate")</label>
+                         <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="InvoiceDueDate" type="text" name="InvoiceDueDate" value="@Model.InvoiceHead.InvoiceDueDate" /> 
+                    </div>
+                    <div class="my-3 col-md-12 mb-3"id="Currencyddl"style="display:none">
+                        <label class="form-label fw-bold text-dark" for="CurrencyId">@L("Currency")</label>
+                                @Html.DropDownList("CurrencyId", new SelectList(Model.InvoiceCurrencyList,"Id","DisplayName", (Model.IsEditMode ? Model.InvoiceHead.CurrencyId.ToString() : "")),@L("SelectACurrency"), new { @class = "form-control" , @required="required" })
                     </div>
                     </div>
                     </div>
@@ -70,18 +103,21 @@
                     <div style="overflow-x: auto;">
                     </div>
                     <div class="row align-items-center">
-                        <table id="ClientsQuotationDetailtable" class="table  align-middle fs-6 gy-2 dataTable no-footer">
+                        <table id="Invoicetable" class="table  align-middle fs-6 gy-2 dataTable no-footer">
                             <thead>
                                 <tr>
                                     
-                                    <th >@L("Product")</th>
-                                    <th>@L("Description")</th>
-                                    <th>@L("ServiceFee")</th>
-                                    <th>@L("Discount")</th>
-                                    <th>@L("NetFee")</th>
-                                    <th>@L("ExgRate")</th>
-                                    <th>@L("TotalAmt")</th>
-                                    <th>@L("Delete")</th>
+                                    <th id="Descriptiontd">@L("Description")</th>
+                                    <th id="TotalFeetd">@L("TotalFee")</th>
+                                    <th id="IncomeTypetd">@L("IncomeType")</th>
+                                    <th id="CommissionPertd">@L("CommissionPer")</th>
+                                    <th id="CommissionAmounttd">@L("CommissionAmount")</th>
+                                    <th id="Amounttd">@L("Amount")</th>
+                                    <th id="Taxtd">@L("Tax")</th>
+                                    <th id="TaxAmounttd">@L("TaxAmount")</th>
+                                    <th id="NetAmounttd">@L("NetAmount")</th>
+                                    <th id="TotalAmounttd">@L("TotalAmount")</th>
+                                    <th id="Deletetd">@L("Delete")</th>
                                 </tr>
                             </thead>
                         </table>
@@ -93,27 +129,236 @@
                 <div class="card-footer">
                        <div class=" row col-lg-12">
                      <div class="col-lg-7">
-                            <button type="button" id="addquotationBtn" class="btn btn-sm btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Addnewline")</button>
+                            <button type="button" id="addInvoiceBtn" class="btn btn-sm btn-primary save-button float-right"><i class="fa fa-save"></i> @L("Addnewline")</button>
 
                         </div>
-                        <div class="col-lg-5">
-                         <p class="text-muted fs-6">"(Service Fee - Discount = NetFee) x Exg. Rate = Total Amount"</p>
-                           </div>
                            
                            </div>
-                    <div class="row  pb-0  ">
-                        <div class="col-lg-8">
-                       <input type="hidden" />
-                        </div>
-                        <div class="col-lg-4">
-                            <label for="TotalsId" class="form-label form-label-sm">@L("Total"):</label><br /> 
-                           @* <input class="form-control custom-small-input rounded-0" id="TotalAmount" value="@Model.ClientQuotationHead.TotalAmount.ToString("N2")" type="text" name="TotalAmount" readonly /> *@
+                    <div class="row  col-lg-12 pb-0">
+                        <div class="col-lg-7">
+    <div class="row" id="InvoiceDiscountdiv">
+        <div class="col-lg-4">
+            <label for="TotalAmount3" class="form-label form-label-sm">@L("DiscountGivenToClient"):</label>
+            <input class="form-control custom-small-input rounded-0" id="DiscountGivenToClient" value="@Model.InvoiceHead.DiscountGivenToClient" type="text" name="DiscountGivenToClient"  />
+        </div>
+        <div class="col-lg-3">
+            <label for="TotalAmount3" class="form-label form-label-sm"></label>
+                                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker" id="InvoiceCreatedDateDet" type="text" name="InvoiceCreatedDateDet" value="@Model.InvoiceHead.InvoiceCreatedDateDet" />
+                                </div>
+    </div>
+    <br />
+ <div class="row" id="NetCommissionCard" style="display:none">
+  <div class="col-sm-4">
+    <div class="card"style="background-color: #f0f0f0;">
+      <div class="card-body">
+        <h5 class="card-title">Net Fee Received</h5>
+        @* <p class="card-text" id="NetFeeReceivedCard" style="font-size: 20px;">0.00</p> *@
+        <p class="card-text" id="NetFeeReceivedCard" name="NetFeeReceived" style="font-size: 20px;">@Model.InvoiceHead.NetFeeReceived</p>
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+   <div class="card" style="background-color: #f0f0f0;">
+      <div class="card-body">
+        <h5 class="card-title">Net Income</h5>
+          @* <p class="card-text" id="NetIncomeCard" style="font-size: 20px; color: blue;">0.00</p> *@
+          <p class="card-text" id="NetIncomeCard" name="NetIncome" style="font-size: 20px; color: blue;">@Model.InvoiceHead.NetIncome</p>
 
+      </div>
+    </div>
+  </div>
+</div>
+ <div class="row" id="GrossCommissionCard" style="display:none">
+  <div class="col-sm-4">
+     <div class="card" style="background-color: #f0f0f0;">
+     <div class="card-body">
+    <h5 class="card-title">Net Revenue</h5>
+     <p class="card-text" id="NetRevenueCard" style="font-size: 20px; color: blue;">@Model.InvoiceHead.TotalRevenue</p>
+
+    </div>
+ </div>
+</div>
+</div>
+<div class="row" id="GernalCommissionCard" style="display:none">
+  <div class="col-sm-4">
+    <div class="card"style="background-color: #f0f0f0;">
+      <div class="card-body">
+        <h5 class="card-title">Total Payables</h5>
+        @* <p class="card-text" id="PayablesCard" style="font-size: 20px;">0.00</p *@
+      <p class="card-text" id="PayablesCard" style="font-size: 20px;">@Model.InvoiceHead.TotalPayables</p>
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+   <div class="card" style="background-color: #f0f0f0;">
+      <div class="card-body">
+        <h5 class="card-title">Total Income</h5>
+         
+          @* <p class="card-text" id="TotalIncomeCard" style="font-size: 20px; color: blue;">0.00</p> *@
+         <p class="card-text" id="TotalIncomeCard" style="font-size: 20px; color: blue;">@Model.InvoiceHead.TotalIncome</p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+                        <div class="col-lg-5" id="NetCommission" style="display:none">
+                        <div class="form-group">
+
+                            <label for="TotalFee" class="form-label form-label-sm">@L("TotalFee"):</label>
+                            <input class="form-control custom-small-input rounded-0" id="TotalFee" value="@Model.InvoiceHead.TotalFee" type="text" name="TotalFee" readonly />
                         </div>
+
+                        <div class="">
+                            <label for="TotalAmount1" class="form-label form-label-sm">@L("CommissionClaimed"):</label>
+                            <input class="form-control custom-small-input rounded-0" id="CommissionClaimed" value="@Model.InvoiceHead.CommissionClaimed" type="text" name="CommissionClaimed" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="TotalAmount2" class="form-label form-label-sm">@L("Tax"):</label>
+                            <input class="form-control custom-small-input rounded-0" id="Tax" value="@Model.InvoiceHead.Tax" type="text" name="Tax" readonly />
+                        </div>
+
+                    <div class="">
+                        <label for="TotalAmount3" class="form-label form-label-sm">@L("NetFeePaidtoPartner"):</label>
+                        <input class="form-control custom-small-input rounded-0" id="NetFeePaidToPartner" value="@Model.InvoiceHead.NetFeePaidToPartner" type="text" name="NetFeePaidToPartner" readonly />
+                    </div>
+                    <div class="">
+                        <label for="TotalAmount3" class="form-label form-label-sm">@L("SelectPaymentOption"):</label>
+                                @Html.DropDownList("manualPaymentDetail", new SelectList(Model.InvoicePaymentList,"Id","DisplayName", (Model.IsEditMode ? Model.InvoiceHead.ManualPaymentDetail.ToString() : "")),@L("SelectPaymentOption"), new { @class = "form-control" , @required="required" })
+                    </div>
+                            <input type="hidden" name="TotalAmountInclTax" id="TotalAmountInclTax" />
+                </div>
+                        <div class="col-lg-5" id="GrossCommission"style="display:none">
+                            <div class="" id="CommissionClaimeddiv" style="display:none">
+                                <label for="TotalAmount1" class="form-label form-label-sm">@L("CommissionClaimed"):</label>
+                                <input class="form-control custom-small-input rounded-0" id="CommissionClaimed" value="@Model.InvoiceHead.CommissionClaimed" type="text" name="CommissionClaimed" readonly />
                             </div>
+                            <div class="" id="TotalAmountdiv" style="display:none">
+                                <label for="TotalAmount1" class="form-label form-label-sm">@L("TotalAmount"):</label>
+                                <input class="form-control custom-small-input rounded-0" id="TotalAmount" value="@Model.InvoiceHead.TotalAmount" type="text" name="TotalAmount" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="TotalAmount2" class="form-label form-label-sm">@L("Tax"):</label>
+                                <input class="form-control custom-small-input rounded-0" id="Tax" value="@Model.InvoiceHead.Tax" type="text" name="Tax" readonly />
+                            </div>
+
+                            <div class="">
+                                <label for="TotalAmount3" class="form-label form-label-sm">@L("TotalAmount(InclTax)"):</label>
+                                <input class="form-control custom-small-input rounded-0 TotalAmountInclTax" id="TotalAmountInclTax" value="@Model.InvoiceHead.TotalAmountInclTax" type="text" name="TotalAmountInclTax" readonly />
+                            </div>
+                            <div class="">
+                                <label for="TotalAmount3" class="form-label form-label-sm">@L("TotalPaid"):</label>
+                                <input class="form-control custom-small-input rounded-0" id="TotalPaid" value="@Model.InvoiceHead.TotalPaid" type="text" name="TotalPaid" readonly />
+                            </div>
+                            <div class="">
+                                <label for="TotalAmount3" class="form-label form-label-sm">@L("TotalDue"):</label>
+                                <input class="form-control custom-small-input rounded-0" id="TotalDue" value="@Model.InvoiceHead.TotalDue" type="text" name="TotalDue" readonly />
+                            </div>
+                            <div class="">
+                                <label for="TotalAmount3" class="form-label form-label-sm">@L("SelectPaymentOption"):</label>
+                                @Html.DropDownList("manualPaymentDetail", new SelectList(Model.InvoicePaymentList,"Id","DisplayName", (Model.IsEditMode ? Model.InvoiceHead.ManualPaymentDetail.ToString() : "")),@L("SelectPaymentOption"), new { @class = "form-control" , @required="required" })
+                            </div>
+                        </div>
+                    </div>
+                            <br />
+                            <hr/>
+                            <label style="color: blue;font-size: 20px;">@L("PaymentsReceived")</label>
+                    <input type="checkbox" id="markPaidCheckbox" name="markPaidCheckbox" style="padding: 20px; margin-left: 110px;">
+                    <label style="font-size: 20px;">@L("MarkThisInvoiceasPaid")</label>
+                            <div class="row">
+                <div class="col-lg-3">
+                     <br />
+                     <br />
+                            <input class="form-control custom-small-input rounded-0 PaymentsReceived" id="PaymentsReceived_1" value="" type="text" name="PaymentsReceived" />
+                </div>
+                <div class="col-lg-2">
+                    <label> </label>
+                            <br />
+                            <br />
+                            <input class="form-control form-control-sm rounded-0 custom-select-input date-picker PaymentsReceivedDate" id="PaymentsReceivedDate_1" type="text" name="PaymentsReceivedDate" value="" />
+                        </div>               
+                <div class="col-lg-2">
+                    
+                    <br/>
+                    <br/>
+                            <select id="InvoiceasPaidId_1" class="form-select select2 InvoiceasPaidId" data-id="" data-control="select2">
+                     <option value="1">Cheque</option>
+                     <option value="2">Cash</option>
+                     <option value="3">CreditCard</option>
+                     <option value="4">BankTransfers</option>
+                     </select>
+                </div>
+                <div class="col-lg-2">
+                    <label style="color: blue;">@L("AddNotes")</label>
+                     <textarea id="markPaidTextarea" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="col-lg-1">
+                    <label style="color: blue;">@L("Attachments")</label>
+                    <div class="input-group mb-3">
+                <div>
+                    <input type="file" class="custom-file-input" name="ApplicationLogoImage" id="ApplicationDarkLogoImage">
+                    <label class="custom-file-label form-label" id="ApplicationDarkLogoImageLabel"
+                           for="ApplicationDarkLogoImage">
+                        @L("ChooseAFile")
+                    </label>
+                </div>
+                @* <span class="form-text text-muted col-lg-12">Select a jpg|jpeg|png|gif|doc|pdf|docx|txt|text|plain file  with a maximum of 5MB size.</span> *@
+            </div>
+
+            <button class="btn btn-primary" type="submit">@L("Upload")</button>
+                </div>
+               
+
+            </div>
+                    <div class="AddPaymentReceivedDiv"></div>
+                    <div class="row align-items-center">
+
+                    <div class="col-lg-12">
+                            <button type="button" id="savePaymentRecivedBtn" class="btn btnclose btn-sm btn-outline text-white  rounded-0  float-right addPaymentRecive"> @L("Addnewline")</button>
+
+                    </div>
+                </div>
+                     <br />
+                            <hr/>
+                            <label style="color: blue; font-size: 20px;">@L("IncomeSharing")</label>
+                            <div class="row">
+                <div class="col-lg-3">
+                    <br />
+                      <select id="WorkFlowOfficeId" class="form-select select2" data-id="" data-control="select2"></select>
+                </div>
+                <div class="col-lg-2">
+                    <label> </label>
+                    <input class="form-control custom-small-input rounded-0" id="IncomeSharingAmount" value="" type="text" name="IncomeSharingAmount"  />
+                </div>               
+                <div class="col-lg-1">
+                     
+                    <br/>
+                            <input type="checkbox" id="IncomeSharingCheckbox" name="IncomeSharingCheckbox">
+                    <label>@L("Tax")</label>
+                </div>
+                <div class="col-lg-2">
+                    <br/>
+                            <select id="TaxincomeSharingAmount" class="form-select select2" data-id="" data-control="select2" disabled></select>
+                     @* <input class="form-control custom-small-input rounded-0" id="TaxincomeSharingAmount" value="" type="text" name="TaxincomeSharingAmount"  /> *@
+                </div>
+                <div class="col-lg-1">
+                    <br/>
+                    <label id="IncomeSharingTaxAmt">Tax Amount: 0.00</label>
+                </div>
+                <div class="col-lg-1">
+                    <br/>
+                            <label id="IncomeSharingAmtwithTax">Total Including Tax: 0.00</label>
+                </div>
+               
+
+            </div>
                             <div class="row pull-right">
                         <div class="col-lg-12 mt-5">
-                            <button type="button" id="saveBtn" class="btn btn-success save-button float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                            <button type="button" id="saveInvoiceBtn" class="btn btn-success save-button float-right"><i class="fa fa-save"></i> @L("Save")</button>
 
                         </div>
                     </div>
@@ -165,7 +410,22 @@
         </div>
     </div>
 </div> *@
+<style>
+    .form-group {
+        margin-bottom: 10px; /* Add margin between each label-input pair */
+    }
 
+    .form-group label {
+        display: inline-block; /* Display labels inline */
+        width: 120px; /* Adjust width as needed */
+        margin-right: 10px; /* Adjust spacing between label and input */
+    }
+
+    .form-group input {
+        display: inline-block; /* Display inputs inline */
+    }
+
+</style>
 
 
 
