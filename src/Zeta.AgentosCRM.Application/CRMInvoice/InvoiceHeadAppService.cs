@@ -16,6 +16,8 @@ using Zeta.AgentosCRM.CRMSetup.Account;
 using Zeta.AgentosCRM.CRMSetup.CRMCurrency;
 using SkiaSharp;
 using System.Linq.Expressions;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvPaymentReceived;
+using Zeta.AgentosCRM.CRMInvoice.Dtos.InvIncomeSharing;
 
 namespace Zeta.AgentosCRM.CRMInvoice
 {
@@ -191,10 +193,14 @@ namespace Zeta.AgentosCRM.CRMInvoice
         {
             var InvoiceHead = await _invoiceHeadRepository.FirstOrDefaultAsync(input.Id);
             var InvoiceDeatils = await _invoiceDetailsRepository.GetAllListAsync(p => p.InvoiceHeadId == input.Id);
+            var InvPaymentReceived = await _invPaymentReceivedRepository.GetAllListAsync(p => p.InvoiceHeadId == input.Id);
+            var InvIncomeSharing = await _invIncomeSharingRepository.GetAllListAsync(p => p.InvoiceHeadId == input.Id);
             var output = new GetInvoiceHeadForEditOutput
             {
                 InvoiceHead = ObjectMapper.Map<CreateOrEditInvoiceHeadDto>(InvoiceHead),
-                InvoiceDetail = ObjectMapper.Map<List<CreateOrEditInvoiceDetailDto>>(InvoiceDeatils)
+                InvoiceDetail = ObjectMapper.Map<List<CreateOrEditInvoiceDetailDto>>(InvoiceDeatils),
+                InvPaymentReceived = ObjectMapper.Map<List<CreateOrEditInvPaymentReceivedDto>>(InvPaymentReceived),
+                InvIncomeSharing = ObjectMapper.Map<List<CreateOrEditInvIncomeSharingDto>>(InvIncomeSharing)
             };
 
             if (output.InvoiceHead.CurrencyId != null)
@@ -317,7 +323,7 @@ namespace Zeta.AgentosCRM.CRMInvoice
                 else
                 {
                     invIncomeSharing.InvoiceHeadId = (int)input.Id;
-                    var Incomedet = await _invPaymentReceivedRepository.FirstOrDefaultAsync((int)invIncomeSharing.Id);
+                    var Incomedet = await _invIncomeSharingRepository.FirstOrDefaultAsync((int)invIncomeSharing.Id);
                     ObjectMapper.Map(invIncomeSharing, Incomedet);
                 }
             }

@@ -62,6 +62,7 @@
             <input type="hidden" name="InvoiceNo" id="InvoiceNo" value="@Model.InvoiceHead.InvoiceNo" />
             <input type="hidden" name="TenantId" id="TenantId" value="@Model.InvoiceHead.TenantId" />
             <input type="hidden" name="Attachments" id="Attachments"  />
+            <input type="hidden" name="IncomeSharingId" id="IncomeSharingId" />
            
         <div class="card-body">
             <div class="form">
@@ -272,6 +273,7 @@
                             <div class="row">
                 <div class="col-lg-3">
                      <br />
+                     <input type="hidden" name="PaymentReceivedId" id="PaymentReceivedId_1" value="" />
                      <br />
                             <input class="form-control custom-small-input rounded-0 PaymentsReceived" id="PaymentsReceived_1" value="" type="text" name="PaymentsReceived" />
                 </div>

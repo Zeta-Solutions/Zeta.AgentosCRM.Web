@@ -138,15 +138,143 @@
                 dataType: 'json',
 
                 success: function (data) {
-
+                    debugger
                     // Populate the dropdown with the fetched data
                     updateinvoicetable(data);
+                    if (data.result.invIncomeSharing.length > 0) {
+                        $("#WorkFlowOfficeId").val(data.result.invIncomeSharing[0].organizationUnitId).trigger("change");
+                        $("#IncomeSharingAmount").val(data.result.invIncomeSharing[0].incomeSharing)
+                        $("#IncomeSharingId").val(data.result.invIncomeSharing[0].id)
+                        //$("#IncomeSharingCheckbox").val(data.result.invIncomeSharing[0].isTax)
+                        var isChecked = data.result.invIncomeSharing[0].isTax;
+                        if (isChecked == true) {
+                            $("#TaxincomeSharingAmount").prop("disabled", false);
+                        }
+                        // Set the checked state of the checkbox based on the condition
+                        $("#IncomeSharingCheckbox").prop("checked", isChecked);
+                        $("#IncomeSharingTaxAmt").text("Tax Amount:" + data.result.invIncomeSharing[0].taxAmount);
+                        $("#IncomeSharingAmtwithTax").text("Total Including Tax:" + data.result.invIncomeSharing[0].totalIncludingTax);
+                        GetAllTaxForTableDropdown("TaxincomeSharingAmount", data.result.invIncomeSharing[0].tax)
+                    }
+                    if (data.result.invPaymentReceived.length > 0) {
+                        updatepaymentReceiveddiv(data.result.invPaymentReceived);
+                    }
                 },
                 error: function (error) {
                     console.error('Error fetching data:', error);
                 }
             });
         }
+        function updatepaymentReceiveddiv(data) {
+            debugger;
+
+            var uniqueId = $(".AddPaymentReceivedDiv").children().length + 1;
+
+            
+            if (data.length == 1) {               
+                $("#PaymentsReceived_1").val(data[0].paymentsReceived)
+                $("#PaymentReceivedId_1").val(data[0].id)
+                $("#markPaidTextarea").val(data[0].addNotes)
+                var dateObject = new Date(data[0].paymentsReceivedDate);
+                var day = dateObject.getDate();
+                var month = dateObject.getMonth() + 1;
+                var year = dateObject.getFullYear();
+                var formattedDate = day + '/' + month + '/' + year;
+                $("#PaymentsReceivedDate_1").val(formattedDate)
+                //$("#PaymentsReceivedDate_1").val(data[0].paymentsReceivedDate)
+                $("#InvoiceasPaidId_1").val(data[0].paymentMethodId).trigger("change");
+                var isChecked = data[0].markInvoicePaid;
+                // Set the checked state of the checkbox based on the condition
+                $("#markPaidCheckbox").prop("checked", isChecked);
+                return false;
+            }
+            else {
+                $("#PaymentsReceived_1").val(data[0].paymentsReceived)
+                $("#PaymentReceivedId_1").val(data[0].id)
+                $("#markPaidTextarea").val(data[0].addNotes)
+                var dateObject = new Date(data[0].paymentsReceivedDate);
+                var day = dateObject.getDate();
+                var month = dateObject.getMonth() + 1;
+                var year = dateObject.getFullYear();
+                day = day < 10 ? '0' + day : day;
+                month = month < 10 ? '0' + month : month;
+
+                var formattedDatefirst = day + '/' + month + '/' + year;
+                $("#PaymentsReceivedDate_1").val(formattedDatefirst)
+                //$("#PaymentsReceivedDate_1").val(data[0].paymentsReceivedDate)
+                $("#InvoiceasPaidId_1").val(data[0].paymentMethodId).trigger("change");
+                var isChecked = data[0].markInvoicePaid;
+                // Set the checked state of the checkbox based on the condition
+                $("#markPaidCheckbox").prop("checked", isChecked);
+                debugger
+
+                for (var i = 1; i < data.length; i++) {
+                    var dateObject = new Date(data[i].paymentsReceivedDate);
+                    var day = dateObject.getDate();
+                    var month = dateObject.getMonth() + 1;
+                    var year = dateObject.getFullYear();
+                    var formattedDay = (day < 10 ? '0' : '') + day;
+                    var formattedMonth = (month < 10 ? '0' : '') + month;
+
+                    var formattedDate = formattedDay + '/' + formattedMonth + '/' + year;
+                    var variableName = 'formattedDate_' + i;
+                    var newTimelineItem = `
+            <div class="row">
+                <div class="col-lg-3">
+                    <input type="hidden" name="PaymentReceivedId" id="PaymentReceivedId_${i+1}" value="${data[i].id}" />
+                    <br />
+                    <input class="form-control custom-small-input rounded-0 PaymentsReceived" id="PaymentsReceived_${i + 1}" value="${data[i].paymentsReceived}" type="text" name="PaymentsReceived"  />
+                </div>
+                <div class="col-lg-2">
+                    <label> </label>
+                    <input class="form-control form-control-sm rounded-0 custom-select-input date-picker PaymentsReceivedDate" id="PaymentsReceivedDate_${i + 1}" type="text" name="PaymentsReceivedDate" value="${formattedDate}" /> 
+                </div>               
+                <div class="col-lg-2">
+                    <br/>
+                    <select id="InvoiceasPaidId_${i + 1}" class="form-select select2 InvoiceasPaidId" data-id="" data-control="select2"></select>
+                </div>
+            </div>
+        `;
+                  
+                    $(".AddPaymentReceivedDiv").append(newTimelineItem);
+                   
+                 
+                    
+                   
+                    $('#InvoiceasPaidId_' + (i + 1)).append('<option value="1">Cheque</option>');
+                    $('#InvoiceasPaidId_' + (i + 1)).append('<option value="2">Cash</option>');
+                    $('#InvoiceasPaidId_' + (i + 1)).append('<option value="3">CreditCard</option>');
+                    $('#InvoiceasPaidId_' + (i + 1)).append('<option value="4">BankTransfers</option>');
+                    $('#InvoiceasPaidId_' + (i + 1)).select2({
+                        width: '100%'
+                    });
+                   
+                    $("#InvoiceasPaidId_" + (i + 1)).val(data[i].paymentMethodId).trigger("change");
+                    //$('#PaymentsReceivedDate_' + (i + 1)).daterangepicker({
+                    //    singleDatePicker: true,
+                    //    locale: abp.localization.currentLanguage.name,
+                    //    format: 'L'
+                    //});
+                }
+             
+            }
+            handleDateInputMouseDown();
+  
+               
+          
+          
+            
+        }
+     
+        function handleDateInputMouseDown() {
+            debugger
+            $('.date-picker').daterangepicker({
+                singleDatePicker: true,
+                locale: abp.localization.currentLanguage.name,
+                format: 'L'
+            });
+        }
+
         function updateinvoicetable(data) {
             debugger
             var invoiceDetails = data.result.invoiceDetail;
@@ -775,7 +903,7 @@
                 var MarkInvoicePaid = $("#markPaidCheckbox").is(":checked");
                 var AddNotes = $("#markPaidTextarea").val() || "";
                 var AttachmentId = $("#Attachments").text() || "";
-                var Id = $("#Attachments").val() || 0;
+                var Id = $("#PaymentReceivedId_"+i).val() || 0;
                 var TenantId = $("#TenantId").val() || 0;
 
 
@@ -802,7 +930,7 @@
             var TaxAmount = parseFloat(taxAmountdecimal[1]) || 0;
             var totaldecimal = $("#IncomeSharingAmtwithTax").text().split(":");
             var TotalIncludingTax = parseFloat(totaldecimal[1]) || 0;
-            var Id = $("#Attachments").val() || 0;
+            var Id = $("#IncomeSharingId").val() || 0;
             var TenantId = $("#TenantId").val() || 0;
 
 
@@ -1513,9 +1641,10 @@
                     var discount = $("#DiscountGivenToClient").val();
                     var commissionwithdiscount = parseFloat(commission - discount)
                     var incomesharingAmount = parseFloat(commissionwithdiscount - incomeSharing).toFixed(2);
+                    var incomesharingdecimal = parseFloat(commissionwithdiscount - incomeSharing);
                     var paragraph = document.querySelector('#NetRevenueCard');
                     paragraph.textContent = incomesharingAmount;
-                    $("#TotalRevenue").val(incomesharingAmount)
+                    $("#TotalRevenue").val(incomesharingdecimal)
                     if ($("#IncomeSharingCheckbox").prop("checked")) {
                         var Tax = $("#TaxincomeSharingAmount option:selected").text();
                         var textWord = Tax.split('(');
@@ -1549,9 +1678,10 @@
                     var discount = $("#DiscountGivenToClient").val();
                     var commissionwithdiscount = parseFloat(commission - discount)
                     var incomesharingAmount = parseFloat(commissionwithdiscount - incomeSharing).toFixed(2);
+                    var incomesharingdecimal = parseFloat(commissionwithdiscount - incomeSharing);
                     var paragraph = document.querySelector('#NetRevenueCard');
                     paragraph.textContent = incomesharingAmount;
-                    $("#TotalRevenue").val(incomesharingAmount)
+                    $("#TotalRevenue").val(incomesharingdecimal)
 
                     if ($("#IncomeSharingCheckbox").prop("checked")) {
                         var Tax = $("#TaxincomeSharingAmount option:selected").text();
@@ -1786,10 +1916,11 @@
                 var discount = $("#DiscountGivenToClient").val();
                 var commissionwithdiscount = parseFloat(commission - discount)
                 var incomesharingAmount = parseFloat(commissionwithdiscount - incomeSharing).toFixed(2);  
+                var incomesharingdecimal = parseFloat(commissionwithdiscount - incomeSharing);  
                     //var incomesharingAmount = parseFloat(commission - incomeSharing).toFixed(2);
                     var paragraph = document.querySelector('#NetRevenueCard');
                     paragraph.textContent = incomesharingAmount;
-                    $("#TotalRevenue").val(incomesharingAmount)
+                $("#TotalRevenue").val(incomesharingdecimal)
                     if ($("#IncomeSharingCheckbox").prop("checked")) {
                         var Tax = $("#TaxincomeSharingAmount option:selected").text();
                         var textWord = Tax.split('(');
@@ -2431,13 +2562,7 @@
         });
 
 
-        function handleDateInputMouseDown() {
-            $('.date-picker').daterangepicker({
-                singleDatePicker: true,
-                locale: abp.localization.currentLanguage.name,
-                format: 'L'
-            });
-        }
+        
         $('.accordion-header').click(function () {
             if ($(this).hasClass('active')) {
                 $(this).removeClass('active');

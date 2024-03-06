@@ -148,6 +148,7 @@ namespace Zeta.AgentosCRM
 
             configuration.CreateMap<CreateOrEditInvPaymentReceivedDto, InvPaymentReceived>().ReverseMap();
             configuration.CreateMap<InvPaymentReceivedDto, InvPaymentReceived>().ReverseMap();
+
             configuration.CreateMap<CreateOrEditInvoiceHeadDto, InvoiceHead>().ReverseMap();
             configuration.CreateMap<InvoiceHeadDto, InvoiceHead>().ReverseMap();
             configuration.CreateMap<CreateOrEditInvoiceDetailDto, InvoiceDetail>().ReverseMap();
